@@ -33,3 +33,7 @@ ralentizan al enemigo y hacen danio
 extra a los dragones de fuego.
 Ambas espadas tambien tienen
 grandes efectos de retroceso.
+Las espadas infundidas con rayo
+electrocutan al enemigo y hacen
+danio extra a dragones de fuego y
+hielo.
