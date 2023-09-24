@@ -1,19 +1,19 @@
 Cada cadaver solo contiene un
-Craneo de dragon. Estos
-huesos grandes se utilizan para
-craftear Bastones que controlan
-a un dragon. Tambien se pueden
-usar en estandartes para
-crear una figura de un dragon.
+Craneo de dragon. Este se usa
+para craftear Bastones que pueden
+controlar a un dragon. Tambien se
+pueden usar en estandartes para
+agregar la figura de un dragon.
+Tambien sirven para craftear un
+Ojo de dragon.
 
 
 
 
 
-
-Existen dos tipos de Sangre de
-dragon: Fuego y Hielo. Al parecer
-tienen propiedades magicas.
+Existen tres tipos de Sangre de
+dragon: Fuego, Hielo y Rayo. Al
+parecer tienen propiedades magicas.
 Sin embargo aun desconozco su
 uso, por lo que debo investigar
-mas sobre ellas ...
+mas sobre ellas...

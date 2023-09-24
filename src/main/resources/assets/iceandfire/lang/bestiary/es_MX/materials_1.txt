@@ -18,10 +18,10 @@ rentes efectos, dependiendo del
 tipo de dragon del que se obtuvo.
 
 
-      La de fuego incendia y la de
-hielo ralentiza mucho a quien la
-come. Ambas carnes restauran tanto
-como la carne asada.
+      La de fuego incendia, la de
+hielo ralentiza y la de rayo hace
+caer un rayo a quien la come. Todas
+restauran igual que la carne asada.
 
 
 
@@ -30,6 +30,6 @@ como la carne asada.
 
 
 Cada cadaver solo contiene un
-corazon de dragon. Yo aun
-desconozco su utilidad...
+corazon de dragon. Algo me dice
+que podria purificar el agua...
 

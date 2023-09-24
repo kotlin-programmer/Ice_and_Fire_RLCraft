@@ -421,13 +421,15 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 0) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.fire_dragon_blood), 10, 24, 2.5F);
-					drawItemStack(new ItemStack(ModItems.ice_dragon_blood), 26, 24, 2.5F);
+					drawItemStack(new ItemStack(ModItems.fire_dragon_blood), 1, 24, 2.5F); //x 10
+					drawItemStack(new ItemStack(ModItems.ice_dragon_blood), 17, 24, 2.5F); // x 26
+					drawItemStack(new ItemStack(ModItems.lightning_dragon_blood), 33, 24, 2.5F);
 					GL11.glPopMatrix();
-					boolean drawFire = Minecraft.getMinecraft().player.ticksExisted % 40 < 20;
+					boolean drawFire = Minecraft.getMinecraft().player.ticksExisted % 60 < 20;
+					boolean drawIce = !drawFire && Minecraft.getMinecraft().player.ticksExisted % 60 < 40;
 					drawItemStack(new ItemStack(ModItems.dragonbone_sword), 161, 17, 1.5F);
-					drawItemStack(new ItemStack(drawFire ? ModItems.fire_dragon_blood : ModItems.ice_dragon_blood), 161, 32, 1.5F);
-					drawItemStack(new ItemStack(drawFire ? ModItems.dragonbone_sword_fire : ModItems.dragonbone_sword_ice), 151, 10, 2F);
+					drawItemStack(new ItemStack(drawFire ? ModItems.fire_dragon_blood : drawIce ? ModItems.ice_dragon_blood : ModItems.lightning_dragon_blood), 161, 32, 1.5F);
+					drawItemStack(new ItemStack(drawFire ? ModItems.dragonbone_sword_fire : drawIce ? ModItems.dragonbone_sword_ice : ModItems.dragonbone_sword_lightning), 151, 10, 2F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 0, 389, 1, 50, 50);
