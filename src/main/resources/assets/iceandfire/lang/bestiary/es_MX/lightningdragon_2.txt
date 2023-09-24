@@ -1,0 +1,42 @@
+Este es el ataque principal del
+Dragon de Rayo. Es poderoso y
+rapido, pero usualmente no es
+mortal. Sin embargo, este dragon
+tiene un ataque cuerpo a cuerpo:
+agitar a su victima hasta la muerte.
+
+<image><drawings_lightningdragon_attacks.png 40 112 290 124 186 69 0.7>
+
+
+
+
+Durante este ataque, el dragon toma
+a su presa con la boca y la agita
+rapidamente con el fin de hacerle
+un danio severo.
+
+
+<image><drawings_lightningdragon_attacks.png 80 234 330 20 117 77 0.7>
+
+
+
+
+El dragon tambien tiene un ataque
+final cuerpo a cuerpo, con el que
+acumula fuerza cinetica en su cola
+para azotar a su presa. Este ataque
+es super efectivo, pero toma tiempo
+cargarlo. Tambien puede agitar sus
+alas para alejar a su presa.
+
+Vencer a un dragon de cualquier
+etapa no es una tarea facil. Ya
+que los dragones de rayo usan
+ataques elementales a distancia,
+seria sabio cubrirse y usar armas
+de largo alcance. Si quieres derro-
+tar a estas bestias, procura evitar
+sus rayos y algun ataque que este
+preparando. Una vez que hayas
+vencido a uno, podras acceder a
+multiples articulos valiosos.

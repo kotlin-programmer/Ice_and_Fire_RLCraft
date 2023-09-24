@@ -1,0 +1,42 @@
+La habilidad mas impactante del
+dragon de rayo es escupir rayos
+fulminantes de su boca. Sin em-
+bargo, tambien es poseedor de
+una gran variedad de ataques
+diferentes.
+
+
+<image><drawings_lightningdragon_attacks.png 20 130 0 101 270 77 0.65>
+
+
+
+
+El ataque de impactrueno lanza
+un rayo electrico desde la boca
+de la bestia. Este ataque no
+incendia ni congela a su victima,
+pero si que hace mucho mas danio
+directo que un lanzallamas o un
+rayo hielo.
+
+
+<image><drawings_lightningdragon_attacks.png 280 10 0 0 220 90 0.75>
+
+
+
+
+El impactrueno no es su unico
+ataque elemental. Los dragones de
+rayo adultos tambien pueden
+concentrar el rayo en un bloque
+solidificado hacia su presa,
+destruyendo el terreno e infli-
+giendo un danio devastador.
+
+
+<image><drawings_lightningdragon_attacks.png 360 220 262 212 230 78 0.6>
+
+
+
+Uno de los ataques mas comunes es
+la mordida de dragon.

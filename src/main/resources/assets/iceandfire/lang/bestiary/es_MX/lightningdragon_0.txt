@@ -1,0 +1,45 @@
+    Por mucho tiempo hemos oido
+historias de reptiles gigantes,
+ambos encarnaciones de un elemento
+primario: fuego y hielo. Pero se
+corrio la voz de una criatura similar
+que solo habita en los biomas mas
+exoticos - el dragon de rayo.
+
+
+<image><drawings_lightningdragon.png 0 80 0 0 194 93 1>
+
+
+
+
+
+
+Zurcando los cielos nocturnos
+de las sabanas, mesas y junglas, el
+dragon de rayo es nocturno, no
+como sus primos de fuego y hielo.
+El dragon de rayo habita en nidos y
+cuevas llenos de bloques agrietados
+que han sido alcanzados por sus
+rayos. Asi como los dragones de
+fuego y hielo tienen afinidad por
+ciertos materiales y gemas, los
+dragones de rayo aman el cobre y
+la amatista.
+
+<item><iceandfire:copper_ingot 100 130 40 1>
+<item><iceandfire:copper_ore 100 110 40 1>
+<item><iceandfire:amethyst_gem 100 170 40 1>
+<item><iceandfire:amethyst_ore 100 150 40 1>
+
+
+
+El mineral de cobre puede encon-
+trarse en terrenos elevados del
+overworld.
+La amatista solo se ve en el
+profundo subsuelo de las sabanas.
+
+El cobre craftea las mismas cosas
+que la plata, aunque es un metal
+mucho mas debil.

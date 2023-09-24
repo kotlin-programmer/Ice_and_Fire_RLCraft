@@ -1,0 +1,50 @@
+El lirio de rayo crece raramente
+en el suelo de las sabanas.
+Con esta flor se puede cocinar
+una sopa para aparear dragones,
+similar a la sopa para dragones
+de fuego y hielo.
+<item><iceandfire:lightning_lily 100 20 40 1>
+<item><iceandfire:lightning_stew 100 60 40 1>
+
+
+
+
+El botin de los dragones de rayo
+incluye sus escamas, huesos,
+craneo, sangre y mas, al igual que
+sus primos de fuego y hielo. Pueden
+usarse de la misma manera. En
+general, cualquier cosa derivada
+de los dragones de fuego y hielo,
+tiene su contraparte de rayo.
+
+
+Esto incuye: Armadura de escamas
+de dragon de rayo, armas de hueso
+de dragon de rayo y mas.
+
+<item><iceandfire:dragonscales_amethyst 100 120 40 1>
+<item><iceandfire:armor_amethyst_helmet 100 140 30 1>
+<item><iceandfire:armor_amethyst_chestplate 100 160 40 1>
+
+<item><iceandfire:lightning_dragon_heart 100 140 50 1>
+
+<item><iceandfire:lightning_dragon_flesh 100 120 60 1>
+<item><iceandfire:dragonbone_sword_lightning 100 160 60 1>
+<item><iceandfire:lightning_dragon_blood 100 140 70 1>
+
+
+
+
+
+
+
+
+
+
+
+Las armas de dragon de rayo hacen
+danio extra tanto a dragones de
+fuego como de hielo, ademas de
+lanzar rayos a los enemigos.
