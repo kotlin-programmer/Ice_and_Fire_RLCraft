@@ -393,13 +393,13 @@ dragon.copper=Cobre §5Rayo§6
 dragon.black=Negro §5Rayo§8
 dragon.lightning=§5Rayo
 
-dragon.stage=Etapa
+dragon.stage=Etapa 
 dragon.fire=§4Fuego§r
 dragon.ice=§bHielo§r
-dragon.name=Nombre:
+dragon.name=Nombre: 
 dragon.unnamed=Sin nombre
-dragon.health=Salud:
-dragon.gender=Genero:
+dragon.health=Salud: 
+dragon.gender=Genero: 
 dragon.gender.male=Masculino
 dragon.gender.female=Femenino
 dragon.hunger=Hambre: 
