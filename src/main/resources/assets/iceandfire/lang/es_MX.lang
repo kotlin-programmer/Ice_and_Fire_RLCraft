@@ -387,11 +387,11 @@ dragon.sapphire=Zafiro §bHielo§9
 dragon.silver=§7Plata §bHielo§7
 dragon.white=Blanco §bHielo§f
 
-dragon.electric=Azul Rayo
-dragon.amethyst=Amatista §1Rayo§d
-dragon.copper=Cobre §1Rayo§6
-dragon.black=Negro §1Rayo§8
-dragon.lightning=§1Rayo
+dragon.electric=Azul §5Rayo§1
+dragon.amethyst=§5Amatista Rayo
+dragon.copper=Cobre §5Rayo§6
+dragon.black=Negro §5Rayo§8
+dragon.lightning=§5Rayo
 
 dragon.stage=Etapa 
 dragon.fire=§4Fuego§r
@@ -506,7 +506,7 @@ dragon_sword_fire.hurt2=Incendia y empuja a enemigos
 dragon_sword_ice.hurt1=Daño contra Dragones de fuego: +8
 dragon_sword_ice.hurt2=Ralentiza y empuja a enemigos
 dragon_sword_lightning.hurt1=Daño contra Dragones de fuego y hielo: +4
-dragon_sword_lightning.hurt2=Golpea a los enemigos con un rayo
+dragon_sword_lightning.hurt2=§5Golpea a los enemigos con un rayo
 
 message.iceandfire.dragonWander=Este Dragon esta merodeando.
 message.iceandfire.dragonFollow=Este Dragon te esta siguiendo.

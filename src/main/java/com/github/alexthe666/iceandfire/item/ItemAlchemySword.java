@@ -50,7 +50,7 @@ public class ItemAlchemySword extends ItemSword implements IHitEffect {
 		}
 		if (this == ModItems.dragonbone_sword_lightning) {
 			tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("dragon_sword_lightning.hurt1"));
-			tooltip.add(TextFormatting.AQUA + StatCollector.translateToLocal("dragon_sword_lightning.hurt2"));
+			tooltip.add(TextFormatting.DARK_PURPLE + StatCollector.translateToLocal("dragon_sword_lightning.hurt2"));
 		}
 	}
 
