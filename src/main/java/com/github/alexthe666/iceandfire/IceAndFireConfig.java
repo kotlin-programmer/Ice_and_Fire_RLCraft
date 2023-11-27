@@ -221,6 +221,14 @@ public class IceAndFireConfig {
 		@Config.Name("Generate Myrmex Colonies")
 		public boolean generateMyrmexColonies = true;
 
+		@Config.Comment("Myrmex Colonies will not generate in these named biomes")
+		@Config.Name("Myrmex Disabled Biome Names")
+		public String[] generateMyrmexDisabledBiomeNames = {""};
+
+		@Config.Comment("Myrmex Colonies will not generate in these biome types")
+		@Config.Name("Myrmex Disabled Biome Types")
+		public String[] generateMyrmexDisabledBiomeTypes = {""};
+
 		@Config.Comment("Chance per chunk for Myrmex Colonies to generate, 1 in N chance")
 		@Config.Name("Generate Myrmex Colony Chance")
 		@Config.RangeInt(min = 1, max = 10000)
@@ -771,6 +779,8 @@ public class IceAndFireConfig {
 	//Caching garbage
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
+	private static HashSet<String> myrmexDisabledNames = null;
+	private static HashSet<BiomeDictionary.Type> myrmexDisabledTypes = null;
 	private static HashSet<String> dragonDisabledNames = null;
 	private static HashSet<BiomeDictionary.Type> dragonDisabledTypes = null;
 	private static HashSet<String> fireDragonEnabledNames = null;
@@ -787,6 +797,20 @@ public class IceAndFireConfig {
 		for(String string : ENTITY_SETTINGS.stoneEntityBlacklist) set.add(new ResourceLocation(string));
 		stoneBlacklist = set;
 		return stoneBlacklist;
+	}
+
+	public static HashSet<String> getMyrmexDisabledNames() {
+		if(myrmexDisabledNames != null) return myrmexDisabledNames;
+		myrmexDisabledNames = new HashSet<>(Arrays.asList(WORLDGEN.generateMyrmexDisabledBiomeNames));
+		return myrmexDisabledNames;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getMyrmexDisabledTypes() {
+		if(myrmexDisabledTypes != null) return myrmexDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for(String string : WORLDGEN.generateMyrmexDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		myrmexDisabledTypes = set;
+		return myrmexDisabledTypes;
 	}
 
 	public static HashSet<String> getDragonDisabledNames() {

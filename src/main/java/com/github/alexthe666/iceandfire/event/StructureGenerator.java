@@ -195,7 +195,7 @@ public class StructureGenerator implements IWorldGenerator {
 				}
 			}
 
-			if(IceAndFireConfig.WORLDGEN.generateMyrmexColonies && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null) {
+			if(IceAndFireConfig.WORLDGEN.generateMyrmexColonies && isMyrmexGenAllowedInBiome(types, biomeName) && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null) {
 				BlockPos lowestHeight = new BlockPos(height.getX(), world.getChunksLowestHorizon(height.getX(), height.getZ()), height.getZ());
 				int down = Math.max(15, lowestHeight.getY() - 20 + random.nextInt(10));
 				if(types.contains(Type.JUNGLE)) JUNGLE_MYRMEX_HIVE.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()));
@@ -321,6 +321,14 @@ public class StructureGenerator implements IWorldGenerator {
 			if(i == id) return IceAndFireConfig.WORLDGEN.snowVillageWhitelist;
 		}
 		return !IceAndFireConfig.WORLDGEN.snowVillageWhitelist;
+	}
+
+	private static boolean isMyrmexGenAllowedInBiome(Set<BiomeDictionary.Type> dictSet, String biomeName) {
+		if(IceAndFireConfig.getMyrmexDisabledNames().contains(biomeName)) return false;
+		for(Type type : IceAndFireConfig.getMyrmexDisabledTypes()) {
+			if(dictSet.contains(type)) return false;
+		}
+		return true;
 	}
 
 	private static boolean isDragonGenAllowedInBiome(Set<BiomeDictionary.Type> dictSet, String biomeName) {
