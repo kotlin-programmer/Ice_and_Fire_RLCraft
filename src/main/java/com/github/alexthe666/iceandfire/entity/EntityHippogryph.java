@@ -694,6 +694,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
 	}
 
+	@Override
 	public boolean shouldDismountInWater(Entity rider) {
 		return true;
 	}

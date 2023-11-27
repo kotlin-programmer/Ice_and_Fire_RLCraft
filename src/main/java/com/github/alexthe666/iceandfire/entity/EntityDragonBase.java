@@ -2210,6 +2210,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
     }
 
+    @Override
     public boolean shouldDismountInWater(Entity rider) {
         return false;
     }
