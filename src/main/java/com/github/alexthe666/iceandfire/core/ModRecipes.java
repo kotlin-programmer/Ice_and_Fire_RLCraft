@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.core;
 
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonArrow;
+import com.github.alexthe666.iceandfire.entity.projectile.EntityHydraArrow;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityStymphalianArrow;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
@@ -33,6 +34,18 @@ public class ModRecipes {
             protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn)
             {
                 EntityStymphalianArrow entityarrow = new EntityStymphalianArrow(worldIn, position.getX(), position.getY(), position.getZ());
+                entityarrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
+                return entityarrow;
+            }
+        });
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.hydra_arrow, new BehaviorProjectileDispense()
+        {
+            /**
+             * Return the projectile entity spawned by this dispense behavior.
+             */
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn)
+            {
+                EntityHydraArrow entityarrow = new EntityHydraArrow(worldIn, position.getX(), position.getY(), position.getZ());
                 entityarrow.pickupStatus = EntityArrow.PickupStatus.ALLOWED;
                 return entityarrow;
             }
