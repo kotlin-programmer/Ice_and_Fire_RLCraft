@@ -47,6 +47,7 @@ public class StructureGenerator implements IWorldGenerator {
 	private static final WorldGenLightningDragonRoost LIGHTNING_DRAGON_ROOST = new WorldGenLightningDragonRoost();
 	private static final WorldGenCyclopsCave CYCLOPS_CAVE = new WorldGenCyclopsCave();
 	private static final WorldGenSirenIsland SIREN_ISLAND = new WorldGenSirenIsland();
+	private static final WorldGenHydraCave HYDRA_CAVE = new WorldGenHydraCave();
 	private static final ResourceLocation GORGON_TEMPLE = new ResourceLocation(IceAndFire.MODID, "gorgon_temple");
 
 	@Override
@@ -93,6 +94,10 @@ public class StructureGenerator implements IWorldGenerator {
 				PIXIE_VILLAGE.generate(world, random, height);
 			}
 
+			if(IceAndFireConfig.WORLDGEN.generateHydraCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateHydrasChance) == 0 && types.contains(Type.SWAMP) && world.getBlockState(height.down()).isOpaqueCube()) {
+				HYDRA_CAVE.generate(world, random, height);
+			}
+
 			if ((IceAndFireConfig.WORLDGEN.generateDragonRoosts || IceAndFireConfig.WORLDGEN.generateDragonDens) && isDragonGenAllowedInDim(world.provider.getDimension()) && isDragonGenAllowedInBiome(types, biomeName)) {
 				EnumDragonType dragonType = getDragonGenType(types, biome, biomeName, isCold, isSnowy);
 				if (dragonType != null) {
@@ -105,11 +110,9 @@ public class StructureGenerator implements IWorldGenerator {
 						if (random.nextInt(chance) == 0) {
 							if (dragonType == EnumDragonType.FIRE) {
 								FIRE_DRAGON_ROOST.generate(world, random, height);
-							}
-							else if (dragonType == EnumDragonType.ICE) {
+							} else if (dragonType == EnumDragonType.ICE) {
 								ICE_DRAGON_ROOST.generate(world, random, height);
-							}
-							else if (dragonType == EnumDragonType.LIGHTNING) {
+							} else if (dragonType == EnumDragonType.LIGHTNING) {
 								LIGHTNING_DRAGON_ROOST.generate(world, random, height);
 							}
 						}
@@ -149,8 +152,7 @@ public class StructureGenerator implements IWorldGenerator {
 					lightningdragon.setDeathStage((dragonage / 5) / 2);
 					lightningdragon.rotationYaw = random.nextInt(360);
 					if(!world.isRemote) world.spawnEntity(lightningdragon);
-				}
-				else if(random.nextInt(IceAndFireConfig.WORLDGEN.generateDragonSkeletonChance) == 0 && types.contains(Type.DRY) && types.contains(Type.SANDY)) {
+				} else if(random.nextInt(IceAndFireConfig.WORLDGEN.generateDragonSkeletonChance) == 0 && types.contains(Type.DRY) && types.contains(Type.SANDY)) {
 					EntityFireDragon firedragon = new EntityFireDragon(world);
 					firedragon.setPosition(x, height.getY() + 1, z);
 					int dragonage = 10 + random.nextInt(IceAndFireConfig.WORLDGEN.generateDragonSkeletonMaximumStage) * 25;
@@ -160,8 +162,7 @@ public class StructureGenerator implements IWorldGenerator {
 					firedragon.setDeathStage((dragonage / 5) / 2);
 					firedragon.rotationYaw = random.nextInt(360);
 					if(!world.isRemote) world.spawnEntity(firedragon);
-				}
-				else if(random.nextInt(IceAndFireConfig.WORLDGEN.generateDragonSkeletonChance) == 0 && isCold && isSnowy) {
+				} else if(random.nextInt(IceAndFireConfig.WORLDGEN.generateDragonSkeletonChance) == 0 && isCold && isSnowy) {
 					EntityIceDragon icedragon = new EntityIceDragon(world);
 					icedragon.setPosition(x, height.getY() + 1, z);
 					int dragonage = 10 + random.nextInt(IceAndFireConfig.WORLDGEN.generateDragonSkeletonMaximumStage) * 25;
@@ -274,13 +275,11 @@ public class StructureGenerator implements IWorldGenerator {
 				if(ModBlocks.lightning_lily.canPlaceBlockAt(world, height)) {
 					world.setBlockState(height, ModBlocks.lightning_lily.getDefaultState());
 				}
-			}
-			else if(isCold && isSnowy) {
+			} else if(isCold && isSnowy) {
 				if (ModBlocks.frost_lily.canPlaceBlockAt(world, height)) {
 					world.setBlockState(height, ModBlocks.frost_lily.getDefaultState());
 				}
-			}
-			else if(types.contains(Type.HOT) && (types.contains(Type.SANDY))){
+			} else if(types.contains(Type.HOT) && (types.contains(Type.SANDY))){
 				if (ModBlocks.fire_lily.canPlaceBlockAt(world, height)) {
 					world.setBlockState(height, ModBlocks.fire_lily.getDefaultState());
 				}
@@ -309,6 +308,7 @@ public class StructureGenerator implements IWorldGenerator {
 		}
 		return !IceAndFireConfig.WORLDGEN.chunkGenWhitelist;
 	}
+
 	private static boolean isDragonGenAllowedInDim(int id) {
 		for(int i : IceAndFireConfig.WORLDGEN.dragonDimensionBlacklistedDimensions) {
 			if(i == id) return IceAndFireConfig.WORLDGEN.dragonDimensionWhitelist;

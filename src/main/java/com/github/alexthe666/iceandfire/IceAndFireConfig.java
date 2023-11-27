@@ -238,6 +238,15 @@ public class IceAndFireConfig {
 		@Config.Name("Myrmex Colony Generation Size")
 		@Config.RangeInt(min = 1, max = 10000)
 		public int myrmexColonySize = 80;
+
+		@Config.Comment("Should InF generate Hydra Caves")
+		@Config.Name("Generate Hydra Caves")
+		public boolean generateHydraCaves = true;
+
+		@Config.Comment("Chance per chunk for Hydra Caves to generate, 1 in N chance")
+		@Config.Name("Generate Hydra Caves Chance")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int generateHydrasChance = 200;
 	}
 
 	public static class EntitySpawningConfig {
@@ -693,6 +702,26 @@ public class IceAndFireConfig {
 		@Config.Name("Sea Serpent Base Attack Strength")
 		@Config.RangeDouble(min = 1, max = 10000)
 		public double seaSerpentAttackStrength = 4D;
+
+		@Config.Comment("Base Hydra health, health starts at this")
+		@Config.Name("Base Hydra Health")
+		@Config.RangeInt(min = 1, max = 100000)
+		public int hydraBaseHealth = 200;
+
+		@Config.Comment("Maximum hydra health, health scales up to this")
+		@Config.Name("Max Hydra Health")
+		@Config.RangeInt(min = 1, max = 100000)
+		public int hydraMaxHealth = 2500;
+
+		@Config.Comment("Hydra Bite Attack Strength")
+		@Config.Name("Hydra Attack Strength")
+		@Config.RangeDouble(min = 1, max = 1000)
+		public double hydraBiteAttackStrength = 3D;
+
+		@Config.Comment("Hydra Breath Attack Damage")
+		@Config.Name("Hydra Breath Attack Damage")
+		@Config.RangeDouble(min = 1, max = 1000)
+		public float hydraBreathAttackDamage = 1F;
 	}
 
 	public static class MiscConfig {
@@ -731,6 +760,15 @@ public class IceAndFireConfig {
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")
 		public boolean allowSnowForSapphireTrade = true;
+
+		@Config.Comment("If true, hydra hearts provide healing while in the player's hotkey bar")
+		@Config.Name("Hydra Heart Passive Healing")
+		public boolean hydraHeartPassiveHealing = true;
+
+		@Config.Comment("Hydra Heart Maximum Durability, one durability point is used per five seconds of use")
+		@Config.Name("Hydra Heart Maximum Durability")
+		@Config.RangeInt(min = 1, max = 1000)
+		public int hydraHeartMaximumDurability = 60;
 	}
 
 	public static class ClientConfig {

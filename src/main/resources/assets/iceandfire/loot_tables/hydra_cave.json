@@ -327,7 +327,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:iceandfire:armor_copper_metal_boots",
+          "name": "iceandfire:armor_copper_metal_boots",
           "functions": [
             {
               "function": "set_count",

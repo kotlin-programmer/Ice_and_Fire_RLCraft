@@ -31,7 +31,8 @@ public enum EnumBestiaryPages {
 	TROLL(2),
 	MYRMEX(4),
 	AMPHITHERE(2),
-	SEASERPENT(2);
+	SEASERPENT(2),
+	HYDRA(2);
 
 	public final int pages;
 
