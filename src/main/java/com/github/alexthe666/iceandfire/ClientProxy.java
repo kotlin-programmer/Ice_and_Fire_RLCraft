@@ -392,6 +392,9 @@ public class ClientProxy extends CommonProxy {
 			case SPARK:
 				particle = new ParticleSpark(world, x, y, z, motX, motY, motZ);
 				break;
+			case HYDRA_BREATH:
+				particle = new ParticleHydraBreath(world, x, y, z, (float) motX,(float) motY, (float) motZ);
+				break;
 			case BLOOD:
 				particle = new ParticleBlood(world, x, y, z);
 				break;
