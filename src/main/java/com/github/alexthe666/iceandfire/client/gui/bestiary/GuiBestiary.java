@@ -291,6 +291,7 @@ public class GuiBestiary extends GuiScreen {
 				break;
 			case LIGHTNINGDRAGON:
 			case LIGHTNINGDRAGONEGG:
+			case HYDRA:
 				drawFromTxt();
 				writeFromTxt();
 				break;

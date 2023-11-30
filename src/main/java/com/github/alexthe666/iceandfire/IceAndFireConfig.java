@@ -221,6 +221,14 @@ public class IceAndFireConfig {
 		@Config.Name("Generate Myrmex Colonies")
 		public boolean generateMyrmexColonies = true;
 
+		@Config.Comment("Myrmex Colonies will not generate in these named biomes")
+		@Config.Name("Myrmex Disabled Biome Names")
+		public String[] generateMyrmexDisabledBiomeNames = {""};
+
+		@Config.Comment("Myrmex Colonies will not generate in these biome types")
+		@Config.Name("Myrmex Disabled Biome Types")
+		public String[] generateMyrmexDisabledBiomeTypes = {""};
+
 		@Config.Comment("Chance per chunk for Myrmex Colonies to generate, 1 in N chance")
 		@Config.Name("Generate Myrmex Colony Chance")
 		@Config.RangeInt(min = 1, max = 10000)
@@ -230,6 +238,15 @@ public class IceAndFireConfig {
 		@Config.Name("Myrmex Colony Generation Size")
 		@Config.RangeInt(min = 1, max = 10000)
 		public int myrmexColonySize = 80;
+
+		@Config.Comment("Should InF generate Hydra Caves")
+		@Config.Name("Generate Hydra Caves")
+		public boolean generateHydraCaves = true;
+
+		@Config.Comment("Chance per chunk for Hydra Caves to generate, 1 in N chance")
+		@Config.Name("Generate Hydra Caves Chance")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int generateHydrasChance = 200;
 	}
 
 	public static class EntitySpawningConfig {
@@ -536,12 +553,12 @@ public class IceAndFireConfig {
 		@Config.Comment("How long in ticks a siren can use its sing effect on a player without a cooldown")
 		@Config.Name("Siren Max Sing Time")
 		@Config.RangeInt(min = 100, max = 24000)
-		public int sirenMaxSingTime = 12000;
+		public int sirenMaxSingTime = 400;
 
 		@Config.Comment("How long in ticks a siren has to wait after failing to lure in a player before singing")
 		@Config.Name("Siren Time Between Songs")
 		@Config.RangeInt(min = 100, max = 24000)
-		public int sirenTimeBetweenSongs = 2000;
+		public int sirenTimeBetweenSongs = 1200;
 
 		@Config.Comment("How many blocks away can Deathworms spot potential prey")
 		@Config.Name("Deathworm Target Search Range")
@@ -654,8 +671,8 @@ public class IceAndFireConfig {
 
 		@Config.Comment("Amount of damage an Amphithere attacks the player for each bite while atttempting to tame them")
 		@Config.Name("Amphithere Taming Bite Damage")
-		@Config.RangeDouble(min = 1.0D)
-		public double amphithereTameDamage;
+		@Config.RangeDouble(min = 1, max = 10000)
+		public double amphithereTameDamage = 1D;
 
 		@Config.Comment("How fast Amphitheres fly")
 		@Config.Name("Amphithere Flight Speed")
@@ -685,6 +702,26 @@ public class IceAndFireConfig {
 		@Config.Name("Sea Serpent Base Attack Strength")
 		@Config.RangeDouble(min = 1, max = 10000)
 		public double seaSerpentAttackStrength = 4D;
+
+		@Config.Comment("Base Hydra health, health starts at this")
+		@Config.Name("Base Hydra Health")
+		@Config.RangeInt(min = 1, max = 100000)
+		public int hydraBaseHealth = 200;
+
+		@Config.Comment("Maximum hydra health, health scales up to this")
+		@Config.Name("Max Hydra Health")
+		@Config.RangeInt(min = 1, max = 100000)
+		public int hydraMaxHealth = 2500;
+
+		@Config.Comment("Hydra Bite Attack Strength")
+		@Config.Name("Hydra Attack Strength")
+		@Config.RangeDouble(min = 1, max = 1000)
+		public double hydraBiteAttackStrength = 3D;
+
+		@Config.Comment("Hydra Breath Attack Damage")
+		@Config.Name("Hydra Breath Attack Damage")
+		@Config.RangeDouble(min = 1, max = 1000)
+		public float hydraBreathAttackDamage = 1F;
 	}
 
 	public static class MiscConfig {
@@ -706,25 +743,32 @@ public class IceAndFireConfig {
 
 		@Config.Comment("If true, chain lightning should transform mobs")
 		@Config.Name("Chain Lightning Transforms Mobs")
-		public boolean chainLightningTransformsMobs = true;
+		public boolean chainLightningTransformsMobs = false;
 
 		@Config.Comment("If true, chain lightning causes paralysis")
 		@Config.Name("Chain Lightning Paralysis")
 		public boolean chainLightningParalysis = true;
 
-		@Config.Comment("Chance of chain lightning causing paralysis, 1 in N chance")
+		@Config.Comment("Chance of chain lightning causing paralysis on each hop, as a percentage")
 		@Config.Name("Chain Lightning Paralysis Chance")
-		@Config.RangeInt(min = 1, max = 100)
-		public int chainLightningParalysisChance = 4;
+		public int[] chainLightningParalysisChance = new int[] {100, 80, 60, 40, 20};
 
 		@Config.Comment("Length in ticks of paralysis applied by chain lightning")
 		@Config.Name("Chain Lightning Paralysis Ticks")
-		@Config.RangeInt(min = 1, max = 100)
-		public int chainLightningParalysisTicks = 10;
+		public int[] chainLightningParalysisTicks = new int[] {10, 10, 10, 10, 10};
 
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")
 		public boolean allowSnowForSapphireTrade = true;
+
+		@Config.Comment("If true, hydra hearts provide healing while in the player's hotkey bar")
+		@Config.Name("Hydra Heart Passive Healing")
+		public boolean hydraHeartPassiveHealing = true;
+
+		@Config.Comment("Hydra Heart Maximum Durability, one durability point is used per five seconds of use")
+		@Config.Name("Hydra Heart Maximum Durability")
+		@Config.RangeInt(min = 1, max = 1000)
+		public int hydraHeartMaximumDurability = 60;
 	}
 
 	public static class ClientConfig {
@@ -773,6 +817,8 @@ public class IceAndFireConfig {
 	//Caching garbage
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
+	private static HashSet<String> myrmexDisabledNames = null;
+	private static HashSet<BiomeDictionary.Type> myrmexDisabledTypes = null;
 	private static HashSet<String> dragonDisabledNames = null;
 	private static HashSet<BiomeDictionary.Type> dragonDisabledTypes = null;
 	private static HashSet<String> fireDragonEnabledNames = null;
@@ -789,6 +835,20 @@ public class IceAndFireConfig {
 		for(String string : ENTITY_SETTINGS.stoneEntityBlacklist) set.add(new ResourceLocation(string));
 		stoneBlacklist = set;
 		return stoneBlacklist;
+	}
+
+	public static HashSet<String> getMyrmexDisabledNames() {
+		if(myrmexDisabledNames != null) return myrmexDisabledNames;
+		myrmexDisabledNames = new HashSet<>(Arrays.asList(WORLDGEN.generateMyrmexDisabledBiomeNames));
+		return myrmexDisabledNames;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getMyrmexDisabledTypes() {
+		if(myrmexDisabledTypes != null) return myrmexDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for(String string : WORLDGEN.generateMyrmexDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		myrmexDisabledTypes = set;
+		return myrmexDisabledTypes;
 	}
 
 	public static HashSet<String> getDragonDisabledNames() {

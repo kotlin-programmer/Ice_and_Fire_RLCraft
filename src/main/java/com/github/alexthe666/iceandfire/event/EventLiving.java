@@ -82,7 +82,12 @@ public class EventLiving {
 			event.setCanceled(true);
 			EntityLivingBase parent = ((EntityMultipartPart)event.getTarget()).getParent();
 			((EntityPlayer)event.getEntity()).attackTargetEntityWithCurrentItem(parent);
-			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessagePlayerHitMultipart(parent.getEntityId()));
+			int extraData = 0;
+			if(event.getTarget() instanceof EntityHydraHead && parent instanceof EntityHydra){
+				extraData = ((EntityHydraHead)event.getTarget()).headIndex;
+				((EntityHydra) parent).triggerHeadFlags(extraData);
+			}
+			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessagePlayerHitMultipart(parent.getEntityId(), extraData));
 		}
 	}
 
@@ -142,6 +147,12 @@ public class EventLiving {
 			if(event.isDismounting() && event.getEntityMounting() instanceof EntityPlayer && !event.getEntityMounting().world.isRemote && hippogryph.isOwner((EntityPlayer)event.getEntityMounting())) {
 				EntityPlayer player = (EntityPlayer) event.getEntityMounting();
 				hippogryph.setPositionAndRotation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
+			}
+		} else if (event.getEntityBeingMounted() instanceof EntityAmphithere) {
+			EntityAmphithere amphithere = (EntityAmphithere) event.getEntityBeingMounted();
+			if(event.isDismounting() && event.getEntityMounting() instanceof EntityPlayer && !event.getEntityMounting().world.isRemote && amphithere.isOwner((EntityPlayer)event.getEntityMounting())) {
+				EntityPlayer player = (EntityPlayer) event.getEntityMounting();
+				amphithere.setPositionAndRotation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
 			}
 		}
 	}
@@ -482,26 +493,34 @@ public class EventLiving {
 			EntityCreature animal = (EntityCreature) event.getEntity();
 			animal.tasks.addTask(1, new VillagerAIFearUntamed(animal, EntityLivingBase.class, (entity) -> entity instanceof IAnimalFear && ((IAnimalFear) entity).shouldAnimalsFear(animal), 12.0F, 1.2D, 1.5D));
 		}
-		//Fix from RLTweaker for queens changing their type resulting in incorrect trades
-		//Theres probably a better spot for this, but this is the easiest
+		// Fix from RLTweaker for queens changing their type resulting in incorrect trades
+		// There's probably a better spot for this, but this is the easiest
 		if (event.getEntity() instanceof EntityMyrmexQueen && !event.getWorld().isRemote) {
 			((EntityMyrmexQueen)event.getEntity()).refreshIncorrectTrades();
 		}
 	}
 
-	public static boolean isAnimaniaSheep(Entity entity){
+	public static boolean isAnimaniaSheep(Entity entity) {
 		String className = entity.getClass().getName();
 		return className.contains("sheep") || entity instanceof EntitySheep;
 	}
 
-	public static boolean isAnimaniaChicken(Entity entity){
+	public static boolean isAnimaniaChicken(Entity entity) {
 		String className = entity.getClass().getName();
 		return (className.contains("chicken") || entity instanceof EntityChicken) && entity instanceof EntityLiving && !entity.isCreatureType(EnumCreatureType.MONSTER, false);
 	}
 
-	public static boolean isAnimaniaFerret(Entity entity){
+	public static boolean isAnimaniaFerret(Entity entity) {
 		String className = entity.getClass().getName();
 		return className.contains("ferret") || className.contains("polecat");
+	}
+
+	public static boolean isQuarkCrab(Entity entity) {
+		if (entity == null) {
+			return false;
+		}
+		String className = entity.getClass().getSimpleName();
+		return "EntityCrab".equals(className);
 	}
 
 	@SubscribeEvent

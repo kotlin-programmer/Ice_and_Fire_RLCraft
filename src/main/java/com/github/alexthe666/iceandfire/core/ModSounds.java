@@ -351,6 +351,21 @@ public final class ModSounds {
 	@GameRegistry.ObjectHolder("sea_serpent_splash")
 	public static final SoundEvent SEA_SERPENT_SPLASH = createSoundEvent("sea_serpent_splash");
 
+	@GameRegistry.ObjectHolder("hydra_die")
+	public static final SoundEvent HYDRA_DIE = createSoundEvent("hydra_die");
+
+	@GameRegistry.ObjectHolder("hydra_idle")
+	public static final SoundEvent HYDRA_IDLE = createSoundEvent("hydra_idle");
+
+	@GameRegistry.ObjectHolder("hydra_hurt")
+	public static final SoundEvent HYDRA_HURT = createSoundEvent("hydra_hurt");
+
+	@GameRegistry.ObjectHolder("hydra_spit")
+	public static final SoundEvent HYDRA_SPIT = createSoundEvent("hydra_spit");
+
+	@GameRegistry.ObjectHolder("hydra_regen_head")
+	public static final SoundEvent HYDRA_REGEN_HEAD = createSoundEvent("hydra_regen_head");
+
 	@GameRegistry.ObjectHolder("lightning_strike")
 	public static final SoundEvent LIGHTNING_STRIKE = createSoundEvent("lightning_strike");
 

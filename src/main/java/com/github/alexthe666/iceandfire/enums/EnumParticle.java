@@ -6,6 +6,7 @@ public enum EnumParticle {
     FLAME,
     SNOWFLAKE,
     SPARK,
+    HYDRA_BREATH,
     BLOOD,
     PIXIE_DUST,
     SIREN_APPEARANCE,

@@ -219,7 +219,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:packed_ice",
+          "name": "minecraft:obsidian",
           "functions": [
             {
               "function": "set_count",

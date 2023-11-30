@@ -34,29 +34,29 @@ public class AmphithereAIFleePlayer extends EntityAIBase {
 
 
     public boolean shouldExecute() {
-        if(!this.entity.isFlying() && !this.entity.isTamed()) {
-            List<EntityPlayer> list = this.entity.world.<EntityPlayer>getEntitiesWithinAABB(EntityPlayer.class, this.entity.getEntityBoundingBox().grow((double) this.avoidDistance, 6D, (double) this.avoidDistance), EntitySelectors.CAN_AI_TARGET);
-            if (list.isEmpty()) {
-                return false;
-            } else {
-                this.closestLivingEntity = list.get(0);
-                Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 20, 7, new Vec3d(this.closestLivingEntity.posX, this.closestLivingEntity.posY, this.closestLivingEntity.posZ));
-
-                if (vec3d == null) {
-                    return false;
-                } else if (this.closestLivingEntity.getDistanceSq(vec3d.x, vec3d.y, vec3d.z) < this.closestLivingEntity.getDistanceSq(this.entity)) {
-                    return false;
-                } else {
-                    this.path = this.entity.getNavigator().getPathToXYZ(vec3d.x, vec3d.y, vec3d.z);
-                    return this.path != null;
-                }
-            }
-        }else{
+        if (this.entity.isFlying() || this.entity.isTamed() || !this.entity.canMove()) {
             return false;
         }
+        List<EntityPlayer> list = this.entity.world.getEntitiesWithinAABB(EntityPlayer.class, this.entity.getEntityBoundingBox().grow(this.avoidDistance, 6D, this.avoidDistance), EntitySelectors.CAN_AI_TARGET);
+        if (list.isEmpty()) {
+            return false;
+        }
+        this.closestLivingEntity = list.get(0);
+        Vec3d vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.entity, 20, 7, new Vec3d(this.closestLivingEntity.posX, this.closestLivingEntity.posY, this.closestLivingEntity.posZ));
+        if (vec3d == null) {
+            return false;
+        }
+        if (this.closestLivingEntity.getDistanceSq(vec3d.x, vec3d.y, vec3d.z) < this.closestLivingEntity.getDistanceSq(this.entity)) {
+            return false;
+        }
+        this.path = this.entity.getNavigator().getPathToXYZ(vec3d.x, vec3d.y, vec3d.z);
+        return this.path != null;
     }
 
     public boolean shouldContinueExecuting() {
+        if (this.entity.isFlying() || this.entity.isTamed() || !this.entity.canMove()) {
+            return false;
+        }
         return !this.entity.getNavigator().noPath();
     }
 

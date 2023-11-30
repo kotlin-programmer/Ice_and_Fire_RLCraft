@@ -97,12 +97,4 @@ public class ItemDragonSkull extends Item implements ICustomRendered {
         return EnumActionResult.SUCCESS;
 
     }
-
-    /*
-     * @Override public ModelResourceLocation getModel(ItemStack stack,
-     * EntityPlayer player, int useRemaining) { switch(stack.getMetadata()){
-     * default: return new ModelResourceLocation("iceandfire:dragon_skull_fire",
-     * "inventory"); case 1: return new
-     * ModelResourceLocation("iceandfire:dragon_skull_ice", "inventory"); } }
-     */
 }

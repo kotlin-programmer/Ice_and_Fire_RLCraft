@@ -44,7 +44,7 @@ public class AmphithereAIFollowOwner extends EntityAIBase {
             return false;
         } else if (entitylivingbase instanceof EntityPlayer && ((EntityPlayer) entitylivingbase).isSpectator()) {
             return false;
-        } else if (this.ampithere.isSitting()) {
+        } else if (!this.ampithere.canMove()) {
             return false;
         } else if (this.ampithere.getDistanceSq(entitylivingbase) < (double) (this.minDist * this.minDist)) {
             return false;
@@ -55,7 +55,7 @@ public class AmphithereAIFollowOwner extends EntityAIBase {
     }
 
     public boolean shouldContinueExecuting() {
-        return !noPath() && this.ampithere.getDistanceSq(this.owner) > (double) (this.maxDist * this.maxDist) && !this.ampithere.isSitting();
+        return !noPath() && this.ampithere.getDistanceSq(this.owner) > (double) (this.maxDist * this.maxDist) && this.ampithere.canMove();
     }
 
     private boolean noPath(){

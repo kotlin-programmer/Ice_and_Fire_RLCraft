@@ -74,14 +74,17 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
         this.setSize(0.95F, 0.95F);
     }
 
+    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         return 10;
     }
 
+    @Override
     public boolean getCanSpawnHere() {
         return this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.cockatriceSpawnCheckChance + 1) == 0 && super.getCanSpawnHere();
     }
 
+    @Override
     protected void initEntityAI() {
         this.tasks.addTask(1, new EntityAISwimming(this));
         this.tasks.addTask(2, aiStare = new CockatriceAIStareAttack(this, 1.0D, 0, 15.0F));
@@ -105,11 +108,13 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
         this.tasks.removeTask(aiMelee);
     }
 
+    @Override
     @Nullable
     protected ResourceLocation getLootTable() {
         return LOOT;
     }
 
+    @Override
     public boolean isOnSameTeam(Entity entityIn) {
         return EventLiving.isAnimaniaChicken(entityIn) || super.isOnSameTeam(entityIn);
     }
@@ -126,10 +131,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
     }
 
     private boolean canUseStareOn(Entity entity) {
-        if (entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entity).canBeTurnedToStone() || EventLiving.isAnimaniaFerret(entity)) {
-            return false;
-        }
-        return true;
+        return (!(entity instanceof IBlacklistedFromStatues) || ((IBlacklistedFromStatues) entity).canBeTurnedToStone()) && !EventLiving.isAnimaniaFerret(entity);
     }
 
     private void switchAI(boolean melee) {
@@ -258,6 +260,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
         }
     }
 
+    @Override
     public void notifyDataManagerChange(DataParameter<?> key) {
         super.notifyDataManagerChange(key);
         if (TARGET_ENTITY.equals(key)) {
@@ -287,6 +290,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
         this.setCommand(tag.getInteger("Command"));
     }
 
+    @Override
     public boolean isSitting() {
         if (world.isRemote) {
             boolean isSitting = (((Byte) this.dataManager.get(TAMED)).byteValue() & 1) != 0;
@@ -296,6 +300,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
         return isSitting;
     }
 
+    @Override
     public void setSitting(boolean sitting) {
         super.setSitting(sitting);
         if (!world.isRemote) {
@@ -303,6 +308,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
         }
     }
 
+    @Override
     public void fall(float distance, float damageMultiplier) {
     }
 
@@ -332,11 +338,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
 
     public void setCommand(int command) {
         this.dataManager.set(COMMAND, Integer.valueOf(command));
-        if (command == 1) {
-            this.setSitting(true);
-        } else {
-            this.setSitting(false);
-        }
+        this.setSitting(command == 1);
     }
 
     public int getCommand() {

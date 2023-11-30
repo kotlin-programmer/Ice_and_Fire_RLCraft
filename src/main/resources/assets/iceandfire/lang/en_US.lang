@@ -263,6 +263,13 @@ item.iceandfire.lightning_dragon_heart.name=Lightning Dragon Heart
 item.iceandfire.lightning_dragon_blood.name=Lightning Dragon Blood
 item.iceandfire.dragon_horn_lightning.name=Dragon Horn
 
+item.iceandfire.hydra_fang.name=Hydra Fang
+item.iceandfire.hydra_heart.name=Hydra Heart
+item.iceandfire.hydra_heart.desc_0=When in hotbar, gives increasing regeneration
+item.iceandfire.hydra_heart.desc_1=based on how injured the holder is
+item.iceandfire.hydra_arrow.name=Hydra Arrow
+item.iceandfire.hydra_arrow.desc=Poisons and leeches life from target
+
 item.banner.firedragon.white=White Fire Dragon Charge
 item.banner.firedragon.orange=Orange Fire Dragon Charge
 item.banner.firedragon.magenta=Magenta Fire Dragon Charge
@@ -369,6 +376,10 @@ entity.seaserpent.name=Sea Serpent
 
 entity.lightningdragon.name=Lightning Dragon
 entity.dragonlightningcharge.name=Dragon Lightning Charge
+
+entity.if_hydra.name=Hydra
+entity.hydra_breath.name=Hydra Breath
+entity.hydra_arrow.name=Hydra Arrow
 
 sea_serpent.blue=Blue
 sea_serpent.bronze=Bronze
@@ -495,6 +506,7 @@ bestiary.troll=Trolls
 bestiary.myrmex=Myrmex
 bestiary.amphithere=Amphitheres
 bestiary.seaserpent=Sea Serpents
+bestiary.hydra=Hydra
 
 lectern.nopages=No new information can be added.
 silvertools.hurt=+2 damage against undead

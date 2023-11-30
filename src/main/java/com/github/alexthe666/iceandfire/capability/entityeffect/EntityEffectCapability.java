@@ -18,9 +18,7 @@ public class EntityEffectCapability implements IEntityEffectCapability {
         CHARMED(0, true, false) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        (entity instanceof EntityPlayer || entity instanceof EntityVillager || entity instanceof IHearsSiren) &&
-                        !EntitySiren.isWearingEarplugs(entity);
+                return super.canBeApplied(entity) && (EntitySiren.isDrawnToSong(entity)) && !EntitySiren.isWearingEarplugs(entity);
             }
         },
         FROZEN(1, true, true) {

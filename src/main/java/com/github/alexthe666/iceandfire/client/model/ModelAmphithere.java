@@ -52,7 +52,7 @@ public class ModelAmphithere extends ModelDragonBase {
     public AdvancedModelRenderer FingerR2;
     public AdvancedModelRenderer FingerR3;
     public AdvancedModelRenderer FingerR4;
-    private ModelAnimator animator;
+    private final ModelAnimator animator;
 
     public ModelAmphithere() {
         this.textureWidth = 256;
@@ -294,7 +294,7 @@ public class ModelAmphithere extends ModelDragonBase {
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, f5);
+        animate((IAnimatedEntity) entity);
         if (this.isChild) {
             this.BodyUpper.setShouldScaleChildren(true);
             this.HeadFront.setShouldScaleChildren(true);
@@ -305,7 +305,7 @@ public class ModelAmphithere extends ModelDragonBase {
             this.HeadFront.rotationPointZ = -2F;
             this.Jaw.rotationPointZ = -4.5F;
             GL11.glTranslatef(0, 0.2F, 0);
-        } else {
+        }else{
             this.BodyUpper.setScale(1F, 1F, 1F);
             this.Head.setScale(1F, 1F, 1F);
             this.HeadFront.setScale(1F, 1F, 1F);
@@ -315,7 +315,7 @@ public class ModelAmphithere extends ModelDragonBase {
         this.BodyUpper.render(f5);
     }
 
-    public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+    public void animate(IAnimatedEntity entity) {
         this.resetToDefaultPose();
         animator.update(entity);
         animator.setAnimation(EntityAmphithere.ANIMATION_BITE);
@@ -443,81 +443,81 @@ public class ModelAmphithere extends ModelDragonBase {
         AdvancedModelRenderer[] TAIL = new AdvancedModelRenderer[]{Tail1, Tail2, Tail3, Tail4};
         AdvancedModelRenderer[] ENTIRE_BODY = new AdvancedModelRenderer[]{BodyUpper, BodyLower, Tail1, Tail2, Tail3, Tail4};
         AdvancedModelRenderer[] NECK = new AdvancedModelRenderer[]{Neck1, Neck2, Neck3};
-        if (amphithere.groundProgress >= 10) {
+        if(amphithere.groundProgress >= 10) {
             this.chainSwing(ENTIRE_BODY, speed_walk, 0.125F, 2, f, f1);
             this.chainSwing(NECK, speed_walk, -degree_walk, 4, f, f1);
         }
-        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, 4, f2, 1);
-        this.chainSwing(TAIL, speed_idle, degree_idle * 0.1F, 2, f2, 1);
-        this.flap(WingL, speed_fly, degree_flap, false, 0, 0, f2, 1);
-        this.flap(WingR, speed_fly, -degree_flap, false, 0, 0, f2, 1);
-        this.flap(WingL2, speed_fly, degree_flap, false, 0, 0, f2, 1);
-        this.flap(WingR2, speed_fly, -degree_flap, false, 0, 0, f2, 1);
+        this.chainWave(NECK, speed_idle, degree_idle * 0.15F, 4, entity.ticksExisted, 1);
+        this.chainSwing(TAIL, speed_idle, degree_idle * 0.1F, 2, entity.ticksExisted, 1);
+        this.flap(WingL, speed_fly, degree_flap, false, 0, 0, entity.ticksExisted, 1);
+        this.flap(WingR, speed_fly, -degree_flap, false, 0, 0, entity.ticksExisted, 1);
+        this.flap(WingL2, speed_fly, degree_flap, false, 0, 0, entity.ticksExisted, 1);
+        this.flap(WingR2, speed_fly, -degree_flap, false, 0, 0, entity.ticksExisted, 1);
         {
-            float sitProgress = amphithere.diveProgress;
-            progressRotation(FingerR4, sitProgress, 0.2617993877991494F, 0.0F, 0.0F);
-            progressRotation(WingL2, sitProgress, -0.3490658503988659F, 0.0F, 0.3490658503988659F);
-            progressRotation(FingerR1, sitProgress, 0.03490658503988659F, 0.0F, 0.0F);
-            progressRotation(FingerL3, sitProgress, 0.13962634015954636F, 0.0F, 0.0F);
-            progressRotation(WingR21, sitProgress, 0.0F, 0.0F, 0.0F);
-            progressRotation(FingerL1, sitProgress, 0.03490658503988659F, 0.0F, 0.0F);
-            progressRotation(WingR, sitProgress, 0.5585053606381855F, 0.0F, 1.6580627893946132F);
-            progressRotation(FingerL4, sitProgress, 0.2617993877991494F, 0.0F, 0.0F);
-            progressRotation(WingR3, sitProgress, 1.48352986419518F, 0.0F, 0.0F);
-            progressRotation(WingR2, sitProgress, -0.3490658503988659F, 0.0F, -0.3490658503988659F);
-            progressRotation(WingL3, sitProgress, 1.48352986419518F, 0.0F, 0.0F);
-            progressRotation(FingerL2, sitProgress, 0.06981317007977318F, 0.0F, 0.0F);
-            progressRotation(FingerR3, sitProgress, 0.13962634015954636F, 0.0F, 0.0F);
-            progressRotation(FingerR2, sitProgress, 0.06981317007977318F, 0.0F, 0.0F);
-            progressRotation(WingL, sitProgress, 0.5585053606381855F, 0.0F, -1.6580627893946132F);
+            float diveProgress = amphithere.diveProgress;
+            progressRotation(FingerR4, diveProgress, 0.2617993877991494F, 0.0F, 0.0F);
+            progressRotation(WingL2, diveProgress, -0.3490658503988659F, 0.0F, 0.3490658503988659F);
+            progressRotation(FingerR1, diveProgress, 0.03490658503988659F, 0.0F, 0.0F);
+            progressRotation(FingerL3, diveProgress, 0.13962634015954636F, 0.0F, 0.0F);
+            progressRotation(WingR21, diveProgress, 0.0F, 0.0F, 0.0F);
+            progressRotation(FingerL1, diveProgress, 0.03490658503988659F, 0.0F, 0.0F);
+            progressRotation(WingR, diveProgress, 0.5585053606381855F, 0.0F, 1.6580627893946132F);
+            progressRotation(FingerL4, diveProgress, 0.2617993877991494F, 0.0F, 0.0F);
+            progressRotation(WingR3, diveProgress, 1.48352986419518F, 0.0F, 0.0F);
+            progressRotation(WingR2, diveProgress, -0.3490658503988659F, 0.0F, -0.3490658503988659F);
+            progressRotation(WingL3, diveProgress, 1.48352986419518F, 0.0F, 0.0F);
+            progressRotation(FingerL2, diveProgress, 0.06981317007977318F, 0.0F, 0.0F);
+            progressRotation(FingerR3, diveProgress, 0.13962634015954636F, 0.0F, 0.0F);
+            progressRotation(FingerR2, diveProgress, 0.06981317007977318F, 0.0F, 0.0F);
+            progressRotation(WingL, diveProgress, 0.5585053606381855F, 0.0F, -1.6580627893946132F);
         }
         {
-            float sitProgress = amphithere.groundProgress;
-            progressRotation(Tail1, sitProgress, -0.045553093477052F, 0.0F, 0.0F);
-            progressRotation(CrestR2, sitProgress, 1.7453292519943295F, -0.6108652381980153F, -0.3141592653589793F);
-            progressRotation(FingerR4, sitProgress, -0.2617993877991494F, 0.0F, 0.0F);
-            progressRotation(TailL1, sitProgress, 1.3962634015954636F, -0.06981317007977318F, 0.0F);
-            progressRotation(Neck2, sitProgress, -0.4553564018453205F, -0.0F, 0.0F);
-            progressRotation(FingerR3, sitProgress, -0.13962634015954636F, 0.0F, 0.0F);
-            progressRotation(FingerL1, sitProgress, 0.13962634015954636F, 0.0F, 0.0F);
-            progressRotation(WingR, sitProgress, 0.08726646259971647F, 0.0F, 1.1344640137963142F);
-            progressRotation(FingerL4, sitProgress, -0.2617993877991494F, 0.0F, 0.0F);
-            progressRotation(Teeth2, sitProgress, 0.0F, -0.0F, 0.0F);
-            progressRotation(FingerR2, sitProgress, 0.0F, 0.0F, 0.0F);
-            progressRotation(Beak, sitProgress, 0.6981317007977318F, -0.0F, 0.0F);
-            progressRotation(BodyUpper, sitProgress, 0.0F, -0.0F, 0.0F);
-            progressRotation(Club, sitProgress, 0.18203784098300857F, 0.0F, 0.0F);
-            progressRotation(CrestLB, sitProgress, 1.7453292519943295F, 0.27314402793711257F, 0.0F);
-            progressRotation(FingerR1, sitProgress, 0.13962634015954636F, 0.0F, 0.0F);
-            progressRotation(HeadFront, sitProgress, -0.22759093446006054F, -0.0F, 0.0F);
-            progressRotation(Neck1, sitProgress, -0.18203784098300857F, -0.0F, -0.045553093477052F);
-            progressRotation(FingerL2, sitProgress, 0.0F, 0.0F, 0.0F);
-            progressRotation(WingR3, sitProgress, 0.12217304763960307F, -0.17453292519943295F, -0.12217304763960307F);
-            progressRotation(Teeth1, sitProgress, 0.0F, -0.0F, 0.0F);
-            progressRotation(Tail4, sitProgress, -0.045553093477052F, 0.0F, 0.0F);
-            progressRotation(WingL3, sitProgress, 0.12217304763960307F, 0.17453292519943295F, 0.12217304763960307F);
-            progressRotation(Jaw, sitProgress, -0.31869712141416456F, -0.0F, 0.0F);
-            progressRotation(Tail2, sitProgress, 0.091106186954104F, 0.0F, 0.0F);
-            progressRotation(CrestRB, sitProgress, 1.7453292519943295F, -0.27314402793711257F, 0.0F);
-            progressRotation(BodyLower, sitProgress, -0.136659280431156F, 0.0F, 0.0F);
-            progressRotation(CrestR3, sitProgress, 1.7453292519943295F, -0.8726646259971648F, -0.7285004297824331F);
-            progressRotation(WingL21, sitProgress, 0.0F, 0.0F, 0.0F);
-            progressRotation(Neck3, sitProgress, 0.18203784098300857F, -0.0F, 0.0F);
-            progressRotation(TailL2, sitProgress, 1.3962634015954636F, 0.31869712141416456F, 0.0F);
-            progressRotation(FingerL3, sitProgress, -0.13962634015954636F, 0.0F, 0.0F);
-            progressRotation(CrestL3, sitProgress, 1.7453292519943295F, 0.8726646259971648F, 0.7853981633974483F);
-            progressRotation(CrestL2, sitProgress, 1.7453292519943295F, 0.6108652381980153F, 0.3141592653589793F);
-            progressRotation(WingR21, sitProgress, 0.0F, 0.0F, 0.0F);
-            progressRotation(TailR1, sitProgress, 1.3962634015954636F, 0.06981317007977318F, 0.0F);
-            progressRotation(Head, sitProgress, 0.8196066167365371F, -0.0F, 0.0F);
-            progressRotation(WingR2, sitProgress, 1.48352986419518F, 0.0F, 0.17453292519943295F);
-            progressRotation(WingL, sitProgress, 0.08726646259971647F, 0.0F, -1.1344640137963142F);
-            progressRotation(CrestR1, sitProgress, 1.7453292519943295F, -0.08726646259971647F, 0.0F);
-            progressRotation(WingL2, sitProgress, 1.48352986419518F, 0.0F, -0.17453292519943295F);
-            progressRotation(Tail3, sitProgress, 0.045553093477052F, 0.0F, 0.0F);
-            progressRotation(TailR2, sitProgress, 1.3962634015954636F, -0.31869712141416456F, 0.0F);
-            progressRotation(CrestL1, sitProgress, 1.7453292519943295F, 0.08726646259971647F, 0.0F);
-            progressPosition(BodyUpper, sitProgress, 0, 18, 0);
+            float groundProgress = amphithere.groundProgress;
+            progressRotation(Tail1, groundProgress, -0.045553093477052F, 0.0F, 0.0F);
+            progressRotation(CrestR2, groundProgress, 1.7453292519943295F, -0.6108652381980153F, -0.3141592653589793F);
+            progressRotation(FingerR4, groundProgress, -0.2617993877991494F, 0.0F, 0.0F);
+            progressRotation(TailL1, groundProgress, 1.3962634015954636F, -0.06981317007977318F, 0.0F);
+            progressRotation(Neck2, groundProgress, -0.4553564018453205F, -0.0F, 0.0F);
+            progressRotation(FingerR3, groundProgress, -0.13962634015954636F, 0.0F, 0.0F);
+            progressRotation(FingerL1, groundProgress, 0.13962634015954636F, 0.0F, 0.0F);
+            progressRotation(WingR, groundProgress, 0.08726646259971647F, 0.0F, 1.1344640137963142F);
+            progressRotation(FingerL4, groundProgress, -0.2617993877991494F, 0.0F, 0.0F);
+            progressRotation(Teeth2, groundProgress, 0.0F, -0.0F, 0.0F);
+            progressRotation(FingerR2, groundProgress, 0.0F, 0.0F, 0.0F);
+            progressRotation(Beak, groundProgress, 0.6981317007977318F, -0.0F, 0.0F);
+            progressRotation(BodyUpper, groundProgress, 0.0F, -0.0F, 0.0F);
+            progressRotation(Club, groundProgress, 0.18203784098300857F, 0.0F, 0.0F);
+            progressRotation(CrestLB, groundProgress, 1.7453292519943295F, 0.27314402793711257F, 0.0F);
+            progressRotation(FingerR1, groundProgress, 0.13962634015954636F, 0.0F, 0.0F);
+            progressRotation(HeadFront, groundProgress, -0.22759093446006054F, -0.0F, 0.0F);
+            progressRotation(Neck1, groundProgress, -0.18203784098300857F, -0.0F, -0.045553093477052F);
+            progressRotation(FingerL2, groundProgress, 0.0F, 0.0F, 0.0F);
+            progressRotation(WingR3, groundProgress, 0.12217304763960307F, -0.17453292519943295F, -0.12217304763960307F);
+            progressRotation(Teeth1, groundProgress, 0.0F, -0.0F, 0.0F);
+            progressRotation(Tail4, groundProgress, -0.045553093477052F, 0.0F, 0.0F);
+            progressRotation(WingL3, groundProgress, 0.12217304763960307F, 0.17453292519943295F, 0.12217304763960307F);
+            progressRotation(Jaw, groundProgress, -0.31869712141416456F, -0.0F, 0.0F);
+            progressRotation(Tail2, groundProgress, 0.091106186954104F, 0.0F, 0.0F);
+            progressRotation(CrestRB, groundProgress, 1.7453292519943295F, -0.27314402793711257F, 0.0F);
+            progressRotation(BodyLower, groundProgress, -0.136659280431156F, 0.0F, 0.0F);
+            progressRotation(CrestR3, groundProgress, 1.7453292519943295F, -0.8726646259971648F, -0.7285004297824331F);
+            progressRotation(WingL21, groundProgress, 0.0F, 0.0F, 0.0F);
+            progressRotation(Neck3, groundProgress, 0.18203784098300857F, -0.0F, 0.0F);
+            progressRotation(TailL2, groundProgress, 1.3962634015954636F, 0.31869712141416456F, 0.0F);
+            progressRotation(FingerL3, groundProgress, -0.13962634015954636F, 0.0F, 0.0F);
+            progressRotation(CrestL3, groundProgress, 1.7453292519943295F, 0.8726646259971648F, 0.7853981633974483F);
+            progressRotation(CrestL2, groundProgress, 1.7453292519943295F, 0.6108652381980153F, 0.3141592653589793F);
+            progressRotation(WingR21, groundProgress, 0.0F, 0.0F, 0.0F);
+            progressRotation(TailR1, groundProgress, 1.3962634015954636F, 0.06981317007977318F, 0.0F);
+            progressRotation(Head, groundProgress, 0.8196066167365371F, -0.0F, 0.0F);
+            progressRotation(WingR2, groundProgress, 1.48352986419518F, 0.0F, 0.17453292519943295F);
+            progressRotation(WingL, groundProgress, 0.08726646259971647F, 0.0F, -1.1344640137963142F);
+            progressRotation(CrestR1, groundProgress, 1.7453292519943295F, -0.08726646259971647F, 0.0F);
+            progressRotation(WingL2, groundProgress, 1.48352986419518F, 0.0F, -0.17453292519943295F);
+            progressRotation(Tail3, groundProgress, 0.045553093477052F, 0.0F, 0.0F);
+            progressRotation(TailR2, groundProgress, 1.3962634015954636F, -0.31869712141416456F, 0.0F);
+            progressRotation(CrestL1, groundProgress, 1.7453292519943295F, 0.08726646259971647F, 0.0F);
+            progressPosition(BodyUpper, groundProgress, 0, 18, 0);
         }
         {
             float sitProgress = amphithere.sitProgress;
@@ -546,7 +546,7 @@ public class ModelAmphithere extends ModelDragonBase {
             progressRotation(Neck3, sitProgress, 0.18203784098300857F, -0.0F, 0.0F);
         }
 
-        if (amphithere.groundProgress <= 0 && amphithere.getAnimation() != EntityAmphithere.ANIMATION_WING_BLAST && !amphithere.onGround) {
+        if (amphithere.groundProgress <= 0 && amphithere.getAnimation() != EntityAmphithere.ANIMATION_WING_BLAST) {
             amphithere.roll_buffer.applyChainFlapBuffer(BodyUpper);
             amphithere.pitch_buffer.applyChainWaveBuffer(BodyUpper);
             amphithere.tail_buffer.applyChainSwingBuffer(TAIL);
