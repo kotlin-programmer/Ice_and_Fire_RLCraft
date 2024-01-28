@@ -177,6 +177,7 @@ public class ModRecipes {
         ModItems.troll_mountain.setRepairItem(new ItemStack(ModItems.troll_leather_mountain));
         ModItems.troll_forest.setRepairItem(new ItemStack(ModItems.troll_leather_forest));
         ModItems.troll_frost.setRepairItem(new ItemStack(ModItems.troll_leather_frost));
+        ModItems.dread_sword_tools.setRepairItem(new ItemStack(ModItems.dread_shard));
         ItemStack waterBreathingPotion = new ItemStack(Items.POTIONITEM, 1, 0);
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("Potion", "water_breathing");

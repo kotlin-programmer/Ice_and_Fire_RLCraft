@@ -38,6 +38,8 @@ public class ModItems {
 	public static ToolMaterial trollWeapon = EnumHelper.addToolMaterial("TrollWeapon", 2, 300, 11.0F, 1.0F, 1);
 	public static ToolMaterial myrmexChitin = EnumHelper.addToolMaterial("MyrmexChitin", 3, 600, 6.0F, 1.0F, 8);
 
+	public static ToolMaterial dread_sword_tools = EnumHelper.addToolMaterial("DreadSword", 0, 100, 0.0F, 1F, 0);
+
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":bestiary")
 	public static Item bestiary = new ItemBestiary();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":manuscript")
@@ -370,6 +372,8 @@ public class ModItems {
 	public static Item lich_staff = new ItemLichStaff();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_shard")
 	public static Item dread_shard = new ItemGeneric("dread_shard", "iceandfire.dread_shard", 0);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_sword")
+	public static Item dread_sword = new ItemModSword(dread_sword_tools, "dread_sword", "iceandfire.dread_sword");
 
 	static {
 		EnumDragonArmor.initArmors();
