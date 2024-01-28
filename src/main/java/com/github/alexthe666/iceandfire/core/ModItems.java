@@ -368,6 +368,8 @@ public class ModItems {
 	public static Item tide_trident = new ItemTideTrident();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lich_staff")
 	public static Item lich_staff = new ItemLichStaff();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_shard")
+	public static Item dread_shard = new ItemGeneric("dread_shard", "iceandfire.dread_shard", 0);
 
 	static {
 		EnumDragonArmor.initArmors();
