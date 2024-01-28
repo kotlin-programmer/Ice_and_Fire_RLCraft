@@ -402,6 +402,7 @@ entity.dragonlightningcharge.name=Dragon Lightning Charge
 
 entity.dread_thrall.name=Dread Thrall
 entity.dread_ghoul.name=Dread Ghoul
+entity.dread_beast.name=Dread Beast
 
 entity.if_hydra.name=Hydra
 entity.hydra_breath.name=Hydra Breath
