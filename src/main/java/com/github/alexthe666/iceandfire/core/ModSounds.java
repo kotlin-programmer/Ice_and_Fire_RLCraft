@@ -369,6 +369,9 @@ public final class ModSounds {
 	@GameRegistry.ObjectHolder("lightning_strike")
 	public static final SoundEvent LIGHTNING_STRIKE = createSoundEvent("lightning_strike");
 
+	@GameRegistry.ObjectHolder("dread_lich_summon")
+	public static final SoundEvent DREAD_LICH_SUMMON = createSoundEvent("dread_lich_summon");
+
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(MODID, soundName);
 		return new SoundEvent(soundID).setRegistryName(soundID);

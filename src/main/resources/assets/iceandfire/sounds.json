@@ -851,5 +851,12 @@
       "iceandfire:lightning_strike_3",
       "iceandfire:lightning_strike_4"
     ]
+  },
+  "dread_lich_summon": {
+    "category": "neutral",
+    "sounds": [
+      "iceandfire:dread_lich_summon_0",
+      "iceandfire:dread_lich_summon_1"
+    ]
   }
 }
