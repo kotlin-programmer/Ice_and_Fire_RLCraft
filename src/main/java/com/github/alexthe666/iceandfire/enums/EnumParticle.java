@@ -14,5 +14,6 @@ public enum EnumParticle {
     SERPENT_BUBBLE,
     EXPLOSION,
     CLOUD,
-    SMOKE
+    SMOKE,
+    DREAD_TORCH
 }
