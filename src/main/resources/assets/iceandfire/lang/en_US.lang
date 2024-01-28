@@ -404,6 +404,7 @@ entity.dread_thrall.name=Dread Thrall
 entity.dread_ghoul.name=Dread Ghoul
 entity.dread_beast.name=Dread Beast
 entity.dread_scuttler.name=Dread Scuttler
+entity.dread_lich.name=Dread Lich
 
 entity.if_hydra.name=Hydra
 entity.hydra_breath.name=Hydra Breath
