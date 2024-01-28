@@ -203,10 +203,19 @@ public class IceAndFireConfig {
 		@Config.Name("Generate Cyclops Caves")
 		public boolean generateCyclopsCaves = true;
 
+		@Config.Comment("Should InF generate Wandering Cyclops")
+		@Config.Name("Generate Wandering Cyclops")
+		public boolean generateWanderingCyclops = true;
+
 		@Config.Comment("Chance per chunk for Cyclops Caves to generate, 1 in N chance")
 		@Config.Name("Generate Cyclops Caves Chance")
 		@Config.RangeInt(min = 1, max = 10000)
 		public int generateCyclopsChance = 170;
+
+		@Config.Comment("Chance per chunk for Wandering Cyclops to generate, 1 in N chance")
+		@Config.Name("Generate Wandering Cyclops Chance")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int generateWanderingCyclopsChance = 900;
 
 		@Config.Comment("Should InF generate Siren Islands and Sirens")
 		@Config.Name("Generate Siren Islands")
