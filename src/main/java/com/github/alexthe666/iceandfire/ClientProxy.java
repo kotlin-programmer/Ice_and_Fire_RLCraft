@@ -389,6 +389,10 @@ public class ClientProxy extends CommonProxy {
 
 	@SideOnly(Side.CLIENT)
 	public void spawnParticle(EnumParticle type, World world, double x, double y, double z, double motX, double motY, double motZ) {
+		spawnParticle(type, world, x, y, z, motX, motY, motZ, 1);
+	}
+	@SideOnly(Side.CLIENT)
+	public void spawnParticle(EnumParticle type, World world, double x, double y, double z, double motX, double motY, double motZ, float size) {
 		Particle particle;
 		switch (type) {
 			case DRAGON_FIRE:
@@ -429,6 +433,9 @@ public class ClientProxy extends CommonProxy {
 				break;
 			case CLOUD:
 				particle = new ParticleCloud.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
+				break;
+			case DREAD_TORCH:
+				particle = new ParticleDreadTorch(world, x, y, z, motX, motY, motZ, size);
 				break;
 			default:
 				particle = new ParticleSmokeNormal.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
