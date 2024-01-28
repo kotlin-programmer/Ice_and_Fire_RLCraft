@@ -51,9 +51,12 @@ public class StructureGenerator implements IWorldGenerator {
 	private static final WorldGenHydraCave HYDRA_CAVE = new WorldGenHydraCave();
 	private static final ResourceLocation GORGON_TEMPLE = new ResourceLocation(IceAndFire.MODID, "gorgon_temple");
 
+	private BlockPos lastCyclopsCave = null;
+
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if(!genAllowedInDim(world.provider.getDimension())) return;
+		double spawnCheck = IceAndFireConfig.WORLDGEN.dangerousWorldGenDistanceLimit * IceAndFireConfig.WORLDGEN.dangerousWorldGenDistanceLimit;
 		int x = (chunkX * 16) + 8;
 		int z = (chunkZ * 16) + 8;
 		BlockPos height = world.getHeight(new BlockPos(x, 0, z));
@@ -87,10 +90,11 @@ public class StructureGenerator implements IWorldGenerator {
 				SIREN_ISLAND.generate(world, random, height);
 			}
 
-			if(IceAndFireConfig.WORLDGEN.generateCyclopsCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateCyclopsChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isOpaqueCube()) {
+			if(IceAndFireConfig.WORLDGEN.generateCyclopsCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateCyclopsChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isOpaqueCube() && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
 				CYCLOPS_CAVE.generate(world, random, height);
+				lastCyclopsCave = height;
 			}
-			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && isFarEnoughFromSpawn(world, height) &&  BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) ) {
+			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && isFarEnoughFromSpawn(world, height) &&  BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
 				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance + 1) == 0) {
 					EntityCyclops cyclops = new EntityCyclops(world);
 					cyclops.setPosition(x, height.getY() + 1, z);
@@ -106,6 +110,7 @@ public class StructureGenerator implements IWorldGenerator {
 							world.spawnEntity(sheep);
 						}
 					}
+					lastCyclopsCave = height;
 				}
 			}
 
