@@ -12,6 +12,7 @@ import com.github.alexthe666.iceandfire.world.village.MapGenSnowVillage;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Mirror;
@@ -88,6 +89,24 @@ public class StructureGenerator implements IWorldGenerator {
 
 			if(IceAndFireConfig.WORLDGEN.generateCyclopsCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateCyclopsChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isOpaqueCube()) {
 				CYCLOPS_CAVE.generate(world, random, height);
+			}
+			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && isFarEnoughFromSpawn(world, height) &&  BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) ) {
+				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance + 1) == 0) {
+					EntityCyclops cyclops = new EntityCyclops(world);
+					cyclops.setPosition(x, height.getY() + 1, z);
+					cyclops.setVariant(random.nextInt(3));
+					if (!world.isRemote) {
+						world.spawnEntity(cyclops);
+					}
+					for(int i = 0; i < 3 + random.nextInt(3); i++){
+						EntitySheep sheep = new EntitySheep(world);
+						sheep.setPosition(x, height.getY() + 1, z);
+						sheep.setFleeceColor(EntitySheep.getRandomSheepColor(random));
+						if (!world.isRemote) {
+							world.spawnEntity(sheep);
+						}
+					}
+				}
 			}
 
 			if(IceAndFireConfig.WORLDGEN.generatePixieVillages && random.nextInt(IceAndFireConfig.WORLDGEN.generatePixieChance) == 0 && types.contains(Type.FOREST) && (types.contains(Type.SPOOKY) || types.contains(Type.MAGICAL))) {
