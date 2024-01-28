@@ -16,11 +16,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.*;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 public class DragonUtils {
 
@@ -350,5 +350,13 @@ public class DragonUtils {
 			return cyclops.canDismount();
 		}
 		return true;
+	}
+
+	public static boolean canHostilesTarget(Entity entity) {
+		if (entity instanceof EntityPlayer && entity.world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+			return false;
+		} else {
+			return entity instanceof EntityLivingBase && isAlive((EntityLivingBase) entity);
+		}
 	}
 }
