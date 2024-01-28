@@ -400,6 +400,8 @@ entity.seaserpent.name=Sea Serpent
 entity.lightningdragon.name=Lightning Dragon
 entity.dragonlightningcharge.name=Dragon Lightning Charge
 
+entity.dread_thrall.name=Dread Thrall
+
 entity.if_hydra.name=Hydra
 entity.hydra_breath.name=Hydra Breath
 entity.hydra_arrow.name=Hydra Arrow
