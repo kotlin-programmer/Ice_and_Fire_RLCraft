@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -160,11 +161,10 @@ public class EntityDreadMob extends EntityMob implements IDreadMob {
             }
             return thrall;
         }
-        /* TODO at this point it is not going to be implemented
         if(entity instanceof AbstractHorse) {
             lichSummoned = new EntityDreadHorse(entity.world);
             return lichSummoned;
-        } */
+        }
         if(entity instanceof EntityAnimal) {
             lichSummoned = new EntityDreadBeast(entity.world);
             float readInScale = (entity.width / 1.2F);
