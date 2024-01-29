@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.core.ModSounds;
 import com.github.alexthe666.iceandfire.entity.ai.TrollAIFleeSun;
 import com.github.alexthe666.iceandfire.entity.explosion.BlockBreakExplosion;
+import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -49,7 +50,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillagerFear {
+public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillagerFear, IHumanoid {
 
     private int animationTick;
     private Animation currentAnimation;
