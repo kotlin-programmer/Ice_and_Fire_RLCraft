@@ -425,6 +425,7 @@ entity.dread_beast.name=Dread Beast
 entity.dread_scuttler.name=Dread Scuttler
 entity.dread_lich.name=Dread Lich
 entity.dread_lich_skull.name=Dread Lich Skull
+entity.dread_knight.name=Dread Knight
 entity.dread_horse.name=Dread Knight Horse
 
 entity.if_hydra.name=Hydra
