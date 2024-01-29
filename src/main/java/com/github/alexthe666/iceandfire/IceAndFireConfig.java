@@ -354,7 +354,7 @@ public class IceAndFireConfig {
 		@Config.Comment("Dread Lich spawn weight, larger number is more common")
 		@Config.Name("Dread Lich Spawn Weight")
 		@Config.RangeInt(min = 1, max = 10000)
-		public int lichSpawnRate = 100;
+		public int lichSpawnRate = 2;
 	}
 
 	public static class DragonConfig {
