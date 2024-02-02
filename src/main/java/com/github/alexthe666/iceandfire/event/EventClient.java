@@ -175,6 +175,18 @@ public class EventClient {
 		}
 	}
 
+	@SubscribeEvent
+	public void preRenderGhost(RenderLivingEvent.Pre event) {
+		if (!(event.getEntity() instanceof EntityGhost)) return;
+		GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+	}
+
+	@SubscribeEvent
+	public void postRenderGhost(RenderLivingEvent.Post event) {
+		if (!(event.getEntity() instanceof EntityGhost)) return;
+		GlStateManager.disableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+	}
+
 	private static ResourceLocation getIceTexture(int ticksFrozen) {
 		if (ticksFrozen < 100) {
 			if(ticksFrozen < 50){
