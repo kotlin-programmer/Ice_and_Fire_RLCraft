@@ -851,6 +851,7 @@
       "iceandfire:lightning_strike_3",
       "iceandfire:lightning_strike_4"
     ]
+  },
   "ghost_jumpscare": {
     "category": "hostile",
     "sounds": [
@@ -886,5 +887,11 @@
       "iceandfire:ghost/hurt_1"
     ]
   },
+  "bestiary_page": {
+  "category": "neutral",
+  "sounds": [
+    "iceandfire:bestiary_page_0",
+    "iceandfire:bestiary_page_1"
+    ]
   }
 }

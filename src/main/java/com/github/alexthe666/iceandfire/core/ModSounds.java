@@ -384,6 +384,8 @@ public final class ModSounds {
 	@GameRegistry.ObjectHolder("ghost_jumpscare")
 	public static final SoundEvent GHOST_JUMPSCARE = createSoundEvent("ghost_jumpscare");
 
+	@GameRegistry.ObjectHolder("bestiary_page")
+	public static final SoundEvent BESTIARY_PAGE = createSoundEvent("bestiary_page");
 
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(MODID, soundName);
