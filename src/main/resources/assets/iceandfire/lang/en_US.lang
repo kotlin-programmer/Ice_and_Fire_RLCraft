@@ -392,6 +392,7 @@ entity.myrmex_royal.name=Myrmex Royal
 entity.myrmex_egg.name=Myrmex Egg
 entity.amphithere.name=Amphithere
 entity.seaserpent.name=Sea Serpent
+entity.ghost.name=Ghost
 
 entity.lightningdragon.name=Lightning Dragon
 entity.dragonlightningcharge.name=Dragon Lightning Charge
