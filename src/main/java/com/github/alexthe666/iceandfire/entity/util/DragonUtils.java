@@ -351,4 +351,17 @@ public class DragonUtils {
 		}
 		return true;
 	}
+
+	public static BlockPos getBlockInTargetsViewGhost(EntityGhost ghost, EntityLivingBase target) {
+		float radius = 4 + ghost.getRNG().nextInt(5);
+		float angle = (0.01745329251F * (target.rotationYawHead + 90F + ghost.getRNG().nextInt(180)));
+		double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
+		double extraZ = radius * MathHelper.cos(angle);
+		BlockPos radialPos = new BlockPos(target.posX + extraX, target.posY, target.posZ + extraZ);
+		BlockPos ground = radialPos;
+		if (ghost.getDistanceSq(ground) > 30) {
+			return ground;
+		}
+		return ghost.getPosition();
+	}
 }
