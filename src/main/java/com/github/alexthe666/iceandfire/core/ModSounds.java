@@ -369,6 +369,22 @@ public final class ModSounds {
 	@GameRegistry.ObjectHolder("lightning_strike")
 	public static final SoundEvent LIGHTNING_STRIKE = createSoundEvent("lightning_strike");
 
+	@GameRegistry.ObjectHolder("ghost_idle")
+	public static final SoundEvent GHOST_IDLE = createSoundEvent("ghost_idle");
+
+	@GameRegistry.ObjectHolder("ghost_hurt")
+	public static final SoundEvent GHOST_HURT = createSoundEvent("ghost_hurt");
+
+	@GameRegistry.ObjectHolder("ghost_die")
+	public static final SoundEvent GHOST_DIE = createSoundEvent("ghost_die");
+
+	@GameRegistry.ObjectHolder("ghost_attack")
+	public static final SoundEvent GHOST_ATTACK = createSoundEvent("ghost_attack");
+
+	@GameRegistry.ObjectHolder("ghost_jumpscare")
+	public static final SoundEvent GHOST_JUMPSCARE = createSoundEvent("ghost_jumpscare");
+
+
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(MODID, soundName);
 		return new SoundEvent(soundID).setRegistryName(soundID);
