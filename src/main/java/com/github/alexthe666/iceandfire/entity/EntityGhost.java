@@ -7,10 +7,7 @@ import com.github.alexthe666.iceandfire.core.ModSounds;
 import com.github.alexthe666.iceandfire.entity.ai.EntityAIRestrictSunFlying;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
-import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -42,7 +39,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import javax.annotation.Nullable;
 
 
-public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, /* IHumanoid,*/ IBlacklistedFromStatues {
+public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHumanoid, IBlacklistedFromStatues {
 
     public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation("iceandfire", "ghost"));
     private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntityGhost.class, DataSerializers.VARINT);
@@ -87,18 +84,18 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         //HEALTH
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(/* TODO добавить IceAndFireConfig.ghostMaxHealth */ 100);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.ghostMaxHealth);
         //FOLLOW_RANGE
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
         //SPEED
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.15D);
         //ATTACK
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(/* TODO добавить IceAndFireConfig.ghostMaxHealth */ 1);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.ghostMaxHealth);
         //ARMOR
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1D);
     }
 
-    //todo
+    // TODO for what is this
     //@Override
     //public void updateAttributes() {
     //    return bakeAttributes();

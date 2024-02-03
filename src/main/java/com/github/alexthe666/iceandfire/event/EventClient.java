@@ -175,16 +175,30 @@ public class EventClient {
 		}
 	}
 
+	public void preRenderProfileGhostApply() {
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 0.999F);
+		GlStateManager.depthMask(false);
+		GlStateManager.enableBlend();
+		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+		GlStateManager.alphaFunc(516, 0.0001F);
+	}
+
+	public void preRenderProfileGhostClean() {
+		GlStateManager.disableBlend();
+		GlStateManager.alphaFunc(516, 0.1F);
+		GlStateManager.depthMask(true);
+	}
+
 	@SubscribeEvent
 	public void preRenderGhost(RenderLivingEvent.Pre event) {
 		if (!(event.getEntity() instanceof EntityGhost)) return;
-		GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+		preRenderProfileGhostApply();
 	}
 
 	@SubscribeEvent
 	public void postRenderGhost(RenderLivingEvent.Post event) {
 		if (!(event.getEntity() instanceof EntityGhost)) return;
-		GlStateManager.disableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
+		preRenderProfileGhostClean();
 	}
 
 	private static ResourceLocation getIceTexture(int ticksFrozen) {

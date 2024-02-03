@@ -48,7 +48,6 @@ public class RenderGhost extends RenderLiving<EntityGhost> {
     @Override
     public void preRenderCallback(EntityGhost EntityLivingIn, float partialTickTime) {
         this.shadowSize = 0;
-        //GlStateManager.enableBlendProfile(GlStateManager.Profile.TRANSPARENT_MODEL);
     }
 
     @Override

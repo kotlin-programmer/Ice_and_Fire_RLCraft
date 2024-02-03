@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " E ",
+      "ECE",
+      " E "
+    ],
+    "key": {
+      "C": {
+        "type": "forge:ore_dict",
+        "ore": "chestWood"
+      },
+      "E": {
+        "item": "iceandfire:ectoplasm"
+      }
+    },
+    "result": {
+      "item": "iceandfire:ghost_chest"
+    }
+  }
