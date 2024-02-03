@@ -7,10 +7,7 @@ import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.core.ModSounds;
 import com.github.alexthe666.iceandfire.entity.ai.GorgonAIStareAttack;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
-import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.base.Predicate;
@@ -35,7 +32,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nullable;
 
-public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
+public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHumanoid {
 
 	public static Animation ANIMATION_SCARE;
 	public static Animation ANIMATION_HIT;

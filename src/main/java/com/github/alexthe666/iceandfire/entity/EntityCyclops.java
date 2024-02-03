@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.entity.ai.CyclopsAIAttackMelee;
 import com.github.alexthe666.iceandfire.entity.ai.CyclopsAITargetSheepPlayers;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
+import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -52,7 +53,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class EntityCyclops extends EntityMob implements IAnimatedEntity, IBlacklistedFromStatues, IVillagerFear {
+public class EntityCyclops extends EntityMob implements IAnimatedEntity, IBlacklistedFromStatues, IVillagerFear, IHumanoid {
 
     private int animationTick;
     private Animation currentAnimation;

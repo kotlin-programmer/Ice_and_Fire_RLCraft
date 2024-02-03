@@ -145,6 +145,7 @@ public class ModRecipes {
         addBanner("firedragon", new ItemStack(ModItems.dragon_skull, 1, 0));
         addBanner("icedragon", new ItemStack(ModItems.dragon_skull, 1, 1));
         addBanner("lightningdragon", new ItemStack(ModItems.dragon_skull, 1, 2));
+        addBanner("dread", new ItemStack(ModItems.dread_shard));
         GameRegistry.addSmelting(ModBlocks.copperOre, new ItemStack(ModItems.copperIngot), 1);
         GameRegistry.addSmelting(ModBlocks.silverOre, new ItemStack(ModItems.silverIngot), 1);
         GameRegistry.addSmelting(ModBlocks.amethystOre, new ItemStack(ModItems.amethystGem), 1);
@@ -177,6 +178,7 @@ public class ModRecipes {
         ModItems.troll_mountain.setRepairItem(new ItemStack(ModItems.troll_leather_mountain));
         ModItems.troll_forest.setRepairItem(new ItemStack(ModItems.troll_leather_forest));
         ModItems.troll_frost.setRepairItem(new ItemStack(ModItems.troll_leather_frost));
+        ModItems.dread_sword_tools.setRepairItem(new ItemStack(ModItems.dread_shard));
         ItemStack waterBreathingPotion = new ItemStack(Items.POTIONITEM, 1, 0);
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("Potion", "water_breathing");
