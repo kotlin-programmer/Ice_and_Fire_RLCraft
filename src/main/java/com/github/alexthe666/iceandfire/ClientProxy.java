@@ -107,8 +107,14 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 3, new ModelResourceLocation("iceandfire:podium_jungle", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 4, new ModelResourceLocation("iceandfire:podium_acacia", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 5, new ModelResourceLocation("iceandfire:podium_dark_oak", "inventory"));
-		ModelBakery.registerItemVariants(IafItemRegistry.dragonbone_bow, new ResourceLocation("iceandfire:dragonbone_bow"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_1"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragonbone_bow, new ResourceLocation("iceandfire:dragonbone_bow"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_1"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_2"));
 		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragonbone_bow, 0, new ModelResourceLocation("iceandfire:dragonbone_bow", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragonbone_bow_fire, new ResourceLocation("iceandfire:dragonbone_bow_fire"), new ResourceLocation("iceandfire:dragonbone_bow_fire_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_fire_pulling_1"), new ResourceLocation("iceandfire:dragonbone_bow_fire_pulling_2"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragonbone_bow_fire, 0, new ModelResourceLocation("iceandfire:dragonbone_bow_fire", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragonbone_bow_ice, new ResourceLocation("iceandfire:dragonbone_bow_ice"), new ResourceLocation("iceandfire:dragonbone_bow_ice_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_ice_pulling_1"), new ResourceLocation("iceandfire:dragonbone_bow_ice_pulling_2"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragonbone_bow_ice, 0, new ModelResourceLocation("iceandfire:dragonbone_bow_ice", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragonbone_bow_lightning, new ResourceLocation("iceandfire:dragonbone_bow_lightning"), new ResourceLocation("iceandfire:dragonbone_bow_lightning_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_lightning_pulling_1"), new ResourceLocation("iceandfire:dragonbone_bow_lightning_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_lightning_pulling_2"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragonbone_bow_lightning, 0, new ModelResourceLocation("iceandfire:dragonbone_bow_lightning", "inventory"));
 		ModelBakery.registerItemVariants(IafItemRegistry.dragon_skull, new ResourceLocation("iceandfire:dragon_skull_fire"), new ResourceLocation("iceandfire:dragon_skull_ice"), new ResourceLocation("iceandfire:dragon_skull_lightning"));
 		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_skull, 0, new ModelResourceLocation("iceandfire:dragon_skull_fire", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_skull, 1, new ModelResourceLocation("iceandfire:dragon_skull_ice", "inventory"));
@@ -342,7 +348,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityIceDragon.class, new RenderDragonBase(Minecraft.getMinecraft().getRenderManager(), icedragon_model));
 		RenderingRegistry.registerEntityRenderingHandler(EntityLightningDragon.class, new RenderDragonBase(Minecraft.getMinecraft().getRenderManager(), lightningdragon_model));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonEgg.class, new RenderDragonEgg(Minecraft.getMinecraft().getRenderManager()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityDragonArrow.class, new RenderDragonArrow(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonArrow.class, new RenderDragonArrow(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonSkull.class, new RenderDragonSkull(Minecraft.getMinecraft().getRenderManager(), firedragon_model, icedragon_model, lightningdragon_model));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonFire.class, new RenderNothing(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonIce.class, new RenderNothing(Minecraft.getMinecraft().getRenderManager()));
@@ -454,6 +460,9 @@ public class ClientProxy extends CommonProxy {
 				break;
 			case FLAME:
 				particle = new ParticleFlame.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
+				break;
+			case LAVA:
+				particle = new ParticleLava.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
 				break;
 			case SNOWFLAKE:
 				particle = new ParticleSnowflake(world, x, y, z, motX, motY, motZ);

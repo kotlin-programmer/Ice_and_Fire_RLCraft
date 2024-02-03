@@ -1,8 +1,11 @@
 package com.github.alexthe666.iceandfire.core;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonArrow;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.item.ItemDragonBow;
 import com.github.alexthe666.iceandfire.item.ItemDreadQueenStaff;
+import com.github.alexthe666.iceandfire.item.ItemGeneric;
 import com.github.alexthe666.iceandfire.item.ItemModSword;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -103,7 +106,13 @@ public class ModItems {
     public static Item dragonbone_sword_ice = IafItemRegistry.dragonbone_sword_ice;
     public static Item dragonbone_sword_lightning = IafItemRegistry.dragonbone_sword_lightning;
     public static Item dragonbone_arrow = IafItemRegistry.dragonbone_arrow;
-    public static Item dragonbone_bow = IafItemRegistry.dragonbone_bow;
+	public static Item dragonbone_arrow_fire = IafItemRegistry.dragonbone_arrow_fire;
+	public static Item dragonbone_arrow_ice = IafItemRegistry.dragonbone_arrow_ice;
+	public static Item dragonbone_arrow_lightning = IafItemRegistry.dragonbone_arrow_lightning;
+	public static Item dragonbone_bow = IafItemRegistry.dragonbone_bow;
+    public static Item dragonbone_bow_fire = IafItemRegistry.dragonbone_bow_fire;
+    public static Item dragonbone_bow_ice = IafItemRegistry.dragonbone_bow_ice;
+    public static Item dragonbone_bow_lightning = IafItemRegistry.dragonbone_bow_lightning;
     public static Item dragon_skull = IafItemRegistry.dragon_skull;
     public static Item dragon_armor_iron = IafItemRegistry.dragon_armor_iron;
     public static Item dragon_armor_gold = IafItemRegistry.dragon_armor_gold;
@@ -216,3 +225,4 @@ public class ModItems {
     public static Item summoning_crystal_lightning = IafItemRegistry.summoning_crystal_lightning;
     public static Item dragon_collar = IafItemRegistry.dragon_collar;
 }
+

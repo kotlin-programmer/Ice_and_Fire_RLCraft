@@ -339,6 +339,14 @@ item.iceandfire.ectoplasm.name=Ectoplasme
 item.iceandfire.ghost_ingot.name=Lingot fantasmagorique
 item.iceandfire.ghost_ingot.desc_0=§6Butin rare§r
 
+item.iceandfire.dragonbone_arrow_fire.name=Flèche enflammé en os de dragon
+item.iceandfire.dragonbone_arrow_ice.name=Flèche givré en os de dragon
+item.iceandfire.dragonbone_arrow_lightning.name=Flèche électrifié en os de dragon
+
+item.iceandfire.dragonbone_bow_fire.name=Arc enflammé en os de dragon
+item.iceandfire.dragonbone_bow_ice.name=Arc givré en os de dragon
+item.iceandfire.dragonbone_bow_lightning.name=Arc électrifié en os de dragon
+
 item.iceandfire.dragon_collar.name=Collier de dragon
 
 item.banner.firedragon.white=Dragon de feu blanc

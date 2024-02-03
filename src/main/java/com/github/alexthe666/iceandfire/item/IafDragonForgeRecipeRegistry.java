@@ -1,13 +1,11 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.enums.EnumBloodedDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -20,9 +18,12 @@ public class IafDragonForgeRecipeRegistry {
     public static List<DragonForgeRecipe> LIGHTNING_FORGE_RECIPES = new ArrayList<>();
 
     public static void preInit() {
-        FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_sword), new ItemStack(IafItemRegistry.fire_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_sword_fire)));
-        ICE_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_sword), new ItemStack(IafItemRegistry.ice_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_sword_ice)));
-        LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_sword), new ItemStack(IafItemRegistry.lightning_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_sword_lightning)));
+        FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_sword), new ItemStack(IafItemRegistry.fire_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_sword_fire), true));
+        FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_bow), new ItemStack(IafItemRegistry.fire_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_bow_fire), true));
+        ICE_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_sword), new ItemStack(IafItemRegistry.ice_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_sword_ice), true));
+        ICE_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_bow), new ItemStack(IafItemRegistry.ice_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_bow_ice), true));
+        LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_sword), new ItemStack(IafItemRegistry.lightning_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_sword_lightning), true));
+        LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(new ItemStack(IafItemRegistry.dragonbone_bow), new ItemStack(IafItemRegistry.lightning_dragon_blood), new ItemStack(IafItemRegistry.dragonbone_bow_lightning), true));
 
         for (EnumDragonArmor input : EnumDragonArmor.values()) {
             List<DragonForgeRecipe> recipes;
@@ -43,10 +44,10 @@ public class IafDragonForgeRecipeRegistry {
 
             EnumBloodedDragonArmor result = EnumBloodedDragonArmor.valueOf(input.name());
 
-            recipes.add(new DragonForgeRecipe(new ItemStack(input.helmet), new ItemStack(blood, 32), new ItemStack(result.helmet)));
-            recipes.add(new DragonForgeRecipe(new ItemStack(input.chestplate), new ItemStack(blood, 32), new ItemStack(result.chestplate)));
-            recipes.add(new DragonForgeRecipe(new ItemStack(input.leggings), new ItemStack(blood, 32), new ItemStack(result.leggings)));
-            recipes.add(new DragonForgeRecipe(new ItemStack(input.boots), new ItemStack(blood, 32), new ItemStack(result.boots)));
+            recipes.add(new DragonForgeRecipe(new ItemStack(input.helmet), new ItemStack(blood), new ItemStack(result.helmet), true));
+            recipes.add(new DragonForgeRecipe(new ItemStack(input.chestplate), new ItemStack(blood), new ItemStack(result.chestplate), true));
+            recipes.add(new DragonForgeRecipe(new ItemStack(input.leggings), new ItemStack(blood), new ItemStack(result.leggings), true));
+            recipes.add(new DragonForgeRecipe(new ItemStack(input.boots), new ItemStack(blood), new ItemStack(result.boots), true));
         }
     }
 

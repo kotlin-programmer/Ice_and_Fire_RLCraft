@@ -87,7 +87,7 @@ public class EventLiving {
 			if(event.getRayTraceResult() != null && event.getRayTraceResult().entityHit != null) {
 				Entity shootingEntity = ((EntityArrow) event.getEntity()).shootingEntity;
 				Entity shotEntity = event.getRayTraceResult().entityHit;
-				if (shootingEntity instanceof EntityLivingBase && shootingEntity.isRidingOrBeingRiddenBy(shotEntity)){
+				if (shootingEntity instanceof EntityLivingBase && shootingEntity.isRidingOrBeingRiddenBy(shotEntity)) {
 					if (shotEntity instanceof EntityTameable && ((EntityTameable) shotEntity).isTamed() && shotEntity.isOnSameTeam(shootingEntity)) {
 						event.setCanceled(true);
 					}

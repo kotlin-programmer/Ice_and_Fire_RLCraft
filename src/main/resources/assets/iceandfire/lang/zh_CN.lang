@@ -260,7 +260,7 @@ item.iceandfire.copper_axe.name=铜斧
 item.iceandfire.copper_shovel.name=铜锹
 item.iceandfire.copper_hoe.name=铜锄
 item.iceandfire.lightning_stew.name=花电浆
-item.iceandfire.dragonbone_sword_lightning.name=龙霆骨血剑
+item.iceandfire.dragonbone_sword_lightning.name=雷龙圣刃
 item.iceandfire.dragonarmor_copper.name=赤铜龙铠
 item.iceandfire.dragonarmor_silver.name=白银龙铠
 item.iceandfire.lightning_dragon_flesh.name=电龙肉
@@ -593,6 +593,14 @@ item.iceandfire.ghost_sword.desc_0=投射出一柄能穿过方块的旋转剑
 item.iceandfire.ectoplasm.name=魂质
 item.iceandfire.ghost_ingot.name=灵锭
 item.iceandfire.ghost_ingot.desc_0=§6稀有掉落物§r
+
+item.iceandfire.dragonbone_arrow_fire.name=烈火龙骨箭
+item.iceandfire.dragonbone_arrow_ice.name=寒冰龙骨箭
+item.iceandfire.dragonbone_arrow_lightning.name=雷霆龙骨箭
+
+item.iceandfire.dragonbone_bow_fire.name=烈火龙骨长弓
+item.iceandfire.dragonbone_bow_ice.name=霜龙骨长弓
+item.iceandfire.dragonbone_bow_lightning.name=雷霆龙骨长弓
 
 entity.firedragon.name=火龙
 entity.icedragon.name=冰龙

@@ -1,8 +1,6 @@
 package com.github.alexthe666.iceandfire.recipe;
 
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 
 public class DragonForgeRecipe {
@@ -10,11 +8,13 @@ public class DragonForgeRecipe {
     protected ItemStack input;
     protected ItemStack blood;
     protected ItemStack output;
+    boolean persistMetadata;
 
-    public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output) {
+    public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output, boolean persistMetadata) {
         this.input = input;
         this.blood = blood;
         this.output = output;
+        this.persistMetadata = persistMetadata;
     }
 
     public ItemStack getInput() {
@@ -69,7 +69,7 @@ public class DragonForgeRecipe {
     public void smelt(NonNullList<ItemStack> forge, ItemStack input, ItemStack blood, ItemStack output) {
         if (output.isEmpty()) {
             ItemStack stack = getOutput().copy();
-            if (input.getCount() == 1 && getOutput().getCount() == 1) {
+            if (this.persistMetadata) {
                 stack.setStackDisplayName(input.getDisplayName());
                 stack.setItemDamage(input.getItemDamage());
                 stack.setRepairCost(input.getRepairCost());

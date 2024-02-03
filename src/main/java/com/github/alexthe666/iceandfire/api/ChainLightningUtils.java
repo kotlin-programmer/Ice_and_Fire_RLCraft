@@ -26,7 +26,7 @@ import java.util.*;
 
 public class ChainLightningUtils {
 
-    public static void createChainLightningFromTarget(World world, EntityLivingBase target, EntityLivingBase attacker) {
+    public static void createChainLightningFromTarget(World world, EntityLivingBase target, Entity attacker) {
         float[] damage = IceAndFireConfig.MISC_SETTINGS.chainLightningDamagePerHop;
         int range = IceAndFireConfig.MISC_SETTINGS.chainLightningRange;
         boolean isParalysisEnabled = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysis;
@@ -34,7 +34,7 @@ public class ChainLightningUtils {
         createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled);
     }
 
-    public static void createChainLightningFromTarget(World world, EntityLivingBase target, EntityLivingBase attacker, float[] damage, int range, boolean isParalysisEnabled) {
+    public static void createChainLightningFromTarget(World world, EntityLivingBase target, Entity attacker, float[] damage, int range, boolean isParalysisEnabled) {
         int[] paralysisTicks = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysisTicksPerHop;
 
         createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled, paralysisTicks);
@@ -43,7 +43,7 @@ public class ChainLightningUtils {
     public static void createChainLightningFromTarget(
             World world,
             EntityLivingBase target,
-            EntityLivingBase attacker,
+            Entity attacker,
             float[] damage,
             int range,
             boolean isParalysisEnabled,
@@ -122,7 +122,7 @@ public class ChainLightningUtils {
         }
     }
 
-    private static boolean canHurt(EntityLivingBase target, EntityLivingBase attacker) {
+    private static boolean canHurt(EntityLivingBase target, Entity attacker) {
         if (target instanceof IDeadMob && ((IDeadMob) target).isMobDead()) {
             return false;
         }
@@ -140,7 +140,7 @@ public class ChainLightningUtils {
         return target instanceof EntityLiving || target instanceof EntityPlayer;
     }
 
-    private static void attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage) {
+    private static void attackEntityWithLightningDamage(Entity attacker, EntityLivingBase target, int hop, float[] damage) {
         // Crab => Larger Crab
         if (EventLiving.isQuarkCrab(target)) {
             strikeWithLightningBolt(target);
@@ -205,7 +205,7 @@ public class ChainLightningUtils {
             return source;
         }
 
-        private boolean canChainTo(EntityLivingBase target, EntityLivingBase attacker) {
+        private boolean canChainTo(EntityLivingBase target, Entity attacker) {
             if (target instanceof EntityPlayer) {
                 return false;
             }

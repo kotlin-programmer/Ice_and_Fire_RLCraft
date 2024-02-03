@@ -7,6 +7,7 @@ import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -91,7 +92,8 @@ public class MessageParticleFX extends AbstractMessage<MessageParticleFX> {
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageParticleFX message, EntityPlayer player, MessageContext messageContext) {}
+	public void onServerReceived(MinecraftServer server, MessageParticleFX message, EntityPlayer player, MessageContext messageContext) {
+	}
 
 	public static class Particle {
 		public final double x;
@@ -100,6 +102,7 @@ public class MessageParticleFX extends AbstractMessage<MessageParticleFX> {
 		public final double motX;
 		public final double motY;
 		public final double motZ;
+
 		private Particle(double x, double y, double z, double motX, double motY, double motZ) {
 			this.x = x;
 			this.y = y;
@@ -112,5 +115,9 @@ public class MessageParticleFX extends AbstractMessage<MessageParticleFX> {
 
 	public static Particle createParticle(double x, double y, double z, double motX, double motY, double motZ) {
 		return new Particle(x, y, z, motX, motY, motZ);
+	}
+
+	public static Particle createParticle(BlockPos pos, double motX, double motY, double motZ) {
+		return new Particle(pos.getX(), pos.getY(), pos.getZ(), motX, motY, motZ);
 	}
 }

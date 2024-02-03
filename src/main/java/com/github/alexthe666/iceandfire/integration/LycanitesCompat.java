@@ -18,7 +18,7 @@ public class LycanitesCompat {
         return CompatLoadUtil.isLycanitesMobsLoaded();
     }
 
-    public static boolean canHurt(EntityLivingBase target, EntityLivingBase attacker) {
+    public static boolean canHurt(EntityLivingBase target, Entity attacker) {
         if (target instanceof TameableCreatureEntity) {
             TameableCreatureEntity creature = (TameableCreatureEntity) target;
             return !creature.isTamed() || creature.getOwner() != attacker;

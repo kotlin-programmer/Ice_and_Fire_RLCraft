@@ -4,6 +4,7 @@ public enum EnumParticle {
     DRAGON_FIRE,
     DRAGON_ICE,
     FLAME,
+    LAVA,
     SNOWFLAKE,
     SPARK,
     HYDRA_BREATH,

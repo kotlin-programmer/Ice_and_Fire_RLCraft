@@ -17,18 +17,18 @@ public class CraftTweakerCompat {
     }
 
     @ZenMethod
-    public static void addFireDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output) {
-        IafDragonForgeRecipeRegistry.FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output)));
+    public static void addFireDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata) {
+        IafDragonForgeRecipeRegistry.FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata));
     }
 
     @ZenMethod
-    public static void addIceDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output) {
-        IafDragonForgeRecipeRegistry.ICE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output)));
+    public static void addIceDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata) {
+        IafDragonForgeRecipeRegistry.ICE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata));
     }
 
     @ZenMethod
-    public static void addLightningDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output) {
-        IafDragonForgeRecipeRegistry.LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output)));
+    public static void addLightningDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata) {
+        IafDragonForgeRecipeRegistry.LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata));
     }
 
     @ZenMethod
