@@ -83,7 +83,7 @@ public class EntityGhostSword extends EntityArrow
         noClip = true;
 
         float sqrt = MathHelper.sqrt((float) (this.motionX * this.motionX + this.motionZ * this.motionZ));
-        if ((sqrt < 0.1F) && this.ticksExisted > 200) {
+        if ((sqrt < 0.1F) && this.ticksExisted > 30) {
             this.setDead();
         }
         double d0 = 0;
@@ -97,7 +97,7 @@ public class EntityGhostSword extends EntityArrow
             this.world.spawnParticle(EnumParticleTypes.END_ROD, x, y + 0.5D, z, d0, d1, d2);
         }
 
-        if(this.ticksExisted >= 200) //<- loop exit for primal
+        if(this.ticksExisted >= 30) //<- loop exit for primal
             this.setDead();
     }
 
