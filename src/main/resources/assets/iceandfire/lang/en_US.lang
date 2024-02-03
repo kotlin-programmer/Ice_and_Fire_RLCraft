@@ -280,6 +280,12 @@ item.iceandfire.tide_trident.name=Tide Trident
 item.iceandfire.tide_trident.desc_0=Deals more damage when thrown underwater
 item.iceandfire.tide_trident.desc_1=Pierces through multiple enemies
 
+item.iceandfire.lich_staff.name=Dread Lich Staff
+item.iceandfire.dread_shard.name=Dread Shard
+item.iceandfire.dread_sword.name=Dread Thrall's Sword
+item.iceandfire.dread_knight_sword.name=Dread Knight's Sword
+item.iceandfire.custom_banner.jei_desc=Has a unique banner pattern!
+
 item.banner.firedragon.white=White Fire Dragon Charge
 item.banner.firedragon.orange=Orange Fire Dragon Charge
 item.banner.firedragon.magenta=Magenta Fire Dragon Charge
@@ -330,6 +336,23 @@ item.banner.lightningdragon.brown=Brown Lightning Dragon Charge
 item.banner.lightningdragon.green=Green Lightning Dragon Charge
 item.banner.lightningdragon.red=Red Lightning Dragon Charge
 item.banner.lightningdragon.black=Black Lightning Dragon Charge
+
+item.banner.dread.white=White Dread Skull
+item.banner.dread.orange=Orange Dread Skull
+item.banner.dread.magenta=Magenta Dread Skull
+item.banner.dread.lightBlue=Light Blue Dread Skull
+item.banner.dread.yellow=Yellow Dread Skull
+item.banner.dread.lime=Lime Dread Skull
+item.banner.dread.pink=Pink Dread Skull
+item.banner.dread.gray=Gray Dread Skull
+item.banner.dread.silver=Silver Dread Skull
+item.banner.dread.cyan=Cyan Dread Skull
+item.banner.dread.purple=Purple Dread Skull
+item.banner.dread.blue=Blue Dread Skull
+item.banner.dread.brown=Brown Dread Skull
+item.banner.dread.green=Green Dread Skull
+item.banner.dread.red=Red Dread Skull
+item.banner.dread.black=Black Dread Skull
 
 item.iceandfire.fire_dragon_blood.jei_desc=Obtained by interacting with a dragon corpse while holding an empty bottle.
 item.iceandfire.ice_dragon_blood.jei_desc=Obtained by interacting with a dragon corpse while holding an empty bottle.
@@ -396,6 +419,15 @@ entity.ghost.name=Ghost
 
 entity.lightningdragon.name=Lightning Dragon
 entity.dragonlightningcharge.name=Dragon Lightning Charge
+
+entity.dread_thrall.name=Dread Thrall
+entity.dread_ghoul.name=Dread Ghoul
+entity.dread_beast.name=Dread Beast
+entity.dread_scuttler.name=Dread Scuttler
+entity.dread_lich.name=Dread Lich
+entity.dread_lich_skull.name=Dread Lich Skull
+entity.dread_knight.name=Dread Knight
+entity.dread_horse.name=Dread Knight Horse
 
 entity.if_hydra.name=Hydra
 entity.hydra_breath.name=Hydra Breath
@@ -531,6 +563,7 @@ bestiary.myrmex=Myrmex
 bestiary.amphithere=Amphitheres
 bestiary.seaserpent=Sea Serpents
 bestiary.hydra=Hydra
+bestiary.dread_mobs=The Undead
 
 lectern.nopages=No new information can be added.
 silvertools.hurt=+2 damage against undead

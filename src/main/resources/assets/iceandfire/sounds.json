@@ -852,6 +852,20 @@
       "iceandfire:lightning_strike_4"
     ]
   },
+  "dread_lich_summon": {
+    "category": "neutral",
+    "sounds": [
+      "iceandfire:dread_lich_summon_0",
+      "iceandfire:dread_lich_summon_1"
+    ]
+  },
+  "dread_ghoul_idle": {
+    "category": "neutral",
+    "sounds": [
+      "iceandfire:dread_ghoul_idle_0",
+      "iceandfire:dread_ghoul_idle_1"
+    ]
+  },
   "ghost_jumpscare": {
     "category": "hostile",
     "sounds": [

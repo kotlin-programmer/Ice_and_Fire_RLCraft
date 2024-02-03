@@ -41,6 +41,12 @@ public class ModEntities {
 						}
 					}
 				}
+				if (IceAndFireConfig.ENTITY_SPAWNING.spawnLiches) {
+					if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SNOWY)) {
+						List<Biome.SpawnListEntry> spawnList = biome.getSpawnableList(EnumCreatureType.MONSTER);
+						spawnList.add(new Biome.SpawnListEntry(EntityDreadLich.class, IceAndFireConfig.ENTITY_SPAWNING.lichSpawnRate, 1, 1));
+					}
+				}
 				if(IceAndFireConfig.ENTITY_SPAWNING.spawnCockatrices) {
 					if(types.contains(BiomeDictionary.Type.SAVANNA) && types.contains(BiomeDictionary.Type.SPARSE)) {
 						creatureList.add(new Biome.SpawnListEntry(EntityCockatrice.class, IceAndFireConfig.ENTITY_SPAWNING.cockatriceSpawnRate, 1, 2));

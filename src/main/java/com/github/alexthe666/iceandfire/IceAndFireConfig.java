@@ -346,6 +346,15 @@ public class IceAndFireConfig {
 		@Config.Name("Amphithere Spawn Weight")
 		@Config.RangeInt(min = 1, max = 10000)
 		public int amphithereSpawnRate = 10;
+
+		@Config.Comment("Should InF spawn Dread Liches")
+		@Config.Name("Spawn Dread Liches")
+		public boolean spawnLiches = true;
+
+		@Config.Comment("Dread Lich spawn weight, larger number is more common")
+		@Config.Name("Dread Lich Spawn Weight")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int lichSpawnRate = 2;
 	}
 
 	public static class DragonConfig {

@@ -369,7 +369,16 @@ public final class ModSounds {
 	@GameRegistry.ObjectHolder("lightning_strike")
 	public static final SoundEvent LIGHTNING_STRIKE = createSoundEvent("lightning_strike");
 
-	@GameRegistry.ObjectHolder("ghost_idle")
+	@GameRegistry.ObjectHolder("dread_lich_summon")
+	public static final SoundEvent DREAD_LICH_SUMMON = createSoundEvent("dread_lich_summon");
+
+	@GameRegistry.ObjectHolder("dread_ghoul_idle")
+	public static final SoundEvent DREAD_GHOUL_IDLE = createSoundEvent("dread_ghoul_idle");
+
+  @GameRegistry.ObjectHolder("bestiary_page")
+	public static final SoundEvent BESTIARY_PAGE = createSoundEvent("bestiary_page");
+
+  @GameRegistry.ObjectHolder("ghost_idle")
 	public static final SoundEvent GHOST_IDLE = createSoundEvent("ghost_idle");
 
 	@GameRegistry.ObjectHolder("ghost_hurt")
@@ -383,9 +392,6 @@ public final class ModSounds {
 
 	@GameRegistry.ObjectHolder("ghost_jumpscare")
 	public static final SoundEvent GHOST_JUMPSCARE = createSoundEvent("ghost_jumpscare");
-
-	@GameRegistry.ObjectHolder("bestiary_page")
-	public static final SoundEvent BESTIARY_PAGE = createSoundEvent("bestiary_page");
 
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(MODID, soundName);
