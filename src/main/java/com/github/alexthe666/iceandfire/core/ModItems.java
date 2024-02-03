@@ -37,6 +37,7 @@ public class ModItems {
 	public static ToolMaterial lightningBoneTools = EnumHelper.addToolMaterial("LightningDragonbone", 4, 2000, 10.0F, 5.5F, 22);
 	public static ToolMaterial trollWeapon = EnumHelper.addToolMaterial("TrollWeapon", 2, 300, 11.0F, 1.0F, 1);
 	public static ToolMaterial myrmexChitin = EnumHelper.addToolMaterial("MyrmexChitin", 3, 600, 6.0F, 1.0F, 8);
+	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 10.0F, 25);
 
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":bestiary")
 	public static Item bestiary = new ItemBestiary();
@@ -368,6 +369,8 @@ public class ModItems {
 	public static Item tide_trident = new ItemTideTrident();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_ingot")
 	public static Item ghost_ingot = new ItemGeneric("ghost_ingot", "iceandfire.ghost_ingot");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_sword")
+	public static Item ghost_sword = new ItemGhostSword();
 
 	static {
 		EnumDragonArmor.initArmors();

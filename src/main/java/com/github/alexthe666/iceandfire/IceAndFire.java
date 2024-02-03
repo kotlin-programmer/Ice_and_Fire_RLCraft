@@ -65,7 +65,7 @@ public class IceAndFire {
             MessageMultipartInteract.class, MessageGetMyrmexHive.class, MessageSetMyrmexHiveNull.class,
             MessagePlayerHitMultipart.class, MessageChainLightningFX.class, MessageEntityEffect.class,
             MessageResetEntityEffect.class, MessageParticleFX.class, MessageParticleVanillaFX.class,
-            MessageUpdateRidingState.class
+            MessageUpdateRidingState.class, MessageSwingArm.class
     })
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
     @SidedProxy(clientSide = "com.github.alexthe666.iceandfire.ClientProxy", serverSide = "com.github.alexthe666.iceandfire.CommonProxy")
