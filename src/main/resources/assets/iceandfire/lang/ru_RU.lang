@@ -343,6 +343,14 @@ item.iceandfire.ectoplasm.name=Эктоплазма
 item.iceandfire.ghost_ingot.name=Призрачный слиток
 item.iceandfire.ghost_ingot.desc_0=§6Редкий дроп§r
 
+item.iceandfire.dragonbone_arrow_fire.name=Разожженный Стрела из драконьей кости
+item.iceandfire.dragonbone_arrow_ice.name=Оледяневший Стрела из драконьей кости
+item.iceandfire.dragonbone_arrow_lightning.name=Грозовой Стрела из драконьей кости
+
+item.iceandfire.dragonbone_bow_fire.name=Разожженный Лук из драконьей кости
+item.iceandfire.dragonbone_bow_ice.name=Оледяневший Лук из драконьей кости
+item.iceandfire.dragonbone_bow_lightning.name=Грозовой SЛук из драконьей кости
+
 #BANNERS
 item.banner.firedragon.white=Белый огненный дракон
 item.banner.firedragon.orange=Оранжевый огненный дракон

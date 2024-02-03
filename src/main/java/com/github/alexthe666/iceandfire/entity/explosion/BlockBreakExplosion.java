@@ -195,7 +195,6 @@ public class BlockBreakExplosion extends Explosion {
 
     @Override
     public void clearAffectedBlockPositions() {
-        super.clearAffectedBlockPositions();
         this.affectedBlockPositions.clear();
     }
 

@@ -338,6 +338,14 @@ item.iceandfire.dread_queen_staff.name=恐怖の女王の杖
 
 item.iceandfire.custom_banner.jei_desc=旗の模様付けに使えます！
 
+item.iceandfire.dragonbone_arrow_fire.name=燃ドラゴンの骨の矢
+item.iceandfire.dragonbone_arrow_ice.name=凍ドラゴンの骨の矢
+item.iceandfire.dragonbone_arrow_lightning.name=放電ドラゴンの骨の矢
+
+item.iceandfire.dragonbone_bow_fire.name=燃ドラゴンの骨の弓
+item.iceandfire.dragonbone_bow_ice.name=凍ドラゴンの骨の弓
+item.iceandfire.dragonbone_bow_lightning.name=放電ドラゴンの骨の弓
+
 #BANNERS
 item.banner.firedragon.white=白のファイアドラゴン
 item.banner.firedragon.orange=橙のファイアドラゴン

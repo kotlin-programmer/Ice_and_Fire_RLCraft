@@ -22,8 +22,7 @@ public class EntitySeaSerpentArrow extends EntityArrow {
     }
 
     public EntitySeaSerpentArrow(World worldIn, double x, double y, double z) {
-        this(worldIn);
-        this.setPosition(x, y, z);
+        super(worldIn, x, y, z);
         this.setDamage(3F);
     }
 
@@ -35,7 +34,7 @@ public class EntitySeaSerpentArrow extends EntityArrow {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if(world.isRemote && !this.inGround){
+        if (world.isRemote && !this.inGround) {
             double d0 = this.rand.nextGaussian() * 0.02D;
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
@@ -51,7 +50,7 @@ public class EntitySeaSerpentArrow extends EntityArrow {
 
     @Override
     protected void onHit(RayTraceResult raytraceResultIn) {
-        if (raytraceResultIn.entityHit != null && raytraceResultIn.entityHit instanceof EntityPlayer) {
+        if (raytraceResultIn.entityHit instanceof EntityPlayer) {
             this.damageShield((EntityPlayer)raytraceResultIn.entityHit, (float)this.getDamage());
         }
         super.onHit(raytraceResultIn);

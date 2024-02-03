@@ -334,6 +334,14 @@ item.iceandfire.dread_queen_staff.name=Cajado da Rainha Medonha
 
 item.iceandfire.custom_banner.jei_desc=Tem um desenho de estandarte único!
 
+item.iceandfire.dragonbone_arrow_fire.name=Flecha de Osso de Dragão Flamejante
+item.iceandfire.dragonbone_arrow_ice.name=Flecha de Osso de Dragão Congelante
+item.iceandfire.dragonbone_arrow_lightning.name=Flecha de Osso de Dragão Eletrizante
+
+item.iceandfire.dragonbone_bow_fire.name=Arco de Osso de Dragão Flamejante
+item.iceandfire.dragonbone_bow_ice.name=Arco de Osso de Dragão Congelante
+item.iceandfire.dragonbone_bow_lightning.name=Arco de Osso de Dragão Eletrizante
+
 item.iceandfire.ghost_sword.name=Espada Fantasma
 item.iceandfire.ghost_sword.desc_0=Lança uma espada fantasma que atravessa blocos
 item.iceandfire.ectoplasm.name=Ectoplasma

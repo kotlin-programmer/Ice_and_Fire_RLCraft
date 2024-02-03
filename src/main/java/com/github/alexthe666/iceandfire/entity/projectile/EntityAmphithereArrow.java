@@ -24,8 +24,7 @@ public class EntityAmphithereArrow extends EntityArrow {
     }
 
     public EntityAmphithereArrow(World worldIn, double x, double y, double z) {
-        this(worldIn);
-        this.setPosition(x, y, z);
+        super(worldIn, x, y, z);
         this.setDamage(2.5F);
     }
 
@@ -44,7 +43,6 @@ public class EntityAmphithereArrow extends EntityArrow {
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
             this.world.spawnParticle(EnumParticleTypes.CLOUD, this.posX + (double) (this.rand.nextFloat() * this.width * 1.0F) - (double) this.width - d0 * 10.0D, this.posY + (double) (this.rand.nextFloat() * this.height) - d1 * 10.0D, this.posZ + (double) (this.rand.nextFloat() * this.width * 1.0F) - (double) this.width - d2 * 10.0D, d0, d1, d2);
-
         }
     }
 

@@ -270,7 +270,8 @@ public class IceExplosion extends Explosion {
         return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy() : (this.exploder instanceof EntityLivingBase ? (EntityLivingBase) this.exploder : null));
     }
 
-    public void func_180342_d() {
+    @Override
+    public void clearAffectedBlockPositions() {
         this.affectedBlockPositions.clear();
     }
 

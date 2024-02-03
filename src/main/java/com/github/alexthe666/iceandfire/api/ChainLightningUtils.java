@@ -122,6 +122,13 @@ public class ChainLightningUtils {
         }
     }
 
+    public static void attackEntityWithLightningDamage(Entity attacker, EntityLivingBase target) {
+        attackEntityWithLightningDamage(attacker, target, 0, IceAndFireConfig.MISC_SETTINGS.chainLightningDamagePerHop);
+        if (IceAndFireConfig.MISC_SETTINGS.chainLightningParalysis) {
+            applyParalysis(target, 0, IceAndFireConfig.MISC_SETTINGS.chainLightningParalysisTicksPerHop);
+        }
+    }
+
     private static boolean canHurt(EntityLivingBase target, EntityLivingBase attacker) {
         if (target instanceof IDeadMob && ((IDeadMob) target).isMobDead()) {
             return false;
@@ -140,7 +147,7 @@ public class ChainLightningUtils {
         return target instanceof EntityLiving || target instanceof EntityPlayer;
     }
 
-    private static void attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage) {
+    private static void attackEntityWithLightningDamage(Entity attacker, EntityLivingBase target, int hop, float[] damage) {
         // Crab => Larger Crab
         if (EventLiving.isQuarkCrab(target)) {
             strikeWithLightningBolt(target);

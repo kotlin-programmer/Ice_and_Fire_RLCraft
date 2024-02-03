@@ -345,6 +345,14 @@ item.iceandfire.ectoplasm.name=Ectoplasma
 item.iceandfire.ghost_ingot.name=Lingote fantasmal
 item.iceandfire.ghost_ingot.desc_0=§6Drop raro§r
 
+item.iceandfire.dragonbone_arrow_fire.name=Flecha de Dragon flameante
+item.iceandfire.dragonbone_arrow_ice.name=Flecha de Dragon gelida
+item.iceandfire.dragonbone_arrow_lightning.name=Flecha de Dragon electrica
+
+item.iceandfire.dragonbone_bow_fire.name=Arco de Dragon flameante
+item.iceandfire.dragonbone_bow_ice.name=Arco de Dragon gelida
+item.iceandfire.dragonbone_bow_lightning.name=Arco de Dragon electrica
+
 item.iceandfire.dragon_collar.name=Collar de dragon
 
 #BANNERS

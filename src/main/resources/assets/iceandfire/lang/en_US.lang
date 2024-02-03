@@ -355,6 +355,14 @@ item.iceandfire.ectoplasm.name=Ectoplasm
 item.iceandfire.ghost_ingot.name=Phantasmal Ingot
 item.iceandfire.ghost_ingot.desc_0=§6Rare drop§r
 
+item.iceandfire.dragonbone_arrow_fire.name=Flamed Dragon Bone Arrow
+item.iceandfire.dragonbone_arrow_ice.name=Iced Dragon Bone Arrow
+item.iceandfire.dragonbone_arrow_lightning.name=Shocked Dragon Bone Arrow
+
+item.iceandfire.dragonbone_bow_fire.name=Flamed Dragon Bone Bow
+item.iceandfire.dragonbone_bow_ice.name=Iced Dragon Bone Bow
+item.iceandfire.dragonbone_bow_lightning.name=Shocked Dragon Bone Bow
+
 item.iceandfire.dragon_collar.name=Dragon Collar
 
 item.banner.firedragon.white=White Fire Dragon

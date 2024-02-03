@@ -69,6 +69,7 @@ public class FireChargeExplosion extends Explosion {
 	/**
 	 * Does the first part of the explosion (destroy blocks)
 	 */
+	@Override
 	public void doExplosionA() {
 		Set<BlockPos> set = Sets.newHashSet();
 		int i = 16;
@@ -176,6 +177,7 @@ public class FireChargeExplosion extends Explosion {
 		}
 	}
 
+	@Override
 	public void doExplosionB(boolean spawnParticles) {
 		this.worldObj.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
@@ -249,6 +251,7 @@ public class FireChargeExplosion extends Explosion {
 		}
 	}
 
+	@Override
 	public Map<EntityPlayer, Vec3d> getPlayerKnockbackMap() {
 		return this.playerKnockbackMap;
 	}
@@ -256,18 +259,22 @@ public class FireChargeExplosion extends Explosion {
 	/**
 	 * Returns either the entity that placed the explosive block, the entity that caused the explosion or null.
 	 */
+	@Override
 	public EntityLivingBase getExplosivePlacedBy() {
 		return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy() : (this.exploder instanceof EntityLivingBase ? (EntityLivingBase) this.exploder : null));
 	}
 
+	@Override
 	public void clearAffectedBlockPositions() {
 		this.affectedBlockPositions.clear();
 	}
 
+	@Override
 	public List<BlockPos> getAffectedBlockPositions() {
 		return this.affectedBlockPositions;
 	}
 
+	@Override
 	public Vec3d getPosition() {
 		return this.position;
 	}

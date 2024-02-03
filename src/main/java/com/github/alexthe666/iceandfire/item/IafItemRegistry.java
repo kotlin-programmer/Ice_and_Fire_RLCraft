@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonArrow;
 import com.github.alexthe666.iceandfire.enums.*;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -173,8 +174,20 @@ public class IafItemRegistry {
 	public static Item dragonbone_sword_lightning = new ItemAlchemySword(lightningBoneTools, "dragonbone_sword_lightning", "iceandfire.dragonbone_sword_lightning");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_arrow")
 	public static Item dragonbone_arrow = new ItemGeneric("dragonbone_arrow", "iceandfire.dragonbone_arrow");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_arrow_fire")
+	public static Item dragonbone_arrow_fire = new ItemGeneric("dragonbone_arrow_fire", "iceandfire.dragonbone_arrow_fire");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_arrow_ice")
+	public static Item dragonbone_arrow_ice = new ItemGeneric("dragonbone_arrow_ice", "iceandfire.dragonbone_arrow_ice");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_arrow_lightning")
+	public static Item dragonbone_arrow_lightning = new ItemGeneric("dragonbone_arrow_lightning", "iceandfire.dragonbone_arrow_lightning");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_bow")
-	public static Item dragonbone_bow = new ItemDragonBow();
+	public static Item dragonbone_bow = new ItemDragonBow(EntityDragonArrow.Type.DEFAULT, "dragonbone_bow", "iceandfire.dragonbone_bow");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_bow_fire")
+	public static Item dragonbone_bow_fire = new ItemDragonBow(EntityDragonArrow.Type.FIRE, "dragonbone_bow_fire", "iceandfire.dragonbone_bow_fire");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_bow_ice")
+	public static Item dragonbone_bow_ice = new ItemDragonBow(EntityDragonArrow.Type.ICE, "dragonbone_bow_ice", "iceandfire.dragonbone_bow_ice");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone_bow_lightning")
+	public static Item dragonbone_bow_lightning = new ItemDragonBow(EntityDragonArrow.Type.LIGHTNING, "dragonbone_bow_lightning", "iceandfire.dragonbone_bow_lightning");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_skull")
 	public static Item dragon_skull = new ItemDragonSkull();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonarmor_iron")

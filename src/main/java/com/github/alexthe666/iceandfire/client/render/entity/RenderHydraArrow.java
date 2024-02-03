@@ -31,7 +31,6 @@ public class RenderHydraArrow extends Render<EntityHydraArrow> {
         GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder BufferBuilder = tessellator.getBuffer();
-        int i = 0;
         float f = 0.0F;
         float f1 = 0.5F;
         float f2 = 0.0F;
