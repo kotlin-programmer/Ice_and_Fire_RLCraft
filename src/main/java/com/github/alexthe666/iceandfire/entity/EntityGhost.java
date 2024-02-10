@@ -95,12 +95,6 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1D);
     }
 
-    // TODO for what is this
-    //@Override
-    //public void updateAttributes() {
-    //    return bakeAttributes();
-    //}
-
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
         return potioneffectIn.getPotion() != MobEffects.POISON  && potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
     }
@@ -276,7 +270,6 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
 
     @Override
     public void travel(float strafe, float vertical, float forward) {
-        float f4;
         if (this.isDaytimeMode()) {
             super.travel(0, 0, 0);
             return;
@@ -414,35 +407,5 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
                 }
             }
         }
-
-        //origin code
-        /*
-            public void tick() {
-            if (this.action == Action.MOVE_TO) {
-                Vec3d vec3d = new Vec3d(this.getX() - ghost.posX, this.getY() - ghost.posY, this.getZ() - ghost.posZ);
-                double d0 = vec3d.length();
-                double edgeLength = ghost.getEntityBoundingBox().getAverageEdgeLength();
-                if (d0 < edgeLength) {
-                    this.action = Action.WAIT;
-                    ghost.motionX *= 0.5D;
-                    ghost.motionY *= 0.5D;
-                    ghost.motionZ *= 0.5D;
-                } else {
-                    ghost.motionX += vec3d.scale(this.speed * 0.5D * 0.05D / d0).x;
-                    ghost.motionY += vec3d.scale(this.speed * 0.5D * 0.05D / d0).y;
-                    ghost.motionZ += vec3d.scale(this.speed * 0.5D * 0.05D / d0).z;
-                    if (ghost.getAttackTarget() == null) {
-                        Vec3d vec3d1 = new Vec3d(ghost.motionX, ghost.motionY, ghost.motionZ);
-                        ghost.rotationYaw = -((float) MathHelper.atan2(vec3d1.x, vec3d1.z)) * (180F / (float) Math.PI);
-                        ghost.renderYawOffset = ghost.rotationYaw;
-                    } else {
-                        double d4 = ghost.getAttackTarget().posX - ghost.posX;
-                        double d5 = ghost.getAttackTarget().posZ - ghost.posZ;
-                        ghost.rotationYaw = -((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI);
-                        ghost.renderYawOffset = ghost.rotationYaw;
-                    }
-                }
-            }
-        }*/
     }
 }
