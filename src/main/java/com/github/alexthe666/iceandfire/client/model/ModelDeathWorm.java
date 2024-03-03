@@ -256,6 +256,7 @@ public class ModelDeathWorm extends ModelDragonBase {
         animator.move(JawExtender2, 0, 0, -7);
         animator.endKeyframe();
         animator.resetKeyframe(2);
+        animator.update(null);
     }
 
     @Override

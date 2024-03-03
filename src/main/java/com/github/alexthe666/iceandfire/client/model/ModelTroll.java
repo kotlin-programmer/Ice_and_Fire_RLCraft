@@ -336,6 +336,7 @@ public class ModelTroll extends ModelDragonBase {
         animator.setStaticKeyframe(3);
         animator.resetKeyframe(5);
         animator.endKeyframe();
+        animator.update(null);
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityTroll entity) {

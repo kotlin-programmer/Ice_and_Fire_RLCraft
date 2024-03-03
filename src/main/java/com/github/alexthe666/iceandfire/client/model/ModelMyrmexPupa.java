@@ -227,7 +227,6 @@ public class ModelMyrmexPupa extends ModelDragonBase {
         this.resetToDefaultPose();
         setRotationAngles(f, f1, f2, f3, f4, f5, (Entity) entity);
         animator.update(entity);
-        animator.update(entity);
         animator.setAnimation(EntityMyrmexBase.ANIMATION_PUPA_WIGGLE);
         animator.startKeyframe(5);
         ModelUtils.rotate(animator, Body1, 0, -15, 0);
@@ -251,6 +250,7 @@ public class ModelMyrmexPupa extends ModelDragonBase {
         ModelUtils.rotate(animator, Body5, 0, 15, 0);
         animator.endKeyframe();
         animator.resetKeyframe(5);
+        animator.update(null);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.event.StructureGenerator;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.base.Predicate;
@@ -121,14 +122,12 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
         }else if(this.canSeeSky() && !this.hasMadeHome()){
             this.setAnimation(ANIMATION_DIGNEST);
             if(this.getAnimationTick() == 42){
-                WorldGenMyrmexHive hiveGen = new WorldGenMyrmexHive(true, this.isJungle());
                 int down = Math.max(15, this.getPosition().getY() - 20 + this.getRNG().nextInt(10));
                 BlockPos genPos = new BlockPos(this.posX, down, this.posZ);
-                hiveGen.generate(world, this.getRNG(), genPos);
+                StructureGenerator.generateMyrmexHiveForQueen(this, this.getRNG(), genPos);
                 this.setMadeHome(true);
                 this.setLocationAndAngles(genPos.getX(), down, genPos.getZ(), 0, 0);
                 this.addPotionEffect(new PotionEffect(MobEffects.INVISIBILITY, 30));
-                this.setHive(hiveGen.hive);
                 for(int i = 0; i < 3; i++){
                     EntityMyrmexWorker worker = new EntityMyrmexWorker(world);
                     worker.copyLocationAndAnglesFrom(this);

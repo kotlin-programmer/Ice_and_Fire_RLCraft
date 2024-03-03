@@ -16,11 +16,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.*;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 
 public class DragonUtils {
 
@@ -350,5 +350,26 @@ public class DragonUtils {
 			return cyclops.canDismount();
 		}
 		return true;
+	}
+
+	public static boolean canHostilesTarget(Entity entity) {
+		if (entity instanceof EntityPlayer && entity.world.getDifficulty() == EnumDifficulty.PEACEFUL) {
+			return false;
+		} else {
+			return entity instanceof EntityLivingBase && isAlive((EntityLivingBase) entity);
+		}
+	}
+
+	public static BlockPos getBlockInTargetsViewGhost(EntityGhost ghost, EntityLivingBase target) {
+		float radius = 4 + ghost.getRNG().nextInt(5);
+		float angle = (0.01745329251F * (target.rotationYawHead + 90F + ghost.getRNG().nextInt(180)));
+		double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
+		double extraZ = radius * MathHelper.cos(angle);
+		BlockPos radialPos = new BlockPos(target.posX + extraX, target.posY, target.posZ + extraZ);
+		BlockPos ground = radialPos;
+		if (ghost.getDistanceSq(ground) > 30) {
+			return ground;
+		}
+		return ghost.getPosition();
 	}
 }

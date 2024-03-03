@@ -117,4 +117,8 @@ public class IceAndFireTabulaModel extends AdvancedModelBase {
     public Map<String, AdvancedModelRenderer> getCubes() {
         return this.cubes;
     }
+
+    public void reset() {
+        this.llibAnimator.update(null);
+    }
 }

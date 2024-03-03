@@ -347,8 +347,7 @@ public class ModelMyrmexSentinel extends ModelMyrmexBase {
         ModelUtils.rotateFrom(animator, legBottomR1_1, 70, -20, 0);
         animator.endKeyframe();
         animator.resetKeyframe(5);
-
-
+        animator.update(null);
     }
 
     @Override

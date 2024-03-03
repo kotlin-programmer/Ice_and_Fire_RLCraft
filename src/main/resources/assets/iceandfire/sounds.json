@@ -851,5 +851,61 @@
       "iceandfire:lightning_strike_3",
       "iceandfire:lightning_strike_4"
     ]
+  },
+  "dread_lich_summon": {
+    "category": "neutral",
+    "sounds": [
+      "iceandfire:dread_lich_summon_0",
+      "iceandfire:dread_lich_summon_1"
+    ]
+  },
+  "dread_ghoul_idle": {
+    "category": "neutral",
+    "sounds": [
+      "iceandfire:dread_ghoul_idle_0",
+      "iceandfire:dread_ghoul_idle_1"
+    ]
+  },
+  "ghost_jumpscare": {
+    "category": "hostile",
+    "sounds": [
+      "iceandfire:ghost/jumpscare"
+    ]
+  },
+  "ghost_attack": {
+    "category": "hostile",
+    "sounds": [
+      "iceandfire:ghost/attack_0",
+      "iceandfire:ghost/attack_1"
+    ]
+  },
+  "ghost_idle": {
+    "category": "hostile",
+    "sounds": [
+      "iceandfire:ghost/idle_0",
+      "iceandfire:ghost/idle_1",
+      "iceandfire:ghost/idle_2"
+    ]
+  },
+  "ghost_hurt": {
+    "category": "hostile",
+    "sounds": [
+      "iceandfire:ghost/hurt_0",
+      "iceandfire:ghost/hurt_1"
+    ]
+  },
+  "ghost_die": {
+    "category": "hostile",
+    "sounds": [
+      "iceandfire:ghost/hurt_0",
+      "iceandfire:ghost/hurt_1"
+    ]
+  },
+  "bestiary_page": {
+  "category": "neutral",
+  "sounds": [
+    "iceandfire:bestiary_page_0",
+    "iceandfire:bestiary_page_1"
+    ]
   }
 }

@@ -284,6 +284,7 @@ public class ModelGorgon extends ModelDragonBase {
 		this.rotate(animator, Right_Arm, -120F, 0F, 0F);
 		animator.endKeyframe();
 		animator.resetKeyframe(5);
+		animator.update(null);
 	}
 
 	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityGorgon entity) {

@@ -343,6 +343,7 @@ public class ModelStymphalianBird extends ModelDragonBase {
         shootPosture();
         animator.endKeyframe();
         animator.resetKeyframe(10);
+        animator.update(null);
     }
 
     private void shootPosture() {

@@ -261,7 +261,7 @@ public class ModelMyrmexWorker extends ModelMyrmexBase {
         ModelUtils.rotateFrom(animator, legMidR1_1, 0, 0, -45);
         animator.endKeyframe();
         animator.resetKeyframe(10);
-
+        animator.update(null);
     }
 
 

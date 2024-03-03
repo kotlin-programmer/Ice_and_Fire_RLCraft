@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.core.ModSounds;
 import com.github.alexthe666.iceandfire.entity.ai.TrollAIFleeSun;
 import com.github.alexthe666.iceandfire.entity.explosion.BlockBreakExplosion;
+import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -49,7 +50,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillagerFear {
+public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillagerFear, IHumanoid {
 
     private int animationTick;
     private Animation currentAnimation;
@@ -75,9 +76,10 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
     }
 
 
+    @Override
     public boolean getCanSpawnHere() {
         BlockPos pos = new BlockPos(this);
-        return this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance + 1) == 0 && !this.world.canSeeSky(pos) && pos.getY() <= 50 && super.getCanSpawnHere();
+        return this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance) == 0 && !this.world.canSeeSky(pos) && super.getCanSpawnHere();
     }
 
     @Override
@@ -190,7 +192,7 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
 
     @Nullable
     protected ResourceLocation getLootTable() {
-        switch(this.getType()){
+        switch (this.getType()) {
             case MOUNTAIN:
                return MOUNTAIN_LOOT;
             case FROST:

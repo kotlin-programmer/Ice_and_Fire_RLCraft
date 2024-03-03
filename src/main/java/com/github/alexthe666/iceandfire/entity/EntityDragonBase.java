@@ -1203,6 +1203,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
+        this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
         if (this.isBreathingFire() && burnProgress < 40) {
             burnProgress++;
         } else if (!this.isBreathingFire()) {
@@ -1312,7 +1313,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (motionY < -0.5) {
             this.motionY = -0.5;
         }
-        this.updateCheckPlayer();
+        if (!this.isTamed()) {
+            this.updateCheckPlayer();
+        }
         AnimationHandler.INSTANCE.updateAnimations(this);
         this.legSolver.update(this);
         prevFlightCycle = flightCycle;
@@ -1653,7 +1656,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
                 passenger.setPosition(this.posX + extraX, this.posY + extraY, this.posZ + extraZ);
 
-                this.stepHeight = 1;
+                this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
             }
         }
     }
@@ -1768,7 +1771,14 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             this.roar();
         }
         if (i > 0) {
-            this.setSleeping(false);
+            if(this.isSleeping()){
+                this.setSleeping(false);
+                if(!this.isTamed()){
+                    if(dmg.getTrueSource() instanceof EntityPlayer){
+                        this.setAttackTarget((EntityPlayer)dmg.getTrueSource());
+                    }
+                }
+            }
         }
         return super.attackEntityFrom(dmg, i);
 
@@ -2038,7 +2048,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             RayTraceResult rayTrace = world.rayTraceBlocks(new Vec3d(this.getPosition()), target, false);
             if (rayTrace != null && rayTrace.hitVec != null) {
                 BlockPos pos = new BlockPos(rayTrace.hitVec);
-                if (!world.isAirBlock(pos) || world.getBlockState(pos).getMaterial() == Material.WATER && dragonType != EnumDragonType.FIRE) {
+                if (!world.isAirBlock(pos) || world.getBlockState(pos).getMaterial() == Material.WATER && dragonType == EnumDragonType.ICE) {
                     return true;
                 }
                 return rayTrace.typeOfHit != RayTraceResult.Type.BLOCK;
@@ -2208,8 +2218,8 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public void updateCheckPlayer() {
         double checklength = this.getEntityBoundingBox().getAverageEdgeLength() * 3;
         EntityPlayer player = world.getClosestPlayerToEntity(this, checklength);
-        if (!this.isTamed() && this.isSleeping()) {
-            if (player != null && !this.isOwner(player) && !player.capabilities.isCreativeMode) {
+        if (this.isSleeping()) {
+            if (player != null && !this.isOwner(player) && !player.isCreative()) {
                 this.setSleeping(false);
                 this.setSitting(false);
                 this.setAttackTarget(player);

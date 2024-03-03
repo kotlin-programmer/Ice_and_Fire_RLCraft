@@ -338,6 +338,19 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 0, max = 10)
 		public int trollSpawnCheckChance = 1;
 
+		@Config.Comment("Troll spawn check maximum height")
+		@Config.Name("Troll Spawn Check Height")
+		@Config.RangeInt(min = 0, max = 255)
+		public int trollSpawnCheckHeight = 50;
+
+		@Config.Comment("Troll spawn check maximum height for a given biome name, in the format name=height (Overrides general Troll Spawn Check Height")
+		@Config.Name("Troll Spawn Check Height For Biome")
+		public String[] trollSpawnCheckHeightForBiome = {""};
+
+		@Config.Comment("Troll spawn type for a given biome name, in the format name=type ('mountain', 'frost', or 'forest')")
+		@Config.Name("Troll Spawn Type For Biome")
+		public String[] trollSpawnTypeForBiome = {""};
+
 		@Config.Comment("Should InF spawn Amphitheres")
 		@Config.Name("Spawn Amphitheres")
 		public boolean spawnAmphitheres = true;
@@ -346,6 +359,24 @@ public class IceAndFireConfig {
 		@Config.Name("Amphithere Spawn Weight")
 		@Config.RangeInt(min = 1, max = 10000)
 		public int amphithereSpawnRate = 10;
+
+		@Config.Comment("True if allow spawn ghost when player death")
+		@Config.Name("Player Death Spawns Ghost")
+		public boolean ghostSpawnFromPlayerDeaths = false;
+
+		@Config.Comment("Chance graveyard soil spawn a ghost, Higher number = more rare")
+		@Config.Name("Ghost Spawn Rate At Graveyard Soid")
+		@Config.RangeInt(min = 1, max = 100)
+		public int ghostSpawnChanceFromGraveyardSoil = 9;
+
+		@Config.Comment("Should InF spawn Dread Liches")
+		@Config.Name("Spawn Dread Liches")
+		public boolean spawnLiches = true;
+
+		@Config.Comment("Dread Lich spawn weight, larger number is more common")
+		@Config.Name("Dread Lich Spawn Weight")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int lichSpawnRate = 2;
 	}
 
 	public static class DragonConfig {
@@ -731,6 +762,17 @@ public class IceAndFireConfig {
 		@Config.Name("Hydra Breath Attack Damage")
 		@Config.RangeDouble(min = 1, max = 1000)
 		public float hydraBreathAttackDamage = 1F;
+
+
+		@Config.Comment("Maximum ghost health.")
+		@Config.Name("Ghost Max Health")
+		@Config.RangeDouble(min = 1F, max = 10000F)
+		public float ghostMaxHealth = 30f;
+
+		@Config.Comment("Maximum ghost attack strength.")
+		@Config.Name("Ghost Attack Strength")
+		@Config.RangeDouble(min = 0F, max = 10000F)
+		public float ghostAttackStrength = 3f;
 	}
 
 	public static class MiscConfig {
@@ -827,6 +869,8 @@ public class IceAndFireConfig {
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
 	private static HashSet<String> myrmexDisabledNames = null;
+	private static HashMap<String, Integer> trollSpawnCheckHeight = null;
+	private static HashMap<String, String> trollSpawnCheckType = null;
 	private static HashSet<BiomeDictionary.Type> myrmexDisabledTypes = null;
 	private static HashSet<String> dragonDisabledNames = null;
 	private static HashSet<BiomeDictionary.Type> dragonDisabledTypes = null;
@@ -858,6 +902,18 @@ public class IceAndFireConfig {
 		for(String string : WORLDGEN.generateMyrmexDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
 		myrmexDisabledTypes = set;
 		return myrmexDisabledTypes;
+	}
+
+	public static HashMap<String, Integer> getTrollSpawnHeight() {
+		if(trollSpawnCheckHeight != null) return trollSpawnCheckHeight;
+		trollSpawnCheckHeight = mapNameInteger(ENTITY_SPAWNING.trollSpawnCheckHeightForBiome);
+		return trollSpawnCheckHeight;
+	}
+
+	public static HashMap<String, String> getTrollSpawnType() {
+		if(trollSpawnCheckType != null) return trollSpawnCheckType;
+		trollSpawnCheckType = mapNameString(ENTITY_SPAWNING.trollSpawnTypeForBiome);
+		return trollSpawnCheckType;
 	}
 
 	public static HashSet<String> getDragonDisabledNames() {
@@ -928,8 +984,22 @@ public class IceAndFireConfig {
 			try {
 				map.put(split[0], Integer.parseInt(split[1]));
 			} catch (NumberFormatException e) {
-				IceAndFire.logger.error("Failed to parse biome name mapping, invalid chance: " + biomeNameMapping);
+				IceAndFire.logger.error("Failed to parse biome name mapping, invalid integer: " + biomeNameMapping);
 			}
+		}
+		return map;
+	}
+
+	private static HashMap<String, String> mapNameString(String[] mappings) {
+		HashMap<String, String> map = new HashMap<>();
+		for(String biomeNameMapping : mappings) {
+			if(StringUtils.isNullOrEmpty(biomeNameMapping)) continue;
+			String[] split = biomeNameMapping.split("=");
+			if(split.length != 2 || split[0].isEmpty() || split[1].isEmpty()) {
+				IceAndFire.logger.error("Failed to parse biome name mapping: " + biomeNameMapping);
+				continue;
+			}
+			map.put(split[0], split[1]);
 		}
 		return map;
 	}

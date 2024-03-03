@@ -12,12 +12,13 @@ import com.github.alexthe666.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
 import com.github.alexthe666.iceandfire.entity.ai.VillagerAIFearUntamed;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
+import com.github.alexthe666.iceandfire.item.ItemGhostSword;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemTideTrident;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
+import com.github.alexthe666.iceandfire.message.MessageSwingArm;
 import net.minecraft.block.BlockChest;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -35,14 +36,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.storage.loot.LootEntryItem;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
+import net.minecraft.world.storage.loot.conditions.RandomChance;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -61,7 +63,6 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 public class EventLiving {
@@ -197,6 +198,26 @@ public class EventLiving {
 			}
 		}
 
+	}
+
+	@SubscribeEvent
+	public void onEntityCheckSpawn(LivingSpawnEvent.CheckSpawn event) {
+		if (event.getEntity() instanceof EntityTroll) {
+			if (!event.isSpawner()) {
+				BlockPos pos = new BlockPos(event.getX(), event.getY(), event.getZ());
+				int spawnCheckHeight = IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckHeight;
+				if (!IceAndFireConfig.getTrollSpawnHeight().isEmpty()) {
+					Biome biome = event.getWorld().getBiome(pos);
+					String biomeName =  biome.getRegistryName() != null ? biome.getRegistryName().toString() : null;
+					if (biomeName != null && IceAndFireConfig.getTrollSpawnHeight().containsKey(biomeName)) {
+						spawnCheckHeight = IceAndFireConfig.getTrollSpawnHeight().get(biomeName);
+					}
+				}
+				if (spawnCheckHeight == 0 || pos.getY() <= spawnCheckHeight) {
+					event.setResult(Event.Result.DENY);
+				}
+			}
+		}
 	}
 
 	@SubscribeEvent
@@ -443,6 +464,20 @@ public class EventLiving {
 		}
 	}
 
+	public static void onLeftClick(final EntityPlayer playerEntity, final ItemStack stack) {
+		if (stack.getItem() == ModItems.ghost_sword && !playerEntity.world.isRemote) {
+			ItemGhostSword.spawnGhostSwordEntity(stack, playerEntity);
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
+		onLeftClick(event.getEntityPlayer(), event.getItemStack());
+		if (event.getWorld().isRemote) {
+			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageSwingArm());
+		}
+	}
+
 	@SubscribeEvent
 	public void onBreakBlock(BlockEvent.BreakEvent event) {
 		if (event.getPlayer() != null && (event.getState().getBlock() == ModBlocks.goldPile || event.getState().getBlock() == ModBlocks.silverPile)) {
@@ -466,11 +501,29 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onChestGenerated(LootTableLoadEvent event) {
-		if (event.getName().equals(LootTableList.CHESTS_SIMPLE_DUNGEON)) {
-			final LootPool pool1 = event.getTable().getPool("pool1");
-			if (pool1 != null) {
-				pool1.addEntry(new LootEntryItem(ModItems.manuscript, 10, 5, new LootFunction[0], new LootCondition[0], "iceandfire:manuscript"));
-			}
+		final ResourceLocation eventName = event.getName();
+		final boolean baseConditionSet = eventName.equals(LootTableList.CHESTS_SIMPLE_DUNGEON)
+				|| eventName.equals(LootTableList.CHESTS_ABANDONED_MINESHAFT)
+				|| eventName.equals(LootTableList.CHESTS_DESERT_PYRAMID)
+				|| eventName.equals(LootTableList.CHESTS_JUNGLE_TEMPLE)
+				|| eventName.equals(LootTableList.CHESTS_STRONGHOLD_CORRIDOR)
+				|| eventName.equals(LootTableList.CHESTS_STRONGHOLD_CROSSING);
+		final boolean copperConditionSet = baseConditionSet
+				|| eventName.equals(LootTableList.CHESTS_IGLOO_CHEST)
+				|| eventName.equals(LootTableList.CHESTS_WOODLAND_MANSION)
+				|| eventName.equals(LootTableList.CHESTS_VILLAGE_BLACKSMITH);
+
+		if (baseConditionSet) {
+			LootCondition chance = new RandomChance(0.35f);
+			LootEntryItem item = new LootEntryItem(ModItems.manuscript, 20, 5, new LootFunction[0], new LootCondition[0], "iceandfire:manuscript");
+			LootPool pool = new LootPool(new LootEntry[]{item}, new LootCondition[]{chance}, new RandomValueRange(1, 4), new RandomValueRange(0, 3), "iaf_manuscript");
+			event.getTable().addPool(pool);
+		}
+		if (copperConditionSet && IceAndFireConfig.WORLDGEN.generateCopperOre) {
+			LootCondition chance = new RandomChance(0.6f);
+			LootEntryItem ingot = new LootEntryItem(ModItems.copperIngot, 10, 14, new LootFunction[0], new LootCondition[0], "iceandfire:copper_ingot");
+			LootPool pool = new LootPool(new LootEntry[]{ingot}, new LootCondition[]{chance}, new RandomValueRange(1, 3), new RandomValueRange(0, 3), "iaf_copper");
+			event.getTable().addPool(pool);
 		}
 	}
 

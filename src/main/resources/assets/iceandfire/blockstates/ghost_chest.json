@@ -1,0 +1,16 @@
+{
+    "variants": {
+      "facing=north": {
+        "model": "iceandfire:ghost_chest"
+      },
+      "facing=west": {
+        "model": "iceandfire:ghost_chest"
+      },
+      "facing=east": {
+        "model": "iceandfire:ghost_chest"
+      },
+      "facing=south": {
+        "model": "iceandfire:ghost_chest"
+      }
+    }
+  }

@@ -255,6 +255,7 @@ public class ModelHippocampus extends ModelDragonBase {
         this.rotate(animator, BottomJaw, 20, 0, 0);
         animator.endKeyframe();
         animator.resetKeyframe(5);
+        animator.update(null);
     }
 
     @Override

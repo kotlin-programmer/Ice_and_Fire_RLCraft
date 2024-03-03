@@ -45,7 +45,7 @@ public class IceDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator 
     @Override
     public void setRotationAngles(IceAndFireTabulaModel model, EntityIceDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
-        animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
+        animate(model, entity);
         boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress <= 0 && entity.flyProgress <= 0;
         boolean swimming = entity.isInWater() && entity.swimProgress > 0;
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
@@ -260,7 +260,7 @@ public class IceDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator 
         return modelRenderer.boxName.contains("Horn");
     }
 
-    public void animate(IceAndFireTabulaModel model, EntityIceDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
+    public void animate(IceAndFireTabulaModel model, EntityIceDragon entity) {
         model.llibAnimator.update(entity);
         model.llibAnimator.setAnimation(EntityIceDragon.ANIMATION_FIRECHARGE);
         model.llibAnimator.startKeyframe(10);
@@ -389,5 +389,6 @@ public class IceDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator 
         model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(10);
+        model.reset();
     }
 }

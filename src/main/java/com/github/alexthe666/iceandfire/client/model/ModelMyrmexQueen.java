@@ -339,6 +339,7 @@ public class ModelMyrmexQueen extends ModelMyrmexBase {
             this.increaseScale(Tail3, 0.75F * (float) Math.abs(Math.sin(swellToPi - 1.0F)));
             this.Stinger.rotationPointZ += 10 * (float) Math.abs(Math.sin(swellToPi - 1.0F));
         }
+        animator.update(null);
     }
 
     @Override

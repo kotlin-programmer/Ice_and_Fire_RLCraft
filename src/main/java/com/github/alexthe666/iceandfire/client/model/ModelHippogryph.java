@@ -548,6 +548,7 @@ public class ModelHippogryph extends ModelDragonBase {
 		this.rotate(animator, BackLegR1_1, -50, 0, 0);
 		animator.endKeyframe();
 		animator.resetKeyframe(5);
+		animator.update(null);
 	}
 
 	@Override

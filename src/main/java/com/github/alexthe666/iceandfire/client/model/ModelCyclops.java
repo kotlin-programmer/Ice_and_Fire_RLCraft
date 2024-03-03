@@ -363,7 +363,7 @@ public class ModelCyclops extends ModelDragonBase {
         animator.resetKeyframe(5);
         this.Loin.rotateAngleX = Math.min(0, Math.min(this.leftleg.rotateAngleX, this.rightleg.rotateAngleX));
         this.LoinBack.rotateAngleX = this.Loin.rotateAngleX - Math.max(this.leftleg.rotateAngleX, this.rightleg.rotateAngleX);
-
+        animator.update(null);
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityCyclops entity) {

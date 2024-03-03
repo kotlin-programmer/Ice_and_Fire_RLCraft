@@ -44,7 +44,7 @@ public class FireDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator
     @Override
     public void setRotationAngles(IceAndFireTabulaModel model, EntityFireDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
-        animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
+        animate(model, entity);
         boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress <= 0 && entity.flyProgress <= 0;
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
         int prevIndex = currentIndex - 1;
@@ -221,11 +221,10 @@ public class FireDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator
     }
 
     private boolean isWing(IceAndFireTabulaModel model, AdvancedModelRenderer modelRenderer) {
-
         return model.getCube("armL1") == modelRenderer || model.getCube("armR1") == modelRenderer || model.getCube("armL1").childModels.contains(modelRenderer) || model.getCube("armR1").childModels.contains(modelRenderer);
     }
 
-    public void animate(IceAndFireTabulaModel model, EntityFireDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
+    public void animate(IceAndFireTabulaModel model, EntityFireDragon entity) {
         model.llibAnimator.update(entity);
         model.llibAnimator.setAnimation(EntityFireDragon.ANIMATION_FIRECHARGE);
         model.llibAnimator.startKeyframe(10);
@@ -354,5 +353,6 @@ public class FireDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator
         model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(10);
+        model.reset();
     }
 }

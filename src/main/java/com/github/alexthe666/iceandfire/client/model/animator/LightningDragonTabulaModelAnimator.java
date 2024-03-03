@@ -233,16 +233,18 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
     }
 
     private void genderMob(EntityLightningDragon entity, AdvancedModelRenderer cube) {
-        AdvancedModelRenderer maleBox = EnumDragonAnimations.MALE.lightningdragon_model.getCube(cube.boxName);
-        AdvancedModelRenderer femaleBox = EnumDragonAnimations.FEMALE.lightningdragon_model.getCube(cube.boxName);
-        if (maleBox == null || femaleBox == null) {
-            return;
-        }
-        float x = femaleBox.rotateAngleX;
-        float y = femaleBox.rotateAngleY;
-        float z = femaleBox.rotateAngleZ;
-        if (x != maleBox.rotateAngleX || y != maleBox.rotateAngleY || z != maleBox.rotateAngleZ) {
-            this.setRotateAngle(cube, 1F, x, y, z);
+        if (!entity.isMale()) {
+            AdvancedModelRenderer maleBox = EnumDragonAnimations.MALE.lightningdragon_model.getCube(cube.boxName);
+            AdvancedModelRenderer femaleBox = EnumDragonAnimations.FEMALE.lightningdragon_model.getCube(cube.boxName);
+            if (maleBox == null || femaleBox == null) {
+                return;
+            }
+            float x = femaleBox.rotateAngleX;
+            float y = femaleBox.rotateAngleY;
+            float z = femaleBox.rotateAngleZ;
+            if (x != maleBox.rotateAngleX || y != maleBox.rotateAngleY || z != maleBox.rotateAngleZ) {
+                this.setRotateAngle(cube, 1F, x, y, z);
+            }
         }
     }
 
@@ -390,5 +392,6 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(10);
+        model.reset();
     }
 }

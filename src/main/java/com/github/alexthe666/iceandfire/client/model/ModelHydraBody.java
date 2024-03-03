@@ -20,7 +20,6 @@ public class ModelHydraBody extends ModelDragonBase {
     public AdvancedModelRenderer TailSpike1;
     public AdvancedModelRenderer TailSpike2;
     public AdvancedModelRenderer TailSpike3;
-    private final ModelAnimator animator;
 
     public ModelHydraBody() {
         this.textureWidth = 256;
@@ -86,7 +85,6 @@ public class ModelHydraBody extends ModelDragonBase {
         this.BodyUpper.addChild(this.BodyLower);
         this.Tail4.addChild(this.TailSpike1);
         this.Tail1.addChild(this.Tail2);
-        animator = ModelAnimator.create();
         this.updateDefaultPose();
     }
 
@@ -99,7 +97,6 @@ public class ModelHydraBody extends ModelDragonBase {
     public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.resetToDefaultPose();
         setRotationAngles(f, f1, f2, f3, f4, f5, (EntityHydra) entity);
-        animator.update(entity);
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityHydra entity) {

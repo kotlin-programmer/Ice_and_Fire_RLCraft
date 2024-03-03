@@ -63,12 +63,4 @@ public class DragonAIWander extends EntityAIBase {
 	public void startExecuting() {
 		this.dragon.getNavigator().tryMoveToXYZ(this.xPosition, this.yPosition, this.zPosition, this.speed);
 	}
-
-	public void makeUpdate() {
-		this.mustUpdate = true;
-	}
-
-	public void setExecutionChance(int newchance) {
-		this.executionChance = newchance;
-	}
 }

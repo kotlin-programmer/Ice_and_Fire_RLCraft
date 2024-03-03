@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.item.ItemTrollLeather;
@@ -55,9 +56,19 @@ public enum EnumTroll {
     }
 
     public static EnumTroll getBiomeType(Biome biome) {
+        if (!IceAndFireConfig.getTrollSpawnType().isEmpty()) {
+            String biomeName =  biome.getRegistryName() != null ? biome.getRegistryName().toString() : null;
+            if (IceAndFireConfig.getTrollSpawnType().containsKey(biomeName)) {
+                String value = IceAndFireConfig.getTrollSpawnType().get(biomeName);
+                EnumTroll type = getType(value);
+                if (type != null) {
+                    return type;
+                }
+            }
+        }
         List<EnumTroll> types = new ArrayList<EnumTroll>();
         for (EnumTroll type : values()) {
-            if(BiomeDictionary.hasType(biome, type.spawnBiome)){
+            if (BiomeDictionary.hasType(biome, type.spawnBiome)) {
                 types.add(type);
             }
         }
@@ -68,10 +79,18 @@ public enum EnumTroll {
         }
     }
 
-
-
     public static Weapon getWeaponForType(EnumTroll troll){
         return troll.weapons[new Random().nextInt(troll.weapons.length)];
+    }
+
+    private static EnumTroll getType(String value) {
+        EnumTroll type = null;
+        try {
+            type = EnumTroll.valueOf(value.toUpperCase());
+        } catch (Exception e) {
+            IceAndFire.logger.error("Invalid troll spawn type: " + value);
+        }
+        return type;
     }
 
     public enum Weapon {

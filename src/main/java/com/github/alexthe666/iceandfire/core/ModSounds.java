@@ -29,7 +29,7 @@ public final class ModSounds {
 	public static final SoundEvent LIGHTNINGDRAGON_BREATH = createSoundEvent("lightningdragon_breath");
 
 	@GameRegistry.ObjectHolder("lightningdragon_breath_short")
-	public static final SoundEvent LIGHTNINGDRAGON_BREATH_SHORT = createSoundEvent("lightningdragon_breath_short_short");
+	public static final SoundEvent LIGHTNINGDRAGON_BREATH_SHORT = createSoundEvent("lightningdragon_breath_short");
 
 	@GameRegistry.ObjectHolder("firedragon_child_idle")
 	public static final SoundEvent FIREDRAGON_CHILD_IDLE = createSoundEvent("firedragon_child_idle");
@@ -368,6 +368,30 @@ public final class ModSounds {
 
 	@GameRegistry.ObjectHolder("lightning_strike")
 	public static final SoundEvent LIGHTNING_STRIKE = createSoundEvent("lightning_strike");
+
+	@GameRegistry.ObjectHolder("dread_lich_summon")
+	public static final SoundEvent DREAD_LICH_SUMMON = createSoundEvent("dread_lich_summon");
+
+	@GameRegistry.ObjectHolder("dread_ghoul_idle")
+	public static final SoundEvent DREAD_GHOUL_IDLE = createSoundEvent("dread_ghoul_idle");
+
+  @GameRegistry.ObjectHolder("bestiary_page")
+	public static final SoundEvent BESTIARY_PAGE = createSoundEvent("bestiary_page");
+
+  @GameRegistry.ObjectHolder("ghost_idle")
+	public static final SoundEvent GHOST_IDLE = createSoundEvent("ghost_idle");
+
+	@GameRegistry.ObjectHolder("ghost_hurt")
+	public static final SoundEvent GHOST_HURT = createSoundEvent("ghost_hurt");
+
+	@GameRegistry.ObjectHolder("ghost_die")
+	public static final SoundEvent GHOST_DIE = createSoundEvent("ghost_die");
+
+	@GameRegistry.ObjectHolder("ghost_attack")
+	public static final SoundEvent GHOST_ATTACK = createSoundEvent("ghost_attack");
+
+	@GameRegistry.ObjectHolder("ghost_jumpscare")
+	public static final SoundEvent GHOST_JUMPSCARE = createSoundEvent("ghost_jumpscare");
 
 	private static SoundEvent createSoundEvent(final String soundName) {
 		final ResourceLocation soundID = new ResourceLocation(MODID, soundName);

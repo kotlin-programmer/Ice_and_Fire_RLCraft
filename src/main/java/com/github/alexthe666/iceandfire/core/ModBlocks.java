@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.*;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDummyGorgonHead;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDummyGorgonHeadActive;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityGhostChest;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import net.minecraft.block.Block;
@@ -155,9 +156,13 @@ public class ModBlocks {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":myrmex_jungle_resin_glass")
 	public static Block myrmex_jungle_resin_glass = new BlockMyrmexConnectedResin(true, true);
 
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_chest")
+	public static Block ghost_chest = new com.github.alexthe666.iceandfire.block.BlockGhostChest();
+
 	static {
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHead.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadIdle"));
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHeadActive.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadActive"));
 		GameRegistry.registerTileEntity(TileEntityMyrmexCocoon.class, new ResourceLocation(IceAndFire.MODID, "myrmexCocoon"));
+		GameRegistry.registerTileEntity(TileEntityGhostChest.class, new ResourceLocation(IceAndFire.MODID, "ghostChest"));
 	}
 }

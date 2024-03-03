@@ -110,6 +110,7 @@ public class ModelMyrmexLarva extends ModelDragonBase {
         ModelUtils.rotate(animator, Body5_1, 0, 15, 0);
         animator.endKeyframe();
         animator.resetKeyframe(5);
+        animator.update(null);
     }
 
     @Override

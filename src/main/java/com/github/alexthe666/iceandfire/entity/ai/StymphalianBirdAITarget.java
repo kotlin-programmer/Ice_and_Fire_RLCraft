@@ -27,12 +27,10 @@ public class StymphalianBirdAITarget<T extends EntityLivingBase> extends EntityA
         this.bird = entityIn;
     }
 
-
-
     @Override
     public boolean shouldExecute() {
         boolean supe = super.shouldExecute();
-        if(targetEntity != null && bird.getVictor() != null && bird.getVictor().getUniqueID().equals(targetEntity.getUniqueID())){
+        if (targetEntity != null && bird.getVictor() != null && bird.getVictor().getUniqueID().equals(targetEntity.getUniqueID())){
             return false;
         }
         return supe && this.targetEntity != null && !this.targetEntity.getClass().equals(this.bird.getClass());

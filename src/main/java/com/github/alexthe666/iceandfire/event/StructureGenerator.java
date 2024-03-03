@@ -38,8 +38,8 @@ public class StructureGenerator implements IWorldGenerator {
 
 	private static final MapGenSnowVillage SNOW_VILLAGE = new MapGenSnowVillage();
 	private static final MapGenPixieVillage PIXIE_VILLAGE = new MapGenPixieVillage();
-	private static final WorldGenMyrmexHive JUNGLE_MYRMEX_HIVE = new WorldGenMyrmexHive(false, true);
-	private static final WorldGenMyrmexHive DESERT_MYRMEX_HIVE = new WorldGenMyrmexHive(false, false);
+	private static final WorldGenMyrmexHive JUNGLE_MYRMEX_HIVE = new WorldGenMyrmexHive(true);
+	private static final WorldGenMyrmexHive DESERT_MYRMEX_HIVE = new WorldGenMyrmexHive(false);
 	private static final WorldGenFireDragonCave FIRE_DRAGON_CAVE = new WorldGenFireDragonCave();
 	private static final WorldGenFireDragonRoost FIRE_DRAGON_ROOST = new WorldGenFireDragonRoost();
 	private static final WorldGenIceDragonCave ICE_DRAGON_CAVE = new WorldGenIceDragonCave();
@@ -317,6 +317,14 @@ public class StructureGenerator implements IWorldGenerator {
 					world.setBlockState(surface.up(), ModBlocks.fire_lily.getDefaultState());
 				}
 			}
+		}
+	}
+
+	public static void generateMyrmexHiveForQueen(EntityMyrmexQueen queen, Random rand, BlockPos position) {
+		if (queen.isJungle()) {
+			JUNGLE_MYRMEX_HIVE.generateForQueen(queen, rand, position);
+		} else {
+			DESERT_MYRMEX_HIVE.generateForQueen(queen, rand, position);
 		}
 	}
 
