@@ -41,7 +41,7 @@ public class BlockDragonOre extends Block {
     @Override
     public int getExpDrop(IBlockState state, net.minecraft.world.IBlockAccess world, BlockPos pos, int fortune) {
         Random rand = world instanceof World ? ((World) world).rand : new Random();
-        if (this.dropItem != Item.getItemFromBlock(this)) {
+        if (this.dropItem != null && this.dropItem != Item.getItemFromBlock(this)) {
             return MathHelper.getInt(rand, 3, 7);
         }
         return 0;
