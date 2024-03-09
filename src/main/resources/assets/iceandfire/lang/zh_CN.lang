@@ -256,6 +256,7 @@ item.iceandfire.hydra_arrow.desc=施加中毒并从目标身上吸取生命值
 item.iceandfire.tide_trident.name=海潮三叉戟
 item.iceandfire.tide_trident.desc_0=在水下造成更多伤害
 item.iceandfire.tide_trident.desc_1=扔到水下时会造成更多伤害
+item.iceandfire.tide_trident.not_original=无法修复或附魔
 
 item.banner.firedragon.white=白色龙炎弹
 item.banner.firedragon.orange=橙色龙炎弹

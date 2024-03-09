@@ -280,6 +280,7 @@ item.iceandfire.hydra_arrow.desc=毒を与え、対象のハートを奪う
 item.iceandfire.tide_trident.name=タイドトライデント
 item.iceandfire.tide_trident.desc_0=水中に投げられるとより多くのダメージを与えます0
 item.iceandfire.tide_trident.desc_1=複数の敵を貫通する
+item.iceandfire.tide_trident.not_original=修理もエンチャントもできない
 
 item.banner.firedragon.white=白のファイアドラゴン柄
 item.banner.firedragon.orange=橙のファイアドラゴン柄

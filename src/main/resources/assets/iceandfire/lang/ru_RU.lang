@@ -280,6 +280,7 @@ item.iceandfire.hydra_arrow.desc=Отправляет и крадет здоро
 item.iceandfire.tide_trident.name=Трезубец Волны
 item.iceandfire.tide_trident.desc_0=Наносит больше урона при броске под воду
 item.iceandfire.tide_trident.desc_1=Пробивает нескольких врагов
+item.iceandfire.tide_trident.not_original=Не подлежит ремонту или зачарованию
 
 item.iceandfire.lich_staff.name=Посох лича ужаса
 item.iceandfire.dread_shard.name=Осколок ужаса

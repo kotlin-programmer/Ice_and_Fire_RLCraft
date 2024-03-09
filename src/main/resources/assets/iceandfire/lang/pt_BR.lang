@@ -269,6 +269,7 @@ item.iceandfire.dragon_horn_lightning.name=Chifre de Dragão
 item.iceandfire.tide_trident.name=Tridente do Guardião da Maré
 item.iceandfire.tide_trident.desc_0=Causa mais dano quando jogado debaixo d’água
 item.iceandfire.tide_trident.desc_1=Atravessa vários inimigos
+item.iceandfire.tide_trident.not_original=Não pode ser reparado ou encantado
 
 item.banner.firedragon.white=Figura de Dragão de Fogo Branco
 item.banner.firedragon.orange=Figura de Dragão de Fogo Laranja

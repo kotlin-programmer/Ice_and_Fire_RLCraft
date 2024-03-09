@@ -280,6 +280,7 @@ item.iceandfire.hydra_arrow.desc=Poisons and leeches life from target
 item.iceandfire.tide_trident.name=Tide Trident
 item.iceandfire.tide_trident.desc_0=Deals more damage when thrown underwater
 item.iceandfire.tide_trident.desc_1=Pierces through multiple enemies
+item.iceandfire.tide_trident.not_original=Cannot be repaired or enchanted
 
 item.iceandfire.lich_staff.name=Dread Lich Staff
 item.iceandfire.dread_shard.name=Dread Shard

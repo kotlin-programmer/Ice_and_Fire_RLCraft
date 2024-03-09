@@ -280,6 +280,7 @@ item.iceandfire.hydra_arrow.desc=Envenena y roba la vida del objetivo
 item.iceandfire.tide_trident.name=Tridente de Marea
 item.iceandfire.tide_trident.desc_0=Inflige más daño cuando se arroja bajo el agua
 item.iceandfire.tide_trident.desc_1=Atraviesa múltiples enemigos
+item.iceandfire.tide_trident.not_original=No puede ser reparado o encantado
 
 item.banner.firedragon.white=Figura blanca de Dragon de fuego
 item.banner.firedragon.orange=Figura naranja de Dragon de fuego

@@ -4,20 +4,26 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityTideTrident;
 import com.github.alexthe666.iceandfire.integration.SpartanWeaponryCompat;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -36,6 +42,15 @@ public class ItemTideTrident extends Item {
         this.maxStackSize = 1;
         this.setMaxDamage(400);
         this.addPropertyOverride(new ResourceLocation("empty"), (stack, worldIn, entityIn) -> isEmpty(stack) ? 1.0F : 0.0F);
+    }
+
+    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
+        Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
+        if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", 7D, 0));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -2.9D, 0));
+        }
+        return multimap;
     }
 
     @Override
@@ -59,6 +74,9 @@ public class ItemTideTrident extends Item {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+        if (!isOriginal(toRepair) || isEmpty(toRepair)) {
+            return false;
+        }
         if (!repair.isEmpty() && repair.getItem() == ModItems.sea_serpent_fang) {
             return true;
         }
@@ -198,7 +216,18 @@ public class ItemTideTrident extends Item {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag flag) {
+        boolean isEmpty = isEmpty(stack);
+        boolean isOriginal = isOriginal(stack);
+        if (isEmpty || !isOriginal) {
+            UUID uuid = getUUID(stack);
+            if (uuid != null) {
+                tooltip.add(TextFormatting.DARK_PURPLE + "UUID: " + Long.toHexString(uuid.getMostSignificantBits()) + Long.toHexString(uuid.getLeastSignificantBits()));
+            }
+        }
+        if (!isOriginal) {
+            tooltip.add(TextFormatting.DARK_RED + I18n.format("item.iceandfire.tide_trident.not_original"));
+        }
         tooltip.add(I18n.format("item.iceandfire.tide_trident.desc_0"));
         tooltip.add(I18n.format("item.iceandfire.tide_trident.desc_1"));
     }

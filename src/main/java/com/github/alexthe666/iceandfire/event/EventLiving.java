@@ -35,6 +35,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -247,6 +248,29 @@ public class EventLiving {
 			}
 			if (DragonUtils.isVillager(entity) && attacker instanceof EntityLivingBase){
 				signalAmphithereAlarm(entity, (EntityLivingBase) attacker);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onLivingHurt(LivingHurtEvent event) {
+		DamageSource source = event.getSource();
+		EntityLivingBase victim = event.getEntityLiving();
+
+		if (event.getAmount() <= 0.0f
+				|| source.isProjectile()
+				|| source.isFireDamage()
+				|| source.isExplosion()
+				|| source.isMagicDamage()
+				|| !source.getDamageType().equals("player")) {
+			return;
+		}
+
+		if (source.getImmediateSource() == source.getTrueSource() && source.getTrueSource() instanceof EntityLivingBase && victim != null) {
+			EntityLivingBase attacker = (EntityLivingBase) source.getTrueSource();
+			ItemStack stack = attacker.getHeldItemMainhand();
+			if (stack.getItem() instanceof ItemTideTrident && stack.hasTagCompound() && ItemTideTrident.isEmpty(stack)) {
+				event.setAmount(1.0f);
 			}
 		}
 	}
@@ -621,7 +645,6 @@ public class EventLiving {
 					}
 				}
 			}
-			event.setCanceled(true);
 		}
 	}
 }
