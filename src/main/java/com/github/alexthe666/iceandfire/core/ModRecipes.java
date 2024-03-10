@@ -154,6 +154,28 @@ public class ModRecipes {
         GameRegistry.addSmelting(ModBlocks.myrmex_jungle_resin_block, new ItemStack(ModBlocks.myrmex_jungle_resin_glass), 1);
         GameRegistry.addSmelting(ModItems.stymphalian_bird_feather, new ItemStack(ModItems.copperNugget), 1);
 
+        GameRegistry.addSmelting(ModItems.silver_helmet, new ItemStack(ModItems.silverIngot, 2), 1);
+        GameRegistry.addSmelting(ModItems.silver_chestplate, new ItemStack(ModItems.silverIngot, 3), 1);
+        GameRegistry.addSmelting(ModItems.silver_leggings, new ItemStack(ModItems.silverIngot, 3), 1);
+        GameRegistry.addSmelting(ModItems.silver_boots, new ItemStack(ModItems.silverIngot, 1), 1);
+
+        GameRegistry.addSmelting(ModItems.silver_pickaxe, new ItemStack(ModItems.silverIngot), 1);
+        GameRegistry.addSmelting(ModItems.silver_axe, new ItemStack(ModItems.silverIngot), 1);
+        GameRegistry.addSmelting(ModItems.silver_sword, new ItemStack(ModItems.silverNugget, 4), 1);
+        GameRegistry.addSmelting(ModItems.silver_hoe, new ItemStack(ModItems.silverNugget, 4), 1);
+        GameRegistry.addSmelting(ModItems.silver_shovel, new ItemStack(ModItems.silverNugget, 1), 1);
+
+        GameRegistry.addSmelting(ModItems.copper_helmet, new ItemStack(ModItems.copperIngot, 2), 1);
+        GameRegistry.addSmelting(ModItems.copper_chestplate, new ItemStack(ModItems.copperIngot, 3), 1);
+        GameRegistry.addSmelting(ModItems.copper_leggings, new ItemStack(ModItems.copperIngot, 3), 1);
+        GameRegistry.addSmelting(ModItems.copper_boots, new ItemStack(ModItems.copperIngot, 1), 1);
+
+        GameRegistry.addSmelting(ModItems.copper_pickaxe, new ItemStack(ModItems.copperIngot), 1);
+        GameRegistry.addSmelting(ModItems.copper_axe, new ItemStack(ModItems.copperIngot), 1);
+        GameRegistry.addSmelting(ModItems.copper_sword, new ItemStack(ModItems.copperNugget, 4), 1);
+        GameRegistry.addSmelting(ModItems.copper_hoe, new ItemStack(ModItems.copperNugget, 4), 1);
+        GameRegistry.addSmelting(ModItems.copper_shovel, new ItemStack(ModItems.copperNugget, 1), 1);
+
         ModItems.blindfoldArmor.setRepairItem(new ItemStack(Items.STRING));
         ModItems.copperMetal.setRepairItem(new ItemStack(ModItems.copperIngot));
         ModItems.copperTools.setRepairItem(new ItemStack(ModItems.copperIngot));
