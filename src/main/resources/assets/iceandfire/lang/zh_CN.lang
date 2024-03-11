@@ -73,6 +73,19 @@ tile.iceandfire.crackledGravel.name=霆霹砂砾
 tile.iceandfire.crackledGrassPath.name=霆霹草径
 tile.iceandfire.lightning_stone.name=闪电石
 
+tile.iceandfire.dread_stone.name=悚石
+tile.iceandfire.dread_stone_bricks.name=悚砖
+tile.iceandfire.dread_stone_bricks_chiseled.name=錾制悚砖
+tile.iceandfire.dread_stone_bricks_cracked.name=裂悚砖
+tile.iceandfire.dread_stone_bricks_mossy.name=苔悚砖
+tile.iceandfire.dread_stone_face.name=錾制骷面悚砖
+tile.iceandfire.dread_stone_tile.name=悚石瓦块
+tile.iceandfire.dread_torch.name=悚石火把
+tile.iceandfire.burnt_torch.name=烬灭火把
+tile.iceandfire.dread_stone_slab.name=悚砖台阶
+tile.iceandfire.dread_stone_stairs.name=悚砖楼梯
+tile.iceandfire.dread_spawner.name=悚域刷怪笼
+
 tile.iceandfire.dragonscale_block.name=龙鳞块
 tile.iceandfire.dragon_bone_block.name=龙骨块
 tile.iceandfire.dragon_bone_wall.name=龙骨墙
@@ -309,6 +322,23 @@ item.banner.lightningdragon.green=绿色電龍徽章
 item.banner.lightningdragon.red=红色電龍徽章
 item.banner.lightningdragon.black=黑色電龍徽章
 
+item.banner.dread.white=白色悚怖髑髅徽标
+item.banner.dread.orange=橙色悚怖髑髅徽标
+item.banner.dread.magenta=品红悚怖髑髅徽标
+item.banner.dread.lightBlue=浅蓝悚怖髑髅徽标
+item.banner.dread.yellow=黄色悚怖髑髅徽标
+item.banner.dread.lime=黄绿悚怖髑髅徽标
+item.banner.dread.pink=粉色悚怖髑髅徽标
+item.banner.dread.gray=灰色悚怖髑髅徽标
+item.banner.dread.silver=银色悚怖髑髅徽标
+item.banner.dread.cyan=青色悚怖髑髅徽标
+item.banner.dread.purple=紫色悚怖髑髅徽标
+item.banner.dread.blue=蓝色悚怖髑髅徽标
+item.banner.dread.brown=棕色悚怖髑髅徽标
+item.banner.dread.green=绿色悚怖髑髅徽标
+item.banner.dread.red=红色悚怖髑髅徽标
+item.banner.dread.black=黑色悚怖髑髅徽标
+
 item.iceandfire.fire_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
 item.iceandfire.ice_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
 item.iceandfire.lightning_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
@@ -317,6 +347,11 @@ item.iceandfire.dragon_skull.jei_desc=可以当成奖杯挂在墙上或者摆在
 item.iceandfire.fire_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
 item.iceandfire.frost_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
 item.iceandfire.lightning_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
+
+item.iceandfire.dread_sword.name=悚怖尸奴之剑
+item.iceandfire.dread_knight_sword.name=悚怖尸骑之剑
+item.iceandfire.lich_staff.name=悚怖尸巫之杖
+item.iceandfire.dread_shard.name=悚怖碎片
 
 entity.firedragon.name=火龙
 entity.icedragon.name=冰龙
@@ -377,6 +412,15 @@ entity.hydra_breath.name=九头蛇吐息
 entity.hydra_arrow.name=九头蛇毒箭
 
 entity.tide_trident.name=海潮三叉戟
+
+entity.dread_thrall.name=悚怖尸奴
+entity.dread_ghoul.name=悚怖食尸鬼
+entity.dread_beast.name=悚怖尸兽
+entity.dread_scuttler.name=悚怖劫蛛
+entity.dread_lich.name=悚怖尸巫
+entity.dread_lich_skull.name=冰魂髑髅
+entity.dread_knight.name=悚怖尸骑
+entity.dread_horse.name=悚怖战马
 
 iceandfire.effect.acid=酸
 
@@ -489,6 +533,7 @@ bestiary.stymphalianbird=金属恐鸟
 bestiary.troll=巨魔
 bestiary.myrmex=恐蚁
 bestiary.hydra=九头蛇
+bestiary.dread_mobs=悚怖亡灵
 
 lectern.nopages=无法添加新的信息.
 silvertools.hurt=+2 对亡灵生物的伤害

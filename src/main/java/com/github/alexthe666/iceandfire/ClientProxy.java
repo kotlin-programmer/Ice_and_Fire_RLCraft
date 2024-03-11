@@ -1,8 +1,6 @@
 package com.github.alexthe666.iceandfire;
 
-import com.github.alexthe666.iceandfire.block.BlockPath;
-import com.github.alexthe666.iceandfire.block.BlockFallingReturningState;
-import com.github.alexthe666.iceandfire.block.BlockReturningState;
+import com.github.alexthe666.iceandfire.block.*;
 import com.github.alexthe666.iceandfire.client.gui.GuiMyrmexAddRoom;
 import com.github.alexthe666.iceandfire.client.gui.GuiMyrmexStaff;
 import com.github.alexthe666.iceandfire.client.gui.bestiary.GuiBestiary;
@@ -228,6 +226,13 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomStateMapper(ModBlocks.crackledCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
 		ModelLoader.setCustomStateMapper(ModBlocks.crackledGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
 		ModelLoader.setCustomStateMapper(ModBlocks.crackledGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks_chiseled, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks_cracked, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks_mossy, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_tile, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_face, (new StateMap.Builder()).ignore(BlockDreadStoneFace.PLAYER_PLACED).build());
 		try {
 			for (Field f : ModBlocks.class.getDeclaredFields()) {
 				Object obj = f.get(null);
@@ -282,6 +287,7 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new EventNewMenu());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDummyGorgonHead.class, new RenderGorgonHead(false));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDummyGorgonHeadActive.class, new RenderGorgonHead(true));
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDreadSpawner.class, new RenderDreadSpawner());
 		ForgeHooksClient.registerTESRItemStack(ModItems.gorgon_head, 0, TileEntityDummyGorgonHead.class);
 		ForgeHooksClient.registerTESRItemStack(ModItems.gorgon_head, 1, TileEntityDummyGorgonHeadActive.class);
 		renderEntities();

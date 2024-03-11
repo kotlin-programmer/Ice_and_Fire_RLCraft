@@ -1,13 +1,18 @@
 package com.github.alexthe666.iceandfire.entity;
 
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SPacketChangeGameState;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundEvent;
@@ -21,6 +26,7 @@ public class EntityGhostSword extends EntityArrow
 
     public Entity shooter;
     int maxDisposeTime = 15;
+    private int knockbackStrength;
 
     @Override
     public void notifyDataManagerChange(DataParameter<?> key)
@@ -61,6 +67,7 @@ public class EntityGhostSword extends EntityArrow
         }
     }
 
+    @Override
     public int getBrightnessForRender() {
         return 15728880;
     }
@@ -68,6 +75,11 @@ public class EntityGhostSword extends EntityArrow
     @Override
     public float getBrightness() {
         return 1.0F;
+    }
+
+    @Override
+    public void setKnockbackStrength(int knockbackStrength) {
+        this.knockbackStrength = knockbackStrength;
     }
 
     public double particleDistSq(double toX, double toY, double toZ) {
@@ -83,7 +95,7 @@ public class EntityGhostSword extends EntityArrow
         noClip = true;
 
         float sqrt = MathHelper.sqrt((float) (this.motionX * this.motionX + this.motionZ * this.motionZ));
-        if ((sqrt < 0.1F) && this.ticksExisted > 30) {
+        if ((sqrt < 0.1F) && this.ticksExisted > 20) {
             this.setDead();
         }
         double d0 = 0;
@@ -97,7 +109,7 @@ public class EntityGhostSword extends EntityArrow
             this.world.spawnParticle(EnumParticleTypes.END_ROD, x, y + 0.5D, z, d0, d1, d2);
         }
 
-        if(this.ticksExisted >= 30) //<- loop exit for primal
+        if (this.ticksExisted >= 20)
             this.setDead();
     }
 
@@ -111,23 +123,52 @@ public class EntityGhostSword extends EntityArrow
         if (this.isDead)
             return;
 
-        if (world.isRemote)
-            return;
-
-        if (!this.world.isRemote && object.typeOfHit == RayTraceResult.Type.BLOCK) {
-            return;
-        }
-
-        if (object.typeOfHit == RayTraceResult.Type.ENTITY) {
+        Entity entity = object.entityHit;
+        if (entity != null) {
             Entity e = object.entityHit;
             if (e == shooter)
                 return;
 
-            if (e instanceof EntityLivingBase && e != this.shooter && !(e instanceof EntityGhostSword)) {
-                EntityLivingBase elb = (EntityLivingBase) e;
+            int damage = MathHelper.ceil(getDamage());
+            if (this.getIsCritical()) {
+                damage += this.rand.nextInt(damage / 2 + 2);
+            }
 
-                elb.attackEntityFrom(DamageSource.causeArrowDamage(this, shooter), 5);
+            DamageSource damageSource;
+            if (this.shootingEntity == null) {
+                damageSource = DamageSource.causeArrowDamage(this, this);
+            } else {
+                damageSource = DamageSource.causeArrowDamage(this, this.shootingEntity);
+            }
 
+            if (this.isBurning() && !(entity instanceof EntityEnderman)) {
+                entity.setFire(5);
+            }
+
+            if (entity.attackEntityFrom(damageSource, (float) damage)) {
+                if (entity instanceof EntityLivingBase) {
+                    EntityLivingBase entitylivingbase = (EntityLivingBase) entity;
+                    if (this.knockbackStrength > 0) {
+                        float f1 = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
+                        if (f1 > 0.0F) {
+                            entitylivingbase.addVelocity(this.motionX * (double) this.knockbackStrength * 0.6000000238418579 / (double) f1, 0.1, this.motionZ * (double) this.knockbackStrength * 0.6000000238418579 / (double) f1);
+                        }
+                    }
+
+                    if (this.shootingEntity instanceof EntityLivingBase) {
+                        EnchantmentHelper.applyThornEnchantments(entitylivingbase, this.shootingEntity);
+                        EnchantmentHelper.applyArthropodEnchantments((EntityLivingBase)this.shootingEntity, entitylivingbase);
+                    }
+
+                    this.arrowHit(entitylivingbase);
+                    if (this.shootingEntity != null && entitylivingbase != this.shootingEntity && entitylivingbase instanceof EntityPlayer && this.shootingEntity instanceof EntityPlayerMP) {
+                        ((EntityPlayerMP)this.shootingEntity).connection.sendPacket(new SPacketChangeGameState(6, 0.0F));
+                    }
+                }
+            }
+
+            this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
+            if (!(entity instanceof EntityEnderman)) {
                 this.setDead();
             }
         }

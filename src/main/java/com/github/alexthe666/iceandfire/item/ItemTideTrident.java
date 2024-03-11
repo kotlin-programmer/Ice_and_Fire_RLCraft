@@ -44,6 +44,7 @@ public class ItemTideTrident extends Item {
         this.addPropertyOverride(new ResourceLocation("empty"), (stack, worldIn, entityIn) -> isEmpty(stack) ? 1.0F : 0.0F);
     }
 
+    @Override
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {

@@ -27,6 +27,7 @@ public class ItemTrollWeapon extends ItemSword implements ICustomRendered {
         this.weapon = weapon;
     }
 
+    @Override
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = HashMultimap.<String, AttributeModifier>create();
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {

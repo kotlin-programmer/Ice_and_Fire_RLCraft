@@ -2,10 +2,7 @@ package com.github.alexthe666.iceandfire.core;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.*;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDummyGorgonHead;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDummyGorgonHeadActive;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityGhostChest;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
+import com.github.alexthe666.iceandfire.entity.tile.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -90,9 +87,9 @@ public class ModBlocks {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_grass_path")
 	public static Block frozenGrassPath = new BlockPath(BlockPath.Type.FROZEN);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_splinters")
-	public static Block frozenSplinters = new BlockGeneric(Material.WOOD, "frozen_splinters", "iceandfire.frozenSplinters", "pickaxe", 0, 2.0F, 10.0F, SoundType.GLASS, false, true);
+	public static Block frozenSplinters = new BlockGeneric(Material.WOOD, "frozen_splinters", "iceandfire.frozenSplinters", "pickaxe", 0, 2.0F, 10.0F, SoundType.GLASS, true);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_ice")
-	public static Block dragon_ice = new BlockGeneric(Material.PACKED_ICE, "dragon_ice", "iceandfire.dragon_ice", "pickaxe", 0, 0.5F, 0F, SoundType.GLASS, false, true, true);
+	public static Block dragon_ice = new BlockGeneric(Material.PACKED_ICE, "dragon_ice", "iceandfire.dragon_ice", "pickaxe", 0, 0.5F, 0F, SoundType.GLASS, true);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lightning_stone")
 	public static Block lightning_stone = new BlockGeneric(Material.ROCK, "lightning_stone", "iceandfire.lightning_stone", "pickaxe", 0, 2F, 10F, SoundType.STONE);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_ice_spikes")
@@ -158,6 +155,31 @@ public class ModBlocks {
 
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_chest")
 	public static Block ghost_chest = new com.github.alexthe666.iceandfire.block.BlockGhostChest();
+
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone")
+	public static BlockDreadBase dread_stone = new BlockDreadBase(Material.ROCK, "dread_stone", "iceandfire.dread_stone", "pickaxe", 3, 20.0F, 100000.0F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_bricks")
+	public static BlockDreadBase dread_stone_bricks = new BlockDreadBase(Material.ROCK, "dread_stone_bricks", "iceandfire.dread_stone_bricks", "pickaxe", 3, 20.0F, 100000.0F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_bricks_chiseled")
+	public static BlockDreadBase dread_stone_bricks_chiseled = new BlockDreadBase(Material.ROCK, "dread_stone_bricks_chiseled", "iceandfire.dread_stone_bricks_chiseled", "pickaxe", 3, 20.0F, 100000.0F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_bricks_cracked")
+	public static BlockDreadBase dread_stone_bricks_cracked = new BlockDreadBase(Material.ROCK, "dread_stone_bricks_cracked", "iceandfire.dread_stone_bricks_cracked", "pickaxe", 3, 20.0F, 100000.0F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_bricks_mossy")
+	public static BlockDreadBase dread_stone_bricks_mossy = new BlockDreadBase(Material.ROCK, "dread_stone_bricks_mossy", "iceandfire.dread_stone_bricks_mossy", "pickaxe", 3, 20.0F, 100000.0F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_tile")
+	public static BlockDreadBase dread_stone_tile = new BlockDreadBase(Material.ROCK, "dread_stone_tile", "iceandfire.dread_stone_tile", "pickaxe", 3, 20.0F, 100000.0F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_face")
+	public static Block dread_stone_face = new BlockDreadStoneFace();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_torch")
+	public static Block dread_torch = new BlockDreadTorch();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_stairs")
+	public static Block dread_stone_bricks_stairs = new BlockGenericStairs(dread_stone_bricks.getDefaultState(), "dread_stone_stairs").setHardness(20F);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_double_slab")
+	public static BlockGenericSlab dread_stone_bricks_double_slab = new BlockDreadStoneBrickSlab.Double("dread_stone_slab", 10.0F, 10000F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_slab")
+	public static BlockGenericSlab dread_stone_bricks_slab = new BlockDreadStoneBrickSlab.Half("dread_stone_slab", 10.0F, 10000F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_spawner")
+	public static Block dread_spawner = new BlockDreadSpawner();
 
 	static {
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHead.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadIdle"));

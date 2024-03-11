@@ -37,10 +37,10 @@ public class ModItems {
 	public static ToolMaterial lightningBoneTools = EnumHelper.addToolMaterial("LightningDragonbone", 4, 2000, 10.0F, 5.5F, 22);
 	public static ToolMaterial trollWeapon = EnumHelper.addToolMaterial("TrollWeapon", 2, 300, 11.0F, 1.0F, 1);
 	public static ToolMaterial myrmexChitin = EnumHelper.addToolMaterial("MyrmexChitin", 3, 600, 6.0F, 1.0F, 8);
-	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 10.0F, 25);
+	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 1.0F, 25);
 
 	public static ToolMaterial dread_sword_tools = EnumHelper.addToolMaterial("DreadSword", 0, 100, 0.0F, 1F, 0);
-	public static ToolMaterial dread_knight_sword_tools = EnumHelper.addToolMaterial("DreadKnightSword", 0, 1200, 0.0F, 13F, 10);
+	public static ToolMaterial dread_knight_sword_tools = EnumHelper.addToolMaterial("DreadKnightSword", 0, 1200, 0.0F, 4F, 10);
 
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":bestiary")
 	public static Item bestiary = new ItemBestiary();

@@ -106,7 +106,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
         this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.dread_knight_sword));
-        if(rand.nextBoolean()){
+        if (rand.nextBoolean()) {
             this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, SHIELD.copy());
         }
         setArmorVariant(rand.nextInt(3));

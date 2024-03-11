@@ -81,6 +81,19 @@ tile.iceandfire.dragon_bone_wall.name=Dragon Bone Wall
 tile.iceandfire.sea_serpent_scale_block.name=Block of Sea Serpent Scales
 tile.iceandfire.ghost_chest.name=Cursed Chest
 
+tile.iceandfire.dread_stone.name=Dreadstone
+tile.iceandfire.dread_stone_bricks.name=Dreadstone Bricks
+tile.iceandfire.dread_stone_bricks_chiseled.name=Chiseled Dreadstone Bricks
+tile.iceandfire.dread_stone_bricks_cracked.name=Cracked Dreadstone Bricks
+tile.iceandfire.dread_stone_bricks_mossy.name=Mossy Dreadstone Bricks
+tile.iceandfire.dread_stone_face.name=Dreadstone Chiseled Skull
+tile.iceandfire.dread_stone_tile.name=Dreadstone Tile
+tile.iceandfire.dread_torch.name=Dreadstone Torch
+tile.iceandfire.burnt_torch.name=Burnt Out Torch
+tile.iceandfire.dread_stone_slab.name=Dreadstone Bricks Slab
+tile.iceandfire.dread_stone_stairs.name=Dreadstone Bricks Stairs
+tile.iceandfire.dread_spawner.name=Dreadstone Mob Spawner
+
 item.iceandfire.bestiary.name=Bestiary
 item.iceandfire.manuscript.name=Manuscript
 item.iceandfire.sapphireGem.name=Sapphire

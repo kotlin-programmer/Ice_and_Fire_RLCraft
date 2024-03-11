@@ -81,6 +81,18 @@ tile.iceandfire.dragon_bone_block.name=Bloque de Huesos de Dragón
 tile.iceandfire.dragon_bone_wall.name=Pared de Hueso de Dragón
 tile.iceandfire.sea_serpent_scale_block.name=Bloque de Escamas de Serpiente Marina
 
+tile.iceandfire.dread_stone.name=Piedra Aterradora
+tile.iceandfire.dread_stone_bricks.name=Ladrillos de Piedra Aterradora
+tile.iceandfire.dread_stone_bricks_chiseled.name=Ladrillos Cincelados de Piedra Aterradora
+tile.iceandfire.dread_stone_bricks_cracked.name=Ladrillos Agrietados de Piedra Aterradora
+tile.iceandfire.dread_stone_bricks_mossy.name=Ladrillos Musgosos de Piedra Aterradora
+tile.iceandfire.dread_stone_face.name=Cráneo Cincelado de Piedra Aterradora
+tile.iceandfire.dread_stone_tile.name=Baldosa de Piedra Aterradora
+tile.iceandfire.dread_torch.name=Antorcha de Piedra Aterradora
+tile.iceandfire.dread_stone_slab.name=Losa de Piedra Aterradora
+tile.iceandfire.dread_stone_stairs.name=Escalera de Piedra Aterradora
+tile.iceandfire.dread_spawner.name=Generador de Criaturas de Piedra Aterradora
+
 item.iceandfire.bestiary.name=Bestiario
 item.iceandfire.manuscript.name=Manuscrito
 item.iceandfire.sapphireGem.name=Zafiro
@@ -282,6 +294,11 @@ item.iceandfire.tide_trident.desc_0=Inflige más daño cuando se arroja bajo el 
 item.iceandfire.tide_trident.desc_1=Atraviesa múltiples enemigos
 item.iceandfire.tide_trident.not_original=No puede ser reparado o encantado
 
+item.iceandfire.dread_sword.name=Espada de esclavo aterrador
+item.iceandfire.dread_knight_sword.name=Espada caballero aterrador
+item.iceandfire.lich_staff.name=Baston de liche aterrador
+item.iceandfire.dread_shard.name=Fragmento de terror
+
 item.banner.firedragon.white=Figura blanca de Dragon de fuego
 item.banner.firedragon.orange=Figura naranja de Dragon de fuego
 item.banner.firedragon.magenta=Figura magenta de Dragon de fuego
@@ -332,6 +349,23 @@ item.banner.lightningdragon.brown=Figura cafe de Dragon de rayo
 item.banner.lightningdragon.green=Figura verde de Dragon de rayo
 item.banner.lightningdragon.red=Figura roja de Dragon de rayo
 item.banner.lightningdragon.black=Figura negra de Dragon de rayo
+
+item.banner.dread.white=Cráneo aterrador blanco
+item.banner.dread.orange=Cráneo aterrador naranja
+item.banner.dread.magenta=Cráneo aterrador magenta
+item.banner.dread.lightBlue=Cráneo aterrador azul claro
+item.banner.dread.yellow=Cráneo aterrador amarillo
+item.banner.dread.lime=Cráneo aterrador verde lima
+item.banner.dread.pink=Cráneo aterrador rosa
+item.banner.dread.gray=Cráneo aterrador gris
+item.banner.dread.silver=Cráneo aterrador plateado
+item.banner.dread.cyan=Cráneo aterrador azul cian
+item.banner.dread.purple=Cráneo aterrador prupura
+item.banner.dread.blue=Cráneo aterrador azul
+item.banner.dread.brown=Cráneo aterrador cafe
+item.banner.dread.green=Cráneo aterrador verde
+item.banner.dread.red=Cráneo aterrador rojo
+item.banner.dread.black=Cráneo aterrador negro
 
 item.iceandfire.fire_dragon_blood.jei_desc=Obtenido al interactuar con un cadáver de dragón sosteniendo un frasco vacío.
 item.iceandfire.ice_dragon_blood.jei_desc=Obtenido al interactuar con un cadáver de dragón sosteniendo un frasco vacío.
@@ -403,6 +437,15 @@ entity.hydra_breath.name=Aliento de Hidra
 entity.hydra_arrow.name=Flecha de Hidra
 
 entity.tide_trident.name=Trident de la Marea
+
+entity.dread_thrall.name=Esclavo aterradro
+entity.dread_ghoul.name=Necrofago aterrador
+entity.dread_beast.name=Bestia aterradora
+entity.dread_scuttler.name=Espantapajaros aterrador
+entity.dread_lich.name=Liche aterrador
+entity.dread_lich_skull.name=Cráneo de liche aterrador
+entity.dread_knight.name=Caballero aterrador
+entity.dread_horse.name=Caballo de caballero aterrador
 
 iceandfire.effect.acid=Ácido
 
@@ -531,6 +574,7 @@ bestiary.myrmex=Mirmex
 bestiary.amphithere=Anfipteros
 bestiary.seaserpent=Serpientes marinas
 bestiary.hydra=Hidra
+bestiary.dread_mobs=Los muertos vivientes
 
 lectern.nopages=No se puede agregar mas informacion.
 silvertools.hurt=Daño contra no-muertos: +2
@@ -629,13 +673,3 @@ achievement.jarPixie.desc=Mete un Hada en un Frasco.
 
 tc.aspect.mythus=Criatura mitologica, ser legendario, criptico, bicho temible
 tc.aspect.draco=Dragon
-
-# Added by KameiB. From Shiv.sz
-item.iceandfire.fishing_spear.addedtooltip.1=Solo es un Componente de crafteo!
-
-item.iceandfire.fire_dragon_flesh.addedtooltip.1=Tan caliente que te quema cuando la comes!
-item.iceandfire.ice_dragon_flesh.addedtooltip.1=Tan helada que te da Lentitud III cuando la comes!
-item.iceandfire.blindfold.addedtooltip.1=La mejor defensa contra la Gorgona!
-item.iceandfire.earplugs.addedtooltip.1=La mejor defensa contra las Sirenas!
-item.iceandfire.ambrosia.addedtooltip.1=Se dice que esta es la comida de los dioses.
-item.iceandfire.ambrosia.addedtooltip.2=Da Fuerza III, Suerte III, Absorcion III y Supersalto III
