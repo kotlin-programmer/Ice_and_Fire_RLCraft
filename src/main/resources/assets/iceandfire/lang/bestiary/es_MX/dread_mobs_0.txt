@@ -1,0 +1,44 @@
+En los limites mas frios del
+overworld, una fuerza vil fue
+sellada. Enormes complejos cono-
+cidos como Mausoleos, hechos de
+la indestructible Piedra del horror,
+encierran un gran mal.
+
+Sin embargo, su poder ha ido
+decayendo. Seres de otro tiempo
+y lugar han emergido de estas
+estructuras y explorando los
+terrenos congelados.
+
+Se ha visto mas comunmente al
+Liche del horror, un nigromante
+no-muerto que invocara
+abominaciones no-muertas
+para defenderse.
+
+<image><drawings_2.png 230 25 0 0 36 42 1>
+<image><drawings_2.png 300 10 37 0 38 59 1>
+
+
+
+
+
+
+
+Equipado con su baston, el
+nigromante podra disparar un
+craneo de alma congelado a su
+objetivo o invocar subditos:
+
+<image><drawings_2.png 250 120 0 60 87 35 1>
+
+
+
+
+Los Thralls del horror son
+esqueletos lentos y debiles
+invocados por el nigromante.
+Emergen de la tierra y llevan
+espadas rotas y armadura que
+usaron en sus vidas pasadas.
