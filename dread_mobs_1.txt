@@ -1,0 +1,46 @@
+
+<image><drawings_2.png 70 30 0 96 58 36 1>
+
+
+
+
+Los Necrofagos del horror
+son no-muertos agiles con
+garras muy afiladas, listos
+para desgarrar a su presa.
+
+<image><drawings_2.png 65 110 0 133 69 28 1>
+
+
+
+Las Bestias del horror son los
+despojos mutilados de animales
+convertidos por el Liche del horror.
+Son agiles y muerden a todo ser
+vivo que puedan.
+
+<image><drawings_2.png 275 5 70 111 37 50 1>
+
+
+
+
+
+
+Los Espantapajaros del horror
+son monstruosos artropodos
+no-muertos, quienes clavan
+sus enormes colmillos a toda
+cosa que su amo les ordene.
+
+<item><iceandfire:dread_shard 0 95 43 1.25>
+<item><iceandfire:dread_key 0 125 43 1.25>
+
+
+
+Todos los monstruos del horror
+dropean Fragmentos del horror,
+que pueden usarse para fabricar
+bloques decorativos. El Liche del
+horror dropea rara vez una Llave
+del horror, la cual se usa para
+abrir la puerta de un Mausoleo...
