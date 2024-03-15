@@ -485,10 +485,6 @@ public class IceAndFireConfig {
 		@Config.Name("Can Dragons Despawn")
 		public boolean canDragonsDespawn = false;
 
-		@Config.Comment("If true dragons can break blocks when they get stuck")
-		@Config.Name("Dragons Dig When Stuck")
-		public boolean dragonDigWhenStuck = true;
-
 		@Config.Comment("If true dragons can drop their skull on death")
 		@Config.Name("Dragons Drop Skull")
 		public boolean dragonDropSkull = true;
@@ -793,15 +789,11 @@ public class IceAndFireConfig {
 
 		@Config.Comment("If true, chain lightning causes paralysis")
 		@Config.Name("Chain Lightning Paralysis")
-		public boolean chainLightningParalysis = true;
-
-		@Config.Comment("Chance of chain lightning causing paralysis on each hop, as a percentage")
-		@Config.Name("Chain Lightning Paralysis Chance")
-		public int[] chainLightningParalysisChancePerHop = new int[] {100, 80, 60, 40, 20};
+		public boolean chainLightningParalysis = false;
 
 		@Config.Comment("Length in ticks of paralysis applied on each hop by chain lightning")
 		@Config.Name("Chain Lightning Paralysis Ticks")
-		public int[] chainLightningParalysisTicksPerHop = new int[] {10, 10, 10, 10, 10};
+		public int[] chainLightningParalysisTicksPerHop = new int[] {10, 8, 6, 4, 2};
 
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")

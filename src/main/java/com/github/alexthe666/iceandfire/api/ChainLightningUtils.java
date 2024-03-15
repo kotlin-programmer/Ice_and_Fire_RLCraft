@@ -35,9 +35,8 @@ public class ChainLightningUtils {
 
     public static void createChainLightningFromTarget(World world, EntityLivingBase target, EntityLivingBase attacker, float[] damage, int range, boolean isParalysisEnabled) {
         int[] paralysisTicks = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysisTicksPerHop;
-        int[] paralysisChance = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysisChancePerHop;
 
-        createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled, paralysisTicks, paralysisChance);
+        createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled, paralysisTicks);
     }
 
     public static void createChainLightningFromTarget(
@@ -47,14 +46,13 @@ public class ChainLightningUtils {
             float[] damage,
             int range,
             boolean isParalysisEnabled,
-            int[] paralysisTicks,
-            int[] paralysisChance
+            int[] paralysisTicks
     ) {
         int hop = 0;
 
         attackEntityWithLightningDamage(attacker, target, hop, damage);
         if (isParalysisEnabled) {
-            applyParalysis(world, target, hop, paralysisChance, paralysisTicks);
+            applyParalysis(target, hop, paralysisTicks);
         }
 
         target.playSound(ModSounds.LIGHTNING_STRIKE, 1, 1);
@@ -87,7 +85,7 @@ public class ChainLightningUtils {
 
             attackEntityWithLightningDamage(attacker, nextTarget, hop, damage);
             if (isParalysisEnabled) {
-                applyParalysis(world, nextTarget, hop, paralysisChance, paralysisTicks);
+                applyParalysis(nextTarget, hop, paralysisTicks);
             }
 
             alreadyTargetedEntities.add(nextTarget.getEntityId());
@@ -141,20 +139,6 @@ public class ChainLightningUtils {
         entity.onStruckByLightning(lightningBolt);
     }
 
-    private static boolean shouldApplyParalysis(World world, int hop, int[] paralysisChance) {
-        if (paralysisChance.length > hop) {
-            int chance = paralysisChance[hop];
-            if (chance == 100) {
-                return true;
-            }
-            if (chance == 0) {
-                return false;
-            }
-            return world.rand.nextInt(100) < chance;
-        }
-        return false;
-    }
-
     private static int getParalysisTicks(int hop, int[] paralysisTicks) {
         if (paralysisTicks.length > hop) {
             return paralysisTicks[hop];
@@ -162,10 +146,7 @@ public class ChainLightningUtils {
         return 0;
     }
 
-    private static void applyParalysis(World world, EntityLivingBase target, int hop, int[] paralysisChance, int[] paralysisTicks) {
-        if (!shouldApplyParalysis(world, hop, paralysisChance)) {
-            return;
-        }
+    private static void applyParalysis(EntityLivingBase target, int hop, int[] paralysisTicks) {
         int ticks = getParalysisTicks(hop, paralysisTicks);
         if (ticks <= 0) {
             return;
