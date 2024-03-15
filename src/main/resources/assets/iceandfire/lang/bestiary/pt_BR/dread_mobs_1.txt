@@ -32,7 +32,7 @@ para cravarem suas presas em quaisquer
 seres vivos que seu mestre ordenar. 
 
 <item><iceandfire:dread_shard 0 95 43 1.25>
-<item><iceandfire:dread_key 0 125 43 1.25>
+<item><iceandfire:dread_stone_bricks 0 125 43 1.25>
 
 
 
@@ -40,7 +40,4 @@ seres vivos que seu mestre ordenar.
 
 Todos os monstros horrendos liberam
 fragmentos medonhos que podem ser 
-usados para criar blocos decorativos. 
-O Lich Medonho raramente irá deixar
-cair uma Chave Horrenda que poderá
-ser usada para abrir um Mausoléu...
+usados para criar blocos decorativos.

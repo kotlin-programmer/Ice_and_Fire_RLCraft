@@ -33,14 +33,11 @@ sus enormes colmillos a toda
 cosa que su amo les ordene.
 
 <item><iceandfire:dread_shard 0 95 43 1.25>
-<item><iceandfire:dread_key 0 125 43 1.25>
+<item><iceandfire:dread_stone_bricks 0 125 43 1.25>
 
 
 
 Todos los monstruos del horror
 dropean Fragmentos del horror,
 que pueden usarse para fabricar
-bloques decorativos. El Liche del
-horror dropea rara vez una Llave
-del horror, la cual se usa para
-abrir la puerta de un Mausoleo...
+bloques decorativos.

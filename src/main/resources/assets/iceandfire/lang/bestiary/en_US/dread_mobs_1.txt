@@ -33,13 +33,10 @@ anything their master commands
 them too.
 
 <item><iceandfire:dread_shard 0 95 43 1.25>
-<item><iceandfire:dread_key 0 125 43 1.25>
+<item><iceandfire:dread_stone_bricks 0 125 43 1.25>
 
 
 
 All dread monsters drop dread
 shards, which can be used to
-craft decorative blocks. The Dread
-Lich also rarely drops a Dread Key,
-which can be used to open the gate
-of a Mausoleum...
+craft decorative blocks.
