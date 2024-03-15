@@ -214,7 +214,7 @@ public class EventLiving {
 						spawnCheckHeight = IceAndFireConfig.getTrollSpawnHeight().get(biomeName);
 					}
 				}
-				if (spawnCheckHeight == 0 || pos.getY() <= spawnCheckHeight) {
+				if (pos.getY() > spawnCheckHeight) {
 					event.setResult(Event.Result.DENY);
 				}
 			}
