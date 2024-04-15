@@ -705,7 +705,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 
 	@Override
 	public boolean shouldDismountInWater(Entity rider) {
-		return true;
+		return false;
 	}
 
 	public boolean isDirectPathBetweenPoints(Vec3d vec1, Vec3d vec2) {
