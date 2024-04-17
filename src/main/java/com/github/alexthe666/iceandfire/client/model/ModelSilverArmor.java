@@ -18,9 +18,8 @@ public class ModelSilverArmor extends ModelBiped {
         this.textureWidth = 64;
         this.textureHeight = 64;
         this.faceGuard = new ModelRenderer(this, 30, 47);
-        this.faceGuard.setRotationPoint(0F, -6.6F, 1.9F);
+        this.faceGuard.setRotationPoint(0F, -5.1F, 1.9F);
         this.faceGuard.addBox(-4.5F, -3.0F, -6.1F, 9, 9, 8, modelSize);
-        this.setRotateAngle(faceGuard, -0.7285004297824331F, 0F, 0F);
         this.robeLowerBack = new ModelRenderer(this, 4, 55);
         this.robeLowerBack.mirror = true;
         this.robeLowerBack.setRotationPoint(0F, 12.0F, 0F);
@@ -87,14 +86,20 @@ public class ModelSilverArmor extends ModelBiped {
         }
         float f = 0;
         float f1 = 12;
-        if(isSneak){
+        if (isSneak) {
             f = -1;
-            f1 = 10;
         }
-        this.robeLower.rotateAngleX = Math.min(0, Math.min(this.bipedLeftLeg.rotateAngleX, this.bipedRightLeg.rotateAngleX)) - this.bipedBody.rotateAngleX;
         this.robeLower.rotationPointZ = f;
         this.robeLower.rotationPointY = f1;
 
+        this.robeLower.rotateAngleX = Math.min(0, Math.min(this.bipedLeftLeg.rotateAngleX, this.bipedRightLeg.rotateAngleX)) - this.bipedBody.rotateAngleX;
         this.robeLowerBack.rotateAngleX =  -Math.max(this.bipedLeftLeg.rotateAngleX, this.bipedRightLeg.rotateAngleX);
+
+        if (!isSneak) {
+            this.robeLower.rotateAngleX /= 3;
+            this.robeLowerBack.rotateAngleX /= 3;
+        } else {
+            this.robeLowerBack.rotateAngleX /= 4;
+        }
     }
 }

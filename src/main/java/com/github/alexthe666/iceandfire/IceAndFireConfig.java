@@ -824,10 +824,6 @@ public class IceAndFireConfig {
 		@Config.Name("Bestiary Vanilla Font")
 		public boolean useVanillaFont = false;
 
-		@Config.Comment("If true, silver armor will use the updated model and textures")
-		@Config.Name("Redesigned Silver Armor")
-		public boolean silverArmorRedesign = true;
-
 		@Config.Comment("If true, uses a custom shader when players are charmed by sirens")
 		@Config.Name("Use Siren Shader")
 		public boolean sirenShader = true;
