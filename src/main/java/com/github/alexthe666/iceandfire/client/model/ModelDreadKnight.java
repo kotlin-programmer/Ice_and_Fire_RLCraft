@@ -35,12 +35,10 @@ public class ModelDreadKnight extends ModelDragonBase {
     public ModelBiped.ArmPose rightArmPose;
     public boolean isSneak;
     private ModelAnimator animator;
-    private boolean armor = false;
 
-    public ModelDreadKnight(float modelSize, boolean armorArms) {
+    public ModelDreadKnight() {
         this.textureWidth = 128;
         this.textureHeight = 64;
-        this.armor = armorArms;
         this.leftArmPose = ModelBiped.ArmPose.EMPTY;
         this.rightArmPose = ModelBiped.ArmPose.EMPTY;
         this.sleeveRight = new HideableModelRenderer(this, 35, 33);
@@ -108,8 +106,8 @@ public class ModelDreadKnight extends ModelDragonBase {
     public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
         this.rightArmPose = ModelBiped.ArmPose.EMPTY;
         this.leftArmPose = ModelBiped.ArmPose.EMPTY;
-        ItemStack itemstack = entitylivingbaseIn.getHeldItem(EnumHand.MAIN_HAND);
 
+        ItemStack itemstack = entitylivingbaseIn.getHeldItem(EnumHand.MAIN_HAND);
         if (itemstack.getItem() == Items.BOW && ((AbstractSkeleton) entitylivingbaseIn).isSwingingArms()) {
             if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT) {
                 this.rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
@@ -125,8 +123,7 @@ public class ModelDreadKnight extends ModelDragonBase {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         this.resetToDefaultPose();
         animate((IAnimatedEntity) entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-        ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
-        EntityDreadKnight thrall = (EntityDreadKnight) entityIn;
+        EntityDreadKnight knight = (EntityDreadKnight) entityIn;
         this.faceTarget(netHeadYaw, headPitch, 1.0F, head);
         float f = 1.0F;
         this.armRight.rotateAngleX += MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 2.0F * limbSwingAmount * 0.5F / f;
@@ -197,16 +194,13 @@ public class ModelDreadKnight extends ModelDragonBase {
         this.armLeft.rotateAngleZ -= MathHelper.cos(ageInTicks * 0.09F) * 0.05F + 0.05F;
         this.armRight.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         this.armLeft.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
-        float speed_walk = 0.6F;
-        float speed_idle = 0.05F;
-        float degree_walk = 1F;
-        float degree_idle = 0.5F;
-        if (thrall.getAnimation() == EntityDreadKnight.ANIMATION_SPAWN) {
-            if (thrall.getAnimationTick() < 30) {
-                this.flap(armRight, 0.5F, 0.5F, false, 2, -0.7F, thrall.ticksExisted, 1);
-                this.flap(armLeft, 0.5F, 0.5F, true, 2, -0.7F, thrall.ticksExisted, 1);
-                this.walk(armRight, 0.5F, 0.5F, true, 1, 0, thrall.ticksExisted, 1);
-                this.walk(armLeft, 0.5F, 0.5F, true, 1, 0, thrall.ticksExisted, 1);
+
+        if (knight.getAnimation() == EntityDreadKnight.ANIMATION_SPAWN) {
+            if (knight.getAnimationTick() < 30) {
+                this.flap(armRight, 0.5F, 0.5F, false, 2, -0.7F, knight.ticksExisted, 1);
+                this.flap(armLeft, 0.5F, 0.5F, true, 2, -0.7F, knight.ticksExisted, 1);
+                this.walk(armRight, 0.5F, 0.5F, true, 1, 0, knight.ticksExisted, 1);
+                this.walk(armLeft, 0.5F, 0.5F, true, 1, 0, knight.ticksExisted, 1);
             }
         }
 
@@ -263,15 +257,6 @@ public class ModelDreadKnight extends ModelDragonBase {
             this.rightArmPose = modelbiped.rightArmPose;
             this.isSneak = modelbiped.isSneak;
         }
-    }
-
-    public void setVisible(boolean visible) {
-        this.head.invisible = !visible;
-        this.body.invisible = !visible;
-        this.armRight.invisible = !visible;
-        this.armLeft.invisible = !visible;
-        this.legRight.invisible = !visible;
-        this.legLeft.invisible = !visible;
     }
 
     @Override
