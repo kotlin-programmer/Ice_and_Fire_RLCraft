@@ -97,7 +97,7 @@ public class ParticleSpark extends ParticleFlame {
         float distZ = (float) (this.initialZ - this.posZ);
         this.motionX += distX * 0.1F * rand.nextFloat();
         this.motionZ += distZ * 0.1F * rand.nextFloat();
-        this.motionY -= 0.015F * rand.nextFloat();
+        this.motionY += 0.05F * (rand.nextFloat() - rand.nextFloat());
         this.motionZ += 0.05F * (rand.nextFloat() - rand.nextFloat());
         this.motionX += 0.05F * (rand.nextFloat() - rand.nextFloat());
         this.particleAngle += 0.25F * (rand.nextFloat() - rand.nextFloat());
