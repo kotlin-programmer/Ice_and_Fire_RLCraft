@@ -1555,7 +1555,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         for (int c = (int) Math.round(this.getEntityBoundingBox().minZ) - 1; c <= (int) Math.round(this.getEntityBoundingBox().maxZ) + 1; c++) {
                             IBlockState state = world.getBlockState(new BlockPos(a, b, c));
                             Block block = state.getBlock();
-                            if (state.getMaterial() != Material.AIR && !(block instanceof BlockBush) && !(block instanceof BlockLiquid) && block != Blocks.BEDROCK && state.getBlockHardness(world, new BlockPos(a, b, c)) < hardness && DragonUtils.canDragonBreak(state.getBlock()) && this.canDestroyBlock(new BlockPos(a, b, c))) {
+                            if (state.getMaterial() != Material.AIR && !(block instanceof BlockBush) && !(block instanceof BlockLiquid) && state.getBlockHardness(world, new BlockPos(a, b, c)) < hardness && DragonUtils.canDragonBreak(state.getBlock()) && this.canDestroyBlock(new BlockPos(a, b, c))) {
                                 this.motionX *= 0.6D;
                                 this.motionZ *= 0.6D;
                                 DragonUtils.destroyBlock(world, new BlockPos(a, b, c), state);

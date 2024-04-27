@@ -211,7 +211,7 @@ public class LightningExplosion extends Explosion {
 					particles.add(MessageParticleFX.createParticle(d0, d1, d2, d3, d4, d5));
 				}
 
-				if (state.getMaterial() != Material.AIR && !state.getBlock().getTranslationKey().contains("grave") && DragonUtils.canDragonBreak(state.getBlock()) && mobGriefing) {
+				if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(state.getBlock()) && !DragonUtils.isDragonBlock(state.getBlock()) && mobGriefing) {
 					if (block == Blocks.GRASS_PATH) {
 						worldObj.setBlockState(blockpos, ModBlocks.crackledGrassPath.getDefaultState());
 					} else if (block == Blocks.GRASS) {
