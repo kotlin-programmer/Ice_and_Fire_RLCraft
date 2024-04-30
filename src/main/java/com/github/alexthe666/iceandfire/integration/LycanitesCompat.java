@@ -9,6 +9,8 @@ import net.minecraft.util.ResourceLocation;
 public class LycanitesCompat {
 
     private static final String PARALYSIS = "lycanitesmobs:paralysis";
+    private static final String PENETRATION = "lycanitesmobs:penetration";
+
     private static Potion PARALYSIS_POTION;
 
     public static boolean isEnabled() {
@@ -42,6 +44,18 @@ public class LycanitesCompat {
             ResourceLocation resource = effect.getPotion().getRegistryName();
             if (resource == null) return false;
             return resource.toString().equals(PARALYSIS);
+        }
+        return false;
+    }
+
+    public static boolean isPenetrationEffect(PotionEffect effect) {
+        if (effect == null) {
+            return false;
+        }
+        if (isEnabled()) {
+            ResourceLocation resource = effect.getPotion().getRegistryName();
+            if (resource == null) return false;
+            return resource.toString().equals(PENETRATION);
         }
         return false;
     }

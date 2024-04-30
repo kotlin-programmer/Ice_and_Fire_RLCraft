@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.core.ModSounds;
@@ -7,6 +8,7 @@ import com.github.alexthe666.iceandfire.entity.projectile.EntityHydraBreath;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
@@ -356,6 +358,9 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
+        if (IceAndFire.acid.damageType.contentEquals(source.damageType)) {
+            return false;
+        }
         if (lastHitHead > this.getHeadCount()) {
             lastHitHead = this.getHeadCount() - 1;
         }
@@ -461,6 +466,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
         return potioneffectIn.getPotion() != MobEffects.POISON
                 && potioneffectIn.getPotion() != ModPotions.acid
+                && !LycanitesCompat.isPenetrationEffect(potioneffectIn)
                 && super.isPotionApplicable(potioneffectIn);
     }
 
