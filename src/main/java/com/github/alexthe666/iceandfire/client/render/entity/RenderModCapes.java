@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
@@ -22,6 +23,7 @@ public class RenderModCapes {
 	private static final ResourceLocation artsyDyElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_artsydy.png");
 	private static final ResourceLocation eagleCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_eagle.png");
 	private static final ResourceLocation eagleElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_eagle.png");
+	private static final ResourceLocation heavenCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_heaven.png");
 	private static final ResourceLocation fireCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_fire.png");
 	private static final ResourceLocation fireElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_fire.png");
 	private static final ResourceLocation iceCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_ice.png");
@@ -41,7 +43,6 @@ public class RenderModCapes {
 	private static final UUID[] lightningCapes = new UUID[] {
 			User.Fonnymunkey,
 			User.Kotlin_Dev,
-			User.NLBlackHeavenNL,
 			User.Rayquazafallout
 	};
 
@@ -50,34 +51,10 @@ public class RenderModCapes {
 
 	@SubscribeEvent
 	public void playerRender(RenderPlayerEvent.Pre event) {
-		if(event.getEntityPlayer() instanceof AbstractClientPlayer) {
-			NetworkPlayerInfo info = null;
-
-			try {
-				if(playerInfoField == null) {
-					playerInfoField = ObfuscationReflectionHelper.findField(AbstractClientPlayer.class, "field_175157_a");
-					playerInfoField.setAccessible(true);
-				}
-				info = (NetworkPlayerInfo)playerInfoField.get(event.getEntityPlayer());
-			}
-			catch(IllegalArgumentException | IllegalAccessException var7) {
-				var7.printStackTrace();
-			}
-
-			if(info != null) {
-				Map<MinecraftProfileTexture.Type, ResourceLocation> textureMap = null;
-
-				try {
-					if(playerTexturesField == null) {
-						playerTexturesField = ObfuscationReflectionHelper.findField(NetworkPlayerInfo.class, "field_187107_a");
-						playerTexturesField.setAccessible(true);
-					}
-					textureMap = (Map)playerTexturesField.get(info);
-				}
-				catch(IllegalArgumentException | IllegalAccessException var5) {
-					var5.printStackTrace();
-				}
-
+		if (event.getEntityPlayer() instanceof AbstractClientPlayer) {
+			NetworkPlayerInfo info = getNetworkPlayerInfo(event.getEntityPlayer());
+			if (info != null) {
+				Map<MinecraftProfileTexture.Type, ResourceLocation> textureMap = getPlayerTexturesMap(info);
 				if (textureMap != null) {
 					UUID uniqueID = event.getEntityPlayer().getUniqueID();
 					if (User.Shivaxi.equals(uniqueID)) {
@@ -90,6 +67,10 @@ public class RenderModCapes {
 					}
 					if (User.NLBlackEagle.equals(uniqueID)) {
 						textureMap.put(MinecraftProfileTexture.Type.CAPE, eagleCapeTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleElytraTex);
+					}
+					if (User.NLBlackHeavenNL.equals(uniqueID)) {
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, heavenCapeTex);
 						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleElytraTex);
 					}
 					if (this.hasFireCape(uniqueID)) {
@@ -107,6 +88,35 @@ public class RenderModCapes {
 				}
 			}
 		}
+	}
+
+	private NetworkPlayerInfo getNetworkPlayerInfo(EntityPlayer player) {
+		try {
+			if (playerInfoField == null) {
+				playerInfoField = ObfuscationReflectionHelper.findField(AbstractClientPlayer.class, "field_175157_a");
+				playerInfoField.setAccessible(true);
+			}
+			return (NetworkPlayerInfo) playerInfoField.get(player);
+		}
+		catch (IllegalArgumentException | IllegalAccessException error) {
+			error.printStackTrace();
+		}
+		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Map<MinecraftProfileTexture.Type, ResourceLocation> getPlayerTexturesMap(NetworkPlayerInfo info) {
+		try {
+			if (playerTexturesField == null) {
+				playerTexturesField = ObfuscationReflectionHelper.findField(NetworkPlayerInfo.class, "field_187107_a");
+				playerTexturesField.setAccessible(true);
+			}
+			return (Map<MinecraftProfileTexture.Type, ResourceLocation>) playerTexturesField.get(info);
+		}
+		catch (IllegalArgumentException | IllegalAccessException error) {
+			error.printStackTrace();
+		}
+		return null;
 	}
 
 	private boolean hasFireCape(UUID uniqueID) {
