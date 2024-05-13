@@ -130,14 +130,14 @@ public class ModelFireDragonArmor extends ModelBiped {
 		this.Teeth1 = new ModelRenderer(this, 6, 34);
 		this.Teeth1.setRotationPoint(0.0F, -1.0F, 0.0F);
 		this.Teeth1.addBox(-3.6F, 0.1F, -8.9F, 4, 1, 5, 0.0F);
-		if (legs) {
+		if(legs){
 			this.bipedLeftLeg.addChild(this.LeftLegSpike3);
 			this.bipedLeftLeg.addChild(this.LeftLegSpike2);
 			this.bipedLeftLeg.addChild(this.LeftLegSpike);
 			this.bipedRightLeg.addChild(this.RightLegSpike3);
 			this.bipedRightLeg.addChild(this.RightLegSpike2);
 			this.bipedRightLeg.addChild(this.RightLegSpike);
-		} else {
+		}else{
 			this.bipedLeftArm.addChild(this.LeftShoulderSpike2);
 			this.HornL.addChild(this.HornL2);
 			this.bipedHead.addChild(this.HeadFront);

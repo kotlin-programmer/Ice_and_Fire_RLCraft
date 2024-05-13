@@ -142,14 +142,14 @@ public class ModelIceDragonArmor extends ModelBiped {
 		this.HornL4.setRotationPoint(1.0F, -7.5F, 1.9F);
 		this.HornL4.addBox(-0.5F, -0.8F, -0.0F, 1, 2, 5, 0.0F);
 		this.setRotateAngle(HornL4, 0.45378560551852565F, 0.3141592653589793F, 0.03490658503988659F);
-		if (legs) {
+		if(legs){
 			this.bipedLeftLeg.addChild(this.LeftLegSpike3);
 			this.bipedLeftLeg.addChild(this.LeftLegSpike2);
 			this.bipedLeftLeg.addChild(this.LeftLegSpike);
 			this.bipedRightLeg.addChild(this.RightLegSpike3);
 			this.bipedRightLeg.addChild(this.RightLegSpike2);
 			this.bipedRightLeg.addChild(this.RightLegSpike);
-		} else {
+		}else{
 			this.bipedHead.addChild(this.HornR);
 			this.bipedHead.addChild(this.HornR4);
 			this.Jaw.addChild(this.Teeth1);
