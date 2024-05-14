@@ -196,7 +196,7 @@ public class FireExplosion extends Explosion {
 					particles.add(MessageParticleFX.createParticle(d0, d1, d2, d3, d4, d5));
 				}
 
-				if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(state.getBlock()) && !DragonUtils.isDragonBlock(state.getBlock()) && mobGriefing) {
+				if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos) && !DragonUtils.isDragonBlock(state.getBlock()) && mobGriefing) {
 					if (block == Blocks.GRASS_PATH) {
 						worldObj.setBlockState(blockpos, ModBlocks.charedGrassPath.getDefaultState());
 					} else if (block == Blocks.GRASS) {

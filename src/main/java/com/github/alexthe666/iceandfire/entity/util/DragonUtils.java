@@ -6,8 +6,8 @@ import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
 import com.github.alexthe666.iceandfire.block.BlockDragonScales;
 import com.github.alexthe666.iceandfire.block.BlockDreadBase;
 import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.*;
+import com.github.alexthe666.iceandfire.integration.ClaimItCompatBridge;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
@@ -255,7 +255,24 @@ public class DragonUtils {
 				|| className.contains("Hog");
 	}
 
-	public static boolean canDragonBreak(Block block) {
+	public static boolean canDragonBreak(World world, Block block, BlockPos pos) {
+		if (!canDragonBreakBlock(block)) {
+			return false;
+		}
+		return world.isRemote || !ClaimItCompatBridge.isBlockInAnyClaim(world, pos);
+	}
+
+	public static boolean isDragonBlock(Block block) {
+		if (block instanceof BlockDragonScales) {
+			return true;
+		}
+		if (block instanceof BlockDragonBone) {
+			return true;
+		}
+        return block instanceof BlockDragonBoneWall;
+    }
+
+	private static boolean canDragonBreakBlock(Block block) {
 		if (block.getTranslationKey().contains("grave")) {
 			return false;
 		}
@@ -274,16 +291,6 @@ public class DragonUtils {
 				&& block != net.minecraft.init.Blocks.CHAIN_COMMAND_BLOCK
 				&& block != net.minecraft.init.Blocks.IRON_BARS;
 	}
-
-	public static boolean isDragonBlock(Block block) {
-		if (block instanceof BlockDragonScales) {
-			return true;
-		}
-		if (block instanceof BlockDragonBone) {
-			return true;
-		}
-        return block instanceof BlockDragonBoneWall;
-    }
 
 	public static boolean isDreadBlock(Block block) {
 		return block instanceof BlockDreadBase || block instanceof BlockDreadSpawner;
