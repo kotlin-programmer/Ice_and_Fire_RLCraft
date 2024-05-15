@@ -86,7 +86,7 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerEntities(RegistryEvent.Register<EntityEntry> event) {
         registerUnspawnable(EntityEntryBuilder.<EntityDragonEgg>create(), event, EntityDragonEgg.class, "dragonegg", 1, 80, 5);
-        registerUnspawnable(EntityEntryBuilder.<EntityDragonArrow>create(), event, EntityDragonArrow.class, "dragonarrow", 2, 64, 10);
+        registerUnspawnable(EntityEntryBuilder.<EntityDragonArrow>create(), event, EntityDragonArrow.class, "dragonarrow", 2, 64, 1);
         registerUnspawnable(EntityEntryBuilder.<EntityDragonSkull>create(), event, EntityDragonSkull.class, "dragonskull", 3, 80, 5);
         registerSpawnable(EntityEntryBuilder.<EntityFireDragon>create(), event, EntityFireDragon.class, "firedragon", 4, 0X340000, 0XA52929, 160, 1);
         registerSpawnable(EntityEntryBuilder.<EntityIceDragon>create(), event, EntityIceDragon.class, "icedragon", 5, 0XB5DDFB, 0X7EBAF0, 160, 1);
@@ -112,7 +112,7 @@ public class CommonProxy {
         registerUnspawnable(EntityEntryBuilder.<EntityCockatriceEgg>create(), event, EntityCockatriceEgg.class, "if_cockatriceegg", 23, 64, 10);
         registerSpawnable(EntityEntryBuilder.<EntityStymphalianBird>create(), event, EntityStymphalianBird.class, "stymphalianbird", 25, 0X744F37, 0X9E6C4B, 80, 3);
         registerUnspawnable(EntityEntryBuilder.<EntityStymphalianFeather>create(), event, EntityStymphalianFeather.class, "stymphalianfeather", 26, 80, 5);
-        registerUnspawnable(EntityEntryBuilder.<EntityStymphalianArrow>create(), event, EntityStymphalianArrow.class, "stymphalianarrow", 27, 64, 10);
+        registerUnspawnable(EntityEntryBuilder.<EntityStymphalianArrow>create(), event, EntityStymphalianArrow.class, "stymphalianarrow", 27, 64, 1);
         registerSpawnable(EntityEntryBuilder.<EntityTroll>create(), event, EntityTroll.class, "if_troll", 28, 0X3D413D, 0X58433A, 80, 3);
         registerSpawnable(EntityEntryBuilder.<EntityMyrmexWorker>create(), event,EntityMyrmexWorker.class, "myrmex_worker", 29, 0XA16026, 0X594520, 80, 3);
         registerSpawnable(EntityEntryBuilder.<EntityMyrmexSoldier>create(), event,EntityMyrmexSoldier.class, "myrmex_soldier", 30, 0XA16026, 0X7D622D, 80, 3);
@@ -121,11 +121,11 @@ public class CommonProxy {
         registerSpawnable(EntityEntryBuilder.<EntityMyrmexQueen>create(), event,EntityMyrmexQueen.class, "myrmex_queen", 33, 0XA16026, 0XECB855, 80, 3);
         registerUnspawnable(EntityEntryBuilder.<EntityMyrmexEgg>create(), event,EntityMyrmexEgg.class, "myrmex_egg", 34, 80, 5);
         registerSpawnable(EntityEntryBuilder.<EntityAmphithere>create(), event, EntityAmphithere.class, "amphithere", 35, 0X597535, 0X00AA98, 80, 3);
-        registerUnspawnable(EntityEntryBuilder.<EntityAmphithereArrow>create(), event, EntityAmphithereArrow.class, "amphitherearrow", 36, 64, 10);
+        registerUnspawnable(EntityEntryBuilder.<EntityAmphithereArrow>create(), event, EntityAmphithereArrow.class, "amphitherearrow", 36, 64, 1);
         registerSpawnable(EntityEntryBuilder.<EntitySeaSerpent>create(), event, EntitySeaSerpent.class, "seaserpent", 37, 0X008299, 0XC5E6E7, 160, 3);
         registerUnspawnable(EntityEntryBuilder.<EntitySeaSerpentBubbles>create(), event, EntitySeaSerpentBubbles.class, "seaserpentbubble", 38, 80, 5);
-        registerUnspawnable(EntityEntryBuilder.<EntitySeaSerpentArrow>create(), event, EntitySeaSerpentArrow.class, "seaserpentarrow", 39, 64, 10);
-        registerUnspawnable(EntityEntryBuilder.<EntityHydraArrow>create(), event, EntityHydraArrow.class, "hydra_arrow", 40, 64, 10);
+        registerUnspawnable(EntityEntryBuilder.<EntitySeaSerpentArrow>create(), event, EntitySeaSerpentArrow.class, "seaserpentarrow", 39, 64, 1);
+        registerUnspawnable(EntityEntryBuilder.<EntityHydraArrow>create(), event, EntityHydraArrow.class, "hydra_arrow", 40, 64, 1);
         registerSpawnable(EntityEntryBuilder.<EntityHydra>create(), event, EntityHydra.class, "if_hydra", 41, 0X8B8B78, 0X2E372B, 160, 3);
         registerUnspawnable(EntityEntryBuilder.<EntityHydraBreath>create(), event, EntityHydraBreath.class, "hydra_breath", 42, 80, 5);
         registerUnspawnable(EntityEntryBuilder.<EntityTideTrident>create(), event, EntityTideTrident.class, "tide_trident", 43, 64, 10);
