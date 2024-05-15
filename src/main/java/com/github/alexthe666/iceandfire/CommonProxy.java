@@ -134,7 +134,7 @@ public class CommonProxy {
         registerSpawnable(EntityEntryBuilder.<EntityDreadBeast>create(), event, EntityDreadBeast.class, "dread_beast", 46, 0XE0E6E6, 0X38373C, 64, 3);
         registerSpawnable(EntityEntryBuilder.<EntityDreadScuttler>create(), event, EntityDreadScuttler.class, "dread_scuttler", 47, 0XE0E6E6, 0X4D5667, 64, 3);
         registerSpawnable(EntityEntryBuilder.<EntityDreadLich>create(), event, EntityDreadLich.class, "dread_lich", 48, 0XE0E6E6, 0X274860, 64, 3);
-        registerUnspawnable(EntityEntryBuilder.<EntityDreadLichSkull>create(), event, EntityDreadLichSkull.class, "dread_lich_skull", 49, 64, 5);
+        registerUnspawnable(EntityEntryBuilder.<EntityDreadLichSkull>create(), event, EntityDreadLichSkull.class, "dread_lich_skull", 49, 64, 1);
         registerSpawnable(EntityEntryBuilder.<EntityDreadKnight>create(), event, EntityDreadKnight.class, "dread_knight", 50, 0XE0E6E6, 0X4A6C6E, 64, 3);
         registerSpawnable(EntityEntryBuilder.<EntityDreadHorse>create(), event, EntityDreadHorse.class, "dread_horse", 51, 0XE0E6E6, 0XACACAC, 64 ,3);
         registerSpawnable(EntityEntryBuilder.create(), event, EntityGhost.class, "ghost", 63, 0XB9EDB8, 0X73B276, 64, 5);
