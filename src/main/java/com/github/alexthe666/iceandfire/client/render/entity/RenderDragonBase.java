@@ -38,14 +38,12 @@ import java.util.Map;
 public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 
 	private final Map<String, ResourceLocation> LAYERED_TEXTURE_CACHE = Maps.newHashMap();
-	private final int dragonType;
 
-	public RenderDragonBase(RenderManager renderManager, ModelBase model, int dragonType) {
+	public RenderDragonBase(RenderManager renderManager, ModelBase model) {
 		super(renderManager, model, 0.8F);
 		this.addLayer(new LayerDragonEyes(this));
 		this.addLayer(new LayerDragonRider(this));
 		this.addLayer(new LayerDragonArmor(this));
-		this.dragonType = dragonType;
 	}
 
 	@Override
@@ -61,25 +59,10 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityDragonBase entity) {
-		String baseTexture = entity.getVariantName(entity.getVariant()) + " " + entity.getDragonStage() + entity.isModelDead() + entity.isMale() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
+		String baseTexture = entity.getVariantName(entity.getVariant()) + " " + entity.getDragonStage() + entity.isModelDead() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
 		ResourceLocation resourcelocation = LAYERED_TEXTURE_CACHE.get(baseTexture);
 		if (resourcelocation == null) {
 			resourcelocation = EnumDragonTextures.getTextureFromDragon(entity);
-			List<String> tex = new ArrayList<String>();
-			tex.add(resourcelocation.toString());
-			if (entity.isMale() && !entity.isSkeletal()) {
-				if (dragonType == 1) {
-					tex.add(EnumDragonTextures.getDragonEnum(entity).ICE_MALE_OVERLAY.toString());
-				} else if (dragonType == 2) {
-					tex.add(EnumDragonTextures.getDragonEnum(entity).LIGHTNING_MALE_OVERLAY.toString());
-				} else {
-					tex.add(EnumDragonTextures.getDragonEnum(entity).FIRE_MALE_OVERLAY.toString());
-				}
-			} else {
-				tex.add(EnumDragonTextures.Armor.EMPTY.FIRETEXTURE.toString());
-			}
-			ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
-			Minecraft.getMinecraft().getTextureManager().loadTexture(resourcelocation, layeredBase);
 			LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);
 		}
 		return resourcelocation;
