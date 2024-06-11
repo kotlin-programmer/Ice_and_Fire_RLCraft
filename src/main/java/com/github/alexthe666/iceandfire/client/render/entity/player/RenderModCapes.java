@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.client.render.entity;
+package com.github.alexthe666.iceandfire.client.render.entity.player;
 
 import com.mojang.authlib.minecraft.MinecraftProfileTexture;
 import net.minecraft.client.entity.AbstractClientPlayer;

@@ -14,6 +14,8 @@ import com.github.alexthe666.iceandfire.client.particle.lightning.ParticleLightn
 import com.github.alexthe666.iceandfire.client.particle.lightning.ParticleLightningVector;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderAmphithereArrow;
 import com.github.alexthe666.iceandfire.client.render.entity.*;
+import com.github.alexthe666.iceandfire.client.render.entity.player.RenderModArmor;
+import com.github.alexthe666.iceandfire.client.render.entity.player.RenderModCapes;
 import com.github.alexthe666.iceandfire.client.render.tile.*;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
@@ -275,6 +277,7 @@ public class ClientProxy extends CommonProxy {
 		this.bestiaryFontRenderer = new FontRenderer(Minecraft.getMinecraft().gameSettings, new ResourceLocation("iceandfire:textures/font/bestiary.png"), Minecraft.getMinecraft().renderEngine, false);
 		((IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager()).registerReloadListener(this.bestiaryFontRenderer);
 		ModKeys.init();
+		MinecraftForge.EVENT_BUS.register(new RenderModArmor());
 		MinecraftForge.EVENT_BUS.register(new RenderModCapes());
 		MinecraftForge.EVENT_BUS.register(new EventClient());
 		MinecraftForge.EVENT_BUS.register(new EventNewMenu());
