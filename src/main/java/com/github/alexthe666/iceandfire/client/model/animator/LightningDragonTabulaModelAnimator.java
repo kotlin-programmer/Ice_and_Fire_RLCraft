@@ -78,7 +78,7 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
                     float x = currentPosition.getCube(cube.boxName).rotateAngleX;
                     float y = currentPosition.getCube(cube.boxName).rotateAngleY;
                     float z = currentPosition.getCube(cube.boxName).rotateAngleZ;
-                    if (isHorn(cube) || isWing(model, cube) && (entity.getAnimation() == EntityDragonBase.ANIMATION_WINGBLAST || entity.getAnimation() == EntityDragonBase.ANIMATION_EPIC_ROAR)) {
+                    if (isHorn(cube) || isWing(model, cube) && entity.getAnimation() == EntityDragonBase.ANIMATION_WINGBLAST) {
                         this.addToRotateAngle(cube, limbSwingAmount, walkPart.rotateAngleX, walkPart.rotateAngleY, walkPart.rotateAngleZ);
                     } else {
                         this.addToRotateAngle(cube, limbSwingAmount, prevX + deltaTicks * distance(prevX, x), prevY + deltaTicks * distance(prevY, y), prevZ + deltaTicks * distance(prevZ, z));
@@ -367,29 +367,6 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         model.llibAnimator.endKeyframe();
         model.llibAnimator.startKeyframe(10);
         moveToPose(model, EnumDragonAnimations.ROAR3.lightningdragon_model);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.resetKeyframe(10);
-
-        model.llibAnimator.setAnimation(EntityLightningDragon.ANIMATION_EPIC_ROAR);
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.EPIC_ROAR1.lightningdragon_model);
-        model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.EPIC_ROAR2.lightningdragon_model);
-        model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.EPIC_ROAR3.lightningdragon_model);
-        model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.EPIC_ROAR2.lightningdragon_model);
-        model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.EPIC_ROAR3.lightningdragon_model);
-        model.llibAnimator.move(model.getCube("BodyUpper"), 0, -6.8F, 0);
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(10);
         model.reset();

@@ -68,7 +68,6 @@ public class EntityLightningDragon extends EntityDragonBase {
 		ANIMATION_FIRECHARGE = Animation.create(25);
 		ANIMATION_WINGBLAST = Animation.create(50);
 		ANIMATION_ROAR = Animation.create(40);
-		ANIMATION_EPIC_ROAR = Animation.create(60);
 		this.growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
 		this.stepHeight = 1;
 	}

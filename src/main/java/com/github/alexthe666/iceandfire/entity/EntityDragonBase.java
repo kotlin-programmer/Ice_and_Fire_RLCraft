@@ -100,7 +100,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public static Animation ANIMATION_SHAKEPREY;
     public static Animation ANIMATION_WINGBLAST;
     public static Animation ANIMATION_ROAR;
-    public static Animation ANIMATION_EPIC_ROAR;
     public static Animation ANIMATION_TAILWHACK;
     public EnumDragonType dragonType;
     public double minimumDamage;
@@ -2261,46 +2260,22 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (EntityGorgon.isStoneMob(this)) {
             return;
         }
-        if (rand.nextBoolean()) {
-            if (this.getAnimation() != ANIMATION_EPIC_ROAR) {
-                this.setAnimation(ANIMATION_EPIC_ROAR);
-                this.playSound(this.getRoarSound(), this.getSoundVolume() + 3 + Math.max(0, this.getDragonStage() - 2), this.getSoundPitch() * 0.7F);
-            }
-            if (this.getDragonStage() > 3) {
-                int size = (this.getDragonStage() - 3) * 30;
-                List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(size, size, size));
-                for (Entity entity : entities) {
-                    boolean isStrongerDragon = entity instanceof EntityDragonBase && ((EntityDragonBase) entity).getDragonStage() >= this.getDragonStage();
-                    if (entity instanceof EntityLivingBase && !isStrongerDragon) {
-                        EntityLivingBase living = (EntityLivingBase) entity;
-                        if (this.isOwner(living) || this.isOwnersPet(living)) {
-                            living.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 50 * size));
-                        } else {
-                            if(living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != ModItems.earplugs){
-                                living.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 50 * size));
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            if (this.getAnimation() != ANIMATION_ROAR) {
-                this.setAnimation(ANIMATION_ROAR);
-                this.playSound(this.getRoarSound(), this.getSoundVolume() + 2 + Math.max(0, this.getDragonStage() - 3), this.getSoundPitch());
-            }
-            if (this.getDragonStage() > 3) {
-                int size = (this.getDragonStage() - 3) * 30;
-                List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(size, size, size));
-                for (Entity entity : entities) {
-                    boolean isStrongerDragon = entity instanceof EntityDragonBase && ((EntityDragonBase) entity).getDragonStage() >= this.getDragonStage();
-                    if (entity instanceof EntityLivingBase && !isStrongerDragon) {
-                        EntityLivingBase living = (EntityLivingBase) entity;
-                        if (this.isOwner(living) || this.isOwnersPet(living)) {
-                            living.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 30 * size));
-                        } else {
-                            if(living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != ModItems.earplugs){
-								living.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 30 * size));
-							}
+        if (this.getAnimation() != ANIMATION_ROAR) {
+            this.setAnimation(ANIMATION_ROAR);
+            this.playSound(this.getRoarSound(), this.getSoundVolume() + 2 + Math.max(0, this.getDragonStage() - 3), this.getSoundPitch());
+        }
+        if (this.getDragonStage() > 3) {
+            int size = (this.getDragonStage() - 3) * 30;
+            List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox().expand(size, size, size));
+            for (Entity entity : entities) {
+                boolean isStrongerDragon = entity instanceof EntityDragonBase && ((EntityDragonBase) entity).getDragonStage() >= this.getDragonStage();
+                if (entity instanceof EntityLivingBase && !isStrongerDragon) {
+                    EntityLivingBase living = (EntityLivingBase) entity;
+                    if (this.isOwner(living) || this.isOwnersPet(living)) {
+                        living.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 30 * size));
+                    } else {
+                        if (living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != ModItems.earplugs) {
+                            living.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 30 * size));
                         }
                     }
                 }
