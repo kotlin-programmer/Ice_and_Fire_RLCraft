@@ -382,6 +382,8 @@ public class ModItems {
 	public static Item ghost_ingot = new ItemGeneric("ghost_ingot", "iceandfire.ghost_ingot");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_sword")
 	public static Item ghost_sword = new ItemGhostSword();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_collar")
+	public static Item dragon_collar = new ItemGeneric("dragon_collar", "iceandfire.dragon_collar");
 
 	static {
 		EnumDragonArmor.initArmors();

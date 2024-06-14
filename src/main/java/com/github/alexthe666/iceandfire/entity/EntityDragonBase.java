@@ -1082,6 +1082,14 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         return true;
                     }
                 }
+            } else {
+                if (stack.getItem() == ModItems.dragon_collar) {
+                    this.setTamedBy(player);
+                    if (!player.isCreative()) {
+                        stack.shrink(1);
+                    }
+                    return true;
+                }
             }
         }
         //Don't call EntityAnimal::processInteract() due to custom breeding handling
