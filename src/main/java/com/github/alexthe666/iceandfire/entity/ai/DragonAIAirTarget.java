@@ -28,7 +28,7 @@ public class DragonAIAirTarget extends EntityAIBase {
 		if (dragon.isChild()) {
 			return false;
 		}
-		if (dragon.getOwner() != null && dragon.getPassengers().contains(dragon.getOwner())) {
+		if (dragon.isPlayerControlled()) {
 			return false;
 		}
 

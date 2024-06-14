@@ -85,13 +85,13 @@ public class EntityLightningDragon extends EntityDragonBase {
 		this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(4, new DragonAITarget(this, EntityLivingBase.class, true, new Predicate<Entity>() {
+		this.targetTasks.addTask(4, new DragonAITarget<>(this, EntityLivingBase.class, true, new Predicate<Entity>() {
 			@Override
 			public boolean apply(@Nullable Entity entity) {
-				return entity instanceof EntityLivingBase && DragonUtils.isAlive((EntityLivingBase)entity);
+				return entity instanceof EntityLivingBase && DragonUtils.isAlive((EntityLivingBase) entity) && !EntityLightningDragon.this.isControllingPassenger(entity);
 			}
 		}));
-		this.targetTasks.addTask(5, new DragonAITargetItems(this, false));
+		this.targetTasks.addTask(5, new DragonAITargetItems<>(this, false));
 	}
 
 	@Override
@@ -277,14 +277,14 @@ public class EntityLightningDragon extends EntityDragonBase {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if(this.isInLava() && !this.isFlying() && this.getPassengers().isEmpty() && !this.isChild() && !this.isHovering() && !this.isSleeping() && this.canMove() && this.onGround){
+		if (this.isInLava() && !this.isFlying() && !this.isChild() && !this.isHovering() && !this.isSleeping() && this.canMove() && this.onGround){
 			this.setHovering(true);
 			this.setSleeping(false);
 			this.setSitting(false);
 			this.flyHovering = 0;
 			this.flyTicks = 0;
 		}
-		if(!world.isRemote) {
+		if (!world.isRemote) {
 			if (this.getAttackTarget() != null && !this.isSleeping() && this.getAnimation() != ANIMATION_SHAKEPREY) {
 				if ((!attackDecision || this.isFlying()) && !isTargetBlocked(new Vec3d(this.getAttackTarget().posX, this.getAttackTarget().posY, this.getAttackTarget().posZ))) {
 					shootLightningAtMob(this.getAttackTarget());

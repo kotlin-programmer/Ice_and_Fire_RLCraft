@@ -139,10 +139,10 @@ public class FireChargeExplosion extends Explosion {
 						double d10 = (1.0D - d12) * d14;
 
 						if (exploder instanceof EntityDragonBase) {
-							if (DragonUtils.hasSameOwner(entity, exploder)) {
+							if (DragonUtils.isControllingPassenger(exploder, entity)) {
 								return;
 							}
-							if (DragonUtils.isOwner(entity, exploder)) {
+							if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
 								entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), ((float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D))) / 3);
 							} else {
 								entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)));

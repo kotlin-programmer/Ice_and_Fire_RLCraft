@@ -308,6 +308,28 @@ public class DragonUtils {
 		return owner.equals(owner2);
 	}
 
+	public static boolean isDragonRider(Entity entity) {
+		if (entity instanceof EntityPlayer) {
+			return false;
+		}
+		if (entity instanceof EntityLiving) {
+			EntityLiving living = (EntityLiving) entity;
+			return living.isAIDisabled() && living.hasCustomName();
+		}
+		return false;
+    }
+
+	public static boolean isControllingPassenger(Entity entity, Entity possibleControllingEntity) {
+		if (entity == null || possibleControllingEntity == null) {
+			return false;
+		}
+		Entity controllingPassenger = entity.getControllingPassenger();
+		if (controllingPassenger == null) {
+			return false;
+		}
+		return controllingPassenger.getUniqueID().equals(possibleControllingEntity.getUniqueID());
+	}
+
 	public static boolean isOwner(Entity owner, Entity entity) {
 		if (!(entity instanceof IEntityOwnable)) {
 			return false;

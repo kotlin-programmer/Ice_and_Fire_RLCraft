@@ -139,10 +139,10 @@ public class LightningExplosion extends Explosion {
 							d7 = d7 / d13;
 							d9 = d9 / d13;
 							if (exploder instanceof EntityDragonBase) {
-								if (DragonUtils.hasSameOwner(entity, exploder)) {
+								if (DragonUtils.isControllingPassenger(exploder, entity)) {
 									return;
 								}
-								if (DragonUtils.isOwner(entity, exploder)) {
+								if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
 									entity.attackEntityFrom(IceAndFire.dragonLightning, ((float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D))) / 6);
 								} else if (!entity.isEntityEqual(exploder)) {
 									entity.attackEntityFrom(IceAndFire.dragonLightning, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)) / 3);

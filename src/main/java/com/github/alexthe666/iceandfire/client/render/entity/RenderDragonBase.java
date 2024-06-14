@@ -129,7 +129,7 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 			if (!dragon.getPassengers().isEmpty()) {
 				float dragonScale = dragon.getRenderSize() / 3;
 				for (Entity passenger : dragon.getPassengers()) {
-					boolean prey = dragon.getControllingPassenger() == null || dragon.getControllingPassenger().getEntityId() != passenger.getEntityId();
+					boolean prey = dragon.getControllingPassenger() == null || !dragon.isControllingPassenger(passenger);
 					ClientProxy.currentDragonRiders.remove(passenger.getUniqueID());
 					float riderRot = passenger.prevRotationYaw + (passenger.rotationYaw - passenger.prevRotationYaw) * partialTicks;
 					int animationTicks = 0;
@@ -142,10 +142,10 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 					if (prey) {
 						if (animationTicks == 0 || animationTicks >= 15 || dragon.isFlying()) {
 							translateToHead();
-							Render render = Minecraft.getMinecraft().getRenderManager().getEntityRenderObject(passenger);
+							Render<Entity> render = Minecraft.getMinecraft().getRenderManager().getEntityRenderObject(passenger);
 							ModelBase modelBase = null;
 							if (render instanceof RenderLiving) {
-								modelBase = ((RenderLiving) render).getMainModel();
+								modelBase = ((RenderLiving<?>) render).getMainModel();
 							}
 							if ((passenger.height > passenger.width || modelBase instanceof ModelBiped) && !(modelBase instanceof ModelQuadruped) && !(modelBase instanceof ModelHorse)) {
 								GlStateManager.translate(-0.15F * passenger.height, 0.1F * dragonScale - 0.1F * passenger.height, -0.1F * dragonScale - 0.1F * passenger.width);
@@ -159,8 +159,7 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 						} else {
 							GlStateManager.translate(0, 0.555F * dragonScale, -0.5F * dragonScale);
 						}
-
-					}else{
+					} else{
 						GlStateManager.translate(0, -0.01F * dragonScale, -0.035F * dragonScale);
 					}
 					GlStateManager.pushMatrix();
@@ -229,8 +228,8 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 				CrashReportCategory crashreportcategory1 = crashreport.makeCategory("Renderer details");
 				crashreportcategory1.addCrashSection("Assigned renderer", render);
 				crashreportcategory1.addCrashSection("Location", CrashReportCategory.getCoordinateInfo(x, y, z));
-				crashreportcategory1.addCrashSection("Rotation", Float.valueOf(yaw));
-				crashreportcategory1.addCrashSection("Delta", Float.valueOf(partialTicks));
+				crashreportcategory1.addCrashSection("Rotation", yaw);
+				crashreportcategory1.addCrashSection("Delta", partialTicks);
 				throw new ReportedException(crashreport);
 			}
 		}

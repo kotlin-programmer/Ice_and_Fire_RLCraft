@@ -37,7 +37,6 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -636,13 +635,28 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 if (this.isTamed() && this.getOwnerId() != null && this.getOwnerId().equals(player.getUniqueID())) {
                     return player;
                 }
+            } else if (passenger instanceof EntityLiving && DragonUtils.isDragonRider(passenger)) {
+                return passenger;
             }
         }
         return null;
     }
 
-    public boolean isRidingPlayer(EntityPlayer player) {
-        return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
+    @Override
+    protected void removePassenger(Entity entity) {
+        super.removePassenger(entity);
+        if (entity instanceof EntityLiving && DragonUtils.isDragonRider(entity)) {
+            EntityLiving living = (EntityLiving) entity;
+            living.setNoAI(false);
+        }
+    }
+
+    public boolean isPlayerControlled() {
+        return getControllingPassenger() instanceof EntityPlayer;
+    }
+
+    public boolean isControllingPassenger(Entity entity) {
+        return this.getControllingPassenger() != null && this.getControllingPassenger().getUniqueID().equals(entity.getUniqueID());
     }
 
     @Override
@@ -818,6 +832,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.dataManager.set(AGINGDISABLED, isAgingDisabled);
     }
 
+    @Override
     protected boolean canFitPassenger(Entity passenger) {
         return this.getPassengers().size() < 2;
     }
@@ -919,7 +934,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if(capability != null && capability.isStoned()) {
             return false;
         }
-        return !this.isSitting() && !this.isSleeping() && this.getControllingPassenger() == null && !this.isModelDead() && sleepProgress == 0 && this.getAnimation() != ANIMATION_SHAKEPREY;
+        return !this.isSitting() && !this.isSleeping() && !this.isPlayerControlled() && !this.isModelDead() && sleepProgress == 0 && this.getAnimation() != ANIMATION_SHAKEPREY;
     }
 
     @Override
@@ -1391,7 +1406,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             this.setFlying(false);
             this.setHovering(false);
         }
-        if (this.getControllingPassenger() != null && !this.onGround && (this.isFlying() || this.isHovering())) {
+        if (this.isPlayerControlled() && !this.onGround && (this.isFlying() || this.isHovering())) {
             this.motionY *= 0D;
         }
         if (this.isHovering()) {
@@ -1402,7 +1417,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             if (this.doesWantToLand() && !this.onGround) {
                 this.motionY -= 0.25D;
             } else {
-                if (this.getControllingPassenger() == null && !this.isBeyondHeight()) {
+                if (!this.isPlayerControlled() && !this.isBeyondHeight()) {
                     this.motionY += 0.08;
                 }
                 if (this.hoverTicks > 40) {
@@ -1422,7 +1437,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (!this.isFlying() && !this.isHovering() && this.airTarget != null && this.onGround) {
             this.airTarget = null;
         }
-        if (this.isFlying() && this.airTarget == null && this.onGround && this.getControllingPassenger() == null) {
+        if (this.isFlying() && this.airTarget == null && this.onGround && !this.isPlayerControlled()) {
             this.setFlying(false);
         }
 
@@ -1449,7 +1464,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             this.setFlying(false);
             this.setHovering(false);
         }
-        if ((capability == null || !capability.isStoned()) && (!world.isRemote && this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isSitting() && !this.isFlying() && this.getPassengers().isEmpty() && !this.isChild() && !this.isHovering() && !this.isSleeping() && this.canMove() && this.onGround || this.posY < -1)) {
+        if ((capability == null || !capability.isStoned()) && (!world.isRemote && this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround || this.posY < -1)) {
             this.setHovering(true);
             this.setSleeping(false);
             this.setSitting(false);
@@ -1457,7 +1472,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             this.hoverTicks = 0;
             this.flyTicks = 0;
         }
-        if (this.getAttackTarget() != null && this.getAttackTarget().posY + 5 < this.posY && (capability == null || !capability.isStoned()) && (!world.isRemote  && !this.isSitting() && !this.isFlying() && this.getPassengers().isEmpty() && !this.isChild() && !this.isHovering() && !this.isSleeping() && this.canMove() && this.onGround)) {
+        if (this.getAttackTarget() != null && this.getAttackTarget().posY + 5 < this.posY && !world.isRemote && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround) {
             this.setHovering(true);
             this.setSleeping(false);
             this.setSitting(false);
@@ -1481,7 +1496,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             this.hoverTicks = 0;
             this.flyTicks = 0;
         }
-        if (getAttackTarget() != null && !this.getPassengers().isEmpty() && this.getOwner() != null && this.getPassengers().contains(this.getOwner())) {
+        if (getAttackTarget() != null && this.isPlayerControlled()) {
             this.setAttackTarget(null);
         }
         if (!this.isAgingDisabled()) {
@@ -1523,12 +1538,12 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
         if (this.isBreathingFire()) {
             this.fireTicks++;
-            if (fireTicks > this.getDragonStage() * 25 || this.getOwner() != null && this.getPassengers().contains(this.getOwner()) && this.fireStopTicks <= 0) {
+            if (fireTicks > this.getDragonStage() * 25 || this.isPlayerControlled() && this.fireStopTicks <= 0) {
                 this.setBreathingFire(false);
                 this.attackDecision = this.getRNG().nextBoolean();
                 fireTicks = 0;
             }
-            if (fireStopTicks > 0 && this.getOwner() != null && this.getPassengers().contains(this.getOwner())) {
+            if (fireStopTicks > 0 && this.isPlayerControlled()) {
                 fireStopTicks--;
             }
         }
@@ -1548,7 +1563,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public void breakBlock() {
         if (IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2 && (!this.isTamed() || IceAndFireConfig.DRAGON_SETTINGS.tamedDragonGriefing)) {
             float hardness = IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing == 1 || this.getDragonStage() <= 3 ? 1.6F : 5F;
-            if (!isModelDead() && this.getDragonStage() >= 3 && (this.canMove() || this.getControllingPassenger() != null)) {
+            if (!isModelDead() && this.getDragonStage() >= 3 && (this.canMove() || this.isPlayerControlled())) {
                 for (int a = (int) Math.round(this.getEntityBoundingBox().minX) - 1; a <= (int) Math.round(this.getEntityBoundingBox().maxX) + 1; a++) {
                     for (int b = (int) Math.round(this.getEntityBoundingBox().minY) + 1; (b <= (int) Math.round(this.getEntityBoundingBox().maxY) + 2) && (b <= 127); b++) {
                         for (int c = (int) Math.round(this.getEntityBoundingBox().minZ) - 1; c <= (int) Math.round(this.getEntityBoundingBox().maxZ) + 1; c++) {
@@ -1611,14 +1626,16 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
     public abstract String getVariantName(int variant);
 
+    @Override
     public boolean shouldRiderSit() {
         return this.getControllingPassenger() != null;
     }
 
+    @Override
     public void updatePassenger(Entity passenger) {
         super.updatePassenger(passenger);
         if (this.isPassenger(passenger)) {
-            if (this.getControllingPassenger() == null || this.getControllingPassenger().getEntityId() != passenger.getEntityId()) {
+            if (this.getControllingPassenger() == null || !this.isControllingPassenger(passenger)) {
                 updatePreyInMouth(passenger);
             } else {
                 if (this.isModelDead()) {
@@ -1630,8 +1647,16 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 float degree_walk = 0.5F;
                 float degree_idle = 0.5F;
                 float degree_fly = 0.5F;
-                renderYawOffset = rotationYaw;
-                this.rotationYaw = passenger.rotationYaw;
+                if (passenger instanceof EntityPlayer) {
+                    this.renderYawOffset = this.rotationYaw;
+                    this.rotationYaw = passenger.rotationYaw;
+                    this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
+                } else if (passenger instanceof EntityLiving) {
+                    EntityLiving living = (EntityLiving) passenger;
+                    living.rotationYaw = this.rotationYaw;
+                    living.rotationPitch = this.rotationPitch;
+                    living.rotationYawHead = this.rotationYawHead;
+                }
                 float hoverAddition = hoverProgress * -0.001F;
                 float flyAddition = flyProgress * -0.0001F;
                 float flyBody = Math.max(flyProgress, hoverProgress) * 0.0065F;
@@ -1648,8 +1673,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 double extraY = ((extraY_pre - (hoverAddition) + (flyAddition)) * (this.getRenderSize() / 3)) - (0.35D * (1 - (this.getRenderSize() / 30))) + bob0 + bob1 + bob2 + extraAgeScale;
 
                 passenger.setPosition(this.posX + extraX, this.posY + extraY, this.posZ + extraZ);
-
-                this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
             }
         }
     }
@@ -1808,12 +1831,12 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (!this.dismount() && (this.isFlying() || this.isHovering())) {
             this.motionY += 0.01D;
         }
-        if (this.attack() && this.getControllingPassenger() != null && this.getDragonStage() > 1) {
+        if (this.attack() && this.isPlayerControlled() && this.getDragonStage() > 1) {
             this.setBreathingFire(true);
             this.riderShootFire(this.getControllingPassenger());
             this.fireStopTicks = 10;
         }
-        if (this.strike() && this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer) {
+        if (this.strike() && this.isPlayerControlled()) {
             EntityLivingBase target = DragonUtils.riderLookingAtEntity(this, (EntityPlayer) this.getControllingPassenger(), this.getDragonStage() + (this.getEntityBoundingBox().maxX - this.getEntityBoundingBox().minX));
             if (this.getAnimation() != ANIMATION_BITE) {
                 this.setAnimation(ANIMATION_BITE);
@@ -1822,25 +1845,25 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 this.doBiteAttack(target);
             }
         }
-        if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
+        if (this.isPlayerControlled() && this.getControllingPassenger().isSneaking()) {
             this.getControllingPassenger().setSneaking(false);
             this.getControllingPassenger().dismountRidingEntity();
             if (world.isRemote) {
                 IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), false));
             }
         }
-        if (this.isFlying() && !this.isHovering() && this.getControllingPassenger() != null && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) < 0.1F) {
+        if (this.isFlying() && !this.isHovering() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) < 0.1F) {
             this.setHovering(true);
             this.setFlying(false);
         }
-        if (this.isHovering() && !this.isFlying() && this.getControllingPassenger() != null && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) > 0.1F) {
+        if (this.isHovering() && !this.isFlying() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) > 0.1F) {
             this.setFlying(true);
             this.setHovering(false);
         }
         if (this.spacebarTicks > 0) {
             this.spacebarTicks--;
         }
-        if (!world.isRemote && this.spacebarTicks > 20 && this.getOwner() != null && this.getPassengers().contains(this.getOwner()) && !this.isFlying() && !this.isHovering()) {
+        if (!world.isRemote && this.spacebarTicks > 20 && this.isPlayerControlled() && !this.isFlying() && !this.isHovering()) {
             this.setHovering(true);
         }
         if (world.isRemote && !this.isModelDead()) {
@@ -1848,7 +1871,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             turn_buffer.calculateChainSwingBuffer(50, 0, 4, this);
             tail_buffer.calculateChainSwingBuffer(90, 10, 2.5F, this);
         }
-        if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() != null && this.getAttackTarget() instanceof EntityDragonBase && ((EntityDragonBase) this.getAttackTarget()).isDead) {
+        if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() != null && this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
             this.setAttackTarget(null);
         }
         if (!world.isRemote && !this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying() && !this.isHovering() && this.getAttackTarget() == null && !this.isTimeToWake() && this.getRNG().nextInt(250) == 0 && this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
@@ -2146,7 +2169,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     @SideOnly(Side.CLIENT)
     protected void updateClientControls() {
         Minecraft mc = Minecraft.getMinecraft();
-        if (this.isRidingPlayer(mc.player)) {
+        if (this.isControllingPassenger(mc.player)) {
             byte previousState = getControlState();
             up(mc.gameSettings.keyBindJump.isKeyDown());
             down(ModKeys.dragon_down.isKeyDown());
@@ -2181,7 +2204,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             super.travel(strafe, forward, vertical);
             return;
         }
-        if (this.isBeingRidden() && this.canBeSteered()) {
+        if (this.isPlayerControlled() && this.canBeSteered()) {
             EntityLivingBase controller = (EntityLivingBase) this.getControllingPassenger();
             if (controller != null && controller != this.getAttackTarget()) {
                 this.rotationYaw = controller.rotationYaw;

@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.explosion;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -108,7 +109,7 @@ public class BlockBreakExplosion extends Explosion {
         Vec3d Vec3d = new Vec3d(this.explosionX, this.explosionY, this.explosionZ);
 
         for (Entity entity : list) {
-            if (!entity.isImmuneToExplosions()) {
+            if (!entity.isImmuneToExplosions() && !DragonUtils.isControllingPassenger(exploder, entity)) {
                 double d12 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / f3;
 
                 if (d12 <= 1.0D) {
