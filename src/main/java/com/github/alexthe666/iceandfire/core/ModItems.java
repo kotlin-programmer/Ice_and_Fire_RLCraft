@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModItems {
 
 	public static ArmorMaterial copperMetal = EnumHelper.addArmorMaterial("Copper", "iceandfire:armor_copper_metal", 10, new int[]{1, 3, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
-	public static ArmorMaterial silverMetal = EnumHelper.addArmorMaterial("Silver", "iceandfire:armor_silver_metal", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0);
+	public static ArmorMaterial silverMetal = EnumHelper.addArmorMaterial("Silver", "iceandfire:armor_silver_metal", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
 	public static ArmorMaterial blindfoldArmor = EnumHelper.addArmorMaterial("Blindfold", "iceandfire:blindfold", 5, new int[]{1, 1, 1, 1}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
 	public static ArmorMaterial sheep = EnumHelper.addArmorMaterial("Sheep", "iceandfire:sheep_disguise", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
 	public static ArmorMaterial myrmexDesert = EnumHelper.addArmorMaterial("MyrmexDesert", "iceandfire:myrmex_desert", 20, new int[]{3, 5, 8, 4}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
@@ -38,7 +38,6 @@ public class ModItems {
 	public static ToolMaterial trollWeapon = EnumHelper.addToolMaterial("TrollWeapon", 2, 300, 11.0F, 1.0F, 1);
 	public static ToolMaterial myrmexChitin = EnumHelper.addToolMaterial("MyrmexChitin", 3, 600, 6.0F, 1.0F, 8);
 	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 1.0F, 25);
-
 	public static ToolMaterial dread_sword_tools = EnumHelper.addToolMaterial("DreadSword", 0, 100, 0.0F, 1F, 0);
 	public static ToolMaterial dread_knight_sword_tools = EnumHelper.addToolMaterial("DreadKnightSword", 0, 1200, 0.0F, 4F, 10);
 
