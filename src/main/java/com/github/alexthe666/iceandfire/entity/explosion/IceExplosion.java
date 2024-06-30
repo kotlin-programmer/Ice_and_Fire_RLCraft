@@ -5,11 +5,11 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonIce;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonIceCharge;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
-import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -22,7 +22,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -123,7 +122,7 @@ public class IceExplosion extends Explosion {
         Vec3d Vec3d = new Vec3d(this.explosionX, this.explosionY, this.explosionZ);
 
         for (Entity entity : list) {
-            if (!(entity instanceof EntityDragonIceCharge)) {
+            if (!(entity instanceof EntityDragonIce) && !(entity instanceof EntityDragonIceCharge)) {
                 if (!entity.isImmuneToExplosions() && !entity.isEntityEqual(exploder)) {
                     double d12 = entity.getDistance(this.explosionX, this.explosionY, this.explosionZ) / f3;
 
@@ -132,30 +131,28 @@ public class IceExplosion extends Explosion {
                         double d7 = entity.posY + entity.getEyeHeight() - this.explosionY;
                         double d9 = entity.posZ - this.explosionZ;
                         double d13 = MathHelper.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
-
+                        double d14 = this.worldObj.getBlockDensity(Vec3d, entity.getEntityBoundingBox());
+                        double d10 = (1.0D - d12) * d14;
                         if (d13 != 0.0D) {
                             d5 = d5 / d13;
                             d7 = d7 / d13;
                             d9 = d9 / d13;
-                            double d14 = this.worldObj.getBlockDensity(Vec3d, entity.getEntityBoundingBox());
-                            double d10 = (1.0D - d12) * d14;
                             if (exploder instanceof EntityDragonBase) {
-                                if (DragonUtils.isControllingPassenger(exploder, entity)) {
-                                    return;
-                                }
-                                if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
-                                    entity.attackEntityFrom(IceAndFire.dragonIce, ((float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D))) / 6);
-                                } else if(!entity.isEntityEqual(exploder)) {
-                                    entity.attackEntityFrom(IceAndFire.dragonIce, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)) / 3);
-                                    if (entity instanceof EntityLivingBase) {
-                                        IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)entity);
-                                        if (capability != null) {
-                                            capability.setFrozen(200);
+                                if (!DragonUtils.isControllingPassenger(exploder, entity)) {
+                                    if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
+                                        entity.attackEntityFrom(IceAndFire.dragonIce, ((float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D))) / 6);
+                                    } else if(!entity.isEntityEqual(exploder)) {
+                                        entity.attackEntityFrom(IceAndFire.dragonIce, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)) / 3);
+                                        if (entity instanceof EntityLivingBase) {
+                                            IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)entity);
+                                            if (capability != null) {
+                                                capability.setFrozen(200);
+                                            }
                                         }
                                     }
-                                }
-                                if (entity.isDead) {
-                                    ((EntityDragonBase) this.exploder).attackDecision = true;
+                                    if (entity.isDead) {
+                                        ((EntityDragonBase) this.exploder).attackDecision = true;
+                                    }
                                 }
                             }
                             double d11 = 1.0D;
