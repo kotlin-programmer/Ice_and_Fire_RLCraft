@@ -11,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import java.util.Random;
+
 public class WorldGenIceDragonCave extends WorldGenDragonCave {
 	public static final ResourceLocation ICEDRAGON_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "ice_dragon_female_cave"));
 	public static final ResourceLocation ICEDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "ice_dragon_male_cave"));
@@ -23,8 +25,11 @@ public class WorldGenIceDragonCave extends WorldGenDragonCave {
 		return ModBlocks.frozenCobblestone.getDefaultState();
 	}
 
-	protected IBlockState getPile() {
-		return ModBlocks.silverPile.getDefaultState();
+	protected IBlockState getPile(Random rand) {
+		if (IceAndFireConfig.WORLDGEN.generateSilverOre) {
+			return ModBlocks.silverPile.getDefaultState();
+		}
+		return ModBlocks.goldPile.getDefaultState();
 	}
 
 	protected IBlockState getGemstone() {

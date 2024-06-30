@@ -32,6 +32,8 @@ public class ModBlocks {
 	public static Block goldPile = new BlockCoinPile("gold", Items.GOLD_NUGGET);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silverpile")
 	public static Block silverPile = new BlockCoinPile("silver", ModItems.silverNugget);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":diamondpile")
+	public static Block diamondPile = new BlockDiamondCoinPile("diamond");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_ore")
 	public static Block amethystOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.amethystOre", "amethyst_ore", ModItems.amethystGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_ore")

@@ -49,7 +49,8 @@ dependencies {
     implementation fg.deobf("curse.maven:hwyla-${hwyla_version}")
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:rlcombat-${rlcombat_version}")
-    implementation fg.deobf("curse.maven:claimit-api-${claimit_version}")\
+    implementation fg.deobf("curse.maven:claimit-api-${claimit_version}")
+    implementation fg.deobf("curse.maven:varied-commodities-${varied_commodities_version}")
 }
 
 processResources {

@@ -188,8 +188,6 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.PLANKS), 161, 107, 1.5F);
 					drawItemStack(new ItemStack(Items.BOOK), 161, 91, 1.5F);
 					drawItemStack(new ItemStack(ModBlocks.lectern), 151, 78, 2F);
-
-
 				}
 				writeFromTxt();
 				break;

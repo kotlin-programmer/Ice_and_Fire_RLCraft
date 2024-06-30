@@ -23,15 +23,16 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
     protected boolean isMale;
 
     public void setGoldPile(World world, BlockPos pos) {
-        int chance = new Random().nextInt(99) + 1;
+        Random rand = new Random();
+        int chance = rand.nextInt(100);
         if (world.getBlockState(pos).getBlock() instanceof BlockChest) {
             return;
         }
 
         if (chance < 60) {
             boolean generateGold = IceAndFireConfig.WORLDGEN.dragonDenGoldAmount <= 1 || new Random().nextInt(IceAndFireConfig.WORLDGEN.dragonDenGoldAmount) == 0;
-            world.setBlockState(pos, generateGold ? getPile().withProperty(BlockCoinPile.LAYERS, 1 + new Random().nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
-        } else if (chance == 61) {
+            world.setBlockState(pos, generateGold ? getPile(rand).withProperty(BlockCoinPile.LAYERS, 1 + new Random().nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
+        } else if (chance == 60) {
             world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[new Random().nextInt(3)]), 3);
             if (world.getBlockState(pos).getBlock() instanceof BlockChest) {
                 TileEntity chest = world.getTileEntity(pos);
@@ -49,32 +50,24 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
         }
         boolean isOre = new Random().nextInt(IceAndFireConfig.WORLDGEN.oreToStoneRatioForDragonCaves + 1) == 0;
         if (isOre) {
-            int chance = world.rand.nextInt(199) + 1;
+            int chance = world.rand.nextInt(200);
             if (chance < 30) {
                 world.setBlockState(pos, Blocks.IRON_ORE.getDefaultState(), 3);
-            }
-            if (chance > 30 && chance < 40) {
+            } else if (chance < 40) {
                 world.setBlockState(pos, Blocks.GOLD_ORE.getDefaultState(), 3);
-            }
-            if (chance > 40 && chance < 45) {
+            } else if (chance < 45) {
                 world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateCopperOre ? ModBlocks.copperOre.getDefaultState() : getStone(), 3);
-            }
-            if (chance > 45 && chance < 50) {
+            } else if (chance < 50) {
                 world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateSilverOre ? ModBlocks.silverOre.getDefaultState() : getStone(), 3);
-            }
-            if (chance > 50 && chance < 60) {
+            } else if (chance < 60) {
                 world.setBlockState(pos, Blocks.COAL_ORE.getDefaultState(), 3);
-            }
-            if (chance > 60 && chance < 70) {
+            } else if (chance < 70) {
                 world.setBlockState(pos, Blocks.REDSTONE_ORE.getDefaultState(), 3);
-            }
-            if (chance > 70 && chance < 80) {
+            } else if (chance < 80) {
                 world.setBlockState(pos, Blocks.LAPIS_ORE.getDefaultState(), 3);
-            }
-            if (chance > 80 && chance < 90) {
+            } else if (chance < 90) {
                 world.setBlockState(pos, Blocks.DIAMOND_ORE.getDefaultState(), 3);
-            }
-            if (chance > 90 && chance < 1000) {
+            } else {
                 world.setBlockState(pos, getGemstone(), 3);
             }
         } else {
@@ -94,7 +87,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
         int i1 = dragonAge / 4;
         int i2 = i1 - 2;
         int ySize = rand.nextInt(2);
-        for (int i = 0; i1 >= 0 && i < 3; ++i) {
+        for (int i = 0; i < 3; i++) {
             int j = i1 + rand.nextInt(2);
             int k = i1 / 2 + ySize;
             int l = i1 + rand.nextInt(2);
@@ -151,7 +144,6 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
         dragon.setVariant(new Random().nextInt(4));
         dragon.setPositionAndRotation(position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5, rand.nextFloat() * 360, 0);
         dragon.setSleeping(true);
-        dragon.homePos = position;
         dragon.setHunger(50);
         worldIn.spawnEntity(dragon);
         return true;
@@ -159,9 +151,8 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
 
     protected abstract IBlockState getStone();
     protected abstract IBlockState getCobblestone();
-    protected abstract IBlockState getPile();
+    protected abstract IBlockState getPile(Random rand);
     protected abstract IBlockState getGemstone();
     protected abstract ResourceLocation getLootTable();
     protected abstract EntityDragonBase createDragon(World worldIn);
 }
-
