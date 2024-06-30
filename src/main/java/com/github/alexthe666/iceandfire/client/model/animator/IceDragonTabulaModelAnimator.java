@@ -3,12 +3,10 @@ package com.github.alexthe666.iceandfire.client.model.animator;
 import com.github.alexthe666.iceandfire.client.model.util.EnumDragonAnimations;
 import com.github.alexthe666.iceandfire.client.model.util.IIceAndFireTabulaModelAnimator;
 import com.github.alexthe666.iceandfire.client.model.util.IceAndFireTabulaModel;
-import com.github.alexthe666.iceandfire.client.model.util.LegArticulator;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
 import net.ilexiconn.llibrary.LLibrary;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -216,16 +214,6 @@ public class IceDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator 
         if (!entity.isModelDead()) {
             entity.turn_buffer.applyChainSwingBuffer(neckParts);
             entity.tail_buffer.applyChainSwingBuffer(tailPartsWBody);
-        }
-        if (entity.width >= 2 && entity.flyProgress == 0 && entity.hoverProgress == 0) {
-            LegArticulator.articulateQuadruped(entity, entity.legSolver, model.getCube("BodyUpper"), model.getCube("BodyLower"), model.getCube("Neck1"),
-                    model.getCube("ThighL"), model.getCube("LegL"), toesPartsL,
-                    model.getCube("ThighR"), model.getCube("LegR"), toesPartsR,
-                    model.getCube("armL1"), model.getCube("armL2"), clawL,
-                    model.getCube("armR1"), model.getCube("armR2"), clawR,
-                    1.0F, 0.5F, 0.5F, -0.15F, -0.15F, 0F,
-                    Minecraft.getMinecraft().getRenderPartialTicks()
-            );
         }
     }
 

@@ -186,7 +186,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             turn_buffer = new ReversedBuffer();
             tail_buffer = new ChainBuffer();
         }
-        legSolver = new LegSolverQuadruped(0.3F, 0.35F, 0.2F, 1.45F, 1.0F);
+        legSolver = new LegSolverQuadruped(0.2F, 1.2F, 1.0F);
         this.ignoreFrustumCheck = true;
         resetParts(1);
     }
