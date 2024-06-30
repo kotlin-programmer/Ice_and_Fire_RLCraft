@@ -15,7 +15,6 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 
 	public int dragonId;
 	public byte controlState;
-	public int armor_type;
 	private double posX;
 	private double posY;
 	private double posZ;
@@ -38,7 +37,6 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 		posX = buf.readDouble();
 		posY = buf.readDouble();
 		posZ = buf.readDouble();
-
 	}
 
 	@Override
@@ -48,7 +46,6 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 		buf.writeDouble(posX);
 		buf.writeDouble(posY);
 		buf.writeDouble(posZ);
-
 	}
 
 	@Override
@@ -89,6 +86,4 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 			amphi.setPosition(message.posX, message.posY, message.posZ);
 		}
 	}
-
-
 }
