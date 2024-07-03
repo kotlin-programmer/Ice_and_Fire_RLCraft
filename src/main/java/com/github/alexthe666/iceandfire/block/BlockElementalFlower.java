@@ -28,8 +28,8 @@ public class BlockElementalFlower extends BlockBush implements IInfusionStabilis
 	@Override
 	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
 		IBlockState soil = worldIn.getBlockState(pos.down());
-		if(!worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos)) return false;
-		switch(this.plantable) {
+		if (!worldIn.getBlockState(pos).getBlock().isReplaceable(worldIn, pos)) return false;
+		switch (this.plantable) {
 			case 0 : return (soil.getMaterial() == Material.SAND || soil.getBlock() == Blocks.NETHERRACK);
 			case 1 : return (soil.getMaterial() == Material.PACKED_ICE || soil.getMaterial() == Material.ICE);
 			case 2 : return (soil.getMaterial() == Material.GROUND || soil.getMaterial() == Material.GRASS);

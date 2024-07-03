@@ -15,30 +15,27 @@ exóticos - o dragão elétrico.
 
 
 Assombrando os céus obscuros 
-de savanas, mesas e selvas, 
-o dragão elétrico é noturno,
-diferentemente de seus primos.
-Esses dragões habitam poleiros
-ou cavernas subterrâneas cheias
-de blocos quebrados, destruídos
-por raios. Assim como os dragões
-de gelo e fogo, os dragões elétricos
-possuem afinidade por certos metais
-e pedras preciosas, em seu caso
-cobre e ametista.
+de selvas, o dragão elétrico
+é noturno, diferentemente de
+seus primos. Esses dragões
+habitam poleiros ou cavernas
+subterrâneas cheias de blocos
+quebrados, destruídos por raios.
+Assim como os dragões de gelo
+e fogo, os dragões elétricos
+possuem pedras preciosas,
+em seu caso ametista.
 
-<item><iceandfire:copper_ingot 100 130 40 1>
-<item><iceandfire:copper_ore 100 110 40 1>
-<item><iceandfire:amethyst_gem 100 170 40 1>
-<item><iceandfire:amethyst_ore 100 150 40 1>
+<item><iceandfire:amethyst_gem 100 170 36 1>
+<item><iceandfire:amethyst_ore 100 150 36 1>
 
 
 
-Minérios de cobre estão
-presentes em altas elevações
-de qualquer lugar. Ametistas apenas
-nas profundezas das savanas.
+Além de serem encontrados em selvas,
+há relatos de dragões relâmpago sendo
+avistados fora das selvas: em montanhas
+altas, em desfiladeiros profundos, em
+terras áridas e até mesmo durante
+tempestades. No entanto, esses
+relatórios não foram confirmados
 
-O cobre pode ser utilizado da mesma
-maneira que a prata, no entanto,
-é um metal muito mais fraco.

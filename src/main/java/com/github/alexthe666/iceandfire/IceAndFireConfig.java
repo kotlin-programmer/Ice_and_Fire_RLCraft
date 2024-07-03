@@ -143,6 +143,18 @@ public class IceAndFireConfig {
 		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Names")
 		public String[] generateLightningDragonEnabledBiomeNames = {""};
 
+		@Config.Comment("Fire Dragon Dens and Roosts will generate in these biome types")
+		@Config.Name("Fire Dragon Den and Roost Enabled Biome Types")
+		public String[] generateFireDragonEnabledBiomeTypes = {""};
+
+		@Config.Comment("Ice Dragon Dens and Roosts will generate in these biome types")
+		@Config.Name("Ice Dragon Den and Roost Enabled Biome Types")
+		public String[] generateIceDragonEnabledBiomeTypes = {""};
+
+		@Config.Comment("Lightning Dragon Dens and Roosts will generate in these biome types")
+		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Types")
+		public String[] generateLightningDragonEnabledBiomeTypes = {"SAVANNA", "MESA"};
+
 		@Config.Comment("Chance for Dragon Roosts to generate in the named biome, in the format name=chance (Overrides general Dragon Roost Chance, 1 in N chance)")
 		@Config.Name("Generate Dragon Roosts Biome Name Chance")
 		public String[] generateDragonRoostChanceForBiome = {""};
@@ -865,6 +877,9 @@ public class IceAndFireConfig {
 	private static HashSet<String> fireDragonEnabledNames = null;
 	private static HashSet<String> iceDragonEnabledNames = null;
 	private static HashSet<String> lightningDragonEnabledNames = null;
+	private static HashSet<BiomeDictionary.Type> fireDragonEnabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> iceDragonEnabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> lightningDragonEnabledTypes = null;
 	private static HashMap<String, Integer> dragonRoostChance = null;
 	private static HashMap<String, Integer> dragonDenChance = null;
 	private static HashMap<Block, Integer> dragonGriefingBlockChance = null;
@@ -934,6 +949,30 @@ public class IceAndFireConfig {
 		if(lightningDragonEnabledNames != null) return lightningDragonEnabledNames;
 		lightningDragonEnabledNames = new HashSet<>(Arrays.asList(WORLDGEN.generateLightningDragonEnabledBiomeNames));
 		return lightningDragonEnabledNames;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getFireDragonEnabledTypes() {
+		if(fireDragonEnabledTypes != null) return fireDragonEnabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateFireDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		fireDragonEnabledTypes = set;
+		return fireDragonEnabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getIceDragonEnabledTypes() {
+		if(iceDragonEnabledTypes != null) return iceDragonEnabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateIceDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		iceDragonEnabledTypes = set;
+		return iceDragonEnabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getLightningDragonEnabledTypes() {
+		if(lightningDragonEnabledTypes != null) return lightningDragonEnabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateLightningDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		lightningDragonEnabledTypes = set;
+		return lightningDragonEnabledTypes;
 	}
 
 	public static HashMap<String, Integer> getDragonRoostChance() {
