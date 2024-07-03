@@ -25,7 +25,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         int dragonAge = 50 + rand.nextInt(25);
         transformGround(worldIn, rand, position, dragonAge / 5);
         generateStructures(worldIn, rand, position, dragonAge / 5);
-        generateDragon(worldIn, position, dragonAge);
+        generateDragon(worldIn, rand, position, dragonAge);
         return true;
     }
 
@@ -77,18 +77,18 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
     }
 
     public void generatePile(World world, Random rand, BlockPos position) {
-        int height = 1 + new Random().nextInt(7);
+        int height = 1 + rand.nextInt(7);
         int chance = rand.nextInt(100);
         if (chance < 20) {
-            world.setBlockState(position, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[new Random().nextInt(3)]), 3);
+            world.setBlockState(position, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 3);
             if (world.getBlockState(position).getBlock() instanceof BlockChest) {
                 TileEntity chest = world.getTileEntity(position);
                 if (chest instanceof TileEntityChest && !(chest).isInvalid()) {
-                    ((TileEntityChest) chest).setLootTable(getLootTable(), new Random().nextLong());
+                    ((TileEntityChest) chest).setLootTable(getLootTable(), rand.nextLong());
                 }
             }
         } else {
-            world.setBlockState(position, getPileBlock().withProperty(BlockCoinPile.LAYERS, height), 3);
+            world.setBlockState(position, getPileBlock(rand).withProperty(BlockCoinPile.LAYERS, height), 3);
         }
     }
 
@@ -116,13 +116,13 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         }
     }
 
-    private void generateDragon(World worldIn, BlockPos position, int dragonAge) {
+    private void generateDragon(World worldIn, Random rand, BlockPos position, int dragonAge) {
         EntityDragonBase dragon = createDragon(worldIn);
         dragon.setGender(isMale);
         dragon.growDragon(dragonAge);
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
-        dragon.setVariant(new Random().nextInt(4));
+        dragon.setVariant(rand.nextInt(4));
         dragon.setPositionAndRotation(position.getX() + 0.5, worldIn.getHeight(position).getY() + 1.5, position.getZ() + 0.5, worldIn.rand.nextFloat() * 360, 0);
         dragon.homePos = position;
         dragon.hasHomePosition = true;
@@ -131,7 +131,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
     }
 
     protected abstract void transformState(World world, BlockPos blockpos, IBlockState state);
-    protected abstract IBlockState getPileBlock();
+    protected abstract IBlockState getPileBlock(Random rand);
     protected abstract IBlockState getBuildingBlock();
     protected abstract String getTranslationKeyword();
     protected abstract ResourceLocation getLootTable();

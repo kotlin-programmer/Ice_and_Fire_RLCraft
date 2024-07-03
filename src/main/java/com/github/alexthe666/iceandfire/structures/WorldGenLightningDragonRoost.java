@@ -1,8 +1,10 @@
 package com.github.alexthe666.iceandfire.structures;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
+import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -10,6 +12,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
 
@@ -33,8 +39,20 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
         }
     }
 
-    protected IBlockState getPileBlock() {
-        return ModBlocks.copperPile.getDefaultState();
+    protected IBlockState getPileBlock(Random rand) {
+        List<IBlockState> piles = new LinkedList<>();
+        if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
+            piles.add(ModBlocks.copperPile.getDefaultState());
+        }
+        if (IceAndFireConfig.WORLDGEN.generateSilverOre) {
+            piles.add(ModBlocks.silverPile.getDefaultState());
+        }
+        if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
+            piles.add(ModBlocks.diamondPile.getDefaultState());
+        }
+        piles.add(ModBlocks.goldPile.getDefaultState());
+        int index = rand.nextInt(piles.size());
+        return piles.get(index);
     }
 
     protected IBlockState getBuildingBlock() {

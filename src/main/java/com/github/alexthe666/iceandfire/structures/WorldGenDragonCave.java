@@ -22,33 +22,32 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
 
     protected boolean isMale;
 
-    public void setGoldPile(World world, BlockPos pos) {
-        Random rand = new Random();
+    public void setGoldPile(World world, Random rand, BlockPos pos) {
         int chance = rand.nextInt(100);
         if (world.getBlockState(pos).getBlock() instanceof BlockChest) {
             return;
         }
 
         if (chance < 60) {
-            boolean generateGold = IceAndFireConfig.WORLDGEN.dragonDenGoldAmount <= 1 || new Random().nextInt(IceAndFireConfig.WORLDGEN.dragonDenGoldAmount) == 0;
-            world.setBlockState(pos, generateGold ? getPile(rand).withProperty(BlockCoinPile.LAYERS, 1 + new Random().nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
+            boolean generateGold = IceAndFireConfig.WORLDGEN.dragonDenGoldAmount <= 1 || rand.nextInt(IceAndFireConfig.WORLDGEN.dragonDenGoldAmount) == 0;
+            world.setBlockState(pos, generateGold ? getPile(rand).withProperty(BlockCoinPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
         } else if (chance == 60) {
-            world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[new Random().nextInt(3)]), 3);
+            world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 3);
             if (world.getBlockState(pos).getBlock() instanceof BlockChest) {
                 TileEntity chest = world.getTileEntity(pos);
                 if (chest instanceof TileEntityChest && !(chest).isInvalid()) {
-                    ((TileEntityChest) chest).setLootTable(getLootTable(), new Random().nextLong());
+                    ((TileEntityChest) chest).setLootTable(getLootTable(), rand.nextLong());
                 }
             }
         }
     }
 
-    public void setOres(World world, BlockPos pos) {
+    public void setOres(World world, Random rand, BlockPos pos) {
         float hardness = world.getBlockState(pos).getBlock().getBlockHardness(world.getBlockState(pos), world, pos);
         if(hardness == -1.0F || world.isAirBlock(pos)){
             return;
         }
-        boolean isOre = new Random().nextInt(IceAndFireConfig.WORLDGEN.oreToStoneRatioForDragonCaves + 1) == 0;
+        boolean isOre = rand.nextInt(IceAndFireConfig.WORLDGEN.oreToStoneRatioForDragonCaves + 1) == 0;
         if (isOre) {
             int chance = world.rand.nextInt(200);
             if (chance < 30) {
@@ -71,7 +70,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
                 world.setBlockState(pos, getGemstone(), 3);
             }
         } else {
-            int chance = new Random().nextInt(2);
+            int chance = rand.nextInt(2);
             if (chance == 0) {
                 world.setBlockState(pos, getStone(), 3);
             } else {
@@ -121,7 +120,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
                 float hardness = worldIn.getBlockState(position).getBlock().getBlockHardness(worldIn.getBlockState(position), worldIn, position);
                 if (blockpos.distanceSq(position) <= (double) (f * f) &&  hardness >= 0 && hardness != -1) {
-                    this.setOres(worldIn, blockpos);
+                    this.setOres(worldIn, rand, blockpos);
                 }
             }
         }
@@ -132,7 +131,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
             float f = (float) (j + k + l) * 0.333F + 0.5F;
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
                 if (blockpos.distanceSq(position) <= (double) (f * f) && worldIn.getBlockState(blockpos.down()).getMaterial() == Material.ROCK && worldIn.getBlockState(blockpos).getMaterial() != Material.ROCK) {
-                    this.setGoldPile(worldIn, blockpos);
+                    this.setGoldPile(worldIn, rand, blockpos);
                 }
             }
         }
@@ -141,7 +140,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
         dragon.growDragon(dragonAge);
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
-        dragon.setVariant(new Random().nextInt(4));
+        dragon.setVariant(rand.nextInt(4));
         dragon.setPositionAndRotation(position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5, rand.nextFloat() * 360, 0);
         dragon.setSleeping(true);
         dragon.setHunger(50);

@@ -11,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class WorldGenFireDragonRoost extends WorldGenDragonRoost {
 
     protected void transformState(World world, BlockPos blockpos, IBlockState state) {
@@ -36,7 +38,7 @@ public class WorldGenFireDragonRoost extends WorldGenDragonRoost {
         }
     }
 
-    protected IBlockState getPileBlock() {
+    protected IBlockState getPileBlock(Random rand) {
         return ModBlocks.goldPile.getDefaultState();
     }
 
