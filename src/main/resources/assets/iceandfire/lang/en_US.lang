@@ -76,10 +76,8 @@ tile.iceandfire.crackledGravel.name=Crackled Gravel
 tile.iceandfire.crackledGrassPath.name=Crackled Dirt Path
 tile.iceandfire.lightning_stone.name=Lightning Stone
 
-tile.iceandfire.dragonscale_block.name=Block of Dragon Scales
 tile.iceandfire.dragon_bone_block.name=Block of Dragon Bones
 tile.iceandfire.dragon_bone_wall.name=Dragon Bone Wall
-tile.iceandfire.sea_serpent_scale_block.name=Block of Sea Serpent Scales
 tile.iceandfire.ghost_chest.name=Cursed Chest
 
 tile.iceandfire.dread_stone.name=Dreadstone

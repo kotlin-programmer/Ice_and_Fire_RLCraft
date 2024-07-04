@@ -61,9 +61,8 @@ tile.iceandfire.myrmex_jungle_resin_block.name=Resina Endurecida de Myrmex da Se
 tile.iceandfire.myrmex_desert_resin_glass.name=Vidro de Resina de Myrmex do Deserto
 tile.iceandfire.myrmex_jungle_resin_glass.name=Vidro de Resina de Myrmex da Selva
 
-tile.iceandfire.dragonscale_block.name=Bloco de Escamas de Dragão
 tile.iceandfire.dragon_bone_block.name=Bloco de Ossos de Dragão
-tile.iceandfire.sea_serpent_scale_block.name=Bloco de Escamas da Serpente Marinha
+tile.iceandfire.dragon_bone_wall.name=Parede de Osso de Dragão
 
 tile.iceandfire.lightning_lily.name=Lírio Relâmpago
 tile.iceandfire.copperpile.name=Pilha de Cobre

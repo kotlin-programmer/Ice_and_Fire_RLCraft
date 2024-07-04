@@ -77,10 +77,8 @@ tile.iceandfire.crackledGravel.name=Grava agrietada
 tile.iceandfire.crackledGrassPath.name=Sendero de pasto agrietado
 tile.iceandfire.lightning_stone.name=Piedra rayo
 
-tile.iceandfire.dragonscale_block.name=Bloque de escamas de dragon
 tile.iceandfire.dragon_bone_block.name=Bloque de huesos de dragon
 tile.iceandfire.dragon_bone_wall.name=Pared de hueso de dragon
-tile.iceandfire.sea_serpent_scale_block.name=Bloque de escamas de serpiente marina
 tile.iceandfire.ghost_chest.name=Cofre maldito
 
 tile.iceandfire.dread_stone.name=Piedra del horror

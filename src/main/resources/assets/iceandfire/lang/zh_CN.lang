@@ -87,10 +87,8 @@ tile.iceandfire.dread_stone_slab.name=悚砖台阶
 tile.iceandfire.dread_stone_stairs.name=悚砖楼梯
 tile.iceandfire.dread_spawner.name=悚域刷怪笼
 
-tile.iceandfire.dragonscale_block.name=龙鳞块
 tile.iceandfire.dragon_bone_block.name=龙骨块
 tile.iceandfire.dragon_bone_wall.name=龙骨墙
-tile.iceandfire.sea_serpent_scale_block.name=海蟒鳞块
 
 item.iceandfire.bestiary.name=龙之寓言
 item.iceandfire.manuscript.name=手稿

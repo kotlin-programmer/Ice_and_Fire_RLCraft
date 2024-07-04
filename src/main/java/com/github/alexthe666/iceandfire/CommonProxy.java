@@ -74,10 +74,6 @@ public class CommonProxy {
                     }
                 }
             }
-            for (EnumSeaSerpent color : EnumSeaSerpent.values()) {
-                color.scaleBlock = new BlockSeaSerpentScales(color.resourceName, color.color);
-                event.getRegistry().register(color.scaleBlock);
-            }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
@@ -190,11 +186,6 @@ public class CommonProxy {
                         event.getRegistry().register(itemBlock);
                     }
                 }
-            }
-            for (EnumSeaSerpent color : EnumSeaSerpent.values()) {
-                ItemBlock itemBlock = new ItemBlock(color.scaleBlock);
-                itemBlock.setRegistryName(color.scaleBlock.getRegistryName());
-                event.getRegistry().register(itemBlock);
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);

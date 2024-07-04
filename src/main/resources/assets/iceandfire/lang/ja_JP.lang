@@ -77,10 +77,8 @@ tile.iceandfire.crackledGravel.name=ひび割れた砂利
 tile.iceandfire.crackledGrassPath.name=ひび割れた土の道
 tile.iceandfire.lightning_stone.name=雷の石
 
-tile.iceandfire.dragonscale_block.name=ドラゴンの鱗ブロック
 tile.iceandfire.dragon_bone_block.name=ドラゴンの骨ブロック
 tile.iceandfire.dragon_bone_wall.name=ドラゴンの骨の壁
-tile.iceandfire.sea_serpent_scale_block.name=シーサーペントの鱗ブロック
 
 item.iceandfire.bestiary.name=ベスティアリ
 item.iceandfire.manuscript.name=手書きの紙片
