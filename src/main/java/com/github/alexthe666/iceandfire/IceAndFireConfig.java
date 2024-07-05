@@ -670,7 +670,7 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 10, max = 1000)
 		public int stymphalianBirdFlightHeight = 80;
 
-		@Config.Comment("If true, Stymphalian birds will drop items registered in the oreDictionaries ingotCopper, ingotBronze, nuggetCopper, nuggetBronze")
+		@Config.Comment("If true, Stymphalian birds will drop items registered in the oreDictionaries ingotBronze, nuggetBronze")
 		@Config.Name("Stymphalian Birds Drop OreDict Items")
 		public boolean stymphalianBirdsOreDictDrops = true;
 
