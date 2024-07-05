@@ -1192,9 +1192,11 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             double motionX = getRNG().nextGaussian() * 0.07D;
             double motionY = getRNG().nextGaussian() * 0.07D;
             double motionZ = getRNG().nextGaussian() * 0.07D;
-            Vec3d headPos = getHeadPosition();
+            float headPosX = (float) (posX + 1.9F * getRenderSize() * 0.3F * Math.cos((rotationYaw + 90) * Math.PI / 180));
+            float headPosZ = (float) (posZ + 1.9F * getRenderSize() * 0.3F * Math.sin((rotationYaw + 90) * Math.PI / 180));
+            float headPosY = (float) (posY + (getRenderSize() * 0.25F));
             if (world.isRemote) {
-                ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, headPos.x, headPos.y, headPos.z, motionX, motionY, motionZ, Item.getIdFromItem(item), 0);
+                ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, headPosX, headPosY, headPosZ, motionX, motionY, motionZ, Item.getIdFromItem(item), 0);
             }
         }
     }
