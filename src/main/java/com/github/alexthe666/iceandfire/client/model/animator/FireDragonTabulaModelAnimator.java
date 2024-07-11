@@ -43,7 +43,7 @@ public class FireDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator
     public void setRotationAngles(IceAndFireTabulaModel model, EntityFireDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
         animate(model, entity);
-        boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress <= 0 && entity.flyProgress <= 0;
+        boolean walking = !entity.isHovering() && !entity.isFlying();
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
         int prevIndex = currentIndex - 1;
         if (prevIndex < 0) {
@@ -53,10 +53,6 @@ public class FireDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator
         IceAndFireTabulaModel prevPosition = walking ? walkPoses[prevIndex] : flyPoses[prevIndex];
         float delta = ((walking ? entity.walkCycle : entity.flightCycle) / 10.0F) % 1.0F;
         float deltaTicks = delta + (LLibrary.PROXY.getPartialTicks() / 10.0F);
-        if (delta == 0) {
-            deltaTicks = 0;
-        }
-
 
         for (AdvancedModelRenderer cube : model.getCubes().values()) {
             this.genderMob(entity, cube);

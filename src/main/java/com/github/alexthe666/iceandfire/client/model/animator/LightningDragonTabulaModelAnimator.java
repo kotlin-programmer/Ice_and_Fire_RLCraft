@@ -44,7 +44,7 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
     public void setRotationAngles(IceAndFireTabulaModel model, EntityLightningDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
         animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
-        boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress <= 0 && entity.flyProgress <= 0;
+        boolean walking = !entity.isHovering() && !entity.isFlying();
         boolean swimming = entity.isInWater() && entity.swimProgress > 0;
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
         if (swimming) {
@@ -61,9 +61,6 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
             delta = ((entity.swimCycle) / 10.0F) % 1.0F;
         }
         float deltaTicks = delta + (LLibrary.PROXY.getPartialTicks() / 10.0F);
-        if (delta == 0) {
-            deltaTicks = 0;
-        }
 
         for (AdvancedModelRenderer cube : model.getCubes().values()) {
             this.genderMob(entity, cube);
