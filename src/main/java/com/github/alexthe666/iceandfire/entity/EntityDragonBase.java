@@ -2045,13 +2045,22 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return false;
     }
 
-    public EntityDragonEgg createEgg() {
+    public EntityDragonEgg createEgg(EntityDragonBase mate) {
         int i = MathHelper.floor(this.posX);
         int j = MathHelper.floor(this.posY);
         int k = MathHelper.floor(this.posZ);
         BlockPos pos = new BlockPos(i, j, k);
         EntityDragonEgg dragon = new EntityDragonEgg(this.world);
-        dragon.setType(EnumDragonEgg.byMetadata(new Random().nextInt(4) + getBaseEggTypeValue()));
+        int rand = new Random().nextInt(100);
+        int typeValue = this.getBaseEggTypeValue();
+        if (rand >= 70) {
+            typeValue += this.getVariant();
+        } else if (rand >= 40) {
+            typeValue += mate.getVariant();
+        } else {
+            typeValue += rand % 4;
+        }
+        dragon.setType(EnumDragonEgg.byMetadata(typeValue));
         dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
         return dragon;
     }
