@@ -43,13 +43,13 @@ public class ModBlocks {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_ore")
 	public static Block sapphireOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.sapphireOre", "sapphire_ore", ModItems.sapphireGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_block")
-	public static Block amethystBlock = new BlockGeneric(Material.IRON, "amethyst_block", "iceandfire.amethystBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block amethystBlock = new BlockGeneric(Material.IRON, "amethyst_block", "iceandfire.amethystBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_block")
-	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silver_block")
-	public static Block silverBlock = new BlockGeneric(Material.IRON, "silver_block", "iceandfire.silverBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block silverBlock = new BlockGeneric(Material.IRON, "silver_block", "iceandfire.silverBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_block")
-	public static Block sapphireBlock = new BlockGeneric(Material.IRON, "sapphire_block", "iceandfire.sapphireBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block sapphireBlock = new BlockGeneric(Material.IRON, "sapphire_block", "iceandfire.sapphireBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_dirt")
 	public static Block charedDirt = new BlockReturningState(Material.GROUND, "chared_dirt", "iceandfire.charedDirt", "shovel", 0, 0.5F, 0.0F, SoundType.GROUND, Blocks.DIRT.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_grass")
