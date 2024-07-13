@@ -356,7 +356,7 @@ public class StructureGenerator implements IWorldGenerator {
 	}
 
 	private static boolean isDragonGenAllowedInBiome(Set<BiomeDictionary.Type> dictSet, String biomeName) {
-        return !IceAndFireConfig.getDragonDisabledNames().contains(biomeName);
+        return !IceAndFireConfig.getDragonDisabledNames().contains(biomeName) && !doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getDragonDisabledTypes());
     }
 
 	private static boolean doesBiomeMatchTypeInSet(Set<BiomeDictionary.Type> dictSet, Set<BiomeDictionary.Type> biomeTypes) {
@@ -370,15 +370,17 @@ public class StructureGenerator implements IWorldGenerator {
 
 	@Nullable
 	private EnumDragonType getDragonGenType(Set<BiomeDictionary.Type> dictSet, Biome biome, String biomeName, boolean isCold, boolean isSnowy) {
-		if (IceAndFireConfig.getFireDragonEnabledNames().contains(biomeName) || doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getFireDragonEnabledTypes())) {
+		if (IceAndFireConfig.getFireDragonEnabledNames().contains(biomeName)) {
 			return EnumDragonType.FIRE;
-		} else if (IceAndFireConfig.getIceDragonEnabledNames().contains(biomeName) || doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getIceDragonEnabledTypes())) {
+		} else if (IceAndFireConfig.getIceDragonEnabledNames().contains(biomeName)) {
 			return EnumDragonType.ICE;
-		} else if (IceAndFireConfig.getLightningDragonEnabledNames().contains(biomeName) || doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getLightningDragonEnabledTypes()) || dictSet.contains(Type.JUNGLE)) {
+		} else if (IceAndFireConfig.getLightningDragonEnabledNames().contains(biomeName)) {
 			return EnumDragonType.LIGHTNING;
-		} else if (!biome.getEnableSnow() && biome.getDefaultTemperature() > -0.5 && !isCold && !isSnowy && !dictSet.contains(Type.WET) && !dictSet.contains(Type.OCEAN) && !dictSet.contains(Type.RIVER)) {
+		} else if (!doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getLightningDragonDisabledTypes()) && doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getLightningDragonEnabledTypes())) {
+			return EnumDragonType.LIGHTNING;
+		} else if (!doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getFireDragonDisabledTypes()) && !biome.getEnableSnow() && biome.getDefaultTemperature() > -0.5 || doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getFireDragonEnabledTypes())) {
 			return EnumDragonType.FIRE;
-		} else if (isCold && isSnowy) {
+		} else if (!doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getIceDragonDisabledTypes()) && (isCold && isSnowy || doesBiomeMatchTypeInSet(dictSet, IceAndFireConfig.getIceDragonEnabledTypes()))) {
 			return EnumDragonType.ICE;
 		}
 		return null;

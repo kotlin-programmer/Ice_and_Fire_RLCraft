@@ -139,8 +139,8 @@ public class IceAndFireConfig {
 		@Config.Name("Ice Dragon Den and Roost Enabled Biome Names")
 		public String[] generateIceDragonEnabledBiomeNames = {""};
 
-		@Config.Comment("Lightning Dragon Dens and Roosts will additionally generate in these named biomes (Takes priority over disabled biome types)")
-		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Names")
+		@Config.Comment("Lightning Dragon Dens and Roosts will not generate in these named biomes (Takes priority over disabled biome types)")
+		@Config.Name("Lightning Dragon Den and Roost Disabled Biome Names")
 		public String[] generateLightningDragonEnabledBiomeNames = {""};
 
 		@Config.Comment("Fire Dragon Dens and Roosts will generate in these biome types")
@@ -153,7 +153,19 @@ public class IceAndFireConfig {
 
 		@Config.Comment("Lightning Dragon Dens and Roosts will generate in these biome types")
 		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Types")
-		public String[] generateLightningDragonEnabledBiomeTypes = {"SAVANNA", "MESA"};
+		public String[] generateLightningDragonEnabledBiomeTypes = {"JUNGLE", "SAVANNA", "MESA"};
+
+		@Config.Comment("Fire Dragon Dens and Roosts will not generate in these biome types")
+		@Config.Name("Fire Dragon Den and Roost Disabled Biome Types")
+		public String[] generateFireDragonDisabledBiomeTypes = {"COLD", "SNOWY", "WET", "OCEAN", "RIVER"};
+
+		@Config.Comment("Ice Dragon Dens and Roosts will not generate in these biome types")
+		@Config.Name("Ice Dragon Den and Roost Disabled Biome Types")
+		public String[] generateIceDragonDisabledBiomeTypes = {""};
+
+		@Config.Comment("Lightning Dragon Dens and Roosts will not generate in these biome types")
+		@Config.Name("Lightning Dragon Den and Roost Disabled Biome Types")
+		public String[] generateLightningDragonDisabledBiomeTypes = {""};
 
 		@Config.Comment("Chance for Dragon Roosts to generate in the named biome, in the format name=chance (Overrides general Dragon Roost Chance, 1 in N chance)")
 		@Config.Name("Generate Dragon Roosts Biome Name Chance")
@@ -880,6 +892,9 @@ public class IceAndFireConfig {
 	private static HashSet<BiomeDictionary.Type> fireDragonEnabledTypes = null;
 	private static HashSet<BiomeDictionary.Type> iceDragonEnabledTypes = null;
 	private static HashSet<BiomeDictionary.Type> lightningDragonEnabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> fireDragonDisabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> iceDragonDisabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> lightningDragonDisabledTypes = null;
 	private static HashMap<String, Integer> dragonRoostChance = null;
 	private static HashMap<String, Integer> dragonDenChance = null;
 	private static HashMap<Block, Integer> dragonGriefingBlockChance = null;
@@ -973,6 +988,30 @@ public class IceAndFireConfig {
 		for (String string : WORLDGEN.generateLightningDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
 		lightningDragonEnabledTypes = set;
 		return lightningDragonEnabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getFireDragonDisabledTypes() {
+		if(fireDragonDisabledTypes != null) return fireDragonDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateFireDragonDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		fireDragonDisabledTypes = set;
+		return fireDragonDisabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getIceDragonDisabledTypes() {
+		if(iceDragonDisabledTypes != null) return iceDragonDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateIceDragonDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		iceDragonDisabledTypes = set;
+		return iceDragonDisabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getLightningDragonDisabledTypes() {
+		if(lightningDragonDisabledTypes != null) return lightningDragonDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateLightningDragonDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		lightningDragonDisabledTypes = set;
+		return lightningDragonDisabledTypes;
 	}
 
 	public static HashMap<String, Integer> getDragonRoostChance() {
