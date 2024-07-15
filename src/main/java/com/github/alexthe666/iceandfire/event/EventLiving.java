@@ -115,7 +115,7 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onEntityMount(EntityMountEvent event) {
-		if (event.getEntityBeingMounted() instanceof  EntityPlayer) {
+		if (event.getEntityMounting() instanceof  EntityPlayer) {
 			if (event.isDismounting()) {
 				if (!DragonUtils.canDismount(event.getEntityBeingMounted())) {
 					event.setCanceled(true);
