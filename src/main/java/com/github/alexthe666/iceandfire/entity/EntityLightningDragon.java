@@ -65,7 +65,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 		ANIMATION_BITE = Animation.create(35);
 		ANIMATION_SHAKEPREY = Animation.create(65);
 		ANIMATION_TAILWHACK = Animation.create(40);
-		ANIMATION_FIRECHARGE = Animation.create(25);
+		ANIMATION_FIRECHARGE = Animation.create(30);
 		ANIMATION_WINGBLAST = Animation.create(50);
 		ANIMATION_ROAR = Animation.create(40);
 		this.growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
@@ -205,7 +205,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 				if (this.getAnimation() != ANIMATION_TAILWHACK) {
 					this.setAnimation(ANIMATION_TAILWHACK);
 					return false;
-				} else if (this.getAnimationTick() > 27 && this.getAnimationTick() < 30) {
+				} else if (this.getAnimationTick() > 20 && this.getAnimationTick() < 30) {
 					boolean success = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 					if (entityIn instanceof EntityLivingBase) {
 						((EntityLivingBase) entityIn).knockBack(entityIn, this.getDragonStage() * 0.6F, 1, 1);
@@ -294,6 +294,8 @@ public class EntityLightningDragon extends EntityDragonBase {
 					}
 
 				}
+			} else {
+				this.setBreathingFire(false);
 			}
 		}
 		boolean swimming = isSwimming() && !isHovering() && !isFlying() && ridingProgress == 0;
@@ -343,7 +345,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 		if (this.getRNG().nextInt(5) == 0 && !this.isChild()) {
 			if (this.getAnimation() != ANIMATION_FIRECHARGE) {
 				this.setAnimation(ANIMATION_FIRECHARGE);
-			} else if (this.getAnimationTick() == 15) {
+			} else if (this.getAnimationTick() == 20) {
 				rotationYaw = renderYawOffset;
 				Vec3d headPos = getHeadPosition();
 				this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
@@ -354,14 +356,13 @@ public class EntityLightningDragon extends EntityDragonBase {
 				d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 				d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 				d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-				EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(world, this, d2, d3, d4);
+				EntityDragonLightningCharge lightningChargeProjectile = new EntityDragonLightningCharge(world, this, d2, d3, d4);
 				float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-				entitylargefireball.setSizes(size, size);
-				entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+				lightningChargeProjectile.setSizes(size, size);
+				lightningChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 				if (!world.isRemote) {
-					world.spawnEntity(entitylargefireball);
+					world.spawnEntity(lightningChargeProjectile);
 				}
-
 			}
 		} else {
 			if (this.isBreathingFire()) {
@@ -375,11 +376,11 @@ public class EntityLightningDragon extends EntityDragonBase {
 					d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-					EntityDragonLightning entitylargefireball = new EntityDragonLightning(world, this, d2, d3, d4);
+					EntityDragonLightning lightningProjectile = new EntityDragonLightning(world, this, d2, d3, d4);
 					this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-					entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+					lightningProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 					if (!world.isRemote) {
-						world.spawnEntity(entitylargefireball);
+						world.spawnEntity(lightningProjectile);
 					}
 				}
 			} else {
@@ -433,7 +434,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 			if (this.getRNG().nextInt(5) == 0) {
 				if (this.getAnimation() != ANIMATION_FIRECHARGE) {
 					this.setAnimation(ANIMATION_FIRECHARGE);
-				} else if (this.getAnimationTick() == 15) {
+				} else if (this.getAnimationTick() == 20) {
 					rotationYaw = renderYawOffset;
 					Vec3d headPos = getHeadPosition();
 					double d2 = entity.posX - headPos.x;
@@ -444,12 +445,12 @@ public class EntityLightningDragon extends EntityDragonBase {
 					d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-					EntityDragonLightningCharge entitylargefireball = new EntityDragonLightningCharge(world, this, d2, d3, d4);
+					EntityDragonLightningCharge lightningChargeProjectile = new EntityDragonLightningCharge(world, this, d2, d3, d4);
 					float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-					entitylargefireball.setSizes(size, size);
-					entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+					lightningChargeProjectile.setSizes(size, size);
+					lightningChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 					if (!world.isRemote) {
-						world.spawnEntity(entitylargefireball);
+						world.spawnEntity(lightningChargeProjectile);
 					}
 					if (entity.isDead) {
 						this.setBreathingFire(false);
@@ -469,13 +470,13 @@ public class EntityLightningDragon extends EntityDragonBase {
 						d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 						d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 						this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
-						EntityDragonLightning entitylargefireball = new EntityDragonLightning(world, this, d2, d3, d4);
+						EntityDragonLightning lightningProjectile = new EntityDragonLightning(world, this, d2, d3, d4);
 						float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-						entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+						lightningProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 						if (!world.isRemote && !entity.isDead) {
-							world.spawnEntity(entitylargefireball);
+							world.spawnEntity(lightningProjectile);
 						}
-						entitylargefireball.setSizes(size, size);
+						lightningProjectile.setSizes(size, size);
 						if (entity.isDead) {
 							this.setBreathingFire(false);
 							this.attackDecision = true;

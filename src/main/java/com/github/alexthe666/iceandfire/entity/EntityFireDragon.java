@@ -53,7 +53,7 @@ public class EntityFireDragon extends EntityDragonBase {
         ANIMATION_BITE = Animation.create(35);
         ANIMATION_SHAKEPREY = Animation.create(65);
         ANIMATION_TAILWHACK = Animation.create(40);
-        ANIMATION_FIRECHARGE = Animation.create(25);
+        ANIMATION_FIRECHARGE = Animation.create(30);
         ANIMATION_WINGBLAST = Animation.create(50);
         ANIMATION_ROAR = Animation.create(40);
         this.growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
@@ -167,7 +167,7 @@ public class EntityFireDragon extends EntityDragonBase {
                 if (this.getAnimation() != ANIMATION_TAILWHACK) {
                     this.setAnimation(ANIMATION_TAILWHACK);
                     return false;
-                } else if (this.getAnimationTick() > 27 && this.getAnimationTick() < 30) {
+                } else if (this.getAnimationTick() > 20 && this.getAnimationTick() < 30) {
                     boolean success = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
                     if (entityIn instanceof EntityLivingBase) {
                         ((EntityLivingBase) entityIn).knockBack(entityIn, this.getDragonStage() * 0.6F, 1, 1);
@@ -229,6 +229,8 @@ public class EntityFireDragon extends EntityDragonBase {
                         attackEntityAsMob(this.getAttackTarget());
                     }
 				}
+            } else {
+                this.setBreathingFire(false);
             }
         }
 
@@ -238,7 +240,7 @@ public class EntityFireDragon extends EntityDragonBase {
         if (this.getRNG().nextInt(5) == 0 && !this.isChild()) {
             if (this.getAnimation() != this.ANIMATION_FIRECHARGE) {
                 this.setAnimation(this.ANIMATION_FIRECHARGE);
-            } else if (this.getAnimationTick() == 15) {
+            } else if (this.getAnimationTick() == 20) {
                 rotationYaw = renderYawOffset;
                 Vec3d headPos = getHeadPosition();
                 this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
@@ -249,14 +251,13 @@ public class EntityFireDragon extends EntityDragonBase {
                 d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                 d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                 d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-                EntityDragonFireCharge entitylargefireball = new EntityDragonFireCharge(world, this, d2, d3, d4);
+                EntityDragonFireCharge fireChargeProjectile = new EntityDragonFireCharge(world, this, d2, d3, d4);
                 float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-                entitylargefireball.setSizes(size, size);
-                entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+                fireChargeProjectile.setSizes(size, size);
+                fireChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
                 if (!world.isRemote) {
-                    world.spawnEntity(entitylargefireball);
+                    world.spawnEntity(fireChargeProjectile);
                 }
-
             }
         } else {
             if (this.isBreathingFire()) {
@@ -270,12 +271,11 @@ public class EntityFireDragon extends EntityDragonBase {
                     d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-                    EntityDragonFire entitylargefireball = new EntityDragonFire(world, this, d2, d3, d4);
+                    EntityDragonFire fireProjectile = new EntityDragonFire(world, this, d2, d3, d4);
                     this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
-                    float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-                    entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+                    fireProjectile.setPosition(headPos.x, headPos.y, headPos.z);
                     if (!world.isRemote) {
-                        world.spawnEntity(entitylargefireball);
+                        world.spawnEntity(fireProjectile);
                     }
                 }
             } else {
@@ -298,7 +298,7 @@ public class EntityFireDragon extends EntityDragonBase {
             if (this.getRNG().nextInt(5) == 0) {
                 if (this.getAnimation() != this.ANIMATION_FIRECHARGE) {
                     this.setAnimation(this.ANIMATION_FIRECHARGE);
-                } else if (this.getAnimationTick() == 15) {
+                } else if (this.getAnimationTick() == 20) {
                     rotationYaw = renderYawOffset;
                     Vec3d headPos = getHeadPosition();
                     double d2 = entity.posX - headPos.x;
@@ -309,14 +309,14 @@ public class EntityFireDragon extends EntityDragonBase {
                     d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
-                    EntityDragonFireCharge entitylargefireball = new EntityDragonFireCharge(world, this, d2, d3, d4);
+                    EntityDragonFireCharge fireChargeProjectile = new EntityDragonFireCharge(world, this, d2, d3, d4);
                     float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-                    entitylargefireball.setSizes(size, size);
-                    entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+                    fireChargeProjectile.setSizes(size, size);
+                    fireChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
                     if (!world.isRemote) {
-                        world.spawnEntity(entitylargefireball);
+                        world.spawnEntity(fireChargeProjectile);
                     }
-                    if (entity.isDead || entity == null) {
+                    if (entity.isDead) {
                         this.setBreathingFire(false);
                         this.attackDecision = this.getRNG().nextBoolean();
                     }
@@ -334,13 +334,13 @@ public class EntityFireDragon extends EntityDragonBase {
                         d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                         d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                         this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
-                        EntityDragonFire entitylargefireball = new EntityDragonFire(world, this, d2, d3, d4);
+                        EntityDragonFire fireProjectile = new EntityDragonFire(world, this, d2, d3, d4);
                         float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-                        entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+                        fireProjectile.setPosition(headPos.x, headPos.y, headPos.z);
                         if (!world.isRemote && !entity.isDead) {
-                            world.spawnEntity(entitylargefireball);
+                            world.spawnEntity(fireProjectile);
                         }
-                        entitylargefireball.setSizes(size, size);
+                        fireProjectile.setSizes(size, size);
                         if (entity.isDead || entity == null) {
                             this.setBreathingFire(false);
                             this.attackDecision = this.getRNG().nextBoolean();

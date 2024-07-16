@@ -22,8 +22,6 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
     private AdvancedModelRenderer[] tailPartsWBody;
     private AdvancedModelRenderer[] toesPartsL;
     private AdvancedModelRenderer[] toesPartsR;
-    private AdvancedModelRenderer[] clawL;
-    private AdvancedModelRenderer[] clawR;
 
     public LightningDragonTabulaModelAnimator() {
         super(EnumDragonAnimations.GROUND_POSE.lightningdragon_model);
@@ -36,15 +34,13 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         tailPartsWBody = new AdvancedModelRenderer[]{model.getCube("BodyLower"), model.getCube("Tail1"), model.getCube("Tail2"), model.getCube("Tail3"), model.getCube("Tail4")};
         toesPartsL = new AdvancedModelRenderer[]{model.getCube("ToeL1"), model.getCube("ToeL2"), model.getCube("ToeL3")};
         toesPartsR = new AdvancedModelRenderer[]{model.getCube("ToeR1"), model.getCube("ToeR2"), model.getCube("ToeR3")};
-        clawL = new AdvancedModelRenderer[]{model.getCube("ClawL")};
-        clawR = new AdvancedModelRenderer[]{model.getCube("ClawR")};
     }
 
     @Override
     public void setRotationAngles(IceAndFireTabulaModel model, EntityLightningDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
         animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
-        boolean walking = !entity.isHovering() && !entity.isFlying();
+        boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress < 20 && entity.flyProgress < 20;
         boolean swimming = entity.isInWater() && entity.swimProgress > 0;
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
         if (swimming) {
@@ -133,11 +129,7 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
             }
             if (entity.fireBreathProgress > 0.0F) {
                 if (!isPartEqual(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName)) && !isWing(model, cube) && !cube.boxName.contains("Finger")) {
-                    if (entity.prevFireBreathProgress <= entity.fireBreathProgress) {
-                        transitionTo(cube, EnumDragonAnimations.BLAST_CHARGE3.lightningdragon_model.getCube(cube.boxName), MathHelper.clamp(entity.fireBreathProgress, 0, 5), 5, false);
-                    }
-                    transitionTo(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName), MathHelper.clamp(entity.fireBreathProgress - 5, 0, 5), 5, false);
-
+                    transitionTo(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName), entity.fireBreathProgress, 5, false);
                 }
             }
             if (!walking && !swimming) {
@@ -256,14 +248,21 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(5);
         model.llibAnimator.setAnimation(EntityLightningDragon.ANIMATION_BITE);
+        model.llibAnimator.startKeyframe(15);
+        this.rotate(model.llibAnimator, model.getCube("Neck1"), -12, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Neck2"), -5, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Neck3"), 5, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Head"), 36, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Jaw"), 20, 0, 0);
+        model.llibAnimator.move(model.getCube("Jaw"), 0, 0, 0.2F);
+        model.llibAnimator.endKeyframe();
         model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.BITE1.lightningdragon_model);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(5);
-        moveToPose(model, EnumDragonAnimations.BITE2.lightningdragon_model);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(5);
-        moveToPose(model, EnumDragonAnimations.BITE3.lightningdragon_model);
+        this.rotate(model.llibAnimator, model.getCube("Neck1"), -2, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Neck2"), 10, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Neck3"), 10, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Head"), 20, 0, 0);
+        this.rotate(model.llibAnimator, model.getCube("Jaw"), 20, 0, 0);
+        model.llibAnimator.move(model.getCube("Jaw"), 0, 0, 0.2F);
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(10);
         model.llibAnimator.setAnimation(EntityLightningDragon.ANIMATION_SHAKEPREY);

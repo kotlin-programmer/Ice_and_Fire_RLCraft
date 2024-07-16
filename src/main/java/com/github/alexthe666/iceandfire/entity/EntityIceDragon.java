@@ -59,7 +59,7 @@ public class EntityIceDragon extends EntityDragonBase {
 		ANIMATION_BITE = Animation.create(35);
 		ANIMATION_SHAKEPREY = Animation.create(65);
 		ANIMATION_TAILWHACK = Animation.create(40);
-		ANIMATION_FIRECHARGE = Animation.create(25);
+		ANIMATION_FIRECHARGE = Animation.create(30);
 		ANIMATION_WINGBLAST = Animation.create(50);
 		ANIMATION_ROAR = Animation.create(40);
 		this.growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
@@ -201,7 +201,7 @@ public class EntityIceDragon extends EntityDragonBase {
 				if (this.getAnimation() != ANIMATION_TAILWHACK) {
 					this.setAnimation(ANIMATION_TAILWHACK);
 					return false;
-				} else if (this.getAnimationTick() > 27 && this.getAnimationTick() < 30) {
+				} else if (this.getAnimationTick() > 20 && this.getAnimationTick() < 30) {
 					boolean flag2 = entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 					if (entityIn instanceof EntityLivingBase) {
 						((EntityLivingBase)entityIn).knockBack(entityIn, this.getDragonStage() * 0.6F, 1, 1);
@@ -260,7 +260,7 @@ public class EntityIceDragon extends EntityDragonBase {
 			this.flyHovering = 0;
 			this.flyTicks = 0;
 		}
-		if (!world.isRemote){
+		if (!world.isRemote) {
 			if (this.getAttackTarget() != null && !this.isSleeping() && this.getAnimation() != ANIMATION_SHAKEPREY) {
 				if ((!attackDecision || this.isFlying()) && !isTargetBlocked(new Vec3d(this.getAttackTarget().posX, this.getAttackTarget().posY, this.getAttackTarget().posZ))) {
 					shootIceAtMob(this.getAttackTarget());
@@ -270,6 +270,8 @@ public class EntityIceDragon extends EntityDragonBase {
 					}
 
 				}
+			} else {
+				this.setBreathingFire(false);
 			}
 		}
 		boolean swimming = isSwimming() && !isHovering() && !isFlying() && ridingProgress == 0;
@@ -320,7 +322,7 @@ public class EntityIceDragon extends EntityDragonBase {
 		if (this.getRNG().nextInt(5) == 0 && !this.isChild()) {
 			if (this.getAnimation() != ANIMATION_FIRECHARGE) {
 				this.setAnimation(ANIMATION_FIRECHARGE);
-			} else if (this.getAnimationTick() == 15) {
+			} else if (this.getAnimationTick() == 20) {
 				rotationYaw = renderYawOffset;
 				Vec3d headPos = getHeadPosition();
 				this.playSound(ModSounds.ICEDRAGON_BREATH, 4, 1);
@@ -331,12 +333,12 @@ public class EntityIceDragon extends EntityDragonBase {
 				d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 				d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 				d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-				EntityDragonIceCharge entitylargefireball = new EntityDragonIceCharge(world, this, d2, d3, d4);
+				EntityDragonIceCharge iceChargeProjectile = new EntityDragonIceCharge(world, this, d2, d3, d4);
 				float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-				entitylargefireball.setSizes(size, size);
-				entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+				iceChargeProjectile.setSizes(size, size);
+				iceChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 				if (!world.isRemote) {
-					world.spawnEntity(entitylargefireball);
+					world.spawnEntity(iceChargeProjectile);
 				}
 
 			}
@@ -352,11 +354,11 @@ public class EntityIceDragon extends EntityDragonBase {
 					d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-					EntityDragonIce entitylargefireball = new EntityDragonIce(world, this, d2, d3, d4);
+					EntityDragonIce iceProjectile = new EntityDragonIce(world, this, d2, d3, d4);
 					this.playSound(ModSounds.ICEDRAGON_BREATH, 4, 1);
-					entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+					iceProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 					if (!world.isRemote) {
-						world.spawnEntity(entitylargefireball);
+						world.spawnEntity(iceProjectile);
 					}
 				}
 			} else {
@@ -410,7 +412,7 @@ public class EntityIceDragon extends EntityDragonBase {
 			if (this.getRNG().nextInt(5) == 0) {
 				if (this.getAnimation() != ANIMATION_FIRECHARGE) {
 					this.setAnimation(ANIMATION_FIRECHARGE);
-				} else if (this.getAnimationTick() == 15) {
+				} else if (this.getAnimationTick() == 20) {
 					rotationYaw = renderYawOffset;
 					Vec3d headPos = getHeadPosition();
 					double d2 = entity.posX - headPos.x;
@@ -421,12 +423,12 @@ public class EntityIceDragon extends EntityDragonBase {
 					d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					this.playSound(ModSounds.ICEDRAGON_BREATH, 4, 1);
-					EntityDragonIceCharge entitylargefireball = new EntityDragonIceCharge(world, this, d2, d3, d4);
+					EntityDragonIceCharge iceChargeProjectile = new EntityDragonIceCharge(world, this, d2, d3, d4);
 					float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-					entitylargefireball.setSizes(size, size);
-					entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+					iceChargeProjectile.setSizes(size, size);
+					iceChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 					if (!world.isRemote) {
-						world.spawnEntity(entitylargefireball);
+						world.spawnEntity(iceChargeProjectile);
 					}
 					if (entity.isDead) {
 						this.setBreathingFire(false);
@@ -446,13 +448,13 @@ public class EntityIceDragon extends EntityDragonBase {
 						d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 						d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 						this.playSound(ModSounds.ICEDRAGON_BREATH, 4, 1);
-						EntityDragonIce entitylargefireball = new EntityDragonIce(world, this, d2, d3, d4);
+						EntityDragonIce iceProjectile = new EntityDragonIce(world, this, d2, d3, d4);
 						float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
-						entitylargefireball.setPosition(headPos.x, headPos.y, headPos.z);
+						iceProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 						if (!world.isRemote && !entity.isDead) {
-							world.spawnEntity(entitylargefireball);
+							world.spawnEntity(iceProjectile);
 						}
-						entitylargefireball.setSizes(size, size);
+						iceProjectile.setSizes(size, size);
 						if (entity.isDead) {
 							this.setBreathingFire(false);
 							this.attackDecision = true;

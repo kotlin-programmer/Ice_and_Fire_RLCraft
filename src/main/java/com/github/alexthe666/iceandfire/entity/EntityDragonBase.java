@@ -1544,13 +1544,13 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
         if (this.isBreathingFire()) {
             this.fireTicks++;
-            if (fireTicks > this.getDragonStage() * 25 || this.isPlayerControlled() && this.fireStopTicks <= 0) {
+            if (this.fireTicks > this.getDragonStage() * 25 || this.fireStopTicks <= 0 && this.isPlayerControlled()) {
                 this.setBreathingFire(false);
                 this.attackDecision = this.getRNG().nextBoolean();
-                fireTicks = 0;
+                this.fireTicks = 0;
             }
-            if (fireStopTicks > 0 && this.isPlayerControlled()) {
-                fireStopTicks--;
+            if (this.fireStopTicks > 0 && this.isPlayerControlled()) {
+                this.fireStopTicks--;
             }
         }
         if (this.isFlying() && this.getAttackTarget() != null && this.getEntityBoundingBox().expand(3.0F, 3.0F, 3.0F).intersects(this.getAttackTarget().getEntityBoundingBox())) {
@@ -1693,12 +1693,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
     private void updatePreyInMouth(Entity prey) {
         this.setAnimation(ANIMATION_SHAKEPREY);
-        if (this.getAnimation() == ANIMATION_SHAKEPREY && this.getAnimationTick() > 55 && prey != null && !this.world.isRemote) {
-            if (this.getAnimationTick() == 56 && prey instanceof EntityLivingBase) {
-                this.doBiteAttack(prey);
-            } else if (this.getAnimationTick() > 60) {
-                prey.dismountRidingEntity();
-            }
+        if (this.getAnimation() == ANIMATION_SHAKEPREY && this.getAnimationTick() > 55 && prey != null) {
+            this.doBiteAttack(prey);
+            prey.dismountRidingEntity();
         }
         renderYawOffset = rotationYaw;
         float modTick_0 = this.getAnimationTick() - 25;
@@ -1792,6 +1789,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (!world.isRemote && dmg.getTrueSource() != null && this.getRNG().nextInt(4) == 0) {
             this.roar();
         }
+
         if (i > 0) {
             if (this.isSleeping()) {
                 this.setSleeping(false);
@@ -1861,8 +1859,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (this.isFlying() && !this.isHovering() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) < 0.1F) {
             this.setHovering(true);
             this.setFlying(false);
-        }
-        if (this.isHovering() && !this.isFlying() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) > 0.1F) {
+        } else if (this.isHovering() && !this.isFlying() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) > 0.1F) {
             this.setFlying(true);
             this.setHovering(false);
         }
