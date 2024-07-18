@@ -7,6 +7,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -31,7 +33,7 @@ public class BlockFallingReturningState extends BlockFalling {
 		this.setSoundType(sound);
 		this.setCreativeTab(IceAndFire.TAB);
 		setRegistryName(IceAndFire.MODID, gameName);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.TRUE));
 		this.setTickRandomly(true);
 		if (slippery) {
 			this.setDefaultSlipperiness(0.98F);
@@ -65,5 +67,10 @@ public class BlockFallingReturningState extends BlockFalling {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, REVERTS);
+	}
+
+	@Override
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return this.getDefaultState().withProperty(REVERTS, Boolean.FALSE);
 	}
 }

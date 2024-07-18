@@ -8,6 +8,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
@@ -16,7 +17,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.logging.log4j.Level;
 
 import java.util.Random;
 
@@ -77,14 +77,18 @@ public class BlockPath extends BlockGrassPath {
         }
         this.setLightOpacity(0);
         setRegistryName(IceAndFire.MODID, this.type.getRegistrationKey());
-        this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.TRUE));
         this.setTickRandomly(true);
     }
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote && state.getValue(REVERTS) && rand.nextInt(3) == 0 && worldIn.isAreaLoaded(pos, 3)) {
-            worldIn.setBlockState(pos, Blocks.GRASS_PATH.getDefaultState());
+        if (!worldIn.isRemote) {
+            if (!worldIn.isAreaLoaded(pos, 3))
+                return;
+            if (state.getValue(REVERTS) && rand.nextInt(3) == 0) {
+                worldIn.setBlockState(pos, Blocks.GRASS_PATH.getDefaultState());
+            }
         }
     }
 
@@ -118,10 +122,14 @@ public class BlockPath extends BlockGrassPath {
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
         this.updateBlockState(worldIn, pos);
     }
 
     private void updateBlockState(World worldIn, BlockPos pos) {
+        if (!worldIn.getBlockState(pos.up()).getMaterial().isSolid()) {
+            return;
+        }
         Block block = this.type.getBaseBlock();
         IBlockState state = block.getDefaultState();
         worldIn.setBlockState(pos, state);
@@ -141,5 +149,10 @@ public class BlockPath extends BlockGrassPath {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, REVERTS);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(REVERTS, Boolean.FALSE);
     }
 }

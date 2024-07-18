@@ -7,6 +7,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -31,9 +33,9 @@ public class BlockReturningState extends Block {
         if (slippery) {
             this.setDefaultSlipperiness(0.98F);
         }
-        setRegistryName(IceAndFire.MODID, gameName);
+        this.setRegistryName(IceAndFire.MODID, gameName);
         this.returnState = returnToState;
-        this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.TRUE));
         this.setTickRandomly(true);
     }
 
@@ -58,5 +60,10 @@ public class BlockReturningState extends Block {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, REVERTS);
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+        return this.getDefaultState().withProperty(REVERTS, Boolean.FALSE);
     }
 }
