@@ -341,7 +341,7 @@ public class EntityFireDragon extends EntityDragonBase {
                             world.spawnEntity(fireProjectile);
                         }
                         fireProjectile.setSizes(size, size);
-                        if (entity.isDead || entity == null) {
+                        if (entity.isDead) {
                             this.setBreathingFire(false);
                             this.attackDecision = this.getRNG().nextBoolean();
                         }

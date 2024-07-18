@@ -162,7 +162,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public EntityDragonPart tail2Part;
     public EntityDragonPart tail3Part;
     public EntityDragonPart tail4Part;
-    public int burnProgress;
 
     public EntityDragonBase(World world) {
         super(world);
@@ -1224,11 +1223,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
-        if (this.isBreathingFire() && burnProgress < 40) {
-            burnProgress++;
-        } else if (!this.isBreathingFire()) {
-            burnProgress = 0;
-        }
         if (!world.isRemote) {
             if (this.isSitting() && (this.getCommand() != 1 || this.getControllingPassenger() != null)) {
                 this.setSitting(false);
@@ -1239,7 +1233,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             if (this.isSitting()) {
                 this.getNavigator().clearPath();
             }
-            if (this.isBeyondHeight() && !world.isRemote && !this.onGround) {
+            if (this.isBeyondHeight() && !this.onGround) {
                 this.motionY -= 0.1F;
             }
             if (this.isInLove()) {
