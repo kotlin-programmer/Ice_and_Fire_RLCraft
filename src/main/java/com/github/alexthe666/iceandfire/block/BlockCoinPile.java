@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.block;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFalling;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -15,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -25,7 +23,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockCoinPile extends BlockFalling {
+public class BlockCoinPile extends Block {
 
     public static final PropertyInteger LAYERS = PropertyInteger.create("layers", 1, 8);
     protected static final AxisAlignedBB[] SNOW_AABB = new AxisAlignedBB[]{
@@ -99,11 +97,10 @@ public class BlockCoinPile extends BlockFalling {
 
         if (!item.isEmpty() && item.getItem() == Item.getItemFromBlock(this)) {
             if (this.getMetaFromState(state) < 7) {
-                worldIn.setBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this.getStateFromMeta(this.getMetaFromState(state) + 1), 3);
+                worldIn.setBlockState(new BlockPos(pos.getX(), pos.getY(), pos.getZ()), this.getStateFromMeta(this.getMetaFromState(state)+1), 3);
                 if (!playerIn.capabilities.isCreativeMode) {
                     item.shrink(1);
                 }
-                worldIn.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, ModBlocks.SOUND_TYPE_GOLD.getPlaceSound(), SoundCategory.BLOCKS, 1, 1, false);
                 return true;
             }
         }
@@ -125,11 +122,11 @@ public class BlockCoinPile extends BlockFalling {
     @Override
     public void onNeighborChange(IBlockAccess world, BlockPos pos, BlockPos neighbor) {
         if (world instanceof World) {
-            this.checkAndDropBlock((World) world, pos);
+            this.checkAndDropBlock((World) world, pos, ((World) world).getBlockState(neighbor));
         }
     }
 
-    private boolean checkAndDropBlock(World worldIn, BlockPos pos) {
+    private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (!this.canPlaceBlockAt(worldIn, pos)) {
             worldIn.destroyBlock(pos, true);
             return false;
