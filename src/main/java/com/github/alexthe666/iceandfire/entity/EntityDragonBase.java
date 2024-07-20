@@ -289,10 +289,12 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return world.getBlockState(pos).getBlock().canEntityDestroy(world.getBlockState(pos), world, pos, this) && hardness >= 0;
     }
 
+    @Override
     public boolean isMobDead() {
         return this.isModelDead();
     }
 
+    @Override
     public int getHorizontalFaceSpeed() {
         return 10 * this.getDragonStage() / 5;
     }
@@ -336,8 +338,8 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.FEET, armorTail));
         }
         double armorStep = (maximumArmor - minimumArmor) / (125);
-        double oldValue = minimumArmor + (armorStep * this.getAgeInDays());
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(oldValue + calculateArmorModifier());
+        double baseArmor = minimumArmor + (armorStep * Math.min(this.getAgeInDays(), 125));
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(baseArmor + calculateArmorModifier());
     }
 
     public void openGUI(EntityPlayer playerEntity) {
@@ -678,13 +680,12 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         double attackStep = (maximumDamage - minimumDamage) / (125);
         double speedStep = (maximumSpeed - minimumSpeed) / (125);
         double armorStep = (maximumArmor - minimumArmor) / (125);
-        if (this.getAgeInDays() <= 125) {
-            this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.round(minimumHealth + (healthStep * this.getAgeInDays())));
-            this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Math.round(minimumDamage + (attackStep * this.getAgeInDays())));
-            this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(minimumSpeed + (speedStep * this.getAgeInDays()));
-            double oldValue = minimumArmor + (armorStep * this.getAgeInDays());
-            this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(oldValue + calculateArmorModifier());
-        }
+        int age = Math.min(this.getAgeInDays(), 125);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(Math.round(minimumHealth + (healthStep * age)));
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(Math.round(minimumDamage + (attackStep * age)));
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(minimumSpeed + (speedStep * age));
+        double baseArmor = minimumArmor + (armorStep * age);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(baseArmor + calculateArmorModifier());
     }
 
     public int getHunger() {
@@ -897,8 +898,8 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), slot, armorType));
         }
         double armorStep = (maximumArmor - minimumArmor) / (125);
-        double oldValue = minimumArmor + (armorStep * this.getAgeInDays());
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(oldValue + calculateArmorModifier());
+        double baseArmor = minimumArmor + (armorStep * Math.min(this.getAgeInDays(), 125));
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(baseArmor + calculateArmorModifier());
     }
 
     private double calculateArmorModifier() {
@@ -1222,7 +1223,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
-        this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
+        this.stepHeight = this.getDragonStage() * 0.5F;
         if (!world.isRemote) {
             if (this.isSitting() && (this.getCommand() != 1 || this.getControllingPassenger() != null)) {
                 this.setSitting(false);
@@ -1747,6 +1748,13 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return livingdata;
     }
 
+    @Override
+    public void knockBack(Entity attacker, float x, double y, double z) {
+        if (this.isModelDead()) {
+            super.knockBack(attacker, x, y, z);
+        }
+    }
+
     public boolean doBiteAttack(Entity entity) {
         float prevHealth = 0;
         if (entity instanceof EntityLivingBase) prevHealth = ((EntityLivingBase)entity).getHealth();
@@ -2197,6 +2205,17 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
     }
 
+    @Override
+    public boolean isPushedByWater() {
+        return false;
+    }
+
+    @Override
+    public boolean canBePushed() {
+        return !isModelDead();
+    }
+
+    @Override
     public boolean canBeSteered() {
         return true;
     }

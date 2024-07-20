@@ -103,6 +103,11 @@ public class EntityDragonEgg extends EntityLiving implements IBlacklistedFromSta
         return i.getTrueSource() != null;
     }
 
+    @Override
+    public boolean isPushedByWater() {
+        return false;
+    }
+
     public int getDragonAge() {
         return this.getDataManager().get(DRAGON_AGE).intValue();
     }

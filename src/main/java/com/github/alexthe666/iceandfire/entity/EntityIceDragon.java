@@ -44,7 +44,7 @@ public class EntityIceDragon extends EntityDragonBase {
 	public static final float[] growth_stage_5 = new float[]{20F, 30F};
 	public boolean isSwimming;
 	public float swimProgress;
-	public int ticksSwiming;
+	public int ticksSwimming;
 	public int swimCycle;
 	public BlockPos waterTarget;
 	public static final ResourceLocation FEMALE_LOOT = LootTableList.register(new ResourceLocation("iceandfire", "dragon/ice_dragon_female"));
@@ -92,7 +92,7 @@ public class EntityIceDragon extends EntityDragonBase {
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		this.dataManager.register(SWIMMING, Boolean.valueOf(false));
+		this.dataManager.register(SWIMMING, Boolean.FALSE);
 	}
 
 	public String getVariantName(int variant) {
@@ -138,23 +138,18 @@ public class EntityIceDragon extends EntityDragonBase {
 		}
 	}
 
-	public boolean isPushedByWater() {
-		return false;
-	}
-
-
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
 		compound.setBoolean("Swimming", this.isSwimming());
-		compound.setInteger("SwimmingTicks", this.ticksSwiming);
+		compound.setInteger("SwimmingTicks", this.ticksSwimming);
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
 		this.setSwimming(compound.getBoolean("Swimming"));
-		this.ticksSwiming = compound.getInteger("SwimmingTicks");
+		this.ticksSwimming = compound.getInteger("SwimmingTicks");
 	}
 
 	public boolean canBeSteered() {
@@ -285,18 +280,18 @@ public class EntityIceDragon extends EntityDragonBase {
 			this.setHovering(false);
 			this.setFlying(false);
 			this.flyTicks = 0;
-			this.ticksSwiming = 0;
+			this.ticksSwimming = 0;
 		}
 		if (this.isInsideWaterBlock()) {
 			swimAround();
 		}
 		if (!this.isInsideWaterBlock() && this.isSwimming()) {
 			this.setSwimming(false);
-			ticksSwiming = 0;
+			ticksSwimming = 0;
 		}
 		if (this.isSwimming()) {
-			ticksSwiming++;
-			if ((this.isInsideWaterBlock() || this.isOverWater()) && (ticksSwiming > 4000 || this.getAttackTarget() != null && this.isInWater() != this.getAttackTarget().isInWater()) && !this.isChild() && !this.isHovering() && !this.isFlying()) {
+			ticksSwimming++;
+			if ((this.isInsideWaterBlock() || this.isOverWater()) && (ticksSwimming > 4000 || this.getAttackTarget() != null && this.isInWater() != this.getAttackTarget().isInWater()) && !this.isChild() && !this.isHovering() && !this.isFlying()) {
 				this.setHovering(true);
 				this.jump();
 				this.motionY += 0.8D;
@@ -369,7 +364,7 @@ public class EntityIceDragon extends EntityDragonBase {
 
 	public void swimAround() {
 		if (waterTarget != null) {
-			if (!isTargetInWater() || getDistance(waterTarget.getX() + 0.5D, waterTarget.getY() + 0.5D, waterTarget.getZ() + 0.5D) < 2 || ticksSwiming > 6000) {
+			if (!isTargetInWater() || getDistance(waterTarget.getX() + 0.5D, waterTarget.getY() + 0.5D, waterTarget.getZ() + 0.5D) < 2 || ticksSwimming > 6000) {
 				waterTarget = null;
 			}
 			swimTowardsTarget();

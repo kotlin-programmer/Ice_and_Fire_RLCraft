@@ -16,7 +16,6 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
 
     private final IceAndFireTabulaModel[] walkPoses = {EnumDragonAnimations.WALK1.lightningdragon_model, EnumDragonAnimations.WALK2.lightningdragon_model, EnumDragonAnimations.WALK3.lightningdragon_model, EnumDragonAnimations.WALK4.lightningdragon_model};
     private final IceAndFireTabulaModel[] flyPoses = {EnumDragonAnimations.FLIGHT1.lightningdragon_model, EnumDragonAnimations.FLIGHT2.lightningdragon_model, EnumDragonAnimations.FLIGHT3.lightningdragon_model, EnumDragonAnimations.FLIGHT4.lightningdragon_model, EnumDragonAnimations.FLIGHT5.lightningdragon_model, EnumDragonAnimations.FLIGHT6.lightningdragon_model};
-    private final IceAndFireTabulaModel[] swimPoses = {EnumDragonAnimations.SWIM1.lightningdragon_model, EnumDragonAnimations.SWIM2.lightningdragon_model, EnumDragonAnimations.SWIM3.lightningdragon_model, EnumDragonAnimations.SWIM4.lightningdragon_model, EnumDragonAnimations.SWIM5.lightningdragon_model};
     private AdvancedModelRenderer[] neckParts;
     private AdvancedModelRenderer[] tailParts;
     private AdvancedModelRenderer[] tailPartsWBody;
@@ -41,26 +40,19 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         model.resetToDefaultPose();
         animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
         boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress < 20 && entity.flyProgress < 20;
-        boolean swimming = entity.isInWater() && entity.swimProgress > 0;
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
-        if (swimming) {
-            currentIndex = entity.swimCycle / 10;
-        }
         int prevIndex = currentIndex - 1;
         if (prevIndex < 0) {
-            prevIndex = swimming ? 4 : walking ? 3 : 5;
+            prevIndex = walking ? 3 : 5;
         }
-        IceAndFireTabulaModel currentPosition = swimming ? swimPoses[currentIndex] : walking ? walkPoses[currentIndex] : flyPoses[currentIndex];
-        IceAndFireTabulaModel prevPosition = swimming ? swimPoses[prevIndex] : walking ? walkPoses[prevIndex] : flyPoses[prevIndex];
+        IceAndFireTabulaModel currentPosition = walking ? walkPoses[currentIndex] : flyPoses[currentIndex];
+        IceAndFireTabulaModel prevPosition = walking ? walkPoses[prevIndex] : flyPoses[prevIndex];
         float delta = ((walking ? entity.walkCycle : entity.flightCycle) / 10.0F) % 1.0F;
-        if (swimming) {
-            delta = ((entity.swimCycle) / 10.0F) % 1.0F;
-        }
         float deltaTicks = delta + (LLibrary.PROXY.getPartialTicks() / 10.0F);
 
         for (AdvancedModelRenderer cube : model.getCubes().values()) {
             this.genderMob(entity, cube);
-            if (!swimming && walking && entity.flyProgress <= 0.0F && entity.hoverProgress <= 0.0F && entity.modelDeadProgress <= 0.0F) {
+            if (walking && entity.flyProgress <= 0.0F && entity.hoverProgress <= 0.0F && entity.modelDeadProgress <= 0.0F) {
                 AdvancedModelRenderer walkPart = EnumDragonAnimations.GROUND_POSE.lightningdragon_model.getCube(cube.boxName);
                 if (prevPosition.getCube(cube.boxName) != null) {
                     float prevX = prevPosition.getCube(cube.boxName).rotateAngleX;
@@ -122,17 +114,12 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
                     transitionTo(cube, EnumDragonAnimations.DIVING_POSE.lightningdragon_model.getCube(cube.boxName), entity.diveProgress, 10, false);
                 }
             }
-            if (entity.swimProgress > 0.0F) {
-                if (!isPartEqual(cube, EnumDragonAnimations.SWIM_POSE.lightningdragon_model.getCube(cube.boxName))) {
-                    transitionTo(cube, EnumDragonAnimations.SWIM_POSE.lightningdragon_model.getCube(cube.boxName), entity.swimProgress, 20, false);
-                }
-            }
             if (entity.fireBreathProgress > 0.0F) {
                 if (!isPartEqual(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName)) && !isWing(model, cube) && !cube.boxName.contains("Finger")) {
                     transitionTo(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName), entity.fireBreathProgress, 5, false);
                 }
             }
-            if (!walking && !swimming) {
+            if (!walking) {
                 AdvancedModelRenderer flightPart = EnumDragonAnimations.FLYING_POSE.lightningdragon_model.getCube(cube.boxName);
                 float prevX = prevPosition.getCube(cube.boxName).rotateAngleX;
                 float prevY = prevPosition.getCube(cube.boxName).rotateAngleY;
@@ -142,20 +129,6 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
                 float z = currentPosition.getCube(cube.boxName).rotateAngleZ;
                 if (x != flightPart.rotateAngleX || y != flightPart.rotateAngleY || z != flightPart.rotateAngleZ) {
                     this.setRotateAngle(cube, 1F, prevX + deltaTicks * distance(prevX, x), prevY + deltaTicks * distance(prevY, y), prevZ + deltaTicks * distance(prevZ, z));
-                }
-            }
-            if (swimming && entity.flyProgress <= 0.0F && entity.hoverProgress <= 0.0F && entity.modelDeadProgress <= 0.0F) {
-                AdvancedModelRenderer walkPart = EnumDragonAnimations.SWIM_POSE.lightningdragon_model.getCube(cube.boxName);
-                if (prevPosition.getCube(cube.boxName) != null) {
-                    float prevX = prevPosition.getCube(cube.boxName).rotateAngleX;
-                    float prevY = prevPosition.getCube(cube.boxName).rotateAngleY;
-                    float prevZ = prevPosition.getCube(cube.boxName).rotateAngleZ;
-                    float x = currentPosition.getCube(cube.boxName).rotateAngleX;
-                    float y = currentPosition.getCube(cube.boxName).rotateAngleY;
-                    float z = currentPosition.getCube(cube.boxName).rotateAngleZ;
-                    if (x != walkPart.rotateAngleX || y != walkPart.rotateAngleY || z != walkPart.rotateAngleZ) {
-                        this.setRotateAngle(cube, limbSwingAmount, prevX + deltaTicks * distance(prevX, x), prevY + deltaTicks * distance(prevY, y), prevZ + deltaTicks * distance(prevZ, z));
-                    }
                 }
             }
         }
