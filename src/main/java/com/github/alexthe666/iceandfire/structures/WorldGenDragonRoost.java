@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.block.BlockCoinPile;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -54,7 +55,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
             int l = radius + rand.nextInt(2);
             float f = (float) (j + k + l) * 0.333F + 0.5F;
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
-                if (blockpos.distanceSq(position) <= (double) (f * f) && world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock().getTranslationKey().contains(getTranslationKeyword())) {
+                if (blockpos.distanceSq(position) <= (double) (f * f) && world.isAirBlock(blockpos) && isDragonTransformedBlock(world.getBlockState(blockpos.down()).getBlock())) {
                     int chance = rand.nextInt(100);
                     if (chance < 4) {
                         int chance2 = rand.nextInt(20);
@@ -130,10 +131,19 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         worldIn.spawnEntity(dragon);
     }
 
+    private boolean isDragonTransformedBlock(Block block) {
+        for (Block dragonTransformedBlock : getDragonTransformedBlocks()) {
+            if (block == dragonTransformedBlock) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected abstract void transformState(World world, BlockPos blockpos, IBlockState state);
     protected abstract IBlockState getPileBlock(Random rand);
     protected abstract IBlockState getBuildingBlock();
-    protected abstract String getTranslationKeyword();
+    protected abstract Block[] getDragonTransformedBlocks();
     protected abstract ResourceLocation getLootTable();
     protected abstract EntityDragonBase createDragon(World worldIn);
 }

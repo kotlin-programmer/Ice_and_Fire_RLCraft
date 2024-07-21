@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.block.BlockReturningState;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
@@ -20,11 +21,11 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave"));
 
 	protected IBlockState getStone() {
-		return ModBlocks.crackledStone.getDefaultState();
+		return ModBlocks.crackledStone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE);
 	}
 
 	protected IBlockState getCobblestone() {
-		return ModBlocks.crackledCobblestone.getDefaultState();
+		return ModBlocks.crackledCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE);
 	}
 
 	protected IBlockState getPile(Random rand) {

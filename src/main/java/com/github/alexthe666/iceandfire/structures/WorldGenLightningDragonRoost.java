@@ -1,10 +1,14 @@
 package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.block.BlockFallingReturningState;
+import com.github.alexthe666.iceandfire.block.BlockPath;
+import com.github.alexthe666.iceandfire.block.BlockReturningState;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,17 +25,17 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
 
     protected void transformState(World world, BlockPos blockpos, IBlockState state) {
         if (state.getMaterial() == Material.GRASS && state.getBlock() == Blocks.GRASS) {
-            world.setBlockState(blockpos, ModBlocks.crackledGrass.getDefaultState());
+            world.setBlockState(blockpos, ModBlocks.crackledGrass.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE));
         } else if (state.getMaterial() == Material.GRASS || state.getMaterial() == Material.GROUND && state.getBlock() == Blocks.DIRT) {
-            world.setBlockState(blockpos, ModBlocks.crackledDirt.getDefaultState());
+            world.setBlockState(blockpos, ModBlocks.crackledDirt.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE));
         } else if (state.getMaterial() == Material.GROUND && state.getBlock() == Blocks.GRAVEL) {
-            world.setBlockState(blockpos, ModBlocks.crackledGravel.getDefaultState());
+            world.setBlockState(blockpos, ModBlocks.crackledGravel.getDefaultState().withProperty(BlockFallingReturningState.REVERTS, Boolean.FALSE));
         } else if (state.getMaterial() == Material.ROCK && (state.getBlock() == Blocks.COBBLESTONE || state.getBlock().getTranslationKey().contains("cobblestone"))) {
-            world.setBlockState(blockpos, ModBlocks.crackledCobblestone.getDefaultState());
+            world.setBlockState(blockpos, ModBlocks.crackledCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE));
         } else if (state.getMaterial() == Material.ROCK && state.getBlock() != ModBlocks.crackledCobblestone) {
-            world.setBlockState(blockpos, ModBlocks.crackledStone.getDefaultState());
+            world.setBlockState(blockpos, ModBlocks.crackledStone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE));
         } else if (state.getBlock() == Blocks.GRASS_PATH) {
-            world.setBlockState(blockpos, ModBlocks.crackledGrassPath.getDefaultState());
+            world.setBlockState(blockpos, ModBlocks.crackledGrassPath.getDefaultState().withProperty(BlockPath.REVERTS, Boolean.FALSE));
         } else if (state.getMaterial() == Material.WOOD) {
             world.setBlockState(blockpos, ModBlocks.ash.getDefaultState());
         } else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS) {
@@ -56,11 +60,18 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
     }
 
     protected IBlockState getBuildingBlock() {
-        return ModBlocks.crackledCobblestone.getDefaultState();
+        return ModBlocks.crackledCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE);
     }
 
-    protected String getTranslationKeyword() {
-        return "crackled";
+    protected Block[] getDragonTransformedBlocks() {
+        return new Block[] {
+                ModBlocks.crackledGrass,
+                ModBlocks.crackledDirt,
+                ModBlocks.crackledGravel,
+                ModBlocks.crackledGrassPath,
+                ModBlocks.crackledStone,
+                ModBlocks.crackledCobblestone
+        };
     }
 
     protected ResourceLocation getLootTable() {
