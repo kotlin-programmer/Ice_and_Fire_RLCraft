@@ -76,6 +76,8 @@ tile.iceandfire.crackledGravel.name=Crackled Gravel
 tile.iceandfire.crackledGrassPath.name=Crackled Grass Path
 tile.iceandfire.lightning_stone.name=Lightning Stone
 
+tile.iceandfire.ancient_dragon_bone_block.name=Block of Ancient Dragon Bones
+tile.iceandfire.ancient_dragon_bone_wall.name=Ancient Dragon Bone Wall
 tile.iceandfire.dragon_bone_block.name=Block of Dragon Bones
 tile.iceandfire.dragon_bone_wall.name=Dragon Bone Wall
 tile.iceandfire.ghost_chest.name=Cursed Chest

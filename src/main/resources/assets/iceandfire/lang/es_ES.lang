@@ -63,6 +63,8 @@ tile.iceandfire.crackledGravel.name=Grava agrietada
 tile.iceandfire.crackledGrassPath.name=Camino de cesped agrietado
 tile.iceandfire.lightning_stone.name=Piedra relámpago
 
+tile.iceandfire.ancient_dragon_bone_block.name=Bloque de Huesos de Dragón antiguo
+tile.iceandfire.ancient_dragon_bone_wall.name=Pared de Hueso de Dragón antiguo
 tile.iceandfire.dragon_bone_block.name=Bloque de Huesos de Dragón
 tile.iceandfire.dragon_bone_wall.name=Pared de Hueso de Dragón
 

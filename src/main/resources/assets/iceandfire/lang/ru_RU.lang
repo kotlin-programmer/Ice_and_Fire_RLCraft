@@ -76,6 +76,8 @@ tile.iceandfire.crackledGravel.name=Треснувший гравий
 tile.iceandfire.crackledGrassPath.name=Треснувшая тропа
 tile.iceandfire.lightning_stone.name=Камень молнии
 
+tile.iceandfire.ancient_dragon_bone_block.name=древний Блок драконьих костей
+tile.iceandfire.ancient_dragon_bone_wall.name=древний Ограда из драконьих костей
 tile.iceandfire.dragon_bone_block.name=Блок драконьих костей
 tile.iceandfire.dragon_bone_wall.name=Ограда из драконьих костей
 tile.iceandfire.ghost_chest.name=Проклятый сундук

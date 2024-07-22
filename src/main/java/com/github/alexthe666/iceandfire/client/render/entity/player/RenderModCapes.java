@@ -24,6 +24,9 @@ public class RenderModCapes {
 	private static final ResourceLocation eagleCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_eagle.png");
 	private static final ResourceLocation eagleElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_eagle.png");
 	private static final ResourceLocation heavenCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_heaven.png");
+	private static final ResourceLocation kameibCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_kameib.png");
+	private static final ResourceLocation kameibElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_kameib.png");
+	private static final ResourceLocation eclipseElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_eclipse.png");
 	private static final ResourceLocation fireCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_fire.png");
 	private static final ResourceLocation fireElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_fire.png");
 	private static final ResourceLocation iceCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_ice.png");
@@ -64,6 +67,14 @@ public class RenderModCapes {
 					if (User.ArtsyDy.equals(uniqueID)) {
 						textureMap.put(MinecraftProfileTexture.Type.CAPE, artsyDyCapeTex);
 						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, artsyDyElytraTex);
+					}
+					if (User.Eclipse.equals(uniqueID)) {
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningCapeTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eclipseElytraTex);
+					}
+					if (User.KameiB.equals(uniqueID)) {
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, kameibCapeTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, kameibElytraTex);
 					}
 					if (User.NLBlackEagle.equals(uniqueID)) {
 						textureMap.put(MinecraftProfileTexture.Type.CAPE, eagleCapeTex);
@@ -149,7 +160,9 @@ public class RenderModCapes {
 	private static class User {
 		private static final UUID Alexthe666 = UUID.fromString("71363abe-fd03-49c9-940d-aae8b8209b7c");
 		private static final UUID ArtsyDy = UUID.fromString("14bba455-affa-46d0-9cf0-806cc0f3d454");
+		private static final UUID Eclipse = UUID.fromString("7905095f-4e96-43d1-83a0-870265821205");
 		private static final UUID Fonnymunkey = UUID.fromString("648ab92b-e045-43c8-af1e-85a069d7bf42");
+		private static final UUID KameiB = UUID.fromString("c0ed3a7c-31bd-4989-bc75-cdd147e7ae8c");
 		private static final UUID Kotlin_Dev = UUID.fromString("2cda280f-2547-4f0c-88b3-05fa236c4bf4");
 		private static final UUID Meldexun = UUID.fromString("fe29a2f2-aefc-4ad5-a2b9-86ee8bc41a66");
 		private static final UUID NLBlackEagle = UUID.fromString("82da4f98-9835-4744-bcd5-62ba2d5e2df6");

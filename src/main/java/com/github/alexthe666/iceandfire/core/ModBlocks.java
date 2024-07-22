@@ -98,10 +98,14 @@ public class ModBlocks {
 	public static Block dragon_ice_spikes = new BlockIceSpikes();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":nest")
 	public static Block nest = new BlockGeneric(Material.GRASS, "nest", "iceandfire.nest", "axe", 0, 0.5F, 0F, SoundType.GROUND);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ancient_dragon_bone_block")
+	public static Block ancient_dragon_bone_block = new BlockDragonBone("ancient_dragon_bone_block", "iceandfire.ancient_dragon_bone_block");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ancient_dragon_bone_wall")
+	public static Block ancient_dragon_bone_block_wall = new BlockDragonBoneWall("ancient_dragon_bone_wall", "iceandfire.ancient_dragon_bone_wall", ModBlocks.ancient_dragon_bone_block);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_bone_block")
-	public static Block dragon_bone_block = new BlockDragonBone();
+	public static Block dragon_bone_block = new BlockDragonBone("dragon_bone_block", "iceandfire.dragon_bone_block");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_bone_wall")
-	public static Block dragon_bone_block_wall = new BlockDragonBoneWall();
+	public static Block dragon_bone_block_wall = new BlockDragonBoneWall("dragon_bone_wall", "iceandfire.dragon_bone_wall", ModBlocks.dragon_bone_block);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":egginice")
 	public static Block eggInIce = new BlockEggInIce();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":pixie_house")

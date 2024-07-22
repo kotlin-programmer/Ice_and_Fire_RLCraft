@@ -77,6 +77,8 @@ tile.iceandfire.crackledGravel.name=Grava agrietada
 tile.iceandfire.crackledGrassPath.name=Sendero de pasto agrietado
 tile.iceandfire.lightning_stone.name=Piedra rayo
 
+tile.iceandfire.ancient_dragon_bone_block.name=Bloque de huesos de dragon antiguo
+tile.iceandfire.ancient_dragon_bone_wall.name=Pared de hueso de dragon antiguo
 tile.iceandfire.dragon_bone_block.name=Bloque de huesos de dragon
 tile.iceandfire.dragon_bone_wall.name=Pared de hueso de dragon
 tile.iceandfire.ghost_chest.name=Cofre maldito
