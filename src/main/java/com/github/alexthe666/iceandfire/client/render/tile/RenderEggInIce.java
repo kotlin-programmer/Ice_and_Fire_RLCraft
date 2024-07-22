@@ -23,7 +23,7 @@ public class RenderEggInIce extends TileEntitySpecialRenderer<TileEntityEggInIce
 			EnumDragonEgg eggType = egg.type.dragonType != EnumDragonType.ICE ? EnumDragonEgg.BLUE : egg.type;
 			this.bindTexture(RenderPodium.getEggTexture(eggType));
 			GL11.glPushMatrix();
-			MODEL.renderFrozen(egg);
+			MODEL.renderFrozen();
 			GL11.glPopMatrix();
 			GL11.glPopMatrix();
 			GL11.glPopMatrix();
