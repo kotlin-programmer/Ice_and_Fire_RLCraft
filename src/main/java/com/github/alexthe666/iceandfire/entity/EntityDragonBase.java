@@ -2095,7 +2095,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             double y = this.attackDecision ? airTarget.getY() : this.posY;
 
             double targetX = airTarget.getX() + 0.5D - posX;
-            double targetY = Math.min(y, 256) + 1D - posY;
+            double targetY = Math.min(y, IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight) + 1D - posY;
             double targetZ = airTarget.getZ() + 0.5D - posZ;
             motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * getFlySpeed();
             motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * getFlySpeed();
