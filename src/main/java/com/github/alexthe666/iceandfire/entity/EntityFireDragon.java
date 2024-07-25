@@ -221,6 +221,10 @@ public class EntityFireDragon extends EntityDragonBase {
     public void onLivingUpdate() {
         super.onLivingUpdate();
         if (!world.isRemote) {
+            if ((this.isInLava() || isInWater()) && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove()) {
+                this.setHovering(true);
+                this.flyTicks = 0;
+            }
             if (this.getAttackTarget() != null && !this.isSleeping() && this.getAnimation() != ANIMATION_SHAKEPREY) {
                 if ((!attackDecision || this.isFlying()) && !isTargetBlocked(new Vec3d(this.getAttackTarget().posX, this.getAttackTarget().posY, this.getAttackTarget().posZ))) {
                     shootFireAtMob(this.getAttackTarget());
@@ -233,7 +237,6 @@ public class EntityFireDragon extends EntityDragonBase {
                 this.setBreathingFire(false);
             }
         }
-
     }
 
     public void riderShootFire(Entity controller) {

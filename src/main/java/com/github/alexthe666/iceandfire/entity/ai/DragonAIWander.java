@@ -33,7 +33,7 @@ public class DragonAIWander extends EntityAIBase {
 		if (dragon.isPlayerControlled()) {
 			return false;
 		}
-		if (dragon.isFlying() || dragon.isHovering()) {
+		if (dragon.isFlying() || dragon.isHovering() || !dragon.onGround) {
 			return false;
 		}
 		if (!this.mustUpdate) {

@@ -232,14 +232,15 @@ public class EntityLightningDragon extends EntityDragonBase {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if (this.isInLava() && !this.isFlying() && !this.isChild() && !this.isHovering() && !this.isSleeping() && this.canMove() && this.onGround){
-			this.setHovering(true);
-			this.setSleeping(false);
-			this.setSitting(false);
-			this.flyHovering = 0;
-			this.flyTicks = 0;
-		}
 		if (!world.isRemote) {
+			if ((this.isInLava() || isInWater()) && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove()) {
+				this.setHovering(true);
+				if (this.isInLava()) {
+					this.jump();
+					this.motionY += 0.8D;
+				}
+				this.flyTicks = 0;
+			}
 			if (this.getAttackTarget() != null && !this.isSleeping() && this.getAnimation() != ANIMATION_SHAKEPREY) {
 				if ((!attackDecision || this.isFlying()) && !isTargetBlocked(new Vec3d(this.getAttackTarget().posX, this.getAttackTarget().posY, this.getAttackTarget().posZ))) {
 					shootLightningAtMob(this.getAttackTarget());
@@ -253,6 +254,22 @@ public class EntityLightningDragon extends EntityDragonBase {
 				this.setBreathingFire(false);
 			}
 		}
+	}
+
+	@Override
+	public Vec3d getHeadPosition() {
+		float deadProg = this.modelDeadProgress * -0.02F;
+		float hoverProg = this.hoverProgress * 0.03F;
+		float flyProg = this.flyProgress * 0.01F;
+		float sitProg = this.sitProgress * 0.005F;
+		float sleepProg = this.sleepProgress * 0.005F;
+		float flightXz = 1.0F + flyProg + hoverProg;
+		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg - sleepProg * 0.9F) * flightXz * getRenderSize();
+		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
+		float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.cos(rotationYaw * Math.PI / 180));
+		float headPosY = (float) (posY + (0.7F + (sitProg * 5F) + hoverProg + deadProg + (sleepProg * 6F) + flyProg) * getRenderSize() * 0.3F);
+		float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.sin(rotationYaw * Math.PI / 180));
+		return new Vec3d(headPosX, headPosY, headPosZ);
 	}
 
 	public void riderShootFire(Entity controller) {

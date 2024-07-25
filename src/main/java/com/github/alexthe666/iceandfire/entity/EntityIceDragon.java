@@ -248,14 +248,13 @@ public class EntityIceDragon extends EntityDragonBase {
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
-		if (this.isInLava() && !this.isFlying() && !this.isChild() && !this.isHovering() && !this.isSleeping() && this.canMove() && this.onGround) {
-			this.setHovering(true);
-			this.setSleeping(false);
-			this.setSitting(false);
-			this.flyHovering = 0;
-			this.flyTicks = 0;
-		}
 		if (!world.isRemote) {
+			if (this.isInLava() && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove()) {
+				this.setHovering(true);
+				this.jump();
+				this.motionY += 0.8D;
+				this.flyTicks = 0;
+			}
 			if (this.getAttackTarget() != null && !this.isSleeping() && this.getAnimation() != ANIMATION_SHAKEPREY) {
 				if ((!attackDecision || this.isFlying()) && !isTargetBlocked(new Vec3d(this.getAttackTarget().posX, this.getAttackTarget().posY, this.getAttackTarget().posZ))) {
 					shootIceAtMob(this.getAttackTarget());
@@ -268,35 +267,36 @@ public class EntityIceDragon extends EntityDragonBase {
 			} else {
 				this.setBreathingFire(false);
 			}
+			if (this.isInsideWaterBlock() && !this.isSwimming() && (!this.isFlying() && !this.isHovering() || this.flyTicks > 100)) {
+				this.setSwimming(true);
+				this.setHovering(false);
+				this.setFlying(false);
+				this.flyTicks = 0;
+				this.ticksSwimming = 0;
+			}
+			if (this.isInsideWaterBlock()) {
+				swimAround();
+			}
+			if (!this.isInsideWaterBlock() && this.isSwimming()) {
+				this.setSwimming(false);
+				ticksSwimming = 0;
+			}
+			if (this.isSwimming()) {
+				ticksSwimming++;
+				if ((this.isInsideWaterBlock() || this.isOverWater()) && (ticksSwimming > 4000 || this.getAttackTarget() != null && this.isInWater() != this.getAttackTarget().isInWater()) && !this.isChild() && !this.isHovering() && !this.isFlying()) {
+					this.setHovering(true);
+					this.jump();
+					this.motionY += 0.8D;
+					this.flyTicks = 0;
+					this.setSwimming(false);
+				}
+			}
 		}
 		boolean swimming = isSwimming() && !isHovering() && !isFlying() && ridingProgress == 0;
 		if (swimming && swimProgress < 20.0F) {
 			swimProgress += 0.5F;
 		} else if (!swimming && swimProgress > 0.0F) {
 			swimProgress -= 0.5F;
-		}
-		if (this.isInsideWaterBlock() && !this.isSwimming() && (!this.isFlying() && !this.isHovering() || this.flyTicks > 100)) {
-			this.setSwimming(true);
-			this.setHovering(false);
-			this.setFlying(false);
-			this.flyTicks = 0;
-			this.ticksSwimming = 0;
-		}
-		if (this.isInsideWaterBlock()) {
-			swimAround();
-		}
-		if (!this.isInsideWaterBlock() && this.isSwimming()) {
-			this.setSwimming(false);
-			ticksSwimming = 0;
-		}
-		if (this.isSwimming()) {
-			ticksSwimming++;
-			if ((this.isInsideWaterBlock() || this.isOverWater()) && (ticksSwimming > 4000 || this.getAttackTarget() != null && this.isInWater() != this.getAttackTarget().isInWater()) && !this.isChild() && !this.isHovering() && !this.isFlying()) {
-				this.setHovering(true);
-				this.jump();
-				this.motionY += 0.8D;
-				this.setSwimming(false);
-			}
 		}
 		if (swimCycle < 48) {
 			swimCycle += 2;

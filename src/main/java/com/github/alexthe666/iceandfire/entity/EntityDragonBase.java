@@ -19,6 +19,7 @@ import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
 import com.github.alexthe666.iceandfire.message.MessageDragonArmor;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
+import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.github.alexthe666.iceandfire.message.MessageUpdateRidingState;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.ilexiconn.llibrary.client.model.tools.ChainBuffer;
@@ -68,6 +69,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -136,7 +138,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public int spacebarTicks;
     public float[][] growth_stages;
     public LegSolverQuadruped legSolver;
-    protected int flyHovering;
     private boolean isSleeping;
     private boolean isSitting;
     private boolean isHovering;
@@ -1192,11 +1193,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             double motionX = getRNG().nextGaussian() * 0.07D;
             double motionY = getRNG().nextGaussian() * 0.07D;
             double motionZ = getRNG().nextGaussian() * 0.07D;
-            float headPosX = (float) (posX + 1.9F * getRenderSize() * 0.3F * Math.cos((rotationYaw + 90) * Math.PI / 180));
-            float headPosZ = (float) (posZ + 1.9F * getRenderSize() * 0.3F * Math.sin((rotationYaw + 90) * Math.PI / 180));
-            float headPosY = (float) (posY + (getRenderSize() * 0.25F));
+            Vec3d headPos = getHeadPosition();
             if (world.isRemote) {
-                ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, headPosX, headPosY, headPosZ, motionX, motionY, motionZ, Item.getIdFromItem(item), 0);
+                ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, headPos.x, headPos.y, headPos.z, motionX, motionY, motionZ, Item.getIdFromItem(item), 0);
             }
         }
     }
@@ -1224,6 +1223,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.stepHeight = this.getDragonStage() * 0.5F;
+        if (!this.isPlayerControlled() && this.isBeyondHeight() && !this.onGround) {
+            this.motionY -= 0.1F;
+        }
         if (!world.isRemote) {
             if (this.isSitting() && (this.getCommand() != 1 || this.getControllingPassenger() != null)) {
                 this.setSitting(false);
@@ -1233,9 +1235,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             }
             if (this.isSitting()) {
                 this.getNavigator().clearPath();
-            }
-            if (this.isBeyondHeight() && !this.onGround) {
-                this.motionY -= 0.1F;
             }
             if (this.isInLove()) {
                 this.world.setEntityState(this, (byte)18);
@@ -1254,17 +1253,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     explosion.doExplosionA();
                     explosion.doExplosionB(true);
                     this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1, 1);
-
                 }
-            }
-        }
-
-        if (this.isTackling() && !this.isFlying() && this.onGround) {
-            tacklingTicks++;
-            if (tacklingTicks == 40) {
-                tacklingTicks = 0;
-                this.setTackling(false);
-                this.setFlying(false);
             }
         }
         if (this.walkCycle < 39) {
@@ -1272,64 +1261,72 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         } else {
             this.walkCycle = 0;
         }
-        if (!world.isRemote && this.getRNG().nextInt(500) == 0 && !this.isModelDead() && !this.isSleeping()) {
-            this.roar();
-        }
-        if (!world.isRemote && this.onGround && this.getNavigator().noPath() && this.getAttackTarget() != null && this.getAttackTarget().posY - 3 > this.posY && this.getRNG().nextInt(15) == 0 && this.canMove() && !this.isHovering() && !this.isFlying() && !this.isChild()) {
-            this.setHovering(true);
-            this.setSleeping(false);
-            this.setSitting(false);
-            this.flyHovering = 0;
-            this.hoverTicks = 0;
-            this.flyTicks = 0;
-        }
         if (this.getAnimation() == ANIMATION_WINGBLAST && (this.getAnimationTick() == 17 || this.getAnimationTick() == 22 || this.getAnimationTick() == 28)) {
             this.spawnGroundEffects();
-            if (this.getAttackTarget() != null) {
+            if (!this.world.isRemote && this.getAttackTarget() != null) {
                 this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), ((float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()) / 4);
                 this.getAttackTarget().knockBack(this.getAttackTarget(), this.getDragonStage() * 0.6F, 1, 1);
                 this.attackDecision = this.getRNG().nextBoolean();
             }
         }
-        if (!world.isRemote && this.isFlying() && this.getAttackTarget() != null && this.attackDecision && this.isDirectPathBetweenPoints(this.getPositionVector(), this.getAttackTarget().getPositionVector())) {
-            this.setTackling(true);
-        }
-        if (!world.isRemote && this.isFlying() && this.getAttackTarget() != null && this.isTackling() && this.getEntityBoundingBox().expand(2.0D, 2.0D, 2.0D).intersects(this.getAttackTarget().getEntityBoundingBox())) {
-            this.attackDecision = true;
-            this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), this.getDragonStage() * 3);
-            this.spawnGroundEffects();
-            this.setFlying(false);
-            this.setHovering(false);
-        }
-        if (!world.isRemote && this.isTackling() && this.getAttackTarget() == null) {
-            this.setTackling(false);
-        }
         IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(this);
-        if (capability != null && capability.isStoned()) {
-            this.setFlying(false);
-            this.setHovering(false);
-            return;
+        if (!this.world.isRemote) {
+            if (this.isTackling() && !this.isFlying() && this.onGround) {
+                tacklingTicks++;
+                if (tacklingTicks == 40) {
+                    tacklingTicks = 0;
+                    this.setTackling(false);
+                    this.setFlying(false);
+                }
+            }
+            if (this.getRNG().nextInt(500) == 0 && !this.isModelDead() && !this.isSleeping()) {
+                this.roar();
+            }
+            if (this.onGround && this.getNavigator().noPath() && this.getAttackTarget() != null && this.getAttackTarget().posY - 3 > this.posY && this.getRNG().nextInt(15) == 0 && this.canMove() && !this.isHovering() && !this.isFlying() && !this.isChild()) {
+                this.setHovering(true);
+                this.setSleeping(false);
+                this.setSitting(false);
+                this.hoverTicks = 0;
+                this.flyTicks = 0;
+            }
+            if (this.isFlying() && this.getAttackTarget() != null && this.attackDecision && this.isDirectPathBetweenPoints(this.getPositionVector(), this.getAttackTarget().getPositionVector())) {
+                this.setTackling(true);
+            }
+            if (this.isFlying() && this.getAttackTarget() != null && this.isTackling() && this.getEntityBoundingBox().expand(2.0D, 2.0D, 2.0D).intersects(this.getAttackTarget().getEntityBoundingBox())) {
+                this.attackDecision = true;
+                this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), this.getDragonStage() * 3);
+                this.spawnGroundEffects();
+                this.setFlying(false);
+                this.setHovering(false);
+            }
+            if (this.isTackling() && this.getAttackTarget() == null) {
+                this.setTackling(false);
+            }
+            if (capability != null && capability.isStoned()) {
+                this.setFlying(false);
+                this.setHovering(false);
+                return;
+            }
+            if (this.isFlying() && this.ticksExisted % 40 == 0 || this.isFlying() && this.isSleeping()) {
+                this.setFlying(true);
+                this.setSleeping(false);
+            }
+            if (this.isModelDead() && (this.isFlying() || this.isHovering())) {
+                this.setFlying(false);
+                this.setHovering(false);
+            }
+            if (!this.canMove()) {
+                this.getNavigator().clearPath();
+            }
+            if (!this.canMove() && this.getAttackTarget() != null) {
+                this.setAttackTarget(null);
+            }
+            if (!this.isTamed()) {
+                this.updateCheckPlayer();
+            }
         }
-        if (this.isFlying() && this.ticksExisted % 40 == 0 || this.isFlying() && this.isSleeping()) {
-            this.setFlying(true);
-            this.setSleeping(false);
-        }
-        if (!this.canMove() && this.getAttackTarget() != null) {
-            this.setAttackTarget(null);
-        }
-        if (!this.canMove()) {
-            this.getNavigator().clearPath();
-
-        }
-        if (motionY > 0.5) {
-            this.motionY = 0.5;
-        }
-        if (motionY < -0.5) {
-            this.motionY = -0.5;
-        }
-        if (!this.isTamed()) {
-            this.updateCheckPlayer();
-        }
+        this.motionY = Math.min(this.motionY, 0.5);
+        this.motionY = Math.max(this.motionY, -0.5);
         AnimationHandler.INSTANCE.updateAnimations(this);
         this.legSolver.update(this);
         if ((this.isFlying() || this.isHovering()) && !this.isModelDead()) {
@@ -1344,10 +1341,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             if (this.isModelDead() && flightCycle != 0) {
                 flightCycle = 0;
             }
-        }
-        if (this.isModelDead() && (this.isFlying() || this.isHovering())) {
-            this.setFlying(false);
-            this.setHovering(false);
         }
 
         boolean sitting = isSitting() && !isModelDead() && !isSleeping() && !isHovering() && !isFlying();
@@ -1403,102 +1396,105 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (this.isModelDead()) {
             return;
         }
-        if (!this.world.isRemote && this.onGround && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
-            this.setFlying(false);
-            this.setHovering(false);
+        if (!this.world.isRemote) {
+            if (this.onGround && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
+                this.airTarget = null;
+
+                this.setFlying(false);
+                this.setHovering(false);
+            }
+            if (this.isHovering()) {
+                if (this.isSleeping()) {
+                    this.setHovering(false);
+                }
+                this.hoverTicks++;
+                if (this.doesWantToLand() && !this.onGround) {
+                    this.motionY -= 0.25D;
+                } else {
+                    if (!this.isPlayerControlled() && !this.isBeyondHeight()) {
+                        this.motionY += 0.08;
+                    }
+                    if (this.hoverTicks > 40) {
+                        if (!this.isChild()) {
+                            this.setFlying(true);
+                        }
+                        this.setHovering(false);
+                        this.hoverTicks = 0;
+                        this.flyTicks = 0;
+                    }
+                }
+            }
+            if (this.isSleeping()) {
+                this.getNavigator().clearPath();
+            }
+            if (!isPlayerControlled()) {
+                if (!this.isFlying() && !this.isHovering() && this.airTarget != null && this.onGround) {
+                    this.airTarget = null;
+                }
+                if (this.isFlying() && this.airTarget == null && this.onGround) {
+                    this.setFlying(false);
+                    this.setHovering(false);
+                }
+                if (this.isFlying() && getAttackTarget() == null) {
+                    flyAround();
+                } else if (airTarget != null) {
+                    flyTowardsTarget();
+                }
+            } else {
+                this.airTarget = null;
+            }
+
+            if (this.onGround && flyTicks != 0) {
+                flyTicks = 0;
+            }
+            if (this.isFlying() && this.doesWantToLand()) {
+                this.setFlying(false);
+                this.setHovering(!this.onGround);
+                if (this.onGround) {
+                    flyTicks = 0;
+                }
+            }
+            if (this.isFlying()) {
+                this.flyTicks++;
+            }
+            if ((this.isHovering() || this.isFlying()) && this.isSleeping()) {
+                this.setFlying(false);
+                this.setHovering(false);
+            }
+            if ((capability == null || !capability.isStoned()) && (this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround || this.posY < -1)) {
+                this.setHovering(true);
+                this.setSleeping(false);
+                this.setSitting(false);
+                this.hoverTicks = 0;
+                this.flyTicks = 0;
+            }
+            if (this.getAttackTarget() != null && this.getAttackTarget().posY + 5 < this.posY && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround) {
+                this.setHovering(true);
+                this.setSleeping(false);
+                this.setSitting(false);
+                this.hoverTicks = 0;
+                this.flyTicks = 0;
+            }
+            if (this.isInWater()
+                    && this.getAttackTarget() != null
+                    && this.getRNG().nextInt(15) == 0
+                    && (capability == null || !capability.isStoned())
+                    && this.canMove()
+                    && !this.isHovering()
+                    && !this.isFlying()
+                    && !this.isChild()) {
+                this.setHovering(true);
+                this.setSleeping(false);
+                this.setSitting(false);
+                this.hoverTicks = 0;
+                this.flyTicks = 0;
+            }
+            if (getAttackTarget() != null && this.isPlayerControlled()) {
+                this.setAttackTarget(null);
+            }
         }
         if (this.isPlayerControlled() && !this.onGround && (this.isFlying() || this.isHovering())) {
             this.motionY *= 0D;
-        }
-        if (this.isHovering()) {
-            if (this.isSleeping()) {
-                this.setHovering(false);
-            }
-            this.hoverTicks++;
-            if (this.doesWantToLand() && !this.onGround) {
-                this.motionY -= 0.25D;
-            } else {
-                if (!this.isPlayerControlled() && !this.isBeyondHeight()) {
-                    this.motionY += 0.08;
-                }
-                if (this.hoverTicks > 40) {
-                    if (!this.isChild()) {
-                        this.setFlying(true);
-                    }
-                    this.setHovering(false);
-                    this.flyHovering = 0;
-                    this.hoverTicks = 0;
-                    this.flyTicks = 0;
-                }
-            }
-        }
-        if (this.isSleeping()) {
-            this.getNavigator().clearPath();
-        }
-        if (!this.isFlying() && !this.isHovering() && this.airTarget != null && this.onGround) {
-            this.airTarget = null;
-        }
-        if (this.isFlying() && this.airTarget == null && this.onGround && !this.isPlayerControlled()) {
-            this.setFlying(false);
-        }
-
-        if (this.isFlying() && getAttackTarget() == null) {
-            flyAround();
-        } else if (getAttackTarget() != null) {
-            flyTowardsTarget();
-        }
-        if (this.onGround && flyTicks != 0) {
-            flyTicks = 0;
-        }
-        if (this.isFlying() && this.doesWantToLand()) {
-            this.setFlying(false);
-            this.setHovering(!this.onGround);
-            if (this.onGround) {
-                flyTicks = 0;
-                this.setFlying(false);
-            }
-        }
-        if (this.isFlying()) {
-            this.flyTicks++;
-        }
-        if ((this.isHovering() || this.isFlying()) && this.isSleeping()) {
-            this.setFlying(false);
-            this.setHovering(false);
-        }
-        if ((capability == null || !capability.isStoned()) && (!world.isRemote && this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround || this.posY < -1)) {
-            this.setHovering(true);
-            this.setSleeping(false);
-            this.setSitting(false);
-            this.flyHovering = 0;
-            this.hoverTicks = 0;
-            this.flyTicks = 0;
-        }
-        if (this.getAttackTarget() != null && this.getAttackTarget().posY + 5 < this.posY && !world.isRemote && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround) {
-            this.setHovering(true);
-            this.setSleeping(false);
-            this.setSitting(false);
-            this.flyHovering = 0;
-            this.hoverTicks = 0;
-            this.flyTicks = 0;
-        }
-        if (!this.world.isRemote
-                && this.isInWater()
-                && this.getAttackTarget() != null
-                && this.getRNG().nextInt(15) == 0
-                && (capability == null || !capability.isStoned())
-                && this.canMove()
-                && !this.isHovering()
-                && !this.isFlying()
-                && !this.isChild()) {
-            this.setHovering(true);
-            this.setSleeping(false);
-            this.setSitting(false);
-            this.flyHovering = 0;
-            this.hoverTicks = 0;
-            this.flyTicks = 0;
-        }
-        if (getAttackTarget() != null && this.isPlayerControlled()) {
-            this.setAttackTarget(null);
         }
         if (!this.isAgingDisabled()) {
             this.setAgeInTicks(this.getAgeInTicks() + 1);
@@ -1511,23 +1507,26 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 this.setHunger(this.getHunger() - 1);
             }
         }
-        if (this.attackDecision && this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) > Math.min(this.getEntityBoundingBox().getAverageEdgeLength() * 5, 25) && !this.isChild()) {
-            this.attackDecision = false;
-        }
-        if ((!this.attackDecision || this.getRNG().nextInt(750) == 0) && this.getDragonStage() < 2) {
-            this.attackDecision = this.getRNG().nextBoolean();
+        if (!this.world.isRemote) {
+            if (this.attackDecision && this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) > Math.min(this.getEntityBoundingBox().getAverageEdgeLength() * 5, 25) && !this.isChild()) {
+                this.attackDecision = false;
+            }
+            if ((!this.attackDecision || this.getRNG().nextInt(750) == 0) && this.isChild()) {
+                this.attackDecision = this.getRNG().nextBoolean();
 
-            if (this.world.isRemote) {
+                List<MessageParticleFX.Particle> particles = new ArrayList<>();
+                Vec3d headPos = getHeadPosition();
                 for (int i = 0; i < 5; i++) {
-                    Vec3d headPos = getHeadPosition();
-                    if (this.dragonType == EnumDragonType.FIRE && world.isRemote) {
-                        ParticleHelper.spawnParticle(this.world, EnumParticleTypes.SMOKE_LARGE, headPos.x, headPos.y, headPos.z, 0, 0, 0);
-                    } else if (this.dragonType == EnumDragonType.ICE && world.isRemote) {
-                        IceAndFire.PROXY.spawnParticle(EnumParticle.DRAGON_ICE, this.world, headPos.x, headPos.y, headPos.z, 0, 0, 0);
-                    } else if (this.dragonType == EnumDragonType.LIGHTNING && world.isRemote) {
-                        IceAndFire.PROXY.spawnParticle(EnumParticle.SPARK, this.world, headPos.x, headPos.y, headPos.z, 0, 0, 0);
-                    }
+                    particles.add(MessageParticleFX.createParticle(headPos.x, headPos.y, headPos.z, 0, 0, 0));
                 }
+                EnumParticle particleType = EnumParticle.SMOKE_LARGE;
+                if (this.dragonType == EnumDragonType.ICE) {
+                    particleType = EnumParticle.DRAGON_ICE;
+                } else if (this.dragonType == EnumDragonType.LIGHTNING) {
+                    particleType = EnumParticle.SPARK;
+                }
+                IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(particleType, particles), this);
+
                 if (this.dragonType == EnumDragonType.ICE) {
                     this.playSound(ModSounds.ICEDRAGON_BREATH_SHORT, 3, 1);
                 } else if (this.dragonType == EnumDragonType.LIGHTNING) {
@@ -1536,22 +1535,22 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     this.playSound(ModSounds.FIREDRAGON_BREATH_SHORT, 3, 1);
                 }
             }
-        }
-        if (this.isBreathingFire()) {
-            this.fireTicks++;
-            if (this.fireTicks > this.getDragonStage() * 25 || this.fireStopTicks <= 0 && this.isPlayerControlled()) {
-                this.setBreathingFire(false);
-                this.attackDecision = this.getRNG().nextBoolean();
-                this.fireTicks = 0;
+            if (this.isBreathingFire()) {
+                this.fireTicks++;
+                if (this.fireTicks > this.getDragonStage() * 25 || this.fireStopTicks <= 0 && this.isPlayerControlled()) {
+                    this.setBreathingFire(false);
+                    this.attackDecision = this.getRNG().nextBoolean();
+                    this.fireTicks = 0;
+                }
+                if (this.fireStopTicks > 0 && this.isPlayerControlled()) {
+                    this.fireStopTicks--;
+                }
             }
-            if (this.fireStopTicks > 0 && this.isPlayerControlled()) {
-                this.fireStopTicks--;
+            if (this.isFlying() && this.getAttackTarget() != null && this.getEntityBoundingBox().expand(3.0F, 3.0F, 3.0F).intersects(this.getAttackTarget().getEntityBoundingBox())) {
+                this.attackEntityAsMob(this.getAttackTarget());
             }
+            this.breakBlock();
         }
-        if (this.isFlying() && this.getAttackTarget() != null && this.getEntityBoundingBox().expand(3.0F, 3.0F, 3.0F).intersects(this.getAttackTarget().getEntityBoundingBox())) {
-            this.attackEntityAsMob(this.getAttackTarget());
-        }
-        this.breakBlock();
     }
 
     private boolean isBeyondHeight() {
@@ -1803,7 +1802,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             }
         }
         return super.attackEntityFrom(dmg, i);
-
     }
 
     @Override
@@ -1879,30 +1877,23 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() != null && this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
             this.setAttackTarget(null);
         }
-        if (!world.isRemote && !this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying() && !this.isHovering() && this.getAttackTarget() == null && !this.isTimeToWake() && this.getRNG().nextInt(250) == 0 && this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
-            this.setSleeping(true);
-        }
-
-        if (!world.isRemote && this.isSleeping() && (this.isFlying() || this.isHovering() || this.isInWater() || (this.world.canBlockSeeSky(new BlockPos(this)) && this.isTimeToWake() && !this.isTamed() || this.isTimeToWake() && this.isTamed()) || this.getAttackTarget() != null || !this.getPassengers().isEmpty())) {
-            this.setSleeping(false);
-        }
-
-        if (this.isSitting() && this.getControllingPassenger() != null) {
-            this.setSitting(false);
+        if (!this.world.isRemote) {
+            if (!this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying() && !this.isHovering() && this.getAttackTarget() == null && !this.isTimeToWake() && this.getRNG().nextInt(250) == 0 && this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
+                this.setSleeping(true);
+            }
+            if (this.isSleeping() && (this.isFlying() || this.isHovering() || this.isInWater() || (this.world.canBlockSeeSky(new BlockPos(this)) && this.isTimeToWake() && !this.isTamed() || this.isTimeToWake() && this.isTamed()) || this.getAttackTarget() != null || !this.getPassengers().isEmpty())) {
+                this.setSleeping(false);
+            }
+            if (this.isSitting() && this.getControllingPassenger() != null) {
+                this.setSitting(false);
+            }
         }
     }
 
     @Override
     public void setScaleForAge(boolean par1) {
         float scale = Math.min(this.getRenderSize() * 0.35F, 7F);
-        double prevX = posX;
-        double prevY = posY;
-        double prevZ = posZ;
-        float localWidth = this.width;
         this.setScale(scale);
-        if (this.width > localWidth && !this.firstUpdate && !this.world.isRemote) {
-            this.setPosition(prevX, prevY, prevZ);
-        }
         if (scale != lastScale) {
             resetParts(this.getRenderSize() / 3);
         }
@@ -2002,14 +1993,15 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     public void playLivingSound() {
-        if (!this.isSleeping() && !this.isModelDead() && !this.world.isRemote) {
-            if (this.getAnimation() == this.NO_ANIMATION) {
+        if (!this.isSleeping() && !this.isModelDead()) {
+            if (this.getAnimation() == this.NO_ANIMATION && !this.world.isRemote) {
                 this.setAnimation(ANIMATION_SPEAK);
             }
             super.playLivingSound();
         }
     }
 
+    @Override
     protected void playHurtSound(DamageSource source) {
         if (!this.isModelDead()) {
             if (this.getAnimation() == this.NO_ANIMATION && !this.world.isRemote) {
@@ -2066,7 +2058,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
     public void flyAround() {
         if (airTarget != null) {
-            if (!isTargetInAir() || flyTicks > 6000 || !this.isFlying()) {
+            if (doesWantToLand()) {
                 airTarget = null;
             }
             flyTowardsTarget();
@@ -2109,17 +2101,20 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             float f1 = (float) (-(MathHelper.atan2(d1, d3) * (180D / Math.PI)));
             this.rotationPitch = this.updateRotation(this.rotationPitch, f1, 30F);
             this.rotationYaw = this.updateRotation(this.rotationYaw, f, 30F);
-
-            if (!this.isFlying()) {
-                this.setFlying(true);
-            }
         } else {
             this.airTarget = null;
         }
-        if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) < 3 && this.doesWantToLand()) {
-            this.setFlying(false);
-            this.setHovering(true);
-            this.flyHovering = 1;
+        if (airTarget != null) {
+             if (!isFlying()) {
+                this.setFlying(true);
+                this.setHovering(false);
+                flyTicks = 0;
+                hoverTicks = 0;
+            }
+             if (this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) < 3 && this.doesWantToLand()) {
+                setFlying(false);
+                setHovering(true);
+            }
         }
     }
 
@@ -2141,7 +2136,17 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     protected boolean isTargetInAir() {
-        return airTarget != null && ((world.getBlockState(airTarget).getMaterial() == Material.AIR) || this instanceof EntityIceDragon && world.getBlockState(airTarget).getMaterial() == Material.WATER);
+        return this.airTarget != null && isPosInAir(this.airTarget);
+    }
+
+    public boolean isPosInAir(BlockPos pos) {
+        if (world.getBlockState(pos).getMaterial() == Material.AIR) {
+            return true;
+        }
+        if (this instanceof EntityIceDragon) {
+            return world.getBlockState(pos).getMaterial() == Material.WATER;
+        }
+        return false;
     }
 
     private float updateRotation(float angle, float targetAngle, float maxIncrease) {
@@ -2363,9 +2368,16 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     public Vec3d getHeadPosition() {
-        float headPosX = (float) (posX + 1.8F * getRenderSize() * 0.3F * Math.cos((rotationYaw + 90) * Math.PI / 180));
-        float headPosZ = (float) (posZ + 1.8F * getRenderSize() * 0.3F * Math.sin((rotationYaw + 90) * Math.PI / 180));
-        float headPosY = (float) (posY + 0.5 * getRenderSize() * 0.3F);
+        float deadProg = this.modelDeadProgress * -0.02F;
+        float hoverProg = this.hoverProgress * 0.03F;
+        float flyProg = this.flyProgress * 0.01F;
+        float sitProg = this.sitProgress * 0.015F;
+        float sleepProg = this.sleepProgress * -0.025F;
+        final float flightXz = 1.0F + flyProg + hoverProg;
+        final float xzMod = 1.7F * getRenderSize() * 0.3F * flightXz + getRenderSize() * hoverProg * -0.45F;
+        final float headPosX = (float) (posX + (xzMod) * Math.cos((rotationYaw + 90) * Math.PI / 180));
+        final float headPosY = (float) (posY + (0.7F + sitProg + hoverProg + deadProg + sleepProg + flyProg) * getRenderSize() * 0.3F);
+        final float headPosZ = (float) (posZ + (xzMod) * Math.sin((rotationYaw + 90) * Math.PI / 180));
         return new Vec3d(headPosX, headPosY, headPosZ);
     }
 
