@@ -158,6 +158,7 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 		return false;
 	}
 
+	@Override
 	public float getCollisionBorderSize() {
 		return 0F;
 	}

@@ -165,6 +165,7 @@ public class EntityDragonLightningCharge extends EntityFireball implements IDrag
 		return false;
 	}
 
+	@Override
 	public float getCollisionBorderSize() {
 		return 0F;
 	}

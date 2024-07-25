@@ -413,6 +413,12 @@ public class ClientProxy extends CommonProxy {
 			case SPARK:
 				particle = new ParticleSpark(world, x, y, z, motX, motY, motZ);
 				break;
+			case SMOKE_NORMAL:
+				particle = new ParticleSmokeNormal.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
+				break;
+			case SMOKE_LARGE:
+				particle = new ParticleSmokeLarge.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
+				break;
 			case HYDRA_BREATH:
 				particle = new ParticleHydraBreath(world, x, y, z, (float) motX,(float) motY, (float) motZ);
 				break;
@@ -442,6 +448,7 @@ public class ClientProxy extends CommonProxy {
 				break;
 			case GHOST_APPEARANCE:
 				particle = new ParticleGhostAppearance(world, x, y, z);
+				break;
 			default:
 				particle = new ParticleSmokeNormal.Factory().createParticle(0, world, x, y, z, motX, motY, motZ);
 		}

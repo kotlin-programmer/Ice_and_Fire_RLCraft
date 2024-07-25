@@ -4,7 +4,6 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
-import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -17,7 +16,6 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -181,7 +179,7 @@ public class BlockBreakExplosion extends Explosion {
             IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(EnumParticle.EXPLOSION, explosionParticles), this.exploder);
         }
         if (!smokeParticles.isEmpty()) {
-            IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(EnumParticle.SMOKE, smokeParticles), this.exploder);
+            IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(EnumParticle.SMOKE_NORMAL, smokeParticles), this.exploder);
         }
     }
 

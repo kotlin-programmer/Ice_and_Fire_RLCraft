@@ -8,9 +8,13 @@ import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.explosion.LightningExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
+import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
@@ -18,6 +22,7 @@ import net.minecraft.world.World;
 
 public class EntityDragonLightning extends EntityFireball implements IDragonProjectile {
 
+	private int ticksInAir;
 	private Vec3d lastPos;
 
 	public EntityDragonLightning(World worldIn) {
@@ -53,14 +58,55 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 	@Override
 	public void onUpdate() {
 		super.onUpdate();
-		Vec3d currentPos = new Vec3d(posX, posY, posZ);
-		emitLightningFx(currentPos);
-		lastPos = currentPos;
-		if (ticksExisted > 160) {
+		if (ticksInAir > 160) {
 			setDead();
 		}
 		if (this.isInWater()) {
 			setDead();
+		}
+		if (this.world.isRemote || (this.shootingEntity == null || !this.shootingEntity.isDead) && this.world.isBlockLoaded(new BlockPos(this))) {
+			if (lastPos == null) {
+				lastPos = new Vec3d(this.posX, this.posY, this.posZ);
+			}
+
+			this.onEntityUpdate();
+
+			if (this.isFireballFiery()) {
+				this.setFire(1);
+			}
+
+			++this.ticksInAir;
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+
+			if (raytraceresult != null) {
+				this.onImpact(raytraceresult);
+			}
+
+			this.posX += this.motionX;
+			this.posY += this.motionY;
+			this.posZ += this.motionZ;
+			ProjectileHelper.rotateTowardsMovement(this, 0.2F);
+			float f = this.getMotionFactor();
+
+			if (this.isInWater()) {
+				if(this.world.isRemote) {
+					for (int i = 0; i < 4; ++i) {
+						ParticleHelper.spawnParticle(this.world, EnumParticleTypes.WATER_BUBBLE, this.posX - this.motionX * 0.25D, this.posY - this.motionY * 0.25D, this.posZ - this.motionZ * 0.25D, this.motionX, this.motionY, this.motionZ);
+					}
+				}
+				f = 0.8F;
+			}
+
+			this.motionX += this.accelerationX;
+			this.motionY += this.accelerationY;
+			this.motionZ += this.accelerationZ;
+			this.motionX *= f;
+			this.motionY *= f;
+			this.motionZ *= f;
+			emitLightningFx(new Vec3d(this.posX, this.posY, this.posZ));
+			this.setPosition(this.posX, this.posY, this.posZ);
+		} else {
+			this.setDead();
 		}
 	}
 
@@ -117,6 +163,7 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 		return false;
 	}
 
+	@Override
 	public float getCollisionBorderSize() {
 		return 1F;
 	}
@@ -125,13 +172,11 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 		if (!world.isRemote) {
 			return;
 		}
-		if (lastPos == null && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
-			lastPos = ((EntityDragonBase) this.shootingEntity).getHeadPosition();
-		}
 		if (lastPos != null && !pos.equals(lastPos)) {
 			ParticleLightningVector source = new ParticleLightningVector(lastPos.x, lastPos.y, lastPos.z);
 			ParticleLightningVector target = new ParticleLightningVector(pos.x, pos.y, pos.z);
 			IceAndFire.PROXY.spawnLightningEffect(world, source, target, true);
 		}
+		lastPos = pos;
 	}
 }

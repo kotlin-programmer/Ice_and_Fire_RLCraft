@@ -217,7 +217,7 @@ public class FireExplosion extends Explosion {
 			if (!particles.isEmpty()) {
 				List<EnumParticle> types = new ArrayList<>();
 				types.add(EnumParticle.FLAME);
-				types.add(EnumParticle.SMOKE);
+				types.add(EnumParticle.SMOKE_NORMAL);
 				IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(types, particles), this.exploder);
 			}
 		}

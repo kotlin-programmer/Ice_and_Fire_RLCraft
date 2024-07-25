@@ -166,6 +166,7 @@ public class EntityDragonIceCharge extends EntityFireball implements IDragonProj
 		return false;
 	}
 
+	@Override
 	public float getCollisionBorderSize() {
 		return 0F;
 	}
