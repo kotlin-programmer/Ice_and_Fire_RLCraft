@@ -7,24 +7,25 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntityMobSpawner;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class TileEntityDreadSpawner extends TileEntityMobSpawner {
+public class TileEntityMonsterSpawner extends TileEntityMobSpawner {
     private final SpawnerBaseLogic spawnerLogic = new SpawnerBaseLogic() {
         public void broadcastEvent(int id) {
-            TileEntityDreadSpawner.this.world.addBlockEvent(TileEntityDreadSpawner.this.pos, Blocks.MOB_SPAWNER, id, 0);
+            TileEntityMonsterSpawner.this.world.addBlockEvent(TileEntityMonsterSpawner.this.pos, Blocks.MOB_SPAWNER, id, 0);
         }
 
         public World getSpawnerWorld() {
-            return TileEntityDreadSpawner.this.world;
+            return TileEntityMonsterSpawner.this.world;
         }
 
         public BlockPos getSpawnerPosition() {
-            return TileEntityDreadSpawner.this.pos;
+            return TileEntityMonsterSpawner.this.pos;
         }
 
         @Override
@@ -32,13 +33,13 @@ public class TileEntityDreadSpawner extends TileEntityMobSpawner {
             super.setNextSpawnData(p_184993_1_);
             if (this.getSpawnerWorld() != null) {
                 IBlockState iblockstate = this.getSpawnerWorld().getBlockState(this.getSpawnerPosition());
-                this.getSpawnerWorld().notifyBlockUpdate(TileEntityDreadSpawner.this.pos, iblockstate, iblockstate, 4);
+                this.getSpawnerWorld().notifyBlockUpdate(TileEntityMonsterSpawner.this.pos, iblockstate, iblockstate, 4);
             }
         }
 
         @Override
         public EnumParticle getParticle() {
-            return EnumParticle.DREAD_TORCH;
+            return EnumParticle.FLAME;
         }
     };
 

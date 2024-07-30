@@ -115,6 +115,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
             tail_buffer = new IFChainBuffer();
             head_buffer = new IFChainBuffer();
         }
+        this.spawnableBlock = Blocks.WATER;
     }
 
     protected void initEntityAI() {
@@ -288,7 +289,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
         this.setAncient(compound.getBoolean("Ancient"));
     }
 
-    private void setSeaSerpentScale(float scale) {
+    public void setSeaSerpentScale(float scale) {
         this.dataManager.set(SCALE, Float.valueOf(scale));
         this.updateAttributes();
     }

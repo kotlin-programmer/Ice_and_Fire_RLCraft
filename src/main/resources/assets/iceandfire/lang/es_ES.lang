@@ -79,6 +79,7 @@ tile.iceandfire.dread_torch.name=Antorcha de Piedra Aterradora
 tile.iceandfire.dread_stone_slab.name=Losa de Piedra Aterradora
 tile.iceandfire.dread_stone_stairs.name=Escalera de Piedra Aterradora
 tile.iceandfire.dread_spawner.name=Generador de Criaturas de Piedra Aterradora
+tile.iceandfire.monster_spawner.name=Generador de Criaturas
 
 item.iceandfire.bestiary.name=Bestiario
 item.iceandfire.manuscript.name=Manuscrito

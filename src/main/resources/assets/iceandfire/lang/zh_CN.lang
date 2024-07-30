@@ -86,6 +86,7 @@ tile.iceandfire.burnt_torch.name=烬灭火把
 tile.iceandfire.dread_stone_slab.name=悚砖台阶
 tile.iceandfire.dread_stone_stairs.name=悚砖楼梯
 tile.iceandfire.dread_spawner.name=悚域刷怪笼
+tile.iceandfire.monster_spawner.name=刷怪笼
 
 tile.iceandfire.ancient_dragon_bone_block.name=古老的龙骨块
 tile.iceandfire.ancient_dragon_bone_wall.name=龙骨墙龙骨墙

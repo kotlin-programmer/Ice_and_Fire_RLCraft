@@ -280,12 +280,11 @@ public class ClientProxy extends CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new EventNewMenu());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDummyGorgonHead.class, new RenderGorgonHead(false));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDummyGorgonHeadActive.class, new RenderGorgonHead(true));
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDreadSpawner.class, new RenderDreadSpawner());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDreadSpawner.class, new RenderMobSpawner());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMonsterSpawner.class, new RenderMobSpawner());
 		ForgeHooksClient.registerTESRItemStack(ModItems.gorgon_head, 0, TileEntityDummyGorgonHead.class);
 		ForgeHooksClient.registerTESRItemStack(ModItems.gorgon_head, 1, TileEntityDummyGorgonHeadActive.class);
 		renderEntities();
-
-
 	}
 
 	@SideOnly(Side.CLIENT)

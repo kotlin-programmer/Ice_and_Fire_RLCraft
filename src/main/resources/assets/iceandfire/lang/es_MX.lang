@@ -95,6 +95,7 @@ tile.iceandfire.burnt_torch.name=Antorcha quemada
 tile.iceandfire.dread_stone_slab.name=Losa de ladrillos de piedra del horror
 tile.iceandfire.dread_stone_stairs.name=Escaleras de ladrillos de piedra del horror
 tile.iceandfire.dread_spawner.name=Generador de criaturas de piedra del horror
+tile.iceandfire.monster_spawner.name=Generador de criaturas
 
 item.iceandfire.bestiary.name=Bestiario
 item.iceandfire.manuscript.name=Manuscrito

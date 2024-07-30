@@ -1747,6 +1747,12 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return livingdata;
     }
 
+    @Override
+    public boolean getCanSpawnHere() {
+        IBlockState state = this.world.getBlockState((new BlockPos(this)).down());
+        return state.canEntitySpawn(this);
+    }
+
     public boolean doBiteAttack(Entity entity) {
         float prevHealth = 0;
         if (entity instanceof EntityLivingBase) prevHealth = ((EntityLivingBase)entity).getHealth();

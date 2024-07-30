@@ -94,6 +94,7 @@ tile.iceandfire.burnt_torch.name=Burnt Out Torch
 tile.iceandfire.dread_stone_slab.name=Dreadstone Bricks Slab
 tile.iceandfire.dread_stone_stairs.name=Dreadstone Bricks Stairs
 tile.iceandfire.dread_spawner.name=Dreadstone Mob Spawner
+tile.iceandfire.monster_spawner.name=Mob Spawner
 
 item.iceandfire.bestiary.name=Bestiary
 item.iceandfire.manuscript.name=Manuscript

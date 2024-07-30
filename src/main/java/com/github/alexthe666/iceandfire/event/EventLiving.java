@@ -4,12 +4,16 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
+import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
+import com.github.alexthe666.iceandfire.block.BlockMonsterSpawner;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
 import com.github.alexthe666.iceandfire.entity.ai.VillagerAIFearUntamed;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityDreadSpawner;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityMonsterSpawner;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.item.ItemGhostSword;
@@ -18,7 +22,9 @@ import com.github.alexthe666.iceandfire.item.ItemTideTrident;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
 import com.github.alexthe666.iceandfire.message.MessageSwingArm;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -32,9 +38,12 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.MobSpawnerBaseLogic;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -65,6 +74,8 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.item.ItemMonsterPlacer.getNamedIdFrom;
 
 public class EventLiving {
 
@@ -469,7 +480,9 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onPlayerRightClick(PlayerInteractEvent.RightClickBlock event) {
-		if (event.getEntityPlayer() != null && (event.getWorld().getBlockState(event.getPos()).getBlock() instanceof BlockChest)) {
+		IBlockState state = event.getWorld().getBlockState(event.getPos());
+		Block block = state.getBlock();
+		if (event.getEntityPlayer() != null && block instanceof BlockChest) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
 			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(event.getEntityPlayer(), event.getEntityPlayer().getEntityBoundingBox().expand(dist, dist, dist));
 			list.sort(new EntityAINearestAttackableTarget.Sorter(event.getEntityPlayer()));
@@ -484,6 +497,23 @@ public class EventLiving {
 						}
 					}
 				}
+			}
+		}
+		ItemStack stack = event.getItemStack();
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemMonsterPlacer && event.getEntityPlayer().isCreative() && (block instanceof BlockDreadSpawner || block instanceof BlockMonsterSpawner)) {
+			TileEntity tileEntity = event.getWorld().getTileEntity(event.getPos());
+			if (tileEntity instanceof TileEntityDreadSpawner) {
+				MobSpawnerBaseLogic mobSpawnerBaseLogic = ((TileEntityDreadSpawner) tileEntity).getSpawnerBaseLogic();
+				mobSpawnerBaseLogic.setEntityId(getNamedIdFrom(stack));
+				tileEntity.markDirty();
+				event.getWorld().notifyBlockUpdate(event.getPos(), state, state, 3);
+				event.setCanceled(true);
+			} else if (tileEntity instanceof TileEntityMonsterSpawner) {
+				MobSpawnerBaseLogic mobSpawnerBaseLogic = ((TileEntityMonsterSpawner) tileEntity).getSpawnerBaseLogic();
+				mobSpawnerBaseLogic.setEntityId(getNamedIdFrom(stack));
+				tileEntity.markDirty();
+				event.getWorld().notifyBlockUpdate(event.getPos(), state, state, 3);
+				event.setCanceled(true);
 			}
 		}
 	}

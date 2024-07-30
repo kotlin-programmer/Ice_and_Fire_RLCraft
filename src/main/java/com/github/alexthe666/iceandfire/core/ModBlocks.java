@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.core;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.*;
 import com.github.alexthe666.iceandfire.entity.tile.*;
-import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -162,6 +161,8 @@ public class ModBlocks {
 	public static BlockGenericSlab dread_stone_bricks_slab = new BlockDreadStoneBrickSlab.Half("dread_stone_slab", 10.0F, 10000F, SoundType.STONE);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_spawner")
 	public static Block dread_spawner = new BlockDreadSpawner();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":monster_spawner")
+	public static Block monster_spawner = new BlockMonsterSpawner();
 
 	static {
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHead.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadIdle"));
