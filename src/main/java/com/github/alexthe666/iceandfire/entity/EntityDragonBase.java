@@ -1747,13 +1747,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return livingdata;
     }
 
-    @Override
-    public void knockBack(Entity attacker, float x, double y, double z) {
-        if (this.isModelDead()) {
-            super.knockBack(attacker, x, y, z);
-        }
-    }
-
     public boolean doBiteAttack(Entity entity) {
         float prevHealth = 0;
         if (entity instanceof EntityLivingBase) prevHealth = ((EntityLivingBase)entity).getHealth();
