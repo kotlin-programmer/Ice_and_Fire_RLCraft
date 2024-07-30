@@ -151,7 +151,7 @@ public class EntityDragonFire extends EntityFireball implements IDragonProjectil
 
 	@Override
 	public float getCollisionBorderSize() {
-		return 0F;
+		return 1F;
 	}
 
 }

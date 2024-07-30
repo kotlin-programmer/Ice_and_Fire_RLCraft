@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class EntityDeathWormEgg extends EntityThrowable {
 
-    private boolean giant;
+    public boolean giant;
 
     public EntityDeathWormEgg(World worldIn) {
         super(worldIn);
