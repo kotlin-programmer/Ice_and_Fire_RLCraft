@@ -21,11 +21,11 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave"));
 
 	protected IBlockState getStone() {
-		return ModBlocks.crackledStone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE);
+		return ModBlocks.crackledStone.getDefaultState();
 	}
 
 	protected IBlockState getCobblestone() {
-		return ModBlocks.crackledCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, Boolean.FALSE);
+		return ModBlocks.crackledCobblestone.getDefaultState();
 	}
 
 	protected IBlockState getPile(Random rand) {

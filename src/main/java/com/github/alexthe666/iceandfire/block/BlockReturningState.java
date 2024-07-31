@@ -36,7 +36,7 @@ public class BlockReturningState extends Block {
         }
         this.setRegistryName(IceAndFire.MODID, gameName);
         this.returnState = returnToState;
-        this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.TRUE));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
         this.setTickRandomly(IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert);
     }
 
@@ -63,10 +63,5 @@ public class BlockReturningState extends Block {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, REVERTS);
-    }
-
-    @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(REVERTS, Boolean.FALSE);
     }
 }

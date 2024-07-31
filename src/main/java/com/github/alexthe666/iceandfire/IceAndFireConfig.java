@@ -563,7 +563,7 @@ public class IceAndFireConfig {
 
 		@Config.Comment("If true, dragon affected blocks will revert to their natural state after a period of time")
 		@Config.Name("Dragon Affected Blocks Revert")
-		public boolean dragonAffectedBlocksRevert = true;
+		public boolean dragonAffectedBlocksRevert = false;
 	}
 
 	public static class EntityConfig {

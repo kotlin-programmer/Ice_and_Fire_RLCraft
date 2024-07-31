@@ -33,7 +33,7 @@ public class BlockFallingReturningState extends BlockFalling {
 		this.setSoundType(sound);
 		this.setCreativeTab(IceAndFire.TAB);
 		setRegistryName(IceAndFire.MODID, gameName);
-		this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.TRUE));
+		this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
 		this.setTickRandomly(true);
 		if (slippery) {
 			this.setDefaultSlipperiness(0.98F);
@@ -67,10 +67,5 @@ public class BlockFallingReturningState extends BlockFalling {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, REVERTS);
-	}
-
-	@Override
-	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-		return this.getDefaultState().withProperty(REVERTS, Boolean.FALSE);
 	}
 }
