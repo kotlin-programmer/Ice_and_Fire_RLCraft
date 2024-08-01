@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
@@ -130,7 +131,6 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 				float dragonScale = dragon.getRenderSize() / 3;
 				for (Entity passenger : dragon.getPassengers()) {
 					boolean prey = dragon.getControllingPassenger() == null || !dragon.isControllingPassenger(passenger);
-					ClientProxy.currentDragonRiders.remove(passenger.getUniqueID());
 					float riderRot = passenger.prevRotationYaw + (passenger.rotationYaw - passenger.prevRotationYaw) * partialTicks;
 					int animationTicks = 0;
 					if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
@@ -164,12 +164,14 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 					}
 					GlStateManager.pushMatrix();
 					GlStateManager.rotate(180, 0, 0, 1);
+
 					GlStateManager.rotate(riderRot + 180, 0, 1, 0);
 					GlStateManager.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
 					GlStateManager.translate(0, -0.25F, 0);
-					renderEntity(passenger, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, true);
+					if (passenger instanceof EntityPlayer) {
+						renderEntity(passenger, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, true);
+					}
 					GlStateManager.popMatrix();
-					ClientProxy.currentDragonRiders.add(passenger.getUniqueID());
 				}
 			}
 			GlStateManager.popMatrix();

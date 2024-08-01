@@ -31,7 +31,7 @@ public class DragonAIWatchClosest extends EntityAIWatchClosest {
 			return false;
 		}
 		EntityDragonBase dragon = (EntityDragonBase) this.entity;
-		if (dragon.getControllingPassenger() != null) {
+		if (!dragon.getPassengers().isEmpty()) {
 			return false;
 		}
 		return dragon.canMove() || dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY;

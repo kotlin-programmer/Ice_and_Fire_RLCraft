@@ -349,7 +349,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         if (isFlying && this.onGround) {
             this.setFlying(false);
         }
-        if (!this.isFlying() && !this.isChild() && !this.isTamed() && ((isOnGround() && this.rand.nextInt(200) == 0 && flightCooldown == 0 && this.getPassengers().isEmpty() && !this.isAIDisabled() && canMove()) || this.posY < -1)) {
+        if (!this.isFlying() && !this.isChild() && !this.isTamed() && ((isOnGround() && this.rand.nextInt(200) == 0 && flightCooldown == 0 && this.getRider() == null && !this.isAIDisabled() && canMove()) || this.posY < -1)) {
             this.motionY += 0.5F;
             this.hasInitiatedFlight = true;
         }
@@ -368,7 +368,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         }
         if (flying) {
             Entity controllingPassenger = this.getControllingPassenger();
-            if (controllingPassenger != null) {
+            if (controllingPassenger instanceof EntityPlayer) {
                 if (isFlying()) {
                     float pitch = controllingPassenger.rotationPitch;
 
@@ -491,14 +491,22 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     @Nullable
     public Entity getControllingPassenger() {
         for (Entity passenger : this.getPassengers()) {
-            if (passenger instanceof EntityPlayer && this.getAttackTarget() != passenger) {
-                EntityPlayer player = (EntityPlayer) passenger;
-                if (this.isTamed() && this.getOwnerId() != null && this.getOwnerId().equals(player.getUniqueID())) {
-                    return player;
+            if (passenger instanceof EntityPlayer) {
+                if (this.getAttackTarget() != passenger) {
+                    EntityPlayer player = (EntityPlayer) passenger;
+                    if (this.isTamed() && this.getOwnerId() != null && this.getOwnerId().equals(player.getUniqueID())) {
+                        return player;
+                    }
                 }
+            } else {
+                return passenger;
             }
         }
         return null;
+    }
+
+    public boolean isPlayerControlled() {
+        return this.getControllingPassenger() instanceof EntityPlayer;
     }
 
     @Nullable
@@ -562,7 +570,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     }
 
     public boolean isRidingPlayer(EntityPlayer player) {
-        return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer
+        return this.getControllingPassenger() instanceof EntityPlayer
                 && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID())
                 && this.isTamed();
     }
@@ -664,7 +672,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), false));
             }
         }
-        if (this.attack() && this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer) {
+        if (this.attack() && this.getControllingPassenger() instanceof EntityPlayer) {
             EntityLivingBase target = DragonUtils.riderLookingAtEntity(this, (EntityPlayer) this.getControllingPassenger(), 2.5D);
             if (this.getAnimation() != ANIMATION_BITE) {
                 this.setAnimation(ANIMATION_BITE);
@@ -673,14 +681,16 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 target.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
             }
         }
-        if (this.getAttackTarget() != null && this.isOwner(this.getAttackTarget())) {
-            this.setAttackTarget(null);
+        if (this.getAttackTarget() != null) {
+            if (this.isOwner(this.getAttackTarget()) || DragonUtils.isControllingPassenger(this, this.getAttackTarget())) {
+                this.setAttackTarget(null);
+            }
         }
     }
 
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
-        if (this.getAnimation() != ANIMATION_BITE && this.getAnimation() != ANIMATION_TAIL_WHIP && this.getAnimation() != ANIMATION_WING_BLAST && this.getControllingPassenger() == null) {
+        if (this.getAnimation() != ANIMATION_BITE && this.getAnimation() != ANIMATION_TAIL_WHIP && this.getAnimation() != ANIMATION_WING_BLAST && !this.isPlayerControlled()) {
             if (rand.nextBoolean()) {
                 this.setAnimation(ANIMATION_BITE);
             } else {
@@ -927,7 +937,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             super.travel(strafe, vertical, forward);
             return;
         }
-        if (this.isBeingRidden() && this.canBeSteered()) {
+        if (this.isPlayerControlled() && this.canBeSteered()) {
             EntityLivingBase controller = (EntityLivingBase) this.getControllingPassenger();
             if (controller != null) {
                 strafe = controller.moveStrafing * 0.5F;
@@ -953,7 +963,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     }
 
     public boolean canMove() {
-        return this.getControllingPassenger() == null && sitProgress == 0 && !this.isSitting();
+        return !this.isPlayerControlled() && sitProgress == 0 && !this.isSitting();
     }
 
     @SideOnly(Side.CLIENT)

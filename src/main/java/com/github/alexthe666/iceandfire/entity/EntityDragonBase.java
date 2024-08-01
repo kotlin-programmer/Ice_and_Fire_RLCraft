@@ -641,15 +641,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return null;
     }
 
-    @Override
-    protected void removePassenger(Entity entity) {
-        super.removePassenger(entity);
-        if (entity instanceof EntityLiving && DragonUtils.isDragonRider(entity)) {
-            EntityLiving living = (EntityLiving) entity;
-            living.setNoAI(false);
-        }
-    }
-
     public boolean isPlayerControlled() {
         return getControllingPassenger() instanceof EntityPlayer;
     }
@@ -850,7 +841,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (!world.isRemote) {
             this.isSitting = sitting;
         }
-        byte b0 = (Byte) this.dataManager.get(TAMED);
+        byte b0 = this.dataManager.get(TAMED);
         if (sitting) {
             this.dataManager.set(TAMED, (byte) (b0 | 1));
         } else {
@@ -1651,11 +1642,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     this.renderYawOffset = this.rotationYaw;
                     this.rotationYaw = passenger.rotationYaw;
                     this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
-                } else if (passenger instanceof EntityLiving) {
-                    EntityLiving living = (EntityLiving) passenger;
-                    living.rotationYaw = this.rotationYaw;
-                    living.rotationPitch = this.rotationPitch;
-                    living.rotationYawHead = this.rotationYawHead;
                 }
                 float hoverAddition = hoverProgress * -0.001F;
                 float flyAddition = flyProgress * -0.0001F;

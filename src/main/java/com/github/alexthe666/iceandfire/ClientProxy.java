@@ -87,7 +87,6 @@ public class ClientProxy extends CommonProxy {
 	private static final IceAndFireTEISR TEISR = new IceAndFireTEISR();
 	private int thirdPersonViewDragon = 0;
 	private static MyrmexHive referedClientHive = null;
-	public static List<UUID> currentDragonRiders = new ArrayList<UUID>();
 
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)

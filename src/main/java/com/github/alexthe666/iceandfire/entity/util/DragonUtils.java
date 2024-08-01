@@ -20,6 +20,8 @@ import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.*;
 import net.minecraft.world.EnumDifficulty;
@@ -314,7 +316,18 @@ public class DragonUtils {
 		}
 		if (entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
-			return living.isAIDisabled() && living.hasCustomName();
+			if (!living.hasCustomName()) {
+				return false;
+			}
+			ItemStack stack = living.getHeldItemMainhand();
+			if (stack.isEmpty()) {
+				return false;
+			}
+			NBTTagCompound tagCompound = stack.getTagCompound();
+			if (tagCompound == null) {
+				return false;
+			}
+			return tagCompound.hasKey("DragonRider");
 		}
 		return false;
     }
