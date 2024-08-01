@@ -231,10 +231,14 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        if (!this.isTamed() && this.isFlying() && !isOnGround() && source.isProjectile() && !world.isRemote) {
-            this.isFallen = true;
-        }
-        if (source.getTrueSource() instanceof EntityPlayer && this.isTamed() && this.isRidingPlayer((EntityPlayer) source.getTrueSource())) {
+        if (source.getTrueSource() instanceof EntityPlayer) {
+            if (!this.isTamed()  && this.isFlying() && !isOnGround() && source.isProjectile() && !world.isRemote) {
+                this.isFallen = true;
+            }
+            if (this.isTamed() && this.isRidingPlayer((EntityPlayer) source.getTrueSource())) {
+                return false;
+            }
+        } else if (source.getTrueSource() == this.getControllingPassenger()) {
             return false;
         }
         return super.attackEntityFrom(source, damage);
