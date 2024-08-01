@@ -29,10 +29,11 @@ import java.util.Random;
 public class BlockDiamondCoinPile extends BlockCoinPile {
 
     public BlockDiamondCoinPile(String name) {
-        super(name, getDiamondCoin());
+        super(name, Items.AIR);
     }
 
-    private static Item getDiamondCoin() {
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
             return VariedCommoditiesCompat.getDiamondCoin();
         }
