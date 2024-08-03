@@ -27,6 +27,7 @@ public abstract class SpawnerBaseLogic extends MobSpawnerBaseLogic {
     private final List<WeightedSpawnerEntity> potentialSpawns = Lists.newArrayList();
     private int spawnDelay = 20;
     private WeightedSpawnerEntity spawnData = new WeightedSpawnerEntity();
+    private WeightedSpawnerEntity spawnOnce = new WeightedSpawnerEntity();
     private double mobRotation;
     private double prevMobRotation;
     private int minSpawnDelay = 200;
@@ -91,20 +92,20 @@ public abstract class SpawnerBaseLogic extends MobSpawnerBaseLogic {
                 boolean flag = false;
 
                 for (int i = 0; i < this.spawnCount; ++i) {
-                    NBTTagCompound nbttagcompound = this.spawnData.getNbt();
-                    NBTTagList nbttaglist = nbttagcompound.getTagList("Pos", 6);
+                    NBTTagCompound tagCompound = this.spawnData.getNbt();
+                    NBTTagList tagList = tagCompound.getTagList("Pos", 6);
                     World world = this.getSpawnerWorld();
-                    int j = nbttaglist.tagCount();
-                    double d0 = j >= 1 ? nbttaglist.getDoubleAt(0) : (double) blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) this.spawnRange + 0.5D;
-                    double d1 = j >= 2 ? nbttaglist.getDoubleAt(1) : (double) (blockpos.getY() + world.rand.nextInt(3) - 1);
-                    double d2 = j >= 3 ? nbttaglist.getDoubleAt(2) : (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) this.spawnRange + 0.5D;
-                    Entity entity = AnvilChunkLoader.readWorldEntityPos(nbttagcompound, world, d0, d1, d2, false);
+                    int j = tagList.tagCount();
+                    double d0 = j >= 1 ? tagList.getDoubleAt(0) : (double) blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) this.spawnRange + 0.5D;
+                    double d1 = j >= 2 ? tagList.getDoubleAt(1) : (double) (blockpos.getY() + world.rand.nextInt(3) - 1);
+                    double d2 = j >= 3 ? tagList.getDoubleAt(2) : (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) this.spawnRange + 0.5D;
+                    Entity entity = AnvilChunkLoader.readWorldEntityPos(tagCompound, world, d0, d1, d2, false);
 
                     if (entity == null) {
                         return;
                     }
 
-                    int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).grow((double) this.spawnRange)).size();
+                    int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), blockpos.getX() + 1, blockpos.getY() + 1, blockpos.getZ() + 1)).grow(this.spawnRange)).size();
 
                     if (k >= this.maxNearbyEntities) {
                         this.resetTimer();
@@ -147,7 +148,7 @@ public abstract class SpawnerBaseLogic extends MobSpawnerBaseLogic {
         }
 
         if (!this.potentialSpawns.isEmpty()) {
-            this.setNextSpawnData(spawnData);
+            this.setNextSpawnData(WeightedRandom.getRandomItem(this.getSpawnerWorld().rand, this.potentialSpawns));
         }
 
         this.broadcastEvent(1);
