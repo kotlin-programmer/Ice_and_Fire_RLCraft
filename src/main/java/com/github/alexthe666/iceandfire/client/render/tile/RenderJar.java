@@ -1,7 +1,5 @@
 package com.github.alexthe666.iceandfire.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import com.github.alexthe666.iceandfire.client.render.entity.RenderPixie;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
 
@@ -17,15 +15,15 @@ public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
 	@Override
 	public void render(TileEntityJar te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		if (te.hasPixie) {
-			GL11.glPushMatrix();
-			GL11.glTranslated(x + 0.5D, y + 1.501D, z + 0.5D);
-			GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0.0F, te.hasProduced ? 0.9F : 0.6F, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(x + 0.5D, y + 1.501D, z + 0.5D);
+			GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(0.0F, te.hasProduced ? 0.9F : 0.6F, 0.0F);
 			GlStateManager.rotate(interpolateRotation(te.prevRotationYaw, te.rotationYaw, partialTicks), 0.0F, 1.0F, 0.0F);
-			GL11.glScalef(0.5F, 0.5F, 0.5F);
+			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
-			GL11.glDisable(GL11.GL_CULL_FACE);
+			GlStateManager.disableCull();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 
 			switch (te.pixieType) {
@@ -43,10 +41,10 @@ public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderPixie.PIXIE_MODEL.animateInJar(te.hasProduced, te, 0.0F);
 
-			GL11.glEnable(GL11.GL_CULL_FACE);
+			GlStateManager.enableCull();
 
-			GL11.glPopMatrix();
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
+			GlStateManager.popMatrix();
 		}
 	}
 
