@@ -40,7 +40,7 @@ public class RenderDreadLichSkull extends Render<EntityDreadLichSkull> {
 		this.bindEntityTexture(entity);
 
 		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 0.0F);
-		new ModelDreadLichSkull().render(entity, 0.0F, 0.0F, entity.ticksExisted + partialTicks, 0.0F, 0.0F, 0.0625F);
+		MODEL.render(entity, 0.0F, 0.0F, entity.ticksExisted + partialTicks, 0.0F, 0.0F, 0.0625F);
 
 		GlStateManager.enableLighting();
 		GlStateManager.disableBlend();
