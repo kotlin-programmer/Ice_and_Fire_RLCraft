@@ -71,6 +71,7 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 			GlStateManager.depthMask(true);
 			GlStateManager.enableLighting();
 			GlStateManager.enableColorMaterial();
+			GlStateManager.disableCull();
 
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 61680.0F, 0.0F);
@@ -80,6 +81,7 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 			int k = i / 65536;
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
 
+			GlStateManager.enableCull();
 			GlStateManager.disableColorMaterial();
 			GlStateManager.depthMask(true);
 			GlStateManager.disableBlend();
