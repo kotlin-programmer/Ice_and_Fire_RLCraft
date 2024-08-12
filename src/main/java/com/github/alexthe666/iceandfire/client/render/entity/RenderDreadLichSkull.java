@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 
 public class RenderDreadLichSkull extends Render<EntityDreadLichSkull> {
 
@@ -24,7 +25,7 @@ public class RenderDreadLichSkull extends Render<EntityDreadLichSkull> {
 		GlStateManager.translate(x, y, z);
 		GlStateManager.pushMatrix();
 		GlStateManager.scale(1.0F, -1.0F, 1.0F);
-		GlStateManager.rotate(interpolateValue(entity.prevRotationYaw, entity.rotationYaw, partialTicks) - 180.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(interpolateRotation(entity.prevRotationYaw, entity.rotationYaw, partialTicks) - 180.0F, 0.0F, 1.0F, 0.0F);
 
 		GlStateManager.disableCull();
 		GlStateManager.enableRescaleNormal();
@@ -56,8 +57,11 @@ public class RenderDreadLichSkull extends Render<EntityDreadLichSkull> {
 		super.doRender(entity, x, y, z, entityYaw, partialTicks);
 	}
 
-	private static float interpolateValue(float start, float end, float pct) {
-		return start + (end - start) * pct;
+	private static float interpolateRotation(float prevYawOffset, float yawOffset, float partialTicks) {
+		float f = yawOffset - prevYawOffset;
+		int i = MathHelper.floor(f);
+		f = ((((i % 360) + 540) % 360) - 180) + (f - i);
+		return prevYawOffset + partialTicks * f;
 	}
 
 	@Override
