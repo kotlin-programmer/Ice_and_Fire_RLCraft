@@ -1,7 +1,5 @@
 package com.github.alexthe666.iceandfire.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import com.github.alexthe666.iceandfire.block.BlockPixieHouse;
 import com.github.alexthe666.iceandfire.client.model.ModelPixieHouse;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderPixie;
@@ -45,18 +43,18 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 			meta = ItemTESRContext.INSTANCE.getCurrentStack().getItemDamage();
 		}
 
-		GL11.glPushMatrix();
-		GL11.glTranslated(x + 0.5D, y + 1.501D, z + 0.5D);
-		GL11.glPushMatrix();
-		GL11.glRotatef(180.0F, 1.0F, 0.0F, 0.0F);
-		GL11.glRotatef(rotation, 0.0F, 1.0F, 0.0F);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x + 0.5D, y + 1.501D, z + 0.5D);
+		GlStateManager.pushMatrix();
+		GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
 
 		if (te != null && te.hasWorld() && te.hasPixie) {
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0.0F, 0.95F, 0.0F);
-			GL11.glScalef(0.55F, 0.55F, 0.55F);
-			GL11.glPushMatrix();
-			GL11.glPushMatrix();
+			GlStateManager.pushMatrix();
+			GlStateManager.translate(0.0F, 0.95F, 0.0F);
+			GlStateManager.scale(0.55F, 0.55F, 0.55F);
+			GlStateManager.pushMatrix();
+			GlStateManager.pushMatrix();
 
 			switch (te.pixieType) {
 				default: this.bindTexture(RenderPixie.TEXTURE_0); break;
@@ -89,14 +87,14 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 			GlStateManager.enableTexture2D();
 			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
 
-			GL11.glPopMatrix();
-			GL11.glPopMatrix();
-			GL11.glPopMatrix();
+			GlStateManager.popMatrix();
+			GlStateManager.popMatrix();
+			GlStateManager.popMatrix();
 		}
 
-		GL11.glPushMatrix();
+		GlStateManager.pushMatrix();
 
-		GL11.glDisable(GL11.GL_CULL_FACE);
+		GlStateManager.disableCull();
 
 		switch (meta) {
 			default: this.bindTexture(TEXTURE_0); break;
@@ -109,11 +107,11 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 
 		MODEL.render(0.0625F);
 
-		GL11.glEnable(GL11.GL_CULL_FACE);
+		GlStateManager.enableCull();
 
-		GL11.glPopMatrix();
-		GL11.glPopMatrix();
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
+		GlStateManager.popMatrix();
+		GlStateManager.popMatrix();
 	}
 
 }
