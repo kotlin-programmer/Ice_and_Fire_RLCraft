@@ -26,14 +26,11 @@ public class RenderGhost extends RenderLiving<EntityGhost> {
 	protected void renderModel(EntityGhost entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch,
 			float scaleFactor) {
 		GlStateManager.disableAlpha();
-		GlStateManager.enableBlend();
-		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 
 		GlStateManager.color(1.0F, 1.0F, 1.0F, this.getAlphaForRender(entitylivingbaseIn, scaleFactor));
 		super.renderModel(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
 
 		GlStateManager.enableAlpha();
-		GlStateManager.disableBlend();
 	}
 
 	private float getAlphaForRender(EntityGhost entity, float partialTicks) {
