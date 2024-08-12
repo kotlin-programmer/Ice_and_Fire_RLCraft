@@ -19,6 +19,8 @@ import org.lwjgl.opengl.GL11;
 
 public class RenderPodium extends TileEntitySpecialRenderer<TileEntityPodium> {
 
+    private static final ModelDragonEgg MODEL = new ModelDragonEgg();
+
     protected static ResourceLocation getEggTexture(EnumDragonEgg type) {
         switch (type) {
             default: return RenderDragonEgg.EGG_RED;
@@ -38,7 +40,6 @@ public class RenderPodium extends TileEntitySpecialRenderer<TileEntityPodium> {
 
     @Override
     public void render(TileEntityPodium podium, double x, double y, double z, float f, int f1, float alpha) {
-        ModelDragonEgg model = new ModelDragonEgg();
         if (!podium.getStackInSlot(0).isEmpty()) {
             if (podium.getStackInSlot(0).getItem() instanceof ItemDragonEgg) {
                 ItemDragonEgg item = (ItemDragonEgg) podium.getStackInSlot(0).getItem();
@@ -47,7 +48,7 @@ public class RenderPodium extends TileEntitySpecialRenderer<TileEntityPodium> {
                 GL11.glPushMatrix();
                 this.bindTexture(getEggTexture(item.type));
                 GL11.glPushMatrix();
-                model.renderPodium();
+                MODEL.renderPodium();
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
@@ -58,7 +59,7 @@ public class RenderPodium extends TileEntitySpecialRenderer<TileEntityPodium> {
                 GL11.glPushMatrix();
                 this.bindTexture(jungle ? RenderMyrmexEgg.EGG_JUNGLE : RenderMyrmexEgg.EGG_DESERT);
                 GL11.glPushMatrix();
-                model.renderPodium();
+                MODEL.renderPodium();
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
                 GL11.glPopMatrix();
