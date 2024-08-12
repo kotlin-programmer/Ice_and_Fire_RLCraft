@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
+	public static final ModelPixie PIXIE_MODEL = new ModelPixie();
 	public static final ResourceLocation TEXTURE_0 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_0.png");
 	public static final ResourceLocation TEXTURE_1 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_1.png");
 	public static final ResourceLocation TEXTURE_2 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_2.png");
@@ -29,7 +30,7 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 	public static final ResourceLocation TEXTURE_5 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_5.png");
 
 	public RenderPixie(RenderManager renderManager) {
-		super(renderManager, new ModelPixie(), 0.2F);
+		super(renderManager, PIXIE_MODEL, 0.2F);
 		this.layerRenderers.add(new LayerPixieItem(this));
 		this.layerRenderers.add(new LayerPixieGlow(this));
 	}

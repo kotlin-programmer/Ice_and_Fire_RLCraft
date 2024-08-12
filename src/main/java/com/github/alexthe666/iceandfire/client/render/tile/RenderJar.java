@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.client.render.tile;
 
-import com.github.alexthe666.iceandfire.client.model.ModelPixie;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderPixie;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
 import net.ilexiconn.llibrary.client.util.ItemTESRContext;
@@ -13,8 +12,6 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
-
-	private static final ModelPixie MODEL_PIXIE = new ModelPixie();
 
 	@Override
 	public void render(TileEntityJar entity, double x, double y, double z, float f, int f1, float alpha) {
@@ -54,7 +51,7 @@ public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
 				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
 				GlStateManager.enableLighting();
 				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-				MODEL_PIXIE.animateInJar(entity.hasProduced, entity, 0);
+				RenderPixie.PIXIE_MODEL.animateInJar(entity.hasProduced, entity, 0);
 				GL11.glEnable(GL11.GL_CULL_FACE);
 			}
 			GL11.glPopMatrix();

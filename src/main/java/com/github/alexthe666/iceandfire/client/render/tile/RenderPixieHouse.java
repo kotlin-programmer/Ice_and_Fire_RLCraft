@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.client.render.tile;
 
 import com.github.alexthe666.iceandfire.block.BlockPixieHouse;
-import com.github.alexthe666.iceandfire.client.model.ModelPixie;
 import com.github.alexthe666.iceandfire.client.model.ModelPixieHouse;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderPixie;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
@@ -22,7 +21,6 @@ import org.lwjgl.opengl.GL11;
 public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieHouse> {
 
 	private static final ModelPixieHouse MODEL = new ModelPixieHouse();
-	private static final ModelPixie MODEL_PIXIE = new ModelPixie();
 	private static final ResourceLocation TEXTURE_0 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_0.png");
 	private static final ResourceLocation TEXTURE_1 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_1.png");
 	private static final ResourceLocation TEXTURE_2 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_2.png");
@@ -77,7 +75,7 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 			GlStateManager.enableLighting();
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			GlStateManager.enableColorMaterial();
-			MODEL_PIXIE.animateInHouse(entity);
+			RenderPixie.PIXIE_MODEL.animateInHouse(entity);
 			GlStateManager.disableColorMaterial();
 			int i = entity.getWorld().getCombinedLight(entity.getPos(), entity.getWorld().getLightFor(EnumSkyBlock.BLOCK, entity.getPos()));
 			int j = i % 65536;
