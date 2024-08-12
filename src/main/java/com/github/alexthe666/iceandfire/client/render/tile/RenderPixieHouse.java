@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -45,56 +44,8 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(x + 0.5D, y + 1.501D, z + 0.5D);
-		GlStateManager.pushMatrix();
 		GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
 		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
-
-		if (te != null && te.hasWorld() && te.hasPixie) {
-			GlStateManager.pushMatrix();
-			GlStateManager.translate(0.0F, 0.95F, 0.0F);
-			GlStateManager.scale(0.55F, 0.55F, 0.55F);
-			GlStateManager.pushMatrix();
-			GlStateManager.pushMatrix();
-
-			switch (te.pixieType) {
-				default: this.bindTexture(RenderPixie.TEXTURE_0); break;
-				case 1: this.bindTexture(RenderPixie.TEXTURE_1); break;
-				case 2: this.bindTexture(RenderPixie.TEXTURE_2); break;
-				case 3: this.bindTexture(RenderPixie.TEXTURE_3); break;
-				case 4: this.bindTexture(RenderPixie.TEXTURE_4); break;
-				case 5: this.bindTexture(RenderPixie.TEXTURE_5); break;
-			}
-
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.CONSTANT_ALPHA);
-			GlStateManager.disableLighting();
-			GlStateManager.depthMask(true);
-			GlStateManager.enableLighting();
-			GlStateManager.enableColorMaterial();
-			GlStateManager.disableCull();
-
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 61680.0F, 0.0F);
-			RenderPixie.PIXIE_MODEL.animateInHouse(te);
-			int i = te.getWorld().getCombinedLight(te.getPos(), te.getWorld().getLightFor(EnumSkyBlock.BLOCK, te.getPos()));
-			int j = i % 65536;
-			int k = i / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-
-			GlStateManager.enableCull();
-			GlStateManager.disableColorMaterial();
-			GlStateManager.depthMask(true);
-			GlStateManager.disableBlend();
-			GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GlStateManager.enableTexture2D();
-			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-
-			GlStateManager.popMatrix();
-			GlStateManager.popMatrix();
-			GlStateManager.popMatrix();
-		}
-
-		GlStateManager.pushMatrix();
 
 		GlStateManager.disableCull();
 
@@ -109,10 +60,25 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 
 		MODEL.render(0.0625F);
 
+		if (te != null && te.hasWorld() && te.hasPixie) {
+			GlStateManager.translate(0.0F, 0.95F, 0.0F);
+			GlStateManager.scale(0.55F, 0.55F, 0.55F);
+
+			switch (te.pixieType) {
+				default: this.bindTexture(RenderPixie.TEXTURE_0); break;
+				case 1: this.bindTexture(RenderPixie.TEXTURE_1); break;
+				case 2: this.bindTexture(RenderPixie.TEXTURE_2); break;
+				case 3: this.bindTexture(RenderPixie.TEXTURE_3); break;
+				case 4: this.bindTexture(RenderPixie.TEXTURE_4); break;
+				case 5: this.bindTexture(RenderPixie.TEXTURE_5); break;
+			}
+
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 256.0F, 0.0F);
+			RenderPixie.PIXIE_MODEL.animateInHouse(te);
+		}
+
 		GlStateManager.enableCull();
 
-		GlStateManager.popMatrix();
-		GlStateManager.popMatrix();
 		GlStateManager.popMatrix();
 	}
 
