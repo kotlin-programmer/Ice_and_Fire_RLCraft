@@ -1,7 +1,5 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
-import org.lwjgl.opengl.GL11;
-
 import com.github.alexthe666.iceandfire.client.model.ModelGhost;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
 
@@ -21,22 +19,21 @@ public class RenderGhost extends RenderLiving<EntityGhost> {
 
 	public RenderGhost(RenderManager renderManager) {
 		super(renderManager, MODEL, 0.55F);
-		preRenderProfileGhostClean();
+		this.shadowSize = 0.0F;
 	}
 
-	public void preRenderProfileGhostApply(EntityGhost entity, float partialTicks) {
-		float alphaForRender = getAlphaForRender(entity, partialTicks);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, alphaForRender);
-		GlStateManager.depthMask(false);
+	@Override
+	protected void renderModel(EntityGhost entitylivingbaseIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch,
+			float scaleFactor) {
+		GlStateManager.disableAlpha();
 		GlStateManager.enableBlend();
 		GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.001F);
-	}
 
-	public void preRenderProfileGhostClean() {
+		GlStateManager.color(1.0F, 1.0F, 1.0F, this.getAlphaForRender(entitylivingbaseIn, scaleFactor));
+		super.renderModel(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+
+		GlStateManager.enableAlpha();
 		GlStateManager.disableBlend();
-		GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-		GlStateManager.depthMask(true);
 	}
 
 	private float getAlphaForRender(EntityGhost entity, float partialTicks) {
@@ -44,12 +41,6 @@ public class RenderGhost extends RenderLiving<EntityGhost> {
 			return MathHelper.clamp((101 - Math.min(entity.getDaytimeCounter(), 100)) / 100.0F, 0.0F, 1.0F);
 		}
 		return MathHelper.clamp((MathHelper.sin((entity.ticksExisted + partialTicks) * 0.1F) + 1.0F) * 0.5F + 0.1F, 0.0F, 1.0F);
-	}
-
-	@Override
-	public void preRenderCallback(EntityGhost entitylivingbaseIn, float partialTickTime) {
-		this.shadowSize = 0.0F;
-		preRenderProfileGhostApply(entitylivingbaseIn, partialTickTime);
 	}
 
 	@Override
