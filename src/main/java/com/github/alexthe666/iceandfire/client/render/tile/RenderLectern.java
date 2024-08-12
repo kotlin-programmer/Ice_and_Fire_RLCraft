@@ -33,7 +33,6 @@ public class RenderLectern extends TileEntitySpecialRenderer<TileEntityLectern> 
 		f4 = Math.max(0.0F, Math.min(1.0F, f4));
 		f5 = Math.max(0.0F, Math.min(1.0F, f5));
 
-		GlStateManager.enableCull();
 		book.render(null, 0, f4, f5, 1, 0.0F, 0.0625F);
 		GlStateManager.popMatrix();
 	}
