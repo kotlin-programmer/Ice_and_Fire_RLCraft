@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -18,13 +19,11 @@ public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x + 0.5D, y + 1.501D, z + 0.5D);
 			GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
-			GlStateManager.pushMatrix();
 			GlStateManager.translate(0.0F, te.hasProduced ? 0.9F : 0.6F, 0.0F);
 			GlStateManager.rotate(interpolateRotation(te.prevRotationYaw, te.rotationYaw, partialTicks), 0.0F, 1.0F, 0.0F);
 			GlStateManager.scale(0.5F, 0.5F, 0.5F);
 
 			GlStateManager.disableCull();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
 
 			switch (te.pixieType) {
 				default: this.bindTexture(RenderPixie.TEXTURE_0); break;
@@ -35,22 +34,19 @@ public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
 				case 5: this.bindTexture(RenderPixie.TEXTURE_5); break;
 			}
 
-			GlStateManager.disableLighting();
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
-			GlStateManager.enableLighting();
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			RenderPixie.PIXIE_MODEL.animateInJar(te.hasProduced, te, 0.0F);
 
 			GlStateManager.enableCull();
 
-			GlStateManager.popMatrix();
 			GlStateManager.popMatrix();
 		}
 	}
 
 	private static float interpolateRotation(float prevYawOffset, float yawOffset, float partialTicks) {
 		float f = yawOffset - prevYawOffset;
-		f = (((f % 360.0F) + 540.0F) % 360.0F) - 180.0F;
+		int i = MathHelper.floor(f);
+		f = ((((i % 360) + 540) % 360) - 180) + (f - i);
 		return prevYawOffset + partialTicks * f;
 	}
 
