@@ -11,6 +11,7 @@ import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -33,6 +34,10 @@ public class RenderModArmor {
 			boolean hasModBoots = false;
 
 			for (ItemStack stack : event.getEntityPlayer().getArmorInventoryList()) {
+				ItemStack disguise = getPhantomThreadDisguise(stack);
+				if (disguise != null) {
+					stack = disguise;
+				}
 				if (stack.getItem() instanceof ItemArmor) {
 					ItemArmor armor = (ItemArmor) stack.getItem();
 					if (isModArmor(armor)) {
@@ -90,6 +95,24 @@ public class RenderModArmor {
                 || armor instanceof ItemSilverArmor
                 || armor instanceof ItemCopperArmor;
     }
+
+	public ItemStack getPhantomThreadDisguise(ItemStack stack) {
+		NBTTagCompound tagCompound = stack.getTagCompound();
+		if (tagCompound == null || tagCompound.isEmpty()) {
+			return null;
+		}
+		if (!tagCompound.hasKey("classy_hat_invisible")) {
+			return null;
+		}
+		if (!tagCompound.hasKey("classy_hat_disguise")) {
+			return ItemStack.EMPTY;
+		}
+		NBTTagCompound diguise = tagCompound.getCompoundTag("classy_hat_disguise");
+		if (diguise.isEmpty()) {
+			return ItemStack.EMPTY;
+		}
+		return new ItemStack(diguise);
+	}
 
 	public boolean isHelmet(ItemArmor armor) {
 		return armor.getEquipmentSlot() == EntityEquipmentSlot.HEAD;
