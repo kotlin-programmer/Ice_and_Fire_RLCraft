@@ -1,28 +1,23 @@
 package com.github.alexthe666.iceandfire.client.render.tile;
 
 import com.github.alexthe666.iceandfire.block.BlockPixieHouse;
-import com.github.alexthe666.iceandfire.client.model.ModelPixie;
 import com.github.alexthe666.iceandfire.client.model.ModelPixieHouse;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderPixie;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPixieHouse;
+
 import net.ilexiconn.llibrary.client.util.ItemTESRContext;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieHouse> {
 
 	private static final ModelPixieHouse MODEL = new ModelPixieHouse();
-	private static final ModelPixie MODEL_PIXIE = new ModelPixie();
 	private static final ResourceLocation TEXTURE_0 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_0.png");
 	private static final ResourceLocation TEXTURE_1 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_1.png");
 	private static final ResourceLocation TEXTURE_2 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_2.png");
@@ -31,36 +26,45 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 	private static final ResourceLocation TEXTURE_5 = new ResourceLocation("iceandfire:textures/models/pixie/house/pixie_house_5.png");
 
 	@Override
-	public void render(TileEntityPixieHouse entity, double x, double y, double z, float f, int f1, float alpha) {
-		int rotation = 0;
+	public void render(TileEntityPixieHouse te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+		float rotation = 0.0F;
 		int meta = 0;
-		if (entity != null && entity.getWorld() != null && entity.getWorld().getBlockState(entity.getPos()).getBlock() instanceof BlockPixieHouse) {
-			IBlockState state = entity.getWorld().getBlockState(entity.getPos());
-			meta = entity.houseType;
-			if (state.getValue(BlockPixieHouse.FACING) == EnumFacing.NORTH) {
-				rotation = 180;
+		IBlockState state;
+		if (te != null && te.hasWorld() && (state = te.getWorld().getBlockState(te.getPos())).getBlock() instanceof BlockPixieHouse) {
+			switch (state.getValue(BlockPixieHouse.FACING)) {
+				case NORTH: rotation = 180.0F; break;
+				case WEST: rotation = -90.0F; break;
+				case EAST: rotation = 90.0F; break;
+				default: break;
 			}
-			else if (state.getValue(BlockPixieHouse.FACING) == EnumFacing.EAST) {
-				rotation = -90;
-			}
-			else if (state.getValue(BlockPixieHouse.FACING) == EnumFacing.WEST) {
-				rotation = 90;
-			}
-		} else if (ItemTESRContext.INSTANCE.getCurrentStack() != ItemStack.EMPTY) {
+			meta = te.houseType;
+		} else if (!ItemTESRContext.INSTANCE.getCurrentStack().isEmpty()) {
 			meta = ItemTESRContext.INSTANCE.getCurrentStack().getItemDamage();
 		}
-		GL11.glPushMatrix();
-		GL11.glTranslatef((float) x + 0.5F, (float) y + 1.501F, (float) z + 0.5F);
-		GL11.glPushMatrix();
-		GL11.glRotatef(180, 1, 0, 0);
-		GL11.glRotatef(rotation, 0, 1F, 0);
-		if (entity != null && entity.getWorld() != null && entity.hasPixie) {
-			GL11.glPushMatrix();
-			GL11.glTranslatef(0F, 0.95F, 0F);
-			GL11.glScalef(0.55F, 0.55F, 0.55F);
-			GL11.glPushMatrix();
-			//GL11.glRotatef(MathHelper.clampAngle(entity.ticksExisted * 3), 0, 1, 0);
-			switch (entity.pixieType) {
+
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x + 0.5D, y + 1.501D, z + 0.5D);
+		GlStateManager.rotate(180.0F, 1.0F, 0.0F, 0.0F);
+		GlStateManager.rotate(rotation, 0.0F, 1.0F, 0.0F);
+
+		GlStateManager.disableCull();
+
+		switch (meta) {
+			default: this.bindTexture(TEXTURE_0); break;
+			case 1: this.bindTexture(TEXTURE_1); break;
+			case 2: this.bindTexture(TEXTURE_2); break;
+			case 3: this.bindTexture(TEXTURE_3); break;
+			case 4: this.bindTexture(TEXTURE_4); break;
+			case 5: this.bindTexture(TEXTURE_5); break;
+		}
+
+		MODEL.render(0.0625F);
+
+		if (te != null && te.hasWorld() && te.hasPixie) {
+			GlStateManager.translate(0.0F, 0.95F, 0.0F);
+			GlStateManager.scale(0.55F, 0.55F, 0.55F);
+
+			switch (te.pixieType) {
 				default: this.bindTexture(RenderPixie.TEXTURE_0); break;
 				case 1: this.bindTexture(RenderPixie.TEXTURE_1); break;
 				case 2: this.bindTexture(RenderPixie.TEXTURE_2); break;
@@ -68,44 +72,14 @@ public class RenderPixieHouse extends TileEntitySpecialRenderer<TileEntityPixieH
 				case 4: this.bindTexture(RenderPixie.TEXTURE_4); break;
 				case 5: this.bindTexture(RenderPixie.TEXTURE_5); break;
 			}
-			GL11.glPushMatrix();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.CONSTANT_ALPHA);
-			GlStateManager.disableLighting();
-			GlStateManager.depthMask(true);
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 61680.0F, 0.0F);
-			GlStateManager.enableLighting();
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			GlStateManager.enableColorMaterial();
-			MODEL_PIXIE.animateInHouse(entity);
-			GlStateManager.disableColorMaterial();
-			int i = entity.getWorld().getCombinedLight(entity.getPos(), entity.getWorld().getLightFor(EnumSkyBlock.BLOCK, entity.getPos()));
-			int j = i % 65536;
-			int k = i / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) j, (float) k);
-			GlStateManager.depthMask(true);
-			GlStateManager.disableBlend();
-			GlStateManager.setActiveTexture(OpenGlHelper.lightmapTexUnit);
-			GlStateManager.enableTexture2D();
-			GlStateManager.setActiveTexture(OpenGlHelper.defaultTexUnit);
-			GL11.glPopMatrix();
-			GL11.glPopMatrix();
-			GL11.glPopMatrix();
+
+			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 256.0F, 0.0F);
+			RenderPixie.PIXIE_MODEL.animateInHouse(te);
 		}
-		switch (meta) {
-			case 0: this.bindTexture(TEXTURE_0); break;
-			case 1: this.bindTexture(TEXTURE_1); break;
-			case 2: this.bindTexture(TEXTURE_2); break;
-			case 3: this.bindTexture(TEXTURE_3); break;
-			case 4: this.bindTexture(TEXTURE_4); break;
-			case 5: this.bindTexture(TEXTURE_5); break;
-		}
-		GL11.glPushMatrix();
-		GL11.glDisable(GL11.GL_CULL_FACE);
-		MODEL.render(0.0625F);
-		GL11.glEnable(GL11.GL_CULL_FACE);
-		GL11.glPopMatrix();
-		GL11.glPopMatrix();
-		GL11.glPopMatrix();
+
+		GlStateManager.enableCull();
+
+		GlStateManager.popMatrix();
 	}
+
 }
