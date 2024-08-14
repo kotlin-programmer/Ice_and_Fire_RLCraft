@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouseModel;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieJar;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,6 +19,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
 import java.util.UUID;
 
 public class TileEntityJar extends TileEntity implements ITickable {
@@ -30,12 +34,11 @@ public class TileEntityJar extends TileEntity implements ITickable {
 	public UUID pixieOwnerUUID;
 	public int pixieType;
 	public int ticksExisted;
-	public NonNullList<ItemStack> pixieItems = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
+	public NonNullList<ItemStack> pixieItems = NonNullList.withSize(1, ItemStack.EMPTY);
 	public float rotationYaw;
 	public float prevRotationYaw;
 
-	public TileEntityJar(boolean empty) {
-		this.hasPixie = !empty;
+	public TileEntityJar() {
 	}
 
 	@Override
@@ -53,9 +56,7 @@ public class TileEntityJar extends TileEntity implements ITickable {
 
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound tag = new NBTTagCompound();
-		this.writeToNBT(tag);
-		return new SPacketUpdateTileEntity(pos, 1, tag);
+		return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());
 	}
 
 	@Override
@@ -65,24 +66,35 @@ public class TileEntityJar extends TileEntity implements ITickable {
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		readFromNBT(packet.getNbtCompound());
-		if(!world.isRemote) IceAndFire.NETWORK_WRAPPER.sendToAll(
-				new MessageUpdatePixieHouseModel(
-						pos.toLong(),
-						packet.getNbtCompound().getInteger("PixieType")));
+		handleUpdateTag(packet.getNbtCompound());
+		if (!world.isRemote) {
+			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageUpdatePixieHouseModel(pos.toLong(), packet.getNbtCompound().getInteger("PixieType")));
+		}
+	}
+
+	@Override
+	public void handleUpdateTag(NBTTagCompound tagCompound) {
+		this.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
 		hasPixie = compound.getBoolean("HasPixie");
 		pixieType = compound.getInteger("PixieType");
 		hasProduced = compound.getBoolean("HasProduced");
 		ticksExisted = compound.getInteger("TicksExisted");
 		tamedPixie = compound.getBoolean("TamedPixie");
-		pixieOwnerUUID = compound.getUniqueId("PixieOwnerUUID");
+		if (compound.hasKey("PixieOwnerUUID")) {
+			pixieOwnerUUID = compound.getUniqueId("PixieOwnerUUID");
+		}
 		this.pixieItems = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, pixieItems);
-		super.readFromNBT(compound);
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		return false;
 	}
 
 	@Override
