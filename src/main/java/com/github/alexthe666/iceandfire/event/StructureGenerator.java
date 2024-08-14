@@ -96,8 +96,8 @@ public class StructureGenerator implements IWorldGenerator {
 				CYCLOPS_CAVE.generate(world, random, height);
 				lastCyclopsCave = height;
 			}
-			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && isFarEnoughFromSpawn(world, height) &&  BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
-				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance + 1) == 0) {
+			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && isFarEnoughFromSpawn(world, height) && BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) && !isSnowy && !isCold && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
+				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance + 1) == 0 && !world.getBlockState(height).getMaterial().isLiquid()) {
 					EntityCyclops cyclops = new EntityCyclops(world);
 					cyclops.setPosition(x, height.getY() + 1, z);
 					cyclops.setVariant(random.nextInt(3));
