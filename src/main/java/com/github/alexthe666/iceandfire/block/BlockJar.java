@@ -9,6 +9,7 @@ import com.github.alexthe666.iceandfire.item.ICustomRendered;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -32,7 +33,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
-public class BlockJar extends BlockContainer implements ICustomRendered {
+public class BlockJar extends BlockContainer implements ICustomRendered, ITileEntityProvider {
 	private static final AxisAlignedBB AABB = new AxisAlignedBB(0.1875F, 0, 0.1875F, 0.8125F, 1F, 0.8125F);
 	final private boolean empty;
 
@@ -45,6 +46,7 @@ public class BlockJar extends BlockContainer implements ICustomRendered {
 		this.setCreativeTab(IceAndFire.TAB);
 		this.setTranslationKey("iceandfire.jar" + (empty ? "_empty" : "_pixie"));
 		this.setRegistryName(IceAndFire.MODID, "jar" + (empty ? "_empty" : "_pixie"));
+		this.hasTileEntity = true;
 		if (!empty) {
 			this.setLightLevel(0.75F);
 			GameRegistry.registerTileEntity(TileEntityJar.class, "jar");
@@ -184,7 +186,6 @@ public class BlockJar extends BlockContainer implements ICustomRendered {
 			if (state.getBlock() == this.block) {
 				setBlockEntityTag(stack);
 				setTileEntityNBT(world, placer, pos, stack);
-				this.block.onBlockPlacedBy(world, pos, state, placer, stack);
 				if (placer instanceof EntityPlayerMP) {
 					CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) placer, pos, stack);
 				}

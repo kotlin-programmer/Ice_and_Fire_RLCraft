@@ -9,15 +9,11 @@ import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouseModel;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieJar;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,7 +30,6 @@ public class TileEntityJar extends TileEntity implements ITickable {
 	public UUID pixieOwnerUUID;
 	public int pixieType;
 	public int ticksExisted;
-	public NonNullList<ItemStack> pixieItems = NonNullList.withSize(1, ItemStack.EMPTY);
 	public float rotationYaw;
 	public float prevRotationYaw;
 
@@ -50,7 +45,6 @@ public class TileEntityJar extends TileEntity implements ITickable {
 		compound.setBoolean("TamedPixie", tamedPixie);
 		if(pixieOwnerUUID != null) compound.setUniqueId("PixieOwnerUUID", pixieOwnerUUID);
 		compound.setInteger("TicksExisted", ticksExisted);
-		ItemStackHelper.saveAllItems(compound, this.pixieItems);
 		return compound;
 	}
 
@@ -88,8 +82,6 @@ public class TileEntityJar extends TileEntity implements ITickable {
 		if (compound.hasKey("PixieOwnerUUID")) {
 			pixieOwnerUUID = compound.getUniqueId("PixieOwnerUUID");
 		}
-		this.pixieItems = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(compound, pixieItems);
 	}
 
 	@Override
@@ -135,7 +127,6 @@ public class TileEntityJar extends TileEntity implements ITickable {
 					this.pos.getZ() + 0.5F,
 					this.world.rand.nextInt(360),
 					0);
-			pixie.setHeldItem(EnumHand.MAIN_HAND, pixieItems.get(0));
 			pixie.setColor(this.pixieType);
 			if(!world.isRemote) world.spawnEntity(pixie);
 			this.hasPixie = false;

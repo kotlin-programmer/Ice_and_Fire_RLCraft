@@ -31,11 +31,10 @@ public class RenderJar extends TileEntitySpecialRenderer<TileEntityJar> {
 				case 2: this.bindTexture(RenderPixie.TEXTURE_2); break;
 				case 3: this.bindTexture(RenderPixie.TEXTURE_3); break;
 				case 4: this.bindTexture(RenderPixie.TEXTURE_4); break;
-				case 5: this.bindTexture(RenderPixie.TEXTURE_5); break;
 			}
 
 			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240.0F, 240.0F);
-			RenderPixie.PIXIE_MODEL.animateInJar(te.hasProduced, te, 0.0F);
+			RenderPixie.PIXIE_MODEL.animateInJar(te.hasProduced, te);
 
 			GlStateManager.enableCull();
 
