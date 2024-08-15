@@ -139,8 +139,8 @@ public class IceAndFireConfig {
 		@Config.Name("Ice Dragon Den and Roost Enabled Biome Names")
 		public String[] generateIceDragonEnabledBiomeNames = {""};
 
-		@Config.Comment("Lightning Dragon Dens and Roosts will not generate in these named biomes (Takes priority over disabled biome types)")
-		@Config.Name("Lightning Dragon Den and Roost Disabled Biome Names")
+		@Config.Comment("Lightning Dragon Dens and Roosts will additionally generate in these named biomes (Takes priority over disabled biome types)")
+		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Names")
 		public String[] generateLightningDragonEnabledBiomeNames = {""};
 
 		@Config.Comment("Fire Dragon Dens and Roosts will generate in these biome types")

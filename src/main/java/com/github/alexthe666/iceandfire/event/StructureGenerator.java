@@ -30,6 +30,7 @@ import net.minecraft.world.gen.structure.template.TemplateManager;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.IWorldGenerator;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -63,7 +64,8 @@ public class StructureGenerator implements IWorldGenerator {
 		int z = (chunkZ * 16) + 8;
 		BlockPos height = world.getHeight(new BlockPos(x, 0, z));
 		Biome biome = world.getBiome(height);
-		String biomeName =  biome.getRegistryName() != null ? biome.getRegistryName().toString() : "";
+		ResourceLocation resourceLocation = ForgeRegistries.BIOMES.getKey(biome);
+		String biomeName =  resourceLocation != null ? resourceLocation.toString() : "";
 		Set<Type> types = BiomeDictionary.getTypes(biome);
 
 		//More common checks
