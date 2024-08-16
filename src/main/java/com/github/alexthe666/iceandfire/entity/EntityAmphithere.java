@@ -74,7 +74,6 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     public float orbitRadius = 0.0F;
     private int ticksStill = 0;
     private int ridingTime = 0;
-    private boolean userChangedFlightYaw = false;
     private boolean hasInitiatedFlight = false;
     public boolean isFallen;
     public static Animation ANIMATION_BITE = Animation.create(15);
@@ -370,24 +369,21 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             Entity controllingPassenger = this.getControllingPassenger();
             if (controllingPassenger instanceof EntityPlayer) {
                 if (isFlying()) {
-                    float pitch = controllingPassenger.rotationPitch;
+                    float pitch = this.getControllingPassenger().rotationPitch;
 
-                    this.rotationPitch = -pitch / 2;
+                    this.rotationPitch = pitch / 2;
 
-                    if (pitch > 25) {
+                    if (pitch > 25 && this.motionY > -1.0F) {
                         if (this.motionY > 0) {
                             this.motionY = 0;
                         }
-                        this.motionY = Math.max(this.motionY - 0.1D, -1D);
-                        this.userChangedFlightYaw = true;
-                    } else if (pitch < -25) {
+                        this.motionY -= 0.1D;
+                    }
+                    if (pitch < -25 && this.motionY < 1.0F) {
                         if (this.motionY < 0) {
                             this.motionY = 0;
                         }
-                        this.motionY = Math.min(this.motionY + 0.1D, 1D);
-                        this.userChangedFlightYaw = true;
-                    } else if (userChangedFlightYaw) {
-                        this.motionY = 0;
+                        this.motionY += 0.1D;
                     }
                 }
             } else if (this.isFallen) {
@@ -661,7 +657,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 if (isOnGround()) {
                     this.setFlying(false);
                 } else {
-                    this.isFallen = true;
+                    this.setCommand(2);
                 }
             }
         }
@@ -738,7 +734,6 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             this.isFlying = flying;
         }
         hasInitiatedFlight = false;
-        userChangedFlightYaw = false;
     }
 
     public int getVariant() {
