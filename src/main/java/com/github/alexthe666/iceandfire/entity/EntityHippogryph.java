@@ -24,7 +24,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -1077,7 +1076,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	public void flyTowardsTarget() {
 		if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) > 3) {
 			double targetX = airTarget.getX() + 0.5D - posX;
-			double targetY = Math.min(airTarget.getY(), IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight) + 1D - posY;
+			double targetY = Math.min(airTarget.getY(), DragonUtils.getMaximumFlightHeightForPos(world, new BlockPos(this))) + 1D - posY;
 			double targetZ = airTarget.getZ() + 0.5D - posZ;
 			motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 2;
 			motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 2;

@@ -1548,7 +1548,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (this.posY > this.world.getHeight()) {
             return true;
         }
-        return this.posY > IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight;
+       return this.posY > DragonUtils.getMaximumFlightHeightForPos(world, new BlockPos(this));
     }
 
     public void breakBlock() {
@@ -2065,14 +2065,18 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     public void flyTowardsTarget() {
-        if (airTarget != null && airTarget.getY() > IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight) {
-            airTarget = new BlockPos(airTarget.getX(), IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight, airTarget.getZ());
+        if (airTarget == null) {
+            return;
         }
-        if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) > 3) {
+        int maximumDragonFlightHeight = DragonUtils.getMaximumFlightHeightForPos(world, new BlockPos(airTarget));
+        if (airTarget.getY() > maximumDragonFlightHeight) {
+            airTarget = new BlockPos(airTarget.getX(), maximumDragonFlightHeight, airTarget.getZ());
+        }
+        if (isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) > 3) {
             double y = this.attackDecision ? airTarget.getY() : this.posY;
 
             double targetX = airTarget.getX() + 0.5D - posX;
-            double targetY = Math.min(y, IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight) + 1D - posY;
+            double targetY = Math.min(y, maximumDragonFlightHeight) + 1D - posY;
             double targetZ = airTarget.getZ() + 0.5D - posZ;
             motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * getFlySpeed();
             motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * getFlySpeed();
