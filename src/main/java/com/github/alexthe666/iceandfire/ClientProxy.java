@@ -85,6 +85,7 @@ public class ClientProxy extends CommonProxy {
 	private FontRenderer bestiaryFontRenderer;
 	@SideOnly(Side.CLIENT)
 	private static final IceAndFireTEISR TEISR = new IceAndFireTEISR();
+	public static List<UUID> currentDragonRiders = new ArrayList<>();
 	private int thirdPersonViewDragon = 0;
 	private static MyrmexHive referedClientHive = null;
 

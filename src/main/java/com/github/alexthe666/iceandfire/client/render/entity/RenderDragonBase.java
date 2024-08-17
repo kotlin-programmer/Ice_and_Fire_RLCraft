@@ -131,6 +131,7 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 				float dragonScale = dragon.getRenderSize() / 3;
 				for (Entity passenger : dragon.getPassengers()) {
 					boolean prey = dragon.getControllingPassenger() == null || !dragon.isControllingPassenger(passenger);
+					ClientProxy.currentDragonRiders.remove(passenger.getUniqueID());
 					float riderRot = passenger.prevRotationYaw + (passenger.rotationYaw - passenger.prevRotationYaw) * partialTicks;
 					int animationTicks = 0;
 					if (dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
@@ -168,10 +169,9 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 					GlStateManager.rotate(riderRot + 180, 0, 1, 0);
 					GlStateManager.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
 					GlStateManager.translate(0, -0.25F, 0);
-					if (passenger instanceof EntityPlayer) {
-						renderEntity(passenger, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, true);
-					}
+					renderEntity(passenger, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, true);
 					GlStateManager.popMatrix();
+					ClientProxy.currentDragonRiders.add(passenger.getUniqueID());
 				}
 			}
 			GlStateManager.popMatrix();
