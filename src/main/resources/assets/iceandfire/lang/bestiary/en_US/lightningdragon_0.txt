@@ -23,7 +23,7 @@ of crackled blocks that have been
 struck by lightning. Like how ice
 and fire dragons have affinities for
 certain gemstones, lightning dragons
-love amethyst.
+love amethysts and diamonds.
 
 
 <item><iceandfire:amethyst_gem 100 170 31 1>

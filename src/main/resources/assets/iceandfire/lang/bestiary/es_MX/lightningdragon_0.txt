@@ -24,7 +24,7 @@ que han sido alcanzados por sus
 rayos. Asi como los dragones de
 fuego y hielo tienen afinidad por
 ciertos gemas, los dragones de rayo
-aman la amatista.
+aman las amatistas y los diamantes.
 
 <item><iceandfire:amethyst_gem 100 170 36 1>
 <item><iceandfire:amethyst_ore 100 150 36 1>

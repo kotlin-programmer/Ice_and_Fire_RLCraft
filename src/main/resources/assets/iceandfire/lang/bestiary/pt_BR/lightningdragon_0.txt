@@ -23,8 +23,8 @@ subterrâneas cheias de blocos
 quebrados, destruídos por raios.
 Assim como os dragões de gelo
 e fogo, os dragões elétricos
-possuem pedras preciosas,
-em seu caso ametista.
+possuem pedras preciosas, em
+seu caso ametistas e diamantes.
 
 <item><iceandfire:amethyst_gem 100 170 36 1>
 <item><iceandfire:amethyst_ore 100 150 36 1>
