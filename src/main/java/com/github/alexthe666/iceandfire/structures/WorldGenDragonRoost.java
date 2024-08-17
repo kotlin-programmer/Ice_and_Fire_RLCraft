@@ -89,7 +89,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
                 }
             }
         } else {
-            world.setBlockState(position, getPileBlock(rand).withProperty(BlockCoinPile.LAYERS, height), 3);
+            world.setBlockState(position, getPileBlock().withProperty(BlockCoinPile.LAYERS, height), 3);
         }
     }
 
@@ -141,7 +141,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
     }
 
     protected abstract void transformState(World world, BlockPos blockpos, IBlockState state);
-    protected abstract IBlockState getPileBlock(Random rand);
+    protected abstract IBlockState getPileBlock();
     protected abstract IBlockState getBuildingBlock();
     protected abstract Block[] getDragonTransformedBlocks();
     protected abstract ResourceLocation getLootTable();

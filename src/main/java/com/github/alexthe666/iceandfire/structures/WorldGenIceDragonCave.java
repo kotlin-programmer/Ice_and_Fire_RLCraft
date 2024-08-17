@@ -25,11 +25,8 @@ public class WorldGenIceDragonCave extends WorldGenDragonCave {
 		return ModBlocks.frozenCobblestone.getDefaultState();
 	}
 
-	protected IBlockState getPile(Random rand) {
-		if (IceAndFireConfig.WORLDGEN.generateSilverOre) {
-			return ModBlocks.silverPile.getDefaultState();
-		}
-		return ModBlocks.goldPile.getDefaultState();
+	protected IBlockState getPile() {
+		return ModBlocks.silverPile.getDefaultState();
 	}
 
 	protected IBlockState getGemstone() {

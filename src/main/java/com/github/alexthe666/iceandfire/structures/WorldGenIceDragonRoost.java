@@ -37,7 +37,7 @@ public class WorldGenIceDragonRoost extends WorldGenDragonRoost {
         }
     }
 
-    protected IBlockState getPileBlock(Random rand) {
+    protected IBlockState getPileBlock() {
         return ModBlocks.silverPile.getDefaultState();
     }
 

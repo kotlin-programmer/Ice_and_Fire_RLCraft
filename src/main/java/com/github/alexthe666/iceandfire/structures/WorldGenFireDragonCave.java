@@ -23,7 +23,7 @@ public class WorldGenFireDragonCave extends WorldGenDragonCave {
 		return ModBlocks.charedCobblestone.getDefaultState();
 	}
 
-	protected IBlockState getPile(Random rand) {
+	protected IBlockState getPile() {
 		return ModBlocks.goldPile.getDefaultState();
 	}
 

@@ -39,20 +39,11 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
         }
     }
 
-    protected IBlockState getPileBlock(Random rand) {
-        List<IBlockState> piles = new LinkedList<>();
-        if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
-            piles.add(ModBlocks.copperPile.getDefaultState());
-        }
-        if (IceAndFireConfig.WORLDGEN.generateSilverOre) {
-            piles.add(ModBlocks.silverPile.getDefaultState());
-        }
+    protected IBlockState getPileBlock() {
         if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
-            piles.add(ModBlocks.diamondPile.getDefaultState());
+            return ModBlocks.diamondPile.getDefaultState();
         }
-        piles.add(ModBlocks.goldPile.getDefaultState());
-        int index = rand.nextInt(piles.size());
-        return piles.get(index);
+        return ModBlocks.copperPile.getDefaultState();
     }
 
     protected IBlockState getBuildingBlock() {
@@ -71,7 +62,10 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
     }
 
     protected ResourceLocation getLootTable() {
-        return WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST;
+        if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
+            return WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST_1;
+        }
+        return WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST_2;
     }
 
     protected EntityDragonBase createDragon(World worldIn) {

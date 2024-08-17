@@ -1,7 +1,7 @@
 {
   "pools": [
     {
-      "name": "ice_dragon_male_cave",
+      "name": "lightning_dragon_male_cave_2",
       "rolls": {
         "min": 1,
         "max": 4
@@ -23,7 +23,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:sapphire_gem",
+          "name": "iceandfire:amethyst_gem",
           "functions": [
             {
               "function": "set_count",
@@ -93,7 +93,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_ingot",
+          "name": "iceandfire:copper_ingot",
           "functions": [
             {
               "function": "set_count",
@@ -107,7 +107,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_nugget",
+          "name": "iceandfire:copper_nugget",
           "functions": [
             {
               "function": "set_count",
@@ -149,7 +149,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:silver_sword",
+          "name": "iceandfire:copper_sword",
           "functions": [
             {
               "function": "set_count",
@@ -163,7 +163,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_helmet",
+          "name": "iceandfire:armor_copper_metal_helmet",
           "functions": [
             {
               "function": "set_count",
@@ -177,7 +177,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_chestplate",
+          "name": "iceandfire:armor_copper_metal_chestplate",
           "functions": [
             {
               "function": "set_count",
@@ -191,7 +191,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_leggings",
+          "name": "iceandfire:armor_copper_metal_leggings",
           "functions": [
             {
               "function": "set_count",
@@ -205,7 +205,7 @@
         },
         {
           "type": "item",
-          "name": "iceandfire:armor_silver_metal_boots",
+          "name": "iceandfire:armor_copper_metal_boots",
           "functions": [
             {
               "function": "set_count",
@@ -219,7 +219,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:packed_ice",
+          "name": "minecraft:obsidian",
           "functions": [
             {
               "function": "set_count",

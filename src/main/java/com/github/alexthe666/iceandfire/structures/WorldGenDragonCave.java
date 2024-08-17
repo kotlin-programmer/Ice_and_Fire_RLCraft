@@ -30,7 +30,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
 
         if (chance < 60) {
             boolean generateGold = IceAndFireConfig.WORLDGEN.dragonDenGoldAmount <= 1 || rand.nextInt(IceAndFireConfig.WORLDGEN.dragonDenGoldAmount) == 0;
-            world.setBlockState(pos, generateGold ? getPile(rand).withProperty(BlockCoinPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
+            world.setBlockState(pos, generateGold ? getPile().withProperty(BlockCoinPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
         } else if (chance == 60) {
             world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 3);
             if (world.getBlockState(pos).getBlock() instanceof BlockChest) {
@@ -150,7 +150,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
 
     protected abstract IBlockState getStone();
     protected abstract IBlockState getCobblestone();
-    protected abstract IBlockState getPile(Random rand);
+    protected abstract IBlockState getPile();
     protected abstract IBlockState getGemstone();
     protected abstract ResourceLocation getLootTable();
     protected abstract EntityDragonBase createDragon(World worldIn);

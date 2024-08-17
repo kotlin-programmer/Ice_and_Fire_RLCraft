@@ -17,9 +17,10 @@ import java.util.List;
 import java.util.Random;
 
 public class WorldGenLightningDragonCave extends WorldGenDragonCave {
-	public static final ResourceLocation LIGHTNINGDRAGON_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave"));
-	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave"));
-
+	public static final ResourceLocation LIGHTNINGDRAGON_CHEST_1 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave_1"));
+	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST_1 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave_1"));
+	public static final ResourceLocation LIGHTNINGDRAGON_CHEST_2 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave_2"));
+	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST_2 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave_2"));
 	protected IBlockState getStone() {
 		return ModBlocks.crackledStone.getDefaultState();
 	}
@@ -28,20 +29,11 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 		return ModBlocks.crackledCobblestone.getDefaultState();
 	}
 
-	protected IBlockState getPile(Random rand) {
-		List<IBlockState> piles = new LinkedList<>();
-		if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
-			piles.add(ModBlocks.copperPile.getDefaultState());
-		}
-		if (IceAndFireConfig.WORLDGEN.generateSilverOre) {
-			piles.add(ModBlocks.silverPile.getDefaultState());
-		}
+	protected IBlockState getPile() {
 		if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
-			piles.add(ModBlocks.diamondPile.getDefaultState());
+			return ModBlocks.diamondPile.getDefaultState();
 		}
-		piles.add(ModBlocks.goldPile.getDefaultState());
-		int index = rand.nextInt(piles.size());
-		return piles.get(index);
+		return ModBlocks.copperPile.getDefaultState();
 	}
 
 	protected IBlockState getGemstone() {
@@ -49,10 +41,14 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 	}
 
 	protected ResourceLocation getLootTable() {
-		if (isMale) {
-			return LIGHTNINGDRAGON_MALE_CHEST;
+		if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
+			if (isMale) {
+				return LIGHTNINGDRAGON_MALE_CHEST_1;
+			} else return LIGHTNINGDRAGON_CHEST_1;
 		}
-		else return LIGHTNINGDRAGON_CHEST;
+		if (isMale) {
+			return LIGHTNINGDRAGON_MALE_CHEST_2;
+		} else return LIGHTNINGDRAGON_CHEST_2;
 	}
 
 	protected EntityDragonBase createDragon(World worldIn) {
