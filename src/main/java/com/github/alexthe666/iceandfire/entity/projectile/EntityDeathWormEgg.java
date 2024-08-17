@@ -35,14 +35,9 @@ public class EntityDeathWormEgg extends EntityThrowable {
         this.giant = giant;
     }
 
-    public static void registerFixesEgg(DataFixer fixer) {
-        EntityThrowable.registerFixesThrowable(fixer, "ThrownEgg");
-    }
-
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 3) {
-            double d0 = 0.08D;
             for (int i = 0; i < 8; ++i) {
                 ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, this.posX, this.posY, this.posZ, ((double) this.rand.nextFloat() - 0.5D) * 0.08D, ((double) this.rand.nextFloat() - 0.5D) * 0.08D, ((double) this.rand.nextFloat() - 0.5D) * 0.08D, Item.getIdFromItem(ModItems.deathworm_egg), 0);
             }
