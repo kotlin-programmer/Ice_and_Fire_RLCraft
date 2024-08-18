@@ -859,6 +859,10 @@ public class IceAndFireConfig {
 		@Config.Comment("Render stoned entities using layered rendering")
 		@Config.Name("Layered Stoned Entity Texture")
 		public boolean customStoneTexture = false;
+
+		@Config.Comment("Enables armor rendering fixes - to resolve overlapping armor model issues")
+		@Config.Name("Enable Armor Rendering Fixes")
+		public boolean fixArmorRenderingBugs = true;
 	}
 
 	@Mod.EventBusSubscriber(modid = IceAndFire.MODID)

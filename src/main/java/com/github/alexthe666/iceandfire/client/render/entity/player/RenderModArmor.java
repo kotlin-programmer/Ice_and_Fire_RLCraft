@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.client.render.entity.player;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.item.ItemCopperArmor;
 import com.github.alexthe666.iceandfire.item.ItemDeathwormArmor;
 import com.github.alexthe666.iceandfire.item.ItemScaleArmor;
@@ -27,6 +28,9 @@ public class RenderModArmor {
 
 	@SubscribeEvent
 	public void playerRender(RenderPlayerEvent.Pre event) {
+		if (!IceAndFireConfig.CLIENT_SETTINGS.fixArmorRenderingBugs) {
+			return;
+		}
 		if (event.getEntityPlayer() instanceof AbstractClientPlayer) {
 			boolean hasModHelmet = false;
 			boolean hasModChestplate = false;
