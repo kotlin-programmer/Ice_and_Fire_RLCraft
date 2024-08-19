@@ -919,8 +919,8 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     }
 
     @Override
-    public boolean canPhaseThroughBlock(World world, BlockPos pos) {
-        return world.getBlockState(pos).getBlock().isLeaves(world.getBlockState(pos), world, pos);
+    public boolean canPhaseThroughBlock(IBlockState state, World world, BlockPos pos) {
+        return state.getMaterial() == Material.LEAVES;
     }
 
     @Override

@@ -63,3 +63,10 @@ processResources {
                 'mod_author': mod_author, 'mod_credits': mod_credits
     }
 }
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'com.github.alexthe666.iceandfire.asm.IceAndFirePlugin'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}

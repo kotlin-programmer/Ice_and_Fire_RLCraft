@@ -66,12 +66,10 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.GetCollisionBoxesEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -107,20 +105,6 @@ public class EventLiving {
 				((EntityHydra) parent).triggerHeadFlags(extraData);
 			}
 			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessagePlayerHitMultipart(parent.getEntityId(), extraData));
-		}
-	}
-
-	@SubscribeEvent
-	public void onGatherCollisionBoxes(GetCollisionBoxesEvent event) {
-		if (event.getEntity() != null && event.getEntity() instanceof IPhasesThroughBlock) {
-			Iterator<AxisAlignedBB> itr = event.getCollisionBoxesList().iterator();
-			while (itr.hasNext()) {
-				AxisAlignedBB aabb = itr.next();
-				BlockPos pos = new BlockPos(aabb.minX, aabb.minY, aabb.minZ);
-				if (((IPhasesThroughBlock) event.getEntity()).canPhaseThroughBlock(event.getWorld(), pos)) {
-					itr.remove();
-				}
-			}
 		}
 	}
 
