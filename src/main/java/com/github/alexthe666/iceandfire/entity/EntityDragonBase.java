@@ -1641,7 +1641,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 if (passenger instanceof EntityPlayer) {
                     this.renderYawOffset = this.rotationYaw;
                     this.rotationYaw = passenger.rotationYaw;
-                    this.stepHeight = this.getDragonStage() > 1 ? 1.5F : 1F;
                 }
                 float hoverAddition = hoverProgress * -0.001F;
                 float flyAddition = flyProgress * -0.0001F;
@@ -2379,10 +2378,11 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
     public void playSound(SoundEvent soundIn, float volume, float pitch) {
         if (soundIn == SoundEvents.ENTITY_GENERIC_EAT || soundIn == this.getAmbientSound() || soundIn == this.getHurtSound(null) || soundIn == this.getDeathSound() || soundIn == this.getRoarSound()) {
-            if (!this.isSilent() && this.headPart != null) {
-                this.world.playSound(null, this.headPart.posX, this.headPart.posY, this.headPart.posZ, soundIn, this.getSoundCategory(), volume, pitch);
+            if (!this.isSilent()) {
+                Vec3d headPos = getHeadPosition();
+                this.world.playSound(null, headPos.x, headPos.y, headPos.z, soundIn, this.getSoundCategory(), volume, pitch);
             }
-        }else{
+        } else {
             super.playSound(soundIn, volume, pitch);
         }
     }

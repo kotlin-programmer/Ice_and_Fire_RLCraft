@@ -7,7 +7,6 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
 import net.ilexiconn.llibrary.LLibrary;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -38,7 +37,7 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
     @Override
     public void setRotationAngles(IceAndFireTabulaModel model, EntityLightningDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
         model.resetToDefaultPose();
-        animate(model, entity, limbSwing, limbSwingAmount, ageInTicks, rotationYaw, rotationPitch, scale);
+        animate(model, entity);
         boolean walking = !entity.isHovering() && !entity.isFlying() && entity.hoverProgress < 20 && entity.flyProgress < 20;
         int currentIndex = walking ? (entity.walkCycle / 10) : (entity.flightCycle / 10);
         int prevIndex = currentIndex - 1;
@@ -53,8 +52,8 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         for (AdvancedModelRenderer cube : model.getCubes().values()) {
             this.genderMob(entity, cube);
             if (walking && entity.flyProgress <= 0.0F && entity.hoverProgress <= 0.0F && entity.modelDeadProgress <= 0.0F) {
-                AdvancedModelRenderer walkPart = EnumDragonAnimations.GROUND_POSE.lightningdragon_model.getCube(cube.boxName);
                 if (prevPosition.getCube(cube.boxName) != null) {
+                    AdvancedModelRenderer walkPart = EnumDragonAnimations.GROUND_POSE.lightningdragon_model.getCube(cube.boxName);
                     float prevX = prevPosition.getCube(cube.boxName).rotateAngleX;
                     float prevY = prevPosition.getCube(cube.boxName).rotateAngleY;
                     float prevZ = prevPosition.getCube(cube.boxName).rotateAngleZ;
@@ -133,12 +132,14 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
             }
         }
         float speed_walk = 0.2F;
-        float speed_idle = 0.05F;
+        float speed_idle = entity.isSleeping() ? 0.025F : 0.05F;
         float speed_fly = 0.2F;
         float degree_walk = 0.5F;
-        float degree_idle = 0.5F;
+        float degree_idle = entity.isSleeping() ? 0.25F : 0.5F;
         float degree_fly = 0.5F;
         if (!entity.isAIDisabled()) {
+            model.faceTarget(rotationYaw, rotationPitch, 2, neckParts);
+
             if (!walking) {
                 model.bob(model.getCube("BodyUpper"), -speed_fly, degree_fly * 5, false, ageInTicks, 1);
                 model.walk(model.getCube("BodyUpper"), -speed_fly, degree_fly * 0.1F, false, 0, 0, ageInTicks, 1);
@@ -166,13 +167,14 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
             model.bob(model.getCube("ThighL"), speed_idle, -degree_idle * 1.3F, false, ageInTicks, 1);
             model.bob(model.getCube("armR1"), speed_idle, -degree_idle * 1.3F, false, ageInTicks, 1);
             model.bob(model.getCube("armL1"), speed_idle, -degree_idle * 1.3F, false, ageInTicks, 1);
-            if (entity.getAnimation() != EntityDragonBase.ANIMATION_SHAKEPREY && entity.getAnimation() != EntityDragonBase.ANIMATION_ROAR) {
-                model.faceTarget(rotationYaw, rotationPitch, 4, neckParts);
-            }
         }
         if (!entity.isModelDead()) {
-            entity.turn_buffer.applyChainSwingBuffer(neckParts);
-            entity.tail_buffer.applyChainSwingBuffer(tailPartsWBody);
+            if (entity.turn_buffer != null && !entity.isBeingRidden() && !entity.isRiding() && entity.isBreathingFire()) {
+                entity.turn_buffer.applyChainSwingBuffer(neckParts);
+            }
+            if (entity.tail_buffer != null && !entity.isRiding()) {
+                entity.tail_buffer.applyChainSwingBuffer(tailPartsWBody);
+            }
         }
     }
 
@@ -207,7 +209,7 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         return modelRenderer.boxName.contains("Horn");
     }
 
-    public void animate(IceAndFireTabulaModel model, EntityLightningDragon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float rotationYaw, float rotationPitch, float scale) {
+    public void animate(IceAndFireTabulaModel model, EntityLightningDragon entity) {
         model.llibAnimator.update(entity);
         model.llibAnimator.setAnimation(EntityLightningDragon.ANIMATION_SPEAK);
         model.llibAnimator.startKeyframe(5);
@@ -296,19 +298,11 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
         model.llibAnimator.move(model.getCube("BodyUpper"), 0, -4F, 0);
         model.llibAnimator.endKeyframe();
         model.llibAnimator.resetKeyframe(10);
-
         model.llibAnimator.setAnimation(EntityLightningDragon.ANIMATION_FIRECHARGE);
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.BLAST_CHARGE1.lightningdragon_model);
+        model.llibAnimator.startKeyframe(15);
+        moveToPose(model, EnumDragonAnimations.STREAM_CHARGE.lightningdragon_model);
         model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(10);
-        moveToPose(model, EnumDragonAnimations.BLAST_CHARGE2.lightningdragon_model);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.startKeyframe(5);
-        moveToPose(model, EnumDragonAnimations.BLAST_CHARGE3.lightningdragon_model);
-        model.llibAnimator.endKeyframe();
-        model.llibAnimator.resetKeyframe(5);
-
+        model.llibAnimator.resetKeyframe(10);
         model.llibAnimator.setAnimation(EntityLightningDragon.ANIMATION_ROAR);
         model.llibAnimator.startKeyframe(10);
         moveToPose(model, EnumDragonAnimations.ROAR1.lightningdragon_model);

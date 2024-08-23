@@ -59,7 +59,7 @@ public class EntityIceDragon extends EntityDragonBase {
 		ANIMATION_BITE = Animation.create(35);
 		ANIMATION_SHAKEPREY = Animation.create(65);
 		ANIMATION_TAILWHACK = Animation.create(40);
-		ANIMATION_FIRECHARGE = Animation.create(30);
+		ANIMATION_FIRECHARGE = Animation.create(25);
 		ANIMATION_WINGBLAST = Animation.create(50);
 		ANIMATION_ROAR = Animation.create(40);
 		this.growth_stages = new float[][]{growth_stage_1, growth_stage_2, growth_stage_3, growth_stage_4, growth_stage_5};
@@ -317,7 +317,7 @@ public class EntityIceDragon extends EntityDragonBase {
 		if (this.getRNG().nextInt(5) == 0 && !this.isChild()) {
 			if (this.getAnimation() != ANIMATION_FIRECHARGE) {
 				this.setAnimation(ANIMATION_FIRECHARGE);
-			} else if (this.getAnimationTick() == 20) {
+			} else if (this.getAnimationTick() == 15) {
 				rotationYaw = renderYawOffset;
 				Vec3d headPos = getHeadPosition();
 				this.playSound(ModSounds.ICEDRAGON_BREATH, 4, 1);
@@ -407,7 +407,7 @@ public class EntityIceDragon extends EntityDragonBase {
 			if (this.getRNG().nextInt(5) == 0) {
 				if (this.getAnimation() != ANIMATION_FIRECHARGE) {
 					this.setAnimation(ANIMATION_FIRECHARGE);
-				} else if (this.getAnimationTick() == 20) {
+				} else if (this.getAnimationTick() == 15) {
 					rotationYaw = renderYawOffset;
 					Vec3d headPos = getHeadPosition();
 					double d2 = entity.posX - headPos.x;
