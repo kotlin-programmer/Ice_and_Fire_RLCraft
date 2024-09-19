@@ -273,6 +273,15 @@ item.iceandfire.tide_trident.desc_0=Causa mais dano quando jogado debaixo d’á
 item.iceandfire.tide_trident.desc_1=Atravessa vários inimigos
 item.iceandfire.tide_trident.not_original=Não pode ser reparado ou encantado
 
+item.iceandfire.hippogryph_skull.name=Crânio de Hipogrifo
+item.iceandfire.cyclops_skull.name=Crânio de Ciclope
+item.iceandfire.cockatrice_skull.name=Crânio de Cocatriz
+item.iceandfire.stymphalian_skull.name=Crânio de Pássaro Stymphaliano
+item.iceandfire.troll_skull.name=Crânio de Trol
+item.iceandfire.amphithere_skull.name=Crânio de Amphithere
+item.iceandfire.seaserpent_skull.name=Crânio de Serpente Marinha
+item.iceandfire.hydra_skull.name=Crânio de Hidra
+
 item.banner.firedragon.white=Figura de Dragão de Fogo Branco
 item.banner.firedragon.orange=Figura de Dragão de Fogo Laranja
 item.banner.firedragon.magenta=Figura de Dragão de Fogo Magenta
@@ -380,6 +389,8 @@ entity.amphithere.name=Amphithere
 entity.seaserpent.name=Serpente Marinha
 
 entity.tide_trident.name=Tridente do Protetor da Maré
+
+entity.if_mob_skull.name=Crânio de Dragão
 
 iceandfire.effect.acid=Ácido
 

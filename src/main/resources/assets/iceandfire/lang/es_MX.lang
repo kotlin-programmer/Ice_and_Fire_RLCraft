@@ -298,6 +298,15 @@ item.iceandfire.tide_trident.desc_0=§aInflige mas daño cuando se arroja bajo e
 item.iceandfire.tide_trident.desc_1=§3Atraviesa multiples enemigos
 item.iceandfire.tide_trident.not_original=No puede ser reparado o encantado
 
+item.iceandfire.hippogryph_skull.name=Cráneo de Hipogrifo
+item.iceandfire.cyclops_skull.name=Cráneo de Cíclope
+item.iceandfire.cockatrice_skull.name=Cráneo de Cocatriz
+item.iceandfire.stymphalian_skull.name=Cráneo de Pájaro Estimfalian
+item.iceandfire.troll_skull.name=Cráneo de Trol
+item.iceandfire.amphithere_skull.name=Cráneo de Amfitere
+item.iceandfire.seaserpent_skull.name=Cráneo de Serpiente Marina
+item.iceandfire.hydra_skull.name=Cráneo de Hidra
+
 item.iceandfire.lich_staff.name=Baston de Liche del horror
 item.iceandfire.dread_shard.name=Fragmento del horror
 item.iceandfire.dread_sword.name=Espada de Thrall del horror
@@ -382,6 +391,14 @@ item.iceandfire.ice_dragon_blood.jei_desc=Obtenido al interactuar con un cadáve
 item.iceandfire.lightning_dragon_blood.jei_desc=Obtenido al interactuar con un cadáver de §5Dragón de rayo§r, sosteniendo un frasco vacío.
 item.iceandfire.dragonegg.jei_desc=Colócalo en el fuego si es de un §4Dragón de fuego§r, bajo el agua si es de un §bDragón de hielo§r o bajo la lluvia si es de un §5Dragón de rayo§r y espera un tiempo.\nAl nacer, el dragón se ligará al jugador más cercano.
 item.iceandfire.dragon_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.hippogryph_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.cyclops_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.cockatrice_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.stymphalian_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.troll_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.amphithere_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.seaserpent_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
+item.iceandfire.hydra_skull.jei_desc=Puede colocarse en el suelo o en paredes como trofeo.
 item.iceandfire.fire_stew.jei_desc=Se utiliza para reproducir dos §4Dragones de fuego§r, macho y hembra.\n\nDespués, la hembra creará un nido con un huevo.
 item.iceandfire.frost_stew.jei_desc=Se utiliza para reproducir dos §bDragones de hielo§r, macho y hembra.\n\nDespués, la hembra creará un nido con un huevo.
 item.iceandfire.lightning_stew.jei_desc=Se utiliza para reproducir dos §5Dragones de rayo§r, macho y hembra.\n\nDespués, la hembra creará un nido con un huevo.
@@ -458,6 +475,8 @@ entity.hydra_breath.name=Aliento de Hidra
 entity.hydra_arrow.name=Flecha de Hidra
 
 entity.tide_trident.name=Tridente de la Marea
+
+entity.if_mob_skull.name=Cráneo
 
 iceandfire.effect.acid=Acido
 

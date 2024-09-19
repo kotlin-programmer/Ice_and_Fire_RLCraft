@@ -283,6 +283,15 @@ item.iceandfire.tide_trident.desc_0=水中に投げられるとより多くの�
 item.iceandfire.tide_trident.desc_1=複数の敵を貫通する
 item.iceandfire.tide_trident.not_original=修理もエンチャントもできない
 
+item.iceandfire.hippogryph_skull.name=ヒッポグリフの頭蓋骨
+item.iceandfire.cyclops_skull.name=サイクロプスの頭蓋骨
+item.iceandfire.cockatrice_skull.name=コカトリスの頭蓋骨
+item.iceandfire.stymphalian_skull.name=ステュムパリデスの鳥の頭蓋骨
+item.iceandfire.troll_skull.name=トロールの頭蓋骨
+item.iceandfire.amphithere_skull.name=アンピプテラの頭蓋骨
+item.iceandfire.seaserpent_skull.name=シーサーペントの頭蓋骨
+item.iceandfire.hydra_skull.name=ヒドラの頭蓋骨
+
 item.banner.firedragon.white=白のファイアドラゴン柄
 item.banner.firedragon.orange=橙のファイアドラゴン柄
 item.banner.firedragon.magenta=赤紫のファイアドラゴン柄
@@ -339,6 +348,14 @@ item.iceandfire.ice_dragon_blood.jei_desc=ドラゴンの死体から空のガ�
 item.iceandfire.lightning_dragon_blood.jei_desc=ドラゴンの死体から空のガラス瓶で汲むことで手に入れることができます。
 item.iceandfire.dragonegg.jei_desc=設置した後、火竜なら火を点け、氷竜なら水に入れ、雷竜なら降雨まで待って下さい。孵化したドラゴンは最も近いプレイヤーに懐きます。
 item.iceandfire.dragon_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.hippogryph_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.cyclops_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.cockatrice_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.stymphalian_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.troll_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.amphithere_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.seaserpent_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
+item.iceandfire.hydra_skull.jei_desc=地面か壁にトロフィーとして飾る事ができます。
 item.iceandfire.fire_stew.jei_desc=雌雄のドラゴンを繁殖させるために使います。雌のドラゴンは巣を作り卵を産みます。
 item.iceandfire.frost_stew.jei_desc=雌雄のドラゴンを繁殖させるために使います。雌のドラゴンは巣を作り卵を産みます。
 item.iceandfire.lightning_stew.jei_desc=雌雄のドラゴンを繁殖させるために使います。雌のドラゴンは巣を作り卵を産みます。
@@ -404,6 +421,8 @@ entity.hydra_breath.name=ヒドラのブレス
 entity.hydra_arrow.name=ヒドラの矢
 
 entity.tide_trident.name=タイドトライデント
+
+entity.if_mob_skull.name=頭蓋骨
 
 iceandfire.effect.acid=酸
 

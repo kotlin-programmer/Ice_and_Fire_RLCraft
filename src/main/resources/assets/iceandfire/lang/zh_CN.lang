@@ -273,6 +273,15 @@ item.iceandfire.tide_trident.desc_0=在水下造成更多伤害
 item.iceandfire.tide_trident.desc_1=扔到水下时会造成更多伤害
 item.iceandfire.tide_trident.not_original=无法修复或附魔
 
+item.iceandfire.hippogryph_skull.name=骏鹰颅骨
+item.iceandfire.cyclops_skull.name=独眼巨人颅骨
+item.iceandfire.cockatrice_skull.name=鸡蛇颅骨
+item.iceandfire.stymphalian_skull.name=铜羽泽鹗颅骨
+item.iceandfire.troll_skull.name=食人妖颅骨
+item.iceandfire.amphithere_skull.name=翼蚺颅骨
+item.iceandfire.seaserpent_skull.name=海蟒颅骨
+item.iceandfire.hydra_skull.name=九头蛇颅骨
+
 item.banner.firedragon.white=白色龙炎弹
 item.banner.firedragon.orange=橙色龙炎弹
 item.banner.firedragon.magenta=品红龙炎弹
@@ -346,6 +355,14 @@ item.iceandfire.ice_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可�
 item.iceandfire.lightning_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
 item.iceandfire.dragonegg.jei_desc=若为火龙蛋，把它放在火里；若为冰龙蛋，把它放在水下;若为电龙蛋，把它放在雨中。龙蛋孵化需要很长的时间，新生的龙仔会认最近的玩家为主人。
 item.iceandfire.dragon_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.hippogryph_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.cyclops_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.cockatrice_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.stymphalian_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.troll_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.amphithere_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.seaserpent_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
+item.iceandfire.hydra_skull.jei_desc=可以当成奖杯挂在墙上或者摆在地上。
 item.iceandfire.fire_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
 item.iceandfire.frost_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
 item.iceandfire.lightning_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
@@ -414,6 +431,8 @@ entity.hydra_breath.name=九头蛇吐息
 entity.hydra_arrow.name=九头蛇毒箭
 
 entity.tide_trident.name=海潮三叉戟
+
+entity.if_mob_skull.name=颅骨
 
 entity.dread_thrall.name=悚怖尸奴
 entity.dread_ghoul.name=悚怖食尸鬼

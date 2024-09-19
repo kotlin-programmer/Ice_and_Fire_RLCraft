@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.entity.projectile.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockMyrmexResin;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockPodium;
@@ -135,6 +136,7 @@ public class CommonProxy {
         registerSpawnable(EntityEntryBuilder.<EntityDreadHorse>create(), event, EntityDreadHorse.class, "dread_horse", 52, 0XE0E6E6, 0XACACAC, 64);
         registerSpawnable(EntityEntryBuilder.create(), event, EntityGhost.class, "ghost", 53, 0XB9EDB8, 0X73B276, 64);
         registerUnspawnable(EntityEntryBuilder.create(), event, EntityGhostSword.class, "ghost_sword", 54,  64);
+        registerUnspawnable(EntityEntryBuilder.<EntityMobSkull>create(), event, EntityMobSkull.class, "if_mob_skull", 55, 64);
     }
 
     public static void registerSpawnable(EntityEntryBuilder builder, RegistryEvent.Register<EntityEntry> event, Class<? extends Entity> entityClass, String name, int id, int mainColor, int subColor, int range) {
@@ -228,7 +230,9 @@ public class CommonProxy {
             event.getRegistry().register(troll.leggings);
             event.getRegistry().register(troll.boots);
         }
-
+        for (EnumSkullType skull : EnumSkullType.values()) {
+            event.getRegistry().register(skull.skull_item);
+        }
         ModRecipes.preInit();
     }
 

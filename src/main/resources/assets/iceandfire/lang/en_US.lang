@@ -297,6 +297,15 @@ item.iceandfire.tide_trident.desc_0=Deals more damage when thrown underwater
 item.iceandfire.tide_trident.desc_1=Pierces through multiple enemies
 item.iceandfire.tide_trident.not_original=Cannot be repaired or enchanted
 
+item.iceandfire.hippogryph_skull.name=Hippogryph Skull
+item.iceandfire.cyclops_skull.name=Cyclops Skull
+item.iceandfire.cockatrice_skull.name=Cockatrice Skull
+item.iceandfire.stymphalian_skull.name=Stymphalian Bird Skull
+item.iceandfire.troll_skull.name=Troll Skull
+item.iceandfire.amphithere_skull.name=Amphithere Skull
+item.iceandfire.seaserpent_skull.name=Sea Serpent Skull
+item.iceandfire.hydra_skull.name=Hydra Skull
+
 item.iceandfire.lich_staff.name=Dread Lich Staff
 item.iceandfire.dread_shard.name=Dread Shard
 item.iceandfire.dread_sword.name=Dread Thrall's Sword
@@ -383,6 +392,14 @@ item.iceandfire.ice_dragon_blood.jei_desc=Obtained by interacting with a dragon 
 item.iceandfire.lightning_dragon_blood.jei_desc=Obtained by interacting with a dragon corpse while holding an empty bottle.
 item.iceandfire.dragonegg.jei_desc=Place in an open flame if a fire dragon, underwater if ice dragon, or in rain if lightning dragon and wait a long time. The dragon will bond with the closest player.
 item.iceandfire.dragon_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.hippogryph_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.cyclops_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.cockatrice_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.stymphalian_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.troll_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.amphithere_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.seaserpent_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
+item.iceandfire.hydra_skull.jei_desc=Can be placed on the ground or on walls as a trophy.
 item.iceandfire.fire_stew.jei_desc=Used to breed two male and female dragons. The female will create a nest with an egg afterwards.
 item.iceandfire.frost_stew.jei_desc=Used to breed two male and female dragons. The female will create a nest with an egg afterwards.
 item.iceandfire.lightning_stew.jei_desc=Used to breed two male and female dragons. The female will create a nest with an egg afterwards.
@@ -459,6 +476,8 @@ entity.hydra_breath.name=Hydra Breath
 entity.hydra_arrow.name=Hydra Arrow
 
 entity.tide_trident.name=Tide Trident
+
+entity.if_mob_skull.name=Skull
 
 iceandfire.effect.acid=Acid
 

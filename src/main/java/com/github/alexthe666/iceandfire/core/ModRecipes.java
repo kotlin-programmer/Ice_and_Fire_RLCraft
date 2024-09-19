@@ -1,9 +1,11 @@
 package com.github.alexthe666.iceandfire.core;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityAmphithereArrow;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IPosition;
@@ -142,6 +144,12 @@ public class ModRecipes {
         OreDictionary.registerOre("ingredientEgg", new ItemStack(ModItems.myrmex_desert_egg, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("foodSimpleEgg", new ItemStack(ModItems.myrmex_desert_egg, 1, OreDictionary.WILDCARD_VALUE));
 
+        OreDictionary.registerOre("dragonSkull",  new ItemStack(ModItems.dragon_skull, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("mythicalSkull",  new ItemStack(ModItems.dragon_skull, 1, OreDictionary.WILDCARD_VALUE));
+        for (EnumSkullType skullType : EnumSkullType.values()) {
+            OreDictionary.registerOre("mythicalSkull", skullType.skull_item);
+        }
+
         addBanner("firedragon", new ItemStack(ModItems.dragon_skull, 1, 0));
         addBanner("icedragon", new ItemStack(ModItems.dragon_skull, 1, 1));
         addBanner("lightningdragon", new ItemStack(ModItems.dragon_skull, 1, 2));
@@ -152,7 +160,10 @@ public class ModRecipes {
         GameRegistry.addSmelting(ModBlocks.sapphireOre, new ItemStack(ModItems.sapphireGem), 1);
         GameRegistry.addSmelting(ModBlocks.myrmex_desert_resin_block, new ItemStack(ModBlocks.myrmex_desert_resin_glass), 1);
         GameRegistry.addSmelting(ModBlocks.myrmex_jungle_resin_block, new ItemStack(ModBlocks.myrmex_jungle_resin_glass), 1);
-        GameRegistry.addSmelting(ModItems.stymphalian_bird_feather, new ItemStack(ModItems.copperNugget), 1);
+
+        if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
+            GameRegistry.addSmelting(ModItems.stymphalian_bird_feather, new ItemStack(ModItems.copperNugget), 1);
+        }
 
         GameRegistry.addSmelting(ModItems.silver_helmet, new ItemStack(ModItems.silverIngot, 2), 1);
         GameRegistry.addSmelting(ModItems.silver_chestplate, new ItemStack(ModItems.silverIngot, 3), 1);
