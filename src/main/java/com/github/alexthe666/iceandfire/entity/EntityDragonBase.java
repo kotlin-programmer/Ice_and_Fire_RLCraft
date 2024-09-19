@@ -1329,9 +1329,8 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             if (flightCycle == 2) {
                 this.playSound(ModSounds.DRAGON_FLIGHT, this.getSoundVolume() * IceAndFireConfig.DRAGON_SETTINGS.dragonFlapNoiseDistance, getSoundPitch());
             }
-            if (this.isModelDead() && flightCycle != 0) {
-                flightCycle = 0;
-            }
+        } else if (this.isModelDead()) {
+            flightCycle = 0;
         }
 
         boolean sitting = isSitting() && !isModelDead() && !isSleeping() && !isHovering() && !isFlying();

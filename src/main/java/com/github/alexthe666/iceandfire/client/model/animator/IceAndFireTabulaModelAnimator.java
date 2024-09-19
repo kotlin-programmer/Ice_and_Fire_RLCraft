@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.client.model.util.IceAndFireTabulaModel;
 import com.github.alexthe666.iceandfire.util.IafMathHelper;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class IceAndFireTabulaModelAnimator {
@@ -78,5 +79,24 @@ public class IceAndFireTabulaModelAnimator {
                 model.llibAnimator.move(cube, distance(cube.rotationPointX, toX), distance(cube.rotationPointY, toY), distance(cube.rotationPointZ, toZ));
             }
         }
+    }
+
+    protected boolean isComponentOf(IceAndFireTabulaModel model, String name, AdvancedModelRenderer modelRenderer) {
+        AdvancedModelRenderer cube = model.getCube(name);
+        return isComponentOf(cube, modelRenderer);
+    }
+
+    protected boolean isComponentOf(ModelRenderer cube, AdvancedModelRenderer modelRenderer) {
+        if (cube == modelRenderer) {
+            return true;
+        }
+        if (cube.childModels != null) {
+            for (ModelRenderer childModel : cube.childModels) {
+                if (isComponentOf(childModel, modelRenderer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
