@@ -268,6 +268,20 @@ item.iceandfire.lightning_dragon_heart.name=Coração de Dragão Elétrico
 item.iceandfire.lightning_dragon_blood.name=Sangue de Dragão Elétrico
 item.iceandfire.dragon_horn_lightning.name=Chifre de Dragão
 
+item.iceandfire.hydra_fang.name=Presa da Hidra
+item.iceandfire.hydra_heart.name=Coração da Hidra
+item.iceandfire.hydra_heart.desc_0=Na barra de itens, fornece regeneração crescente
+item.iceandfire.hydra_heart.desc_1=baseada no quão ferido o usuário está
+item.iceandfire.hydra_arrow.name=Flecha da Hidra
+item.iceandfire.hydra_arrow.desc=Envenena e drena à vida do alvo
+
+item.iceandfire.summoning_crystal_ice.name=Cristal para Invocar Dragão de Gelo
+item.iceandfire.summoning_crystal_fire.name=Cristal para Invocar Dragão de Fogo
+item.iceandfire.summoning_crystal_lightning.name=Cristal para Invocar Dragão Elétrico
+item.iceandfire.summoning_crystal.desc_0=Clique com o botão direito para vincular o dragão
+item.iceandfire.summoning_crystal.desc_1=Use quando precisar teletransportar o dragão
+item.iceandfire.summoning_crystal.bound=Teleportado para %s
+
 item.iceandfire.tide_trident.name=Tridente do Guardião da Maré
 item.iceandfire.tide_trident.desc_0=Causa mais dano quando jogado debaixo d’água
 item.iceandfire.tide_trident.desc_1=Atravessa vários inimigos
@@ -531,6 +545,10 @@ dragon_sword_ice.hurt2=Atrasa e empurra os alvos para trás
 dragon_sword_lightning.hurt1=+4 de dano contra Dragões de Fogo e de Gelo
 dragon_sword_lightning.hurt2=Dispara raios nos inimigos
 
+message.iceandfire.tryAgain=Por favor, tente novamente.
+
+message.iceandfire.dragonTeleport=Esse dragão foi teletransportado.
+message.iceandfire.noDragonTeleport=§cNão foi possível encontrar o dragão ligado a esse cristal.
 message.iceandfire.dragonWander=O dragão vai ficar perambulando agora.
 message.iceandfire.dragonFollow=O dragão irá te seguir agora.
 message.iceandfire.dragonSit=O dragão está sentado.

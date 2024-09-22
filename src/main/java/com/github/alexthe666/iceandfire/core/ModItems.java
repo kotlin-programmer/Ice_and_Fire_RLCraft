@@ -382,6 +382,12 @@ public class ModItems {
 	public static Item ghost_ingot = new ItemGeneric("ghost_ingot", "iceandfire.ghost_ingot");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_sword")
 	public static Item ghost_sword = new ItemGhostSword();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_fire")
+	public static ItemSummoningCrystal summoning_crystal_fire = new ItemSummoningCrystal("fire");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_ice")
+	public static ItemSummoningCrystal summoning_crystal_ice = new ItemSummoningCrystal("ice");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_lightning")
+	public static ItemSummoningCrystal summoning_crystal_lightning = new ItemSummoningCrystal("lightning");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_collar")
 	public static Item dragon_collar = new ItemGeneric("dragon_collar", "iceandfire.dragon_collar");
 

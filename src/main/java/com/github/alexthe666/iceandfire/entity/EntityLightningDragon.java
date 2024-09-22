@@ -122,6 +122,11 @@ public class EntityLightningDragon extends EntityDragonBase {
 	}
 
 	@Override
+	public Item getSummoningCrystal() {
+		return ModItems.summoning_crystal_lightning;
+	}
+
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (this.getAnimation() == ANIMATION_WINGBLAST) {
 			return false;

@@ -17,11 +17,13 @@ import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
+import com.github.alexthe666.iceandfire.item.ItemSummoningCrystal;
 import com.github.alexthe666.iceandfire.message.MessageDragonArmor;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.github.alexthe666.iceandfire.message.MessageUpdateRidingState;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
+import com.github.alexthe666.iceandfire.world.DragonPosWorldData;
 import net.ilexiconn.llibrary.client.model.tools.ChainBuffer;
 import net.ilexiconn.llibrary.server.animation.Animation;
 import net.ilexiconn.llibrary.server.animation.AnimationHandler;
@@ -95,6 +97,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     private static final DataParameter<Boolean> TACKLE = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> AGINGDISABLED = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> COMMAND = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> CRYSTAL_BOUND = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
     public static Animation ANIMATION_EAT;
     public static Animation ANIMATION_SPEAK;
     public static Animation ANIMATION_BITE;
@@ -393,7 +396,11 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
     }
 
+    @Override
     public void setDead() {
+        if (!world.isRemote && this.isBoundToCrystal()) {
+            DragonPosWorldData.get(world).removeDragon(this.getUniqueID());
+        }
         removeParts();
         super.setDead();
     }
@@ -448,6 +455,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.dataManager.register(TACKLE, Boolean.FALSE);
         this.dataManager.register(AGINGDISABLED, Boolean.FALSE);
         this.dataManager.register(COMMAND, 0);
+        this.dataManager.register(CRYSTAL_BOUND, Boolean.FALSE);
     }
 
     public boolean up() {
@@ -523,6 +531,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     @Override
     public void writeEntityToNBT(NBTTagCompound compound) {
         super.writeEntityToNBT(compound);
+        if (this.isBoundToCrystal()) {
+            compound.setUniqueId("UUID", this.getUniqueID());
+        }
         compound.setInteger("Hunger", this.getHunger());
         compound.setInteger("AgeTicks", this.getAgeInTicks());
         compound.setBoolean("Gender", this.isMale());
@@ -564,11 +575,16 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
         compound.setBoolean("AgingDisabled", this.isAgingDisabled());
         compound.setInteger("Command", this.getCommand());
+        compound.setBoolean("CrystalBound", this.isBoundToCrystal());
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound compound) {
         super.readEntityFromNBT(compound);
+        if (compound.hasUniqueId("UUID")) {
+            this.entityUniqueID = compound.getUniqueId("UUID");
+            this.cachedUniqueIdString = this.entityUniqueID.toString();
+        }
         this.setHunger(compound.getInteger("Hunger"));
         this.setAgeInTicks(compound.getInteger("AgeTicks"));
         this.setGender(compound.getBoolean("Gender"));
@@ -624,6 +640,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.setTackling(compound.getBoolean("Tackle"));
         this.setAgingDisabled(compound.getBoolean("AgingDisabled"));
         this.setCommand(compound.getInteger("Command"));
+        this.setCrystalBound(compound.getBoolean("CrystalBound"));
     }
 
     @Nullable
@@ -821,6 +838,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.dataManager.set(AGINGDISABLED, isAgingDisabled);
     }
 
+    public void setCrystalBound(boolean crystalBound) {
+        this.dataManager.set(CRYSTAL_BOUND, crystalBound);
+    }
+
     @Override
     protected boolean canFitPassenger(Entity passenger) {
         return this.getPassengers().size() < 2;
@@ -977,6 +998,28 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         this.consumeItemFromStack(player, stack);
                         this.setInLove(player);
                         return true;
+                    }
+                    if (stack.getItem() == getSummoningCrystal()) {
+                        if (!ItemSummoningCrystal.hasDragon(stack)) {
+                            this.setCrystalBound(true);
+                            NBTTagCompound compound = stack.getTagCompound();
+                            if (compound == null) {
+                                compound = new NBTTagCompound();
+                                stack.setTagCompound(compound);
+                            }
+                            NBTTagCompound dragonTag = new NBTTagCompound();
+                            dragonTag.setUniqueId("DragonUUID", this.getUniqueID());
+                            dragonTag.setString("CustomName", this.getCustomNameTag());
+                            compound.setTag("Dragon", dragonTag);
+                            this.playSound(SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, 1, 1);
+                            player.swingArm(hand);
+                            return true;
+                        } else if (ItemSummoningCrystal.isBoundTo(stack, this)) {
+                            stack.setTagCompound(new NBTTagCompound());
+                            this.playSound(SoundEvents.ITEM_BOTTLE_FILL_DRAGONBREATH, 1, 1);
+                            player.swingArm(hand);
+                            return true;
+                        }
                     }
                     int itemFoodAmount = FoodUtils.getFoodPoints(stack, true, dragonType.isPiscivore());
                     if (itemFoodAmount > 0 && (this.getHunger() < 100 || this.getHealth() < this.getMaxHealth())) {
@@ -2125,6 +2168,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return this.dataManager.get(AGINGDISABLED);
     }
 
+    public boolean isBoundToCrystal() {
+        return this.dataManager.get(CRYSTAL_BOUND).booleanValue();
+    }
+
     protected boolean isTargetInAir() {
         return this.airTarget != null && isPosInAir(this.airTarget);
     }
@@ -2174,6 +2221,8 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public abstract Item getVariantScale(int variant);
 
     public abstract Item getVariantEgg(int variant);
+
+    public abstract Item getSummoningCrystal();
 
     @SideOnly(Side.CLIENT)
     protected void updateClientControls() {
@@ -2387,6 +2436,14 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         } else {
             super.playSound(soundIn, volume, pitch);
         }
+    }
+
+    @Override
+    public void onRemovedFromWorld() {
+        if (this.isBoundToCrystal() && !this.isDead) {
+            DragonPosWorldData.get(world).addDragon(this.getUniqueID(), this.getPosition());
+        }
+        super.onRemovedFromWorld();
     }
 
     public boolean canDismount() {

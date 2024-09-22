@@ -152,8 +152,9 @@ public class EntityIceDragon extends EntityDragonBase {
 		this.ticksSwimming = compound.getInteger("SwimmingTicks");
 	}
 
-	public boolean canBeSteered() {
-		return true;
+	@Override
+	public Item getSummoningCrystal() {
+		return ModItems.summoning_crystal_ice;
 	}
 
 	@Override

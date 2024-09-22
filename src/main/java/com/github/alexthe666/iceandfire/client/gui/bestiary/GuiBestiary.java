@@ -421,16 +421,58 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 0) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.fire_dragon_blood), 10, 24, 2.5F);
-					drawItemStack(new ItemStack(ModItems.ice_dragon_blood), 26, 24, 2.5F);
+					drawItemStack(new ItemStack(ModItems.fire_dragon_blood), 10, 24, 1.65F);
+					drawItemStack(new ItemStack(ModItems.ice_dragon_blood), 18, 24, 1.65F);
+					drawItemStack(new ItemStack(ModItems.lightning_dragon_blood), 26, 24, 1.65F);
 					GL11.glPopMatrix();
-					boolean drawFire = Minecraft.getMinecraft().player.ticksExisted % 40 < 20;
+					int frame = Minecraft.getMinecraft().player.ticksExisted % 60;
+					Item blood = ModItems.fire_dragon_blood;
+					Item sword = ModItems.dragonbone_sword_fire;
+					if (frame >= 40) {
+						blood = ModItems.lightning_dragon_blood;
+						sword = ModItems.dragonbone_sword_lightning;
+					} else if (frame >= 20) {
+						blood = ModItems.ice_dragon_blood;
+						sword = ModItems.dragonbone_sword_ice;
+					}
 					drawItemStack(new ItemStack(ModItems.dragonbone_sword), 161, 17, 1.5F);
-					drawItemStack(new ItemStack(drawFire ? ModItems.fire_dragon_blood : ModItems.ice_dragon_blood), 161, 32, 1.5F);
-					drawItemStack(new ItemStack(drawFire ? ModItems.dragonbone_sword_fire : ModItems.dragonbone_sword_ice), 151, 10, 2F);
+					drawItemStack(new ItemStack(blood), 161, 32, 1.5F);
+					drawItemStack(new ItemStack(sword), 151, 10, 2F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 0, 389, 1, 50, 50);
+					GL11.glPopMatrix();
+				}
+				if (bookPages == 1) {
+					int frame = Minecraft.getMinecraft().player.ticksExisted % 60;
+					Item summoningCrystal = ModItems.summoning_crystal_fire;
+					Item gem = Items.EMERALD;
+					Item blood = ModItems.fire_dragon_blood;
+					if (frame >= 40) {
+						summoningCrystal = ModItems.summoning_crystal_lightning;
+						gem = ModItems.amethystGem;
+						blood = ModItems.lightning_dragon_blood;
+					} else if (frame >= 20) {
+						summoningCrystal = ModItems.summoning_crystal_ice;
+						gem = ModItems.sapphireGem;
+						blood = ModItems.ice_dragon_blood;
+					}
+					ItemStack[] ingredients = new ItemStack[] {
+							new ItemStack(gem),
+							new ItemStack(Items.ENDER_PEARL),
+							new ItemStack(gem),
+							new ItemStack(Items.ENDER_PEARL),
+							new ItemStack(blood),
+							new ItemStack(Items.ENDER_PEARL),
+							new ItemStack(gem),
+							new ItemStack(Items.ENDER_PEARL),
+							new ItemStack(gem),
+					};
+					RenderHelper.enableGUIStandardItemLighting();
+					GL11.glPushMatrix();
+					GL11.glTranslatef(15, 44, 0);
+					GL11.glScalef(0.75f, 0.75f, 0);
+					drawRecipe(new ItemStack(summoningCrystal), ingredients);
 					GL11.glPopMatrix();
 				}
 				break;
@@ -1076,6 +1118,27 @@ public class GuiBestiary extends GuiScreen {
 					String[] itemStack = line.split(" ");
 					itemStacks.add(itemStack);
 				}
+				if (line.contains("<recipe>")) {
+					line = line.substring(9, line.length() - 1);
+					String[] split = line.split(" ");
+					RenderHelper.enableGUIStandardItemLighting();
+					float scale = Float.parseFloat(split[split.length - 1]);
+					int x = Integer.parseInt(split[split.length - 3]);
+					int y = Integer.parseInt(split[split.length - 2]);
+					ItemStack result = new ItemStack(getItemByRegistryName(split[0]), 1, Integer.parseInt(split[1]));
+					ItemStack[] ingredients = new ItemStack[]{ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY};
+					int j = 8;
+					for (int i = split.length - 5; i >= 2; i -= 2) {
+						ingredients[j] = new ItemStack(getItemByRegistryName(split[i]), 1, Integer.parseInt(split[i + 1]));
+						j--;
+					}
+					RenderHelper.enableGUIStandardItemLighting();
+					GL11.glPushMatrix();
+					GL11.glTranslatef(x, y, 0);
+					GL11.glScalef(scale, scale, 0);
+					drawRecipe(result, ingredients);
+					GL11.glPopMatrix();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1101,6 +1164,18 @@ public class GuiBestiary extends GuiScreen {
 				drawItemStack(new ItemStack(getItemByRegistryName(itemStack[0]), 1), Integer.parseInt(itemStack[2]), Integer.parseInt(itemStack[3]), Float.parseFloat(itemStack[4]) * 2F);
 			}
 		}
+	}
+
+	private void drawRecipe(ItemStack result, ItemStack[] ingredients) {
+		drawItemStack(result, 62, 17, 2F);
+		for (int i = 0; i < 9; i++) {
+			drawItemStack(ingredients[i], ((i % 3) * 22 + 30), ((i / 3) * 22 + 10), 1.25F);
+		}
+		GL11.glPushMatrix();
+		GL11.glTranslatef(37F, 13, 1F);
+		GL11.glScalef(1.5F, 1.5F, 1F);
+		drawImage(DRAWINGS_0, 0, 0, 389, 1, 50, 50);
+		GL11.glPopMatrix();
 	}
 
 	private static Item getItemByRegistryName(String registryName) {

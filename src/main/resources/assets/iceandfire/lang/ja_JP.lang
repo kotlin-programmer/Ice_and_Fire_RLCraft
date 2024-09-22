@@ -278,6 +278,13 @@ item.iceandfire.hydra_heart.desc_1=回復量はハートが少ければ少ない
 item.iceandfire.hydra_arrow.name=ヒドラの矢
 item.iceandfire.hydra_arrow.desc=毒を与え、対象のハートを奪う
 
+item.iceandfire.summoning_crystal_ice.name=アイスドラゴン召喚クリスタル
+item.iceandfire.summoning_crystal_fire.name=ファイアドラゴン召喚クリスタル
+item.iceandfire.summoning_crystal_lightning.name=ライトニングドラゴン召喚クリスタル
+item.iceandfire.summoning_crystal.desc_0=ドラゴンに右クリックで関連付ける
+item.iceandfire.summoning_crystal.desc_1=使うとドラゴンをワープさせる
+item.iceandfire.summoning_crystal.bound=ドラゴン: %s
+
 item.iceandfire.tide_trident.name=タイドトライデント
 item.iceandfire.tide_trident.desc_0=水中に投げられるとより多くのダメージを与えます0
 item.iceandfire.tide_trident.desc_1=複数の敵を貫通する
@@ -564,6 +571,10 @@ dragon_sword_ice.hurt2=氷に閉ざし、突き飛ばす
 dragon_sword_lightning.hurt1=ファイアドラゴン、アイスドラゴンに+4ダメージ
 dragon_sword_lightning.hurt2=§5雷の力で感電させる
 
+message.iceandfire.tryAgain=もう一度試してください。
+
+message.iceandfire.dragonTeleport=このドラゴンはテレポートした
+message.iceandfire.noDragonTeleport=§cクリスタルに関連づいたドラゴンが見つかりません
 message.iceandfire.dragonWander=ドラゴンは散策中だ。
 message.iceandfire.dragonFollow=ドラゴンは追従している。
 message.iceandfire.dragonSit=ドラゴンは待機している。

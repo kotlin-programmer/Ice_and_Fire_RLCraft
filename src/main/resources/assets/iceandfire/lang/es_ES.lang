@@ -194,6 +194,13 @@ item.iceandfire.hydra_heart.desc_1=aumenta segun que tan herido estas
 item.iceandfire.hydra_arrow.name=Flecha de Hidra
 item.iceandfire.hydra_arrow.desc=Envenena y roba la vida del objetivo
 
+item.iceandfire.summoning_crystal_ice.name=Cristal de invocación de dragón de hielo
+item.iceandfire.summoning_crystal_fire.name=Cristal de invocación de dragón de fuego
+item.iceandfire.summoning_crystal_lightning.name=Cristal de invocación de dragón eléctrico
+item.iceandfire.summoning_crystal.desc_0=Clic derecho en un dragón para vincularlo
+item.iceandfire.summoning_crystal.desc_1=Cuando esté vinculado, úsalo para teletransportar al dragón a tu posición
+item.iceandfire.summoning_crystal.bound=Vinculado a %s
+
 item.iceandfire.tide_trident.name=Tridente de Marea
 item.iceandfire.tide_trident.desc_0=Inflige más daño cuando se arroja bajo el agua
 item.iceandfire.tide_trident.desc_1=Atraviesa múltiples enemigos
@@ -425,6 +432,10 @@ dragon_sword_ice.hurt2=Ralentiza y derriba objetivos
 dragon_sword_lightning.hurt1=+4 de daño contra dragones de hielo y fuego
 dragon_sword_lightning.hurt2=Golpea a los objetivos con un rayo
 
+message.iceandfire.tryAgain=Por favor inténtalo de nuevo.
+
+message.iceandfire.dragonTeleport=Este dragón ha sido teletransportado.
+message.iceandfire.noDragonTeleport=§cNo se encuentra un dragón vinculado a este cristal.
 message.iceandfire.dragonWander=Este Dragón está vagando.
 message.iceandfire.dragonFollow=Este Dragón está siguiendote.
 message.iceandfire.dragonSit=El Dragón se sienta.

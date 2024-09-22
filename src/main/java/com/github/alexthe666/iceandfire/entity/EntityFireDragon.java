@@ -123,8 +123,8 @@ public class EntityFireDragon extends EntityDragonBase {
     }
 
     @Override
-    public boolean canBeSteered() {
-        return true;
+    public Item getSummoningCrystal() {
+        return ModItems.summoning_crystal_fire;
     }
 
     @Override

@@ -278,6 +278,13 @@ item.iceandfire.hydra_heart.desc_1=в зависимости от того ка�
 item.iceandfire.hydra_arrow.name=Стрела гидры
 item.iceandfire.hydra_arrow.desc=Отправляет и крадет здоровье у цели
 
+item.iceandfire.summoning_crystal_ice.name=Кристалл призыва Ледяного дракона
+item.iceandfire.summoning_crystal_fire.name=Кристалл призыва Огненного дракона
+item.iceandfire.summoning_crystal_lightning.name=Кристалл призыва Грозового дракона
+item.iceandfire.summoning_crystal.desc_0=ПКМ по дракону для привязки
+item.iceandfire.summoning_crystal.desc_1=Используется для телепортации дракона
+item.iceandfire.summoning_crystal.bound=Привязка к %s
+
 item.iceandfire.tide_trident.name=Трезубец Волны
 item.iceandfire.tide_trident.desc_0=Наносит больше урона при броске под воду
 item.iceandfire.tide_trident.desc_1=Пробивает нескольких врагов
@@ -605,6 +612,10 @@ dragon_sword_ice.hurt2=Замедляет и отбрасывает цель
 dragon_sword_lightning.hurt1=+4 урон против огненных и ледяных драконов
 dragon_sword_lightning.hurt2=Поражает цели молнией
 
+message.iceandfire.tryAgain=Пожалуйста, попробуйте еще раз.
+
+message.iceandfire.dragonTeleport=Этот дракон был телепортирован.
+message.iceandfire.noDragonTeleport=§cНе удается найти дракона, привязанного к этому кристаллу.
 message.iceandfire.dragonWander=Этот дракон теперь свободно перемещается.
 message.iceandfire.dragonFollow=Этот дракон теперь следует.
 message.iceandfire.dragonSit=Этот дракон теперь стоит.
