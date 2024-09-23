@@ -282,6 +282,13 @@ item.iceandfire.summoning_crystal.desc_0=Clique com o botão direito para vincul
 item.iceandfire.summoning_crystal.desc_1=Use quando precisar teletransportar o dragão
 item.iceandfire.summoning_crystal.bound=Teleportado para %s
 
+item.iceandfire.hippocampus_fin.name=Nadadeira de Hipocampo
+item.iceandfire.hippocampus_fin.desc_0=§6Item Raro§r
+
+item.iceandfire.hippocampus_slapper.name=Bofetador de Hipocampo
+item.iceandfire.hippocampus_slapper.desc_0=§dArma Cômica§r
+item.iceandfire.hippocampus_slapper.desc_1=Atordoa e Retarda os alvos; é bastante estranho ser atingido por um rabo de peixe
+
 item.iceandfire.tide_trident.name=Tridente do Guardião da Maré
 item.iceandfire.tide_trident.desc_0=Causa mais dano quando jogado debaixo d’água
 item.iceandfire.tide_trident.desc_1=Atravessa vários inimigos

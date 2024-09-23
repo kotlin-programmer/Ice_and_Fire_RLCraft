@@ -274,6 +274,13 @@ item.iceandfire.summoning_crystal.desc_0=右击一条龙与之绑定
 item.iceandfire.summoning_crystal.desc_1=绑定后右击可将龙唤至身边
 item.iceandfire.summoning_crystal.bound=已与%s绑定
 
+item.iceandfire.hippocampus_fin.name=海马鳍
+item.iceandfire.hippocampus_fin.desc_0=§6稀有掉落物§r
+
+item.iceandfire.hippocampus_slapper.name=海马拍桨
+item.iceandfire.hippocampus_slapper.desc_0=§d滑稽武器§r
+item.iceandfire.hippocampus_slapper.desc_1=眩晕并使目标减速，被鱼尾巴拍中可是会让人好好感受天旋地转的滋味的哦
+
 item.iceandfire.tide_trident.name=海潮三叉戟
 item.iceandfire.tide_trident.desc_0=在水下造成更多伤害
 item.iceandfire.tide_trident.desc_1=扔到水下时会造成更多伤害

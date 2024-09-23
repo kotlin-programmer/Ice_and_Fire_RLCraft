@@ -299,6 +299,13 @@ item.iceandfire.summoning_crystal.desc_0=Right click on a dragon to bind it
 item.iceandfire.summoning_crystal.desc_1=Use when bound to teleport dragon
 item.iceandfire.summoning_crystal.bound=Bound to %s
 
+item.iceandfire.hippocampus_fin.name=Hippocampus Fin
+item.iceandfire.hippocampus_fin.desc_0=§6Rare drop§r
+
+item.iceandfire.hippocampus_slapper.name=Hippocampus Slapper
+item.iceandfire.hippocampus_slapper.desc_0=§dComical Weapon§r
+item.iceandfire.hippocampus_slapper.desc_1=Dazes and slows targets; it's quite confusing to be hit with a fish tail
+
 item.iceandfire.tide_trident.name=Tide Trident
 item.iceandfire.tide_trident.desc_0=Deals more damage when thrown underwater
 item.iceandfire.tide_trident.desc_1=Pierces through multiple enemies

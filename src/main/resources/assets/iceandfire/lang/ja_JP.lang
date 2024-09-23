@@ -285,6 +285,13 @@ item.iceandfire.summoning_crystal.desc_0=ドラゴンに右クリックで関連
 item.iceandfire.summoning_crystal.desc_1=使うとドラゴンをワープさせる
 item.iceandfire.summoning_crystal.bound=ドラゴン: %s
 
+item.iceandfire.hippocampus_fin.name=ヒッポカムポスのヒレ
+item.iceandfire.hippocampus_fin.desc_0=§6レアドロップ§r
+
+item.iceandfire.hippocampus_slapper.name=ヒッポカムポスはたき
+item.iceandfire.hippocampus_slapper.desc_0=§dネタ武器§r
+item.iceandfire.hippocampus_slapper.desc_1=尻尾で叩いて移動速度低下と吐き気を与える（吐き気はプレイヤー以外に通用しない）
+
 item.iceandfire.tide_trident.name=タイドトライデント
 item.iceandfire.tide_trident.desc_0=水中に投げられるとより多くのダメージを与えます0
 item.iceandfire.tide_trident.desc_1=複数の敵を貫通する

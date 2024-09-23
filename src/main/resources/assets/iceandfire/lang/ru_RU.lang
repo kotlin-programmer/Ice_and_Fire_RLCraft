@@ -285,6 +285,12 @@ item.iceandfire.summoning_crystal.desc_0=ПКМ по дракону для пр�
 item.iceandfire.summoning_crystal.desc_1=Используется для телепортации дракона
 item.iceandfire.summoning_crystal.bound=Привязка к %s
 
+item.iceandfire.hippocampus_fin.name=Плавник гиппокампа
+item.iceandfire.hippocampus_fin.desc_0=§6Редкий дроп§r
+item.iceandfire.hippocampus_slapper.name=Шлёп-шлёп гиппокампа
+item.iceandfire.hippocampus_slapper.desc_0=§dКомическое оружие§r
+item.iceandfire.hippocampus_slapper.desc_1=Удивляет и замедляет цель. Удар рыбьим хвостом точно сбивает с толку.
+
 item.iceandfire.tide_trident.name=Трезубец Волны
 item.iceandfire.tide_trident.desc_0=Наносит больше урона при броске под воду
 item.iceandfire.tide_trident.desc_1=Пробивает нескольких врагов

@@ -300,6 +300,13 @@ item.iceandfire.summoning_crystal.desc_0=Clic derecho en un dragón para vincula
 item.iceandfire.summoning_crystal.desc_1=Cuando esté vinculado, úsalo para teletransportar al dragón a tu posición
 item.iceandfire.summoning_crystal.bound=Vinculado a %s
 
+item.iceandfire.hippocampus_fin.name=Aleta de Hipocampo
+item.iceandfire.hippocampus_fin.desc_0=§6Recompensa Rara§r
+
+item.iceandfire.hippocampus_slapper.name=Paleta de Hipocampo
+item.iceandfire.hippocampus_slapper.desc_0=§dArma Cómica§r
+item.iceandfire.hippocampus_slapper.desc_1=Aturde y ralentiza los objetivos; es muy confuso ser golpeado con una cola de pez
+
 item.iceandfire.tide_trident.name=Tridente de la Marea
 item.iceandfire.tide_trident.desc_0=§aInflige mas daño cuando se arroja bajo el agua
 item.iceandfire.tide_trident.desc_1=§3Atraviesa multiples enemigos
