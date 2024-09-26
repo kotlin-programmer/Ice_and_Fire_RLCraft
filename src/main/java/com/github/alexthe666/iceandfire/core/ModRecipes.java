@@ -22,7 +22,12 @@ import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ModRecipes {
+
+    public static List<ItemStack> BANNER_ITEMS = new ArrayList<>();
 
     public static void preInit() {
 
@@ -150,9 +155,20 @@ public class ModRecipes {
             OreDictionary.registerOre("mythicalSkull", skullType.skull_item);
         }
 
-        addBanner("firedragon", new ItemStack(ModItems.dragon_skull, 1, 0));
-        addBanner("icedragon", new ItemStack(ModItems.dragon_skull, 1, 1));
-        addBanner("lightningdragon", new ItemStack(ModItems.dragon_skull, 1, 2));
+        addBanner("firedragon", new ItemStack(ModItems.fire_dragon_heart));
+        addBanner("icedragon", new ItemStack(ModItems.ice_dragon_heart));
+        addBanner("lightningdragon", new ItemStack(ModItems.lightning_dragon_heart));
+        addBanner("firedragon_head", new ItemStack(ModItems.dragon_skull, 1, 0));
+        addBanner("icedragon_head", new ItemStack(ModItems.dragon_skull, 1, 1));
+        addBanner("lightningdragon_head", new ItemStack(ModItems.dragon_skull, 1, 2));
+        addBanner("amphithere", new ItemStack(ModItems.amphithere_feather));
+        addBanner("sea_serpent", new ItemStack(ModItems.sea_serpent_fang));
+        addBanner("stymphalian_bird", new ItemStack(ModItems.stymphalian_bird_feather));
+        addBanner("hippocampus", new ItemStack(ModItems.hippocampus_fin));
+        addBanner("hippogryph", new ItemStack(EnumSkullType.HIPPOGRYPH.skull_item));
+        addBanner("troll", new ItemStack(ModItems.troll_tusk));
+        addBanner("gorgon", new ItemStack(ModItems.gorgon_head));
+        addBanner("feather", new ItemStack(Items.FEATHER));
         addBanner("dread", new ItemStack(ModItems.dread_shard));
         GameRegistry.addSmelting(ModBlocks.copperOre, new ItemStack(ModItems.copperIngot), 1);
         GameRegistry.addSmelting(ModBlocks.silverOre, new ItemStack(ModItems.silverIngot), 1);
@@ -223,6 +239,7 @@ public class ModRecipes {
     public static BannerPattern addBanner(String name, ItemStack craftingStack) {
         Class<?>[] classes = {String.class, String.class, ItemStack.class};
         Object[] names = {name, "iceandfire." + name, craftingStack};
+        BANNER_ITEMS.add(craftingStack);
         return EnumHelper.addEnum(BannerPattern.class, name.toUpperCase(), classes, names);
     }
 
