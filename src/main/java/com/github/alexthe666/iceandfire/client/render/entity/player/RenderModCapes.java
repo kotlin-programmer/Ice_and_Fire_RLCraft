@@ -17,36 +17,29 @@ import java.util.UUID;
 
 @SideOnly(Side.CLIENT)
 public class RenderModCapes {
-	private static final ResourceLocation shivaxiCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_shivaxi.png");
-	private static final ResourceLocation shivaxiElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_shivaxi.png");
-	private static final ResourceLocation artsyDyCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_artsydy.png");
-	private static final ResourceLocation artsyDyElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_artsydy.png");
-	private static final ResourceLocation eagleCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_eagle.png");
-	private static final ResourceLocation eagleElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_eagle.png");
-	private static final ResourceLocation heavenCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_heaven.png");
-	private static final ResourceLocation kameibCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_kameib.png");
-	private static final ResourceLocation kameibElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_kameib.png");
+	private static final ResourceLocation shivaxiTex = new ResourceLocation("iceandfire", "textures/models/misc/shivaxi.png");
+	private static final ResourceLocation artsyTex = new ResourceLocation("iceandfire", "textures/models/misc/artsy.png");
+	private static final ResourceLocation eagleTex = new ResourceLocation("iceandfire", "textures/models/misc/eagle.png");
+	private static final ResourceLocation heavenTex = new ResourceLocation("iceandfire", "textures/models/misc/heaven.png");
+	private static final ResourceLocation kameibTex = new ResourceLocation("iceandfire", "textures/models/misc/kameib.png");
+	private static final ResourceLocation kotlinTex = new ResourceLocation("iceandfire", "textures/models/misc/kotlin.png");
+	private static final ResourceLocation meldexunTex = new ResourceLocation("iceandfire", "textures/models/misc/meldexun.png");
+	private static final ResourceLocation rayquazaTex = new ResourceLocation("iceandfire", "textures/models/misc/rayquaza.png");
+	private static final ResourceLocation fireTex = new ResourceLocation("iceandfire", "textures/models/misc/fire.png");
+	private static final ResourceLocation iceTex = new ResourceLocation("iceandfire", "textures/models/misc/ice.png");
+	private static final ResourceLocation lightningTex = new ResourceLocation("iceandfire", "textures/models/misc/lightning.png");
 	private static final ResourceLocation eclipseElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_eclipse.png");
-	private static final ResourceLocation fireCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_fire.png");
-	private static final ResourceLocation fireElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_fire.png");
-	private static final ResourceLocation iceCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_ice.png");
-	private static final ResourceLocation iceElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_ice.png");
-	private static final ResourceLocation lightningCapeTex = new ResourceLocation("iceandfire", "textures/models/misc/cape_lightning.png");
-	private static final ResourceLocation lightningElytraTex = new ResourceLocation("iceandfire", "textures/models/misc/elytra_lightning.png");
 
 	private static final UUID[] firecapes = new UUID[] {
 			User.Alexthe666,
 			User.Zeklo
 	};
 	private static final UUID[] iceCapes = new UUID[] {
-			User.Meldexun,
 			User.Raptorfarian,
 			User.Zyranna
 	};
 	private static final UUID[] lightningCapes = new UUID[] {
-			User.Fonnymunkey,
-			User.Kotlin_Dev,
-			User.Rayquazafallout
+			User.Fonnymunkey
 	};
 
 	private static Field playerInfoField;
@@ -61,40 +54,52 @@ public class RenderModCapes {
 				if (textureMap != null) {
 					UUID uniqueID = event.getEntityPlayer().getUniqueID();
 					if (User.Shivaxi.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, shivaxiCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, shivaxiElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, shivaxiTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, shivaxiTex);
 					}
 					if (User.ArtsyDy.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, artsyDyCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, artsyDyElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, artsyTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, artsyTex);
 					}
 					if (User.Eclipse.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningCapeTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningTex);
 						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eclipseElytraTex);
 					}
 					if (User.KameiB.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, kameibCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, kameibElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, kameibTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, kameibTex);
+					}
+					if (User.Kotlin_Dev.equals(uniqueID)) {
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, kotlinTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, kotlinTex);
+					}
+					if (User.Meldexun.equals(uniqueID)) {
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, meldexunTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, meldexunTex);
 					}
 					if (User.NLBlackEagle.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, eagleCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, eagleTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleTex);
 					}
 					if (User.NLBlackHeavenNL.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, heavenCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, heavenTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleTex);
+					}
+					if (User.Rayquazafallout.equals(uniqueID)) {
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, rayquazaTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, rayquazaTex);
 					}
 					if (this.hasFireCape(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, fireCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, fireElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, fireTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, fireTex);
 					}
 					if (this.hasIceCape(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, iceCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, iceElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, iceTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, iceTex);
 					}
 					if (this.hasLightningCape(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningCapeTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, lightningElytraTex);
+						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningTex);
+						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, lightningTex);
 					}
 				}
 			}
