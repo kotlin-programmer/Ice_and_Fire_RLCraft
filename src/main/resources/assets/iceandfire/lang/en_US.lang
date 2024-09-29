@@ -97,6 +97,10 @@ tile.iceandfire.dread_stone_stairs.name=Dreadstone Bricks Stairs
 tile.iceandfire.dread_spawner.name=Dreadstone Mob Spawner
 tile.iceandfire.monster_spawner.name=Mob Spawner
 
+tile.iceandfire.dragonforge_bricks.name=Dragonforge Bricks
+tile.iceandfire.dragonforge_core.name=Dragonforge Core
+tile.iceandfire.dragonforge_input.name=Dragonforge Aperture
+
 item.iceandfire.bestiary.name=Bestiary
 item.iceandfire.manuscript.name=Manuscript
 item.iceandfire.sapphireGem.name=Sapphire
@@ -601,6 +605,10 @@ item.banner.dread.green=Green Dread Skull
 item.banner.dread.red=Red Dread Skull
 item.banner.dread.black=Black Dread Skull
 
+iceandfire.fire_dragon_forge=Fire Dragon Forge
+iceandfire.ice_dragon_forge=Ice Dragon Forge
+iceandfire.lightning_dragon_forge=Lightning Dragon Forge
+
 item.iceandfire.fire_dragon_blood.jei_desc=Obtained by interacting with a dragon corpse while holding an empty bottle.
 item.iceandfire.ice_dragon_blood.jei_desc=Obtained by interacting with a dragon corpse while holding an empty bottle.
 item.iceandfire.lightning_dragon_blood.jei_desc=Obtained by interacting with a dragon corpse while holding an empty bottle.
@@ -825,6 +833,7 @@ bestiary.amphithere=Amphitheres
 bestiary.seaserpent=Sea Serpents
 bestiary.hydra=Hydra
 bestiary.dread_mobs=The Undead
+bestiary.dragonforge=Dragon Forge
 
 lectern.nopages=No new information can be added.
 silvertools.hurt=+2 damage against undead

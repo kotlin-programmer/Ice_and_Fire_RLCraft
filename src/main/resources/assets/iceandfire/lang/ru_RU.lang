@@ -96,6 +96,9 @@ tile.iceandfire.dread_stone_slab.name=Плита из кирпичей ужас�
 tile.iceandfire.dread_stone_stairs.name=Ступеньки из кирпичей ужаса
 tile.iceandfire.dread_spawner.name=Спаунер мобов ужаса
 tile.iceandfire.monster_spawner.name=Спаунер мобов
+tile.iceandfire.dragonforge_bricks.name=Кирпичи драконьей кузни
+tile.iceandfire.dragonforge_core.name=Сердце драконьей кузни
+tile.iceandfire.dragonforge_input.name=Слив драконьей кузни
 
 item.iceandfire.bestiary.name=Бестиарий
 item.iceandfire.manuscript.name=Манускрипт
@@ -587,6 +590,10 @@ item.banner.dread.green=Зелёный череп ужаса
 item.banner.dread.red=Красный череп ужаса
 item.banner.dread.black=Черный череп ужаса
 
+iceandfire.fire_dragon_forge=Огненная драконья кузня
+iceandfire.ice_dragon_forge=Ледяная драконья кузня
+iceandfire.lightning_dragon_forge=Грозовая драконья кузня
+
 item.iceandfire.fire_dragon_blood.jei_desc=Получается использованием пузырька на трупе дракона.
 item.iceandfire.ice_dragon_blood.jei_desc=Получается использованием пузырька на трупе дракона.
 item.iceandfire.lightning_dragon_blood.jei_desc=Получается использованием пузырька на трупе дракона.
@@ -808,6 +815,7 @@ bestiary.amphithere=Амфиптерий
 bestiary.seaserpent=Левиафан
 bestiary.hydra=Гидра
 bestiary.dread_mobs=Нежить
+bestiary.dragonforge=Драконья ковка
 
 lectern.nopages=Нет новой информации для внесения.
 silvertools.hurt=+2 урон против нежити

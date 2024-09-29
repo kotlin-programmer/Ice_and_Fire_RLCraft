@@ -41,8 +41,7 @@ public enum EnumDragonType {
             }
         }
 
-        @Override
-        public boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
+        private boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
             return egg.world.getBlockState(pos).getMaterial() == Material.FIRE;
         }
     },
@@ -61,8 +60,7 @@ public enum EnumDragonType {
             }
         }
 
-        @Override
-        public boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
+        private boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
             return egg.world.getBlockState(pos).getMaterial() == Material.WATER && egg.world.rand.nextInt(500) == 0;
         }
     },
@@ -94,8 +92,7 @@ public enum EnumDragonType {
             }
         }
 
-        @Override
-        public boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
+        private boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
             return egg.world.isRainingAt(pos) || egg.world.isRainingAt(pos.add(0, egg.height, 0));
         }
     };
@@ -120,12 +117,5 @@ public enum EnumDragonType {
         return this.piscivore;
     }
 
-    public void updateEggCondition(EntityDragonEgg egg) {
-        //noop
-    }
-
-    public boolean meetsEggCondition(EntityDragonEgg egg, BlockPos pos) {
-        //noop
-        return false;
-    }
+    public abstract void updateEggCondition(EntityDragonEgg egg);
 }

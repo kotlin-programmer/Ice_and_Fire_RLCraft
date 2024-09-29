@@ -93,6 +93,9 @@ tile.iceandfire.dread_stone_slab.name=Laje de Tijolos de Medolita
 tile.iceandfire.dread_stone_stairs.name=Escada de Tijolos de Medolita
 tile.iceandfire.dread_spawner.name=Gerador de Monstros Medonhos
 tile.iceandfire.monster_spawner.name=Gerador de Monstros
+tile.iceandfire.dragonforge_bricks.name=Bloco da Forja Dracônica
+tile.iceandfire.dragonforge_core.name=Núcleo da Forja Dracônica
+tile.iceandfire.dragonforge_input.name=Abertura da Forja Dracônica
 
 item.iceandfire.bestiary.name=Bestiário
 item.iceandfire.manuscript.name=Manuscrito
@@ -381,6 +384,10 @@ item.banner.lightningdragon.green=Figura de Dragão de Elétrico Verde
 item.banner.lightningdragon.red=Figura de Dragão de Elétrico Vermelho
 item.banner.lightningdragon.black=Figura de Dragão de Elétrico Preto
 
+iceandfire.fire_dragon_forge=Forja Dracônica de Fogo
+iceandfire.ice_dragon_forge=Forja Dracônica de Gelo
+iceandfire.lightning_dragon_forge=Forja Dracônica Eletrizante
+
 item.iceandfire.dragonegg.jei_desc=Coloque nas chamas se for um dragão de fogo, debaixo d'água se for um dragão de gelo e na chuva se for de um dragão elétrico.
 
 entity.firedragon.name=Dragão de Fogo
@@ -585,6 +592,7 @@ bestiary.troll=Tróis
 bestiary.myrmex=Myrmex
 bestiary.amphithere=Amphitheres
 bestiary.seaserpent=Serpentes Marinhas
+bestiary.dragonforge=Forja Dracônica
 
 lectern.nopages=Não é possível adicionar novas informações.
 silvertools.hurt=+2 de dano contra o Morto-Vivo

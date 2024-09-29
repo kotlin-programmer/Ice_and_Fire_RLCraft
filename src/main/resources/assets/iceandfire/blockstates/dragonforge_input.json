@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "active=0": {
+      "model": "iceandfire:dragonforge_input"
+    },
+    "active=1": {
+      "model": "iceandfire:dragonforge_input_fire"
+    },
+    "active=2": {
+      "model": "iceandfire:dragonforge_input_ice"
+    },
+    "active=3": {
+      "model": "iceandfire:dragonforge_input_lightning"
+    }
+  }
+}

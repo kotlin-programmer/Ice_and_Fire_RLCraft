@@ -96,6 +96,9 @@ tile.iceandfire.dread_stone_slab.name=ドレッドストーンレンガのハー
 tile.iceandfire.dread_stone_stairs.name=ドレッドストーンレンガの階段
 tile.iceandfire.dread_spawner.name=ドレッドストーンスポナー
 tile.iceandfire.monster_spawner.name=モンスタースポナー
+tile.iceandfire.dragonforge_bricks.name=竜炉レンガ
+tile.iceandfire.dragonforge_core.name=竜炉コア
+tile.iceandfire.dragonforge_input.name=竜炉焚口
 
 item.iceandfire.bestiary.name=ベスティアリ
 item.iceandfire.manuscript.name=手書きの紙片
@@ -566,6 +569,10 @@ item.banner.sea_serpent.green=緑の海蛇
 item.banner.sea_serpent.red=赤の海蛇
 item.banner.sea_serpent.black=黒の海蛇
 
+iceandfire.fire_dragon_forge=火竜炉
+iceandfire.ice_dragon_forge=氷竜炉
+iceandfire.lightning_dragon_forge=雷竜炉
+
 item.iceandfire.fire_dragon_blood.jei_desc=ドラゴンの死体から空のガラス瓶で汲むことで手に入れることができます。
 item.iceandfire.ice_dragon_blood.jei_desc=ドラゴンの死体から空のガラス瓶で汲むことで手に入れることができます。
 item.iceandfire.lightning_dragon_blood.jei_desc=ドラゴンの死体から空のガラス瓶で汲むことで手に入れることができます。
@@ -783,6 +790,7 @@ bestiary.myrmex=ミュルメクス
 bestiary.amphithere=アンピプテラ
 bestiary.seaserpent=シーサーペント
 bestiary.hydra=ヒドラ
+bestiary.dragonforge=ドラゴンフォージ
 
 lectern.nopages=追加できる情報は見当たらない。
 silvertools.hurt=アンデッドに+2ダメージ

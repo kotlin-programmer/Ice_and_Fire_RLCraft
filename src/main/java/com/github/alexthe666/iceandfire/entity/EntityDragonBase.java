@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.api.SensesUtils;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.client.model.util.LegSolverQuadruped;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
@@ -115,13 +116,18 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public double maximumSpeed;
     public double minimumArmor;
     public double maximumArmor;
+    public float fireBreathProgress;
+    public float prevFireBreathProgress;
+    public BlockPos burningTarget;
+    public int burnProgress;
+    public double burnParticleX;
+    public double burnParticleY;
+    public double burnParticleZ;
     public float sitProgress;
     public float sleepProgress;
     public float hoverProgress;
     public float flyProgress;
-    public float fireBreathProgress;
     public float diveProgress;
-    public float prevFireBreathProgress;
     public int fireStopTicks;
     public int flyTicks;
     public float modelDeadProgress;
@@ -283,6 +289,25 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (tail4Part != null) {
             tail4Part.onUpdate();
         }
+    }
+
+    protected void updateBurnTarget() {
+        if (burningTarget != null && !this.isSleeping() && !this.isModelDead() && !this.isChild()) {
+            if (world.getTileEntity(burningTarget) instanceof TileEntityDragonforgeInput && this.getDistanceSq(burningTarget) < 300) {
+                this.getLookHelper().setLookPosition(burningTarget.getX() + 0.5D, burningTarget.getY() + 0.5D, burningTarget.getZ() + 0.5D, 180F, 180F);
+                this.breathFireAtPos(burningTarget);
+            } else {
+                burningTarget = null;
+            }
+        }
+    }
+
+    protected abstract void breathFireAtPos(BlockPos burningTarget);
+
+    public abstract void stimulateFire(double burnX, double burnY, double burnZ, int syncType);
+
+    public boolean canPositionBeSeen(double x, double y, double z) {
+        return this.world.rayTraceBlocks(new Vec3d(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), new Vec3d(x, y, z), false, true, false) == null;
     }
 
     protected PathNavigate createNavigator(World worldIn) {
@@ -1837,6 +1862,14 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (this.isModelDead()) {
             return;
         }
+        if (this.isBreathingFire() && this.burnProgress < 40) {
+            this.burnProgress++;
+        } else if (!this.isBreathingFire()) {
+            this.burnProgress = 0;
+        }
+        if (!world.isRemote) {
+            this.updateBurnTarget();
+        }
         if (this.up()) {
             if (!this.isFlying() && !this.isHovering()) {
                 this.spacebarTicks += 2;
@@ -2409,10 +2442,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         float flyProg = this.flyProgress * 0.01F;
         float sitProg = this.sitProgress * 0.015F;
         float sleepProg = this.sleepProgress * -0.025F;
-        final float flightXz = 1.0F + flyProg + hoverProg;
-        final float xzMod = 1.7F * getRenderSize() * 0.3F * flightXz + getRenderSize() * hoverProg * -0.45F;
+        final float flightXz = Math.max(1.0F + flyProg + hoverProg, 1.1F);
+        final float xzMod = 1.7F * getRenderSize() * (0.3F * flightXz + hoverProg * -0.45F);
         final float headPosX = (float) (posX + (xzMod) * Math.cos((rotationYaw + 90) * Math.PI / 180));
-        final float headPosY = (float) (posY + (0.7F + sitProg + hoverProg + deadProg + sleepProg + flyProg) * getRenderSize() * 0.3F);
+        final float headPosY = (float) (posY + (0.7F + (sitProg * 0.82F) + hoverProg + deadProg + sleepProg + flyProg) * getRenderSize() * 0.3F);
         final float headPosZ = (float) (posZ + (xzMod) * Math.sin((rotationYaw + 90) * Math.PI / 180));
         return new Vec3d(headPosX, headPosY, headPosZ);
     }

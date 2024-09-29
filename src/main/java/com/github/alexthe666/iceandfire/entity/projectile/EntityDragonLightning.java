@@ -167,9 +167,9 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 			return;
 		}
 		if (lastPos != null && !pos.equals(lastPos)) {
-			ParticleLightningVector source = new ParticleLightningVector(lastPos.x, lastPos.y, lastPos.z);
-			ParticleLightningVector target = new ParticleLightningVector(pos.x, pos.y, pos.z);
-			IceAndFire.PROXY.spawnLightningEffect(world, source, target, true);
+			ParticleLightningVector source = new ParticleLightningVector(lastPos);
+			ParticleLightningVector target = new ParticleLightningVector(pos);
+			IceAndFire.PROXY.spawnLightningEffect(world, source, target, false);
 		}
 		lastPos = pos;
 	}

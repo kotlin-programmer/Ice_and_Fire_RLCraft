@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -163,11 +164,26 @@ public class IafBlockRegistry {
 	public static Block dread_spawner = new BlockDreadSpawner();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":monster_spawner")
 	public static Block monster_spawner = new BlockMonsterSpawner();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_bricks")
+	public static Block dragonforge_bricks = new BlockDragonforgeBricks();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_input")
+	public static Block dragonforge_input = new BlockDragonforgeInput();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_core_fire")
+	public static Block dragonforge_core_fire = new BlockDragonforgeCore(EnumDragonType.FIRE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_core_ice")
+	public static Block dragonforge_core_ice = new BlockDragonforgeCore(EnumDragonType.ICE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_core_lightning")
+	public static Block dragonforge_core_lightning = new BlockDragonforgeCore(EnumDragonType.LIGHTNING);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_core")
+	public static Block dragonforge_core = new BlockDragonforgeCore();
 
 	static {
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHead.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadIdle"));
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHeadActive.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadActive"));
 		GameRegistry.registerTileEntity(TileEntityMyrmexCocoon.class, new ResourceLocation(IceAndFire.MODID, "myrmexCocoon"));
+		GameRegistry.registerTileEntity(TileEntityDragonforge.class, new ResourceLocation(IceAndFire.MODID, "dragonforge"));
+		GameRegistry.registerTileEntity(TileEntityDragonforgeInput.class, new ResourceLocation(IceAndFire.MODID, "dragonforgeInput"));
+		GameRegistry.registerTileEntity(TileEntityDragonforgeBricks.class, new ResourceLocation(IceAndFire.MODID, "dragonforgeBrick"));
 		GameRegistry.registerTileEntity(TileEntityGhostChest.class, new ResourceLocation(IceAndFire.MODID, "ghostChest"));
 	}
 }

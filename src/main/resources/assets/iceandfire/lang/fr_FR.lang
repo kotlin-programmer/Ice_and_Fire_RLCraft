@@ -588,6 +588,10 @@ item.banner.dread.green=Crâneffroie vert
 item.banner.dread.red=Crâneffroie rouge
 item.banner.dread.black=Crâneffroie noir
 
+iceandfire.fire_dragon_forge=Forge de Dragon de Feu
+iceandfire.ice_dragon_forge=Forge de Dragon de Glace
+iceandfire.lightning_dragon_forge=Forge de Dragon Électrique
+
 item.iceandfire.fire_dragon_blood.jei_desc=Obtenu en interagissant avec un cadavre de dragon tout en tenant une bouteille vide.
 item.iceandfire.ice_dragon_blood.jei_desc=Obtenu en interagissant avec un cadavre de dragon tout en tenant une bouteille vide.
 item.iceandfire.lightning_dragon_blood.jei_desc=Obtenu en interagissant avec un cadavre de dragon tout en tenant une bouteille vide.
