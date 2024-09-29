@@ -42,6 +42,7 @@ dependencies {
     implementation fg.deobf("curse.maven:claimit-api-${claimit_version}")
     implementation fg.deobf("curse.maven:varied-commodities-${varied_commodities_version}")
     implementation fg.deobf("curse.maven:the-one-probe-${the_one_probe_version}")
+    implementation "curse.maven:crafttweaker-${crafttweaker_version}"
 }
 
 mixin {

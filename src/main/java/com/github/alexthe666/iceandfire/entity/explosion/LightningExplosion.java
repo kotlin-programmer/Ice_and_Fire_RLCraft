@@ -8,7 +8,9 @@ import com.github.alexthe666.iceandfire.block.BlockReturningState;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightning;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightningCharge;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
@@ -25,6 +27,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -89,10 +92,18 @@ public class LightningExplosion extends Explosion {
 						double d6 = this.explosionY;
 						double d8 = this.explosionZ;
 
-						for (float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
+						for (; f > 0.0F; f -= 0.22500001F) {
 							BlockPos blockpos = new BlockPos(d4, d6, d8);
-							IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
 
+							TileEntity tileEntity = worldObj.getTileEntity(blockpos);
+							if (tileEntity instanceof TileEntityDragonforgeInput) {
+								((TileEntityDragonforgeInput) tileEntity).onHitWithFlame(EnumDragonType.LIGHTNING);
+								if (exploder == null || exploder instanceof EntityDragonBase && ((EntityDragonBase) exploder).isTamed()) {
+									return;
+								}
+							}
+
+							IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
 							if (iblockstate.getMaterial() != Material.AIR) {
 								float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(worldObj, blockpos, (Entity) null, this);
 								f -= (f2 + 0.3F) * 0.3F;

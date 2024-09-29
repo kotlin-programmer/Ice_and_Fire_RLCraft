@@ -98,6 +98,10 @@ tile.iceandfire.dread_stone_stairs.name=Escaleras de ladrillos de piedra del hor
 tile.iceandfire.dread_spawner.name=Generador de criaturas de piedra del horror
 tile.iceandfire.monster_spawner.name=Generador de criaturas
 
+tile.iceandfire.dragonforge_bricks.name=Ladrillo de Forja Draconica
+tile.iceandfire.dragonforge_core.name=Nucleo de Forja Draconica
+tile.iceandfire.dragonforge_input.name=Abertura de Forja Draconica
+
 item.iceandfire.bestiary.name=Bestiario
 item.iceandfire.manuscript.name=Manuscrito
 item.iceandfire.sapphireGem.name=Zafiro
@@ -591,6 +595,10 @@ item.banner.dread.green=Craneo del horror verde
 item.banner.dread.red=Craneo del horror rojo
 item.banner.dread.black=Craneo del horror negro
 
+iceandfire.fire_dragon_forge=Forja de dragon de fuego
+iceandfire.ice_dragon_forge=Forja de dragon de hielo
+iceandfire.lightning_dragon_forge=Forja de dragon de rayo
+
 item.iceandfire.fire_dragon_blood.jei_desc=Obtenido al interactuar con un cadáver de §4Dragón de fuego§r, sosteniendo un frasco vacío.
 item.iceandfire.ice_dragon_blood.jei_desc=Obtenido al interactuar con un cadáver de §bDragón de hielo§r, sosteniendo un frasco vacío.
 item.iceandfire.lightning_dragon_blood.jei_desc=Obtenido al interactuar con un cadáver de §5Dragón de rayo§r, sosteniendo un frasco vacío.
@@ -724,7 +732,6 @@ dragon.days.back=Dias)
 dragon.command.sit=Este Dragon esta quieto.
 dragon.command.stand=Este Dragon esta merodeando.
 dragon.command.new_home=El hogar de este Dragon se ha asignado en %d, %d, %d.
-
 dragon.electric=Azul §5Rayo§1
 dragon.amethyst=§5Amatista Rayo
 dragon.copper=Cobre §5Rayo§6
@@ -813,6 +820,7 @@ bestiary.amphithere=Anfiptero
 bestiary.seaserpent=Serpiente marina
 bestiary.hydra=Hidra
 bestiary.dread_mobs=No-muertos
+bestiary.dragonforge=Forja Draconica
 
 lectern.nopages=No se puede agregar más info.
 silvertools.hurt=Daño contra no-muertos: +2

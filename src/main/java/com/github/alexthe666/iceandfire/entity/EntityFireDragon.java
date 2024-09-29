@@ -2,7 +2,9 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonFire;
@@ -25,6 +27,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -233,8 +236,72 @@ public class EntityFireDragon extends EntityDragonBase {
                         attackEntityAsMob(this.getAttackTarget());
                     }
 				}
-            } else {
+            } else if (burningTarget == null) {
                 this.setBreathingFire(false);
+            }
+        }
+    }
+
+    @Override
+    protected void breathFireAtPos(BlockPos burningTarget) {
+        if (this.isBreathingFire()) {
+            if (this.isActuallyBreathingFire()) {
+                rotationYaw = renderYawOffset;
+                if (this.ticksExisted % 5 == 0) {
+                    this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
+                }
+                stimulateFire(burningTarget.getX() + 0.5F, burningTarget.getY() + 0.5F, burningTarget.getZ() + 0.5F, 1);
+            }
+        } else {
+            this.setBreathingFire(true);
+        }
+    }
+
+    @Override
+    public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
+        if (syncType == 1 && !world.isRemote) {
+            //sync with client
+            IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageDragonSyncFire(this.getEntityId(), burnX, burnY, burnZ, 0));
+        }
+        this.getNavigator().clearPath();
+        this.burnParticleX = burnX;
+        this.burnParticleY = burnY;
+        this.burnParticleZ = burnZ;
+        Vec3d headPos = getHeadPosition();
+        double d2 = burnX - headPos.x;
+        double d3 = burnY - headPos.y;
+        double d4 = burnZ - headPos.z;
+        double distance = Math.max(5 * this.getDistance(burnX, burnY, burnZ), 0);
+        double conqueredDistance = burnProgress / 40D * distance;
+        int increment = (int) Math.ceil(conqueredDistance / 100);
+        for (int i = 0; i < conqueredDistance; i += increment) {
+            double progressX = headPos.x + d2 * (i / (float) distance);
+            double progressY = headPos.y + d3 * (i / (float) distance);
+            double progressZ = headPos.z + d4 * (i / (float) distance);
+            if (canPositionBeSeen(progressX, progressY, progressZ)) {
+                if (world.isRemote && rand.nextInt(5) == 0) {
+                    IceAndFire.PROXY.spawnDragonParticle(this);
+                }
+            } else {
+                if (!world.isRemote) {
+                    RayTraceResult result = this.world.rayTraceBlocks(new Vec3d(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), new Vec3d(progressX, progressY, progressZ), false, true, false);
+                    if (result != null) {
+                        BlockPos pos = result.getBlockPos();
+                        FireExplosion explosion = new FireExplosion(this.world, this, pos.getX(), pos.getY(), pos.getZ(), this.getDragonStage() * 2.5F, this.world.getGameRules().getBoolean("mobGriefing"));
+                        explosion.doExplosionA();
+                        explosion.doExplosionB(true);
+                    }
+                }
+            }
+        }
+        if (burnProgress >= 40D && canPositionBeSeen(burnX, burnY, burnZ)) {
+            double spawnX = burnX + (rand.nextFloat() * 3.0) - 1.5;
+            double spawnY = burnY + (rand.nextFloat() * 3.0) - 1.5;
+            double spawnZ = burnZ + (rand.nextFloat() * 3.0) - 1.5;
+            if (!world.isRemote) {
+                FireExplosion explosion = new FireExplosion(this.world, this, spawnX, spawnY, spawnZ, this.getDragonStage() * 2.5F, this.world.getGameRules().getBoolean("mobGriefing"));
+                explosion.doExplosionA();
+                explosion.doExplosionB(true);
             }
         }
     }

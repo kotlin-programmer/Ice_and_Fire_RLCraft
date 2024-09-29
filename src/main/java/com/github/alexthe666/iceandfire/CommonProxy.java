@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.core.*;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
 import com.github.alexthe666.iceandfire.enums.*;
+import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockMyrmexResin;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockPodium;
@@ -238,6 +239,7 @@ public class CommonProxy {
             event.getRegistry().register(skull.skull_item);
         }
         ModRecipes.preInit();
+        IafDragonForgeRecipeRegistry.preInit();
     }
 
     @SubscribeEvent
@@ -271,6 +273,9 @@ public class CommonProxy {
     }
 
     public void spawnLightningEffect(World world, ParticleLightningVector sourceVec, ParticleLightningVector targetVec, boolean isProjectile) {
+    }
+
+    public void spawnDragonParticle(EntityDragonBase dragon) {
     }
 
     public void openBestiaryGui(ItemStack book) {

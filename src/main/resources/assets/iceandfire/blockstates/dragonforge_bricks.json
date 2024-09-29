@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "grill=0": {
+      "model": "iceandfire:dragonforge_bricks"
+    },
+    "grill=1": {
+      "model": "iceandfire:dragonforge_bricks_grill"
+    },
+    "grill=2": {
+      "model": "iceandfire:dragonforge_bricks_grill_fire"
+    },
+    "grill=3": {
+      "model": "iceandfire:dragonforge_bricks_grill_ice"
+    },
+    "grill=4": {
+      "model": "iceandfire:dragonforge_bricks_grill_lightning"
+    }
+  }
+}

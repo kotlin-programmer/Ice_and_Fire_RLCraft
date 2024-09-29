@@ -10,6 +10,7 @@ import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.event.StructureGenerator;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.RLCombatCompat;
+import com.github.alexthe666.iceandfire.integration.crafttweaker.CraftTweakerCompatBridge;
 import com.github.alexthe666.iceandfire.integration.thaumcraft.ThaumcraftCompatBridge;
 import com.github.alexthe666.iceandfire.integration.theoneprobe.TheOneProbeCompatBridge;
 import com.github.alexthe666.iceandfire.loot.CustomizeToDragon;
@@ -64,7 +65,8 @@ public class IceAndFire {
             MessageMultipartInteract.class, MessageGetMyrmexHive.class, MessageSetMyrmexHiveNull.class,
             MessagePlayerHitMultipart.class, MessageChainLightningFX.class, MessageEntityEffect.class,
             MessageResetEntityEffect.class, MessageParticleFX.class, MessageParticleVanillaFX.class,
-            MessageUpdateRidingState.class, MessageSwingArm.class, MessageUpdateSpawner.class
+            MessageUpdateRidingState.class, MessageSwingArm.class, MessageUpdateSpawner.class,
+            MessageDragonSyncFire.class
     })
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
     @SidedProxy(clientSide = "com.github.alexthe666.iceandfire.ClientProxy", serverSide = "com.github.alexthe666.iceandfire.CommonProxy")
@@ -92,6 +94,7 @@ public class IceAndFire {
         logger.info("A dragon whispers her name in the east");
         ThaumcraftCompatBridge.loadThaumcraftCompat();
         TheOneProbeCompatBridge.loadTheOneProbeCompat();
+        CraftTweakerCompatBridge.loadCraftTweakerCompat();
         LootFunctionManager.registerFunction(new CustomizeToDragon.Serializer());
         LootFunctionManager.registerFunction(new CustomizeToSeaSerpent.Serializer());
     }

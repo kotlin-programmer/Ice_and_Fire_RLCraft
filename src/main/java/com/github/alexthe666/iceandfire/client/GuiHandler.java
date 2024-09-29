@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.client;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityHippocampus;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityLectern;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPodium;
@@ -42,6 +43,9 @@ public class GuiHandler implements IGuiHandler {
 			case 6:
 				if(tile instanceof TileEntityMyrmexCocoon) return new ContainerMyrmexCocoon(player.inventory, (TileEntityMyrmexCocoon) tile, player);
 				break;
+			case 7:
+				if (tile instanceof TileEntityDragonforge) return new ContainerDragonforge(player.inventory, (TileEntityDragonforge) tile);
+				break;
 		}
 		return null;
 	}
@@ -71,6 +75,9 @@ public class GuiHandler implements IGuiHandler {
 				break;
 			case 6:
 				if(tile instanceof TileEntityMyrmexCocoon) return new com.github.alexthe666.iceandfire.client.gui.GuiMyrmexCocoon(player.inventory, (TileEntityMyrmexCocoon) tile);
+				break;
+			case 7:
+				if(tile instanceof TileEntityDragonforge) return new com.github.alexthe666.iceandfire.client.gui.GuiDragonforge(player.inventory, (TileEntityDragonforge) tile);
 				break;
 		}
 		return entity;

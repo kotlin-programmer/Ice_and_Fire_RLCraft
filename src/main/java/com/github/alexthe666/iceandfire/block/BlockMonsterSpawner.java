@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Random;
 
-public class BlockMonsterSpawner extends BlockMobSpawner {
+public class BlockMonsterSpawner extends BlockMobSpawner implements IDragonProof {
 
     public BlockMonsterSpawner() {
         super();

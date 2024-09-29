@@ -6,9 +6,11 @@ import com.github.alexthe666.iceandfire.entity.projectile.EntityAmphithereArrow;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
 import com.github.alexthe666.iceandfire.enums.EnumBloodedDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IPosition;
@@ -29,11 +31,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModRecipes {
-
     public static List<ItemStack> BANNER_ITEMS = new ArrayList<>();
 
     public static void preInit() {
-
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(IafItemRegistry.stymphalian_arrow, new BehaviorProjectileDispense() {
             @Override
             protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {

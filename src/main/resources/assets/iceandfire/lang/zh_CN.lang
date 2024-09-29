@@ -94,6 +94,10 @@ tile.iceandfire.ancient_dragon_bone_wall.name=龙骨墙龙骨墙
 tile.iceandfire.dragon_bone_block.name=龙骨块
 tile.iceandfire.dragon_bone_wall.name=龙骨墙
 
+tile.iceandfire.dragonforge_bricks.name=龙锻炉砖块
+tile.iceandfire.dragonforge_core.name=龙锻炉核心
+tile.iceandfire.dragonforge_input.name=龙锻炉焰孔
+
 item.iceandfire.bestiary.name=龙之寓言
 item.iceandfire.manuscript.name=手稿
 item.iceandfire.sapphireGem.name=蓝宝石
@@ -552,6 +556,10 @@ item.banner.dread.green=绿色悚怖髑髅徽标
 item.banner.dread.red=红色悚怖髑髅徽标
 item.banner.dread.black=黑色悚怖髑髅徽标
 
+iceandfire.fire_dragon_forge=龙炎锻炉
+iceandfire.ice_dragon_forge=龙霜锻炉
+iceandfire.lightning_dragon_forge=龙霆锻炉
+
 item.iceandfire.fire_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
 item.iceandfire.ice_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
 item.iceandfire.lightning_dragon_blood.jei_desc=手持空玻璃瓶右击龙尸即可获得。
@@ -767,6 +775,7 @@ bestiary.troll=巨魔
 bestiary.myrmex=恐蚁
 bestiary.hydra=九头蛇
 bestiary.dread_mobs=悚怖亡灵
+bestiary.dragonforge=龙息锻炉
 
 lectern.nopages=无法添加新的信息.
 silvertools.hurt=+2 对亡灵生物的伤害

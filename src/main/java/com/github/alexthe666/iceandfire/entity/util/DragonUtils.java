@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockDragonBone;
 import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
 import com.github.alexthe666.iceandfire.block.BlockDragonScales;
-import com.github.alexthe666.iceandfire.block.BlockDreadBase;
-import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
+import com.github.alexthe666.iceandfire.block.IDragonProof;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.integration.claimit.ClaimItCompatBridge;
 import com.google.common.base.Predicate;
@@ -286,7 +286,7 @@ public class DragonUtils {
 		if (block.getTranslationKey().contains("grave")) {
 			return false;
 		}
-		if (isDreadBlock(block)) {
+		if (block instanceof IDragonProof) {
 			return false;
 		}
 		return block != net.minecraft.init.Blocks.BARRIER
@@ -299,11 +299,9 @@ public class DragonUtils {
 				&& block != net.minecraft.init.Blocks.COMMAND_BLOCK
 				&& block != net.minecraft.init.Blocks.REPEATING_COMMAND_BLOCK
 				&& block != net.minecraft.init.Blocks.CHAIN_COMMAND_BLOCK
-				&& block != net.minecraft.init.Blocks.IRON_BARS;
-	}
-
-	public static boolean isDreadBlock(Block block) {
-		return block instanceof BlockDreadBase || block instanceof BlockDreadSpawner;
+				&& block != net.minecraft.init.Blocks.IRON_BARS
+				&& block != IafBlockRegistry.dragon_bone_block
+				&& block != IafBlockRegistry.dragon_bone_block_wall;
 	}
 
 	public static boolean hasSameOwner(Entity entity1, Entity entity2) {

@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockDreadSpawner extends BlockMobSpawner {
+public class BlockDreadSpawner extends BlockMobSpawner implements IDragonProof {
 
     public BlockDreadSpawner() {
         super();

@@ -2,12 +2,15 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.client.particle.lightning.ParticleLightningVector;
+import com.github.alexthe666.iceandfire.entity.explosion.LightningExplosion;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightning;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightningCharge;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.google.common.base.Predicate;
@@ -25,6 +28,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -255,7 +260,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 					}
 
 				}
-			} else {
+			} else if (burningTarget == null) {
 				this.setBreathingFire(false);
 			}
 		}
@@ -269,12 +274,80 @@ public class EntityLightningDragon extends EntityDragonBase {
 		float sitProg = this.sitProgress * 0.005F;
 		float sleepProg = this.sleepProgress * 0.005F;
 		float flightXz = 1.0F + flyProg + hoverProg;
-		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg - sleepProg * 0.9F) * flightXz * getRenderSize();
-		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
+		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.8F - sleepProg * 0.9F) * flightXz * getRenderSize();		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
 		float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.cos(rotationYaw * Math.PI / 180));
 		float headPosY = (float) (posY + (0.7F + (sitProg * 5F) + hoverProg + deadProg + (sleepProg * 6F) + flyProg) * getRenderSize() * 0.3F);
 		float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.sin(rotationYaw * Math.PI / 180));
 		return new Vec3d(headPosX, headPosY, headPosZ);
+	}
+
+	@Override
+	protected void breathFireAtPos(BlockPos burningTarget) {
+		if (this.isBreathingFire()) {
+			if (this.isActuallyBreathingFire()) {
+				rotationYaw = renderYawOffset;
+				if (this.ticksExisted % 5 == 0) {
+					this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
+				}
+				stimulateFire(burningTarget.getX() + 0.5F, burningTarget.getY() + 0.5F, burningTarget.getZ() + 0.5F, 1);
+			}
+		} else {
+			this.setBreathingFire(true);
+		}
+	}
+
+	@Override
+	public void stimulateFire(double burnX, double burnY, double burnZ, int syncType) {
+		if (syncType == 1 && !world.isRemote) {
+			//sync with client
+			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageDragonSyncFire(this.getEntityId(), burnX, burnY, burnZ, 0));
+		}
+		this.getNavigator().clearPath();
+		this.burnParticleX = burnX;
+		this.burnParticleY = burnY;
+		this.burnParticleZ = burnZ;
+		Vec3d headPos = getHeadPosition();
+		double d2 = burnX - headPos.x;
+		double d3 = burnY - headPos.y;
+		double d4 = burnZ - headPos.z;
+		double distance = Math.max(5 * this.getDistance(burnX, burnY, burnZ), 0);
+		double conqueredDistance = burnProgress / 40D * distance;
+		int increment = (int) Math.ceil(conqueredDistance / 100);
+		for (int i = 0; i < conqueredDistance; i += increment) {
+			double progressX = headPos.x + d2 * (i / (float) distance);
+			double progressY = headPos.y + d3 * (i / (float) distance);
+			double progressZ = headPos.z + d4 * (i / (float) distance);
+			if (!canPositionBeSeen(progressX, progressY, progressZ)) {
+				RayTraceResult result = this.world.rayTraceBlocks(new Vec3d(this.posX, this.posY + (double) this.getEyeHeight(), this.posZ), new Vec3d(progressX, progressY, progressZ), false, true, false);
+				if (result != null) {
+					BlockPos pos = result.getBlockPos();
+					if (!world.isRemote) {
+						LightningExplosion explosion = new LightningExplosion(this.world, this, pos.getX(), pos.getY(), pos.getZ(), this.getDragonStage() * 2.5F, this.world.getGameRules().getBoolean("mobGriefing"));
+						explosion.doExplosionA();
+						explosion.doExplosionB(true);
+					} else if (rand.nextInt(100) >= 60) {
+						ParticleLightningVector source = new ParticleLightningVector(headPos);
+						ParticleLightningVector target = ParticleLightningVector.fromBlockPos(pos);
+						IceAndFire.PROXY.spawnLightningEffect(world, source, target, false);
+					}
+					return;
+				}
+			}
+		}
+		if (burnProgress >= 40D && canPositionBeSeen(burnX, burnY, burnZ)) {
+			double spawnX = burnX + (rand.nextFloat() * 3.0) - 1.5;
+			double spawnY = burnY + (rand.nextFloat() * 3.0) - 1.5;
+			double spawnZ = burnZ + (rand.nextFloat() * 3.0) - 1.5;
+			if (!world.isRemote) {
+				LightningExplosion explosion = new LightningExplosion(this.world, this, spawnX, spawnY, spawnZ, this.getDragonStage() * 2.5F, this.world.getGameRules().getBoolean("mobGriefing"));
+				explosion.doExplosionA();
+				explosion.doExplosionB(true);
+			} else {
+				ParticleLightningVector source = new ParticleLightningVector(headPos);
+				ParticleLightningVector target = new ParticleLightningVector(spawnX, spawnY, spawnZ);
+				IceAndFire.PROXY.spawnLightningEffect(world, source, target, true);
+			}
+		}
 	}
 
 	public void riderShootFire(Entity controller) {

@@ -104,7 +104,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         if (rand.nextFloat() < 0.75F) {
             double chance = rand.nextFloat();
             if (chance < 0.0025F) {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.dread_sword /* TODO ask about DragonSteel ModItems.dragonsteel_ice_sword*/ ));
+                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.dread_knight_sword));
             }
             if (chance < 0.01F) {
                 this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
