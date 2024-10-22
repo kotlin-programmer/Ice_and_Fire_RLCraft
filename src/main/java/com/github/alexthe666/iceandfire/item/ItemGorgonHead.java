@@ -7,7 +7,7 @@ import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.core.ModSounds;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
+import com.github.alexthe666.iceandfire.entity.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.entity.util.IDropArmor;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;

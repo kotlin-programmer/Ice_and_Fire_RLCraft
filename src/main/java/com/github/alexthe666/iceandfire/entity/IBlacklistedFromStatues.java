@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.entity.util;
+package com.github.alexthe666.iceandfire.entity;
 
 public interface IBlacklistedFromStatues {
 
