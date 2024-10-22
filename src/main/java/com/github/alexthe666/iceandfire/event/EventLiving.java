@@ -15,12 +15,14 @@ import com.github.alexthe666.iceandfire.entity.ai.VillagerAIFearUntamed;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntitySpawnerBase;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
+import com.github.alexthe666.iceandfire.integration.VariedCommoditiesCompat;
 import com.github.alexthe666.iceandfire.item.ItemGhostSword;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemTideTrident;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
 import com.github.alexthe666.iceandfire.message.MessageSwingArm;
+import com.github.alexthe666.iceandfire.structures.WorldGenLightningDragonCave;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
@@ -33,6 +35,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -56,6 +59,7 @@ import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.RandomChance;
 import net.minecraft.world.storage.loot.functions.LootFunction;
+import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
@@ -571,6 +575,34 @@ public class EventLiving {
 			LootEntryItem ingot = new LootEntryItem(ModItems.copperIngot, 10, 14, new LootFunction[0], new LootCondition[0], "iceandfire:copper_ingot");
 			LootPool pool = new LootPool(new LootEntry[]{ingot}, new LootCondition[]{chance}, new RandomValueRange(1, 3), new RandomValueRange(0, 3), "iaf_copper");
 			event.getTable().addPool(pool);
+		}
+		if (eventName.equals(WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST) || eventName.equals(WorldGenLightningDragonCave.LIGHTNINGDRAGON_MALE_CHEST)) {
+			LootPool pool = event.getTable().getPool("lightning_dragon_cave");
+			if (pool != null) {
+				Item nugget = ModItems.copperNugget;
+				Item ingot = ModItems.copperIngot;
+				Item sword = ModItems.copper_sword;
+				Item helmet = ModItems.copper_helmet;
+				Item chestplate = ModItems.copper_chestplate;
+				Item leggings = ModItems.copper_leggings;
+				Item boots = ModItems.copper_boots;
+				if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
+					nugget = VariedCommoditiesCompat.getDiamondCoin();
+					ingot = Items.DIAMOND;
+					sword = Items.DIAMOND_SWORD;
+					helmet = Items.DIAMOND_HELMET;
+					chestplate = Items.DIAMOND_CHESTPLATE;
+					leggings = Items.DIAMOND_LEGGINGS;
+					boots = Items.DIAMOND_BOOTS;
+				}
+				pool.addEntry(new LootEntryItem(nugget, 16, 0, new LootFunction[] {new SetCount(new LootCondition[0], new RandomValueRange(1, 16))}, new LootCondition[0], "nugget"));
+				pool.addEntry(new LootEntryItem(ingot, 10, 0, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1, 10))}, new LootCondition[0], "ingot"));
+				pool.addEntry(new LootEntryItem(sword, 5, 0, new LootFunction[0], new LootCondition[0], "sword"));
+				pool.addEntry(new LootEntryItem(helmet, 5, 0, new LootFunction[0], new LootCondition[0], "helmet"));
+				pool.addEntry(new LootEntryItem(chestplate, 5, 0, new LootFunction[0], new LootCondition[0], "chestplate"));
+				pool.addEntry(new LootEntryItem(leggings, 5, 0, new LootFunction[0], new LootCondition[0], "leggings"));
+				pool.addEntry(new LootEntryItem(boots, 5, 0, new LootFunction[0], new LootCondition[0], "boots"));
+			}
 		}
 	}
 

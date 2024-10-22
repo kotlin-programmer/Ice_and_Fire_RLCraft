@@ -62,10 +62,7 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
     }
 
     protected ResourceLocation getLootTable() {
-        if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
-            return WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST_1;
-        }
-        return WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST_2;
+        return WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST;
     }
 
     protected EntityDragonBase createDragon(World worldIn) {

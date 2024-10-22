@@ -17,10 +17,8 @@ import java.util.List;
 import java.util.Random;
 
 public class WorldGenLightningDragonCave extends WorldGenDragonCave {
-	public static final ResourceLocation LIGHTNINGDRAGON_CHEST_1 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave_1"));
-	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST_1 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave_1"));
-	public static final ResourceLocation LIGHTNINGDRAGON_CHEST_2 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave_2"));
-	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST_2 = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave_2"));
+	public static final ResourceLocation LIGHTNINGDRAGON_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave"));
+	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave"));
 	protected IBlockState getStone() {
 		return ModBlocks.crackledStone.getDefaultState();
 	}
@@ -41,14 +39,9 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 	}
 
 	protected ResourceLocation getLootTable() {
-		if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
-			if (isMale) {
-				return LIGHTNINGDRAGON_MALE_CHEST_1;
-			} else return LIGHTNINGDRAGON_CHEST_1;
-		}
 		if (isMale) {
-			return LIGHTNINGDRAGON_MALE_CHEST_2;
-		} else return LIGHTNINGDRAGON_CHEST_2;
+			return LIGHTNINGDRAGON_MALE_CHEST;
+		} else return LIGHTNINGDRAGON_CHEST;
 	}
 
 	protected EntityDragonBase createDragon(World worldIn) {

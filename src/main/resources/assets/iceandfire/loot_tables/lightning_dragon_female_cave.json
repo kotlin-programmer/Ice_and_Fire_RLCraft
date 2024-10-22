@@ -1,7 +1,7 @@
 {
   "pools": [
     {
-      "name": "lightning_dragon_male_cave_1",
+      "name": "lightning_dragon_cave",
       "rolls": {
         "min": 1,
         "max": 4
@@ -15,11 +15,11 @@
               "function": "set_count",
               "count": {
                 "min": 1,
-                "max": 10
+                "max": 4
               }
             }
           ],
-          "weight": 10
+          "weight": 2
         },
         {
           "type": "item",
@@ -93,20 +93,6 @@
         },
         {
           "type": "item",
-          "name": "variedcommodities:coin_diamond",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 16
-              }
-            }
-          ],
-          "weight": 15
-        },
-        {
-          "type": "item",
           "name": "minecraft:skull",
           "functions": [
             {
@@ -132,76 +118,6 @@
             }
           ],
           "weight": 15
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_sword",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 1
-              }
-            }
-          ],
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_helmet",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 1
-              }
-            }
-          ],
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_chestplate",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 1
-              }
-            }
-          ],
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_leggings",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 1
-              }
-            }
-          ],
-          "weight": 5
-        },
-        {
-          "type": "item",
-          "name": "minecraft:diamond_boots",
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 1
-              }
-            }
-          ],
-          "weight": 5
         },
         {
           "type": "item",
