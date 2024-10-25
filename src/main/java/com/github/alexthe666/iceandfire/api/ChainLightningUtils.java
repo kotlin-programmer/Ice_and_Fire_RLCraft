@@ -52,7 +52,7 @@ public class ChainLightningUtils {
 
         int hop = 0;
 
-        if (!attackEntityWithLightningDamage(attacker, target, hop, damage, true)) {
+        if (!attackEntityWithLightningDamage(attacker, target, hop, damage)) {
             return;
         }
 
@@ -88,7 +88,7 @@ public class ChainLightningUtils {
             if (hop >= damage.length) break;
             if (alreadyTargetedEntities.contains(nextTarget.getEntityId())) continue;
 
-            attackEntityWithLightningDamage(attacker, nextTarget, hop, damage, false);
+            attackEntityWithLightningDamage(attacker, nextTarget, hop, damage);
             if (isParalysisEnabled) {
                 applyParalysis(nextTarget, hop, paralysisTicks);
             }
@@ -113,7 +113,7 @@ public class ChainLightningUtils {
         }
     }
 
-    private static boolean attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage, boolean force) {
+    private static boolean attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage) {
         // Crab => Larger Crab
         if (EventLiving.isQuarkCrab(target)) {
             strikeWithLightningBolt(target);
@@ -125,10 +125,7 @@ public class ChainLightningUtils {
             damageSource = damageSource.setDamageBypassesArmor();
         }
 
-        int hurtResistPre = target.hurtResistantTime;
-        if(force) target.hurtResistantTime = 0;
         boolean flag = target.attackEntityFrom(damageSource, damage[hop]);
-        if(force) target.hurtResistantTime = hurtResistPre;
 
         // Creeper => Charged Creeper
         if (target instanceof EntityCreeper) {
