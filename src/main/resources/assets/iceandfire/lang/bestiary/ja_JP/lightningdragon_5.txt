@@ -1,0 +1,50 @@
+ジャングルでは、雷ユリが地上に
+生えることはほとんどない。
+この花は、アイスドラゴンや
+ファイアドラゴンと同じで、
+繁殖用の調合薬を作ることが
+できる。
+<item><iceandfire:lightning_lily 100 20 40 1>
+<item><iceandfire:lightning_stew 100 60 40 1>
+
+
+
+
+ライトニングドラゴンのドロップは、
+火や氷のドラゴンと同じように、
+鱗や骨、頭蓋骨、血などを落とす。
+これらは同じように使うことができる。
+全般的に、火や氷のドラゴンの
+ドロップから得られるあらゆる素材や
+アイテムは、ライトニングドラゴンの
+ドロップからも作ることができる。
+
+
+例えば、ドラゴンの鎧や
+ドラゴンの血などだ。
+
+
+<item><iceandfire:dragonscale_amythest 100 120 40 1>
+<item><iceandfire:armor_amythest_helmet 100 140 30 1>
+<item><iceandfire:dragonsteel_lightning_ingot 100 160 40 1>
+
+<item><iceandfire:dragonforge_lightning_core 100 140 50 1>
+
+<item><iceandfire:summoning_crystal_lightning 100 120 60 1>
+<item><iceandfire:lightning_dragon_blood 100 140 70 1>
+<item><iceandfire:dragonbone_sword_lightning 100 160 60 1>
+
+
+
+
+
+
+
+
+
+
+
+ライトニングドラゴンの武器は、
+ファイアドラゴンとアイス
+ドラゴンの両方に追加ダメージ
+を与え、敵に稲妻を放つ。
