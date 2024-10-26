@@ -99,6 +99,7 @@ public interface IHitEffect {
                 IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(target);
                 if (capability != null) capability.setFrozen(200);
             }
+            target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 2));
             target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, 2));
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
