@@ -8,8 +8,8 @@ public abstract class CompatLoadUtil {
     private static Boolean claimitLoaded;
     private static final String VARIED_COMMODITIES_MODID = "variedcommodities";
     private static Boolean variedCommoditiesLoaded;
-    private static final String LYCANITE_MODID = "lycanitesmobs";
-    private static Boolean lycaniteLoaded;
+    private static final String LYCANITES_MOBS_MODID = "lycanitesmobs";
+    private static Boolean lycanitesMobsLoaded;
     private static final String THAUMCRAFT_MODID = "thaumcraft";
     private static Boolean thaumcraftLoaded;
     private static final String RLCOMBAT_MODID = "bettercombatmod";
@@ -25,9 +25,9 @@ public abstract class CompatLoadUtil {
         return variedCommoditiesLoaded;
     }
 
-    public static boolean isLycanitesLoaded() {
-        if(lycaniteLoaded == null) lycaniteLoaded = Loader.isModLoaded(LYCANITE_MODID);
-        return lycaniteLoaded;
+    public static boolean isLycanitesMobsLoaded() {
+        if(lycanitesMobsLoaded == null) lycanitesMobsLoaded = Loader.isModLoaded(LYCANITES_MOBS_MODID);
+        return lycanitesMobsLoaded;
     }
 
     public static boolean isThaumcraftLoaded() {

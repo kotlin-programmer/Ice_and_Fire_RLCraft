@@ -2,10 +2,11 @@ package com.github.alexthe666.iceandfire.api;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.event.EventLiving;
+import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.core.ModSounds;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.EntityMultipartPart;
 import com.github.alexthe666.iceandfire.message.MessageChainLightningFX;
 import net.minecraft.entity.*;
@@ -46,15 +47,13 @@ public class ChainLightningUtils {
             boolean isParalysisEnabled,
             int[] paralysisTicks
     ) {
-        if (!DragonUtils.isAlive(target)) {
+        if (!canHurt(target, attacker)) {
             return;
         }
 
         int hop = 0;
 
-        if (!attackEntityWithLightningDamage(attacker, target, hop, damage)) {
-            return;
-        }
+        attackEntityWithLightningDamage(attacker, target, hop, damage);
 
         if (isParalysisEnabled) {
             applyParalysis(target, hop, paralysisTicks);
@@ -113,11 +112,29 @@ public class ChainLightningUtils {
         }
     }
 
-    private static boolean attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage) {
+    private static boolean canHurt(EntityLivingBase target, EntityLivingBase attacker) {
+        if (target instanceof IDeadMob && ((IDeadMob) target).isMobDead()) {
+            return false;
+        }
+        if (!target.attackable()) {
+            return false;
+        }
+        if (target instanceof EntityLiving && ((EntityLiving)target).isAIDisabled()) {
+            return false;
+        }
+        if (CompatLoadUtil.isLycanitesMobsLoaded()) {
+            if (!LycanitesCompat.canHurt(target, attacker)) {
+                return false;
+            }
+        }
+        return target instanceof EntityLiving || target instanceof EntityPlayer;
+    }
+
+    private static void attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage) {
         // Crab => Larger Crab
         if (EventLiving.isQuarkCrab(target)) {
             strikeWithLightningBolt(target);
-            return true;
+            return;
         }
 
         DamageSource damageSource = new EntityDamageSourceIndirect("lightningBolt", attacker, attacker);
@@ -125,7 +142,7 @@ public class ChainLightningUtils {
             damageSource = damageSource.setDamageBypassesArmor();
         }
 
-        boolean flag = target.attackEntityFrom(damageSource, damage[hop]);
+        target.attackEntityFrom(damageSource, damage[hop]);
 
         // Creeper => Charged Creeper
         if (target instanceof EntityCreeper) {
@@ -137,8 +154,6 @@ public class ChainLightningUtils {
                 creeper.readEntityFromNBT(compound);
             }
         }
-
-        return flag;
     }
 
     private static void strikeWithLightningBolt(Entity entity) {
@@ -184,11 +199,13 @@ public class ChainLightningUtils {
             if (target instanceof EntityPlayer) {
                 return false;
             }
-            if (!DragonUtils.isAlive(target)) {
+            if (!canHurt(target, attacker)) {
                 return false;
             }
-            if (target instanceof IEntityOwnable && ((IEntityOwnable) target).getOwner() != null) {
-                if (target instanceof EntityLiving) {
+            if (target instanceof IEntityOwnable && ((IEntityOwnable) target).getOwner() instanceof EntityPlayer) {
+                if (attacker == null) {
+                    return false;
+                } else if (target instanceof EntityLiving) {
                     EntityLivingBase attackTarget = ((EntityLiving) target).getAttackTarget();
                     EntityLivingBase revengeTarget = target.getRevengeTarget();
                     if (!attacker.equals(attackTarget) && !attacker.equals(revengeTarget)) {
