@@ -57,7 +57,6 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 
 	@Override
 	public void onUpdate() {
-		super.onUpdate();
 		if (ticksInAir > 160) {
 			setDead();
 		}
