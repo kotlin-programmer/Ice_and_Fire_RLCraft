@@ -157,6 +157,11 @@ public class IceDragonTabulaModelAnimator extends IceAndFireTabulaModelAnimator 
                     }
                 }
             }
+            if (entity.fireBreathProgress > 0.0F) {
+                if (!isPartEqual(cube, EnumDragonAnimations.STREAM_BREATH.icedragon_model.getCube(cube.boxName)) && !isWing(model, cube) && !cube.boxName.contains("Finger")) {
+                    transitionTo(cube, EnumDragonAnimations.STREAM_BREATH.icedragon_model.getCube(cube.boxName), entity.fireBreathProgress, 5, false);
+                }
+            }
         }
         float speed_walk = 0.2F;
         float speed_idle = entity.isSleeping() ? 0.025F : 0.05F;
