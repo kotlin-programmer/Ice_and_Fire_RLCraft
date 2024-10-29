@@ -564,6 +564,10 @@ public class IceAndFireConfig {
 		@Config.Comment("If true, dragon affected blocks will revert to their natural state after a period of time")
 		@Config.Name("Dragon Affected Blocks Revert")
 		public boolean dragonAffectedBlocksRevert = false;
+
+		@Config.Comment("If true, dragons will be spooky skeletons for spooky season (Halloween)")
+		@Config.Name("Spooky Season Dragons")
+		public boolean spookySeason = true;
 	}
 
 	public static class EntityConfig {

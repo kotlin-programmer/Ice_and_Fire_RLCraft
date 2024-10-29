@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.enums;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityDragonSkull;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
@@ -483,11 +484,14 @@ public enum EnumDragonTextures {
     private static Boolean cacheSpooky = null;
 
     private static boolean isSpookySeason() {
-        if(cacheSpooky == null) {
-            int curTime = (LocalDate.now().getMonthValue()*100) + LocalDate.now().getDayOfMonth();
-            cacheSpooky = 1028 <= curTime && curTime <= 1102;
+        if (IceAndFireConfig.DRAGON_SETTINGS.spookySeason) {
+            if (cacheSpooky == null) {
+                int curTime = (LocalDate.now().getMonthValue()*100) + LocalDate.now().getDayOfMonth();
+                cacheSpooky = 1028 <= curTime && curTime <= 1102;
+            }
+            return cacheSpooky;
         }
-        return cacheSpooky;
+        return false;
     }
 
     public enum Armor {
