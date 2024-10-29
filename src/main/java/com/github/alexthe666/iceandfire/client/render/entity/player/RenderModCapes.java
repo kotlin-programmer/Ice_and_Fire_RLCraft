@@ -39,7 +39,9 @@ public class RenderModCapes {
 			User.Zyranna
 	};
 	private static final UUID[] lightningCapes = new UUID[] {
-			User.Fonnymunkey
+			User.Cdstk,
+			User.Fonnymunkey,
+			User.ShadicBypass
 	};
 
 	private static Field playerInfoField;
@@ -165,6 +167,7 @@ public class RenderModCapes {
 	private static class User {
 		private static final UUID Alexthe666 = UUID.fromString("71363abe-fd03-49c9-940d-aae8b8209b7c");
 		private static final UUID ArtsyDy = UUID.fromString("14bba455-affa-46d0-9cf0-806cc0f3d454");
+		private static final UUID Cdstk = UUID.fromString("a62d6653-112e-4e81-bffb-7d778bfb7cb0");
 		private static final UUID Eclipse = UUID.fromString("7905095f-4e96-43d1-83a0-870265821205");
 		private static final UUID Fonnymunkey = UUID.fromString("648ab92b-e045-43c8-af1e-85a069d7bf42");
 		private static final UUID KameiB = UUID.fromString("c0ed3a7c-31bd-4989-bc75-cdd147e7ae8c");
@@ -174,6 +177,7 @@ public class RenderModCapes {
 		private static final UUID NLBlackHeavenNL = UUID.fromString("ba54bb01-4afa-4543-a877-9642e4c582c9");
 		private static final UUID Raptorfarian = UUID.fromString("0ed918c8-d612-4360-b711-cd415671356f");
 		private static final UUID Rayquazafallout = UUID.fromString("369a3e3f-371c-4ce6-ba44-48c3eb91ce8b");
+		private static final UUID ShadicBypass = UUID.fromString("e1dd391f-0be1-4ade-8aeb-d651bb144958");
 		private static final UUID Shivaxi = UUID.fromString("cdfccefb-1a2e-4fb8-a3b5-041da27fde61");
 		private static final UUID Zeklo = UUID.fromString("59efccaf-902d-45da-928a-5a549b9fd5e0");
 		private static final UUID Zyranna = UUID.fromString("5d43896a-06a0-49fb-95c5-38485c63667f");
