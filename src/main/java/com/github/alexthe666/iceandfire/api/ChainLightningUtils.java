@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -202,6 +203,9 @@ public class ChainLightningUtils {
             if (!canHurt(target, attacker)) {
                 return false;
             }
+            if (isBlacklistedFromLightningChaining(target)) {
+                return false;
+            }
             if (target instanceof IEntityOwnable && ((IEntityOwnable) target).getOwner() instanceof EntityPlayer) {
                 if (attacker == null) {
                     return false;
@@ -231,5 +235,10 @@ public class ChainLightningUtils {
                     source.posZ + range
             );
         }
+    }
+
+    private static boolean isBlacklistedFromLightningChaining(Entity entity) {
+        ResourceLocation id = EntityList.getKey(entity);
+        return id != null && IceAndFireConfig.getChainLightningEntityBlacklist().contains(id);
     }
 }

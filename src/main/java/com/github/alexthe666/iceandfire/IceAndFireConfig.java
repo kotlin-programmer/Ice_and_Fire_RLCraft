@@ -827,6 +827,10 @@ public class IceAndFireConfig {
 		@Config.Name("Chain Lightning Paralysis Ticks")
 		public int[] chainLightningParalysisTicksPerHop = new int[] {10, 8, 6, 4, 2};
 
+		@Config.Comment("Entities in this list will be blacklisted from being hit by chain lightning")
+		@Config.Name("Chain Lightning Entity Blacklist")
+		public String[] chainLightningEntityBlacklist = {""};
+
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")
 		public boolean allowSnowForSapphireTrade = true;
@@ -892,6 +896,7 @@ public class IceAndFireConfig {
 	//Caching garbage
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
+	private static HashSet<ResourceLocation> chainLightningBlacklist = null;
 	private static HashSet<String> myrmexDisabledNames = null;
 	private static HashMap<String, Integer> trollSpawnCheckHeight = null;
 	private static HashMap<String, String> trollSpawnCheckType = null;
@@ -918,6 +923,14 @@ public class IceAndFireConfig {
 		for(String string : ENTITY_SETTINGS.stoneEntityBlacklist) set.add(new ResourceLocation(string));
 		stoneBlacklist = set;
 		return stoneBlacklist;
+	}
+
+	public static HashSet<ResourceLocation> getChainLightningEntityBlacklist() {
+		if(chainLightningBlacklist != null) return chainLightningBlacklist;
+		HashSet<ResourceLocation> set = new HashSet<>();
+		for(String string : MISC_SETTINGS.chainLightningEntityBlacklist) set.add(new ResourceLocation(string));
+		chainLightningBlacklist = set;
+		return chainLightningBlacklist;
 	}
 
 	public static HashSet<String> getMyrmexDisabledNames() {
