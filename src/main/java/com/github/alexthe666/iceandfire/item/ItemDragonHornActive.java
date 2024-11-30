@@ -170,6 +170,7 @@ public class ItemDragonHornActive extends Item {
 			dragon.setFlying(false);
 			dragon.setHovering(false);
 			dragon.getNavigator().clearPath();
+			horn.shrink(1);
 			player.setHeldItem(player.getActiveHand(), new ItemStack(ModItems.dragon_horn));
 			if (!world.isRemote) {
 				world.spawnEntity(dragon);
