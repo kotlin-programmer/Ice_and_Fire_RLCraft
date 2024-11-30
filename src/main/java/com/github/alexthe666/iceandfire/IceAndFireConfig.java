@@ -831,6 +831,10 @@ public class IceAndFireConfig {
 		@Config.Name("Chain Lightning Entity Blacklist")
 		public String[] chainLightningEntityBlacklist = {""};
 
+		@Config.Comment("Length in ticks of cooldown required between the activation of chain lightning")
+		@Config.Name("Chain Lightning Cooldown")
+		public int chainLightningCooldown = 10;
+
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")
 		public boolean allowSnowForSapphireTrade = true;

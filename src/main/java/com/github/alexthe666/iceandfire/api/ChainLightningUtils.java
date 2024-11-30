@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.api;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
@@ -50,6 +51,14 @@ public class ChainLightningUtils {
     ) {
         if (!canHurt(target, attacker)) {
             return;
+        }
+
+        if (attacker instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) attacker;
+            if (player.getCooldownTracker().hasCooldown(ModItems.dragonbone_sword_lightning)) {
+                return;
+            }
+            player.getCooldownTracker().setCooldown(ModItems.dragonbone_sword_lightning, IceAndFireConfig.MISC_SETTINGS.chainLightningCooldown);
         }
 
         int hop = 0;
