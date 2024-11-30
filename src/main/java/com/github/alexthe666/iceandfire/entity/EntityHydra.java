@@ -82,6 +82,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         this.setSize(2.8F, 1.39F);
         resetParts();
         headDamageThreshold = Math.max(5, (float) IceAndFireConfig.ENTITY_SETTINGS.hydraMaxHealth * 0.08F);
+        this.stepHeight = 2;
     }
 
     protected void initEntityAI() {
@@ -353,7 +354,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.hydraBiteAttackStrength);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.hydraBaseHealth);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0D);
-        this.getEntityAttribute(EntityLivingBase.SWIM_SPEED).setBaseValue(2.0D);
+        this.getEntityAttribute(SWIM_SPEED).setBaseValue(2.0D);
     }
 
     @Override
@@ -492,4 +493,13 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         return ModSounds.HYDRA_DIE;
     }
 
+    @Override
+    public boolean isPushedByWater() {
+        return false;
+    }
+
+    @Override
+    protected float getWaterSlowDown() {
+        return 1F;
+    }
 }
