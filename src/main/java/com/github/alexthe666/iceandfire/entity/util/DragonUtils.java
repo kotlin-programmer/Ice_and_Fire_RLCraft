@@ -7,7 +7,7 @@ import com.github.alexthe666.iceandfire.block.BlockDragonScales;
 import com.github.alexthe666.iceandfire.block.BlockDreadBase;
 import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
 import com.github.alexthe666.iceandfire.entity.*;
-import com.github.alexthe666.iceandfire.integration.ClaimItCompatBridge;
+import com.github.alexthe666.iceandfire.integration.claimit.ClaimItCompatBridge;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;

@@ -1,5 +1,6 @@
-package com.github.alexthe666.iceandfire.integration;
+package com.github.alexthe666.iceandfire.integration.claimit;
 
+import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.integration;
+package com.github.alexthe666.iceandfire.integration.thaumcraft;
 
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;

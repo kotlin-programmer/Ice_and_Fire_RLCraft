@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.integration;
+package com.github.alexthe666.iceandfire.integration.claimit;
 
 import dev.itsmeow.claimit.api.claim.ClaimManager;
 import net.minecraft.util.math.BlockPos;

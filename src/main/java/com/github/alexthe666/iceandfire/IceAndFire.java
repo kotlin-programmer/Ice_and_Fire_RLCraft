@@ -5,13 +5,13 @@ import com.github.alexthe666.iceandfire.capability.CapabilityHandler;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectStorage;
 import com.github.alexthe666.iceandfire.core.ModEntities;
-import com.github.alexthe666.iceandfire.core.ModRecipes;
 import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.event.StructureGenerator;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.RLCombatCompat;
-import com.github.alexthe666.iceandfire.integration.ThaumcraftCompatBridge;
+import com.github.alexthe666.iceandfire.integration.thaumcraft.ThaumcraftCompatBridge;
+import com.github.alexthe666.iceandfire.integration.theoneprobe.TheOneProbeCompatBridge;
 import com.github.alexthe666.iceandfire.loot.CustomizeToDragon;
 import com.github.alexthe666.iceandfire.loot.CustomizeToSeaSerpent;
 import com.github.alexthe666.iceandfire.message.*;
@@ -90,6 +90,7 @@ public class IceAndFire {
         logger.info("A raven flies from the north to the sea");
         logger.info("A dragon whispers her name in the east");
         ThaumcraftCompatBridge.loadThaumcraftCompat();
+        TheOneProbeCompatBridge.loadTheOneProbeCompat();
         LootFunctionManager.registerFunction(new CustomizeToDragon.Serializer());
         LootFunctionManager.registerFunction(new CustomizeToSeaSerpent.Serializer());
     }

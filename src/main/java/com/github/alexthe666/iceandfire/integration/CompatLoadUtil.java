@@ -15,6 +15,9 @@ public abstract class CompatLoadUtil {
     private static final String RLCOMBAT_MODID = "bettercombatmod";
     private static Boolean rlcombatLoaded;
 
+    private static final String THE_ONE_PROBE_MODID = "theoneprobe";
+    private static Boolean theOneProbeLoaded;
+
     public static boolean isClaimItLoaded() {
         if(claimitLoaded == null) claimitLoaded = Loader.isModLoaded(CLAIMIT_MODID);
         return claimitLoaded;
@@ -49,5 +52,10 @@ public abstract class CompatLoadUtil {
         }
         catch(Exception ignored) { }
         return false;
+    }
+
+    public static boolean isTheOneProbeLoaded() {
+        if(theOneProbeLoaded == null) theOneProbeLoaded = Loader.isModLoaded(THE_ONE_PROBE_MODID);
+        return theOneProbeLoaded;
     }
 }

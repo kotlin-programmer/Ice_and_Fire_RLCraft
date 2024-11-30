@@ -119,7 +119,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
             float f = (float) (j + k + l) * 0.333F + 0.5F;
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
                 float hardness = worldIn.getBlockState(position).getBlock().getBlockHardness(worldIn.getBlockState(position), worldIn, position);
-                if (blockpos.distanceSq(position) <= (double) (f * f) &&  hardness >= 0 && hardness != -1) {
+                if (blockpos.distanceSq(position) <= (double) (f * f) && hardness >= 0) {
                     this.setOres(worldIn, rand, blockpos);
                 }
             }
