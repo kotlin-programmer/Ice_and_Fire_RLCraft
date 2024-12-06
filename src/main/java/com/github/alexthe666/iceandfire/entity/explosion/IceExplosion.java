@@ -47,7 +47,7 @@ public class IceExplosion extends Explosion {
     private final List<BlockPos> affectedBlockPositions;
     private final Map<EntityPlayer, Vec3d> playerKnockbackMap;
     private final Vec3d position;
-    private final boolean mobGriefing;
+    private final boolean dragonGriefing;
 
     public IceExplosion(World world, Entity entity, double x, double y, double z, float size, boolean smoke) {
         super(world, entity, x, y, z, size, true, smoke);
@@ -62,7 +62,7 @@ public class IceExplosion extends Explosion {
         this.explosionZ = z;
         this.isSmoking = smoke;
         this.position = new Vec3d(explosionX, explosionY, explosionZ);
-        this.mobGriefing = worldObj.getGameRules().getBoolean("mobGriefing");
+        this.dragonGriefing = worldObj.getGameRules().getBoolean("mobGriefing") && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2;
     }
 
     /**
@@ -209,7 +209,7 @@ public class IceExplosion extends Explosion {
                     particles.add(MessageParticleFX.createParticle(d0, d1, d2, d3, d4, d5));
                 }
 
-                if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos) && !DragonUtils.isDragonBlock(state.getBlock()) && mobGriefing) {
+                if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos) && !DragonUtils.isDragonBlock(state.getBlock()) && dragonGriefing) {
                     if (block == Blocks.GRASS_PATH) {
                         worldObj.setBlockState(blockpos, ModBlocks.frozenGrassPath.getDefaultState().withProperty(BlockPath.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
                     } else if (block == Blocks.GRASS) {
@@ -240,7 +240,7 @@ public class IceExplosion extends Explosion {
         }
 
         for (BlockPos blockpos1 : this.affectedBlockPositions) {
-            if (this.worldObj.getBlockState(blockpos1).getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock() && this.explosionRNG.nextInt(3) == 0 && mobGriefing) {
+            if (this.worldObj.getBlockState(blockpos1).getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock() && this.explosionRNG.nextInt(3) == 0 && dragonGriefing) {
                 this.worldObj.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, explosionRNG.nextInt(7) + 1));
             }
         }
