@@ -163,17 +163,19 @@ public class ItemDragonHornActive extends Item {
 
 	private void maybeSpawnDragon(World world, BlockPos pos, EntityDragonBase dragon, EntityPlayer player, ItemStack horn) {
 		if (horn.getItem() instanceof ItemDragonHornActive) {
-			dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-			if (horn.getTagCompound() != null) {
-				dragon.readEntityFromNBT(horn.getTagCompound());
-			}
-			dragon.setFlying(false);
-			dragon.setHovering(false);
-			dragon.getNavigator().clearPath();
-			horn.shrink(1);
-			player.setHeldItem(player.getActiveHand(), new ItemStack(ModItems.dragon_horn));
-			if (!world.isRemote) {
-				world.spawnEntity(dragon);
+			if (player.getHeldItem(player.getActiveHand()).equals(horn)) {
+				dragon.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+				if (horn.getTagCompound() != null) {
+					dragon.readEntityFromNBT(horn.getTagCompound());
+				}
+				dragon.setFlying(false);
+				dragon.setHovering(false);
+				dragon.getNavigator().clearPath();
+				horn.shrink(0);
+				player.setHeldItem(player.getActiveHand(), new ItemStack(ModItems.dragon_horn));
+				if (!world.isRemote) {
+					world.spawnEntity(dragon);
+				}
 			}
 		}
 	}
