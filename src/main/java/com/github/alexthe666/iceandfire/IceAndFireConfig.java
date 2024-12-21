@@ -2,6 +2,8 @@ package com.github.alexthe666.iceandfire;
 
 import com.github.alexthe666.iceandfire.util.IafMathHelper;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
@@ -921,12 +923,25 @@ public class IceAndFireConfig {
 	private static HashMap<Block, Integer> dragonGriefingBlockChance = null;
 	private static HashMap<Block, Integer> dragonGriefingEffectChance = null;
 
-	public static HashSet<ResourceLocation> getStoneEntityBlacklist() {
+	private static HashSet<ResourceLocation> getStoneEntityBlacklist() {
 		if(stoneBlacklist != null) return stoneBlacklist;
 		HashSet<ResourceLocation> set = new HashSet<>();
 		for(String string : ENTITY_SETTINGS.stoneEntityBlacklist) set.add(new ResourceLocation(string));
 		stoneBlacklist = set;
 		return stoneBlacklist;
+	}
+
+	public static boolean isEntityBlacklistedFromBeingStoned(Entity entity) {
+		ResourceLocation id = EntityList.getKey(entity);
+		if (id == null) {
+			return false;
+		}
+		HashSet<ResourceLocation> blacklist = getStoneEntityBlacklist();
+		if (blacklist.contains(id)) {
+			return true;
+		}
+		ResourceLocation wildcard = new ResourceLocation(id.getNamespace(), "*");
+		return blacklist.contains(wildcard);
 	}
 
 	public static HashSet<ResourceLocation> getChainLightningEntityBlacklist() {
