@@ -2445,4 +2445,12 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public boolean canDismount() {
         return currentAnimation != ANIMATION_SHAKEPREY || animationTick > 60;
     }
+
+    public boolean isEntityEqual(Entity entityIn) {
+        if (entityIn instanceof EntityMultipartPart) {
+            EntityLivingBase parent = ((EntityMultipartPart) entityIn).getParent();
+            return super.isEntityEqual(parent);
+        }
+        return super.isEntityEqual(entityIn);
+    }
 }

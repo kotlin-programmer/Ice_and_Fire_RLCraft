@@ -75,7 +75,7 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, shootingEntity != null, this.ticksInAir >= 25, this.shootingEntity);
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -162,12 +162,7 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 		return false;
 	}
 
-	@Override
-	public float getCollisionBorderSize() {
-		return 1F;
-	}
-
-	private void emitLightningFx(Vec3d pos) {
+    private void emitLightningFx(Vec3d pos) {
 		if (!world.isRemote) {
 			return;
 		}

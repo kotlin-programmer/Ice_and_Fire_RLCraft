@@ -34,7 +34,7 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 	public EntityDragonIce(World worldIn, EntityDragonBase shooter, double accelX, double accelY, double accelZ) {
 		super(worldIn, shooter, accelX, accelY, accelZ);
 		this.setSize(0.5F, 0.5F);
-		double d0 = (double) MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
 		this.accelerationX = accelX / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationY = accelY / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationZ = accelZ / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
@@ -67,7 +67,7 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, shootingEntity != null, this.ticksInAir >= 25, this.shootingEntity);
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -148,11 +148,6 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		return false;
-	}
-
-	@Override
-	public float getCollisionBorderSize() {
-		return 1F;
 	}
 
 }

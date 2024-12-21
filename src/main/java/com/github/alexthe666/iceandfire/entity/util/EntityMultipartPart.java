@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.entity.util;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.message.MessageMultipartInteract;
 import net.ilexiconn.llibrary.server.entity.multipart.PartEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,5 +48,12 @@ public class EntityMultipartPart extends PartEntity {
 
     public boolean shouldNotExist(){
         return !this.parent.isEntityAlive();
+    }
+
+    public boolean isEntityEqual(Entity entityIn) {
+        if (entityIn instanceof EntityMultipartPart) {
+            return super.isEntityEqual(entityIn);
+        }
+        return parent.isEntityEqual(entityIn);
     }
 }
