@@ -1,0 +1,44 @@
+portaient dans leurs vies 
+antérieures.
+<image><drawings_2.png 70 30 0 96 58 36 1>
+
+
+
+Les Gouleffroies sont des zombies 
+morts-vivants dotés de griffes
+extrêmement tranchantes, prêtes
+à déchirer leur proie.
+
+<image><drawings_2.png 65 110 0 133 69 28 1>
+
+
+
+Les Bêteffroies sont les restes 
+mutilés d'animaux transformés par 
+la liche.
+Elles se déplacent rapidement et 
+mordent tout ce qui peut leur tomber 
+sous la dent.
+
+<image><drawings_2.png 275 5 70 111 37 50 1>
+
+
+
+
+
+Les Myrmexffroies sont des 
+arthropodes monstrueux et 
+morts-vivants, prêts à planter 
+leurs crocs massifs dans tout 
+ce que leur maître leur ordonne.
+
+<item><iceandfire:dread_shard 0 95 43 1.25>
+<item><iceandfire:dread_stone_bricks 0 125 43 1.25>
+
+
+
+
+Tous les Monstreffroies laissent 
+tomber des Effroilles qui peuvent 
+être utilisés pour fabriquer des 
+blocs décoratifs.
