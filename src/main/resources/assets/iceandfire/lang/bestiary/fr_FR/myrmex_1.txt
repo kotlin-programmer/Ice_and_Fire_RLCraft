@@ -1,0 +1,39 @@
+
+
+
+
+§nSoldats
+Les soldats sont la première ligne de 
+défense de la colonie. Ils suivent
+autour des individus des autres 
+castes pour les protéger des 
+menaces.
+
+
+
+§nRoyaux 
+Les royaux sont le moyen de 
+reproduction des colonies et les 
+seuls membres capables de voler.
+Les royaux ne volent qu'après
+une longue période d'inactivité
+au sein de la colonie. Lorsque deux
+royaux s'accouplent, le mâle meurt 
+et la femelle devient une reine.
+
+
+
+
+
+
+
+§nSentinelles
+Les Sentinelles sont la caste des 
+opérations secrètes de la colonie. 
+Elles repèrent lors de recherche 
+de la nourriture et se cachent à 
+l'affût pour tendre des embuscades 
+aux proies et aux prédateurs de la 
+ruche. C'est la caste la plus 
+meurtrière, à l'exception de 
+la reine.

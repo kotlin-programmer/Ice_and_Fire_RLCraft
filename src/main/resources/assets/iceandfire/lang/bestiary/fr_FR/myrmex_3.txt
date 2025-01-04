@@ -1,0 +1,42 @@
+Toutes les armes en chitine Myrmex 
+sont faibles contre les arthropodes, 
+mais infligent des dégâts 
+supplémentaires aux non-arthropodes 
+et aux vers 
+des sables.
+
+Les dards de Myrmex sont utilisés 
+pour créer des épées empoisonnées 
+qui sont puissantes que les armes 
+myrmex normales.
+
+
+
+Les morceaux de résine de myrmex 
+sont lâchés par les myrmex de 
+toutes les castes. Les myrmex
+produisent ce matériau étrange
+par eux-mêmes, mais ils cherchent 
+tout de même à s'en procurer, 
+s'ils peuvent en trouver. En 
+jetant des morceaux de résine sur 
+le sol à proximité des Myrmex 
+ouvrier, on peut améliorer sa 
+réputation auprès de la ruche.
+
+La réputation est un concept 
+important à prendre en compte 
+lorsqu'on s'occupe des colonies 
+de Myrmex. La réputation peut 
+être améliorée par des dons et du
+commerce, et peut être diminuée en
+en attaquant ou en tuant des membres
+de la colonie.
+
+La réputation par défaut de chaque 
+colonie pour un humains est de 0.
+À 25, les Myrmex deviennent neutres.
+À 50, ils s'ouvrent au commerce.
+A 75, ils autorisent l'utilisation du
+bâton de myrmex sur l'ensemble
+de la colonie.
