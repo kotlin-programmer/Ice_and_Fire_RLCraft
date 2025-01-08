@@ -26,8 +26,8 @@ public class DragonAITarget<T extends EntityLivingBase> extends EntityAINearestA
 			float dragonSize = Math.max(this.dragon.width, this.dragon.width * (dragon.getRenderSize() / 3));
 			if (dragonSize >= this.targetEntity.width) {
 				if (this.targetEntity instanceof EntityDragonBase) {
-					EntityDragonBase dragon = (EntityDragonBase)this.targetEntity;
-					if(dragon.getOwner() != null && this.dragon.getOwner() != null && this.dragon.isOwner(dragon.getOwner())){
+					EntityDragonBase dragon = (EntityDragonBase) this.targetEntity;
+					if(dragon.getOwner() != null && this.dragon.getOwner() != null && this.dragon.isOwner(dragon.getOwner())) {
 						return false;
 					}
 					return !dragon.isModelDead();

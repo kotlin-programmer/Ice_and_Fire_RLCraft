@@ -7,6 +7,7 @@ import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -46,14 +47,17 @@ public class MessageUpdatePixieHouse extends AbstractMessage<MessageUpdatePixieH
 	@SideOnly(Side.CLIENT)
 	public void onClientReceived(Minecraft client, MessageUpdatePixieHouse message, EntityPlayer player, MessageContext messageContext) {
 		BlockPos pos = BlockPos.fromLong(message.blockPos);
-		if (client.world.getTileEntity(pos) != null && client.world.getTileEntity(pos) instanceof TileEntityPixieHouse) {
-			TileEntityPixieHouse house = (TileEntityPixieHouse) client.world.getTileEntity(pos);
-			house.hasPixie = message.hasPixie;
-			house.pixieType = message.pixieType;
-		} else if (client.world.getTileEntity(pos) != null && client.world.getTileEntity(pos) instanceof TileEntityJar) {
-			TileEntityJar jar = (TileEntityJar) client.world.getTileEntity(pos);
-			jar.hasPixie = message.hasPixie;
-			jar.pixieType = message.pixieType;
+		TileEntity te = client.world.getTileEntity(pos);
+		if (te != null) {
+			if (te instanceof TileEntityPixieHouse) {
+				TileEntityPixieHouse house = (TileEntityPixieHouse) te;
+				house.hasPixie = message.hasPixie;
+				house.pixieType = message.pixieType;
+			} else if (te instanceof TileEntityJar) {
+				TileEntityJar jar = (TileEntityJar) te;
+				jar.hasPixie = message.hasPixie;
+				jar.pixieType = message.pixieType;
+			}
 		}
 	}
 

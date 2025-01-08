@@ -553,6 +553,12 @@
       "iceandfire:lightningdragon_breath"
     ]
   },
+  "lightningdragon_breath_crackle": {
+    "category": "neutral",
+    "sounds": [
+      "iceandfire:lightningdragon_breath_crackle"
+    ]
+  },
   "lightningdragon_breath_short": {
     "category": "neutral",
     "sounds": [

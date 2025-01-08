@@ -1,0 +1,42 @@
+Après qu'une tête unique a subi
+dommages significatifs, elle sera
+coupée et un moignon sanglant 
+prendra sa place.
+
+<image><drawings_2.png 40 70 0 210 114 44 1>
+
+
+
+
+
+mais si la créature n'est pas en feu
+dans les secondes qui suivent, le
+moignon donnera naissance à deux 
+nouvelles têtes d'hydre.
+<image><drawings_2.png 40 160 0 255 114 48 1>
+
+
+
+
+
+
+Le seul moyen d'infliger des dégâts 
+à ce serpent sans qu'il ne gagne en 
+puissance est de s'assurer que 
+l'Hydre est en feu. Lorsqu'elle est 
+en feu, l'Hydre ne peut pas 
+repousser ces têtes, et chaque 
+souche finira par brûler. Elle perd 
+également ses effets régénérateurs.
+
+L'hydre ne peut vraiment mourir que 
+lorsqu'elle n'a qu'une seule tête.
+Sinon, la créature continue à 
+survivre.
+
+Une fois tué, on peut alors librement 
+piller le butin des voyageurs moins 
+chanceux dans l'antre de l'hydre. 
+L'hydre morte laisse tomber deux 
+objets uniques : ses crocs et 
+rarement, son coeur.

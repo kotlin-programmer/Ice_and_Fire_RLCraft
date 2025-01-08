@@ -47,7 +47,7 @@ public class EntityHippogryphEgg extends EntityEgg {
 			result.entityHit.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getThrower()), 0.0F);
 		}
 
-		if (!this.world.isRemote) {
+		if (!this.world.isRemote && this.thrower != null) {
 			EntityHippogryph hippogryph = new EntityHippogryph(this.world);
 			hippogryph.setGrowingAge(-24000);
 			hippogryph.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -55,9 +55,8 @@ public class EntityHippogryphEgg extends EntityEgg {
 				hippogryph.setVariant(itemstack.getMetadata());
 			}
 			this.world.spawnEntity(hippogryph);
+			this.world.setEntityState(this, (byte) 3);
+			this.setDead();
 		}
-
-		this.world.setEntityState(this, (byte) 3);
-		this.setDead();
 	}
 }

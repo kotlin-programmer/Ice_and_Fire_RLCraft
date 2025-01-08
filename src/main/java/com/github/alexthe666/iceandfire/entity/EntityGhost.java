@@ -408,4 +408,10 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
             }
         }
     }
+
+	@Override
+	public boolean shouldRenderInPass(int pass) {
+		return pass == 1;
+	}
+
 }

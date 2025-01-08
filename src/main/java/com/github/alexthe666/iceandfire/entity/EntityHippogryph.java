@@ -24,7 +24,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
@@ -162,8 +161,8 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	@Override
 	public void updatePassenger(Entity passenger) {
 		super.updatePassenger(passenger);
-		if (this.isPassenger(passenger)) {
-			renderYawOffset = rotationYaw;
+		if (passenger instanceof EntityPlayer && this.isRidingPlayer((EntityPlayer) passenger)) {
+			this.renderYawOffset = this.rotationYaw;
 			this.rotationYaw = passenger.rotationYaw;
 		}
 		passenger.setPosition(this.posX, this.posY + 1.05F, this.posZ);
@@ -195,14 +194,22 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	@Nullable
 	public Entity getControllingPassenger() {
 		for (Entity passenger : this.getPassengers()) {
-			if (passenger instanceof EntityPlayer && this.getAttackTarget() != passenger) {
-				EntityPlayer player = (EntityPlayer) passenger;
-				if (this.isTamed() && this.getOwnerId() != null && this.getOwnerId().equals(player.getUniqueID())) {
-					return player;
+			if (passenger instanceof EntityPlayer) {
+				if (this.getAttackTarget() != passenger) {
+					EntityPlayer player = (EntityPlayer) passenger;
+					if (this.isTamed() && this.getOwnerId() != null && this.getOwnerId().equals(player.getUniqueID())) {
+						return player;
+					}
 				}
+			} else {
+				return passenger;
 			}
 		}
 		return null;
+	}
+
+	public boolean isPlayerControlled() {
+		return getControllingPassenger() instanceof EntityPlayer;
 	}
 
 	public int getIntFromArmor(ItemStack stack) {
@@ -609,10 +616,10 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 
 	public boolean canMove() {
 		IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(this);
-		if(capability != null && capability.isStoned()){
+		if (capability != null && capability.isStoned()){
 			return false;
 		}
-		return !this.isSitting() && this.getControllingPassenger() == null && sitProgress == 0;
+		return !this.isSitting() && !this.isPlayerControlled() && sitProgress == 0;
 	}
 
 	@Override
@@ -700,12 +707,12 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	}
 
 	public boolean isRidingPlayer(EntityPlayer player) {
-		return this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
+		return this.getControllingPassenger() instanceof EntityPlayer && this.getControllingPassenger().getUniqueID().equals(player.getUniqueID());
 	}
 
 	@Override
 	public boolean shouldDismountInWater(Entity rider) {
-		return true;
+		return false;
 	}
 
 	public boolean isDirectPathBetweenPoints(Vec3d vec1, Vec3d vec2) {
@@ -745,7 +752,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				super.travel(strafe, forward, vertical);
 				return;
 			}
-			if (this.isBeingRidden() && this.canBeSteered()) {
+			if (this.isBeingRidden() && this.canBeSteered() && this.isPlayerControlled()) {
 				EntityLivingBase controller = (EntityLivingBase) this.getControllingPassenger();
 				if (controller != null) {
 					strafe = controller.moveStrafing * 0.5F;
@@ -862,7 +869,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			this.getNavigator().clearPath();
 
 		}
-		if (this.getControllingPassenger() != null) {
+		if (this.isPlayerControlled()) {
 			if (motionY > 0.5 && (this.isFlying() || this.isHovering())) {
 				this.motionY = 0.5;
 			}
@@ -902,10 +909,12 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			this.playSound(SoundEvents.ENTITY_ENDERDRAGON_FLAP, this.getSoundVolume() * ((float)IceAndFireConfig.DRAGON_SETTINGS.dragonFlapNoiseDistance / 2F), 0.6F + this.rand.nextFloat() * 0.6F * this.getSoundPitch());
 		}
 		if (this.onGround && this.doesWantToLand() && (this.isFlying() || this.isHovering())) {
+			this.airTarget = null;
+
 			this.setFlying(false);
 			this.setHovering(false);
 		}
-		if (this.getControllingPassenger() != null && !this.onGround && (this.isFlying() || this.isHovering())) {
+		if (this.isPlayerControlled() && !this.onGround && (this.isFlying() || this.isHovering())) {
 			this.motionY *= 0D;
 		}
 		if (this.isHovering()) {
@@ -916,7 +925,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			if (this.doesWantToLand()) {
 				this.motionY -= 0.25D;
 			} else {
-				if (this.getControllingPassenger() == null) {
+				if (!this.isPlayerControlled()) {
 					this.motionY += 0.08;
 				}
 				if (this.hoverTicks > 40) {
@@ -935,7 +944,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		if (!this.isFlying() && !this.isHovering() && this.airTarget != null && this.onGround) {
 			this.airTarget = null;
 		}
-		if (this.isFlying() && this.airTarget == null && this.onGround && this.getControllingPassenger() == null) {
+		if (this.isFlying() && this.airTarget == null && this.onGround && !this.isPlayerControlled()) {
 			this.setFlying(false);
 		}
 
@@ -947,12 +956,11 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		if (this.onGround && flyTicks != 0) {
 			flyTicks = 0;
 		}
-		if (this.isFlying() && this.doesWantToLand() && this.getControllingPassenger() == null) {
+		if (this.isFlying() && this.doesWantToLand() && !this.isPlayerControlled()) {
 			this.setFlying(false);
-			this.setHovering(false);
+			this.setHovering(!this.onGround);
 			if (this.onGround) {
 				flyTicks = 0;
-				this.setFlying(false);
 			}
 		}
 		if (this.isFlying()) {
@@ -962,7 +970,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			this.setFlying(false);
 			this.setHovering(false);
 		}
-		if ((capability == null || !capability.isStoned()) && (!world.isRemote && this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isSitting() && !this.isFlying() && this.getPassengers().isEmpty() && !this.isChild() && !this.isHovering() && !this.isSitting() && this.canMove() && this.onGround || this.posY < -1)) {
+		if ((capability == null || !capability.isStoned()) && (!world.isRemote && this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isSitting() && !this.isFlying() && !this.isPlayerControlled() && !this.isChild() && !this.isHovering() && !this.isSitting() && this.canMove() && this.onGround || this.posY < -1)) {
 			this.setHovering(true);
 			this.hoverTicks = 0;
 			this.flyTicks = 0;
@@ -1006,7 +1014,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			this.motionY += 0.01D;
 		}
 
-		if (this.attack() && this.getControllingPassenger() != null && this.getControllingPassenger() instanceof EntityPlayer) {
+		if (this.attack() && this.getControllingPassenger() instanceof EntityPlayer) {
 
 			EntityLivingBase target = DragonUtils.riderLookingAtEntity(this, (EntityPlayer) this.getControllingPassenger(), 3);
 			if (this.getAnimation() != ANIMATION_BITE && this.getAnimation() != ANIMATION_SCRATCH) {
@@ -1023,11 +1031,11 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), false));
 			}
 		}
-		if (this.isFlying() && !this.isHovering() && this.getControllingPassenger() != null && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) < 0.1F) {
+		if (this.isFlying() && !this.isHovering() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) < 0.1F) {
 			this.setHovering(true);
 			this.setFlying(false);
 		}
-		if (this.isHovering() && !this.isFlying() && this.getControllingPassenger() != null && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) > 0.1F) {
+		if (this.isHovering() && !this.isFlying() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) > 0.1F) {
 			this.setFlying(true);
 			this.setHovering(false);
 		}
@@ -1068,7 +1076,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	public void flyTowardsTarget() {
 		if (airTarget != null && isTargetInAir() && this.isFlying() && this.getDistanceSquared(new Vec3d(airTarget.getX(), this.posY, airTarget.getZ())) > 3) {
 			double targetX = airTarget.getX() + 0.5D - posX;
-			double targetY = Math.min(airTarget.getY(), 256) + 1D - posY;
+			double targetY = Math.min(airTarget.getY(), DragonUtils.getMaximumFlightHeightForPos(world, new BlockPos(this))) + 1D - posY;
 			double targetZ = airTarget.getZ() + 0.5D - posZ;
 			motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 2;
 			motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 2;
@@ -1086,7 +1094,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		}
 		if (airTarget != null && this.isFlying() && this.doesWantToLand()) {
 			this.setFlying(false);
-			this.setHovering(false);
+			this.setHovering(true);
 		}
 	}
 

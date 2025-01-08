@@ -62,4 +62,15 @@ public abstract class ModelDragonBase extends AdvancedModelBase implements ICust
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
 	}
+
+	@Override
+	public void faceTarget(float yaw, float pitch, float rotationDivisor, AdvancedModelRenderer... boxes) {
+		float actualRotationDivisor = rotationDivisor * (float) boxes.length;
+		float yawAmount = yaw * (float) Math.PI / 180F / actualRotationDivisor;
+		float pitchAmount = pitch * (float) Math.PI / 180F / actualRotationDivisor;
+		for (AdvancedModelRenderer box : boxes) {
+			box.rotateAngleY += yawAmount;
+			box.rotateAngleX += pitchAmount;
+		}
+	}
 }

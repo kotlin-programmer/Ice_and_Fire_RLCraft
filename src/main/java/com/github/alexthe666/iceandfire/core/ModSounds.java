@@ -28,6 +28,9 @@ public final class ModSounds {
 	@GameRegistry.ObjectHolder("lightningdragon_breath")
 	public static final SoundEvent LIGHTNINGDRAGON_BREATH = createSoundEvent("lightningdragon_breath");
 
+	@GameRegistry.ObjectHolder("lightningdragon_breath_crackle")
+	public static final SoundEvent LIGHTNINGDRAGON_BREATH_CRACKLE = createSoundEvent("lightningdragon_breath_crackle");
+
 	@GameRegistry.ObjectHolder("lightningdragon_breath_short")
 	public static final SoundEvent LIGHTNINGDRAGON_BREATH_SHORT = createSoundEvent("lightningdragon_breath_short");
 

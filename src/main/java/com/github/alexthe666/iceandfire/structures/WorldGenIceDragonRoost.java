@@ -3,13 +3,15 @@ package com.github.alexthe666.iceandfire.structures;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class WorldGenIceDragonRoost extends WorldGenDragonRoost {
 
@@ -28,7 +30,9 @@ public class WorldGenIceDragonRoost extends WorldGenDragonRoost {
             world.setBlockState(blockpos, ModBlocks.frozenGrassPath.getDefaultState());
         } else if (state.getMaterial() == Material.WOOD) {
             world.setBlockState(blockpos, ModBlocks.frozenSplinters.getDefaultState());
-        } else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS) {
+        } else if (state.getMaterial() == Material.PACKED_ICE || state.getMaterial() == Material.CRAFTED_SNOW) {
+            world.setBlockState(blockpos, ModBlocks.dragon_ice.getDefaultState());
+        } else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SNOW) {
             world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
         }
     }
@@ -41,8 +45,16 @@ public class WorldGenIceDragonRoost extends WorldGenDragonRoost {
         return ModBlocks.frozenCobblestone.getDefaultState();
     }
 
-    protected String getTranslationKeyword() {
-        return "frozen";
+    protected Block[] getDragonTransformedBlocks() {
+        return new Block[] {
+                ModBlocks.frozenGrass,
+                ModBlocks.frozenDirt,
+                ModBlocks.frozenGravel,
+                ModBlocks.frozenGrassPath,
+                ModBlocks.frozenStone,
+                ModBlocks.frozenCobblestone,
+                ModBlocks.dragon_ice
+        };
     }
 
     protected ResourceLocation getLootTable() {

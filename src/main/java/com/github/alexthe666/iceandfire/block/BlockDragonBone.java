@@ -9,14 +9,14 @@ import net.minecraft.block.state.IBlockState;
 
 public class BlockDragonBone extends BlockRotatedPillar {
 
-    public BlockDragonBone() {
+    public BlockDragonBone(String gameName, String name) {
         super(Material.ROCK);
         this.setHardness(30F);
         this.setResistance(500F);
         this.setSoundType(SoundType.WOOD);
         this.setCreativeTab(IceAndFire.TAB);
-        this.setTranslationKey("iceandfire.dragon_bone_block");
-        this.setRegistryName(IceAndFire.MODID, "dragon_bone_block");
+        this.setTranslationKey(name);
+        this.setRegistryName(IceAndFire.MODID, gameName);
     }
 
     @Override

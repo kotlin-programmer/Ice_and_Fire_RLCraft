@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -21,7 +20,7 @@ public class ItemSilverArmor extends ItemArmor implements ICustomRendered {
     }
 
     private String getArmorPart(EntityEquipmentSlot slot) {
-        switch (slot){
+        switch (slot) {
             case HEAD:
                 return "helmet";
             case CHEST:
@@ -36,16 +35,10 @@ public class ItemSilverArmor extends ItemArmor implements ICustomRendered {
 
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
-        if (IceAndFireConfig.CLIENT_SETTINGS.silverArmorRedesign) {
-            return (ModelBiped) IceAndFire.PROXY.getArmorModel(renderIndex == 2 ? 3 : 2);
-        }
-        else return null;
+        return (ModelBiped) IceAndFire.PROXY.getArmorModel(renderIndex == 2 ? 3 : 2);
     }
 
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        if (IceAndFireConfig.CLIENT_SETTINGS.silverArmorRedesign) {
-            return "iceandfire:textures/models/armor/" + (slot == EntityEquipmentSlot.LEGS ? "armor_silver_metal_redesign_layer_2" : "armor_silver_metal_redesign_layer_1") + ".png";
-        }
         return "iceandfire:textures/models/armor/" + (slot == EntityEquipmentSlot.LEGS ? "armor_silver_metal_layer_2" : "armor_silver_metal_layer_1") + ".png";
     }
 }

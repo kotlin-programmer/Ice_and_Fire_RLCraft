@@ -28,8 +28,6 @@ public enum EnumSeaSerpent {
     @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_scale")
     public Item scale;
     @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_scale_block")
-    public Block scaleBlock;
-    @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_helmet")
     public Item helmet;
     @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_chestplate")
     public Item chestplate;

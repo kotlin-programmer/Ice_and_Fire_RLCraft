@@ -19,7 +19,7 @@ public class RenderDreadKnight extends RenderLiving<EntityDreadKnight> {
     public static final ResourceLocation TEXTURE_2 = new ResourceLocation("iceandfire:textures/models/dread/dread_knight_3.png");
 
     public RenderDreadKnight(RenderManager renderManager) {
-        super(renderManager, new ModelDreadKnight(0.0F, false), 0.6F);
+        super(renderManager, new ModelDreadKnight(), 0.6F);
         this.addLayer(new LayerGenericGlowing(this, TEXTURE_EYES));
         this.addLayer(new LayerHeldItem(this) {
             protected void translateToHand(EnumHandSide p_191361_1_) {

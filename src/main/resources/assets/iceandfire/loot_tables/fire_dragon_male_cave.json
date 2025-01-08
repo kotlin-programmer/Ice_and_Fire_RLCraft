@@ -1,7 +1,7 @@
 {
   "pools": [
     {
-      "name": "fire_dragon_cave",
+      "name": "fire_dragon_male_cave",
       "rolls": {
         "min": 1,
         "max": 4

@@ -4,21 +4,28 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
+import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
+import com.github.alexthe666.iceandfire.block.BlockMonsterSpawner;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
 import com.github.alexthe666.iceandfire.entity.ai.VillagerAIFearUntamed;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntitySpawnerBase;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
+import com.github.alexthe666.iceandfire.integration.VariedCommoditiesCompat;
 import com.github.alexthe666.iceandfire.item.ItemGhostSword;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemTideTrident;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
 import com.github.alexthe666.iceandfire.message.MessageSwingArm;
+import com.github.alexthe666.iceandfire.structures.WorldGenLightningDragonCave;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -28,13 +35,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.tileentity.MobSpawnerBaseLogic;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -42,11 +53,13 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.*;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.conditions.RandomChance;
 import net.minecraft.world.storage.loot.functions.LootFunction;
+import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.EntityMobGriefingEvent;
@@ -57,14 +70,14 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.event.world.GetCollisionBoxesEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.item.ItemMonsterPlacer.getNamedIdFrom;
 
 public class EventLiving {
 
@@ -100,22 +113,8 @@ public class EventLiving {
 	}
 
 	@SubscribeEvent
-	public void onGatherCollisionBoxes(GetCollisionBoxesEvent event) {
-		if (event.getEntity() != null && event.getEntity() instanceof IPhasesThroughBlock) {
-			Iterator<AxisAlignedBB> itr = event.getCollisionBoxesList().iterator();
-			while (itr.hasNext()) {
-				AxisAlignedBB aabb = itr.next();
-				BlockPos pos = new BlockPos(aabb.minX, aabb.minY, aabb.minZ);
-				if (((IPhasesThroughBlock) event.getEntity()).canPhaseThroughBlock(event.getWorld(), pos)) {
-					itr.remove();
-				}
-			}
-		}
-	}
-
-	@SubscribeEvent
 	public void onEntityMount(EntityMountEvent event) {
-		if (event.getEntityBeingMounted() instanceof  EntityPlayer) {
+		if (event.getEntityMounting() instanceof  EntityPlayer) {
 			if (event.isDismounting()) {
 				if (!DragonUtils.canDismount(event.getEntityBeingMounted())) {
 					event.setCanceled(true);
@@ -469,7 +468,9 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onPlayerRightClick(PlayerInteractEvent.RightClickBlock event) {
-		if (event.getEntityPlayer() != null && (event.getWorld().getBlockState(event.getPos()).getBlock() instanceof BlockChest)) {
+		IBlockState state = event.getWorld().getBlockState(event.getPos());
+		Block block = state.getBlock();
+		if (event.getEntityPlayer() != null && block instanceof BlockChest) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
 			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(event.getEntityPlayer(), event.getEntityPlayer().getEntityBoundingBox().expand(dist, dist, dist));
 			list.sort(new EntityAINearestAttackableTarget.Sorter(event.getEntityPlayer()));
@@ -484,6 +485,17 @@ public class EventLiving {
 						}
 					}
 				}
+			}
+		}
+		ItemStack stack = event.getItemStack();
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemMonsterPlacer && event.getEntityPlayer().isCreative() && (block instanceof BlockDreadSpawner || block instanceof BlockMonsterSpawner)) {
+			TileEntity tileEntity = event.getWorld().getTileEntity(event.getPos());
+			if (tileEntity instanceof TileEntitySpawnerBase) {
+				MobSpawnerBaseLogic mobSpawnerBaseLogic = ((TileEntitySpawnerBase) tileEntity).getSpawnerBaseLogic();
+				mobSpawnerBaseLogic.setEntityId(getNamedIdFrom(stack));
+				tileEntity.markDirty();
+				event.getWorld().notifyBlockUpdate(event.getPos(), state, state, 3);
+				event.setCanceled(true);
 			}
 		}
 	}
@@ -504,20 +516,35 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onBreakBlock(BlockEvent.BreakEvent event) {
-		if (event.getPlayer() != null && (event.getState().getBlock() == ModBlocks.goldPile || event.getState().getBlock() == ModBlocks.silverPile)) {
+		if (event.getPlayer() == null) {
+			return;
+		}
+		Block block = event.getState().getBlock();
+		EntityPlayer player = event.getPlayer();
+		if (block == ModBlocks.goldPile || block == ModBlocks.silverPile || block == ModBlocks.diamondPile) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
-			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(event.getPlayer(), event.getPlayer().getEntityBoundingBox().expand(dist, dist, dist));
-			list.sort(new EntityAINearestAttackableTarget.Sorter(event.getPlayer()));
+			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(dist, dist, dist));
+			list.sort(new EntityAINearestAttackableTarget.Sorter(player));
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {
 					if (entity instanceof EntityDragonBase) {
 						EntityDragonBase dragon = (EntityDragonBase) entity;
-						if (!dragon.isTamed() && !dragon.isModelDead() && !dragon.isOwner(event.getPlayer()) && !event.getPlayer().capabilities.isCreativeMode) {
+						if (!dragon.isTamed() && !dragon.isModelDead() && !dragon.isOwner(player) && !player.capabilities.isCreativeMode) {
 							dragon.setSleeping(false);
 							dragon.setSitting(false);
-							dragon.setAttackTarget(event.getPlayer());
+							dragon.setAttackTarget(player);
 						}
 					}
+				}
+			}
+		} else if (block == ModBlocks.monster_spawner || block == ModBlocks.dread_spawner) {
+			World world = event.getWorld();
+			BlockPos pos = event.getPos();
+			TileEntity tileEntity = world.getTileEntity(pos);
+			if (tileEntity instanceof TileEntitySpawnerBase) {
+				int requiredSpawnCount = ((TileEntitySpawnerBase) tileEntity).getRequiredSpawnCount();
+				if (requiredSpawnCount > 0) {
+					event.setCanceled(true);
 				}
 			}
 		}
@@ -548,6 +575,34 @@ public class EventLiving {
 			LootEntryItem ingot = new LootEntryItem(ModItems.copperIngot, 10, 14, new LootFunction[0], new LootCondition[0], "iceandfire:copper_ingot");
 			LootPool pool = new LootPool(new LootEntry[]{ingot}, new LootCondition[]{chance}, new RandomValueRange(1, 3), new RandomValueRange(0, 3), "iaf_copper");
 			event.getTable().addPool(pool);
+		}
+		if (eventName.equals(WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST) || eventName.equals(WorldGenLightningDragonCave.LIGHTNINGDRAGON_MALE_CHEST)) {
+			LootPool pool = event.getTable().getPool("lightning_dragon_cave");
+			if (pool != null) {
+				Item nugget = ModItems.copperNugget;
+				Item ingot = ModItems.copperIngot;
+				Item sword = ModItems.copper_sword;
+				Item helmet = ModItems.copper_helmet;
+				Item chestplate = ModItems.copper_chestplate;
+				Item leggings = ModItems.copper_leggings;
+				Item boots = ModItems.copper_boots;
+				if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
+					nugget = VariedCommoditiesCompat.getDiamondCoin();
+					ingot = Items.DIAMOND;
+					sword = Items.DIAMOND_SWORD;
+					helmet = Items.DIAMOND_HELMET;
+					chestplate = Items.DIAMOND_CHESTPLATE;
+					leggings = Items.DIAMOND_LEGGINGS;
+					boots = Items.DIAMOND_BOOTS;
+				}
+				pool.addEntry(new LootEntryItem(nugget, 16, 0, new LootFunction[] {new SetCount(new LootCondition[0], new RandomValueRange(1, 16))}, new LootCondition[0], "nugget"));
+				pool.addEntry(new LootEntryItem(ingot, 10, 0, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1, 10))}, new LootCondition[0], "ingot"));
+				pool.addEntry(new LootEntryItem(sword, 5, 0, new LootFunction[0], new LootCondition[0], "sword"));
+				pool.addEntry(new LootEntryItem(helmet, 5, 0, new LootFunction[0], new LootCondition[0], "helmet"));
+				pool.addEntry(new LootEntryItem(chestplate, 5, 0, new LootFunction[0], new LootCondition[0], "chestplate"));
+				pool.addEntry(new LootEntryItem(leggings, 5, 0, new LootFunction[0], new LootCondition[0], "leggings"));
+				pool.addEntry(new LootEntryItem(boots, 5, 0, new LootFunction[0], new LootCondition[0], "boots"));
+			}
 		}
 	}
 

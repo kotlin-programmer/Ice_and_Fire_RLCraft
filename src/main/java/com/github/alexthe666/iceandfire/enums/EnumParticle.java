@@ -14,7 +14,9 @@ public enum EnumParticle {
     SERPENT_BUBBLE,
     EXPLOSION,
     CLOUD,
-    SMOKE,
+    SMOKE_NORMAL,
+    SMOKE_LARGE,
     DREAD_TORCH,
-    GHOST_APPEARANCE
+    GHOST_APPEARANCE,
+    REDSTONE
 }

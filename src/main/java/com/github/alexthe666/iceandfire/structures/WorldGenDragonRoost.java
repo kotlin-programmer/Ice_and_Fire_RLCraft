@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.block.BlockCoinPile;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -25,7 +26,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         int dragonAge = 50 + rand.nextInt(25);
         transformGround(worldIn, rand, position, dragonAge / 5);
         generateStructures(worldIn, rand, position, dragonAge / 5);
-        generateDragon(worldIn, position, dragonAge);
+        generateDragon(worldIn, rand, position, dragonAge);
         return true;
     }
 
@@ -54,7 +55,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
             int l = radius + rand.nextInt(2);
             float f = (float) (j + k + l) * 0.333F + 0.5F;
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
-                if (blockpos.distanceSq(position) <= (double) (f * f) && world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock().getTranslationKey().contains(getTranslationKeyword())) {
+                if (blockpos.distanceSq(position) <= (double) (f * f) && world.isAirBlock(blockpos) && isDragonTransformedBlock(world.getBlockState(blockpos.down()).getBlock())) {
                     int chance = rand.nextInt(100);
                     if (chance < 4) {
                         int chance2 = rand.nextInt(20);
@@ -77,14 +78,14 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
     }
 
     public void generatePile(World world, Random rand, BlockPos position) {
-        int height = 1 + new Random().nextInt(7);
+        int height = 1 + rand.nextInt(7);
         int chance = rand.nextInt(100);
         if (chance < 20) {
-            world.setBlockState(position, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[new Random().nextInt(3)]), 3);
+            world.setBlockState(position, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 3);
             if (world.getBlockState(position).getBlock() instanceof BlockChest) {
                 TileEntity chest = world.getTileEntity(position);
                 if (chest instanceof TileEntityChest && !(chest).isInvalid()) {
-                    ((TileEntityChest) chest).setLootTable(getLootTable(), new Random().nextLong());
+                    ((TileEntityChest) chest).setLootTable(getLootTable(), rand.nextLong());
                 }
             }
         } else {
@@ -116,13 +117,13 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         }
     }
 
-    private void generateDragon(World worldIn, BlockPos position, int dragonAge) {
+    private void generateDragon(World worldIn, Random rand, BlockPos position, int dragonAge) {
         EntityDragonBase dragon = createDragon(worldIn);
         dragon.setGender(isMale);
         dragon.growDragon(dragonAge);
         dragon.setAgingDisabled(true);
         dragon.setHealth(dragon.getMaxHealth());
-        dragon.setVariant(new Random().nextInt(4));
+        dragon.setVariant(rand.nextInt(4));
         dragon.setPositionAndRotation(position.getX() + 0.5, worldIn.getHeight(position).getY() + 1.5, position.getZ() + 0.5, worldIn.rand.nextFloat() * 360, 0);
         dragon.homePos = position;
         dragon.hasHomePosition = true;
@@ -130,10 +131,19 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         worldIn.spawnEntity(dragon);
     }
 
+    private boolean isDragonTransformedBlock(Block block) {
+        for (Block dragonTransformedBlock : getDragonTransformedBlocks()) {
+            if (block == dragonTransformedBlock) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected abstract void transformState(World world, BlockPos blockpos, IBlockState state);
     protected abstract IBlockState getPileBlock();
     protected abstract IBlockState getBuildingBlock();
-    protected abstract String getTranslationKeyword();
+    protected abstract Block[] getDragonTransformedBlocks();
     protected abstract ResourceLocation getLootTable();
     protected abstract EntityDragonBase createDragon(World worldIn);
 }

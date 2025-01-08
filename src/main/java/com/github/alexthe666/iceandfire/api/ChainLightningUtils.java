@@ -2,21 +2,22 @@ package com.github.alexthe666.iceandfire.api;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.event.EventLiving;
+import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.core.ModSounds;
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.EntityMultipartPart;
 import com.github.alexthe666.iceandfire.message.MessageChainLightningFX;
 import net.minecraft.entity.*;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -48,9 +49,22 @@ public class ChainLightningUtils {
             boolean isParalysisEnabled,
             int[] paralysisTicks
     ) {
+        if (!canHurt(target, attacker)) {
+            return;
+        }
+
+        if (attacker instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) attacker;
+            if (player.getCooldownTracker().hasCooldown(ModItems.dragonbone_sword_lightning)) {
+                return;
+            }
+            player.getCooldownTracker().setCooldown(ModItems.dragonbone_sword_lightning, IceAndFireConfig.MISC_SETTINGS.chainLightningCooldown);
+        }
+
         int hop = 0;
 
         attackEntityWithLightningDamage(attacker, target, hop, damage);
+
         if (isParalysisEnabled) {
             applyParalysis(target, hop, paralysisTicks);
         }
@@ -106,6 +120,24 @@ public class ChainLightningUtils {
                     )
             );
         }
+    }
+
+    private static boolean canHurt(EntityLivingBase target, EntityLivingBase attacker) {
+        if (target instanceof IDeadMob && ((IDeadMob) target).isMobDead()) {
+            return false;
+        }
+        if (!target.attackable()) {
+            return false;
+        }
+        if (target instanceof EntityLiving && ((EntityLiving)target).isAIDisabled()) {
+            return false;
+        }
+        if (CompatLoadUtil.isLycanitesMobsLoaded()) {
+            if (!LycanitesCompat.canHurt(target, attacker)) {
+                return false;
+            }
+        }
+        return target instanceof EntityLiving || target instanceof EntityPlayer;
     }
 
     private static void attackEntityWithLightningDamage(EntityLivingBase attacker, EntityLivingBase target, int hop, float[] damage) {
@@ -177,11 +209,16 @@ public class ChainLightningUtils {
             if (target instanceof EntityPlayer) {
                 return false;
             }
-            if (!DragonUtils.isAlive(target)) {
+            if (!canHurt(target, attacker)) {
                 return false;
             }
-            if (target instanceof IEntityOwnable && ((IEntityOwnable) target).getOwner() != null) {
-                if (target instanceof EntityLiving) {
+            if (isBlacklistedFromLightningChaining(target)) {
+                return false;
+            }
+            if (target instanceof IEntityOwnable && ((IEntityOwnable) target).getOwner() instanceof EntityPlayer) {
+                if (attacker == null) {
+                    return false;
+                } else if (target instanceof EntityLiving) {
                     EntityLivingBase attackTarget = ((EntityLiving) target).getAttackTarget();
                     EntityLivingBase revengeTarget = target.getRevengeTarget();
                     if (!attacker.equals(attackTarget) && !attacker.equals(revengeTarget)) {
@@ -207,5 +244,10 @@ public class ChainLightningUtils {
                     source.posZ + range
             );
         }
+    }
+
+    private static boolean isBlacklistedFromLightningChaining(Entity entity) {
+        ResourceLocation id = EntityList.getKey(entity);
+        return id != null && IceAndFireConfig.getChainLightningEntityBlacklist().contains(id);
     }
 }

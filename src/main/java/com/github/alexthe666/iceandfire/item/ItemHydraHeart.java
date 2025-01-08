@@ -24,7 +24,9 @@ public class ItemHydraHeart extends Item {
         this.setCreativeTab(IceAndFire.TAB);
         this.setTranslationKey("iceandfire.hydra_heart");
         this.setRegistryName(IceAndFire.MODID, "hydra_heart");
-        this.maxStackSize = 1;
+        if (IceAndFireConfig.MISC_SETTINGS.hydraHeartPassiveHealing) {
+            this.maxStackSize = 1;
+        }
     }
 
     @Override

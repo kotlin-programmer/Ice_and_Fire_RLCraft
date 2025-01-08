@@ -288,7 +288,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
         this.setAncient(compound.getBoolean("Ancient"));
     }
 
-    private void setSeaSerpentScale(float scale) {
+    public void setSeaSerpentScale(float scale) {
         this.dataManager.set(SCALE, Float.valueOf(scale));
         this.updateAttributes();
     }
@@ -653,6 +653,19 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
             this.setSeaSerpentScale(1.5F + this.getRNG().nextFloat() * 4.0F);
         }
         return livingdata;
+    }
+
+    @Override
+    public boolean getCanSpawnHere() {
+        int posX = MathHelper.floor(this.posX);
+        int posY = MathHelper.floor(this.getEntityBoundingBox().minY);
+        int posZ = MathHelper.floor(this.posZ);
+        BlockPos pos = new BlockPos(posX, posY, posZ);
+        if (this.world.getBlockState(pos.down()).getBlock() != Blocks.WATER) {
+            return false;
+        }
+        IBlockState state = this.world.getBlockState((new BlockPos(this)).down());
+        return state.canEntitySpawn(this);
     }
 
     public void onWorldSpawn(Random random) {

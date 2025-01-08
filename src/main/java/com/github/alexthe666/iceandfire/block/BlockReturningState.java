@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -31,16 +32,18 @@ public class BlockReturningState extends Block {
         if (slippery) {
             this.setDefaultSlipperiness(0.98F);
         }
-        setRegistryName(IceAndFire.MODID, gameName);
+        this.setRegistryName(IceAndFire.MODID, gameName);
         this.returnState = returnToState;
         this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
-        this.setTickRandomly(true);
+        this.setTickRandomly(IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert);
     }
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote && state.getValue(REVERTS) && rand.nextInt(3) == 0 && worldIn.isAreaLoaded(pos, 3)) {
-            worldIn.setBlockState(pos, returnState);
+        if (IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert && !worldIn.isRemote) {
+            if (state.getValue(REVERTS) && rand.nextInt(3) == 0 && worldIn.isAreaLoaded(pos, 3)) {
+                worldIn.setBlockState(pos, returnState);
+            }
         }
     }
 

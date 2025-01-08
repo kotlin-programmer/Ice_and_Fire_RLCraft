@@ -150,16 +150,25 @@ public class EventClient {
 	private static final ResourceLocation TEXTURE_2 = new ResourceLocation("textures/blocks/frosted_ice_2.png");
 	private static final ResourceLocation TEXTURE_3 = new ResourceLocation("textures/blocks/frosted_ice_3.png");
 
+	private static boolean shouldCancelRender(EntityLivingBase living) {
+		if (living.getRidingEntity() != null && living.getRidingEntity() instanceof EntityDragonBase) {
+			return ClientProxy.currentDragonRiders.contains(living.getUniqueID()) || living == Minecraft.getMinecraft().player && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0;
+		}
+		return false;
+	}
+
 	@SubscribeEvent
 	public void onPreRenderLiving(RenderLivingEvent.Pre event){
-		if (event.getEntity().getRidingEntity() != null && event.getEntity().getRidingEntity() instanceof EntityDragonBase) {
-			if (ClientProxy.currentDragonRiders.contains(event.getEntity().getUniqueID()) || event.getEntity() == Minecraft.getMinecraft().player && Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
-				event.setCanceled(true);
-			}
+		if (shouldCancelRender(event.getEntity())) {
+			event.setCanceled(true);
 		}
 	}
+
 	@SubscribeEvent
 	public void onPostRenderLiving(RenderLivingEvent.Post event) {
+		if (shouldCancelRender(event.getEntity())) {
+			event.setCanceled(true);
+		}
 		IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(event.getEntity());
 		if(capability != null && capability.isFrozen()) {
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

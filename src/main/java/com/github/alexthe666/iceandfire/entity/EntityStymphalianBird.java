@@ -197,18 +197,21 @@ public class EntityStymphalianBird extends EntityCreature implements IAnimatedEn
     @Override
     protected void onDeathUpdate() {
         super.onDeathUpdate();
-        if (this.deathTime == 20 && !this.world.isRemote && IceAndFireConfig.ENTITY_SETTINGS.stymphalianBirdsOreDictDrops) {
-            NonNullList<ItemStack> bronzeIngots = OreDictionary.getOres("ingotBronze");
-            if (!bronzeIngots.isEmpty()) {
-                for (ItemStack bronzeIngot : bronzeIngots) {
-                    if (bronzeIngot != ItemStack.EMPTY) {
-                        ItemStack stack = bronzeIngot.copy();
-                        stack.setCount(1 + this.getRNG().nextInt(3));
-                        dropItemAt(stack, this.posX, this.posY + 0.5F, this.posZ);
-                        break;
+        if (this.deathTime == 20 && !this.world.isRemote) {
+            if (IceAndFireConfig.ENTITY_SETTINGS.stymphalianBirdsOreDictDrops) {
+                NonNullList<ItemStack> bronzeIngots = OreDictionary.getOres("ingotBronze");
+                if (!bronzeIngots.isEmpty()) {
+                    for (ItemStack bronzeIngot : bronzeIngots) {
+                        if (bronzeIngot != ItemStack.EMPTY) {
+                            ItemStack stack = bronzeIngot.copy();
+                            stack.setCount(1 + this.getRNG().nextInt(3));
+                            dropItemAt(stack, this.posX, this.posY + 0.5F, this.posZ);
+                            return;
+                        }
                     }
                 }
-            } else {
+            }
+            if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
                 ItemStack stack = new ItemStack(ModItems.copperIngot);
                 stack.setCount(1 + this.getRNG().nextInt(3));
                 dropItemAt(stack, this.posX, this.posY + 0.5F, this.posZ);

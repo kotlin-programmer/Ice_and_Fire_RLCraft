@@ -57,7 +57,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		double d0 = vec3d1.length();
 		vec3d1 = vec3d1.normalize();
 		double d1 = vec3d.dotProduct(vec3d1);
-		return d1 > 1.0D - degree / d0 ? looker.canEntityBeSeen(seen) && !isStoneMob(seen) : false;
+		return d1 > 1.0D - degree / d0 && looker.canEntityBeSeen(seen) && !isStoneMob(seen);
 	}
 
 	public static boolean isBlindfolded(EntityLivingBase attackTarget) {
@@ -100,18 +100,17 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		});
 		this.tasks.addTask(6, new EntityAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
 			@Override
 			public boolean apply(@Nullable EntityPlayer entity) {
 				return entity != null && !entity.isCreative() && !entity.isSpectator();
 			}
 		}));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, true, false, new Predicate<EntityLiving>() {
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0, true, false, new Predicate<EntityLiving>() {
 			@Override
 			public boolean apply(@Nullable EntityLiving entity) {
 				if(entity != null && !entity.isDead && DragonUtils.isAlive(entity) && entity.canBeCollidedWith() && !(entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)entity).canBeTurnedToStone())) {
-					ResourceLocation id = EntityList.getKey(entity);
-					if(id != null && !IceAndFireConfig.getStoneEntityBlacklist().contains(id)) {
+					if(!IceAndFireConfig.isEntityBlacklistedFromBeingStoned(entity)) {
 						IEntityEffectCapability cap = InFCapabilities.getEntityEffectCapability(entity);
 						return cap != null && !cap.isStoned();
 					}
@@ -123,7 +122,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase entity) {
-		if (!(entity instanceof EntityPlayer) && entity instanceof EntityLiving) {
+		if (entity instanceof EntityLiving) {
 			forcePreyToLook((EntityLiving) entity);
 		}
 	}

@@ -1,0 +1,26 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "GEG",
+    "EBE",
+    "GEG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:emerald",
+      "data": 0
+    },
+    "E": {
+      "item": "minecraft:ender_pearl",
+      "data": 0
+    },
+    "B": {
+      "item": "iceandfire:fire_dragon_blood",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "iceandfire:summoning_crystal_fire",
+    "data": 0
+  }
+}

@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.explosion.FireChargeExplosion;
 import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
@@ -117,7 +116,7 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 				return;
 			}
 			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2) {
+				if (this.shootingEntity != null) {
 					int explodeSize = 2;
 					if(this.shootingEntity instanceof EntityDragonBase){
 						explodeSize = 2 + ((EntityDragonBase) this.shootingEntity).getDragonStage();
@@ -158,6 +157,7 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 		return false;
 	}
 
+	@Override
 	public float getCollisionBorderSize() {
 		return 0F;
 	}

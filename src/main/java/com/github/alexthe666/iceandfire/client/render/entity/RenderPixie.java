@@ -21,15 +21,15 @@ import org.lwjgl.opengl.GL11;
 @SideOnly(Side.CLIENT)
 public class RenderPixie extends RenderLiving<EntityPixie> {
 
+	public static final ModelPixie PIXIE_MODEL = new ModelPixie();
 	public static final ResourceLocation TEXTURE_0 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_0.png");
 	public static final ResourceLocation TEXTURE_1 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_1.png");
 	public static final ResourceLocation TEXTURE_2 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_2.png");
 	public static final ResourceLocation TEXTURE_3 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_3.png");
 	public static final ResourceLocation TEXTURE_4 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_4.png");
-	public static final ResourceLocation TEXTURE_5 = new ResourceLocation("iceandfire:textures/models/pixie/pixie_5.png");
 
 	public RenderPixie(RenderManager renderManager) {
-		super(renderManager, new ModelPixie(), 0.2F);
+		super(renderManager, PIXIE_MODEL, 0.2F);
 		this.layerRenderers.add(new LayerPixieItem(this));
 		this.layerRenderers.add(new LayerPixieGlow(this));
 	}
@@ -50,7 +50,6 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 			case 2: return TEXTURE_2;
 			case 3: return TEXTURE_3;
 			case 4: return TEXTURE_4;
-			case 5: return TEXTURE_5;
 		}
 	}
 
@@ -115,7 +114,6 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 					case 2: this.render.bindTexture(RenderPixie.TEXTURE_2); break;
 					case 3: this.render.bindTexture(RenderPixie.TEXTURE_3); break;
 					case 4: this.render.bindTexture(RenderPixie.TEXTURE_4); break;
-					case 5: this.render.bindTexture(RenderPixie.TEXTURE_5); break;
 				}
 				GlStateManager.enableBlend();
 				GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);

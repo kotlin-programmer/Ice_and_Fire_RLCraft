@@ -240,6 +240,12 @@ public class EntityPixie extends EntityTameable {
 		return livingdata;
 	}
 
+	@Override
+	public boolean getCanSpawnHere() {
+		IBlockState state = this.world.getBlockState((new BlockPos(this)).down());
+		return state.canEntitySpawn(this);
+	}
+
 	private boolean isBeyondHeight(){
 		if(this.posY > this.world.getHeight()){
 			return true;

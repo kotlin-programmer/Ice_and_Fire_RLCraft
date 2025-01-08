@@ -57,15 +57,19 @@ public class ParticleLightning extends Particle {
         this.colorInner = colorInner;
         this.isProjectile = isProjectile;
         length = targetVec.subtract(sourceVec).mag();
-        particleMaxAge = (DEFAULT_FADE_TIME + rand.nextInt(DEFAULT_FADE_TIME)) / 2;
+        if (isProjectile) {
+            particleMaxAge = DEFAULT_FADE_TIME / 2;
+        } else {
+            particleMaxAge = (DEFAULT_FADE_TIME + rand.nextInt(DEFAULT_FADE_TIME)) / 2;
+        }
         particleAge = -(int) (length * this.speed);
 
         segments.add(new ParticleLightningSegment(sourceVec, targetVec));
 
         fractal(2, length / 1.5, 0.7F, 0.7F, 45);
+        fractal(2, length / 4, 0.5F, 0.8F, 50);
 
         if (!isProjectile) {
-            fractal(2, length / 4, 0.5F, 0.8F, 50);
             fractal(2, length / 15, 0.5F, 0.9F, 55);
             fractal(2, length / 30, 0.5F, 1.0F, 60);
             fractal(2, length / 60, 0, 0, 0);
