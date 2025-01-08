@@ -597,6 +597,12 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         return livingdata;
     }
 
+    @Override
+    public boolean getCanSpawnHere() {
+        IBlockState state = this.world.getBlockState((new BlockPos(this)).down());
+        return state.canEntitySpawn(this);
+    }
+
     private static boolean isJungleBiome(World world, BlockPos position) {
         Biome biome = world.getBiome(position);
         return biome.topBlock != Blocks.SAND && biome.fillerBlock != Blocks.SAND && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);

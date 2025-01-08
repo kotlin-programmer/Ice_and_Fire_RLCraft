@@ -100,9 +100,12 @@ public class BlockPixieHouse extends BlockContainer implements ICustomRendered {
 	}
 
 	public void dropPixie(World world, BlockPos pos) {
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile instanceof TileEntityPixieHouse && ((TileEntityPixieHouse)tile).hasPixie) {
-			((TileEntityPixieHouse)tile).releasePixie();
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileEntityPixieHouse) {
+			TileEntityPixieHouse pixieHouse = (TileEntityPixieHouse) te;
+			if (pixieHouse.hasPixie) {
+				pixieHouse.releasePixie();
+			}
 		}
 	}
 
@@ -141,9 +144,10 @@ public class BlockPixieHouse extends BlockContainer implements ICustomRendered {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile instanceof TileEntityPixieHouse) {
-			((TileEntityPixieHouse)tile).houseType = stack.getMetadata();
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileEntityPixieHouse) {
+			TileEntityPixieHouse pixieHouse = (TileEntityPixieHouse) te;
+			pixieHouse.houseType = stack.getMetadata();
 		}
 	}
 

@@ -45,7 +45,7 @@ public class EntityHydraBreath extends EntityFireball implements IDragonProjecti
 
     @Override
     public boolean canBeCollidedWith() {
-        return true;
+        return false;
     }
 
     @Override
@@ -114,6 +114,16 @@ public class EntityHydraBreath extends EntityFireball implements IDragonProjecti
             }
             this.setDead();
         }
+    }
+
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        return false;
+    }
+
+    @Override
+    public float getCollisionBorderSize() {
+        return 1F;
     }
 }
 

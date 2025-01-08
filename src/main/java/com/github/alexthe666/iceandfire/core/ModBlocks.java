@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.core;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.block.*;
 import com.github.alexthe666.iceandfire.entity.tile.*;
-import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -32,6 +31,8 @@ public class ModBlocks {
 	public static Block goldPile = new BlockCoinPile("gold", Items.GOLD_NUGGET);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silverpile")
 	public static Block silverPile = new BlockCoinPile("silver", ModItems.silverNugget);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":diamondpile")
+	public static Block diamondPile = new BlockDiamondCoinPile("diamond");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_ore")
 	public static Block amethystOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.amethystOre", "amethyst_ore", ModItems.amethystGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_ore")
@@ -41,13 +42,13 @@ public class ModBlocks {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_ore")
 	public static Block sapphireOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.sapphireOre", "sapphire_ore", ModItems.sapphireGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_block")
-	public static Block amethystBlock = new BlockGeneric(Material.IRON, "amethyst_block", "iceandfire.amethystBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block amethystBlock = new BlockGeneric(Material.IRON, "amethyst_block", "iceandfire.amethystBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_block")
-	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silver_block")
-	public static Block silverBlock = new BlockGeneric(Material.IRON, "silver_block", "iceandfire.silverBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block silverBlock = new BlockGeneric(Material.IRON, "silver_block", "iceandfire.silverBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_block")
-	public static Block sapphireBlock = new BlockGeneric(Material.IRON, "sapphire_block", "iceandfire.sapphireBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL, true);
+	public static Block sapphireBlock = new BlockGeneric(Material.IRON, "sapphire_block", "iceandfire.sapphireBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_dirt")
 	public static Block charedDirt = new BlockReturningState(Material.GROUND, "chared_dirt", "iceandfire.charedDirt", "shovel", 0, 0.5F, 0.0F, SoundType.GROUND, Blocks.DIRT.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_grass")
@@ -96,34 +97,14 @@ public class ModBlocks {
 	public static Block dragon_ice_spikes = new BlockIceSpikes();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":nest")
 	public static Block nest = new BlockGeneric(Material.GRASS, "nest", "iceandfire.nest", "axe", 0, 0.5F, 0F, SoundType.GROUND);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_red")
-	public static Block dragonscale_red = new BlockDragonScales("dragonscale_red", EnumDragonEgg.RED);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_green")
-	public static Block dragonscale_green = new BlockDragonScales("dragonscale_green", EnumDragonEgg.GREEN);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_bronze")
-	public static Block dragonscale_bronze = new BlockDragonScales("dragonscale_bronze", EnumDragonEgg.BRONZE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_gray")
-	public static Block dragonscale_gray = new BlockDragonScales("dragonscale_gray", EnumDragonEgg.GRAY);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_blue")
-	public static Block dragonscale_blue = new BlockDragonScales("dragonscale_blue", EnumDragonEgg.BLUE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_white")
-	public static Block dragonscale_white = new BlockDragonScales("dragonscale_white", EnumDragonEgg.WHITE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_sapphire")
-	public static Block dragonscale_sapphire = new BlockDragonScales("dragonscale_sapphire", EnumDragonEgg.SAPPHIRE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_silver")
-	public static Block dragonscale_silver = new BlockDragonScales("dragonscale_silver", EnumDragonEgg.SILVER);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_amethyst")
-	public static Block dragonscale_amethyst = new BlockDragonScales("dragonscale_amethyst", EnumDragonEgg.AMETHYST);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_copper")
-	public static Block dragonscale_copper = new BlockDragonScales("dragonscale_copper", EnumDragonEgg.COPPER);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_electric")
-	public static Block dragonscale_electric = new BlockDragonScales("dragonscale_electric", EnumDragonEgg.ELECTRIC);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscale_black")
-	public static Block dragonscale_black = new BlockDragonScales("dragonscale_black", EnumDragonEgg.BLACK);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ancient_dragon_bone_block")
+	public static Block ancient_dragon_bone_block = new BlockDragonBone("ancient_dragon_bone_block", "iceandfire.ancient_dragon_bone_block");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ancient_dragon_bone_wall")
+	public static Block ancient_dragon_bone_block_wall = new BlockDragonBoneWall("ancient_dragon_bone_wall", "iceandfire.ancient_dragon_bone_wall", ModBlocks.ancient_dragon_bone_block);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_bone_block")
-	public static Block dragon_bone_block = new BlockDragonBone();
+	public static Block dragon_bone_block = new BlockDragonBone("dragon_bone_block", "iceandfire.dragon_bone_block");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_bone_wall")
-	public static Block dragon_bone_block_wall = new BlockDragonBoneWall();
+	public static Block dragon_bone_block_wall = new BlockDragonBoneWall("dragon_bone_wall", "iceandfire.dragon_bone_wall", ModBlocks.dragon_bone_block);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":egginice")
 	public static Block eggInIce = new BlockEggInIce();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":pixie_house")
@@ -180,6 +161,8 @@ public class ModBlocks {
 	public static BlockGenericSlab dread_stone_bricks_slab = new BlockDreadStoneBrickSlab.Half("dread_stone_slab", 10.0F, 10000F, SoundType.STONE);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_spawner")
 	public static Block dread_spawner = new BlockDreadSpawner();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":monster_spawner")
+	public static Block monster_spawner = new BlockMonsterSpawner();
 
 	static {
 		GameRegistry.registerTileEntity(TileEntityDummyGorgonHead.class, new ResourceLocation(IceAndFire.MODID, "dummyGorgonHeadIdle"));

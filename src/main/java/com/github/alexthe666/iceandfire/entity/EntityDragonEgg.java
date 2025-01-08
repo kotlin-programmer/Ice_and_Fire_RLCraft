@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.google.common.base.Optional;
@@ -101,6 +100,11 @@ public class EntityDragonEgg extends EntityLiving implements IBlacklistedFromSta
     @Override
     public boolean isEntityInvulnerable(DamageSource i) {
         return i.getTrueSource() != null;
+    }
+
+    @Override
+    public boolean isPushedByWater() {
+        return false;
     }
 
     public int getDragonAge() {

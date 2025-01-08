@@ -1,0 +1,44 @@
+Dans les régions les plus glaciales 
+du monde, une force néfaste a scellé. 
+Des complexes massifs connus sous 
+le nom de Mausolées, construits en 
+rocheffroie indestructible, ils 
+enferment un grand et ancien mal.
+
+Cependant, leur pouvoir est en train 
+de s'affaiblir. Des êtres venus d'un 
+autre temps et d'un autre lieu ont 
+été vus émerger de ces structures,
+explorant les étendues gelées.
+
+Le plus communément rencontré est 
+la Licheffroie, un nécromancien 
+mort-vivant qui invoque des 
+abominations mortes-vivantes pour 
+se défendre.
+
+<image><drawings_2.png 230 25 0 0 36 42 1>
+<image><drawings_2.png 300 10 37 0 38 59 1>
+
+
+
+
+
+
+
+
+Muni de son bâton, le nécromancien 
+tirera, soit un crâne d'âme gelé sur 
+sa cible ou invoquera l'un des 
+éléments suivants :
+<image><drawings_2.png 250 120 0 60 87 35 1>
+
+
+
+
+Les Squeleffroies sont des 
+squelettes lents et faibles 
+invoqués par le nécromancien. 
+Émergeant du sol, ils sont
+équipés d'épées et d'armures 
+brisées qu'ils

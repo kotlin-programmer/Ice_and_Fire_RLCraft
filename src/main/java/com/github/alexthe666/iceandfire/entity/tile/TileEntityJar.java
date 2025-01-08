@@ -2,22 +2,24 @@ package com.github.alexthe666.iceandfire.entity.tile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.block.BlockJar;
 import com.github.alexthe666.iceandfire.core.ModSounds;
 import com.github.alexthe666.iceandfire.entity.EntityPixie;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouseModel;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieJar;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.ItemStack;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
 import java.util.UUID;
 
 public class TileEntityJar extends TileEntity implements ITickable {
@@ -30,12 +32,10 @@ public class TileEntityJar extends TileEntity implements ITickable {
 	public UUID pixieOwnerUUID;
 	public int pixieType;
 	public int ticksExisted;
-	public NonNullList<ItemStack> pixieItems = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
 	public float rotationYaw;
 	public float prevRotationYaw;
 
-	public TileEntityJar(boolean empty) {
-		this.hasPixie = !empty;
+	public TileEntityJar() {
 	}
 
 	@Override
@@ -47,15 +47,12 @@ public class TileEntityJar extends TileEntity implements ITickable {
 		compound.setBoolean("TamedPixie", tamedPixie);
 		if(pixieOwnerUUID != null) compound.setUniqueId("PixieOwnerUUID", pixieOwnerUUID);
 		compound.setInteger("TicksExisted", ticksExisted);
-		ItemStackHelper.saveAllItems(compound, this.pixieItems);
 		return compound;
 	}
 
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound tag = new NBTTagCompound();
-		this.writeToNBT(tag);
-		return new SPacketUpdateTileEntity(pos, 1, tag);
+		return new SPacketUpdateTileEntity(pos, 1, getUpdateTag());
 	}
 
 	@Override
@@ -65,24 +62,36 @@ public class TileEntityJar extends TileEntity implements ITickable {
 
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-		readFromNBT(packet.getNbtCompound());
-		if(!world.isRemote) IceAndFire.NETWORK_WRAPPER.sendToAll(
-				new MessageUpdatePixieHouseModel(
-						pos.toLong(),
-						packet.getNbtCompound().getInteger("PixieType")));
+		handleUpdateTag(packet.getNbtCompound());
+		if (!world.isRemote) {
+			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageUpdatePixieHouseModel(pos.toLong(), packet.getNbtCompound().getInteger("PixieType")));
+		}
+	}
+
+	@Override
+	public void handleUpdateTag(NBTTagCompound tagCompound) {
+		this.readFromNBT(tagCompound);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
+		super.readFromNBT(compound);
 		hasPixie = compound.getBoolean("HasPixie");
 		pixieType = compound.getInteger("PixieType");
 		hasProduced = compound.getBoolean("HasProduced");
 		ticksExisted = compound.getInteger("TicksExisted");
 		tamedPixie = compound.getBoolean("TamedPixie");
-		pixieOwnerUUID = compound.getUniqueId("PixieOwnerUUID");
-		this.pixieItems = NonNullList.<ItemStack>withSize(1, ItemStack.EMPTY);
-		ItemStackHelper.loadAllItems(compound, pixieItems);
-		super.readFromNBT(compound);
+		if (compound.hasKey("PixieOwnerUUID")) {
+			pixieOwnerUUID = compound.getUniqueId("PixieOwnerUUID");
+		}
+	}
+
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+		if (newState.getBlock() != Blocks.AIR) {
+			return false;
+		}
+		return super.shouldRefresh(world, pos, oldState, newState);
 	}
 
 	@Override
@@ -123,7 +132,6 @@ public class TileEntityJar extends TileEntity implements ITickable {
 					this.pos.getZ() + 0.5F,
 					this.world.rand.nextInt(360),
 					0);
-			pixie.setHeldItem(EnumHand.MAIN_HAND, pixieItems.get(0));
 			pixie.setColor(this.pixieType);
 			if(!world.isRemote) world.spawnEntity(pixie);
 			this.hasPixie = false;

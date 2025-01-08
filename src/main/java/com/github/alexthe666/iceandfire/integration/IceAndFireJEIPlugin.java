@@ -1,6 +1,8 @@
 package com.github.alexthe666.iceandfire.integration;
 
 import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.core.ModRecipes;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
@@ -35,5 +37,12 @@ public class IceAndFireJEIPlugin implements IModPlugin {
         addDescription(registry, new ItemStack(ModItems.fire_stew));
         addDescription(registry, new ItemStack(ModItems.frost_stew));
         addDescription(registry, new ItemStack(ModItems.lightning_stew));
+
+        for (EnumSkullType skull : EnumSkullType.values()) {
+            addDescription(registry, new ItemStack(skull.skull_item));
+        }
+        for (ItemStack stack : ModRecipes.BANNER_ITEMS) {
+            registry.addIngredientInfo(stack, ItemStack.class, "item.iceandfire.custom_banner.jei_desc");
+        }
     }
 }

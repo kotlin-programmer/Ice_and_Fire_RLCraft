@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
@@ -38,14 +39,12 @@ import java.util.Map;
 public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 
 	private final Map<String, ResourceLocation> LAYERED_TEXTURE_CACHE = Maps.newHashMap();
-	private final int dragonType;
 
-	public RenderDragonBase(RenderManager renderManager, ModelBase model, int dragonType) {
+	public RenderDragonBase(RenderManager renderManager, ModelBase model) {
 		super(renderManager, model, 0.8F);
 		this.addLayer(new LayerDragonEyes(this));
 		this.addLayer(new LayerDragonRider(this));
 		this.addLayer(new LayerDragonArmor(this));
-		this.dragonType = dragonType;
 	}
 
 	@Override
@@ -61,25 +60,10 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityDragonBase entity) {
-		String baseTexture = entity.getVariantName(entity.getVariant()) + " " + entity.getDragonStage() + entity.isModelDead() + entity.isMale() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
+		String baseTexture = entity.getVariantName(entity.getVariant()) + " " + entity.getDragonStage() + entity.isModelDead() + entity.isSkeletal() + entity.isSleeping() + entity.isBlinking();
 		ResourceLocation resourcelocation = LAYERED_TEXTURE_CACHE.get(baseTexture);
 		if (resourcelocation == null) {
 			resourcelocation = EnumDragonTextures.getTextureFromDragon(entity);
-			List<String> tex = new ArrayList<String>();
-			tex.add(resourcelocation.toString());
-			if (entity.isMale() && !entity.isSkeletal()) {
-				if (dragonType == 1) {
-					tex.add(EnumDragonTextures.getDragonEnum(entity).ICE_MALE_OVERLAY.toString());
-				} else if (dragonType == 2) {
-					tex.add(EnumDragonTextures.getDragonEnum(entity).LIGHTNING_MALE_OVERLAY.toString());
-				} else {
-					tex.add(EnumDragonTextures.getDragonEnum(entity).FIRE_MALE_OVERLAY.toString());
-				}
-			} else {
-				tex.add(EnumDragonTextures.Armor.EMPTY.FIRETEXTURE.toString());
-			}
-			ArrayLayeredTexture layeredBase = new ArrayLayeredTexture(tex);
-			Minecraft.getMinecraft().getTextureManager().loadTexture(resourcelocation, layeredBase);
 			LAYERED_TEXTURE_CACHE.put(baseTexture, resourcelocation);
 		}
 		return resourcelocation;
@@ -146,7 +130,7 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 			if (!dragon.getPassengers().isEmpty()) {
 				float dragonScale = dragon.getRenderSize() / 3;
 				for (Entity passenger : dragon.getPassengers()) {
-					boolean prey = dragon.getControllingPassenger() == null || dragon.getControllingPassenger().getEntityId() != passenger.getEntityId();
+					boolean prey = dragon.getControllingPassenger() == null || !dragon.isControllingPassenger(passenger);
 					ClientProxy.currentDragonRiders.remove(passenger.getUniqueID());
 					float riderRot = passenger.prevRotationYaw + (passenger.rotationYaw - passenger.prevRotationYaw) * partialTicks;
 					int animationTicks = 0;
@@ -159,10 +143,10 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 					if (prey) {
 						if (animationTicks == 0 || animationTicks >= 15 || dragon.isFlying()) {
 							translateToHead();
-							Render render = Minecraft.getMinecraft().getRenderManager().getEntityRenderObject(passenger);
+							Render<Entity> render = Minecraft.getMinecraft().getRenderManager().getEntityRenderObject(passenger);
 							ModelBase modelBase = null;
 							if (render instanceof RenderLiving) {
-								modelBase = ((RenderLiving) render).getMainModel();
+								modelBase = ((RenderLiving<?>) render).getMainModel();
 							}
 							if ((passenger.height > passenger.width || modelBase instanceof ModelBiped) && !(modelBase instanceof ModelQuadruped) && !(modelBase instanceof ModelHorse)) {
 								GlStateManager.translate(-0.15F * passenger.height, 0.1F * dragonScale - 0.1F * passenger.height, -0.1F * dragonScale - 0.1F * passenger.width);
@@ -176,12 +160,12 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 						} else {
 							GlStateManager.translate(0, 0.555F * dragonScale, -0.5F * dragonScale);
 						}
-
-					}else{
+					} else{
 						GlStateManager.translate(0, -0.01F * dragonScale, -0.035F * dragonScale);
 					}
 					GlStateManager.pushMatrix();
 					GlStateManager.rotate(180, 0, 0, 1);
+
 					GlStateManager.rotate(riderRot + 180, 0, 1, 0);
 					GlStateManager.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
 					GlStateManager.translate(0, -0.25F, 0);
@@ -246,8 +230,8 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 				CrashReportCategory crashreportcategory1 = crashreport.makeCategory("Renderer details");
 				crashreportcategory1.addCrashSection("Assigned renderer", render);
 				crashreportcategory1.addCrashSection("Location", CrashReportCategory.getCoordinateInfo(x, y, z));
-				crashreportcategory1.addCrashSection("Rotation", Float.valueOf(yaw));
-				crashreportcategory1.addCrashSection("Delta", Float.valueOf(partialTicks));
+				crashreportcategory1.addCrashSection("Rotation", yaw);
+				crashreportcategory1.addCrashSection("Delta", partialTicks);
 				throw new ReportedException(crashreport);
 			}
 		}

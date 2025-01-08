@@ -1,0 +1,43 @@
+C'est l'attaque principale du
+Dragon électrique. Elle est puissante 
+et rapide, mais elle n'est généralement 
+pas mortelle. Cependant, le dragon 
+dispose d'une attaque de mêlée plus 
+rare : secouer sa proie jusqu'à la 
+                             mort.
+
+<image><drawings_lightningdragon_attacks.png 40 112 290 124 186 69 0.7>
+
+
+Lors de cette attaque, le dragon 
+prend sa cible dans sa gueule et la 
+secoue rapidement afin de blesser 
+gravement sa proie.
+Le dragon dispose également d'une 
+dernière   
+<image><drawings_lightningdragon_attacks.png 80 234 330 20 117 77 0.7>
+attaque
+de mêlée
+au cours
+ 
+de laquelle il accumule une force 
+cinétique dans sa queue pour frapper
+dans sa cible. Cette attaque est
+très efficace, mais il lui faut un
+un certain temps pour la développer. 
+Ils peuvent également battre des 
+ailes pour repousser les proies.
+Abattre un dragon, quel que soit son 
+niveau, n'est pas n'est pas une 
+tâche facile. Puisque les Dragons de 
+glace utilisent des attaques 
+élémentaires à distance, il serait 
+intelligent de se mettre à couvert 
+et d'utiliser des armes à longue 
+portée. Si vous voulez abattre 
+l'une de ces bêtes, essayez
+d'éviter les éclairs, surveillez le 
+comportement de nombreuses attaques.
+Une fois que vous l'aurez vaincu 
+l'un d'entre eux, vous aurez accès 
+à de la marchandises précieuses.

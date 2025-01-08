@@ -2,6 +2,8 @@ package com.github.alexthe666.iceandfire;
 
 import com.github.alexthe666.iceandfire.util.IafMathHelper;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
@@ -142,6 +144,30 @@ public class IceAndFireConfig {
 		@Config.Comment("Lightning Dragon Dens and Roosts will additionally generate in these named biomes (Takes priority over disabled biome types)")
 		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Names")
 		public String[] generateLightningDragonEnabledBiomeNames = {""};
+
+		@Config.Comment("Fire Dragon Dens and Roosts will generate in these biome types")
+		@Config.Name("Fire Dragon Den and Roost Enabled Biome Types")
+		public String[] generateFireDragonEnabledBiomeTypes = {""};
+
+		@Config.Comment("Ice Dragon Dens and Roosts will generate in these biome types")
+		@Config.Name("Ice Dragon Den and Roost Enabled Biome Types")
+		public String[] generateIceDragonEnabledBiomeTypes = {""};
+
+		@Config.Comment("Lightning Dragon Dens and Roosts will generate in these biome types")
+		@Config.Name("Lightning Dragon Den and Roost Enabled Biome Types")
+		public String[] generateLightningDragonEnabledBiomeTypes = {"JUNGLE", "SAVANNA", "MESA"};
+
+		@Config.Comment("Fire Dragon Dens and Roosts will not generate in these biome types")
+		@Config.Name("Fire Dragon Den and Roost Disabled Biome Types")
+		public String[] generateFireDragonDisabledBiomeTypes = {"COLD", "SNOWY", "WET", "OCEAN", "RIVER"};
+
+		@Config.Comment("Ice Dragon Dens and Roosts will not generate in these biome types")
+		@Config.Name("Ice Dragon Den and Roost Disabled Biome Types")
+		public String[] generateIceDragonDisabledBiomeTypes = {""};
+
+		@Config.Comment("Lightning Dragon Dens and Roosts will not generate in these biome types")
+		@Config.Name("Lightning Dragon Den and Roost Disabled Biome Types")
+		public String[] generateLightningDragonDisabledBiomeTypes = {""};
 
 		@Config.Comment("Chance for Dragon Roosts to generate in the named biome, in the format name=chance (Overrides general Dragon Roost Chance, 1 in N chance)")
 		@Config.Name("Generate Dragon Roosts Biome Name Chance")
@@ -536,6 +562,14 @@ public class IceAndFireConfig {
 		@Config.Comment("If true, animals will attempt to run away and hide from dragons and other hostile InF mobs (Can cause increased server lag)")
 		@Config.Name("Animals Fear Dragons")
 		public boolean animalsFearDragons = true;
+
+		@Config.Comment("If true, dragon affected blocks will revert to their natural state after a period of time")
+		@Config.Name("Dragon Affected Blocks Revert")
+		public boolean dragonAffectedBlocksRevert = false;
+
+		@Config.Comment("If true, dragons will be spooky skeletons for spooky season (Halloween)")
+		@Config.Name("Spooky Season Dragons")
+		public boolean spookySeason = true;
 	}
 
 	public static class EntityConfig {
@@ -658,7 +692,7 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 10, max = 1000)
 		public int stymphalianBirdFlightHeight = 80;
 
-		@Config.Comment("If true, Stymphalian birds will drop items registered in the oreDictionaries ingotCopper, ingotBronze, nuggetCopper, nuggetBronze")
+		@Config.Comment("If true, Stymphalian birds will drop items registered in the oreDictionaries ingotBronze, nuggetBronze")
 		@Config.Name("Stymphalian Birds Drop OreDict Items")
 		public boolean stymphalianBirdsOreDictDrops = true;
 
@@ -795,6 +829,14 @@ public class IceAndFireConfig {
 		@Config.Name("Chain Lightning Paralysis Ticks")
 		public int[] chainLightningParalysisTicksPerHop = new int[] {10, 8, 6, 4, 2};
 
+		@Config.Comment("Entities in this list will be blacklisted from being hit by chain lightning")
+		@Config.Name("Chain Lightning Entity Blacklist")
+		public String[] chainLightningEntityBlacklist = {""};
+
+		@Config.Comment("Length in ticks of cooldown required between the activation of chain lightning")
+		@Config.Name("Chain Lightning Cooldown")
+		public int chainLightningCooldown = 10;
+
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")
 		public boolean allowSnowForSapphireTrade = true;
@@ -824,10 +866,6 @@ public class IceAndFireConfig {
 		@Config.Name("Bestiary Vanilla Font")
 		public boolean useVanillaFont = false;
 
-		@Config.Comment("If true, silver armor will use the updated model and textures")
-		@Config.Name("Redesigned Silver Armor")
-		public boolean silverArmorRedesign = true;
-
 		@Config.Comment("If true, uses a custom shader when players are charmed by sirens")
 		@Config.Name("Use Siren Shader")
 		public boolean sirenShader = true;
@@ -835,6 +873,10 @@ public class IceAndFireConfig {
 		@Config.Comment("Render stoned entities using layered rendering")
 		@Config.Name("Layered Stoned Entity Texture")
 		public boolean customStoneTexture = false;
+
+		@Config.Comment("Enables armor rendering fixes - to resolve overlapping armor model issues")
+		@Config.Name("Enable Armor Rendering Fixes")
+		public boolean fixArmorRenderingBugs = true;
 	}
 
 	@Mod.EventBusSubscriber(modid = IceAndFire.MODID)
@@ -860,6 +902,7 @@ public class IceAndFireConfig {
 	//Caching garbage
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
+	private static HashSet<ResourceLocation> chainLightningBlacklist = null;
 	private static HashSet<String> myrmexDisabledNames = null;
 	private static HashMap<String, Integer> trollSpawnCheckHeight = null;
 	private static HashMap<String, String> trollSpawnCheckType = null;
@@ -869,17 +912,44 @@ public class IceAndFireConfig {
 	private static HashSet<String> fireDragonEnabledNames = null;
 	private static HashSet<String> iceDragonEnabledNames = null;
 	private static HashSet<String> lightningDragonEnabledNames = null;
+	private static HashSet<BiomeDictionary.Type> fireDragonEnabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> iceDragonEnabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> lightningDragonEnabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> fireDragonDisabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> iceDragonDisabledTypes = null;
+	private static HashSet<BiomeDictionary.Type> lightningDragonDisabledTypes = null;
 	private static HashMap<String, Integer> dragonRoostChance = null;
 	private static HashMap<String, Integer> dragonDenChance = null;
 	private static HashMap<Block, Integer> dragonGriefingBlockChance = null;
 	private static HashMap<Block, Integer> dragonGriefingEffectChance = null;
 
-	public static HashSet<ResourceLocation> getStoneEntityBlacklist() {
+	private static HashSet<ResourceLocation> getStoneEntityBlacklist() {
 		if(stoneBlacklist != null) return stoneBlacklist;
 		HashSet<ResourceLocation> set = new HashSet<>();
 		for(String string : ENTITY_SETTINGS.stoneEntityBlacklist) set.add(new ResourceLocation(string));
 		stoneBlacklist = set;
 		return stoneBlacklist;
+	}
+
+	public static boolean isEntityBlacklistedFromBeingStoned(Entity entity) {
+		ResourceLocation id = EntityList.getKey(entity);
+		if (id == null) {
+			return false;
+		}
+		HashSet<ResourceLocation> blacklist = getStoneEntityBlacklist();
+		if (blacklist.contains(id)) {
+			return true;
+		}
+		ResourceLocation wildcard = new ResourceLocation(id.getNamespace(), "*");
+		return blacklist.contains(wildcard);
+	}
+
+	public static HashSet<ResourceLocation> getChainLightningEntityBlacklist() {
+		if(chainLightningBlacklist != null) return chainLightningBlacklist;
+		HashSet<ResourceLocation> set = new HashSet<>();
+		for(String string : MISC_SETTINGS.chainLightningEntityBlacklist) set.add(new ResourceLocation(string));
+		chainLightningBlacklist = set;
+		return chainLightningBlacklist;
 	}
 
 	public static HashSet<String> getMyrmexDisabledNames() {
@@ -938,6 +1008,54 @@ public class IceAndFireConfig {
 		if(lightningDragonEnabledNames != null) return lightningDragonEnabledNames;
 		lightningDragonEnabledNames = new HashSet<>(Arrays.asList(WORLDGEN.generateLightningDragonEnabledBiomeNames));
 		return lightningDragonEnabledNames;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getFireDragonEnabledTypes() {
+		if(fireDragonEnabledTypes != null) return fireDragonEnabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateFireDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		fireDragonEnabledTypes = set;
+		return fireDragonEnabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getIceDragonEnabledTypes() {
+		if(iceDragonEnabledTypes != null) return iceDragonEnabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateIceDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		iceDragonEnabledTypes = set;
+		return iceDragonEnabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getLightningDragonEnabledTypes() {
+		if(lightningDragonEnabledTypes != null) return lightningDragonEnabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateLightningDragonEnabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		lightningDragonEnabledTypes = set;
+		return lightningDragonEnabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getFireDragonDisabledTypes() {
+		if(fireDragonDisabledTypes != null) return fireDragonDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateFireDragonDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		fireDragonDisabledTypes = set;
+		return fireDragonDisabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getIceDragonDisabledTypes() {
+		if(iceDragonDisabledTypes != null) return iceDragonDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateIceDragonDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		iceDragonDisabledTypes = set;
+		return iceDragonDisabledTypes;
+	}
+
+	public static HashSet<BiomeDictionary.Type> getLightningDragonDisabledTypes() {
+		if(lightningDragonDisabledTypes != null) return lightningDragonDisabledTypes;
+		HashSet<BiomeDictionary.Type> set = new HashSet<>();
+		for (String string : WORLDGEN.generateLightningDragonDisabledBiomeTypes) set.add(BiomeDictionary.Type.getType(string));
+		lightningDragonDisabledTypes = set;
+		return lightningDragonDisabledTypes;
 	}
 
 	public static HashMap<String, Integer> getDragonRoostChance() {

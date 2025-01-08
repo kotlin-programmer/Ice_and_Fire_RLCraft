@@ -124,7 +124,6 @@ public class ModelDreadLich extends ModelDragonBase {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         this.resetToDefaultPose();
         animate((IAnimatedEntity) entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-        ItemStack itemstack = ((EntityLivingBase) entityIn).getHeldItemMainhand();
         EntityDreadLich lich = (EntityDreadLich) entityIn;
         this.faceTarget(netHeadYaw, headPitch, 1.0F, head);
         float f = 1.0F;

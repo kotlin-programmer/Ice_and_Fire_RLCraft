@@ -1,0 +1,16 @@
+Dragon summoning crystals can be crafted
+to bind with a dragon, enabling you to
+teleport it to your location.
+
+
+
+
+
+
+
+When used on a dragon, the crystal binds
+to it. Clicking it again in the same
+dimension will teleport the dragon.
+
+To unbind the crystal, simply place it
+alone in the crafting grid.

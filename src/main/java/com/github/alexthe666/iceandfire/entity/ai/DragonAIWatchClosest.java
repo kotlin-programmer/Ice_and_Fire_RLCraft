@@ -13,9 +13,27 @@ public class DragonAIWatchClosest extends EntityAIWatchClosest {
 
 	@Override
 	public boolean shouldExecute() {
-		if (this.entity instanceof EntityDragonBase && !((EntityDragonBase) this.entity).canMove() || ((EntityDragonBase) this.entity).getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY) {
+		if (isAvailableToWatchClosest()) {
+			return super.shouldExecute();
+		}
+		return false;
+	}
+
+	public boolean shouldContinueExecuting() {
+		if (isAvailableToWatchClosest()) {
+			return super.shouldContinueExecuting();
+		}
+		return false;
+	}
+
+	private boolean isAvailableToWatchClosest() {
+		if (!(this.entity instanceof EntityDragonBase)) {
 			return false;
 		}
-		return super.shouldExecute();
+		EntityDragonBase dragon = (EntityDragonBase) this.entity;
+		if (!dragon.getPassengers().isEmpty()) {
+			return false;
+		}
+		return dragon.canMove() || dragon.getAnimation() == EntityDragonBase.ANIMATION_SHAKEPREY;
 	}
 }

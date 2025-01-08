@@ -1,0 +1,19 @@
+Los cristales de invocacion de
+dragones pueden teletransportar
+un dragon vinculado a tu ubicacion.
+
+
+
+
+
+
+
+Dar clic derecho a un dragon con
+este cristal hara que se vinculen.
+
+Usar el cristal en la misma dimension
+teletransportara al dragon
+vinculado.
+
+Para desvincular el cristal, colocalo
+en la cuadricula de crafteo.

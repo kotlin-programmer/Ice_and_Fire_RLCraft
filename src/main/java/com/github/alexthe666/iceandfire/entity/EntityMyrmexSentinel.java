@@ -274,7 +274,8 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
         return super.canMove() && this.getHeldEntity() == null && !isHiding();
     }
 
-    public boolean shouldRiderSit(){
+    @Override
+    public boolean shouldRiderSit() {
         return false;
     }
 

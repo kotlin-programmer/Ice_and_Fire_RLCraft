@@ -190,11 +190,6 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     @Override
-    public boolean shouldFear() {
-        return true;
-    }
-
-    @Override
     public Entity getCommander() {
         return null;
     }

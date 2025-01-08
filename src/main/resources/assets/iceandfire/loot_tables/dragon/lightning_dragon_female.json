@@ -2,7 +2,7 @@
   "__comment": "Dragon skull, blood and heart drops are handled differently and can be disabled in ice_and_fire.cfg. The customize_to_dragon tag changes items to appear like the dragon(ex. red dragon scales -> blue dragon scales), and scales the stack size to the dragon's as well.",
   "pools": [
     {
-      "name": "lightning_dragon_female",
+      "name": "lightning_dragon_female_2",
       "rolls": 1,
       "entries": [
         {

@@ -1,0 +1,38 @@
+Le commerce avec les myrmex est 
+une activité lucratif. Les échanges 
+de travailleurs sont généralement de 
+mauvaise qualité, mais ils sont prêts 
+à échanger un peu de résine contre
+des sédiments et quelques pierres 
+précieuses.
+Les soldats échangent des butins de 
+monstres communs, et les Sentinelles 
+des objets plus rares et empoisonnés.
+Les royaux échangeront des artefacts
+et des ingrédients alchimiques.
+Les reines échangent exclusivement 
+des oeufs.
+
+
+Les bâtons de Myrmex peuvent être 
+utilisés pour modifier la structure 
+des colonies de Myrmex. En 
+interagissant avec un myrmex avec 
+un bâton en main il se liera à sa 
+colonie. En l'utilisant, on peut 
+supprimer certaines pièces de la 
+colonie et désactiver la 
+reproduction de la reine. En 
+l'utilisant en s'accroupissant, 
+on peut ajouter une nouvelle 
+pièce à sa position. On ne peut 
+utiliser ce bâton que si l'on a 
+une réputation de 75 ou 
+supérieure.
+Les oeufs de myrmex n'éclosent que 
+lorsqu'ils sous terre. Un oeuf de 
+reine, lorsqu'il est éclos à 
+proximité d'un joueur sous terre,
+se liera à lui, et la colonie 
+suivante qui se formera aura une
+réputation permanente de 100.

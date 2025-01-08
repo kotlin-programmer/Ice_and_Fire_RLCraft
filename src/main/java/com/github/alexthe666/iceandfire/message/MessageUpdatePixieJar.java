@@ -6,6 +6,7 @@ import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -19,7 +20,6 @@ public class MessageUpdatePixieJar extends AbstractMessage<MessageUpdatePixieJar
 	public MessageUpdatePixieJar(long blockPos, boolean isProducing) {
 		this.blockPos = blockPos;
 		this.isProducing = isProducing;
-
 	}
 
 	public MessageUpdatePixieJar() {
@@ -41,11 +41,10 @@ public class MessageUpdatePixieJar extends AbstractMessage<MessageUpdatePixieJar
 	@SideOnly(Side.CLIENT)
 	public void onClientReceived(Minecraft client, MessageUpdatePixieJar message, EntityPlayer player, MessageContext messageContext) {
 		BlockPos pos = BlockPos.fromLong(message.blockPos);
-		if (client.world.getTileEntity(pos) != null) {
-			if (client.world.getTileEntity(pos) instanceof TileEntityJar) {
-				TileEntityJar jar = (TileEntityJar) client.world.getTileEntity(pos);
-				jar.hasProduced = message.isProducing;
-			}
+		TileEntity te = client.world.getTileEntity(pos);
+		if (te instanceof TileEntityJar) {
+			TileEntityJar jar = (TileEntityJar) te;
+			jar.hasProduced = message.isProducing;
 		}
 	}
 

@@ -49,6 +49,10 @@ dependencies {
     implementation fg.deobf("curse.maven:hwyla-${hwyla_version}")
     implementation fg.deobf("curse.maven:jei-${jei_version}")
     implementation fg.deobf("curse.maven:rlcombat-${rlcombat_version}")
+    implementation fg.deobf("curse.maven:lycanites-mobs-${lycanitesmobs_version}")
+    implementation fg.deobf("curse.maven:claimit-api-${claimit_version}")
+    implementation fg.deobf("curse.maven:varied-commodities-${varied_commodities_version}")
+    implementation fg.deobf("curse.maven:the-one-probe-${the_one_probe_version}")
 }
 
 processResources {
@@ -59,5 +63,12 @@ processResources {
         expand 'mod_id': mod_id, 'mod_name': mod_name, 'version': project.version,
                 'mcversion': minecraft_version, 'mod_description': mod_description,
                 'mod_author': mod_author, 'mod_credits': mod_credits
+    }
+}
+
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'com.github.alexthe666.iceandfire.asm.IceAndFirePlugin'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }

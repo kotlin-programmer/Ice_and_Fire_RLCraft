@@ -3,7 +3,8 @@ package com.github.alexthe666.iceandfire.structures;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
-import net.minecraft.block.BlockContainer;
+import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -34,6 +35,9 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
     }
 
     protected IBlockState getPileBlock() {
+        if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
+            return ModBlocks.diamondPile.getDefaultState();
+        }
         return ModBlocks.copperPile.getDefaultState();
     }
 
@@ -41,8 +45,15 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
         return ModBlocks.crackledCobblestone.getDefaultState();
     }
 
-    protected String getTranslationKeyword() {
-        return "crackled";
+    protected Block[] getDragonTransformedBlocks() {
+        return new Block[] {
+                ModBlocks.crackledGrass,
+                ModBlocks.crackledDirt,
+                ModBlocks.crackledGravel,
+                ModBlocks.crackledGrassPath,
+                ModBlocks.crackledStone,
+                ModBlocks.crackledCobblestone
+        };
     }
 
     protected ResourceLocation getLootTable() {

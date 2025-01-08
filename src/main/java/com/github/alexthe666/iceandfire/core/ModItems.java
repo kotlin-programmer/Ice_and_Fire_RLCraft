@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
+import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.item.*;
 import net.minecraft.init.SoundEvents;
@@ -17,7 +18,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModItems {
 
 	public static ArmorMaterial copperMetal = EnumHelper.addArmorMaterial("Copper", "iceandfire:armor_copper_metal", 10, new int[]{1, 3, 4, 2}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
-	public static ArmorMaterial silverMetal = EnumHelper.addArmorMaterial("Silver", "iceandfire:armor_silver_metal", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, 0);
+	public static ArmorMaterial silverMetal = EnumHelper.addArmorMaterial("Silver", "iceandfire:armor_silver_metal", 15, new int[]{1, 4, 5, 2}, 20, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 0);
 	public static ArmorMaterial blindfoldArmor = EnumHelper.addArmorMaterial("Blindfold", "iceandfire:blindfold", 5, new int[]{1, 1, 1, 1}, 10, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
 	public static ArmorMaterial sheep = EnumHelper.addArmorMaterial("Sheep", "iceandfire:sheep_disguise", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
 	public static ArmorMaterial myrmexDesert = EnumHelper.addArmorMaterial("MyrmexDesert", "iceandfire:myrmex_desert", 20, new int[]{3, 5, 8, 4}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0);
@@ -37,8 +38,8 @@ public class ModItems {
 	public static ToolMaterial lightningBoneTools = EnumHelper.addToolMaterial("LightningDragonbone", 4, 2000, 10.0F, 5.5F, 22);
 	public static ToolMaterial trollWeapon = EnumHelper.addToolMaterial("TrollWeapon", 2, 300, 11.0F, 1.0F, 1);
 	public static ToolMaterial myrmexChitin = EnumHelper.addToolMaterial("MyrmexChitin", 3, 600, 6.0F, 1.0F, 8);
+	public static ToolMaterial hippocampus_sword_tools = EnumHelper.addToolMaterial("HippocampusSword", 0, 500, 0.0F, -2F, 50);
 	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 1.0F, 25);
-
 	public static ToolMaterial dread_sword_tools = EnumHelper.addToolMaterial("DreadSword", 0, 100, 0.0F, 1F, 0);
 	public static ToolMaterial dread_knight_sword_tools = EnumHelper.addToolMaterial("DreadKnightSword", 0, 1200, 0.0F, 4F, 10);
 
@@ -254,6 +255,10 @@ public class ModItems {
 	public static Item shiny_scales = new ItemGeneric("shiny_scales", "iceandfire.shiny_scales");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":earplugs")
 	public static Item earplugs = new ItemModArmor(earplugsArmor, 0, EntityEquipmentSlot.HEAD, "earplugs", "iceandfire.earplugs");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":hippocampus_fin")
+	public static Item hippocampus_fin = new ItemGeneric("hippocampus_fin", "iceandfire.hippocampus_fin", 1);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":hippocampus_slapper")
+	public static Item hippocampus_slapper = new ItemHippocampusSlapper();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":troll_leather_forest")
 	public static Item troll_leather_forest = new ItemTrollLeather(EnumTroll.FOREST, "troll_leather_forest", "iceandfire.troll_leather_forest");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":troll_leather_frost")
@@ -373,7 +378,7 @@ public class ModItems {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lich_staff")
 	public static Item lich_staff = new ItemLichStaff();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_shard")
-	public static Item dread_shard = new ItemGeneric("dread_shard", "iceandfire.dread_shard", 0);
+	public static Item dread_shard = new ItemGeneric("dread_shard", "iceandfire.dread_shard");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_sword")
 	public static Item dread_sword = new ItemModSword(dread_sword_tools, "dread_sword", "iceandfire.dread_sword");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_knight_sword")
@@ -382,9 +387,18 @@ public class ModItems {
 	public static Item ghost_ingot = new ItemGeneric("ghost_ingot", "iceandfire.ghost_ingot");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_sword")
 	public static Item ghost_sword = new ItemGhostSword();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_fire")
+	public static ItemSummoningCrystal summoning_crystal_fire = new ItemSummoningCrystal("fire");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_ice")
+	public static ItemSummoningCrystal summoning_crystal_ice = new ItemSummoningCrystal("ice");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_lightning")
+	public static ItemSummoningCrystal summoning_crystal_lightning = new ItemSummoningCrystal("lightning");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_collar")
+	public static Item dragon_collar = new ItemGeneric("dragon_collar", "iceandfire.dragon_collar");
 
 	static {
 		EnumDragonArmor.initArmors();
 		EnumSeaSerpent.initArmors();
+		EnumSkullType.initItems();
 	}
 }

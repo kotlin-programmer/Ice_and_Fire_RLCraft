@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.enums;
 import com.github.alexthe666.iceandfire.item.ItemBestiary;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import scala.Int;
 
 import java.util.*;
 
@@ -17,7 +18,7 @@ public enum EnumBestiaryPages {
 	LIGHTNINGDRAGONEGG(1),
 	TAMEDDRAGONS(3),
 	MATERIALS(2),
-	ALCHEMY(0),
+	ALCHEMY(1),
 	VILLAGERS(0),
 	HIPPOGRYPH(1),
 	GORGON(1),
@@ -41,24 +42,27 @@ public enum EnumBestiaryPages {
 		this.pages = pages;
 	}
 
-	public static List<Integer> toList(int[] containedpages) {
-		List<Integer> intList = new ArrayList<Integer>();
-		for (int containedpage : containedpages) {
-			intList.add(containedpage);
+	public static List<Integer> toList(int[] containedPages) {
+		List<Integer> intList = new ArrayList<>();
+		if (containedPages == null) {
+			return intList;
+		}
+		for (int containedPage : containedPages) {
+			intList.add(containedPage);
 		}
 		return intList;
 	}
 
-	public static int[] fromList(List<Integer> containedpages) {
-		int[] pages = new int[containedpages.size()];
+	public static int[] fromList(List<Integer> containedPages) {
+		int[] pages = new int[containedPages.size()];
 		for (int i = 0; i < pages.length; i++)
-			pages[i] = containedpages.get(i);
+			pages[i] = containedPages.get(i);
 		return pages;
 	}
 
 	public static List<EnumBestiaryPages> containedPages(List<Integer> pages) {
 		Iterator<Integer> itr = pages.iterator();
-		List<EnumBestiaryPages> list = new ArrayList<EnumBestiaryPages>();
+		List<EnumBestiaryPages> list = new ArrayList<>();
 		while (itr.hasNext()) {
 			list.add(EnumBestiaryPages.values()[itr.next()]);
 		}
@@ -67,7 +71,7 @@ public enum EnumBestiaryPages {
 
 	public static List<Integer> enumToInt(List<EnumBestiaryPages> pages) {
 		Iterator<com.github.alexthe666.iceandfire.enums.EnumBestiaryPages> itr = pages.iterator();
-		List<Integer> list = new ArrayList<Integer>();
+		List<Integer> list = new ArrayList<>();
 		while (itr.hasNext()) {
 			list.add(EnumBestiaryPages.values()[(itr.next()).ordinal()].ordinal());
 		}
@@ -91,10 +95,10 @@ public enum EnumBestiaryPages {
 	public static List<EnumBestiaryPages> possiblePages(ItemStack book) {
 		if (book.getItem() instanceof ItemBestiary) {
 			NBTTagCompound tag = book.getTagCompound();
-			List<EnumBestiaryPages> allPages = new ArrayList<EnumBestiaryPages>();
+			List<EnumBestiaryPages> allPages = new ArrayList<>();
 			Collections.addAll(allPages, EnumBestiaryPages.values());
-			List<EnumBestiaryPages> containedPages = containedPages(toList(tag.getIntArray("Pages")));
-			List<EnumBestiaryPages> possiblePages = new ArrayList<EnumBestiaryPages>();
+			List<EnumBestiaryPages> containedPages = getContainedPages(tag);
+			List<EnumBestiaryPages> possiblePages = new ArrayList<>();
 			for (EnumBestiaryPages page : allPages) {
 				if (!containedPages.contains(page)) {
 					possiblePages.add(page);
@@ -109,11 +113,22 @@ public enum EnumBestiaryPages {
 	public static void addPage(EnumBestiaryPages page, ItemStack book) {
 		if (book.getItem() instanceof ItemBestiary) {
 			NBTTagCompound tag = book.getTagCompound();
-			List<EnumBestiaryPages> enumlist = containedPages(toList(tag.getIntArray("Pages")));
+			if (tag == null) {
+				return;
+			}
+			List<EnumBestiaryPages> enumlist = getContainedPages(tag);
 			if (!enumlist.contains(page)) {
 				enumlist.add(page);
 			}
 			tag.setIntArray("Pages", fromList(enumToInt(enumlist)));
 		}
+	}
+
+	private static List<EnumBestiaryPages> getContainedPages(NBTTagCompound tag) {
+		if (tag == null) {
+			return new ArrayList<>();
+		}
+		List<Integer> pages = toList(tag.getIntArray("Pages"));
+		return containedPages(pages);
 	}
 }

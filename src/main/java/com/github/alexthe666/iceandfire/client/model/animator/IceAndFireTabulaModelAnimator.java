@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.client.model.util.IceAndFireTabulaModel;
 import com.github.alexthe666.iceandfire.util.IafMathHelper;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class IceAndFireTabulaModelAnimator {
@@ -45,10 +46,6 @@ public class IceAndFireTabulaModelAnimator {
         from.rotationPointX += ((to.rotationPointX - from.rotationPointX) / maxTime) * timer;
         from.rotationPointY += ((to.rotationPointY - from.rotationPointY) / maxTime) * timer;
         from.rotationPointZ += ((to.rotationPointZ - from.rotationPointZ) / maxTime) * timer;
-
-        from.offsetX += ((to.offsetX - from.offsetX) / maxTime) * timer;
-        from.offsetY += ((to.offsetY - from.offsetY) / maxTime) * timer;
-        from.offsetZ += ((to.offsetZ - from.offsetZ) / maxTime) * timer;
     }
 
     public void transitionAngles(AdvancedModelRenderer from, AdvancedModelRenderer to, float timer, float maxTime) {
@@ -67,18 +64,39 @@ public class IceAndFireTabulaModelAnimator {
 
     public void moveToPose(IceAndFireTabulaModel model, IceAndFireTabulaModel modelTo) {
         for (AdvancedModelRenderer cube : model.getCubes().values()) {
-            if (!isPartEqual(baseModel.getCube(cube.boxName), modelTo.getCube(cube.boxName))) {
-                float toX = modelTo.getCube(cube.boxName).rotateAngleX;
-                float toY = modelTo.getCube(cube.boxName).rotateAngleY;
-                float toZ = modelTo.getCube(cube.boxName).rotateAngleZ;
+            AdvancedModelRenderer cubeFrom = baseModel.getCube(cube.boxName);
+            AdvancedModelRenderer cubeTo =  modelTo.getCube(cube.boxName);
+            if (!isPartEqual(cubeFrom, cubeTo)) {
+                float toX = cubeTo.rotateAngleX;
+                float toY = cubeTo.rotateAngleY;
+                float toZ = cubeTo.rotateAngleZ;
                 model.llibAnimator.rotate(cube, distance(cube.rotateAngleX, toX), distance(cube.rotateAngleY, toY), distance(cube.rotateAngleZ, toZ));
             }
-            if (!isPositionEqual(baseModel.getCube(cube.boxName), modelTo.getCube(cube.boxName))) {
-                float toX = modelTo.getCube(cube.boxName).rotationPointX;
-                float toY = modelTo.getCube(cube.boxName).rotationPointY;
-                float toZ = modelTo.getCube(cube.boxName).rotationPointZ;
+            if (!isPositionEqual(cubeFrom, cubeTo)) {
+                float toX = cubeTo.rotationPointX;
+                float toY = cubeTo.rotationPointY;
+                float toZ = cubeTo.rotationPointZ;
                 model.llibAnimator.move(cube, distance(cube.rotationPointX, toX), distance(cube.rotationPointY, toY), distance(cube.rotationPointZ, toZ));
             }
         }
+    }
+
+    protected boolean isComponentOf(IceAndFireTabulaModel model, String name, AdvancedModelRenderer modelRenderer) {
+        AdvancedModelRenderer cube = model.getCube(name);
+        return isComponentOf(cube, modelRenderer);
+    }
+
+    protected boolean isComponentOf(ModelRenderer cube, AdvancedModelRenderer modelRenderer) {
+        if (cube == modelRenderer) {
+            return true;
+        }
+        if (cube.childModels != null) {
+            for (ModelRenderer childModel : cube.childModels) {
+                if (isComponentOf(childModel, modelRenderer)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

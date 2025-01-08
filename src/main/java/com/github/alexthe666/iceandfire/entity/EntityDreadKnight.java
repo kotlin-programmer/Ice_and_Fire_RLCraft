@@ -169,11 +169,6 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
         return true;
     }
 
-    @Override
-    public boolean shouldFear() {
-        return true;
-    }
-
     public double getYOffset() {
         return -0.6D;
     }

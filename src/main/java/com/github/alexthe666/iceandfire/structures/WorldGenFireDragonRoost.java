@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.structures;
 import com.github.alexthe666.iceandfire.core.ModBlocks;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -10,6 +11,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class WorldGenFireDragonRoost extends WorldGenDragonRoost {
 
@@ -44,8 +47,15 @@ public class WorldGenFireDragonRoost extends WorldGenDragonRoost {
         return ModBlocks.charedCobblestone.getDefaultState();
     }
 
-    protected String getTranslationKeyword() {
-        return "chared";
+    protected Block[] getDragonTransformedBlocks() {
+        return new Block[] {
+                ModBlocks.charedGrass,
+                ModBlocks.charedDirt,
+                ModBlocks.charedGravel,
+                ModBlocks.charedGrassPath,
+                ModBlocks.charedStone,
+                ModBlocks.charedCobblestone
+        };
     }
 
     protected ResourceLocation getLootTable() {

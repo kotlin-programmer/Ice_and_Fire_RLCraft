@@ -1,0 +1,37 @@
+<item><iceandfire:hydra_fang 0 35 4 1.25>
+<item><iceandfire:hydra_heart 0 110 4 1.25>
+
+
+
+Les crocs d'hydre sont des objets 
+précieux qui peuvent être utilisé 
+pour fabriquer des flèches 
+spéciales qui empoisonnent leurs 
+cibles.
+<item><iceandfire:hydra_arrow 0 34 40 1.25>
+
+
+
+
+
+
+Ces flèches ont également une 
+deuxième propriété importante : 
+lorsqu'elles touchent la cible, 
+elles lui vol de la vie en 
+guérissent le tireur de la flèche.
+
+
+
+
+
+
+Le coeur d'hydre est un butin rare
+de la bête qui est très recherchée
+pour ses propriétés régénératrices.
+
+Le coeur puissant de ce monstre 
+rend le combat difficile mais
+en vaut la peine et explique
+peut-être pourquoi l'antre de
+l'Hydre contient tant d'ossements.

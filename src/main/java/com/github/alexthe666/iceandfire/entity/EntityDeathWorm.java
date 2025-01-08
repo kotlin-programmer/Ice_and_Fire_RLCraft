@@ -889,8 +889,8 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
     }
 
     @Override
-    public boolean canPhaseThroughBlock(World world, BlockPos pos) {
-        return world.getBlockState(pos).getMaterial() == Material.SAND;
+    public boolean canPhaseThroughBlock(IBlockState state, World world, BlockPos pos) {
+        return state.getMaterial() == Material.SAND;
     }
 
     public class SandMoveHelper extends EntityMoveHelper {

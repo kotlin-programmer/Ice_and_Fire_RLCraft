@@ -232,11 +232,6 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         return true;
     }
 
-    @Override
-    public boolean shouldFear() {
-        return true;
-    }
-
     @Nullable
     protected ResourceLocation getLootTable() {
         return LOOT;

@@ -37,7 +37,7 @@ public class AmphithereAIFollowOwner extends EntityAIBase {
 
     public boolean shouldExecute() {
         EntityLivingBase entitylivingbase = this.ampithere.getOwner();
-        if(ampithere.getCommand() != 2){
+        if (ampithere.getCommand() != 2) {
             return false;
         }
         if (entitylivingbase == null) {
