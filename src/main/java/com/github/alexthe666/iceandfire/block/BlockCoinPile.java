@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -46,7 +45,7 @@ public class BlockCoinPile extends Block {
         this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire." + name + "pile");
         this.setHardness(0.3F);
-        this.setSoundType(ModBlocks.SOUND_TYPE_GOLD);
+        this.setSoundType(IafBlockRegistry.SOUND_TYPE_GOLD);
         setRegistryName(IceAndFire.MODID, name + "pile");
         this.dropItem = dropItem;
     }

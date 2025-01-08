@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModVillagers;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityZombie;
@@ -117,10 +116,10 @@ public class EntitySnowVillager extends EntityVillager {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void setProfession(net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession prof) {
-		if (ModVillagers.INSTANCE.professions.containsValue(prof)) {
+		if (IafVillagerRegistry.INSTANCE.professions.containsValue(prof)) {
 			this.setProfession(net.minecraftforge.fml.common.registry.VillagerRegistry.getId(prof));
 		} else {
-			ModVillagers.INSTANCE.setRandomProfession(this, this.world.rand);
+			IafVillagerRegistry.INSTANCE.setRandomProfession(this, this.world.rand);
 		}
 	}
 
@@ -134,10 +133,10 @@ public class EntitySnowVillager extends EntityVillager {
 		if (this.prof == null) {
 			String p = this.getEntityData().getString("ProfessionName");
 			if (p.isEmpty()) {
-				this.prof = ModVillagers.INSTANCE.professions.get(this.getRNG().nextInt(3));
+				this.prof = IafVillagerRegistry.INSTANCE.professions.get(this.getRNG().nextInt(3));
 
 			} else {
-				this.prof = ModVillagers.INSTANCE.professions.get(intFromProfesion(p));
+				this.prof = IafVillagerRegistry.INSTANCE.professions.get(intFromProfesion(p));
 			}
 			try {
 				if(FIELD_CAREER == null) {
@@ -159,9 +158,9 @@ public class EntitySnowVillager extends EntityVillager {
 		this.setProfession(compound.getInteger("Profession"));
 		if (compound.hasKey("ProfessionName")) {
 			net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession p =
-					ModVillagers.INSTANCE.professions.get(intFromProfesion(compound.getString("ProfessionName")));
+					IafVillagerRegistry.INSTANCE.professions.get(intFromProfesion(compound.getString("ProfessionName")));
 			if (p == null)
-				p = ModVillagers.INSTANCE.professions.get(0);
+				p = IafVillagerRegistry.INSTANCE.professions.get(0);
 			this.setProfession(p);
 		}
 
@@ -169,7 +168,7 @@ public class EntitySnowVillager extends EntityVillager {
 
 	@Override
 	public IEntityLivingData finalizeMobSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData data, boolean forgeCheck) {
-		this.prof = ModVillagers.INSTANCE.professions.get(this.getRNG().nextInt(3));
+		this.prof = IafVillagerRegistry.INSTANCE.professions.get(this.getRNG().nextInt(3));
 		return data;
 	}
 

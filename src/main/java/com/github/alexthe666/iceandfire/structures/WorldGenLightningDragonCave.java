@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
@@ -15,22 +15,22 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 	public static final ResourceLocation LIGHTNINGDRAGON_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_female_cave"));
 	public static final ResourceLocation LIGHTNINGDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "lightning_dragon_male_cave"));
 	protected IBlockState getStone() {
-		return ModBlocks.crackledStone.getDefaultState();
+		return IafBlockRegistry.crackledStone.getDefaultState();
 	}
 
 	protected IBlockState getCobblestone() {
-		return ModBlocks.crackledCobblestone.getDefaultState();
+		return IafBlockRegistry.crackledCobblestone.getDefaultState();
 	}
 
 	protected IBlockState getPile() {
 		if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
-			return ModBlocks.diamondPile.getDefaultState();
+			return IafBlockRegistry.diamondPile.getDefaultState();
 		}
-		return ModBlocks.copperPile.getDefaultState();
+		return IafBlockRegistry.copperPile.getDefaultState();
 	}
 
 	protected IBlockState getGemstone() {
-		return IceAndFireConfig.WORLDGEN.generateAmethystOre ? ModBlocks.amethystOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
+		return IceAndFireConfig.WORLDGEN.generateAmethystOre ? IafBlockRegistry.amethystOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
 	}
 
 	protected ResourceLocation getLootTable() {

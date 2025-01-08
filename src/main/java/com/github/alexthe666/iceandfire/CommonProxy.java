@@ -10,8 +10,10 @@ import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockMyrmexResin;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockPodium;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.world.BiomeGlacier;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -42,7 +44,7 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerSoundEvents(final RegistryEvent.Register<SoundEvent> event) {
         try {
-            for (Field f : ModSounds.class.getDeclaredFields()) {
+            for (Field f : IafSoundRegistry.class.getDeclaredFields()) {
                 Object obj = f.get(null);
                 if (obj instanceof SoundEvent) {
                     event.getRegistry().register((SoundEvent) obj);
@@ -65,7 +67,7 @@ public class CommonProxy {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         try {
-            for (Field f : ModBlocks.class.getDeclaredFields()) {
+            for (Field f : IafBlockRegistry.class.getDeclaredFields()) {
                 Object obj = f.get(null);
                 if (obj instanceof Block) {
                     event.getRegistry().register((Block) obj);
@@ -162,11 +164,11 @@ public class CommonProxy {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // ItemBlocks
         try {
-            for (Field f : ModBlocks.class.getDeclaredFields()) {
+            for (Field f : IafBlockRegistry.class.getDeclaredFields()) {
                 Object obj = f.get(null);
                 if (obj instanceof Block) {
                     ItemBlock itemBlock;
-                    if (obj == ModBlocks.jar_pixie) {
+                    if (obj == IafBlockRegistry.jar_pixie) {
                         itemBlock = new BlockJar.ItemBlockJar((Block) obj);
                     } else if (obj instanceof BlockPixieHouse) {
                         itemBlock = new BlockPixieHouse.ItemBlockPixieHouse((Block) obj);
@@ -195,7 +197,7 @@ public class CommonProxy {
 
         // Items
         try {
-            for (Field f : ModItems.class.getDeclaredFields()) {
+            for (Field f : IafItemRegistry.class.getDeclaredFields()) {
                 Object obj = f.get(null);
                 if (obj instanceof Item) {
                     event.getRegistry().register((Item) obj);

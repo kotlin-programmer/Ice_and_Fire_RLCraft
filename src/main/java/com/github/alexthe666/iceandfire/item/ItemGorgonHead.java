@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.IBlacklistedFromStatues;
@@ -139,9 +139,9 @@ public class ItemGorgonHead extends Item implements ICustomRendered {
 				}
 
 				if (pointedEntity instanceof EntityGorgon) {
-					worldIn.playSound(null, pointedEntity.posX, pointedEntity.posY, pointedEntity.posZ, ModSounds.GORGON_PETRIFY, SoundCategory.HOSTILE, 1, 1);
+					worldIn.playSound(null, pointedEntity.posX, pointedEntity.posY, pointedEntity.posZ, IafSoundRegistry.GORGON_PETRIFY, SoundCategory.HOSTILE, 1, 1);
 				} else {
-					worldIn.playSound(null, pointedEntity.posX, pointedEntity.posY, pointedEntity.posZ, ModSounds.GORGON_TURN_STONE, SoundCategory.HOSTILE, 1, 1);
+					worldIn.playSound(null, pointedEntity.posX, pointedEntity.posY, pointedEntity.posZ, IafSoundRegistry.GORGON_TURN_STONE, SoundCategory.HOSTILE, 1, 1);
 				}
 				SoundEvent deathSound = null;
 				try {

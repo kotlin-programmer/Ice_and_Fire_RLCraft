@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.structures;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import net.minecraft.block.state.IBlockState;
@@ -9,22 +9,20 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
-import java.util.Random;
-
 public class WorldGenFireDragonCave extends WorldGenDragonCave {
 	public static final ResourceLocation FIREDRAGON_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "fire_dragon_female_cave"));
 	public static final ResourceLocation FIREDRAGON_MALE_CHEST = LootTableList.register(new ResourceLocation("iceandfire", "fire_dragon_male_cave"));
 
 	protected IBlockState getStone() {
-		return ModBlocks.charedStone.getDefaultState();
+		return IafBlockRegistry.charedStone.getDefaultState();
 	}
 
 	protected IBlockState getCobblestone() {
-		return ModBlocks.charedCobblestone.getDefaultState();
+		return IafBlockRegistry.charedCobblestone.getDefaultState();
 	}
 
 	protected IBlockState getPile() {
-		return ModBlocks.goldPile.getDefaultState();
+		return IafBlockRegistry.goldPile.getDefaultState();
 	}
 
 	protected IBlockState getGemstone() {

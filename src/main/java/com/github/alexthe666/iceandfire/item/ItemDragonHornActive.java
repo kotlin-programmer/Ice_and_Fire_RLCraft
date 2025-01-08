@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.StatCollector;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
@@ -102,13 +101,13 @@ public class ItemDragonHornActive extends Item {
 				BlockPos pos = raytraceresult.getBlockPos();
 				worldIn.playSound(player, pos, SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, SoundCategory.NEUTRAL, 3, 0.75F);
 				EntityDragonBase dragon = null;
-				if (this == ModItems.dragon_horn_fire) {
+				if (this == IafItemRegistry.dragon_horn_fire) {
 					dragon = new EntityFireDragon(worldIn);
 				}
-				if (this == ModItems.dragon_horn_ice) {
+				if (this == IafItemRegistry.dragon_horn_ice) {
 					dragon = new EntityIceDragon(worldIn);
 				}
-				if (this == ModItems.dragon_horn_lightning) {
+				if (this == IafItemRegistry.dragon_horn_lightning) {
 					dragon = new EntityLightningDragon(worldIn);
 				}
 				if (dragon != null) {
@@ -136,7 +135,7 @@ public class ItemDragonHornActive extends Item {
 			String fire = new TextComponentTranslation("entity.firedragon.name").getUnformattedText();
 			String ice = new TextComponentTranslation("entity.icedragon.name").getUnformattedText();
 			String lightning = new TextComponentTranslation("entity.lightningdragon.name").getUnformattedText();
-			tooltip.add(this == ModItems.dragon_horn_fire ? fire : this == ModItems.dragon_horn_ice ? ice : lightning);
+			tooltip.add(this == IafItemRegistry.dragon_horn_fire ? fire : this == IafItemRegistry.dragon_horn_ice ? ice : lightning);
 			String name = stack.getTagCompound().getString("CustomName").isEmpty() ? StatCollector.translateToLocal("dragon.unnamed") : StatCollector.translateToLocal("dragon.name") + stack.getTagCompound().getString("CustomName");
 			tooltip.add(name);
 			String gender = StatCollector.translateToLocal("dragon.gender") + StatCollector.translateToLocal((stack.getTagCompound().getBoolean("Gender") ? "dragon.gender.male" : "dragon.gender.female"));
@@ -172,7 +171,7 @@ public class ItemDragonHornActive extends Item {
 				dragon.setHovering(false);
 				dragon.getNavigator().clearPath();
 				horn.shrink(0);
-				player.setHeldItem(player.getActiveHand(), new ItemStack(ModItems.dragon_horn));
+				player.setHeldItem(player.getActiveHand(), new ItemStack(IafItemRegistry.dragon_horn));
 				if (!world.isRemote) {
 					world.spawnEntity(dragon);
 				}

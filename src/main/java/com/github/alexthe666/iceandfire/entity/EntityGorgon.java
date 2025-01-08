@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
@@ -61,7 +61,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 	}
 
 	public static boolean isBlindfolded(EntityLivingBase attackTarget) {
-		return attackTarget != null && attackTarget.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == ModItems.blindfold;
+		return attackTarget != null && attackTarget.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == IafItemRegistry.blindfold;
 	}
 
 	@Nullable
@@ -224,7 +224,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 					isBlindfolded(this.getAttackTarget());
 			if (!blindness && this.deathTime == 0) {
 				if (this.getAnimation() != ANIMATION_SCARE) {
-					this.playSound(ModSounds.GORGON_ATTACK, 1, 1);
+					this.playSound(IafSoundRegistry.GORGON_ATTACK, 1, 1);
 					this.setAnimation(ANIMATION_SCARE);
 				}
 				if (this.getAnimation() == ANIMATION_SCARE) {
@@ -252,7 +252,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 								EntityLiving attackTarget = (EntityLiving) this.getAttackTarget();
 								if (capability != null && !capability.isStoned()) {
 									capability.setStoned();
-									this.playSound(ModSounds.GORGON_TURN_STONE, 1, 1);
+									this.playSound(IafSoundRegistry.GORGON_TURN_STONE, 1, 1);
 									this.setAttackTarget(null);
 								}
 
@@ -332,17 +332,17 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 
 	@Nullable
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.GORGON_IDLE;
+		return IafSoundRegistry.GORGON_IDLE;
 	}
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-		return ModSounds.GORGON_HURT;
+		return IafSoundRegistry.GORGON_HURT;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return ModSounds.GORGON_DIE;
+		return IafSoundRegistry.GORGON_DIE;
 	}
 
 	@Override

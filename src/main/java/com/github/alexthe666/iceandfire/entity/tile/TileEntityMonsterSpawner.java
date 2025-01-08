@@ -1,9 +1,8 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -12,7 +11,7 @@ public class TileEntityMonsterSpawner extends TileEntitySpawnerBase {
     private final SpawnerBaseLogic spawnerLogic = new SpawnerBaseLogic() {
         @Override
         public void broadcastEvent(int id) {
-            TileEntityMonsterSpawner.this.world.addBlockEvent(TileEntityMonsterSpawner.this.pos, ModBlocks.monster_spawner, id, 0);
+            TileEntityMonsterSpawner.this.world.addBlockEvent(TileEntityMonsterSpawner.this.pos, IafBlockRegistry.monster_spawner, id, 0);
         }
 
         @Override

@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockMyrmexBiolight;
 import com.github.alexthe666.iceandfire.block.BlockMyrmexConnectedResin;
 import com.github.alexthe666.iceandfire.block.BlockMyrmexResin;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.PathNavigateMyrmex;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
@@ -282,7 +282,7 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     public void verifySellingItem(ItemStack stack) {
         if (!this.world.isRemote && this.livingSoundTime > -this.getTalkInterval() + 20) {
             this.livingSoundTime = -this.getTalkInterval();
-            this.playSound(stack.isEmpty() ? ModSounds.MYRMEX_HURT : ModSounds.MYRMEX_IDLE, this.getSoundVolume(), this.getSoundPitch());
+            this.playSound(stack.isEmpty() ? IafSoundRegistry.MYRMEX_HURT : IafSoundRegistry.MYRMEX_IDLE, this.getSoundVolume(), this.getSoundPitch());
         }
     }
 
@@ -299,7 +299,7 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
                 this.getHive().modifyPlayerReputation(this.getCustomer().getUniqueID(), 2);
             }
         }
-        this.playSound(ModSounds.MYRMEX_IDLE, this.getSoundVolume(), this.getSoundPitch());
+        this.playSound(IafSoundRegistry.MYRMEX_IDLE, this.getSoundVolume(), this.getSoundPitch());
         int i = 3 + this.rand.nextInt(4);
 
         if (recipe.getToolUses() == 1 || this.rand.nextInt(5) == 0) {
@@ -314,7 +314,7 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
             i += 5;
         }
 
-        if (recipe.getItemToBuy().getItem() == ModItems.myrmex_desert_resin || recipe.getItemToBuy().getItem() == ModItems.myrmex_jungle_resin) {
+        if (recipe.getItemToBuy().getItem() == IafItemRegistry.myrmex_desert_resin || recipe.getItemToBuy().getItem() == IafItemRegistry.myrmex_jungle_resin) {
             this.wealth += recipe.getItemToBuy().getCount();
         }
 
@@ -329,11 +329,11 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
             boolean invalid = false;
             for(MerchantRecipe trade : this.buyingList) {
                 Item item = trade.getItemToBuy().getItem();
-                if(isJungle && item == ModItems.myrmex_desert_resin) {
+                if(isJungle && item == IafItemRegistry.myrmex_desert_resin) {
                     invalid = true;
                     break;
                 }
-                else if(!isJungle && item == ModItems.myrmex_jungle_resin) {
+                else if(!isJungle && item == IafItemRegistry.myrmex_jungle_resin) {
                     invalid = true;
                     break;
                 }
@@ -518,7 +518,7 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
-        boolean flag2 = itemstack.getItem() == ModItems.myrmex_jungle_staff || itemstack.getItem() == ModItems.myrmex_desert_staff;
+        boolean flag2 = itemstack.getItem() == IafItemRegistry.myrmex_jungle_staff || itemstack.getItem() == IafItemRegistry.myrmex_desert_staff;
 
         if (flag2) {
             this.onStaffInteract(player, itemstack);
@@ -747,24 +747,24 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.MYRMEX_IDLE;
+        return IafSoundRegistry.MYRMEX_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.MYRMEX_HURT;
+        return IafSoundRegistry.MYRMEX_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.MYRMEX_DIE;
+        return IafSoundRegistry.MYRMEX_DIE;
     }
 
     @Override
     protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(ModSounds.MYRMEX_WALK, 0.16F * this.getMyrmexPitch() * (this.getRNG().nextFloat() * 0.6F + 0.4F), 1.0F);
+        this.playSound(IafSoundRegistry.MYRMEX_WALK, 0.16F * this.getMyrmexPitch() * (this.getRNG().nextFloat() * 0.6F + 0.4F), 1.0F);
     }
 
     @Override
@@ -773,11 +773,11 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     }
 
     protected void playBiteSound() {
-        this.playSound(ModSounds.MYRMEX_BITE, 1.0F * this.getMyrmexPitch(), 1.0F);
+        this.playSound(IafSoundRegistry.MYRMEX_BITE, 1.0F * this.getMyrmexPitch(), 1.0F);
     }
 
     protected void playStingSound() {
-        this.playSound(ModSounds.MYRMEX_STING, 1.0F * this.getMyrmexPitch(), 0.6F);
+        this.playSound(IafSoundRegistry.MYRMEX_STING, 1.0F * this.getMyrmexPitch(), 0.6F);
     }
 
     protected void playVillagerEffect() {

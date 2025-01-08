@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModPotions;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityHydraBreath;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
@@ -154,7 +154,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
                 if (ticksExisted % 7 == 0 && entity != null && i < this.getHeadCount()) {
                     Vec3d vec3d = this.getLook(1.0F);
                     if(rand.nextFloat() < 0.2F){
-                        this.playSound(ModSounds.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
+                        this.playSound(IafSoundRegistry.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
                     }
                     double headPosX = this.headBoxes[i].posX + vec3d.x;
                     double headPosY = this.headBoxes[i].posY + 1.3F;
@@ -220,7 +220,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
                 if (this.isBurning()) {
                     this.setHeadCount(this.getHeadCount() - 1);
                 } else {
-                    this.playSound(ModSounds.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
+                    this.playSound(IafSoundRegistry.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
                     if (!onlyRegrowOneHeadNotTwo) {
                         this.setHeadCount(this.getHeadCount() + 1);
                     }
@@ -478,19 +478,19 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.HYDRA_IDLE;
+        return IafSoundRegistry.HYDRA_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.HYDRA_HURT;
+        return IafSoundRegistry.HYDRA_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.HYDRA_DIE;
+        return IafSoundRegistry.HYDRA_DIE;
     }
 
     @Override

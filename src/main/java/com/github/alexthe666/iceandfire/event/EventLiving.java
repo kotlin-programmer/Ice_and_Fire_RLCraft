@@ -6,8 +6,8 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
 import com.github.alexthe666.iceandfire.block.BlockMonsterSpawner;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.ai.EntitySheepAIFollowCyclops;
@@ -189,7 +189,7 @@ public class EventLiving {
 	public void onEntityDrop(LivingDropsEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		if (entity instanceof EntityWitherSkeleton) {
-			entity.dropItem(ModItems.witherbone, entity.getRNG().nextInt(2));
+			entity.dropItem(IafItemRegistry.witherbone, entity.getRNG().nextInt(2));
 		}
 		if (entity instanceof EntityLiving) {
 			IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entity);
@@ -372,7 +372,7 @@ public class EventLiving {
 						if (ready) {
 							event.getTarget().setDead();
 							if (silkTouch) {
-								ItemStack statuette = new ItemStack(ModItems.stone_statue);
+								ItemStack statuette = new ItemStack(IafItemRegistry.stone_statue);
 								NBTTagCompound compound = new NBTTagCompound();
 								compound.setBoolean("IAFStoneStatueEntityPlayer", stonePlayer);
 								compound.setInteger("IAFStoneStatueEntityID", stonePlayer ? 90 : EntityList.getID(event.getTarget().getClass()));
@@ -426,7 +426,7 @@ public class EventLiving {
 			if (entity.ticksExisted > 30 && entity.getRNG().nextInt(IceAndFireConfig.ENTITY_SETTINGS.chickenEggChance * 6000) == 0) {
 				entity.playSound(SoundEvents.ENTITY_CHICKEN_HURT, 2.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
 				entity.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F);
-				entity.dropItem(ModItems.rotten_egg, 1);
+				entity.dropItem(IafItemRegistry.rotten_egg, 1);
 			}
 		}
 
@@ -501,7 +501,7 @@ public class EventLiving {
 	}
 
 	public static void onLeftClick(final EntityPlayer playerEntity, final ItemStack stack) {
-		if (stack.getItem() == ModItems.ghost_sword && !playerEntity.world.isRemote) {
+		if (stack.getItem() == IafItemRegistry.ghost_sword && !playerEntity.world.isRemote) {
 			ItemGhostSword.spawnGhostSwordEntity(stack, playerEntity);
 		}
 	}
@@ -521,7 +521,7 @@ public class EventLiving {
 		}
 		Block block = event.getState().getBlock();
 		EntityPlayer player = event.getPlayer();
-		if (block == ModBlocks.goldPile || block == ModBlocks.silverPile || block == ModBlocks.diamondPile) {
+		if (block == IafBlockRegistry.goldPile || block == IafBlockRegistry.silverPile || block == IafBlockRegistry.diamondPile) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
 			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(dist, dist, dist));
 			list.sort(new EntityAINearestAttackableTarget.Sorter(player));
@@ -537,7 +537,7 @@ public class EventLiving {
 					}
 				}
 			}
-		} else if (block == ModBlocks.monster_spawner || block == ModBlocks.dread_spawner) {
+		} else if (block == IafBlockRegistry.monster_spawner || block == IafBlockRegistry.dread_spawner) {
 			World world = event.getWorld();
 			BlockPos pos = event.getPos();
 			TileEntity tileEntity = world.getTileEntity(pos);
@@ -566,26 +566,26 @@ public class EventLiving {
 
 		if (baseConditionSet) {
 			LootCondition chance = new RandomChance(0.35f);
-			LootEntryItem item = new LootEntryItem(ModItems.manuscript, 20, 5, new LootFunction[0], new LootCondition[0], "iceandfire:manuscript");
+			LootEntryItem item = new LootEntryItem(IafItemRegistry.manuscript, 20, 5, new LootFunction[0], new LootCondition[0], "iceandfire:manuscript");
 			LootPool pool = new LootPool(new LootEntry[]{item}, new LootCondition[]{chance}, new RandomValueRange(1, 4), new RandomValueRange(0, 3), "iaf_manuscript");
 			event.getTable().addPool(pool);
 		}
 		if (copperConditionSet && IceAndFireConfig.WORLDGEN.generateCopperOre) {
 			LootCondition chance = new RandomChance(0.6f);
-			LootEntryItem ingot = new LootEntryItem(ModItems.copperIngot, 10, 14, new LootFunction[0], new LootCondition[0], "iceandfire:copper_ingot");
+			LootEntryItem ingot = new LootEntryItem(IafItemRegistry.copperIngot, 10, 14, new LootFunction[0], new LootCondition[0], "iceandfire:copper_ingot");
 			LootPool pool = new LootPool(new LootEntry[]{ingot}, new LootCondition[]{chance}, new RandomValueRange(1, 3), new RandomValueRange(0, 3), "iaf_copper");
 			event.getTable().addPool(pool);
 		}
 		if (eventName.equals(WorldGenLightningDragonCave.LIGHTNINGDRAGON_CHEST) || eventName.equals(WorldGenLightningDragonCave.LIGHTNINGDRAGON_MALE_CHEST)) {
 			LootPool pool = event.getTable().getPool("lightning_dragon_cave");
 			if (pool != null) {
-				Item nugget = ModItems.copperNugget;
-				Item ingot = ModItems.copperIngot;
-				Item sword = ModItems.copper_sword;
-				Item helmet = ModItems.copper_helmet;
-				Item chestplate = ModItems.copper_chestplate;
-				Item leggings = ModItems.copper_leggings;
-				Item boots = ModItems.copper_boots;
+				Item nugget = IafItemRegistry.copperNugget;
+				Item ingot = IafItemRegistry.copperIngot;
+				Item sword = IafItemRegistry.copper_sword;
+				Item helmet = IafItemRegistry.copper_helmet;
+				Item chestplate = IafItemRegistry.copper_chestplate;
+				Item leggings = IafItemRegistry.copper_leggings;
+				Item boots = IafItemRegistry.copper_boots;
 				if (CompatLoadUtil.isVariedCommoditiesLoaded()) {
 					nugget = VariedCommoditiesCompat.getDiamondCoin();
 					ingot = Items.DIAMOND;

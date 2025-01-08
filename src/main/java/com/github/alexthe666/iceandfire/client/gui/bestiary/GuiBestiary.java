@@ -3,8 +3,8 @@ package com.github.alexthe666.iceandfire.client.gui.bestiary;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.client.StatCollector;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
@@ -70,7 +70,7 @@ public class GuiBestiary extends GuiScreen {
 	public GuiBestiary(ItemStack book) {
 		font = getFont();
 		this.book = book;
-		if (!book.isEmpty() && book.getItem() == ModItems.bestiary) {
+		if (!book.isEmpty() && book.getItem() == IafItemRegistry.bestiary) {
 			if (book.getTagCompound() != null) {
 				List<EnumBestiaryPages> pages = EnumBestiaryPages.containedPages(EnumBestiaryPages.toList(book.getTagCompound().getIntArray("Pages")));
 				allPageTypes.addAll(pages);
@@ -153,33 +153,33 @@ public class GuiBestiary extends GuiScreen {
 		switch (this.pageType) {
 			case INTRODUCTION:
 				if (bookPages == 0) {
-					drawItemStack(new ItemStack(ModItems.manuscript), 30, 14, 2.5F);
-					drawItemStack(new ItemStack(ModBlocks.silverOre), 110, 15, 2.5F);
-					drawItemStack(new ItemStack(ModItems.silverIngot), 140, 48, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.manuscript), 30, 14, 2.5F);
+					drawItemStack(new ItemStack(IafBlockRegistry.silverOre), 110, 15, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silverIngot), 140, 48, 2F);
 					int i = 133;
-					drawItemStack(new ItemStack(ModItems.silver_shovel), i += 16, 85, 1.51F);
-					drawItemStack(new ItemStack(ModItems.silver_pickaxe), i += 16, 85, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silver_axe), i += 16, 85, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silver_sword), i += 16, 85, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silver_hoe), i += 16, 85, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silverNugget), i += 16, 85, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_shovel), i += 16, 85, 1.51F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_pickaxe), i += 16, 85, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_axe), i += 16, 85, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_sword), i += 16, 85, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_hoe), i += 16, 85, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silverNugget), i += 16, 85, 1.5F);
 					int j = 148;
-					drawItemStack(new ItemStack(ModItems.silver_helmet), j += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silver_chestplate), j += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silver_leggings), j += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(ModItems.silver_boots), j += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_helmet), j += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_chestplate), j += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_leggings), j += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.silver_boots), j += 16, 100, 1.5F);
 				}
 				if (bookPages == 1) {
-					drawItemStack(new ItemStack(ModBlocks.sapphireOre), 30, 20, 2.5F);
-					drawItemStack(new ItemStack(ModItems.sapphireGem), 40, 60, 2F);
+					drawItemStack(new ItemStack(IafBlockRegistry.sapphireOre), 30, 20, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.sapphireGem), 40, 60, 2F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 0, 389, 1, 50, 50);
 					GL11.glPopMatrix();
 					boolean drawGold = Minecraft.getMinecraft().player.ticksExisted % 20 < 10;
-					drawItemStack(new ItemStack(drawGold ? Items.GOLD_NUGGET : ModItems.silverNugget), 144, 34, 1.5F);
-					drawItemStack(new ItemStack(drawGold ? Items.GOLD_NUGGET : ModItems.silverNugget), 161, 34, 1.5F);
-					drawItemStack(new ItemStack(drawGold ? ModBlocks.goldPile : ModBlocks.silverPile), 151, 7, 2F);
+					drawItemStack(new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItemRegistry.silverNugget), 144, 34, 1.5F);
+					drawItemStack(new ItemStack(drawGold ? Items.GOLD_NUGGET : IafItemRegistry.silverNugget), 161, 34, 1.5F);
+					drawItemStack(new ItemStack(drawGold ? IafBlockRegistry.goldPile : IafBlockRegistry.silverPile), 151, 7, 2F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 90, 389, 1, 50, 50);
@@ -187,7 +187,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.PLANKS), 161, 124, 1.5F);
 					drawItemStack(new ItemStack(Blocks.PLANKS), 161, 107, 1.5F);
 					drawItemStack(new ItemStack(Items.BOOK), 161, 91, 1.5F);
-					drawItemStack(new ItemStack(ModBlocks.lectern), 151, 78, 2F);
+					drawItemStack(new ItemStack(IafBlockRegistry.lectern), 151, 78, 2F);
 				}
 				writeFromTxt();
 				break;
@@ -309,32 +309,32 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Items.BONE), 177, 124, 1.5F);
 					drawItemStack(new ItemStack(Items.PORKCHOP), 177, 107, 1.5F);
 					drawItemStack(new ItemStack(Items.BONE), 177, 91, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragon_meal), 151, 78, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_meal), 151, 78, 2F);
 				}
 				if (bookPages == 1) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 0, 389, 1, 50, 50);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.dragon_skull), 161, 17, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_skull), 161, 17, 1.5F);
 					drawItemStack(new ItemStack(Items.STICK), 161, 32, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragon_stick), 151, 10, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_stick), 151, 10, 2F);
 				}
 				if (bookPages == 2) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModBlocks.fire_lily), 5, 14, 2.5F);
-					drawItemStack(new ItemStack(ModBlocks.frost_lily), 30, 14, 2.5F);
+					drawItemStack(new ItemStack(IafBlockRegistry.fire_lily), 5, 14, 2.5F);
+					drawItemStack(new ItemStack(IafBlockRegistry.frost_lily), 30, 14, 2.5F);
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 0, 389, 1, 50, 50);
 					GL11.glPopMatrix();
 					boolean drawFire = Minecraft.getMinecraft().player.ticksExisted % 40 < 20;
-					drawItemStack(new ItemStack(drawFire ? ModBlocks.fire_lily : ModBlocks.frost_lily), 161, 17, 1.5F);
+					drawItemStack(new ItemStack(drawFire ? IafBlockRegistry.fire_lily : IafBlockRegistry.frost_lily), 161, 17, 1.5F);
 					drawItemStack(new ItemStack(Items.BOWL), 161, 32, 1.5F);
 					drawItemStack(new ItemStack(drawFire ? Items.BLAZE_ROD : Items.PRISMARINE_CRYSTALS), 177, 17, 1.5F);
-					drawItemStack(new ItemStack(drawFire ? ModItems.fire_stew : ModItems.frost_stew), 151, 10, 2F);
+					drawItemStack(new ItemStack(drawFire ? IafItemRegistry.fire_stew : IafItemRegistry.frost_stew), 151, 10, 2F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 144, 65, 389, 1, 50, 50);
@@ -342,20 +342,20 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Items.STICK), 144, 97, 1.5F);
 					GL11.glPushMatrix();
 					GL11.glScalef(0.9F, 0.9F, 1F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 180, 110, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 180, 92, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 198, 92, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 198, 74, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 180, 110, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 180, 92, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 198, 92, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 198, 74, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.dragon_horn), 151, 60, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_horn), 151, 60, 2F);
 
 				}
 				if (bookPages == 3) {
 					int j = 18;
-					drawItemStack(new ItemStack(ModItems.dragon_armor_iron, 1, 0), j += 16, 60, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragon_armor_iron, 1, 1), j += 16, 60, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragon_armor_iron, 1, 2), j += 16, 60, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragon_armor_iron, 1, 3), j += 16, 60, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_armor_iron, 1, 0), j += 16, 60, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_armor_iron, 1, 1), j += 16, 60, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_armor_iron, 1, 2), j += 16, 60, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_armor_iron, 1, 3), j += 16, 60, 1.5F);
 
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
@@ -363,11 +363,11 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(0.9F, 0.9F, 1F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 160, 12, 1.5F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 180, 31, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 160, 12, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 180, 31, 1.5F);
 					drawItemStack(new ItemStack(Items.IRON_INGOT), 199, 50, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.dragon_flute), 151, 18, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_flute), 151, 18, 2F);
 				}
 				writeFromTxt();
 				break;
@@ -375,13 +375,13 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 0) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.dragonscales_red), 18, 16, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonscales_red), 18, 16, 2.5F);
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.dragonbone), 70, 10, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone), 70, 10, 2.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.witherbone), 112, 70, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.witherbone), 112, 70, 2.5F);
 					{
 						int j = 18;
 						drawItemStack(new ItemStack(EnumDragonArmor.armor_red.helmet), j += 16, 115, 1.5F);
@@ -393,25 +393,25 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 1) {
 					{
 						int j = 1;
-						drawItemStack(new ItemStack(ModItems.dragonbone_sword), j += 16, 14, 1.5F);
-						drawItemStack(new ItemStack(ModItems.dragonbone_pickaxe), j += 16, 14, 1.5F);
-						drawItemStack(new ItemStack(ModItems.dragonbone_axe), j += 16, 14, 1.5F);
-						drawItemStack(new ItemStack(ModItems.dragonbone_shovel), j += 16, 14, 1.5F);
-						drawItemStack(new ItemStack(ModItems.dragonbone_hoe), j += 16, 14, 1.5F);
-						drawItemStack(new ItemStack(ModItems.dragonbone_bow), j += 16, 14, 1.5F);
+						drawItemStack(new ItemStack(IafItemRegistry.dragonbone_sword), j += 16, 14, 1.5F);
+						drawItemStack(new ItemStack(IafItemRegistry.dragonbone_pickaxe), j += 16, 14, 1.5F);
+						drawItemStack(new ItemStack(IafItemRegistry.dragonbone_axe), j += 16, 14, 1.5F);
+						drawItemStack(new ItemStack(IafItemRegistry.dragonbone_shovel), j += 16, 14, 1.5F);
+						drawItemStack(new ItemStack(IafItemRegistry.dragonbone_hoe), j += 16, 14, 1.5F);
+						drawItemStack(new ItemStack(IafItemRegistry.dragonbone_bow), j += 16, 14, 1.5F);
 					}
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.fire_dragon_flesh), 18, 24, 2.5F);
-					drawItemStack(new ItemStack(ModItems.fire_dragon_heart), 70, 14, 2.5F);
-					drawItemStack(new ItemStack(ModItems.dragon_skull), 70, 39, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.fire_dragon_flesh), 18, 24, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.fire_dragon_heart), 70, 14, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragon_skull), 70, 39, 2.5F);
 					GL11.glPopMatrix();
 				}
 				if (bookPages == 2) {
 
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.fire_dragon_blood), 18, 24, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.fire_dragon_blood), 18, 24, 2.5F);
 					GL11.glPopMatrix();
 				}
 				writeFromTxt();
@@ -421,21 +421,21 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 0) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.fire_dragon_blood), 10, 24, 1.65F);
-					drawItemStack(new ItemStack(ModItems.ice_dragon_blood), 18, 24, 1.65F);
-					drawItemStack(new ItemStack(ModItems.lightning_dragon_blood), 26, 24, 1.65F);
+					drawItemStack(new ItemStack(IafItemRegistry.fire_dragon_blood), 10, 24, 1.65F);
+					drawItemStack(new ItemStack(IafItemRegistry.ice_dragon_blood), 18, 24, 1.65F);
+					drawItemStack(new ItemStack(IafItemRegistry.lightning_dragon_blood), 26, 24, 1.65F);
 					GL11.glPopMatrix();
 					int frame = Minecraft.getMinecraft().player.ticksExisted % 60;
-					Item blood = ModItems.fire_dragon_blood;
-					Item sword = ModItems.dragonbone_sword_fire;
+					Item blood = IafItemRegistry.fire_dragon_blood;
+					Item sword = IafItemRegistry.dragonbone_sword_fire;
 					if (frame >= 40) {
-						blood = ModItems.lightning_dragon_blood;
-						sword = ModItems.dragonbone_sword_lightning;
+						blood = IafItemRegistry.lightning_dragon_blood;
+						sword = IafItemRegistry.dragonbone_sword_lightning;
 					} else if (frame >= 20) {
-						blood = ModItems.ice_dragon_blood;
-						sword = ModItems.dragonbone_sword_ice;
+						blood = IafItemRegistry.ice_dragon_blood;
+						sword = IafItemRegistry.dragonbone_sword_ice;
 					}
-					drawItemStack(new ItemStack(ModItems.dragonbone_sword), 161, 17, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone_sword), 161, 17, 1.5F);
 					drawItemStack(new ItemStack(blood), 161, 32, 1.5F);
 					drawItemStack(new ItemStack(sword), 151, 10, 2F);
 					GL11.glPushMatrix();
@@ -445,17 +445,17 @@ public class GuiBestiary extends GuiScreen {
 				}
 				if (bookPages == 1) {
 					int frame = Minecraft.getMinecraft().player.ticksExisted % 60;
-					Item summoningCrystal = ModItems.summoning_crystal_fire;
+					Item summoningCrystal = IafItemRegistry.summoning_crystal_fire;
 					Item gem = Items.EMERALD;
-					Item blood = ModItems.fire_dragon_blood;
+					Item blood = IafItemRegistry.fire_dragon_blood;
 					if (frame >= 40) {
-						summoningCrystal = ModItems.summoning_crystal_lightning;
-						gem = ModItems.amethystGem;
-						blood = ModItems.lightning_dragon_blood;
+						summoningCrystal = IafItemRegistry.summoning_crystal_lightning;
+						gem = IafItemRegistry.amethystGem;
+						blood = IafItemRegistry.lightning_dragon_blood;
 					} else if (frame >= 20) {
-						summoningCrystal = ModItems.summoning_crystal_ice;
-						gem = ModItems.sapphireGem;
-						blood = ModItems.ice_dragon_blood;
+						summoningCrystal = IafItemRegistry.summoning_crystal_ice;
+						gem = IafItemRegistry.sapphireGem;
+						blood = IafItemRegistry.ice_dragon_blood;
 					}
 					ItemStack[] ingredients = new ItemStack[] {
 							new ItemStack(gem),
@@ -484,7 +484,7 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.fishing_spear), 70, 2, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.fishing_spear), 70, 2, 2.5F);
 					GL11.glPopMatrix();
 				}
 				writeFromTxt();
@@ -527,7 +527,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(drawType == 0 ? Items.IRON_HORSE_ARMOR : drawType == 1 ? Items.GOLDEN_HORSE_ARMOR : Items.DIAMOND_HORSE_ARMOR), 180, 31, 1.5F);
 					drawItemStack(new ItemStack(Items.FEATHER), 199, 31, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(drawType == 0 ? ModItems.iron_hippogryph_armor : drawType == 1 ? ModItems.gold_hippogryph_armor : ModItems.diamond_hippogryph_armor), 151, 18, 2F);
+					drawItemStack(new ItemStack(drawType == 0 ? IafItemRegistry.iron_hippogryph_armor : drawType == 1 ? IafItemRegistry.gold_hippogryph_armor : IafItemRegistry.diamond_hippogryph_armor), 151, 18, 2F);
 
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
@@ -558,13 +558,13 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Items.LEATHER), 180, 97, 1.5F);
 					drawItemStack(new ItemStack(Items.STRING), 199, 97, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.blindfold), 171, 65, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.blindfold), 171, 65, 2F);
 
 				}
 				if (bookPages == 1) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.gorgon_head), 16, 12, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.gorgon_head), 16, 12, 2.5F);
 					GL11.glPopMatrix();
 
 					GL11.glPushMatrix();
@@ -587,7 +587,7 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.pixie_dust), 70, 10, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.pixie_dust), 70, 10, 2.5F);
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(0.9F, 0.9F, 1F);
@@ -608,7 +608,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.GLASS), 160, 150, 1.5F);
 					drawItemStack(new ItemStack(Blocks.GLASS), 199, 150, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModBlocks.jar_empty), 171, 85, 2F);
+					drawItemStack(new ItemStack(IafBlockRegistry.jar_empty), 171, 85, 2F);
 					GL11.glPopMatrix();
 					GL11.glPopMatrix();
 
@@ -616,7 +616,7 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 1) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.ambrosia), 19, 22, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.ambrosia), 19, 22, 2.5F);
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glPushMatrix();
@@ -625,12 +625,12 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(0.9F, 0.9F, 1F);
-					drawItemStack(new ItemStack(ModItems.pixie_dust), 180, 131, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.pixie_dust), 180, 131, 1.5F);
 					drawItemStack(new ItemStack(Items.GOLDEN_CARROT), 160, 131, 1.5F);
 					drawItemStack(new ItemStack(Items.SPECKLED_MELON), 199, 131, 1.5F);
 					drawItemStack(new ItemStack(Items.BOWL), 180, 150, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.ambrosia), 171, 85, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.ambrosia), 171, 85, 2F);
 					GL11.glPopMatrix();
 				}
 				writeFromTxt();
@@ -662,7 +662,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.WOOL), 180, 57, 1.5F);
 					drawItemStack(new ItemStack(Blocks.WOOL), 199, 57, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.sheep_helmet), 165, 45, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.sheep_helmet), 165, 45, 2F);
 					GL11.glPopMatrix();
 
 					GL11.glPushMatrix();
@@ -681,7 +681,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.WOOL), 180, 145, 1.5F);
 					drawItemStack(new ItemStack(Blocks.WOOL), 199, 145, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.sheep_chestplate), 165, 95, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.sheep_chestplate), 165, 95, 2F);
 					GL11.glPopMatrix();
 				}
 				if (bookPages == 2) {
@@ -706,7 +706,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.WOOL), 14, 65, 1.5F);
 					drawItemStack(new ItemStack(Blocks.WOOL), 53, 65, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.sheep_leggings), 64, 27, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.sheep_leggings), 64, 27, 2F);
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glPushMatrix();
@@ -721,7 +721,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Blocks.WOOL), 14, 94, 1.5F);
 					drawItemStack(new ItemStack(Blocks.WOOL), 53, 94, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.sheep_boots), 64, 73, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.sheep_boots), 64, 73, 2F);
 					GL11.glPopMatrix();
 				}
 				writeFromTxt();
@@ -742,7 +742,7 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 1) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.earplugs), 18, 40, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.earplugs), 18, 40, 2.5F);
 					GL11.glPopMatrix();
 
 					GL11.glPushMatrix();
@@ -757,13 +757,13 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Item.getItemFromBlock(Blocks.WOODEN_BUTTON)), 180, 20, 1.5F);
 					drawItemStack(new ItemStack(Item.getItemFromBlock(Blocks.WOODEN_BUTTON)), 215, 20, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.earplugs), 170, 10, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.earplugs), 170, 10, 2F);
 					GL11.glPopMatrix();
 					GL11.glPopMatrix();
 
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.shiny_scales), 123, 75, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.shiny_scales), 123, 75, 1.5F);
 					GL11.glPopMatrix();
 				}
 				writeFromTxt();
@@ -790,7 +790,7 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawItemStack(new ItemStack(Items.STICK), 35, 25, 1.5F);
-					drawItemStack(new ItemStack(ModItems.shiny_scales), 35, 75, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.shiny_scales), 35, 75, 1.5F);
 					GL11.glPopMatrix();
 				}
 				writeFromTxt();
@@ -813,22 +813,22 @@ public class GuiBestiary extends GuiScreen {
 					int drawType = Minecraft.getMinecraft().player.ticksExisted % 60 > 40 ? 2 : Minecraft.getMinecraft().player.ticksExisted % 60 > 20 ? 1 : 0;
 					GL11.glPushMatrix();
 					GL11.glScalef(2.5F, 2.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.deathworm_chitin, 1, drawType), 17, 30, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.deathworm_chitin, 1, drawType), 17, 30, 1.5F);
 					GL11.glPopMatrix();
 
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(drawType == 2 ? ModItems.deathworm_red_helmet : drawType == 1 ? ModItems.deathworm_white_helmet : ModItems.deathworm_yellow_helmet), 92, 8, 1.5F);
-					drawItemStack(new ItemStack(drawType == 2 ? ModItems.deathworm_red_chestplate : drawType == 1 ? ModItems.deathworm_white_chestplate : ModItems.deathworm_yellow_chestplate), 112, 8, 1.5F);
-					drawItemStack(new ItemStack(drawType == 2 ? ModItems.deathworm_red_leggings : drawType == 1 ? ModItems.deathworm_white_leggings : ModItems.deathworm_yellow_leggings), 132, 8, 1.5F);
-					drawItemStack(new ItemStack(drawType == 2 ? ModItems.deathworm_red_boots : drawType == 1 ? ModItems.deathworm_white_boots : ModItems.deathworm_yellow_boots), 152, 8, 1.5F);
-					drawItemStack(new ItemStack(ModItems.deathworm_egg), 125, 42, 1.5F);
+					drawItemStack(new ItemStack(drawType == 2 ? IafItemRegistry.deathworm_red_helmet : drawType == 1 ? IafItemRegistry.deathworm_white_helmet : IafItemRegistry.deathworm_yellow_helmet), 92, 8, 1.5F);
+					drawItemStack(new ItemStack(drawType == 2 ? IafItemRegistry.deathworm_red_chestplate : drawType == 1 ? IafItemRegistry.deathworm_white_chestplate : IafItemRegistry.deathworm_yellow_chestplate), 112, 8, 1.5F);
+					drawItemStack(new ItemStack(drawType == 2 ? IafItemRegistry.deathworm_red_leggings : drawType == 1 ? IafItemRegistry.deathworm_white_leggings : IafItemRegistry.deathworm_yellow_leggings), 132, 8, 1.5F);
+					drawItemStack(new ItemStack(drawType == 2 ? IafItemRegistry.deathworm_red_boots : drawType == 1 ? IafItemRegistry.deathworm_white_boots : IafItemRegistry.deathworm_yellow_boots), 152, 8, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.deathworm_egg), 125, 42, 1.5F);
 					GL11.glPopMatrix();
 				}
 				if(bookPages == 3){
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(ModItems.deathworm_egg, 1, 1), 125, 4, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.deathworm_egg, 1, 1), 125, 4, 1.5F);
 					drawItemStack(new ItemStack(Items.FISHING_ROD), 115, 55, 1.5F);
 					drawItemStack(new ItemStack(Items.FISHING_ROD), 135, 55, 1.5F);
 
@@ -856,9 +856,9 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(Items.LEATHER), 40, 30, 1.5F);
 					drawItemStack(new ItemStack(Items.STRING), 59, 30, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.blindfold), 60, 18, 2F);
-					drawItemStack(new ItemStack(ModItems.witherbone), 30, 58, 2.5F);
-					drawItemStack(new ItemStack(ModItems.rotten_egg), 109, 18, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.blindfold), 60, 18, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.witherbone), 30, 58, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.rotten_egg), 109, 18, 2.5F);
 				}
 				writeFromTxt();
 				break;
@@ -869,7 +869,7 @@ public class GuiBestiary extends GuiScreen {
 					drawImage(DRAWINGS_1, 34, 46, 114, 72, 59, 37);
 					drawImage(DRAWINGS_1, 155, 35, 114, 109, 67, 35);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.stymphalian_bird_feather), 109, 60, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.stymphalian_bird_feather), 109, 60, 2.5F);
 				}
 				if(bookPages == 1){
 					GL11.glPushMatrix();
@@ -881,9 +881,9 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glScalef(0.9F, 0.9F, 1F);
 					drawItemStack(new ItemStack(Items.FLINT), 40, 13, 1.5F);
 					drawItemStack(new ItemStack(Items.STICK), 40, 30, 1.5F);
-					drawItemStack(new ItemStack(ModItems.stymphalian_bird_feather), 40, 49, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.stymphalian_bird_feather), 40, 49, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.stymphalian_arrow), 60, 18, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.stymphalian_arrow), 60, 18, 2F);
 
 				}
 				writeFromTxt();
@@ -904,7 +904,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(EnumTroll.Weapon.values()[i].item), 30, 7, 2.5F);
 					int j = (Minecraft.getMinecraft().player.ticksExisted % (EnumTroll.values().length * 20) ) / 20;
 					drawItemStack(new ItemStack(EnumTroll.values()[j].leather), 100, 30, 2.5F);
-					drawItemStack(new ItemStack(ModItems.troll_tusk), 120, 30, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.troll_tusk), 120, 30, 2.5F);
 				}
 				if(bookPages == 2){
 					int j = (Minecraft.getMinecraft().player.ticksExisted % (EnumTroll.values().length * 20) ) / 20;
@@ -940,33 +940,33 @@ public class GuiBestiary extends GuiScreen {
 					drawImage(DRAWINGS_1, 25, 13, 202, 79, 76, 24);
 					drawImage(DRAWINGS_1, 25, 40, 278, 79, 76, 24);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.myrmex_desert_chitin), 125, 43, 2F);
-					drawItemStack(new ItemStack(ModItems.myrmex_jungle_chitin), 155, 43, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_desert_chitin), 125, 43, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_jungle_chitin), 155, 43, 2F);
 					int i = 133;
 					boolean jungle = Minecraft.getMinecraft().player.ticksExisted % 60 > 30;
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_shovel : ModItems.myrmex_desert_shovel), i += 16, 100, 1.51F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_pickaxe : ModItems.myrmex_desert_pickaxe), i += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_axe : ModItems.myrmex_desert_axe), i += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_sword : ModItems.myrmex_desert_sword), i += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_sword_venom : ModItems.myrmex_desert_sword_venom), i += 16, 100, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_hoe : ModItems.myrmex_desert_hoe), i += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_shovel : IafItemRegistry.myrmex_desert_shovel), i += 16, 100, 1.51F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_pickaxe : IafItemRegistry.myrmex_desert_pickaxe), i += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_axe : IafItemRegistry.myrmex_desert_axe), i += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_sword : IafItemRegistry.myrmex_desert_sword), i += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_sword_venom : IafItemRegistry.myrmex_desert_sword_venom), i += 16, 100, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_hoe : IafItemRegistry.myrmex_desert_hoe), i += 16, 100, 1.5F);
 					int j = 148;
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_helmet : ModItems.myrmex_desert_helmet), j += 16, 115, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_chestplate : ModItems.myrmex_desert_chestplate), j += 16, 115, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_leggings : ModItems.myrmex_desert_leggings), j += 16, 115, 1.5F);
-					drawItemStack(new ItemStack(jungle ? ModItems.myrmex_jungle_boots : ModItems.myrmex_desert_boots), j += 16, 115, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_helmet : IafItemRegistry.myrmex_desert_helmet), j += 16, 115, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_chestplate : IafItemRegistry.myrmex_desert_chestplate), j += 16, 115, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_leggings : IafItemRegistry.myrmex_desert_leggings), j += 16, 115, 1.5F);
+					drawItemStack(new ItemStack(jungle ? IafItemRegistry.myrmex_jungle_boots : IafItemRegistry.myrmex_desert_boots), j += 16, 115, 1.5F);
 				}
 				if(bookPages == 3) {
-					drawItemStack(new ItemStack(ModItems.myrmex_stinger), 35, 22, 2.5F);
-					drawItemStack(new ItemStack(ModItems.myrmex_desert_resin), 25, 64, 2F);
-					drawItemStack(new ItemStack(ModItems.myrmex_jungle_resin), 55, 64, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_stinger), 35, 22, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_desert_resin), 25, 64, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_jungle_resin), 55, 64, 2F);
 				}
 				if(bookPages == 4) {
-					drawItemStack(new ItemStack(ModItems.myrmex_desert_staff), 25, 73, 2F);
-					drawItemStack(new ItemStack(ModItems.myrmex_jungle_staff), 55, 73, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_desert_staff), 25, 73, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_jungle_staff), 55, 73, 2F);
 
-					drawItemStack(new ItemStack(ModItems.myrmex_desert_egg), 125, 90, 2F);
-					drawItemStack(new ItemStack(ModItems.myrmex_jungle_egg), 155, 90, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_desert_egg), 125, 90, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.myrmex_jungle_egg), 155, 90, 2F);
 				}
 				writeFromTxt();
 				break;
@@ -983,16 +983,16 @@ public class GuiBestiary extends GuiScreen {
 					GL11.glPopMatrix();
 				}
 				if(bookPages == 2){
-					drawItemStack(new ItemStack(ModItems.amphithere_feather), 30, 20, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.amphithere_feather), 30, 20, 2.5F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
 					drawImage(DRAWINGS_0, 18, 70, 389, 1, 50, 50);
 					GL11.glScalef(0.65F, 0.65F, 0.65F);
 					drawItemStack(new ItemStack(Items.FLINT), 36, 73, 1.5F);
 					drawItemStack(new ItemStack(Items.STICK), 36, 89, 1.5F);
-					drawItemStack(new ItemStack(ModItems.amphithere_feather), 36, 106, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.amphithere_feather), 36, 106, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.amphithere_arrow), 60, 65, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.amphithere_arrow), 60, 65, 2F);
 				}
 				writeFromTxt();
 				break;
@@ -1013,7 +1013,7 @@ public class GuiBestiary extends GuiScreen {
 					drawImage(DRAWINGS_1, 60, 90, 337, 0, 70, 83);
 					int j = (Minecraft.getMinecraft().player.ticksExisted % (EnumSeaSerpent.values().length * 20) ) / 20;
 					drawItemStack(new ItemStack(EnumSeaSerpent.values()[j].scale), 130, 40, 2.5F);
-					drawItemStack(new ItemStack(ModItems.sea_serpent_fang), 90, 40, 2.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.sea_serpent_fang), 90, 40, 2.5F);
 				}
 				if(bookPages == 2){
 					GL11.glPushMatrix();
@@ -1021,7 +1021,7 @@ public class GuiBestiary extends GuiScreen {
 					drawImage(DRAWINGS_0, 18, 30, 389, 1, 50, 50);
 					GL11.glScalef(0.65F, 0.65F, 0.65F);
 					int j = (Minecraft.getMinecraft().player.ticksExisted % (EnumSeaSerpent.values().length * 20) ) / 20;
-					drawItemStack(new ItemStack(ModItems.sea_serpent_fang), 36, 32, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.sea_serpent_fang), 36, 32, 1.5F);
 					drawItemStack(new ItemStack(Items.STICK), 36, 48, 1.5F);
 					drawItemStack(new ItemStack(EnumSeaSerpent.values()[j].scale), 36, 66, 1.5F);
 					drawItemStack(new ItemStack(EnumSeaSerpent.values()[j].helmet), 34, 125, 1.5F);
@@ -1029,7 +1029,7 @@ public class GuiBestiary extends GuiScreen {
 					drawItemStack(new ItemStack(EnumSeaSerpent.values()[j].leggings), 66, 125, 1.5F);
 					drawItemStack(new ItemStack(EnumSeaSerpent.values()[j].boots), 82, 125, 1.5F);
 					GL11.glPopMatrix();
-					drawItemStack(new ItemStack(ModItems.sea_serpent_arrow), 60, 33, 2F);
+					drawItemStack(new ItemStack(IafItemRegistry.sea_serpent_arrow), 60, 33, 2F);
 				}
 				writeFromTxt();
 				break;

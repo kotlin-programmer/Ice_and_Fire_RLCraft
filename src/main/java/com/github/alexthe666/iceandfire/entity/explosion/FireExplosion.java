@@ -5,7 +5,7 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockFallingReturningState;
 import com.github.alexthe666.iceandfire.block.BlockPath;
 import com.github.alexthe666.iceandfire.block.BlockReturningState;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonFire;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonFireCharge;
@@ -200,21 +200,21 @@ public class FireExplosion extends Explosion {
 
 				if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos) && !DragonUtils.isDragonBlock(state.getBlock()) && dragonGriefing) {
 					if (block == Blocks.GRASS_PATH) {
-						worldObj.setBlockState(blockpos, ModBlocks.charedGrassPath.getDefaultState().withProperty(BlockPath.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						worldObj.setBlockState(blockpos, IafBlockRegistry.charedGrassPath.getDefaultState().withProperty(BlockPath.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 					} else if (block == Blocks.GRASS) {
-						worldObj.setBlockState(blockpos, ModBlocks.charedGrass.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						worldObj.setBlockState(blockpos, IafBlockRegistry.charedGrass.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 					} else if (block instanceof BlockGrass || block instanceof BlockDirt) {
-						worldObj.setBlockState(blockpos, ModBlocks.charedDirt.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						worldObj.setBlockState(blockpos, IafBlockRegistry.charedDirt.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 					} else if (block instanceof BlockLeaves || state.getMaterial() == Material.WATER) {
 						worldObj.setBlockState(blockpos, Blocks.AIR.getDefaultState());
 					} else if (block instanceof BlockGravel) {
-						worldObj.setBlockState(blockpos, ModBlocks.charedGravel.getDefaultState().withProperty(BlockFallingReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						worldObj.setBlockState(blockpos, IafBlockRegistry.charedGravel.getDefaultState().withProperty(BlockFallingReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 					} else if (state.getMaterial() == Material.WOOD) {
-						worldObj.setBlockState(blockpos, ModBlocks.ash.getDefaultState());
-					} else if (state.getMaterial() == Material.ROCK && (block != ModBlocks.charedCobblestone && block != Blocks.COBBLESTONE && block != Blocks.MOSSY_COBBLESTONE && block != Blocks.COBBLESTONE_WALL)) {
-						worldObj.setBlockState(blockpos, ModBlocks.charedStone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						worldObj.setBlockState(blockpos, IafBlockRegistry.ash.getDefaultState());
+					} else if (state.getMaterial() == Material.ROCK && (block != IafBlockRegistry.charedCobblestone && block != Blocks.COBBLESTONE && block != Blocks.MOSSY_COBBLESTONE && block != Blocks.COBBLESTONE_WALL)) {
+						worldObj.setBlockState(blockpos, IafBlockRegistry.charedStone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 					} else if (state.getMaterial() == Material.ROCK) {
-						worldObj.setBlockState(blockpos, ModBlocks.charedCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						worldObj.setBlockState(blockpos, IafBlockRegistry.charedCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 					}
 				}
 			}

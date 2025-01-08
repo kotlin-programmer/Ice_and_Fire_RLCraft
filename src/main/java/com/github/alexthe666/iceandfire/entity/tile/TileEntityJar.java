@@ -2,8 +2,7 @@ package com.github.alexthe666.iceandfire.entity.tile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.block.BlockJar;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityPixie;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageUpdatePixieHouse;
@@ -116,7 +115,7 @@ public class TileEntityJar extends TileEntity implements ITickable {
 				this.pos.getX() + 0.5D,
 				this.pos.getY() + 0.5D,
 				this.pos.getZ() + 0.5,
-				ModSounds.PIXIE_IDLE,
+				IafSoundRegistry.PIXIE_IDLE,
 				SoundCategory.NEUTRAL,
 				1,
 				1,

@@ -3,8 +3,8 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.PixieAIFlee;
 import com.github.alexthe666.iceandfire.entity.ai.PixieAIFollowOwner;
 import com.github.alexthe666.iceandfire.entity.ai.PixieAIPickupItem;
@@ -173,17 +173,17 @@ public class EntityPixie extends EntityTameable {
 			if(player.getHeldItem(hand).getItem() == Items.SUGAR && this.getHealth() < this.getMaxHealth()){
 				this.heal(5);
 				player.getHeldItem(hand).shrink(1);
-				this.playSound(ModSounds.PIXIE_TAUNT, 1F, 1F);
+				this.playSound(IafSoundRegistry.PIXIE_TAUNT, 1F, 1F);
 				return true;
 			}else{
 				this.setSitting(!this.isSitting());
 				return true;
 			}
-		} else if (player.getHeldItem(hand).getItem() == Item.getItemFromBlock(ModBlocks.jar_empty) && player.getHeldItem(hand).getMetadata() == 0 && !this.isTamed()) {
+		} else if (player.getHeldItem(hand).getItem() == Item.getItemFromBlock(IafBlockRegistry.jar_empty) && player.getHeldItem(hand).getMetadata() == 0 && !this.isTamed()) {
 			if (!player.isCreative()) {
 				player.getHeldItem(hand).shrink(1);
 			}
-			ItemStack stack = new ItemStack(ModBlocks.jar_pixie, 1, this.getColor());
+			ItemStack stack = new ItemStack(IafBlockRegistry.jar_pixie, 1, this.getColor());
 			if (!world.isRemote) {
 				if(!this.getHeldItem(EnumHand.MAIN_HAND).isEmpty()){
 					this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
@@ -330,19 +330,19 @@ public class EntityPixie extends EntityTameable {
 	@Nullable
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.PIXIE_IDLE;
+		return IafSoundRegistry.PIXIE_IDLE;
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-		return ModSounds.PIXIE_HURT;
+		return IafSoundRegistry.PIXIE_HURT;
 	}
 
 	@Nullable
 	@Override
 	protected SoundEvent getDeathSound() {
-		return ModSounds.PIXIE_DIE;
+		return IafSoundRegistry.PIXIE_DIE;
 	}
 
 	@Nullable

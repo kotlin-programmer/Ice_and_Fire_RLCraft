@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockEggInIce;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
@@ -36,7 +36,7 @@ public enum EnumDragonType {
                 dragon.setTamed(true);
                 dragon.setOwnerId(egg.getOwnerId());
                 egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, egg.getSoundCategory(), 2.5F, 1.0F, false);
-                egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, ModSounds.DRAGON_HATCH, egg.getSoundCategory(), 2.5F, 1.0F, false);
+                egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, IafSoundRegistry.DRAGON_HATCH, egg.getSoundCategory(), 2.5F, 1.0F, false);
                 egg.setDead();
             }
         }
@@ -53,7 +53,7 @@ public enum EnumDragonType {
             BlockPos pos = new BlockPos(egg);
             if(!meetsEggCondition(egg, pos)) return;
             egg.setDead();
-            egg.world.setBlockState(pos, ModBlocks.eggInIce.getDefaultState());
+            egg.world.setBlockState(pos, IafBlockRegistry.eggInIce.getDefaultState());
             egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, SoundEvents.BLOCK_GLASS_BREAK, egg.getSoundCategory(), 2.5F, 1.0F, false);
             if(egg.world.getBlockState(pos).getBlock() instanceof BlockEggInIce) {
                 ((TileEntityEggInIce)Objects.requireNonNull(egg.world.getTileEntity(pos))).type = egg.getType();
@@ -89,7 +89,7 @@ public enum EnumDragonType {
                     egg.world.spawnEntity(lightningBolt);
                 }
                 egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, SoundEvents.ENTITY_LIGHTNING_THUNDER, egg.getSoundCategory(), 2.5F, 1.0F, false);
-                egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, ModSounds.DRAGON_HATCH, egg.getSoundCategory(), 2.5F, 1.0F, false);
+                egg.world.playSound(egg.posX, egg.posY + egg.getEyeHeight(), egg.posZ, IafSoundRegistry.DRAGON_HATCH, egg.getSoundCategory(), 2.5F, 1.0F, false);
                 egg.setDead();
             }
         }

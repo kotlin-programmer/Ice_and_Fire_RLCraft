@@ -2,12 +2,12 @@ package com.github.alexthe666.iceandfire.api;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.EntityMultipartPart;
 import com.github.alexthe666.iceandfire.message.MessageChainLightningFX;
 import net.minecraft.entity.*;
@@ -55,10 +55,10 @@ public class ChainLightningUtils {
 
         if (attacker instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) attacker;
-            if (player.getCooldownTracker().hasCooldown(ModItems.dragonbone_sword_lightning)) {
+            if (player.getCooldownTracker().hasCooldown(IafItemRegistry.dragonbone_sword_lightning)) {
                 return;
             }
-            player.getCooldownTracker().setCooldown(ModItems.dragonbone_sword_lightning, IceAndFireConfig.MISC_SETTINGS.chainLightningCooldown);
+            player.getCooldownTracker().setCooldown(IafItemRegistry.dragonbone_sword_lightning, IceAndFireConfig.MISC_SETTINGS.chainLightningCooldown);
         }
 
         int hop = 0;
@@ -69,7 +69,7 @@ public class ChainLightningUtils {
             applyParalysis(target, hop, paralysisTicks);
         }
 
-        target.playSound(ModSounds.LIGHTNING_STRIKE, 1, 1);
+        target.playSound(IafSoundRegistry.LIGHTNING_STRIKE, 1, 1);
 
         LightningSource lightningSource = new LightningSource(target);
 

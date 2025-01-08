@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockCoinPile;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.material.Material;
@@ -55,9 +55,9 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
             } else if (chance < 40) {
                 world.setBlockState(pos, Blocks.GOLD_ORE.getDefaultState(), 3);
             } else if (chance < 45) {
-                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateCopperOre ? ModBlocks.copperOre.getDefaultState() : getStone(), 3);
+                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateCopperOre ? IafBlockRegistry.copperOre.getDefaultState() : getStone(), 3);
             } else if (chance < 50) {
-                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateSilverOre ? ModBlocks.silverOre.getDefaultState() : getStone(), 3);
+                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateSilverOre ? IafBlockRegistry.silverOre.getDefaultState() : getStone(), 3);
             } else if (chance < 60) {
                 world.setBlockState(pos, Blocks.COAL_ORE.getDefaultState(), 3);
             } else if (chance < 70) {

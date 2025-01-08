@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.item;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.world.DragonPosWorldData;
 import net.minecraft.client.resources.I18n;
@@ -67,9 +66,9 @@ public class ItemSummoningCrystal extends Item {
 
         boolean flag = false;
         String desc = "entity.firedragon.name";
-        if (stack.getItem() == ModItems.summoning_crystal_ice) {
+        if (stack.getItem() == IafItemRegistry.summoning_crystal_ice) {
             desc = "entity.icedragon.name";
-        } else if (stack.getItem() == ModItems.summoning_crystal_lightning) {
+        } else if (stack.getItem() == IafItemRegistry.summoning_crystal_lightning) {
             desc = "entity.lightningdragon.name";
         }
         if (stack.getTagCompound() != null) {

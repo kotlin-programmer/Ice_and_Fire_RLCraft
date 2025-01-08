@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityGhostSword;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderItem;
@@ -40,7 +40,7 @@ public class RenderGhostSword<T extends EntityGhostSword> extends Render<T>
             GlStateManager.enableOutlineMode(this.getTeamColor(entity));
         }
 
-        this.itemRenderer.renderItem(ModItems.ghost_sword.getDefaultInstance(), TransformType.GROUND);
+        this.itemRenderer.renderItem(IafItemRegistry.ghost_sword.getDefaultInstance(), TransformType.GROUND);
 
         if (this.renderOutlines) {
             GlStateManager.disableOutlineMode();

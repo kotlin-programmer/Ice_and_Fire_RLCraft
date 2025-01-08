@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.world.village;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModVillagers;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
 import com.github.alexthe666.iceandfire.entity.EntitySnowVillager;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
@@ -252,7 +252,7 @@ public class SnowVillagePieces {
 			if (this.getBlockStateFromPos(worldIn, 1, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				this.setBlockState(worldIn, iblockstate5, 1, 0, -1, structureBoundingBoxIn);
 
-				if (this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getBlock() == ModBlocks.frozenGrassPath) {
+				if (this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getBlock() == IafBlockRegistry.frozenGrassPath) {
 					this.setBlockState(worldIn, Blocks.GRASS.getDefaultState(), 1, -1, -1, structureBoundingBoxIn);
 				}
 			}
@@ -379,7 +379,7 @@ public class SnowVillagePieces {
 				if (this.getBlockStateFromPos(worldIn, i, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, i, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 					this.setBlockState(worldIn, iblockstate4, i, 0, -1, structureBoundingBoxIn);
 
-					if (this.getBlockStateFromPos(worldIn, i, -1, -1, structureBoundingBoxIn).getBlock() == ModBlocks.frozenGrassPath) {
+					if (this.getBlockStateFromPos(worldIn, i, -1, -1, structureBoundingBoxIn).getBlock() == IafBlockRegistry.frozenGrassPath) {
 						this.setBlockState(worldIn, Blocks.GRASS.getDefaultState(), i, -1, -1, structureBoundingBoxIn);
 					}
 				}
@@ -535,7 +535,7 @@ public class SnowVillagePieces {
 			if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				this.setBlockState(worldIn, iblockstate7, 2, 0, -1, structureBoundingBoxIn);
 
-				if (this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock() == ModBlocks.frozenGrassPath) {
+				if (this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock() == IafBlockRegistry.frozenGrassPath) {
 					this.setBlockState(worldIn, Blocks.GRASS.getDefaultState(), 2, -1, -1, structureBoundingBoxIn);
 				}
 			}
@@ -671,7 +671,7 @@ public class SnowVillagePieces {
 		 * Mineshafts at the end, it adds Fences...
 		 */
 		public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
-			IBlockState iblockstate = this.getBiomeSpecificBlockState(ModBlocks.frozenGrassPath.getDefaultState());
+			IBlockState iblockstate = this.getBiomeSpecificBlockState(IafBlockRegistry.frozenGrassPath.getDefaultState());
 			IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.SPRUCE));
 			IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.GRAVEL.getDefaultState());
 			IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
@@ -981,7 +981,7 @@ public class SnowVillagePieces {
 						EntitySnowVillager entityvillager = new EntitySnowVillager(worldIn);
 						entityvillager.setLocationAndAngles((double) j + 0.5D, (double) k, (double) l + 0.5D, 0.0F, 0.0F);
 						entityvillager.onInitialSpawn(worldIn.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
-						ModVillagers.INSTANCE.setRandomProfession(entityvillager, worldIn.rand);
+						IafVillagerRegistry.INSTANCE.setRandomProfession(entityvillager, worldIn.rand);
 						worldIn.spawnEntity(entityvillager);
 					}
 				}
@@ -1259,7 +1259,7 @@ public class SnowVillagePieces {
 				this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 6 - 1, 0);
 			}
 
-			IBlockState iblockstate = this.getBiomeSpecificBlockState(ModBlocks.frozenCobblestone.getDefaultState());
+			IBlockState iblockstate = this.getBiomeSpecificBlockState(IafBlockRegistry.frozenCobblestone.getDefaultState());
 			IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.SNOW.getDefaultState());
 			IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
 			IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.PACKED_ICE.getDefaultState());
@@ -1305,7 +1305,7 @@ public class SnowVillagePieces {
 			if (this.getBlockStateFromPos(worldIn, 1, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
 				this.setBlockState(worldIn, iblockstate2, 1, 0, -1, structureBoundingBoxIn);
 
-				if (this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getBlock() == ModBlocks.frozenGrassPath) {
+				if (this.getBlockStateFromPos(worldIn, 1, -1, -1, structureBoundingBoxIn).getBlock() == IafBlockRegistry.frozenGrassPath) {
 					this.setBlockState(worldIn, Blocks.GRASS.getDefaultState(), 1, -1, -1, structureBoundingBoxIn);
 				}
 			}

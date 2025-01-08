@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.explosion.SandExplosion;
 import com.github.alexthe666.iceandfire.entity.util.*;
@@ -156,7 +156,7 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
     public boolean attackEntityAsMob(Entity entityIn) {
         if (this.getAnimation() != ANIMATION_BITE) {
             this.setAnimation(ANIMATION_BITE);
-            this.playSound(this.getScaleForAge() > 3 ? ModSounds.DEATHWORM_GIANT_ATTACK : ModSounds.DEATHWORM_ATTACK, 1, 1);
+            this.playSound(this.getScaleForAge() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_ATTACK : IafSoundRegistry.DEATHWORM_ATTACK, 1, 1);
         }
         if (this.getRNG().nextInt(3) == 0 && this.getScaleForAge() > 1 && this.world.getGameRules().getBoolean("mobGriefing")) {
             SandExplosion explosion = new SandExplosion(world, this, entityIn.posX, entityIn.posY, entityIn.posZ, this.getScaleForAge());
@@ -631,18 +631,18 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return this.getScaleForAge() > 3 ? ModSounds.DEATHWORM_GIANT_IDLE : ModSounds.DEATHWORM_IDLE;
+        return this.getScaleForAge() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_IDLE : IafSoundRegistry.DEATHWORM_IDLE;
     }
 
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return this.getScaleForAge() > 3 ? ModSounds.DEATHWORM_GIANT_HURT : ModSounds.DEATHWORM_HURT;
+        return this.getScaleForAge() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_HURT : IafSoundRegistry.DEATHWORM_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return this.getScaleForAge() > 3 ? ModSounds.DEATHWORM_GIANT_DIE : ModSounds.DEATHWORM_DIE;
+        return this.getScaleForAge() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_DIE : IafSoundRegistry.DEATHWORM_DIE;
     }
 
     @Override
@@ -653,7 +653,7 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
             EntityLivingBase target = DragonUtils.riderLookingAtEntity(this, (EntityPlayer) this.getControllingPassenger(), 3);
             if (this.getAnimation() != this.ANIMATION_BITE) {
                 this.setAnimation(this.ANIMATION_BITE);
-                this.playSound(this.getScaleForAge() > 3 ? ModSounds.DEATHWORM_GIANT_ATTACK : ModSounds.DEATHWORM_ATTACK, 1, 1);
+                this.playSound(this.getScaleForAge() > 3 ? IafSoundRegistry.DEATHWORM_GIANT_ATTACK : IafSoundRegistry.DEATHWORM_ATTACK, 1, 1);
                 if (this.getRNG().nextInt(3) == 0 && this.getScaleForAge() > 1) {
                     float radius = 1.5F * this.getScaleForAge();
                     float angle = (0.01745329251F * this.renderYawOffset);

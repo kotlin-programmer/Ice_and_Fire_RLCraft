@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.EntityAIRestrictSunFlying;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
@@ -67,17 +67,17 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.GHOST_IDLE;
+        return IafSoundRegistry.GHOST_IDLE;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.GHOST_HURT;
+        return IafSoundRegistry.GHOST_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.GHOST_DIE;
+        return IafSoundRegistry.GHOST_DIE;
     }
 
     @Override
@@ -218,7 +218,7 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
                     this.getAnimationTick() == 3 &&
                     !this.isHauntedShoppingList() &&
                     rand.nextInt(3) == 0){
-                this.playSound(ModSounds.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
+                this.playSound(IafSoundRegistry.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
                 if(world.isRemote){
                     IceAndFire.PROXY.spawnParticle(EnumParticle.GHOST_APPEARANCE, world, this.posX, this.posY, this.posZ, 0, 0, 0);
                 }
@@ -226,7 +226,7 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         }
         if(this.getAnimation() == ANIMATION_HIT && this.getAttackTarget() != null){
             if(this.getDistance(this.getAttackTarget()) < 1.4D && this.getAnimationTick() >= 4 && this.getAnimationTick() < 6) {
-                this.playSound(ModSounds.GHOST_ATTACK, this.getSoundVolume(), this.getSoundPitch());
+                this.playSound(IafSoundRegistry.GHOST_ATTACK, this.getSoundVolume(), this.getSoundPitch());
                 this.attackEntityAsMob(this.getAttackTarget());
             }
         }
@@ -257,9 +257,9 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
 
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
-        if (!itemstack.isEmpty() && itemstack.getItem() == ModItems.manuscript && !this.isHauntedShoppingList()) {
+        if (!itemstack.isEmpty() && itemstack.getItem() == IafItemRegistry.manuscript && !this.isHauntedShoppingList()) {
             this.setColor(-1);
-            this.playSound(ModSounds.BESTIARY_PAGE, 1, 1);
+            this.playSound(IafSoundRegistry.BESTIARY_PAGE, 1, 1);
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }

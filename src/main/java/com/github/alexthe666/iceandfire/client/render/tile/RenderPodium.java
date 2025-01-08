@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.client.render.tile;
 import com.github.alexthe666.iceandfire.client.model.ModelDragonEgg;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderDragonEgg;
 import com.github.alexthe666.iceandfire.client.render.entity.RenderMyrmexEgg;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityPodium;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.item.ItemDragonEgg;
@@ -33,7 +33,7 @@ public class RenderPodium extends TileEntitySpecialRenderer<TileEntityPodium> {
 			if (item instanceof ItemDragonEgg) {
 				this.bindTexture(getEggTexture(((ItemDragonEgg) item).type));
 			} else if (item instanceof ItemMyrmexEgg) {
-				this.bindTexture(item == ModItems.myrmex_jungle_egg ? RenderMyrmexEgg.EGG_JUNGLE : RenderMyrmexEgg.EGG_DESERT);
+				this.bindTexture(item == IafItemRegistry.myrmex_jungle_egg ? RenderMyrmexEgg.EGG_JUNGLE : RenderMyrmexEgg.EGG_DESERT);
 			}
 
 			MODEL.renderPodium();

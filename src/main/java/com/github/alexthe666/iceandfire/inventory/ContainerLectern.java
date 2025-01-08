@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.inventory;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -97,11 +97,11 @@ public class ContainerLectern extends Container {
 
 				slot.onSlotChange(itemstack1, itemstack);
 			} else if (index != 1 && index != 0) {
-				if (!itemstack1.isEmpty() && itemstack1.getItem() == ModItems.bestiary) {
+				if (!itemstack1.isEmpty() && itemstack1.getItem() == IafItemRegistry.bestiary) {
 					if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (!itemstack1.isEmpty() && itemstack1.getItem() == ModItems.manuscript) {
+				} else if (!itemstack1.isEmpty() && itemstack1.getItem() == IafItemRegistry.manuscript) {
 					if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
 						return ItemStack.EMPTY;
 					}

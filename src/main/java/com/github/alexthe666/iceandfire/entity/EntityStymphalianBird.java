@@ -3,8 +3,8 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.StymphalianBirdAIAirTarget;
 import com.github.alexthe666.iceandfire.entity.ai.StymphalianBirdAIFlee;
 import com.github.alexthe666.iceandfire.entity.ai.StymphalianBirdAITarget;
@@ -212,7 +212,7 @@ public class EntityStymphalianBird extends EntityCreature implements IAnimatedEn
                 }
             }
             if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
-                ItemStack stack = new ItemStack(ModItems.copperIngot);
+                ItemStack stack = new ItemStack(IafItemRegistry.copperIngot);
                 stack.setCount(1 + this.getRNG().nextInt(3));
                 dropItemAt(stack, this.posX, this.posY + 0.5F, this.posZ);
             }
@@ -332,7 +332,7 @@ public class EntityStymphalianBird extends EntityCreature implements IAnimatedEn
                 if (this.isFlying()) {
                     rotationYaw = renderYawOffset;
                     if ((this.getAnimationTick() == 7 || this.getAnimationTick() == 14) && isDirectPathBetweenPoints(this, this.getPositionVector(), target.getPositionVector())) {
-                        this.playSound(ModSounds.STYMPHALIAN_BIRD_ATTACK, 1, 1);
+                        this.playSound(IafSoundRegistry.STYMPHALIAN_BIRD_ATTACK, 1, 1);
                         for (int i = 0; i < 4; i++) {
                             float wingX = (float) (posX + 1.8F * 0.5F * Math.cos((rotationYaw + 180 * (i % 2)) * Math.PI / 180));
                             float wingZ = (float) (posZ + 1.8F * 0.5F * Math.sin((rotationYaw + 180 * (i % 2)) * Math.PI / 180));
@@ -488,18 +488,18 @@ public class EntityStymphalianBird extends EntityCreature implements IAnimatedEn
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.STYMPHALIAN_BIRD_IDLE;
+        return IafSoundRegistry.STYMPHALIAN_BIRD_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.STYMPHALIAN_BIRD_HURT;
+        return IafSoundRegistry.STYMPHALIAN_BIRD_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.STYMPHALIAN_BIRD_DIE;
+        return IafSoundRegistry.STYMPHALIAN_BIRD_DIE;
     }
 
     @Override

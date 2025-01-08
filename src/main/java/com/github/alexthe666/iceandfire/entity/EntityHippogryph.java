@@ -5,9 +5,9 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
@@ -213,13 +213,13 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	}
 
 	public int getIntFromArmor(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getItem() == ModItems.iron_hippogryph_armor) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.iron_hippogryph_armor) {
 			return 1;
 		}
-		if (!stack.isEmpty() && stack.getItem() == ModItems.gold_hippogryph_armor) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.gold_hippogryph_armor) {
 			return 2;
 		}
-		if (!stack.isEmpty() && stack.getItem() == ModItems.diamond_hippogryph_armor) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.diamond_hippogryph_armor) {
 			return 3;
 		}
 		return 0;
@@ -688,17 +688,17 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 
 	@Nullable
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.HIPPOGRYPH_IDLE;
+		return IafSoundRegistry.HIPPOGRYPH_IDLE;
 	}
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-		return ModSounds.HIPPOGRYPH_HURT;
+		return IafSoundRegistry.HIPPOGRYPH_HURT;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return ModSounds.HIPPOGRYPH_DIE;
+		return IafSoundRegistry.HIPPOGRYPH_DIE;
 	}
 
 	@Override

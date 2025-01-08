@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.google.common.base.Predicate;
@@ -150,7 +149,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
 
     @Override
     public VillagerRegistry.VillagerProfession getProfessionForge() {
-        return this.isJungle() ? ModVillagers.INSTANCE.jungleMyrmexSentinel : ModVillagers.INSTANCE.desertMyrmexSentinel;
+        return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexSentinel : IafVillagerRegistry.INSTANCE.desertMyrmexSentinel;
     }
 
     @Override

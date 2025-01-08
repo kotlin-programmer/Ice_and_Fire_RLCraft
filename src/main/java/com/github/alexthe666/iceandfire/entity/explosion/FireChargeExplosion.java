@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.entity.explosion;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
@@ -243,7 +243,7 @@ public class FireChargeExplosion extends Explosion {
 		} else if (this.exploder instanceof EntityIceDragon) {
 			for (BlockPos blockpos1 : this.affectedBlockPositions) {
 				if (this.worldObj.getBlockState(blockpos1).getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock() && this.explosionRNG.nextInt(3) == 0 && dragonGriefing) {
-					this.worldObj.setBlockState(blockpos1, new Random().nextBoolean() ? Blocks.SNOW_LAYER.getDefaultState() : ModBlocks.dragon_ice_spikes.getDefaultState());
+					this.worldObj.setBlockState(blockpos1, new Random().nextBoolean() ? Blocks.SNOW_LAYER.getDefaultState() : IafBlockRegistry.dragon_ice_spikes.getDefaultState());
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.client.gui;
 
 import com.github.alexthe666.iceandfire.client.StatCollector;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.inventory.ContainerLectern;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -39,7 +39,7 @@ public class GuiLectern extends GuiContainer {
 	}
 
 	public boolean hasAllPages() {
-		if (tileFurnace.getStackInSlot(0).getItem() == ModItems.bestiary) {
+		if (tileFurnace.getStackInSlot(0).getItem() == IafItemRegistry.bestiary) {
 			List<EnumBestiaryPages> list = EnumBestiaryPages.possiblePages(tileFurnace.getStackInSlot(0));
 			return list == null || list.isEmpty();
 		}

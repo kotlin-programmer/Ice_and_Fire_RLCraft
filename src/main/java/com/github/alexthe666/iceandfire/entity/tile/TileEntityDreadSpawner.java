@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.WeightedSpawnerEntity;
@@ -12,7 +12,7 @@ public class TileEntityDreadSpawner extends TileEntitySpawnerBase {
 
         @Override
         public void broadcastEvent(int id) {
-            TileEntityDreadSpawner.this.world.addBlockEvent(TileEntityDreadSpawner.this.pos, ModBlocks.dread_spawner, id, 0);
+            TileEntityDreadSpawner.this.world.addBlockEvent(TileEntityDreadSpawner.this.pos, IafBlockRegistry.dread_spawner, id, 0);
         }
 
         @Override

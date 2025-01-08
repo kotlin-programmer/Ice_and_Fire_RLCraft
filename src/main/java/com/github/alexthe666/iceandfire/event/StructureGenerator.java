@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.event;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.structures.*;
@@ -243,7 +243,7 @@ public class StructureGenerator implements IWorldGenerator {
 				int oreHeight = random.nextInt(128);
 				int xOre = (chunkX * 16) + random.nextInt(16);
 				int zOre = (chunkZ * 16) + random.nextInt(16);
-				new WorldGenMinable(ModBlocks.copperOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
+				new WorldGenMinable(IafBlockRegistry.copperOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
 			}
 		}
 
@@ -252,7 +252,7 @@ public class StructureGenerator implements IWorldGenerator {
 				int oreHeight = random.nextInt(32);
 				int xOre = (chunkX * 16) + random.nextInt(16);
 				int zOre = (chunkZ * 16) + random.nextInt(16);
-				new WorldGenMinable(ModBlocks.silverOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
+				new WorldGenMinable(IafBlockRegistry.silverOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
 			}
 		}
 
@@ -266,7 +266,7 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, ModBlocks.amethystOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.amethystOre.getDefaultState());
 					}
 				}
 			}
@@ -282,7 +282,7 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, ModBlocks.sapphireOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.sapphireOre.getDefaultState());
 					}
 				}
 			}
@@ -290,16 +290,16 @@ public class StructureGenerator implements IWorldGenerator {
 
 		if (random.nextInt(5) == 0) {
 			if (types.contains(Type.JUNGLE)) {
-				if (ModBlocks.lightning_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, ModBlocks.lightning_lily.getDefaultState());
+				if (IafBlockRegistry.lightning_lily.canPlaceBlockAt(world, height)) {
+					world.setBlockState(height, IafBlockRegistry.lightning_lily.getDefaultState());
 				}
 			} else if (isCold && isSnowy) {
-				if (ModBlocks.frost_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, ModBlocks.frost_lily.getDefaultState());
+				if (IafBlockRegistry.frost_lily.canPlaceBlockAt(world, height)) {
+					world.setBlockState(height, IafBlockRegistry.frost_lily.getDefaultState());
 				}
 			} else if (types.contains(Type.HOT) && (types.contains(Type.SANDY))) {
-				if (ModBlocks.fire_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, ModBlocks.fire_lily.getDefaultState());
+				if (IafBlockRegistry.fire_lily.canPlaceBlockAt(world, height)) {
+					world.setBlockState(height, IafBlockRegistry.fire_lily.getDefaultState());
 				}
 			}
 		}
@@ -308,7 +308,7 @@ public class StructureGenerator implements IWorldGenerator {
 			if (types.contains(Type.NETHER)) {
 				BlockPos surface = getNetherHeight(world, new BlockPos(x, 0, z));
 				if (surface != null) {
-					world.setBlockState(surface.up(), ModBlocks.fire_lily.getDefaultState());
+					world.setBlockState(surface.up(), IafBlockRegistry.fire_lily.getDefaultState());
 				}
 			}
 		}

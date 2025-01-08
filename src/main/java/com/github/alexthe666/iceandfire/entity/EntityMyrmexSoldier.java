@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.google.common.base.Predicate;
@@ -107,7 +106,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
 
     @Override
     public VillagerRegistry.VillagerProfession getProfessionForge() {
-        return this.isJungle() ? ModVillagers.INSTANCE.jungleMyrmexSoldier : ModVillagers.INSTANCE.desertMyrmexSoldier;
+        return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexSoldier : IafVillagerRegistry.INSTANCE.desertMyrmexSoldier;
     }
 
     @Override

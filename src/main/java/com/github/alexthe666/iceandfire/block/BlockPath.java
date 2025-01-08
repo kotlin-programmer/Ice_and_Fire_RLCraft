@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrassPath;
 import net.minecraft.block.SoundType;
@@ -51,11 +50,11 @@ public class BlockPath extends BlockGrassPath {
         public Block getBaseBlock() {
             switch (this) {
                 case FROZEN:
-                    return ModBlocks.frozenDirt;
+                    return IafBlockRegistry.frozenDirt;
                 case CRACKLED:
-                    return ModBlocks.crackledDirt;
+                    return IafBlockRegistry.crackledDirt;
                 default:
-                    return ModBlocks.charedDirt;
+                    return IafBlockRegistry.charedDirt;
             }
         }
     }
@@ -103,7 +102,7 @@ public class BlockPath extends BlockGrassPath {
             case EAST:
                 IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
                 Block block = iblockstate.getBlock();
-                return !iblockstate.isOpaqueCube() && block != Blocks.FARMLAND && block != Blocks.GRASS_PATH && block != ModBlocks.charedGrassPath && block != ModBlocks.frozenGrassPath && block != ModBlocks.crackledGrassPath;
+                return !iblockstate.isOpaqueCube() && block != Blocks.FARMLAND && block != Blocks.GRASS_PATH && block != IafBlockRegistry.charedGrassPath && block != IafBlockRegistry.frozenGrassPath && block != IafBlockRegistry.crackledGrassPath;
             default:
                 return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
         }

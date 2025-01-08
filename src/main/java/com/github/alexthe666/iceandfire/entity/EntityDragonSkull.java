@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
@@ -115,7 +115,7 @@ public class EntityDragonSkull extends EntityAnimal implements IBlacklistedFromS
 		if (isDead)
 			return;
 		this.setDead();
-		ItemStack stack = new ItemStack(ModItems.dragon_skull, 1, getType());
+		ItemStack stack = new ItemStack(IafItemRegistry.dragon_skull, 1, getType());
 		stack.setTagCompound(new NBTTagCompound());
 		stack.getTagCompound().setInteger("Stage", this.getStage());
 		stack.getTagCompound().setInteger("DragonAge", this.getDragonAge());

@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDreadLichSkull;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -18,7 +17,7 @@ public class ItemLichStaff extends ItemGeneric {
     }
 
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == ModItems.dread_shard || super.getIsRepairable(toRepair, repair);
+        return repair.getItem() == IafItemRegistry.dread_shard || super.getIsRepairable(toRepair, repair);
     }
 
     @Override

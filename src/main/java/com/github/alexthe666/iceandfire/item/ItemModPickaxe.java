@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.StatCollector;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +27,7 @@ public class ItemModPickaxe extends ItemPickaxe implements IHitEffect {
 	@Override
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
 		ItemStack mat = this.toolMaterial.getRepairItemStack();
-		if (this.toolMaterial == ModItems.silverTools) {
+		if (this.toolMaterial == IafItemRegistry.silverTools) {
 			NonNullList<ItemStack> silverItems = OreDictionary.getOres("ingotSilver");
 			for (ItemStack ingot : silverItems){
 				if (OreDictionary.itemMatches(repair, ingot, false)) {
@@ -36,7 +35,7 @@ public class ItemModPickaxe extends ItemPickaxe implements IHitEffect {
 				}
 			}
 		}
-		if (this.toolMaterial == ModItems.copperTools){
+		if (this.toolMaterial == IafItemRegistry.copperTools){
 			NonNullList<ItemStack> copperItems = OreDictionary.getOres("ingotCopper");
 			for (ItemStack ingot : copperItems){
 				if (OreDictionary.itemMatches(repair, ingot, false)) {
@@ -59,10 +58,10 @@ public class ItemModPickaxe extends ItemPickaxe implements IHitEffect {
 
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if (this == ModItems.silver_pickaxe) {
+		if (this == IafItemRegistry.silver_pickaxe) {
 			tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("silvertools.hurt"));
 		}
-		if (this == ModItems.myrmex_desert_pickaxe || this == ModItems.myrmex_jungle_pickaxe) {
+		if (this == IafItemRegistry.myrmex_desert_pickaxe || this == IafItemRegistry.myrmex_jungle_pickaxe) {
 			tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("myrmextools.hurt"));
 		}
 	}

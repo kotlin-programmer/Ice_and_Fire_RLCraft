@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.EntityGhostSword;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -27,7 +26,7 @@ import java.util.List;
 public class ItemGhostSword extends ItemSword {
 
     public ItemGhostSword() {
-        super(ModItems.ghost_sword_tool_material);
+        super(IafItemRegistry.ghost_sword_tool_material);
         this.setTranslationKey("iceandfire.ghost_sword");
         this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setRegistryName(IceAndFire.MODID, "ghost_sword");

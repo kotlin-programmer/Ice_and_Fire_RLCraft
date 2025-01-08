@@ -3,9 +3,9 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
@@ -147,7 +147,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             return true;
         }
         if (!super.processInteract(player, hand)) {
-            if (itemstack.getItem() == ModItems.dragon_stick && this.isOwner(player)) {
+            if (itemstack.getItem() == IafItemRegistry.dragon_stick && this.isOwner(player)) {
                 if (player.isSneaking()) {
                     this.homePos = new BlockPos(this);
                     this.hasHomePosition = true;
@@ -596,10 +596,10 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             }
         }
         if (this.getAnimation() == ANIMATION_WING_BLAST && this.getAnimationTick() == 5) {
-            this.playSound(ModSounds.AMPHITHERE_GUST, 1, 1);
+            this.playSound(IafSoundRegistry.AMPHITHERE_GUST, 1, 1);
         }
         if ((this.getAnimation() == ANIMATION_BITE || this.getAnimation() == ANIMATION_BITE_RIDER) && this.getAnimationTick() == 1) {
-            this.playSound(ModSounds.AMPHITHERE_BITE, 1, 1);
+            this.playSound(IafSoundRegistry.AMPHITHERE_BITE, 1, 1);
         }
         if (this.getAnimation() == ANIMATION_WING_BLAST && this.getAttackTarget() != null && this.getAnimationTick() > 5 && this.getAnimationTick() < 22) {
             double dist = this.getDistanceSq(this.getAttackTarget());
@@ -802,18 +802,18 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.AMPHITHERE_IDLE;
+        return IafSoundRegistry.AMPHITHERE_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.AMPHITHERE_HURT;
+        return IafSoundRegistry.AMPHITHERE_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.AMPHITHERE_DIE;
+        return IafSoundRegistry.AMPHITHERE_DIE;
     }
 
     @Override

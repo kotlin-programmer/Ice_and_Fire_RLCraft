@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
@@ -49,8 +49,8 @@ public class RenderDragonFireCharge extends Render<Entity> {
 
 	private Block getBlock() {
 		switch(this.type) {
-			case ICE: return ModBlocks.dragon_ice;
-			case LIGHTNING: return ModBlocks.lightning_stone;
+			case ICE: return IafBlockRegistry.dragon_ice;
+			case LIGHTNING: return IafBlockRegistry.lightning_stone;
 			default: return Blocks.MAGMA;
 		}
 	}

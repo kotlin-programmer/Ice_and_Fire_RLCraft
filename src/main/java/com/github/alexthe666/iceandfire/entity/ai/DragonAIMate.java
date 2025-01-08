@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityDragonEgg;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -24,7 +24,7 @@ public class DragonAIMate extends EntityAIBase {
 	int spawnBabyDelay;
 	double moveSpeed;
 	private EntityDragonBase targetMate;
-	private static final IBlockState NEST = ModBlocks.nest.getDefaultState();
+	private static final IBlockState NEST = IafBlockRegistry.nest.getDefaultState();
 	public DragonAIMate(EntityDragonBase dragon, double speedIn) {
 		this.dragon = dragon;
 		this.theWorld = dragon.world;

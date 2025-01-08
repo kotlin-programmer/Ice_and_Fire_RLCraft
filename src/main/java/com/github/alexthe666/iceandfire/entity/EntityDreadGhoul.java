@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.google.common.base.Predicate;
@@ -234,7 +234,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.DREAD_GHOUL_IDLE;
+        return IafSoundRegistry.DREAD_GHOUL_IDLE;
     }
 
     @Nullable

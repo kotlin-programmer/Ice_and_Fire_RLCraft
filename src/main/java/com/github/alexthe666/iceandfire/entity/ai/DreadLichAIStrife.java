@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import net.minecraft.entity.ai.EntityAIBase;
 import com.github.alexthe666.iceandfire.entity.EntityDreadLich;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,7 +34,7 @@ public class DreadLichAIStrife extends EntityAIBase {
     }
 
     protected boolean isStaffInHand() {
-        return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == ModItems.lich_staff;
+        return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == IafItemRegistry.lich_staff;
     }
 
     public boolean shouldContinueExecuting() {

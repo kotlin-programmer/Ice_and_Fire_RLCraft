@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.StatCollector;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,15 +39,15 @@ public class ItemAlchemySword extends ItemSword implements IHitEffect {
 
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if (this == ModItems.dragonbone_sword_fire) {
+		if (this == IafItemRegistry.dragonbone_sword_fire) {
 			tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("dragon_sword_fire.hurt1"));
 			tooltip.add(TextFormatting.DARK_RED + StatCollector.translateToLocal("dragon_sword_fire.hurt2"));
 		}
-		if (this == ModItems.dragonbone_sword_ice) {
+		if (this == IafItemRegistry.dragonbone_sword_ice) {
 			tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("dragon_sword_ice.hurt1"));
 			tooltip.add(TextFormatting.AQUA + StatCollector.translateToLocal("dragon_sword_ice.hurt2"));
 		}
-		if (this == ModItems.dragonbone_sword_lightning) {
+		if (this == IafItemRegistry.dragonbone_sword_lightning) {
 			tooltip.add(TextFormatting.GREEN + StatCollector.translateToLocal("dragon_sword_lightning.hurt1"));
 			tooltip.add(TextFormatting.AQUA + StatCollector.translateToLocal("dragon_sword_lightning.hurt2"));
 		}

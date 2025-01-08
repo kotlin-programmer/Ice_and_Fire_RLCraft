@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -55,17 +54,17 @@ public class BlockGeneric extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getRenderLayer() {
-		return this == ModBlocks.dragon_ice ? BlockRenderLayer.TRANSLUCENT : super.getRenderLayer();
+		return this == IafBlockRegistry.dragon_ice ? BlockRenderLayer.TRANSLUCENT : super.getRenderLayer();
 	}
 
 	@SuppressWarnings("deprecation")
 	public boolean isOpaqueCube(IBlockState state) {
-		return this != ModBlocks.dragon_ice;
+		return this != IafBlockRegistry.dragon_ice;
 	}
 
 	@SuppressWarnings("deprecation")
 	public boolean isFullCube(IBlockState state) {
-		return this != ModBlocks.dragon_ice;
+		return this != IafBlockRegistry.dragon_ice;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -73,7 +72,7 @@ public class BlockGeneric extends Block {
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
 		Block block = iblockstate.getBlock();
-		if (this == ModBlocks.dragon_ice) {
+		if (this == IafBlockRegistry.dragon_ice) {
 			if (blockState != iblockstate) {
 				return true;
 			} else if (block == this) {
@@ -85,9 +84,9 @@ public class BlockGeneric extends Block {
 
 	@Override
 	public boolean isBeaconBase(IBlockAccess worldObj, BlockPos pos, BlockPos beacon) {
-		return this == ModBlocks.amethystBlock
-				|| this == ModBlocks.copperBlock
-				|| this == ModBlocks.sapphireBlock
-				|| this == ModBlocks.silverBlock;
+		return this == IafBlockRegistry.amethystBlock
+				|| this == IafBlockRegistry.copperBlock
+				|| this == IafBlockRegistry.sapphireBlock
+				|| this == IafBlockRegistry.silverBlock;
 	}
 }

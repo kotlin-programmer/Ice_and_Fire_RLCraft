@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAIRideHorse;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
@@ -105,7 +105,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
 
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.dread_knight_sword));
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.dread_knight_sword));
         if (rand.nextBoolean()) {
             this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, SHIELD.copy());
         }

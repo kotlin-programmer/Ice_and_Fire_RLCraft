@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.CyclopsAIAttackMelee;
 import com.github.alexthe666.iceandfire.entity.ai.CyclopsAITargetSheepPlayers;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
@@ -249,10 +249,10 @@ public class EntityCyclops extends EntityMob implements IAnimatedEntity, IBlackl
             this.setAttackTarget(null);
         }
         if (this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 5) {
-            this.playSound(ModSounds.CYCLOPS_BLINDED, 1, 1);
+            this.playSound(IafSoundRegistry.CYCLOPS_BLINDED, 1, 1);
         }
         if (this.getAnimation() == ANIMATION_EATPLAYER && this.getAnimationTick() == 25) {
-            this.playSound(ModSounds.CYCLOPS_BITE, 1, 1);
+            this.playSound(IafSoundRegistry.CYCLOPS_BITE, 1, 1);
         }
         if (this.getAnimation()  == ANIMATION_STOMP && this.getAttackTarget() != null && this.getDistanceSq(this.getAttackTarget()) < 12D && this.getAnimationTick() == 14) {
             this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), (float)this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue());
@@ -384,19 +384,19 @@ public class EntityCyclops extends EntityMob implements IAnimatedEntity, IBlackl
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.CYCLOPS_IDLE;
+        return IafSoundRegistry.CYCLOPS_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSounds.CYCLOPS_HURT;
+        return IafSoundRegistry.CYCLOPS_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.CYCLOPS_DIE;
+        return IafSoundRegistry.CYCLOPS_DIE;
     }
 
     @Override

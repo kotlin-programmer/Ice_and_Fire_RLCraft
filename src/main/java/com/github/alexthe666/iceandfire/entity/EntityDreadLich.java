@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.github.alexthe666.iceandfire.entity.ai.DreadLichAIStrife;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDreadLichSkull;
@@ -115,7 +115,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.lich_staff));
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.lich_staff));
     }
 
     @Nullable
@@ -207,7 +207,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             this.tasks.removeTask(this.aiAttackOnCollide);
             this.tasks.removeTask(this.aiArrowAttack);
             ItemStack itemstack = this.getHeldItemMainhand();
-            if (itemstack.getItem() == ModItems.lich_staff) {
+            if (itemstack.getItem() == IafItemRegistry.lich_staff) {
                 int i = 100;
                 this.aiArrowAttack.setAttackCooldown(i);
                 this.tasks.addTask(4, this.aiArrowAttack);
@@ -222,7 +222,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         boolean flag = false;
         if (this.getMinionCount() < 5 && minionCooldown == 0) {
             this.setAnimation(ANIMATION_SUMMON);
-            this.playSound(ModSounds.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
+            this.playSound(IafSoundRegistry.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
             EntityLiving minion = getRandomNewMinion();
             int x = (int) (this.posX) - 5 + rand.nextInt(10);
             int z = (int) (this.posZ) - 5 + rand.nextInt(10);

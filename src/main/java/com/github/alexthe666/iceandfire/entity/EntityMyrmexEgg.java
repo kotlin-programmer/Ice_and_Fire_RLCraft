@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
@@ -150,7 +150,7 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
             if (!world.isRemote) {
                 world.spawnEntity(myrmex);
             }
-            this.world.playSound(this.posX, this.posY + this.getEyeHeight(), this.posZ, ModSounds.DRAGON_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
+            this.world.playSound(this.posX, this.posY + this.getEyeHeight(), this.posZ, IafSoundRegistry.DRAGON_HATCH, this.getSoundCategory(), 2.5F, 1.0F, false);
         }
     }
 
@@ -178,7 +178,7 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
     }
 
     private ItemStack getItem() {
-        return new ItemStack(this.isJungle() ? ModItems.myrmex_jungle_egg : ModItems.myrmex_desert_egg, 1, this.getMyrmexCaste());
+        return new ItemStack(this.isJungle() ? IafItemRegistry.myrmex_jungle_egg : IafItemRegistry.myrmex_desert_egg, 1, this.getMyrmexCaste());
     }
 
     @Override

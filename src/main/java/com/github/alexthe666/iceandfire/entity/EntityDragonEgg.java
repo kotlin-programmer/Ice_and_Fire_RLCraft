@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.google.common.base.Optional;
@@ -144,29 +144,29 @@ public class EntityDragonEgg extends EntityLiving implements IBlacklistedFromSta
     private ItemStack getItem() {
         switch (getType().ordinal()) {
             default:
-                return new ItemStack(ModItems.dragonegg_red);
+                return new ItemStack(IafItemRegistry.dragonegg_red);
             case 1:
-                return new ItemStack(ModItems.dragonegg_green);
+                return new ItemStack(IafItemRegistry.dragonegg_green);
             case 2:
-                return new ItemStack(ModItems.dragonegg_bronze);
+                return new ItemStack(IafItemRegistry.dragonegg_bronze);
             case 3:
-                return new ItemStack(ModItems.dragonegg_gray);
+                return new ItemStack(IafItemRegistry.dragonegg_gray);
             case 4:
-                return new ItemStack(ModItems.dragonegg_blue);
+                return new ItemStack(IafItemRegistry.dragonegg_blue);
             case 5:
-                return new ItemStack(ModItems.dragonegg_white);
+                return new ItemStack(IafItemRegistry.dragonegg_white);
             case 6:
-                return new ItemStack(ModItems.dragonegg_sapphire);
+                return new ItemStack(IafItemRegistry.dragonegg_sapphire);
             case 7:
-                return new ItemStack(ModItems.dragonegg_silver);
+                return new ItemStack(IafItemRegistry.dragonegg_silver);
             case 8:
-                return new ItemStack(ModItems.dragonegg_electric);
+                return new ItemStack(IafItemRegistry.dragonegg_electric);
             case 9:
-                return new ItemStack(ModItems.dragonegg_amethyst);
+                return new ItemStack(IafItemRegistry.dragonegg_amethyst);
             case 10:
-                return new ItemStack(ModItems.dragonegg_copper);
+                return new ItemStack(IafItemRegistry.dragonegg_copper);
             case 11:
-                return new ItemStack(ModItems.dragonegg_black);
+                return new ItemStack(IafItemRegistry.dragonegg_black);
 
         }
     }

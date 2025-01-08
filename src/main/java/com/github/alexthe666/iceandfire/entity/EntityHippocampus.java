@@ -4,7 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.IDropArmor;
 import com.github.alexthe666.iceandfire.entity.util.ISyncMount;
@@ -748,17 +748,17 @@ public class EntityHippocampus extends EntityTameable implements IAnimatedEntity
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.HIPPOCAMPUS_IDLE;
+        return IafSoundRegistry.HIPPOCAMPUS_IDLE;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return ModSounds.HIPPOCAMPUS_HURT;
+        return IafSoundRegistry.HIPPOCAMPUS_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.HIPPOCAMPUS_DIE;
+        return IafSoundRegistry.HIPPOCAMPUS_DIE;
     }
 
     class SwimmingMoveHelper extends EntityMoveHelper {

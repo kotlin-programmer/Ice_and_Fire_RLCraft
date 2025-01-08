@@ -7,8 +7,8 @@ import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightningC
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -65,7 +65,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 		this.tasks.addTask(2, new DragonAISwim(this));
 		this.tasks.addTask(2, new DragonAIMate(this, 1.0D));
 		this.tasks.addTask(3, new DragonAIAttackMelee(this, 1.5D, false));
-		this.tasks.addTask(4, new AquaticAITempt(this, 1.0D, ModItems.lightning_stew, false));
+		this.tasks.addTask(4, new AquaticAITempt(this, 1.0D, IafItemRegistry.lightning_stew, false));
 		this.tasks.addTask(5, new DragonAIAirTarget(this));
 		this.tasks.addTask(6, new DragonAIWander(this, 1.0D));
 		this.tasks.addTask(7, new DragonAIWatchClosest(this, EntityLivingBase.class, 6.0F));
@@ -98,32 +98,32 @@ public class EntityLightningDragon extends EntityDragonBase {
 	public Item getVariantScale(int variant) {
 		switch (variant) {
 			default:
-				return ModItems.dragonscales_electric;
+				return IafItemRegistry.dragonscales_electric;
 			case 1:
-				return ModItems.dragonscales_amethyst;
+				return IafItemRegistry.dragonscales_amethyst;
 			case 2:
-				return ModItems.dragonscales_copper;
+				return IafItemRegistry.dragonscales_copper;
 			case 3:
-				return ModItems.dragonscales_black;
+				return IafItemRegistry.dragonscales_black;
 		}
 	}
 
 	public Item getVariantEgg(int variant) {
 		switch (variant) {
 			default:
-				return ModItems.dragonegg_electric;
+				return IafItemRegistry.dragonegg_electric;
 			case 1:
-				return ModItems.dragonegg_amethyst;
+				return IafItemRegistry.dragonegg_amethyst;
 			case 2:
-				return ModItems.dragonegg_copper;
+				return IafItemRegistry.dragonegg_copper;
 			case 3:
-				return ModItems.dragonegg_black;
+				return IafItemRegistry.dragonegg_black;
 		}
 	}
 
 	@Override
 	public Item getSummoningCrystal() {
-		return ModItems.summoning_crystal_lightning;
+		return IafItemRegistry.summoning_crystal_lightning;
 	}
 
 	@Override
@@ -284,7 +284,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 			} else if (this.getAnimationTick() == 15) {
 				rotationYaw = renderYawOffset;
 				Vec3d headPos = getHeadPosition();
-				this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
+				this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 				double d2 = controller.getLookVec().x;
 				double d3 = controller.getLookVec().y;
 				double d4 = controller.getLookVec().z;
@@ -313,7 +313,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 					d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					EntityDragonLightning lightningProjectile = new EntityDragonLightning(world, this, d2, d3, d4);
-					this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
+					this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 					lightningProjectile.setPosition(headPos.x, headPos.y, headPos.z);
 					if (!world.isRemote) {
 						world.spawnEntity(lightningProjectile);
@@ -349,7 +349,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 					d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 					d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-					this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
+					this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 					EntityDragonLightningCharge lightningChargeProjectile = new EntityDragonLightningCharge(world, this, d2, d3, d4);
 					float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 					lightningChargeProjectile.setSizes(size, size);
@@ -374,7 +374,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 						d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 						d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
 						d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-						this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH, 4, 1);
+						this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 						EntityDragonLightning lightningProjectile = new EntityDragonLightning(world, this, d2, d3, d4);
 						float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 						lightningProjectile.setPosition(headPos.x, headPos.y, headPos.z);
@@ -397,27 +397,27 @@ public class EntityLightningDragon extends EntityDragonBase {
 
 	@Override
 	protected ItemStack getSkull() {
-		return new ItemStack(ModItems.dragon_skull, 1, 2);
+		return new ItemStack(IafItemRegistry.dragon_skull, 1, 2);
 	}
 
 	@Override
 	protected ItemStack getHorn() {
-		return new ItemStack(ModItems.dragon_horn_lightning);
+		return new ItemStack(IafItemRegistry.dragon_horn_lightning);
 	}
 
 	@Override
 	public Item getBlood() {
-		return ModItems.lightning_dragon_blood;
+		return IafItemRegistry.lightning_dragon_blood;
 	}
 
 	@Override
 	public Item getHeart() {
-		return ModItems.lightning_dragon_heart;
+		return IafItemRegistry.lightning_dragon_heart;
 	}
 
 	@Override
 	public Item getFlesh() {
-		return ModItems.lightning_dragon_flesh;
+		return IafItemRegistry.lightning_dragon_flesh;
 	}
 
 	@Override
@@ -427,22 +427,22 @@ public class EntityLightningDragon extends EntityDragonBase {
 
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return this.isTeen() ? ModSounds.LIGHTNINGDRAGON_TEEN_IDLE : this.isAdult() ? ModSounds.LIGHTNINGDRAGON_ADULT_IDLE : ModSounds.LIGHTNINGDRAGON_CHILD_IDLE;
+		return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_IDLE : this.isAdult() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_IDLE : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_IDLE;
 	}
 
 	@Override
 	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-		return this.isTeen() ? ModSounds.LIGHTNINGDRAGON_TEEN_HURT : this.isAdult() ? ModSounds.LIGHTNINGDRAGON_ADULT_HURT : ModSounds.LIGHTNINGDRAGON_CHILD_HURT;
+		return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_HURT : this.isAdult() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_HURT : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_HURT;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return this.isTeen() ? ModSounds.LIGHTNINGDRAGON_TEEN_DEATH : this.isAdult() ? ModSounds.LIGHTNINGDRAGON_ADULT_DEATH : ModSounds.LIGHTNINGDRAGON_CHILD_DEATH;
+		return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_DEATH : this.isAdult() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_DEATH : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_DEATH;
 	}
 
 	@Override
 	public SoundEvent getRoarSound() {
-		return this.isTeen() ? ModSounds.LIGHTNINGDRAGON_TEEN_ROAR : this.isAdult() ? ModSounds.LIGHTNINGDRAGON_ADULT_ROAR : ModSounds.LIGHTNINGDRAGON_CHILD_ROAR;
+		return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_ROAR : this.isAdult() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_ROAR : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_ROAR;
 	}
 
 	@Override
@@ -452,6 +452,6 @@ public class EntityLightningDragon extends EntityDragonBase {
 
 	@Override
 	public boolean isBreedingItem(@Nullable ItemStack stack) {
-		return !stack.isEmpty() && stack.getItem() != null && stack.getItem() == ModItems.lightning_stew;
+		return !stack.isEmpty() && stack.getItem() != null && stack.getItem() == IafItemRegistry.lightning_stew;
 	}
 }

@@ -1,9 +1,8 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityJar;
 import com.github.alexthe666.iceandfire.item.ICustomRendered;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -114,12 +113,12 @@ public class BlockJar extends BlockContainer implements ICustomRendered, ITileEn
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(ModBlocks.jar_empty);
+		return Item.getItemFromBlock(IafBlockRegistry.jar_empty);
 	}
 
 	@Override
 	protected ItemStack getSilkTouchDrop(IBlockState state){
-		return new ItemStack(ModBlocks.jar_empty);
+		return new ItemStack(IafBlockRegistry.jar_empty);
 	}
 
 	@Override
@@ -131,9 +130,9 @@ public class BlockJar extends BlockContainer implements ICustomRendered, ITileEn
 			if (jar.hasPixie && jar.hasProduced) {
 				jar.hasProduced = false;
 				if (!world.isRemote) {
-					world.spawnEntity(new EntityItem(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(ModItems.pixie_dust)));
+					world.spawnEntity(new EntityItem(world, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, new ItemStack(IafItemRegistry.pixie_dust)));
 				}
-				world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, ModSounds.PIXIE_HURT, SoundCategory.NEUTRAL, 1, 1, false);
+				world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5, IafSoundRegistry.PIXIE_HURT, SoundCategory.NEUTRAL, 1, 1, false);
 			}
 		}
 		return false;

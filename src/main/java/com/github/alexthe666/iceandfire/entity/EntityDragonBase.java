@@ -7,9 +7,9 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.client.model.util.LegSolverQuadruped;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.PathNavigateExperimentalGround;
 import com.github.alexthe666.iceandfire.entity.explosion.BlockBreakExplosion;
 import com.github.alexthe666.iceandfire.entity.util.*;
@@ -1033,7 +1033,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         }
                         return true;
                     }
-                    if (stack.getItem() == ModItems.dragon_meal) {
+                    if (stack.getItem() == IafItemRegistry.dragon_meal) {
                         this.growDragon(1);
                         this.setHunger(this.getHunger() + 20);
                         this.heal(Math.min(this.getHealth(), (int) (this.getMaxHealth() / 2)));
@@ -1047,7 +1047,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         }
                         return true;
                     }
-                    if (stack.getItem() == ModItems.sickly_dragon_meal && !this.isAgingDisabled()) {
+                    if (stack.getItem() == IafItemRegistry.sickly_dragon_meal && !this.isAgingDisabled()) {
                         this.setHunger(this.getHunger() + 20);
                         this.heal(this.getMaxHealth());
                         this.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, this.getSoundVolume(), this.getSoundPitch());
@@ -1063,7 +1063,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         }
                         return true;
                     }
-                    if (stack.getItem() == ModItems.dragon_stick) {
+                    if (stack.getItem() == IafItemRegistry.dragon_stick) {
                         if (player.isSneaking()) {
                             this.homePos = new BlockPos(this);
                             this.hasHomePosition = true;
@@ -1080,7 +1080,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
                     }
                     IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(this);
-                    if (stack.getItem() == ModItems.dragon_horn && !world.isRemote && hand == EnumHand.MAIN_HAND && (capability == null || !capability.isStoned())) {
+                    if (stack.getItem() == IafItemRegistry.dragon_horn && !world.isRemote && hand == EnumHand.MAIN_HAND && (capability == null || !capability.isStoned())) {
                         this.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 3, 1.25F);
 
                         NBTTagCompound tag = new NBTTagCompound();
@@ -1115,7 +1115,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     }
                 }
             } else {
-                if (stack.getItem() == ModItems.dragon_collar) {
+                if (stack.getItem() == IafItemRegistry.dragon_collar) {
                     this.setTamedBy(player);
                     if (!player.isCreative()) {
                         stack.shrink(1);
@@ -1166,7 +1166,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
 
     private ItemStack getRandomDrop() {
         ItemStack stack = getItemFromLootTable();
-        if (stack.getItem() == ModItems.dragonbone) {
+        if (stack.getItem() == IafItemRegistry.dragonbone) {
             this.playSound(SoundEvents.ENTITY_SKELETON_AMBIENT, 1, 1);
         } else {
             this.playSound(SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 1, 1);
@@ -1369,7 +1369,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 flightCycle = 0;
             }
             if (flightCycle == 2) {
-                this.playSound(ModSounds.DRAGON_FLIGHT, this.getSoundVolume() * IceAndFireConfig.DRAGON_SETTINGS.dragonFlapNoiseDistance, getSoundPitch());
+                this.playSound(IafSoundRegistry.DRAGON_FLIGHT, this.getSoundVolume() * IceAndFireConfig.DRAGON_SETTINGS.dragonFlapNoiseDistance, getSoundPitch());
             }
         } else if (this.isModelDead()) {
             flightCycle = 0;
@@ -1556,11 +1556,11 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(particleType, particles), this);
 
                 if (this.dragonType == EnumDragonType.ICE) {
-                    this.playSound(ModSounds.ICEDRAGON_BREATH_SHORT, 3, 1);
+                    this.playSound(IafSoundRegistry.ICEDRAGON_BREATH_SHORT, 3, 1);
                 } else if (this.dragonType == EnumDragonType.LIGHTNING) {
-                    this.playSound(ModSounds.LIGHTNINGDRAGON_BREATH_SHORT, 3, 1);
+                    this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH_SHORT, 3, 1);
                 } else {
-                    this.playSound(ModSounds.FIREDRAGON_BREATH_SHORT, 3, 1);
+                    this.playSound(IafSoundRegistry.FIREDRAGON_BREATH_SHORT, 3, 1);
                 }
             }
             if (this.isBreathingFire()) {
@@ -2362,7 +2362,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     if (this.isOwner(living) || this.isOwnersPet(living)) {
                         living.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 30 * size));
                     } else {
-                        if (living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != ModItems.earplugs) {
+                        if (living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != IafItemRegistry.earplugs) {
                             living.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 30 * size));
                         }
                     }

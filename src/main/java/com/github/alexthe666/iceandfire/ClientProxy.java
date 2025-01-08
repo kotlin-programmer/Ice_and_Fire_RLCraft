@@ -17,8 +17,8 @@ import com.github.alexthe666.iceandfire.client.render.entity.*;
 import com.github.alexthe666.iceandfire.client.render.entity.player.RenderModArmor;
 import com.github.alexthe666.iceandfire.client.render.entity.player.RenderModCapes;
 import com.github.alexthe666.iceandfire.client.render.tile.*;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
@@ -92,69 +92,69 @@ public class ClientProxy extends CommonProxy {
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public static void registerModels(ModelRegistryEvent event) {
-		ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.podium), new ResourceLocation("iceandfire:podium_oak"), new ResourceLocation("iceandfire:podium_spruce"), new ResourceLocation("iceandfire:podium_birch"), new ResourceLocation("iceandfire:podium_jungle"), new ResourceLocation("iceandfire:podium_acacia"), new ResourceLocation("iceandfire:podium_dark_oak"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.podium), 0, new ModelResourceLocation("iceandfire:podium_oak", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.podium), 1, new ModelResourceLocation("iceandfire:podium_spruce", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.podium), 2, new ModelResourceLocation("iceandfire:podium_birch", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.podium), 3, new ModelResourceLocation("iceandfire:podium_jungle", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.podium), 4, new ModelResourceLocation("iceandfire:podium_acacia", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.podium), 5, new ModelResourceLocation("iceandfire:podium_dark_oak", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragonbone_bow, new ResourceLocation("iceandfire:dragonbone_bow"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_1"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragonbone_bow, 0, new ModelResourceLocation("iceandfire:dragonbone_bow", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragon_skull, new ResourceLocation("iceandfire:dragon_skull_fire"), new ResourceLocation("iceandfire:dragon_skull_ice"), new ResourceLocation("iceandfire:dragon_skull_lightning"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_skull, 0, new ModelResourceLocation("iceandfire:dragon_skull_fire", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_skull, 1, new ModelResourceLocation("iceandfire:dragon_skull_ice", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_skull, 2, new ModelResourceLocation("iceandfire:dragon_skull_lightning", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragon_armor_iron, new ResourceLocation("iceandfire:dragonarmor_iron_head"), new ResourceLocation("iceandfire:dragonarmor_iron_neck"), new ResourceLocation("iceandfire:dragonarmor_iron_body"), new ResourceLocation("iceandfire:dragonarmor_iron_tail"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_iron, 0, new ModelResourceLocation("iceandfire:dragonarmor_iron_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_iron, 1, new ModelResourceLocation("iceandfire:dragonarmor_iron_neck", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_iron, 2, new ModelResourceLocation("iceandfire:dragonarmor_iron_body", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_iron, 3, new ModelResourceLocation("iceandfire:dragonarmor_iron_tail", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragon_armor_gold, new ResourceLocation("iceandfire:dragonarmor_gold_head"), new ResourceLocation("iceandfire:dragonarmor_gold_neck"), new ResourceLocation("iceandfire:dragonarmor_gold_body"), new ResourceLocation("iceandfire:dragonarmor_gold_tail"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_gold, 0, new ModelResourceLocation("iceandfire:dragonarmor_gold_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_gold, 1, new ModelResourceLocation("iceandfire:dragonarmor_gold_neck", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_gold, 2, new ModelResourceLocation("iceandfire:dragonarmor_gold_body", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_gold, 3, new ModelResourceLocation("iceandfire:dragonarmor_gold_tail", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragon_armor_diamond, new ResourceLocation("iceandfire:dragonarmor_diamond_head"), new ResourceLocation("iceandfire:dragonarmor_diamond_neck"), new ResourceLocation("iceandfire:dragonarmor_diamond_body"), new ResourceLocation("iceandfire:dragonarmor_diamond_tail"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_diamond, 0, new ModelResourceLocation("iceandfire:dragonarmor_diamond_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_diamond, 1, new ModelResourceLocation("iceandfire:dragonarmor_diamond_neck", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_diamond, 2, new ModelResourceLocation("iceandfire:dragonarmor_diamond_body", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_diamond, 3, new ModelResourceLocation("iceandfire:dragonarmor_diamond_tail", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragon_armor_silver, new ResourceLocation("iceandfire:dragonarmor_silver_head"), new ResourceLocation("iceandfire:dragonarmor_silver_neck"), new ResourceLocation("iceandfire:dragonarmor_silver_body"), new ResourceLocation("iceandfire:dragonarmor_silver_tail"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_silver, 0, new ModelResourceLocation("iceandfire:dragonarmor_silver_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_silver, 1, new ModelResourceLocation("iceandfire:dragonarmor_silver_neck", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_silver, 2, new ModelResourceLocation("iceandfire:dragonarmor_silver_body", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_silver, 3, new ModelResourceLocation("iceandfire:dragonarmor_silver_tail", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.dragon_armor_copper, new ResourceLocation("iceandfire:dragonarmor_copper_head"), new ResourceLocation("iceandfire:dragonarmor_copper_neck"), new ResourceLocation("iceandfire:dragonarmor_copper_body"), new ResourceLocation("iceandfire:dragonarmor_copper_tail"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_copper, 0, new ModelResourceLocation("iceandfire:dragonarmor_copper_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_copper, 1, new ModelResourceLocation("iceandfire:dragonarmor_copper_neck", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_copper, 2, new ModelResourceLocation("iceandfire:dragonarmor_copper_body", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.dragon_armor_copper, 3, new ModelResourceLocation("iceandfire:dragonarmor_copper_tail", "inventory"));
+		ModelBakery.registerItemVariants(Item.getItemFromBlock(IafBlockRegistry.podium), new ResourceLocation("iceandfire:podium_oak"), new ResourceLocation("iceandfire:podium_spruce"), new ResourceLocation("iceandfire:podium_birch"), new ResourceLocation("iceandfire:podium_jungle"), new ResourceLocation("iceandfire:podium_acacia"), new ResourceLocation("iceandfire:podium_dark_oak"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 0, new ModelResourceLocation("iceandfire:podium_oak", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 1, new ModelResourceLocation("iceandfire:podium_spruce", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 2, new ModelResourceLocation("iceandfire:podium_birch", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 3, new ModelResourceLocation("iceandfire:podium_jungle", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 4, new ModelResourceLocation("iceandfire:podium_acacia", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.podium), 5, new ModelResourceLocation("iceandfire:podium_dark_oak", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragonbone_bow, new ResourceLocation("iceandfire:dragonbone_bow"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_0"), new ResourceLocation("iceandfire:dragonbone_bow_pulling_1"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragonbone_bow, 0, new ModelResourceLocation("iceandfire:dragonbone_bow", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragon_skull, new ResourceLocation("iceandfire:dragon_skull_fire"), new ResourceLocation("iceandfire:dragon_skull_ice"), new ResourceLocation("iceandfire:dragon_skull_lightning"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_skull, 0, new ModelResourceLocation("iceandfire:dragon_skull_fire", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_skull, 1, new ModelResourceLocation("iceandfire:dragon_skull_ice", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_skull, 2, new ModelResourceLocation("iceandfire:dragon_skull_lightning", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragon_armor_iron, new ResourceLocation("iceandfire:dragonarmor_iron_head"), new ResourceLocation("iceandfire:dragonarmor_iron_neck"), new ResourceLocation("iceandfire:dragonarmor_iron_body"), new ResourceLocation("iceandfire:dragonarmor_iron_tail"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_iron, 0, new ModelResourceLocation("iceandfire:dragonarmor_iron_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_iron, 1, new ModelResourceLocation("iceandfire:dragonarmor_iron_neck", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_iron, 2, new ModelResourceLocation("iceandfire:dragonarmor_iron_body", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_iron, 3, new ModelResourceLocation("iceandfire:dragonarmor_iron_tail", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragon_armor_gold, new ResourceLocation("iceandfire:dragonarmor_gold_head"), new ResourceLocation("iceandfire:dragonarmor_gold_neck"), new ResourceLocation("iceandfire:dragonarmor_gold_body"), new ResourceLocation("iceandfire:dragonarmor_gold_tail"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_gold, 0, new ModelResourceLocation("iceandfire:dragonarmor_gold_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_gold, 1, new ModelResourceLocation("iceandfire:dragonarmor_gold_neck", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_gold, 2, new ModelResourceLocation("iceandfire:dragonarmor_gold_body", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_gold, 3, new ModelResourceLocation("iceandfire:dragonarmor_gold_tail", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragon_armor_diamond, new ResourceLocation("iceandfire:dragonarmor_diamond_head"), new ResourceLocation("iceandfire:dragonarmor_diamond_neck"), new ResourceLocation("iceandfire:dragonarmor_diamond_body"), new ResourceLocation("iceandfire:dragonarmor_diamond_tail"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_diamond, 0, new ModelResourceLocation("iceandfire:dragonarmor_diamond_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_diamond, 1, new ModelResourceLocation("iceandfire:dragonarmor_diamond_neck", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_diamond, 2, new ModelResourceLocation("iceandfire:dragonarmor_diamond_body", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_diamond, 3, new ModelResourceLocation("iceandfire:dragonarmor_diamond_tail", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragon_armor_silver, new ResourceLocation("iceandfire:dragonarmor_silver_head"), new ResourceLocation("iceandfire:dragonarmor_silver_neck"), new ResourceLocation("iceandfire:dragonarmor_silver_body"), new ResourceLocation("iceandfire:dragonarmor_silver_tail"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_silver, 0, new ModelResourceLocation("iceandfire:dragonarmor_silver_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_silver, 1, new ModelResourceLocation("iceandfire:dragonarmor_silver_neck", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_silver, 2, new ModelResourceLocation("iceandfire:dragonarmor_silver_body", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_silver, 3, new ModelResourceLocation("iceandfire:dragonarmor_silver_tail", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.dragon_armor_copper, new ResourceLocation("iceandfire:dragonarmor_copper_head"), new ResourceLocation("iceandfire:dragonarmor_copper_neck"), new ResourceLocation("iceandfire:dragonarmor_copper_body"), new ResourceLocation("iceandfire:dragonarmor_copper_tail"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_copper, 0, new ModelResourceLocation("iceandfire:dragonarmor_copper_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_copper, 1, new ModelResourceLocation("iceandfire:dragonarmor_copper_neck", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_copper, 2, new ModelResourceLocation("iceandfire:dragonarmor_copper_body", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.dragon_armor_copper, 3, new ModelResourceLocation("iceandfire:dragonarmor_copper_tail", "inventory"));
 		for(int i = 0; i < EnumHippogryphTypes.values().length; i++){
-			ModelLoader.setCustomModelResourceLocation(ModItems.hippogryph_egg, i, new ModelResourceLocation("iceandfire:hippogryph_egg", "inventory"));
+			ModelLoader.setCustomModelResourceLocation(IafItemRegistry.hippogryph_egg, i, new ModelResourceLocation("iceandfire:hippogryph_egg", "inventory"));
 		}
-		ModelLoader.setCustomModelResourceLocation(ModItems.gorgon_head, 0, new ModelResourceLocation("iceandfire:gorgon_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.gorgon_head, 1, new ModelResourceLocation("iceandfire:gorgon_head", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.pixieHouse), 0, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.pixieHouse), 1, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.pixieHouse), 2, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.pixieHouse), 3, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.pixieHouse), 4, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.pixieHouse), 5, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
-		ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.jar_pixie), new ResourceLocation("iceandfire:jar_0"), new ResourceLocation("iceandfire:jar_1"), new ResourceLocation("iceandfire:jar_2"), new ResourceLocation("iceandfire:jar_3"), new ResourceLocation("iceandfire:jar_4"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.jar_empty), 0, new ModelResourceLocation("iceandfire:jar", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.jar_pixie), 0, new ModelResourceLocation("iceandfire:jar_0", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.jar_pixie), 1, new ModelResourceLocation("iceandfire:jar_1", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.jar_pixie), 2, new ModelResourceLocation("iceandfire:jar_2", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.jar_pixie), 3, new ModelResourceLocation("iceandfire:jar_3", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.jar_pixie), 4, new ModelResourceLocation("iceandfire:jar_4", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.deathworm_chitin, new ResourceLocation("iceandfire:deathworm_chitin_yellow"), new ResourceLocation("iceandfire:deathworm_chitin_white"), new ResourceLocation("iceandfire:deathworm_chitin_red"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.deathworm_chitin, 0, new ModelResourceLocation("iceandfire:deathworm_chitin_yellow", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.deathworm_chitin, 1, new ModelResourceLocation("iceandfire:deathworm_chitin_white", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.deathworm_chitin, 2, new ModelResourceLocation("iceandfire:deathworm_chitin_red", "inventory"));
-		ModelBakery.registerItemVariants(ModItems.deathworm_egg, new ResourceLocation("iceandfire:deathworm_egg"), new ResourceLocation("iceandfire:deathworm_egg_giant"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.deathworm_egg, 0, new ModelResourceLocation("iceandfire:deathworm_egg", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.deathworm_egg, 1, new ModelResourceLocation("iceandfire:deathworm_egg_giant", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.gorgon_head, 0, new ModelResourceLocation("iceandfire:gorgon_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.gorgon_head, 1, new ModelResourceLocation("iceandfire:gorgon_head", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 0, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 1, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 2, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 3, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 4, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 5, new ModelResourceLocation("iceandfire:pixie_house", "inventory"));
+		ModelBakery.registerItemVariants(Item.getItemFromBlock(IafBlockRegistry.jar_pixie), new ResourceLocation("iceandfire:jar_0"), new ResourceLocation("iceandfire:jar_1"), new ResourceLocation("iceandfire:jar_2"), new ResourceLocation("iceandfire:jar_3"), new ResourceLocation("iceandfire:jar_4"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.jar_empty), 0, new ModelResourceLocation("iceandfire:jar", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.jar_pixie), 0, new ModelResourceLocation("iceandfire:jar_0", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.jar_pixie), 1, new ModelResourceLocation("iceandfire:jar_1", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.jar_pixie), 2, new ModelResourceLocation("iceandfire:jar_2", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.jar_pixie), 3, new ModelResourceLocation("iceandfire:jar_3", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.jar_pixie), 4, new ModelResourceLocation("iceandfire:jar_4", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.deathworm_chitin, new ResourceLocation("iceandfire:deathworm_chitin_yellow"), new ResourceLocation("iceandfire:deathworm_chitin_white"), new ResourceLocation("iceandfire:deathworm_chitin_red"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.deathworm_chitin, 0, new ModelResourceLocation("iceandfire:deathworm_chitin_yellow", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.deathworm_chitin, 1, new ModelResourceLocation("iceandfire:deathworm_chitin_white", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.deathworm_chitin, 2, new ModelResourceLocation("iceandfire:deathworm_chitin_red", "inventory"));
+		ModelBakery.registerItemVariants(IafItemRegistry.deathworm_egg, new ResourceLocation("iceandfire:deathworm_egg"), new ResourceLocation("iceandfire:deathworm_egg_giant"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.deathworm_egg, 0, new ModelResourceLocation("iceandfire:deathworm_egg", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.deathworm_egg, 1, new ModelResourceLocation("iceandfire:deathworm_egg_giant", "inventory"));
 		for (EnumDragonArmor armor : EnumDragonArmor.values()) {
 			renderDragonArmors(armor);
 		}
@@ -170,25 +170,25 @@ public class ClientProxy extends CommonProxy {
 			ModelLoader.setCustomModelResourceLocation(troll.leggings, 0, new ModelResourceLocation("iceandfire:"  + troll.name().toLowerCase() + "_troll_leather_leggings", "inventory"));
 			ModelLoader.setCustomModelResourceLocation(troll.boots, 0, new ModelResourceLocation("iceandfire:"  + troll.name().toLowerCase() + "_troll_leather_boots", "inventory"));
 		}
-		ModelLoader.setCustomModelResourceLocation(ModItems.silver_helmet, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_helmet", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.silver_chestplate, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_chestplate", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.silver_leggings, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_leggings", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(ModItems.silver_boots, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_boots", "inventory"));
-		ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.myrmex_resin), new ResourceLocation("iceandfire:desert_myrmex_resin"), new ResourceLocation("iceandfire:jungle_myrmex_resin"));
-		ModelBakery.registerItemVariants(Item.getItemFromBlock(ModBlocks.myrmex_resin_sticky), new ResourceLocation("iceandfire:desert_myrmex_resin_sticky"), new ResourceLocation("iceandfire:jungle_myrmex_resin_sticky"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.myrmex_resin), 0, new ModelResourceLocation("iceandfire:desert_myrmex_resin", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.myrmex_resin), 1, new ModelResourceLocation("iceandfire:jungle_myrmex_resin", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.myrmex_resin_sticky), 0, new ModelResourceLocation("iceandfire:desert_myrmex_resin_sticky", "inventory"));
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(ModBlocks.myrmex_resin_sticky), 1, new ModelResourceLocation("iceandfire:jungle_myrmex_resin_sticky", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.silver_helmet, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_helmet", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.silver_chestplate, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_chestplate", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.silver_leggings, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_leggings", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.silver_boots, 0, new ModelResourceLocation("iceandfire:armor_silver_metal_boots", "inventory"));
+		ModelBakery.registerItemVariants(Item.getItemFromBlock(IafBlockRegistry.myrmex_resin), new ResourceLocation("iceandfire:desert_myrmex_resin"), new ResourceLocation("iceandfire:jungle_myrmex_resin"));
+		ModelBakery.registerItemVariants(Item.getItemFromBlock(IafBlockRegistry.myrmex_resin_sticky), new ResourceLocation("iceandfire:desert_myrmex_resin_sticky"), new ResourceLocation("iceandfire:jungle_myrmex_resin_sticky"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.myrmex_resin), 0, new ModelResourceLocation("iceandfire:desert_myrmex_resin", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.myrmex_resin), 1, new ModelResourceLocation("iceandfire:jungle_myrmex_resin", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.myrmex_resin_sticky), 0, new ModelResourceLocation("iceandfire:desert_myrmex_resin_sticky", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(IafBlockRegistry.myrmex_resin_sticky), 1, new ModelResourceLocation("iceandfire:jungle_myrmex_resin_sticky", "inventory"));
 		for(int i = 0; i < 5; i++){
-			ModelLoader.setCustomModelResourceLocation(ModItems.myrmex_desert_egg, i, new ModelResourceLocation("iceandfire:myrmex_desert_egg", "inventory"));
-			ModelLoader.setCustomModelResourceLocation(ModItems.myrmex_jungle_egg, i, new ModelResourceLocation("iceandfire:myrmex_jungle_egg", "inventory"));
+			ModelLoader.setCustomModelResourceLocation(IafItemRegistry.myrmex_desert_egg, i, new ModelResourceLocation("iceandfire:myrmex_desert_egg", "inventory"));
+			ModelLoader.setCustomModelResourceLocation(IafItemRegistry.myrmex_jungle_egg, i, new ModelResourceLocation("iceandfire:myrmex_jungle_egg", "inventory"));
 		}
 		for (EnumSkullType skull : EnumSkullType.values()) {
 			ModelLoader.setCustomModelResourceLocation(skull.skull_item, 0, new ModelResourceLocation("iceandfire:" + skull.itemResourceName, "inventory"));
 		}
 		try {
-			for (Field f : ModItems.class.getDeclaredFields()) {
+			for (Field f : IafItemRegistry.class.getDeclaredFields()) {
 				Object obj = f.get(null);
 				if (obj instanceof Item && !(obj instanceof ICustomRendered)) {
 					ModelLoader.setCustomModelResourceLocation((Item)obj, 0, new ModelResourceLocation("iceandfire:" + ((Item)obj).getRegistryName().getPath(), "inventory"));
@@ -203,33 +203,33 @@ public class ClientProxy extends CommonProxy {
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
-		ModelLoader.setCustomStateMapper(ModBlocks.charedDirt, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.charedGrass, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.charedStone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.charedCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.charedGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.charedGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.frozenDirt, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.frozenGrass, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.frozenStone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.frozenCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.frozenGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.frozenGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.crackledDirt, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.crackledGrass, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.crackledStone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.crackledCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.crackledGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.crackledGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks_chiseled, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks_cracked, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_bricks_mossy, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_tile, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(ModBlocks.dread_stone_face, (new StateMap.Builder()).ignore(BlockDreadStoneFace.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.charedDirt, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.charedGrass, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.charedStone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.charedCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.charedGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.charedGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.frozenDirt, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.frozenGrass, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.frozenStone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.frozenCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.frozenGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.frozenGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledDirt, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledGrass, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledStone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_chiseled, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_cracked, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_mossy, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_tile, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_face, (new StateMap.Builder()).ignore(BlockDreadStoneFace.PLAYER_PLACED).build());
 		try {
-			for (Field f : ModBlocks.class.getDeclaredFields()) {
+			for (Field f : IafBlockRegistry.class.getDeclaredFields()) {
 				Object obj = f.get(null);
 				if (obj instanceof Block && !(obj instanceof ICustomRendered)) {
 					ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock((Block)obj), 0, new ModelResourceLocation("iceandfire:" + ((Block)obj).getRegistryName().getPath(), "inventory"));
@@ -285,8 +285,8 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDummyGorgonHeadActive.class, new RenderGorgonHead(true));
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityDreadSpawner.class, new RenderMobSpawner());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMonsterSpawner.class, new RenderMobSpawner());
-		ForgeHooksClient.registerTESRItemStack(ModItems.gorgon_head, 0, TileEntityDummyGorgonHead.class);
-		ForgeHooksClient.registerTESRItemStack(ModItems.gorgon_head, 1, TileEntityDummyGorgonHeadActive.class);
+		ForgeHooksClient.registerTESRItemStack(IafItemRegistry.gorgon_head, 0, TileEntityDummyGorgonHead.class);
+		ForgeHooksClient.registerTESRItemStack(IafItemRegistry.gorgon_head, 1, TileEntityDummyGorgonHeadActive.class);
 		renderEntities();
 	}
 
@@ -329,7 +329,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonIceCharge.class, new RenderDragonFireCharge(Minecraft.getMinecraft().getRenderManager(), RenderDragonFireCharge.Type.ICE));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDragonLightningCharge.class, new RenderDragonFireCharge(Minecraft.getMinecraft().getRenderManager(), RenderDragonFireCharge.Type.LIGHTNING));
 		RenderingRegistry.registerEntityRenderingHandler(EntitySnowVillager.class, new RenderSnowVillager(Minecraft.getMinecraft().getRenderManager()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityHippogryphEgg.class, new RenderSnowball<EntityHippogryphEgg>(Minecraft.getMinecraft().getRenderManager(), ModItems.hippogryph_egg, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityHippogryphEgg.class, new RenderSnowball<EntityHippogryphEgg>(Minecraft.getMinecraft().getRenderManager(), IafItemRegistry.hippogryph_egg, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityHippogryph.class, new RenderHippogryph(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityStoneStatue.class, new RenderStoneStatue(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGorgon.class, new RenderGorgon(Minecraft.getMinecraft().getRenderManager()));
@@ -340,7 +340,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityDeathWorm.class, new RenderDeathWorm(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityDeathWormEgg.class, new RenderDeathWormEgg(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityCockatrice.class, new RenderCockatrice(Minecraft.getMinecraft().getRenderManager()));
-		RenderingRegistry.registerEntityRenderingHandler(EntityCockatriceEgg.class, new RenderSnowball<EntityCockatriceEgg>(Minecraft.getMinecraft().getRenderManager(), ModItems.rotten_egg, Minecraft.getMinecraft().getRenderItem()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityCockatriceEgg.class, new RenderSnowball<EntityCockatriceEgg>(Minecraft.getMinecraft().getRenderManager(), IafItemRegistry.rotten_egg, Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityStymphalianBird.class, new RenderStymphalianBird(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityStymphalianFeather.class, new RenderStymphalianFeather(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityStymphalianArrow.class, new RenderStymphalianArrow(Minecraft.getMinecraft().getRenderManager()));
@@ -378,13 +378,13 @@ public class ClientProxy extends CommonProxy {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPixieHouse.class, new RenderPixieHouse());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityJar.class, new RenderJar());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityGhostChest.class, new RenderGhostChest());
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pixieHouse), 0, TileEntityPixieHouse.class);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pixieHouse), 1, TileEntityPixieHouse.class);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pixieHouse), 2, TileEntityPixieHouse.class);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pixieHouse), 3, TileEntityPixieHouse.class);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pixieHouse), 4, TileEntityPixieHouse.class);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.pixieHouse), 5, TileEntityPixieHouse.class);
-		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(ModBlocks.ghost_chest), 0, TileEntityGhostChest.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 0, TileEntityPixieHouse.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 1, TileEntityPixieHouse.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 2, TileEntityPixieHouse.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 3, TileEntityPixieHouse.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 4, TileEntityPixieHouse.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.pixieHouse), 5, TileEntityPixieHouse.class);
+		ForgeHooksClient.registerTESRItemStack(Item.getItemFromBlock(IafBlockRegistry.ghost_chest), 0, TileEntityGhostChest.class);
 	}
 
 	@SideOnly(Side.CLIENT)

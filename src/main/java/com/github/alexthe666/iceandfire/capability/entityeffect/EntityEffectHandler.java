@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.capability.entityeffect;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
 import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -107,7 +107,7 @@ public class EntityEffectHandler {
                         entity.posY + ((world.rand.nextDouble()) * entity.height),
                         entity.posZ + ((world.rand.nextDouble() - 0.5D) * entity.width),
                         0, 0, 0,
-                        Block.getIdFromBlock(ModBlocks.dragon_ice));
+                        Block.getIdFromBlock(IafBlockRegistry.dragon_ice));
             }
             entity.playSound(SoundEvents.BLOCK_GLASS_BREAK, 3, 1);
         }

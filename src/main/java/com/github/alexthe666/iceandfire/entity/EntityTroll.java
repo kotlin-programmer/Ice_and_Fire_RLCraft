@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.TrollAIFleeSun;
 import com.github.alexthe666.iceandfire.entity.explosion.BlockBreakExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
@@ -284,7 +284,7 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
             this.setAnimation(ANIMATION_ROAR);
         }
         if(this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 5){
-            this.playSound(ModSounds.TROLL_ROAR, 1, 1);
+            this.playSound(IafSoundRegistry.TROLL_ROAR, 1, 1);
         }
         if (!stone && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 30 == 0) {
             this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 30, 1, false, false));
@@ -300,7 +300,7 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
                     this.motionY = 0;
                     this.motionZ = 0;
                     this.setAnimation(NO_ANIMATION);
-                    this.playSound(ModSounds.GORGON_TURN_STONE, 1, 1);
+                    this.playSound(IafSoundRegistry.GORGON_TURN_STONE, 1, 1);
                 }
             }
         }
@@ -413,17 +413,17 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.TROLL_IDLE;
+        return IafSoundRegistry.TROLL_IDLE;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.TROLL_HURT;
+        return IafSoundRegistry.TROLL_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.TROLL_DIE;
+        return IafSoundRegistry.TROLL_DIE;
     }
 
 

@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.item;
 import com.github.alexthe666.iceandfire.api.ChainLightningUtils;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
@@ -22,12 +21,12 @@ public interface IHitEffect {
      * Handle the default weapon effects
      */
     default void doHitEffect(EntityLivingBase target, EntityLivingBase attacker) {
-        if (getMaterial() == ModItems.silverTools) {
+        if (getMaterial() == IafItemRegistry.silverTools) {
             if (target.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
                 target.attackEntityFrom(DamageSource.MAGIC, 3.0F + getMaterial().getAttackDamage() + 2.0F);
             }
         }
-        else if (getMaterial() == ModItems.myrmexChitin) {
+        else if (getMaterial() == IafItemRegistry.myrmexChitin) {
             if (target.getCreatureAttribute() != EnumCreatureAttribute.ARTHROPOD) {
                 target.attackEntityFrom(DamageSource.GENERIC, 3.0F + getMaterial().getAttackDamage() + 4.0F);
             }
@@ -35,14 +34,14 @@ public interface IHitEffect {
                 target.attackEntityFrom(DamageSource.GENERIC, 3.0F + getMaterial().getAttackDamage() + 4.0F);
             }
         }
-        else if (getMaterial() == ModItems.fireBoneTools) {
+        else if (getMaterial() == IafItemRegistry.fireBoneTools) {
             if (target instanceof EntityIceDragon) {
                 target.attackEntityFrom(DamageSource.IN_FIRE, 3.0F + getMaterial().getAttackDamage() + 13.5F);
             }
             target.setFire(5);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        else if (getMaterial() == ModItems.iceBoneTools) {
+        else if (getMaterial() == IafItemRegistry.iceBoneTools) {
             if (target instanceof EntityFireDragon) {
                 target.attackEntityFrom(DamageSource.DROWN, 3.0F + getMaterial().getAttackDamage() + 13.5F);
             }
@@ -54,14 +53,14 @@ public interface IHitEffect {
             target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, 2));
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        else if (getMaterial() == ModItems.lightningBoneTools) {
+        else if (getMaterial() == IafItemRegistry.lightningBoneTools) {
             if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
                 target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 3.0F + getMaterial().getAttackDamage() + 6.75F);
             }
             ChainLightningUtils.createChainLightningFromTarget(target.world, target, attacker);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        if (this == ModItems.myrmex_desert_sword_venom || this == ModItems.myrmex_jungle_sword_venom) {
+        if (this == IafItemRegistry.myrmex_desert_sword_venom || this == IafItemRegistry.myrmex_jungle_sword_venom) {
             target.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 2));
         }
     }
@@ -71,12 +70,12 @@ public interface IHitEffect {
      */
     default float getHitEffectModifier(EntityLivingBase target, EntityLivingBase attacker) {
         float mod = 0.0F;
-        if (getMaterial() == ModItems.silverTools) {
+        if (getMaterial() == IafItemRegistry.silverTools) {
             if (target.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD) {
                 mod += 2.0F;
             }
         }
-        else if (getMaterial() == ModItems.myrmexChitin) {
+        else if (getMaterial() == IafItemRegistry.myrmexChitin) {
             if (target.getCreatureAttribute() != EnumCreatureAttribute.ARTHROPOD) {
                 mod += 4.0F;
             }
@@ -84,14 +83,14 @@ public interface IHitEffect {
                 mod += 4.0F;
             }
         }
-        else if (getMaterial() == ModItems.fireBoneTools) {
+        else if (getMaterial() == IafItemRegistry.fireBoneTools) {
             if (target instanceof EntityIceDragon) {
                 mod += 13.5F;
             }
             target.setFire(5);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        else if (getMaterial() == ModItems.iceBoneTools) {
+        else if (getMaterial() == IafItemRegistry.iceBoneTools) {
             if (target instanceof EntityFireDragon) {
                 mod += 13.5F;
             }
@@ -103,14 +102,14 @@ public interface IHitEffect {
             target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, 2));
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        else if (getMaterial() == ModItems.lightningBoneTools) {
+        else if (getMaterial() == IafItemRegistry.lightningBoneTools) {
             if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
                 mod += 6.75F;
             }
             ChainLightningUtils.createChainLightningFromTarget(target.world, target, attacker);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        if (this == ModItems.myrmex_desert_sword_venom || this == ModItems.myrmex_jungle_sword_venom) {
+        if (this == IafItemRegistry.myrmex_desert_sword_venom || this == IafItemRegistry.myrmex_jungle_sword_venom) {
             target.addPotionEffect(new PotionEffect(MobEffects.POISON, 200, 2));
         }
         return mod;

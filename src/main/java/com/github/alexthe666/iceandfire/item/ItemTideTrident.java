@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityTideTrident;
 import com.github.alexthe666.iceandfire.integration.SpartanWeaponryCompat;
 import com.google.common.collect.HashMultimap;
@@ -78,7 +77,7 @@ public class ItemTideTrident extends Item {
         if (!isOriginal(toRepair) || isEmpty(toRepair)) {
             return false;
         }
-        if (!repair.isEmpty() && repair.getItem() == ModItems.sea_serpent_fang) {
+        if (!repair.isEmpty() && repair.getItem() == IafItemRegistry.sea_serpent_fang) {
             return true;
         }
         return super.getIsRepairable(toRepair, repair);

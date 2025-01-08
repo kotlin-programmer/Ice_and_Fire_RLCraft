@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonFire;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonFireCharge;
@@ -66,7 +66,7 @@ public class EntityFireDragon extends EntityDragonBase {
         this.tasks.addTask(2, new DragonAISwim(this));
         this.tasks.addTask(3, new DragonAIMate(this, 1.0D));
         this.tasks.addTask(4, new DragonAIAttackMelee(this, 1.5D, false));
-        this.tasks.addTask(5, new AquaticAITempt(this, 1.0D, ModItems.fire_stew, false));
+        this.tasks.addTask(5, new AquaticAITempt(this, 1.0D, IafItemRegistry.fire_stew, false));
         this.tasks.addTask(6, new DragonAIAirTarget(this));
         this.tasks.addTask(7, new DragonAIWander(this, 1.0D));
         this.tasks.addTask(8, new DragonAIWatchClosest(this, EntityLivingBase.class, 6.0F));
@@ -99,32 +99,32 @@ public class EntityFireDragon extends EntityDragonBase {
     public Item getVariantScale(int variant) {
         switch (variant) {
             default:
-                return ModItems.dragonscales_red;
+                return IafItemRegistry.dragonscales_red;
             case 1:
-                return ModItems.dragonscales_green;
+                return IafItemRegistry.dragonscales_green;
             case 2:
-                return ModItems.dragonscales_bronze;
+                return IafItemRegistry.dragonscales_bronze;
             case 3:
-                return ModItems.dragonscales_gray;
+                return IafItemRegistry.dragonscales_gray;
         }
     }
 
     public Item getVariantEgg(int variant) {
         switch (variant) {
             default:
-                return ModItems.dragonegg_red;
+                return IafItemRegistry.dragonegg_red;
             case 1:
-                return ModItems.dragonegg_green;
+                return IafItemRegistry.dragonegg_green;
             case 2:
-                return ModItems.dragonegg_bronze;
+                return IafItemRegistry.dragonegg_bronze;
             case 3:
-                return ModItems.dragonegg_gray;
+                return IafItemRegistry.dragonegg_gray;
         }
     }
 
     @Override
     public Item getSummoningCrystal() {
-        return ModItems.summoning_crystal_fire;
+        return IafItemRegistry.summoning_crystal_fire;
     }
 
     @Override
@@ -246,7 +246,7 @@ public class EntityFireDragon extends EntityDragonBase {
             } else if (this.getAnimationTick() == 15) {
                 rotationYaw = renderYawOffset;
                 Vec3d headPos = getHeadPosition();
-                this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
+                this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                 double d2 = controller.getLookVec().x;
                 double d3 = controller.getLookVec().y;
                 double d4 = controller.getLookVec().z;
@@ -275,7 +275,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     EntityDragonFire fireProjectile = new EntityDragonFire(world, this, d2, d3, d4);
-                    this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
+                    this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                     fireProjectile.setPosition(headPos.x, headPos.y, headPos.z);
                     if (!world.isRemote) {
                         world.spawnEntity(fireProjectile);
@@ -311,7 +311,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                     d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-                    this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
+                    this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                     EntityDragonFireCharge fireChargeProjectile = new EntityDragonFireCharge(world, this, d2, d3, d4);
                     float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
                     fireChargeProjectile.setSizes(size, size);
@@ -336,7 +336,7 @@ public class EntityFireDragon extends EntityDragonBase {
                         d2 = d2 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                         d3 = d3 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
                         d4 = d4 + this.rand.nextGaussian() * 0.007499999832361937D * (double)inaccuracy;
-                        this.playSound(ModSounds.FIREDRAGON_BREATH, 4, 1);
+                        this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                         EntityDragonFire fireProjectile = new EntityDragonFire(world, this, d2, d3, d4);
                         float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
                         fireProjectile.setPosition(headPos.x, headPos.y, headPos.z);
@@ -359,27 +359,27 @@ public class EntityFireDragon extends EntityDragonBase {
 
     @Override
     protected ItemStack getSkull() {
-        return new ItemStack(ModItems.dragon_skull, 1, 0);
+        return new ItemStack(IafItemRegistry.dragon_skull, 1, 0);
     }
 
     @Override
     protected ItemStack getHorn() {
-        return new ItemStack(ModItems.dragon_horn_fire);
+        return new ItemStack(IafItemRegistry.dragon_horn_fire);
     }
 
     @Override
     public Item getBlood() {
-        return ModItems.fire_dragon_blood;
+        return IafItemRegistry.fire_dragon_blood;
     }
 
     @Override
     public Item getHeart() {
-        return ModItems.fire_dragon_heart;
+        return IafItemRegistry.fire_dragon_heart;
     }
 
     @Override
     public Item getFlesh() {
-        return ModItems.fire_dragon_flesh;
+        return IafItemRegistry.fire_dragon_flesh;
     }
 
     @Override
@@ -389,22 +389,22 @@ public class EntityFireDragon extends EntityDragonBase {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isTeen() ? ModSounds.FIREDRAGON_TEEN_IDLE : this.isAdult() ? ModSounds.FIREDRAGON_ADULT_IDLE : ModSounds.FIREDRAGON_CHILD_IDLE;
+        return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_IDLE : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_IDLE : IafSoundRegistry.FIREDRAGON_CHILD_IDLE;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return this.isTeen() ? ModSounds.FIREDRAGON_TEEN_HURT : this.isAdult() ? ModSounds.FIREDRAGON_ADULT_HURT : ModSounds.FIREDRAGON_CHILD_HURT;
+        return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_HURT : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_HURT : IafSoundRegistry.FIREDRAGON_CHILD_HURT;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return this.isTeen() ? ModSounds.FIREDRAGON_TEEN_DEATH : this.isAdult() ? ModSounds.FIREDRAGON_ADULT_DEATH : ModSounds.FIREDRAGON_CHILD_DEATH;
+        return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_DEATH : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_DEATH : IafSoundRegistry.FIREDRAGON_CHILD_DEATH;
     }
 
     @Override
     public SoundEvent getRoarSound() {
-        return this.isTeen() ? ModSounds.FIREDRAGON_TEEN_ROAR : this.isAdult() ? ModSounds.FIREDRAGON_ADULT_ROAR : ModSounds.FIREDRAGON_CHILD_ROAR;
+        return this.isTeen() ? IafSoundRegistry.FIREDRAGON_TEEN_ROAR : this.isAdult() ? IafSoundRegistry.FIREDRAGON_ADULT_ROAR : IafSoundRegistry.FIREDRAGON_CHILD_ROAR;
     }
 
     @Override
@@ -423,7 +423,7 @@ public class EntityFireDragon extends EntityDragonBase {
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return !stack.isEmpty() && stack.getItem() == ModItems.fire_stew;
+        return !stack.isEmpty() && stack.getItem() == IafItemRegistry.fire_stew;
     }
 
 

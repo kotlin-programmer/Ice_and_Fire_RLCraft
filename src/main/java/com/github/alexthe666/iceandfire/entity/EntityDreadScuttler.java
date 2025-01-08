@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.google.common.base.Predicate;
@@ -241,7 +241,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(ModSounds.MYRMEX_WALK, 0.25F, 1.0F);
+        this.playSound(IafSoundRegistry.MYRMEX_WALK, 0.25F, 1.0F);
     }
 
     @Nullable

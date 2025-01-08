@@ -5,7 +5,7 @@ import com.github.alexthe666.iceandfire.capability.CapabilityHandler;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectStorage;
 import com.github.alexthe666.iceandfire.core.ModEntities;
-import com.github.alexthe666.iceandfire.core.ModVillagers;
+import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.event.StructureGenerator;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
@@ -99,7 +99,7 @@ public class IceAndFire {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        ModVillagers.INSTANCE.init();
+        IafVillagerRegistry.INSTANCE.init();
         logger.info("The watcher waits on the northern wall");
         logger.info("A daughter picks up a warrior's sword");
         MapGenStructureIO.registerStructure(MapGenSnowVillage.Start.class, "SnowVillageStart");

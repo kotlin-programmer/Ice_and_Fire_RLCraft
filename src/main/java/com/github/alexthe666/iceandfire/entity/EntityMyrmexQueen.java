@@ -1,11 +1,9 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.event.StructureGenerator;
-import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -105,7 +103,7 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     }
 
     public VillagerRegistry.VillagerProfession getProfessionForge() {
-        return this.isJungle() ? ModVillagers.INSTANCE.jungleMyrmexQueen : ModVillagers.INSTANCE.desertMyrmexQueen;
+        return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexQueen : IafVillagerRegistry.INSTANCE.desertMyrmexQueen;
     }
 
     public void onLivingUpdate() {

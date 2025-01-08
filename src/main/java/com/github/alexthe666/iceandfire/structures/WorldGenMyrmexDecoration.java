@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockCoinPile;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
@@ -105,7 +105,7 @@ public class WorldGenMyrmexDecoration {
 
     public static void generateCocoon(World worldIn, BlockPos blockpos, Random rand, boolean jungle, ResourceLocation lootTable) {
         if (worldIn.getBlockState(blockpos.down()).isSideSolid(worldIn, blockpos.down(), EnumFacing.UP)) {
-            worldIn.setBlockState(blockpos, jungle ? ModBlocks.jungle_myrmex_cocoon.getDefaultState() : ModBlocks.desert_myrmex_cocoon.getDefaultState(), 3);
+            worldIn.setBlockState(blockpos, jungle ? IafBlockRegistry.jungle_myrmex_cocoon.getDefaultState() : IafBlockRegistry.desert_myrmex_cocoon.getDefaultState(), 3);
 
             if (worldIn.getTileEntity(blockpos) != null && worldIn.getTileEntity(blockpos) instanceof TileEntityLockableLoot && !((TileEntityLockableLoot) worldIn.getTileEntity(blockpos)).isInvalid()) {
                 TileEntity tileentity1 = worldIn.getTileEntity(blockpos);
@@ -122,7 +122,7 @@ public class WorldGenMyrmexDecoration {
     }
 
     public static void generateGold(World worldIn, BlockPos blockpos, BlockPos origin, int radius, Random rand) {
-        IBlockState gold = rand.nextBoolean() ? ModBlocks.goldPile.getDefaultState() : ModBlocks.silverPile.getDefaultState();
+        IBlockState gold = rand.nextBoolean() ? IafBlockRegistry.goldPile.getDefaultState() : IafBlockRegistry.silverPile.getDefaultState();
         if (worldIn.getBlockState(blockpos.down()).isSideSolid(worldIn, blockpos.down(), EnumFacing.UP)) {
             worldIn.setBlockState(blockpos, gold.withProperty(BlockCoinPile.LAYERS, 8), 3);
             worldIn.setBlockState(MyrmexHive.getGroundedPos(worldIn, blockpos.north()), gold.withProperty(BlockCoinPile.LAYERS, 1 + new Random().nextInt(7)), 3);
@@ -183,9 +183,9 @@ public class WorldGenMyrmexDecoration {
                 if (rand.nextInt(3) == 0) {
                     int chance = rand.nextInt(3);
                      if (chance == 1 && IceAndFireConfig.WORLDGEN.generateSilverOre) {
-                        ore = ModBlocks.silverOre;
+                        ore = IafBlockRegistry.silverOre;
                     } else if (chance == 2 && IceAndFireConfig.WORLDGEN.generateCopperOre) {
-                         ore = ModBlocks.copperOre;
+                         ore = IafBlockRegistry.copperOre;
                      } else {
                          ore = Blocks.GOLD_ORE;
                      }
@@ -194,9 +194,9 @@ public class WorldGenMyrmexDecoration {
                 } else if (rand.nextInt(2) == 0) {
                     int chance = rand.nextInt(3);
                     if (chance == 1 && IceAndFireConfig.WORLDGEN.generateSapphireOre) {
-                        ore = ModBlocks.sapphireOre;
+                        ore = IafBlockRegistry.sapphireOre;
                     } else if (chance == 2 && IceAndFireConfig.WORLDGEN.generateAmethystOre) {
-                        ore = ModBlocks.amethystOre;
+                        ore = IafBlockRegistry.amethystOre;
                     } else {
                         ore = Blocks.EMERALD_ORE;
                     }

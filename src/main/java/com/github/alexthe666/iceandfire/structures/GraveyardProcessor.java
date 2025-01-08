@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.structures;
 
 import com.github.alexthe666.iceandfire.block.BlockGhostChest;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -31,7 +31,7 @@ public class GraveyardProcessor implements ITemplateProcessor {
                 NBTTagCompound tag = blockInfoIn.tileentityData == null ? new NBTTagCompound() : blockInfoIn.tileentityData;
                 tag.setString("LootTable", loot.toString());
                 tag.setLong("LootTableSeed", rand.nextLong());
-                Template.BlockInfo newInfo = new Template.BlockInfo(pos, ModBlocks.ghost_chest.getDefaultState(), tag);
+                Template.BlockInfo newInfo = new Template.BlockInfo(pos, IafBlockRegistry.ghost_chest.getDefaultState(), tag);
                 return newInfo;
             }
             return blockInfoIn;
