@@ -70,7 +70,7 @@ public class BlockPath extends BlockGrassPath {
         this.setHarvestLevel("shovel", 0);
         this.setHardness(0.6F);
         this.setSoundType(type == Type.FROZEN ? SoundType.GLASS : SoundType.GROUND);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         if (this.type == Type.FROZEN) {
             this.setDefaultSlipperiness(0.98F);
         }

@@ -18,7 +18,7 @@ import java.util.List;
 public class ItemAmphithereArrow extends ItemArrow {
 
     public ItemAmphithereArrow() {
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.amphithere_arrow");
         this.setRegistryName(IceAndFire.MODID, "amphithere_arrow");
     }

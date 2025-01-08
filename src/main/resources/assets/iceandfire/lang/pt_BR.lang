@@ -1,4 +1,5 @@
-itemGroup.iceandfire=Ice And Fire
+itemGroup.iceandfire_items=Ice And Fire: Unid
+itemGroup.iceandfire_blocks=Ice And Fire: Blocos
 iceandfire.empty=Vazio
 
 tile.iceandfire.lectern.name=Leitoril

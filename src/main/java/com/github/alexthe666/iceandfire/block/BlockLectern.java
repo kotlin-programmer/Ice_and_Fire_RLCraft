@@ -38,7 +38,7 @@ public class BlockLectern extends BlockContainer {
 		this.setResistance(5.0F);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		this.setSoundType(SoundType.WOOD);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		this.setTranslationKey("iceandfire.lectern");
 		this.setRegistryName(IceAndFire.MODID, "lectern");
 		GameRegistry.registerTileEntity(TileEntityLectern.class, "lectern");

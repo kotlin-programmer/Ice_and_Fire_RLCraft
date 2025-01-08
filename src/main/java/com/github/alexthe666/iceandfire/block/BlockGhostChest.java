@@ -19,7 +19,7 @@ public class BlockGhostChest extends BlockChest {
         this.setHardness(2F);
         this.setResistance(1F);
         this.setSoundType(SoundType.WOOD);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire.ghost_chest");
         this.setRegistryName(IceAndFire.MODID, "ghost_chest");
     }

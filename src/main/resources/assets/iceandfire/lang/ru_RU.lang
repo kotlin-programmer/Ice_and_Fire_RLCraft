@@ -1,4 +1,5 @@
-﻿itemGroup.iceandfire=Ice And Fire
+﻿itemGroup.iceandfire_items=Ice And Fire: Предметы
+itemGroup.iceandfire_blocks=Ice And Fire: Блоки
 iceandfire.empty =Пусто
 
 tile.iceandfire.lectern.name=Кафедра

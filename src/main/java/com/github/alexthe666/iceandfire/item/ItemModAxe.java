@@ -23,7 +23,7 @@ public class ItemModAxe extends ItemAxe implements IHitEffect {
 	public ItemModAxe(ToolMaterial toolmaterial, String gameName, String name) {
 		super(toolmaterial, toolmaterial == ModItems.boneTools ? 8 : 6, -3);
 		this.setTranslationKey(name);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_ITEMS);
 		this.setRegistryName(IceAndFire.MODID, gameName);
 	}
 

@@ -29,7 +29,7 @@ public class ItemGhostSword extends ItemSword {
     public ItemGhostSword() {
         super(ModItems.ghost_sword_tool_material);
         this.setTranslationKey("iceandfire.ghost_sword");
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setRegistryName(IceAndFire.MODID, "ghost_sword");
     }
 

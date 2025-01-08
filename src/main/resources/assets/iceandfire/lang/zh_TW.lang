@@ -1,4 +1,5 @@
-itemGroup.iceandfire=冰與火之歌
+itemGroup.iceandfire_items=冰與火之歌：專案
+itemGroup.iceandfire_blocks=冰與火之歌：積木
 iceandfire.empty=空
 
 tile.iceandfire.lectern.name=書桌

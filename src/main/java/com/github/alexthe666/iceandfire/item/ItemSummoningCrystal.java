@@ -25,7 +25,6 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +40,7 @@ public class ItemSummoningCrystal extends Item {
     public ItemSummoningCrystal(String variant) {
         this.setTranslationKey("iceandfire.summoning_crystal_" + variant);
         this.setRegistryName(IceAndFire.MODID, "summoning_crystal_" + variant);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.addPropertyOverride(new ResourceLocation("has_dragon"), new IItemPropertyGetter() {
             @SideOnly(Side.CLIENT)
             public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {

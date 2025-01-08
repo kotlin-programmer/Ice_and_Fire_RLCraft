@@ -28,7 +28,7 @@ public class BlockReturningState extends Block {
         this.setHardness(hardness);
         this.setResistance(resistance);
         this.setSoundType(sound);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         if (slippery) {
             this.setDefaultSlipperiness(0.98F);
         }

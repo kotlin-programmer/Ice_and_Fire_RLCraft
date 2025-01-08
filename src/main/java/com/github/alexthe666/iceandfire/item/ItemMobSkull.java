@@ -18,7 +18,7 @@ public class ItemMobSkull extends Item implements ICustomRendered {
 
     public ItemMobSkull(EnumSkullType skull) {
         this.maxStackSize = 1;
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire." + skull.itemResourceName);
         this.setRegistryName(IceAndFire.MODID, skull.itemResourceName);
         this.skull = skull;

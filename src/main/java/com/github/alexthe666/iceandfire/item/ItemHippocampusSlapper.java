@@ -22,7 +22,7 @@ public class ItemHippocampusSlapper extends ItemSword {
         super(ModItems.hippocampus_sword_tools);
         this.setTranslationKey("iceandfire.hippocampus_slapper");
         this.setRegistryName(IceAndFire.MODID, "hippocampus_slapper");
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
     }
 
     @Override

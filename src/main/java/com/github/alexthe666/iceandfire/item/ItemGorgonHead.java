@@ -36,7 +36,7 @@ public class ItemGorgonHead extends Item implements ICustomRendered {
 	private static Method METHOD_DEATHSOUND;
 
 	public ItemGorgonHead() {
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_ITEMS);
 		this.setTranslationKey("iceandfire.gorgon_head");
 		this.maxStackSize = 1;
 		this.setRegistryName(IceAndFire.MODID, "gorgon_head");

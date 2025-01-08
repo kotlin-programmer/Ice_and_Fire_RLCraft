@@ -28,7 +28,7 @@ public class BlockDreadStoneFace extends BlockHorizontal {
         this.setHardness(20F);
         this.setResistance(10000F);
         this.setSoundType(SoundType.STONE);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         setRegistryName(IceAndFire.MODID, "dread_stone_face");
     }
 

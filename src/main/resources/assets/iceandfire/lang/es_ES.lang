@@ -1,5 +1,6 @@
 ﻿## Translated by KameiB for RLCraft 2.10
-itemGroup.iceandfire=Ice And Fire
+itemGroup.iceandfire_items=Ice And Fire: Objetos
+itemGroup.iceandfire_blocks=Ice And Fire: Bloques
 iceandfire.empty=Vacio
 
 tile.iceandfire.lectern.name=Atril

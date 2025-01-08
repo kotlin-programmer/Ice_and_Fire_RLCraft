@@ -69,7 +69,8 @@ public class IceAndFire {
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
     @SidedProxy(clientSide = "com.github.alexthe666.iceandfire.ClientProxy", serverSide = "com.github.alexthe666.iceandfire.CommonProxy")
     public static CommonProxy PROXY;
-    public static CreativeTabs TAB;
+    public static CreativeTabs TAB_ITEMS;
+    public static CreativeTabs TAB_BLOCKS;
     public static DamageSource acid;
     public static DamageSource dragon;
     public static DamageSource dragonFire;
@@ -84,7 +85,8 @@ public class IceAndFire {
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         if(CompatLoadUtil.isRLCombatLoaded()) MinecraftForge.EVENT_BUS.register(RLCombatCompat.class);
-        TAB = new CreativeTab(MODID);
+        TAB_ITEMS = new CreativeTab(MODID + "_items");
+        TAB_BLOCKS = new CreativeTab(MODID + "_blocks");
         ModEntities.init();
         MinecraftForge.EVENT_BUS.register(PROXY);
         logger.info("A raven flies from the north to the sea");

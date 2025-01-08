@@ -9,6 +9,6 @@ public class ItemTrollLeather extends Item {
     public ItemTrollLeather(EnumTroll troll, String gameName, String name) {
         this.setRegistryName(IceAndFire.MODID, gameName);
         this.setTranslationKey(name);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
     }
 }

@@ -43,7 +43,7 @@ public class BlockJar extends BlockContainer implements ICustomRendered, ITileEn
 		this.setHardness(1.0F);
 		this.setResistance(2.0F);
 		this.setSoundType(SoundType.GLASS);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		this.setTranslationKey("iceandfire.jar" + (empty ? "_empty" : "_pixie"));
 		this.setRegistryName(IceAndFire.MODID, "jar" + (empty ? "_empty" : "_pixie"));
 		this.hasTileEntity = true;

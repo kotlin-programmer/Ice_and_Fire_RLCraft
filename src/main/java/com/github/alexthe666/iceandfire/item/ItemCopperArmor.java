@@ -14,7 +14,7 @@ public class ItemCopperArmor extends ItemArmor {
 
     public ItemCopperArmor(ArmorMaterial material, int renderIndex, EntityEquipmentSlot slot) {
         super(material, renderIndex, slot);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.copper_" + getArmorPart(slot));
         this.setRegistryName(IceAndFire.MODID, "armor_copper_metal_" + getArmorPart(slot));
     }

@@ -43,7 +43,7 @@ public class BlockCoinPile extends Block {
         super(Material.GROUND);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, 1));
         this.setTickRandomly(true);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire." + name + "pile");
         this.setHardness(0.3F);
         this.setSoundType(ModBlocks.SOUND_TYPE_GOLD);

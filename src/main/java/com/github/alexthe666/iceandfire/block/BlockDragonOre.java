@@ -20,7 +20,7 @@ public class BlockDragonOre extends Block {
 
     public BlockDragonOre(int toollevel, float hardness, float resistance, String name, String gameName, Item dropItem) {
         super(Material.ROCK);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setHarvestLevel("pickaxe", toollevel);
         this.setResistance(resistance);
         this.setHardness(hardness);

@@ -25,7 +25,7 @@ public class ItemAlchemySword extends ItemSword implements IHitEffect {
 		super(toolmaterial);
 		this.toolMaterial = toolmaterial;
 		this.setTranslationKey(name);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_ITEMS);
 		this.setRegistryName(IceAndFire.MODID, gameName);
 	}
 

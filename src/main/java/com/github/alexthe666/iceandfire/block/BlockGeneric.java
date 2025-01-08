@@ -24,7 +24,7 @@ public class BlockGeneric extends Block {
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		setRegistryName(IceAndFire.MODID, gameName);
 	}
 
@@ -36,7 +36,7 @@ public class BlockGeneric extends Block {
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		if (slippery) {
 			this.slipperiness = 0.98F;
 		}
@@ -49,7 +49,7 @@ public class BlockGeneric extends Block {
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		setRegistryName(IceAndFire.MODID, gameName);
 	}
 

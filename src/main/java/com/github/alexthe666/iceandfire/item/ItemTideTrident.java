@@ -36,7 +36,7 @@ public class ItemTideTrident extends Item {
 
     public ItemTideTrident() {
         super();
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.tide_trident");
         this.setRegistryName(IceAndFire.MODID, "tide_trident");
         this.maxStackSize = 1;

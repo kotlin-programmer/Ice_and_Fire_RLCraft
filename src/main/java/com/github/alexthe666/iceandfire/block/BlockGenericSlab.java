@@ -40,7 +40,7 @@ public abstract class BlockGenericSlab extends BlockSlab {
 		} else {
 			setTranslationKey("iceandfire." + name);
 			this.setRegistryName(name);
-			setCreativeTab(IceAndFire.TAB);
+			setCreativeTab(IceAndFire.TAB_BLOCKS);
 		}
 	}
 

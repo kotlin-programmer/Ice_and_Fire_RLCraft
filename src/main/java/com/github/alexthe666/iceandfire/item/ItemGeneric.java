@@ -3,8 +3,6 @@ package com.github.alexthe666.iceandfire.item;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -17,7 +15,7 @@ public class ItemGeneric extends Item {
 	int description = 0;
 
 	public ItemGeneric(String gameName, String name) {
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_ITEMS);
 		this.setTranslationKey(name);
 		this.setRegistryName(IceAndFire.MODID, gameName);
 	}

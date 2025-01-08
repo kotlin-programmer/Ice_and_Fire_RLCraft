@@ -9,7 +9,7 @@ public class BlockGenericStairs extends BlockStairs {
     public BlockGenericStairs(IBlockState modelState, String name) {
         super(modelState);
         this.setLightOpacity(0);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire." + name);
         this.setRegistryName(name);
     }

@@ -29,7 +29,7 @@ public class BlockFallingReturningState extends BlockFalling {
 		this.setResistance(resistance);
 		this.setHarvestLevel(toolUsed, toolStrength);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		setRegistryName(IceAndFire.MODID, gameName);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
 		this.setTickRandomly(true);

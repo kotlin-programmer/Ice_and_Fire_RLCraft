@@ -14,7 +14,7 @@ public class BlockDragonBone extends BlockRotatedPillar {
         this.setHardness(30F);
         this.setResistance(500F);
         this.setSoundType(SoundType.WOOD);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey(name);
         this.setRegistryName(IceAndFire.MODID, gameName);
     }
