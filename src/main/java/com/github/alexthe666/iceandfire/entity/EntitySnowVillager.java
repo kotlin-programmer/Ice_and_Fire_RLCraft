@@ -10,24 +10,22 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.scoreboard.ScorePlayerTeam;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
 
 public class EntitySnowVillager extends EntityVillager {
-
-	private static Field FIELD_BABY;
-	private static Field FIELD_PROFESSION;
-	private static Field FIELD_CAREER;
-
-	private String professionName;
 	private net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession prof;
 
 	public EntitySnowVillager(World worldIn) {
@@ -46,40 +44,16 @@ public class EntitySnowVillager extends EntityVillager {
 		return super.processInteract(player, hand);
 	}
 
+	@Override
 	public void setProfession(int professionId) {
-		if (professionId > 2) {
-			professionId = 2;
-		}
-		this.dataManager.set(PROFESSION(), Integer.valueOf(professionId));
-
-	}
-
-	private DataParameter<Boolean> BABY() {
-		try {
-			if(FIELD_BABY == null) {
-				FIELD_BABY = ObfuscationReflectionHelper.findField(EntityAgeable.class, "field_184751_bv");
-				FIELD_BABY.setAccessible(true);
+		if (professionId >= 3) {
+			IafVillagerRegistry.INSTANCE.setRandomProfession(this, this.world.rand);
+		} else {
+			if (!this.world.isRemote) {
+				this.prof = IafVillagerRegistry.INSTANCE.getProfessionById(professionId);
 			}
-			return (DataParameter<Boolean>)FIELD_BABY.get(this);
+			this.dataManager.set(PROFESSION, professionId);
 		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private DataParameter<Integer> PROFESSION() {
-		try {
-			if(FIELD_PROFESSION == null) {
-				FIELD_PROFESSION = ObfuscationReflectionHelper.findField(EntityVillager.class, "field_184752_bw");
-				FIELD_PROFESSION.setAccessible(true);
-			}
-			return (DataParameter<Integer>)FIELD_PROFESSION.get(this);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	@Override
@@ -96,12 +70,9 @@ public class EntitySnowVillager extends EntityVillager {
 				this.activeItemStackUseCount = 0;
 			}
 		}
-//field_184751_bv
-		if (BABY().equals(key)) {
+		if (BABY.equals(key)) {
 			this.setScaleForAge(this.isChild());
 		}
-//field_184752_bw
-
 	}
 
 	@Override
@@ -113,11 +84,11 @@ public class EntitySnowVillager extends EntityVillager {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public void setProfession(net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession prof) {
-		if (IafVillagerRegistry.INSTANCE.professions.containsValue(prof)) {
-			this.setProfession(net.minecraftforge.fml.common.registry.VillagerRegistry.getId(prof));
+	public void setProfession(VillagerRegistry.VillagerProfession prof) {
+		Integer professionId = IafVillagerRegistry.INSTANCE.getIdByProfession(prof);
+		if (professionId != null) {
+			this.setProfession(professionId);
 		} else {
 			IafVillagerRegistry.INSTANCE.setRandomProfession(this, this.world.rand);
 		}
@@ -125,29 +96,46 @@ public class EntitySnowVillager extends EntityVillager {
 
 	public EntityVillager createChild(EntityAgeable ageable) {
 		EntitySnowVillager entityvillager = new EntitySnowVillager(this.world);
-		entityvillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData) null);
+		entityvillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityvillager)), null);
 		return entityvillager;
 	}
 
-	public net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession getProfessionForge() {
-		if (this.prof == null) {
-			String p = this.getEntityData().getString("ProfessionName");
-			if (p.isEmpty()) {
-				this.prof = IafVillagerRegistry.INSTANCE.professions.get(this.getRNG().nextInt(3));
+	public ITextComponent getDisplayName() {
+		Team team = this.getTeam();
+		String s = this.getCustomNameTag();
 
-			} else {
-				this.prof = IafVillagerRegistry.INSTANCE.professions.get(intFromProfesion(p));
-			}
-			try {
-				if(FIELD_CAREER == null) {
-					FIELD_CAREER = ObfuscationReflectionHelper.findField(EntityVillager.class, "field_175563_bv");
-					FIELD_CAREER.setAccessible(true);
+		if (s != null && !s.isEmpty()) {
+			TextComponentString textcomponentstring = new TextComponentString(ScorePlayerTeam.formatPlayerName(team, s));
+			textcomponentstring.getStyle().setHoverEvent(this.getHoverEvent());
+			textcomponentstring.getStyle().setInsertion(this.getCachedUniqueIdString());
+			return textcomponentstring;
+		} else {
+			String s1 = this.getProfessionForge().getCareer(0).getName();
+			{
+				ITextComponent itextcomponent = new TextComponentTranslation("entity.Villager." + s1);
+				itextcomponent.getStyle().setHoverEvent(this.getHoverEvent());
+				itextcomponent.getStyle().setInsertion(this.getCachedUniqueIdString());
+
+				if (team != null) {
+					itextcomponent.getStyle().setColor(team.getColor());
 				}
-				FIELD_CAREER.set(this, 1);
+
+				return itextcomponent;
 			}
-			catch (IllegalAccessException e) {
-				e.printStackTrace();
+		}
+	}
+
+	@Override
+	public VillagerRegistry.VillagerProfession getProfessionForge() {
+		if (this.prof == null) {
+			this.prof = IafVillagerRegistry.INSTANCE.getProfessionById(this.getProfession());
+			if (this.prof == null) {
+				if (this.world.isRemote) {
+					return IafVillagerRegistry.INSTANCE.getProfessionById(0);
+				}
+				IafVillagerRegistry.INSTANCE.setRandomProfession(this, this.world.rand);
 			}
+			this.careerId = 0;
 		}
 		return this.prof;
 	}
@@ -163,12 +151,11 @@ public class EntitySnowVillager extends EntityVillager {
 				p = IafVillagerRegistry.INSTANCE.professions.get(0);
 			this.setProfession(p);
 		}
-
 	}
 
 	@Override
 	public IEntityLivingData finalizeMobSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData data, boolean forgeCheck) {
-		this.prof = IafVillagerRegistry.INSTANCE.professions.get(this.getRNG().nextInt(3));
+		this.setProfession(this.getRNG().nextInt(3));
 		return data;
 	}
 

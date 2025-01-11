@@ -28,6 +28,10 @@ public class BlockMyrmexBiolight extends BlockBush {
         this.setDefaultState(this.blockState.getBaseState().withProperty(CONNECTED_DOWN, Boolean.FALSE));
     }
 
+    public boolean isPassable(IBlockAccess worldIn, BlockPos pos){
+        return true;
+    }
+
     @Override
     public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
         return worldIn.getBlockState(pos.up()).isOpaqueCube() || worldIn.getBlockState(pos.up()).getBlock() == this;

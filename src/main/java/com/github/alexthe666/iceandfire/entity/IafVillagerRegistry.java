@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.google.common.collect.Maps;
@@ -56,7 +57,6 @@ public class IafVillagerRegistry {
 		craftsman = new VillagerRegistry.VillagerProfession("iceandfire:craftsman", "iceandfire:textures/models/snowvillager/craftsman.png", "minecraft:textures/entity/zombie_villager/zombie_farmer.png");
 		{
 			VillagerRegistry.VillagerCareer career = new VillagerRegistry.VillagerCareer(craftsman, "craftsman");
-			//over 30 words for ice
 			if(IceAndFireConfig.MISC_SETTINGS.allowSnowForSapphireTrade) career.addTrade(1, new SapphireForItems(Item.getItemFromBlock(Blocks.SNOW), new EntityVillager.PriceInfo(1, 32)));
 			career.addTrade(2, new ListItemForSapphires(Item.getItemFromBlock(Blocks.PACKED_ICE), new EntityVillager.PriceInfo(1, 3)));
 			career.addTrade(3, new ListItemForSapphires(Item.getItemFromBlock(IafBlockRegistry.dragon_ice), new EntityVillager.PriceInfo(1, 4)));
@@ -225,9 +225,26 @@ public class IafVillagerRegistry {
 			career.addTrade(4, new EntityMyrmexBase.BasicTrade(new ItemStack(IafItemRegistry.myrmex_jungle_resin), new ItemStack(IafItemRegistry.myrmex_jungle_egg, 1, 3), new EntityVillager.PriceInfo(30, 40), new EntityVillager.PriceInfo(1, 1)));
 			career.addTrade(5, new EntityMyrmexBase.BasicTrade(new ItemStack(IafItemRegistry.myrmex_jungle_resin), new ItemStack(IafItemRegistry.myrmex_jungle_egg, 1, 4), new EntityVillager.PriceInfo(50, 64), new EntityVillager.PriceInfo(1, 1)));
 		}
+		ModVillagers.INSTANCE.init(this);
 	}
 
-	public void setRandomProfession(EntityVillager entity, Random rand) {
+	public Integer getIdByProfession(VillagerRegistry.VillagerProfession profession) {
+		if (profession == null) {
+			return null;
+		}
+		for (Map.Entry<Integer, VillagerRegistry.VillagerProfession> entry : professions.entrySet()) {
+			if (profession == entry.getValue()) {
+				return entry.getKey();
+			}
+		}
+		return null;
+	}
+
+	public VillagerRegistry.VillagerProfession getProfessionById(int professionId) {
+		return professions.get(professionId);
+	}
+
+	public void setRandomProfession(EntitySnowVillager entity, Random rand) {
 		entity.setProfession(professions.get(rand.nextInt(professions.size())));
 	}
 

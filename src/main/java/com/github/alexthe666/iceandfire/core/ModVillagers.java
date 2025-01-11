@@ -41,21 +41,21 @@ public class ModVillagers {
 	public VillagerRegistry.VillagerProfession jungleMyrmexQueen;
 	public Map<Integer, VillagerRegistry.VillagerProfession> professions = Maps.newHashMap();
 
-	public void init() {
-		fisherman = ModVillagers.INSTANCE.fisherman;
-		craftsman = ModVillagers.INSTANCE.craftsman;
-		shaman = ModVillagers.INSTANCE.shaman;
-		desertMyrmexWorker = ModVillagers.INSTANCE.desertMyrmexWorker;
-		jungleMyrmexWorker = ModVillagers.INSTANCE.jungleMyrmexWorker;
-		desertMyrmexSoldier = IafVillagerRegistry.INSTANCE.desertMyrmexSoldier;
-		jungleMyrmexSoldier = IafVillagerRegistry.INSTANCE.jungleMyrmexSoldier;
-		desertMyrmexSentinel = IafVillagerRegistry.INSTANCE.desertMyrmexSentinel;
-		jungleMyrmexSentinel = IafVillagerRegistry.INSTANCE.jungleMyrmexSentinel;
-		desertMyrmexRoyal = IafVillagerRegistry.INSTANCE.desertMyrmexRoyal;
-		jungleMyrmexRoyal = IafVillagerRegistry.INSTANCE.jungleMyrmexRoyal;
-		desertMyrmexQueen = IafVillagerRegistry.INSTANCE.desertMyrmexQueen;
-		jungleMyrmexQueen = IafVillagerRegistry.INSTANCE.jungleMyrmexQueen;
-		professions = IafVillagerRegistry.INSTANCE.professions;
+	public void init(IafVillagerRegistry registry) {
+		fisherman = registry.fisherman;
+		craftsman = registry.craftsman;
+		shaman = registry.shaman;
+		desertMyrmexWorker = registry.desertMyrmexWorker;
+		jungleMyrmexWorker = registry.jungleMyrmexWorker;
+		desertMyrmexSoldier = registry.desertMyrmexSoldier;
+		jungleMyrmexSoldier = registry.jungleMyrmexSoldier;
+		desertMyrmexSentinel = registry.desertMyrmexSentinel;
+		jungleMyrmexSentinel = registry.jungleMyrmexSentinel;
+		desertMyrmexRoyal = registry.desertMyrmexRoyal;
+		jungleMyrmexRoyal = registry.jungleMyrmexRoyal;
+		desertMyrmexQueen = registry.desertMyrmexQueen;
+		jungleMyrmexQueen = registry.jungleMyrmexQueen;
+		professions = registry.professions;
 	}
 
 	public static class SapphireForItems extends IafVillagerRegistry.SapphireForItems {

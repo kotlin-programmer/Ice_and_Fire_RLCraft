@@ -27,6 +27,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
     mappings channel: mappings_channel, version: mappings_version
+    accessTransformer = file('src/main/resources/iceandfire_at.cfg') as Object
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
@@ -64,11 +65,14 @@ processResources {
                 'mcversion': minecraft_version, 'mod_description': mod_description,
                 'mod_author': mod_author, 'mod_credits': mod_credits
     }
+
+    rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
 jar {
     manifest {
         attributes 'FMLCorePlugin': 'com.github.alexthe666.iceandfire.asm.IceAndFirePlugin'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
+        attributes "FMLAT": "iceandfire_at.cfg"
     }
 }
