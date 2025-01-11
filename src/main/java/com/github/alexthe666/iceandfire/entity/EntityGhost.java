@@ -2,17 +2,23 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
+import com.github.alexthe666.iceandfire.api.InFCapabilities;
+import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
 import com.github.alexthe666.iceandfire.entity.ai.EntityAIRestrictSunFlying;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
-import com.github.alexthe666.iceandfire.entity.util.*;
-import com.github.alexthe666.iceandfire.enums.EnumParticle;
+import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
+import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
+import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
 import net.ilexiconn.llibrary.server.animation.AnimationHandler;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
+import net.ilexiconn.llibrary.server.entity.EntityPropertiesHandler;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.item.EntityBoat;
@@ -32,11 +38,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 
 public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, IHumanoid, IBlacklistedFromStatues {
@@ -60,6 +68,14 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         this.moveHelper = new MoveHelper(this);
     }
 
+    @Override
+    protected int getExperiencePoints(EntityPlayer player) {
+        if (this.wasFromChest()) {
+            return 0;
+        } else {
+            return super.getExperiencePoints(player);
+        }
+    }
 
     protected ResourceLocation getLootTable() {
         return this.wasFromChest() ? LootTableList.EMPTY : LOOT;
@@ -83,20 +99,15 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
     @Override
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        //HEALTH
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.ghostMaxHealth);
-        //FOLLOW_RANGE
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64D);
-        //SPEED
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.15D);
-        //ATTACK
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.ghostMaxHealth);
-        //ARMOR
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.ghostAttackStrength);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1D);
     }
 
     public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotion() != MobEffects.POISON  && potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
+        return potioneffectIn.getPotion() != MobEffects.POISON && potioneffectIn.getPotion() != MobEffects.WITHER && super.isPotionApplicable(potioneffectIn);
     }
 
     public boolean isEntityInvulnerable(DamageSource source) {
@@ -157,14 +168,7 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         this.tasks.addTask(2, new EntityAIRestrictSunFlying(this));
         this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
         this.tasks.addTask(3, new GhostAICharge(this));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F) {
-            public boolean shouldContinueExecuting() {
-                if (this.closestEntity != null && this.closestEntity instanceof EntityPlayer && ((EntityPlayer) this.closestEntity).isCreative()) {
-                    return false;
-                }
-                return super.shouldContinueExecuting();
-            }
-        });
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F));
         this.tasks.addTask(5, new EntityAIWanderAvoidWaterFlying(this, 0.6D) {
             public boolean shouldExecute() {
                 executionChance = 60;
@@ -187,50 +191,56 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         }));
     }
 
+    @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
         this.noClip = true;
-        if(!world.isRemote){
+        if (!world.isRemote) {
             boolean day = isInDaylight() && !this.wasFromChest();
-            if(day){
-                if(!this.isDaytimeMode()){
+            if (day) {
+                if (!this.isDaytimeMode()) {
                     this.setAnimation(ANIMATION_SCARE);
                 }
                 this.setDaytimeMode(true);
-            }else{
+            } else {
                 this.setDaytimeMode(false);
                 this.setDaytimeCounter(0);
             }
-            if(isDaytimeMode()){
+            if (isDaytimeMode()) {
                 this.setMoveForward(0);
                 this.setMoveVertical(0);
                 this.setMoveStrafing(0);
                 this.setDaytimeCounter(this.getDaytimeCounter() + 1);
-                if(getDaytimeCounter() >= 100){
+                if (getDaytimeCounter() >= 100) {
                     this.setInvisible(true);
                 }
-            }else{
+            } else {
                 this.setInvisible(this.isPotionActive(MobEffects.INVISIBILITY));
                 this.setDaytimeCounter(0);
+                if (isAIDisabled())
+                    this.setNoAI(false);
             }
-        }else{
-            if(this.getAnimation() == ANIMATION_SCARE &&
-                    this.getAnimationTick() == 3 &&
-                    !this.isHauntedShoppingList() &&
-                    rand.nextInt(3) == 0){
-                this.playSound(IafSoundRegistry.GHOST_JUMPSCARE, this.getSoundVolume(), this.getSoundPitch());
-                if(world.isRemote){
-                    IceAndFire.PROXY.spawnParticle(EnumParticle.GHOST_APPEARANCE, world, this.posX, this.posY, this.posZ, 0, 0, 0);
+        }
+        if (!world.isRemote && !EntityGorgon.isStoneMob(this)) {
+            updateGhost();
+        }
+        if (this.getAnimation() == ANIMATION_HIT && this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) < 1.4D && this.getAnimationTick() == 5) {
+            this.playSound(IafSoundRegistry.GHOST_ATTACK, this.getSoundVolume(), this.getSoundPitch());
+            this.getAttackTarget().attackEntityFrom(DamageSource.causeMobDamage(this), (float) this.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue());
+        }
+        AnimationHandler.INSTANCE.updateAnimations(this);
+    }
+
+    public void updateGhost() {
+        if (this.ticksExisted % 20 == 0) {
+            List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(50, 12, 50));
+            for (EntityLivingBase entity : entities) {
+                IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entity);
+                if (capability != null && !capability.isSpooked()) {
+                    capability.setSpooked(20, this.getEntityId());
                 }
             }
         }
-        if(this.getAnimation() == ANIMATION_HIT && this.getAttackTarget() != null){
-            if(this.getDistance(this.getAttackTarget()) < 1.4D && this.getAnimationTick() >= 4 && this.getAnimationTick() < 6) {
-                this.playSound(IafSoundRegistry.GHOST_ATTACK, this.getSoundVolume(), this.getSoundPitch());
-                this.attackEntityAsMob(this.getAttackTarget());
-            }
-        }
-        AnimationHandler.INSTANCE.updateAnimations(this);
     }
 
     public boolean isAIDisabled() {
@@ -244,17 +254,19 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
     protected boolean isInDaylight() {
         if (this.world.isDaytime() && !this.world.isRemote) {
             float f = this.getBrightness();
-            BlockPos blockpos = this.getRidingEntity() instanceof EntityBoat ? (new BlockPos(this.posX, (double)Math.round(this.posY), this.posZ)).up() : new BlockPos(this.posX, (double)Math.round(this.posY + 4), this.posZ);
+            BlockPos blockpos = this.getRidingEntity() instanceof EntityBoat ? (new BlockPos(this.posX, (double) Math.round(this.posY), this.posZ)).up() : new BlockPos(this.posX, (double) Math.round(this.posY + 4), this.posZ);
             return f > 0.5F && this.world.canSeeSky(blockpos);
         }
 
         return false;
     }
 
+    @Override
     public boolean hasNoGravity() {
         return true;
     }
 
+    @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
         if (!itemstack.isEmpty() && itemstack.getItem() == IafItemRegistry.manuscript && !this.isHauntedShoppingList()) {
@@ -318,20 +330,20 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
 
     @Override
     public void readEntityFromNBT(NBTTagCompound compound) {
+        super.readEntityFromNBT(compound);
         this.setColor(compound.getInteger("Color"));
         this.setDaytimeMode(compound.getBoolean("DaytimeMode"));
         this.setDaytimeCounter(compound.getInteger("DaytimeCounter"));
         this.setFromChest(compound.getBoolean("FromChest"));
-        super.readEntityFromNBT(compound);
     }
 
     @Override
     public void writeEntityToNBT(NBTTagCompound compound) {
+        super.writeEntityToNBT(compound);
         compound.setInteger("Color", this.getColor());
         compound.setBoolean("DaytimeMode", this.isDaytimeMode());
         compound.setInteger("DaytimeCounter", this.getDaytimeCounter());
         compound.setBoolean("FromChest", this.wasFromChest());
-        super.writeEntityToNBT(compound);
     }
 
     public boolean isHauntedShoppingList() {
@@ -377,41 +389,33 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
             this.ghost = ghost;
         }
 
+        @Override
         public void onUpdateMoveHelper() {
-            if (this.action == EntityMoveHelper.Action.MOVE_TO) {
-                double d0 = this.posX - EntityGhost.this.posX;
-                double d1 = this.posY - EntityGhost.this.posY;
-                double d2 = this.posZ - EntityGhost.this.posZ;
-                double d3 = d0 * d0 + d1 * d1 + d2 * d2;
-                d3 = MathHelper.sqrt(d3);
-
-                if (d3 < EntityGhost.this.getEntityBoundingBox().getAverageEdgeLength()) {
-                    this.action = EntityMoveHelper.Action.WAIT;
-                    EntityGhost.this.motionX *= 0.5D;
-                    EntityGhost.this.motionY *= 0.5D;
-                    EntityGhost.this.motionZ *= 0.5D;
+            if (this.action == Action.MOVE_TO) {
+                Vec3d vec3d = new Vec3d(this.getX() - ghost.posX, this.getY() - ghost.posY, this.getZ() - ghost.posZ);
+                double d0 = vec3d.length();
+                double edgeLength = ghost.getEntityBoundingBox().getAverageEdgeLength();
+                if (d0 < edgeLength) {
+                    this.action = Action.WAIT;
+                    ghost.motionX *= 0.5D;
+                    ghost.motionY *= 0.5D;
+                    ghost.motionZ *= 0.5D;
                 } else {
-                    EntityGhost.this.motionX += d0 / d3 * 0.05D * this.speed;
-                    EntityGhost.this.motionY += d1 / d3 * 0.05D * this.speed;
-                    EntityGhost.this.motionZ += d2 / d3 * 0.05D * this.speed;
-
-                    if (EntityGhost.this.getAttackTarget() == null) {
-                        EntityGhost.this.rotationYaw = -((float) MathHelper.atan2(EntityGhost.this.motionX, EntityGhost.this.motionZ)) * (180F / (float) Math.PI);
-                        EntityGhost.this.renderYawOffset = EntityGhost.this.rotationYaw;
+                    ghost.motionX += vec3d.scale(this.speed * 0.5D * 0.05D / d0).x;
+                    ghost.motionY += vec3d.scale(this.speed * 0.5D * 0.05D / d0).y;
+                    ghost.motionZ += vec3d.scale(this.speed * 0.5D * 0.05D / d0).z;
+                    if (ghost.getAttackTarget() == null) {
+                        Vec3d vec3d1 = new Vec3d(ghost.motionX, ghost.motionY, ghost.motionZ);
+                        ghost.rotationYaw = -((float) MathHelper.atan2(vec3d1.x, vec3d1.z)) * (180F / (float) Math.PI);
+                        ghost.renderYawOffset = ghost.rotationYaw;
                     } else {
-                        double d4 = EntityGhost.this.getAttackTarget().posX - EntityGhost.this.posX;
-                        double d5 = EntityGhost.this.getAttackTarget().posZ - EntityGhost.this.posZ;
-                        EntityGhost.this.rotationYaw = -((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI);
-                        EntityGhost.this.renderYawOffset = EntityGhost.this.rotationYaw;
+                        double d4 = ghost.getAttackTarget().posX - ghost.posX;
+                        double d5 = ghost.getAttackTarget().posZ - ghost.posZ;
+                        ghost.rotationYaw = -((float) MathHelper.atan2(d4, d5)) * (180F / (float) Math.PI);
+                        ghost.renderYawOffset = ghost.rotationYaw;
                     }
                 }
             }
         }
     }
-
-	@Override
-	public boolean shouldRenderInPass(int pass) {
-		return pass == 1;
-	}
-
 }

@@ -38,13 +38,6 @@ public class EntityGhostSword extends EntityArrow
         }
     }
 
-    public float getAlpha(float partialTime)
-    {
-        if(maxDisposeTime == 0) return 0F;
-        int time = dataManager.get(DISPOSE_TIME);
-        return MathHelper.clamp(time - ticksExisted, 0, maxDisposeTime) / (float) maxDisposeTime;
-    }
-
     public EntityGhostSword(World w)
     {
         super(w);

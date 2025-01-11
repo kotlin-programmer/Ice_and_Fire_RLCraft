@@ -33,7 +33,14 @@ public class RenderGhostSword<T extends EntityGhostSword> extends Render<T>
         GlStateManager.translate((float)posX, (float)posY, (float)posZ);
         GlStateManager.scale(2.0, 2.0, 2.0);
         GlStateManager.enableRescaleNormal();
-        this.doRenderTransformations(entity, partialTicks);
+
+        GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+        GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks - 90.0F, 0.0F, 0.0F, 1.0F);
+        GlStateManager.rotate(90.0f, 0.0f, 0.0f, 1.0f);
+        GlStateManager.rotate(180.0f, 1.0f, 1.0f, 0.0f);
+        GlStateManager.translate(0.1d, 0.0d, 0.0d);
+        GlStateManager.rotate((entity.ticksExisted + partialTicks) * 40.0f % 360.0f, 0.0f, 0.0f, 1.0f);
+
         this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         if (this.renderOutlines) {
             GlStateManager.enableColorMaterial();
@@ -50,13 +57,6 @@ public class RenderGhostSword<T extends EntityGhostSword> extends Render<T>
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
-    }
-
-    protected void doRenderTransformations(T entity, float partialTicks) {
-        GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
-        GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks - 45.0F, 0.0F, 0.0F, 1.0F);
-        GlStateManager.rotate((entity.ticksExisted + partialTicks) * 40F, 0.0F, 0.0F, 1.0F);
-        GlStateManager.translate(-0.1, -0.2, 0.0);
     }
 
     protected ResourceLocation getEntityTexture(T entity) {

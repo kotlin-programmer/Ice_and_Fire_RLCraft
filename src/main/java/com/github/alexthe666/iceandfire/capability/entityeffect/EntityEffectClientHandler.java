@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.capability.entityeffect;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
+import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
 import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
@@ -91,6 +92,16 @@ public class EntityEffectClientHandler {
             if(capability.getAdditionalData() > 0) {
                 entity.rotationPitch = entity.prevRotationPitch;
                 entity.rotationYaw = entity.prevRotationYaw;
+            }
+        }
+        else if (capability.isSpooked()) {
+            EntityGhost ghost = capability.getGhost(world);
+            if (ghost != null) {
+                if (ghost.getAnimation() == EntityGhost.ANIMATION_SCARE && ghost.getAnimationTick() == 3 && !ghost.isHauntedShoppingList()) {
+                    if (world.rand.nextInt(3) == 0) {
+                        IceAndFire.PROXY.spawnParticle(EnumParticle.GHOST_APPEARANCE, world, ghost.posX, ghost.posY, ghost.posZ, 0, 0, 0);
+                    }
+                }
             }
         }
         else if(capability.isStoned()) {

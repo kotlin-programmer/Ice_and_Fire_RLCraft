@@ -1,12 +1,13 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
-import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
+import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.common.util.Constants;
 
 public class GhostAICharge extends EntityAIBase {
@@ -43,6 +44,10 @@ public class GhostAICharge extends EntityAIBase {
         ghost.setCharging(false);
     }
 
+    public static Vec3d copyCentered(Vec3i toCopy) {
+        return new Vec3d((double)toCopy.getX() + 0.5D, (double)toCopy.getY() + 0.5D, (double)toCopy.getZ() + 0.5D);
+    }
+
     @Override
     public void updateTask() {
         EntityLivingBase target = ghost.getAttackTarget();
@@ -53,7 +58,7 @@ public class GhostAICharge extends EntityAIBase {
             if (firstPhase) {
                 if (this.moveToPos == null) {
                     BlockPos moveToPos = DragonUtils.getBlockInTargetsViewGhost(ghost, target);
-                    this.moveToPos = new Vec3d(moveToPos);
+                    this.moveToPos = copyCentered(moveToPos);
                 } else {
                     this.ghost.getNavigator().tryMoveToXYZ(this.moveToPos.x + 0.5D, this.moveToPos.y + 0.5D,
                             this.moveToPos.z + 0.5D, 1F);

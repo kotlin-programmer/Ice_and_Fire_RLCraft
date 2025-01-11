@@ -42,13 +42,19 @@ public class EntityEffectCapability implements IEntityEffectCapability {
                         !(entity instanceof EntityLightningDragon);
             }
         },
-        NONE(3, false, false) {
+        SPOOKED(3, true, true) {
+            @Override
+            public boolean canBeApplied(EntityLivingBase entity) {
+                return entity instanceof EntityPlayer;
+            }
+        },
+        NONE(4, false, false) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
                 return true;
             }
         },
-        STONED(4, false, true);
+        STONED(5, false, true);
 
         private final int priority;
         private final boolean syncToClient;
@@ -189,6 +195,16 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     }
 
     @Override
+    public void setSpooked(int entityID) {
+        this.setSpooked(20, entityID);
+    }
+
+    @Override
+    public void setSpooked(int time, int entityID) {
+        this.setEffect(EntityEffectEnum.SPOOKED, time, entityID);
+    }
+
+    @Override
     public void setStoned() {
         this.setEffect(EntityEffectEnum.STONED, 0, 0);
     }
@@ -212,6 +228,11 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     @Override
     public boolean isShocked() {
         return this.activeEffect == EntityEffectEnum.SHOCKED;
+    }
+
+    @Override
+    public boolean isSpooked() {
+        return this.activeEffect == EntityEffectEnum.SPOOKED;
     }
 
     @Override
@@ -249,7 +270,14 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     @Override
     public EntitySiren getSiren(World world) {
         Entity temp = world.getEntityByID(this.getAdditionalData());
-        if(temp instanceof EntitySiren) return (EntitySiren)temp;
+        if (temp instanceof EntitySiren) return (EntitySiren) temp;
+        return null;
+    }
+
+    @Override
+    public EntityGhost getGhost(World world) {
+        Entity temp = world.getEntityByID(this.getAdditionalData());
+        if (temp instanceof EntityGhost) return (EntityGhost) temp;
         return null;
     }
 }

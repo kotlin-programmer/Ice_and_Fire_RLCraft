@@ -166,6 +166,16 @@ public class EntityEffectHandler {
             //Reset effect if ended or invalid
             capability.reset();
         }
+        else if(capability.isSpooked()) {
+            capability.tickTime();
+            if(capability.getTime() > 0 &&
+                    !entity.isDead &&
+                    EntityEffectCapability.EntityEffectEnum.SPOOKED.canBeApplied(entity)) {
+                return;
+            }
+            //Reset effect if ended or invalid
+            capability.reset();
+        }
         else if(capability.isStoned()) {
             boolean stonedPlayer = entity instanceof EntityStoneStatue;
             if(!entity.getPassengers().isEmpty()) {

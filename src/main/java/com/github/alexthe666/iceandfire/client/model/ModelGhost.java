@@ -4,9 +4,9 @@ import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.model.ModelBox;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 public class ModelGhost extends ModelDragonBase {
 
@@ -24,6 +24,7 @@ public class ModelGhost extends ModelDragonBase {
     public AdvancedModelRenderer robeLowerRight;
     public AdvancedModelRenderer robeLowerLeft;
     public AdvancedModelRenderer sleeveLeft;
+    private final ModelRenderer shopping_list;
     private final ModelAnimator animator;
 
     @Override
@@ -98,18 +99,23 @@ public class ModelGhost extends ModelDragonBase {
         this.armLeft.addChild(this.sleeveLeft);
         animator = ModelAnimator.create();
         this.updateDefaultPose();
+
+        shopping_list = new ModelRenderer(this);
+        shopping_list.setRotationPoint(0.0F, 24.0F, 0.0F);
+        shopping_list.cubeList.add(new ModelBox(shopping_list, 0, 0, -8.0F, -26.0F, -1.0F, 16, 18, 0, 0.0F, false));
     }
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, 1);
-        GlStateManager.pushMatrix();
-        this.body.render(f5);
-        GlStateManager.popMatrix();
+        if (!((EntityGhost) entity).isHauntedShoppingList()) {
+            this.body.render(f5);
+        } else
+            this.shopping_list.render(f5);
     }
 
-    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityGhost entity) {
-        this.resetToDefaultPose();
+    @Override
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
         this.faceTarget(f3, f4, 1, this.head);
         float speed_walk = 0.6F;
         float speed_idle = 0.05F;
@@ -143,6 +149,7 @@ public class ModelGhost extends ModelDragonBase {
 
     public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.resetToDefaultPose();
+        setRotationAngles(f, f1, f2, f3, f4, f5, (EntityGhost) entity);
         animator.update(entity);
         if (animator.setAnimation(EntityGhost.ANIMATION_SCARE)) {
             animator.startKeyframe(5);
