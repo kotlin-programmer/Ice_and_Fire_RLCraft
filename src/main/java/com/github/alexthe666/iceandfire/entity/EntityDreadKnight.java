@@ -35,7 +35,7 @@ import javax.annotation.Nullable;
 public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear {
 
     public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation("iceandfire", "dread_knight"));
-    private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityDreadThrall.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityDreadKnight.class, DataSerializers.VARINT);
     public static Animation ANIMATION_SPAWN = Animation.create(40);
     private int animationTick;
     private Animation currentAnimation;
@@ -66,7 +66,7 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {IDreadMob.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, false, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
@@ -77,9 +77,9 @@ public class EntityDreadKnight extends EntityDreadMob implements IAnimatedEntity
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(20.0D);
     }

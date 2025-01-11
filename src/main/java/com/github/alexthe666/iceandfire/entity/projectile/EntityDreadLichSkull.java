@@ -35,12 +35,12 @@ public class EntityDreadLichSkull extends EntityArrow {
     public EntityDreadLichSkull(World worldIn, double x, double y, double z) {
         this(worldIn);
         this.setPosition(x, y, z);
-        this.setDamage(6F);
+        this.setDamage(5F);
     }
 
     public EntityDreadLichSkull(World worldIn, EntityLivingBase shooter, double x, double y, double z) {
         super(worldIn, shooter);
-        this.setDamage(6);
+        this.setDamage(5F);
         targetSorter = new EntityAINearestAttackableTarget.Sorter(shooter);
     }
 
@@ -62,7 +62,7 @@ public class EntityDreadLichSkull extends EntityArrow {
     public void onUpdate() {
         float sqrt = MathHelper.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
         boolean flag = true;
-        if(this.shootingEntity != null && this.shootingEntity instanceof EntityLiving && ((EntityLiving) this.shootingEntity).getAttackTarget() != null){
+        if (this.shootingEntity != null && this.shootingEntity instanceof EntityLiving && ((EntityLiving) this.shootingEntity).getAttackTarget() != null) {
             EntityLivingBase target = ((EntityLiving) this.shootingEntity).getAttackTarget();
             double minusX = target.posX - this.posX;
             double minusY = target.posY - this.posY;
@@ -72,23 +72,22 @@ public class EntityDreadLichSkull extends EntityArrow {
             this.motionY += minusY * speed * 0.1D;
             this.motionZ += minusZ * speed * 0.1D;
         }
-        if(this.shootingEntity instanceof EntityPlayer){
+        if (this.shootingEntity instanceof EntityPlayer) {
             EntityLivingBase target = ((EntityPlayer) this.shootingEntity).getAttackingEntity();
-            if(target == null || !target.isEntityAlive()){
+            if (target == null || !target.isEntityAlive()) {
                 double d0 = 10;
                 List<EntityLivingBase> list = world.getEntitiesWithinAABB(EntityLivingBase.class, (new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1.0D, this.posY + 1.0D, this.posZ + 1.0D)).grow(d0, 10.0D, d0), IMob.VISIBLE_MOB_SELECTOR);
-                if(targetSorter != null){
+                if (targetSorter != null) {
                     Collections.sort(list, targetSorter);
                 }
-                if(!list.isEmpty()){
+                if (!list.isEmpty()) {
                     target = list.get(0);
                 }
             }
-            if(target != null && target.isEntityAlive()){
+            if (target != null && target.isEntityAlive()) {
                 double minusX = target.posX - this.posX;
                 double minusY = target.posY + target.getEyeHeight() - this.posY;
                 double minusZ = target.posZ - this.posZ;
-                double speed = 0.25D * Math.min(this.getDistance(target), 10D) / 10D;
                 this.motionX += (Math.signum(minusX) * 0.5D - this.motionX) * 0.10000000149011612D;
                 this.motionY += (Math.signum(minusY) * 0.5D - this.motionY) * 0.10000000149011612D;
                 this.motionZ += (Math.signum(minusZ) * 0.5D - this.motionZ) * 0.10000000149011612D;
@@ -114,32 +113,36 @@ public class EntityDreadLichSkull extends EntityArrow {
         super.onUpdate();
     }
 
-    public double particleDistSq(double toX, double toY, double toZ) {
+    private double particleDistSq(double toX, double toY, double toZ) {
         double d0 = posX - toX;
         double d1 = posY - toY;
         double d2 = posZ - toZ;
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
+    @Override
     public void playSound(SoundEvent soundIn, float volume, float pitch) {
         if (!this.isSilent() && soundIn != SoundEvents.ENTITY_ARROW_HIT && soundIn != SoundEvents.ENTITY_ARROW_HIT_PLAYER) {
             this.world.playSound(null, this.posX, this.posY, this.posZ, soundIn, this.getSoundCategory(), volume, pitch);
         }
     }
 
+    @Override
     protected void onHit(RayTraceResult raytraceResultIn)
     {
         Entity entity = raytraceResultIn.entityHit;
         if (entity != null) {
-            if(this.shootingEntity != null && entity.isOnSameTeam(this.shootingEntity)){
+            if (this.shootingEntity != null && entity.isOnSameTeam(this.shootingEntity)) {
                 return;
             }
         }
         super.onHit(raytraceResultIn);
     }
+
+    @Override
     protected void arrowHit(EntityLivingBase living) {
         super.arrowHit(living);
-        if (living != null && (this.shootingEntity == null || !living.isEntityEqual(this.shootingEntity))){
+        if (living != null && (this.shootingEntity == null || !living.isEntityEqual(this.shootingEntity))) {
             if (living instanceof EntityPlayer) {
                 this.damageShield((EntityPlayer) living, (float) this.getDamage());
             }

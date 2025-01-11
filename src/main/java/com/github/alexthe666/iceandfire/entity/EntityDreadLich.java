@@ -74,7 +74,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(5.0D);
     }
 
     @Override
