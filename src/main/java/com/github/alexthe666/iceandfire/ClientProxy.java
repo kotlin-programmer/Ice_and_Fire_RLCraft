@@ -76,6 +76,12 @@ public class ClientProxy extends CommonProxy {
 	private static final ModelIceDragonArmor ICE_DRAGON_SCALE_ARMOR_MODEL_LEGS = new ModelIceDragonArmor(0.2F, true);
 	private static final ModelLightningDragonArmor LIGHTNING_DRAGON_SCALE_ARMOR_MODEL = new ModelLightningDragonArmor(0.5F, false);
 	private static final ModelLightningDragonArmor LIGHTNING_DRAGON_SCALE_ARMOR_MODEL_LEGS = new ModelLightningDragonArmor(0.2F, true);
+	public static final ModelBloodedFireDragonArmor FIRE_DRAGON_SCALE_ARMOR_MODEL_BLOODED = new ModelBloodedFireDragonArmor(0.5F, false);
+	public static final ModelBloodedFireDragonArmor FIRE_DRAGON_SCALE_ARMOR_MODEL_LEGS_BLOODED = new ModelBloodedFireDragonArmor(0.2F, true);
+	public static final ModelBloodedIceDragonArmor ICE_DRAGON_SCALE_ARMOR_MODEL_BLOODED = new ModelBloodedIceDragonArmor(0.5F, false);
+	public static final ModelBloodedIceDragonArmor ICE_DRAGON_SCALE_ARMOR_MODEL_LEGS_BLOODED = new ModelBloodedIceDragonArmor(0.2F, true);
+	public static final ModelBloodedLightningDragonArmor LIGHTNING_DRAGON_SCALE_ARMOR_MODEL_BLOODED = new ModelBloodedLightningDragonArmor(0.5F, false);
+	public static final ModelBloodedLightningDragonArmor LIGHTNING_DRAGON_SCALE_ARMOR_MODEL_LEGS_BLOODED = new ModelBloodedLightningDragonArmor(0.2F, true);
 	private static final ModelDeathWormArmor DEATHWORM_ARMOR_MODEL = new ModelDeathWormArmor(0.5F);
 	private static final ModelDeathWormArmor DEATHWORM_ARMOR_MODEL_LEGS = new ModelDeathWormArmor(0.2F);
 	private static final ModelTrollArmor TROLL_ARMOR_MODEL = new ModelTrollArmor(0.75F);
@@ -157,6 +163,9 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(IafItemRegistry.deathworm_egg, 1, new ModelResourceLocation("iceandfire:deathworm_egg_giant", "inventory"));
 		for (EnumDragonArmor armor : EnumDragonArmor.values()) {
 			renderDragonArmors(armor);
+		}
+		for (EnumBloodedDragonArmor armor : EnumBloodedDragonArmor.values()) {
+			renderBloodedDragonArmors(armor);
 		}
 		for (EnumSeaSerpent armor : EnumSeaSerpent.values()) {
 			renderSeaSerpentArmors(armor);
@@ -259,6 +268,14 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomModelResourceLocation(armor.chestplate, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_chestplate", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(armor.leggings, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_leggings", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(armor.boots, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_boots", "inventory"));
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public static void renderBloodedDragonArmors(EnumBloodedDragonArmor armor) {
+		ModelLoader.setCustomModelResourceLocation(armor.helmet, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_helmet_blooded", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(armor.chestplate, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_chestplate_blooded", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(armor.leggings, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_leggings_blooded", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(armor.boots, 0, new ModelResourceLocation("iceandfire:" + armor.name() + "_boots_blooded", "inventory"));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -371,7 +388,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGhost.class, new RenderGhost(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGhostSword.class, new RenderGhostSword<>(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMobSkull.class, new RenderMobSkull(Minecraft.getMinecraft().getRenderManager(), seaserpent_model));
-
+		
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPodium.class, new RenderPodium());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLectern.class, new RenderLectern());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEggInIce.class, new RenderEggInIce());
@@ -517,6 +534,18 @@ public class ClientProxy extends CommonProxy {
 				return TIDE_ARMOR_MODEL;
 			case 15:
 				return TIDE_ARMOR_MODEL_LEGS;
+			case 16:
+				return FIRE_DRAGON_SCALE_ARMOR_MODEL_BLOODED;
+			case 17:
+				return FIRE_DRAGON_SCALE_ARMOR_MODEL_LEGS_BLOODED;
+			case 18:
+				return ICE_DRAGON_SCALE_ARMOR_MODEL_BLOODED;
+			case 19:
+				return ICE_DRAGON_SCALE_ARMOR_MODEL_LEGS_BLOODED;
+			case 20:
+				return LIGHTNING_DRAGON_SCALE_ARMOR_MODEL_BLOODED;
+			case 21:
+				return LIGHTNING_DRAGON_SCALE_ARMOR_MODEL_LEGS_BLOODED;
 		}
 		return null;
 	}

@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityAmphithereArrow;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
+import com.github.alexthe666.iceandfire.enums.EnumBloodedDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
@@ -216,6 +217,9 @@ public class ModRecipes {
         IafItemRegistry.lightningBoneTools.setRepairItem(new ItemStack(IafItemRegistry.dragonbone));
         for (EnumDragonArmor armor : EnumDragonArmor.values()) {
             armor.armorMaterial.setRepairItem(new ItemStack(EnumDragonArmor.getScaleItem(armor)));
+        }
+        for (EnumBloodedDragonArmor armor : EnumBloodedDragonArmor.values()) {
+            armor.armorMaterial.setRepairItem(new ItemStack(EnumBloodedDragonArmor.getScaleItem(armor)));
         }
         for (EnumSeaSerpent serpent : EnumSeaSerpent.values()) {
             serpent.armorMaterial.setRepairItem(new ItemStack(serpent.scale));

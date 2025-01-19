@@ -2,6 +2,8 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
+import com.github.alexthe666.iceandfire.mixin.vanilla.IEntityAgeableAccessor;
+import com.github.alexthe666.iceandfire.mixin.vanilla.IEntityVillagerAccessor;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.monster.EntityZombie;
@@ -52,7 +54,7 @@ public class EntitySnowVillager extends EntityVillager {
 			if (!this.world.isRemote) {
 				this.prof = IafVillagerRegistry.INSTANCE.getProfessionById(professionId);
 			}
-			this.dataManager.set(PROFESSION, professionId);
+			this.dataManager.set(IEntityVillagerAccessor.getProfessionParameter(), professionId);
 		}
 	}
 
@@ -70,7 +72,7 @@ public class EntitySnowVillager extends EntityVillager {
 				this.activeItemStackUseCount = 0;
 			}
 		}
-		if (BABY.equals(key)) {
+		if (IEntityAgeableAccessor.getBabyParameter().equals(key)) {
 			this.setScaleForAge(this.isChild());
 		}
 	}
@@ -135,7 +137,7 @@ public class EntitySnowVillager extends EntityVillager {
 				}
 				IafVillagerRegistry.INSTANCE.setRandomProfession(this, this.world.rand);
 			}
-			this.careerId = 0;
+			((IEntityVillagerAccessor)this).setCareerId(0);
 		}
 		return this.prof;
 	}

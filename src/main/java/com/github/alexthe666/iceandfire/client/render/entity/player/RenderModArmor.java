@@ -1,12 +1,7 @@
 package com.github.alexthe666.iceandfire.client.render.entity.player;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.item.ItemCopperArmor;
-import com.github.alexthe666.iceandfire.item.ItemDeathwormArmor;
-import com.github.alexthe666.iceandfire.item.ItemScaleArmor;
-import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
-import com.github.alexthe666.iceandfire.item.ItemSilverArmor;
-import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
+import com.github.alexthe666.iceandfire.item.*;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.model.ModelPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -97,22 +92,23 @@ public class RenderModArmor {
                 || armor instanceof ItemTrollArmor
                 || armor instanceof ItemDeathwormArmor
                 || armor instanceof ItemSilverArmor
-                || armor instanceof ItemCopperArmor;
+                || armor instanceof ItemCopperArmor
+				|| armor instanceof ItemBloodedArmor;
     }
-
+	
 	public ItemStack getPhantomThreadDisguise(ItemStack stack) {
 		NBTTagCompound tagCompound = stack.getTagCompound();
-		if (tagCompound == null || tagCompound.isEmpty()) {
+		if(tagCompound == null || tagCompound.isEmpty()) {
 			return null;
 		}
-		if (!tagCompound.hasKey("classy_hat_invisible")) {
+		if(!tagCompound.hasKey("classy_hat_invisible")) {
 			return null;
 		}
-		if (!tagCompound.hasKey("classy_hat_disguise")) {
+		if(!tagCompound.hasKey("classy_hat_disguise")) {
 			return ItemStack.EMPTY;
 		}
 		NBTTagCompound diguise = tagCompound.getCompoundTag("classy_hat_disguise");
-		if (diguise.isEmpty()) {
+		if(diguise.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
 		return new ItemStack(diguise);
