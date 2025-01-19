@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.core;
+package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.*;
@@ -11,7 +11,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.List;
 import java.util.Set;
 
-public class ModEntities {
+public class IafEntityRegistry {
 
 	public static void init() {
 		for(Biome biome : Biome.REGISTRY) {
