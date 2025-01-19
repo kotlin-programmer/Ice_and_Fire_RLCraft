@@ -1,0 +1,20 @@
+{
+  "required": true,
+  "package": "com.github.alexthe666.iceandfire.mixin",
+  "refmap": "mixins.iceandfire.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "target": "@env(DEFAULT)",
+  "minVersion": "0.8",
+  "mixins": [
+    "vanilla.BlockStateContainerStateImplementationMixin",
+    "vanilla.IEntityAgeableAccessor",
+    "vanilla.IEntityVillagerAccessor"
+  ],
+  "injectors": {
+    "maxShiftBy": 10
+  },
+  "client": [
+    "vanilla.EntityLivingBaseMixin",
+    "vanilla.LayerArmorBaseMixin"
+  ]
+}

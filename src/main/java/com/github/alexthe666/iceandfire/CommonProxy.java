@@ -5,11 +5,7 @@ import com.github.alexthe666.iceandfire.client.particle.lightning.ParticleLightn
 import com.github.alexthe666.iceandfire.core.*;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
-import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
-import com.github.alexthe666.iceandfire.enums.EnumParticle;
-import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
-import com.github.alexthe666.iceandfire.enums.EnumSkullType;
-import com.github.alexthe666.iceandfire.enums.EnumTroll;
+import com.github.alexthe666.iceandfire.enums.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockMyrmexResin;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockPodium;
@@ -211,6 +207,12 @@ public class CommonProxy {
             throw new RuntimeException(e);
         }
         for (EnumDragonArmor armor : EnumDragonArmor.values()) {
+            event.getRegistry().register(armor.helmet);
+            event.getRegistry().register(armor.chestplate);
+            event.getRegistry().register(armor.leggings);
+            event.getRegistry().register(armor.boots);
+        }
+        for (EnumBloodedDragonArmor armor : EnumBloodedDragonArmor.values()) {
             event.getRegistry().register(armor.helmet);
             event.getRegistry().register(armor.chestplate);
             event.getRegistry().register(armor.leggings);
