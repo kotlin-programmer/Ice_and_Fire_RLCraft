@@ -94,6 +94,8 @@ tile.iceandfire.dread_torch.name=Dreadstone Torch
 tile.iceandfire.burnt_torch.name=Burnt Out Torch
 tile.iceandfire.dread_stone_slab.name=Dreadstone Bricks Slab
 tile.iceandfire.dread_stone_stairs.name=Dreadstone Bricks Stairs
+tile.iceandfire.dreadwood_planks.name=Dreadwood Planks
+tile.iceandfire.dreadwood_planks_lock.name=Dreadwood Keyhole
 tile.iceandfire.dread_spawner.name=Dreadstone Mob Spawner
 tile.iceandfire.monster_spawner.name=Mob Spawner
 
@@ -338,6 +340,7 @@ item.iceandfire.seaserpent_skull.name=Sea Serpent Skull
 item.iceandfire.hydra_skull.name=Hydra Skull
 
 item.iceandfire.lich_staff.name=Dread Lich Staff
+item.iceandfire.dread_key.name=§bGravemaster's Key§r
 item.iceandfire.dread_shard.name=Dread Shard
 item.iceandfire.dread_sword.name=Dread Thrall's Sword
 item.iceandfire.dread_knight_sword.name=Dread Knight's Sword

@@ -94,8 +94,11 @@ tile.iceandfire.dread_torch.name=Dreadstone Torch
 tile.iceandfire.burnt_torch.name=Факел ужаса
 tile.iceandfire.dread_stone_slab.name=Плита из кирпичей ужаса
 tile.iceandfire.dread_stone_stairs.name=Ступеньки из кирпичей ужаса
+tile.iceandfire.dreadwood_planks.name=Доски из древа ужаса
+tile.iceandfire.dreadwood_planks_lock.name=Замочная скважина ужаса
 tile.iceandfire.dread_spawner.name=Спаунер мобов ужаса
 tile.iceandfire.monster_spawner.name=Спаунер мобов
+
 tile.iceandfire.dragonforge_bricks.name=Кирпичи драконьей кузни
 tile.iceandfire.dragonforge_core.name=Сердце драконьей кузни
 tile.iceandfire.dragonforge_input.name=Слив драконьей кузни
@@ -324,10 +327,13 @@ item.iceandfire.seaserpent_skull.name=Череп Левиафана
 item.iceandfire.hydra_skull.name=Череп гидры
 
 item.iceandfire.lich_staff.name=Посох лича ужаса
+item.iceandfire.dread_key.name=§bКлюч Могильщика§r
 item.iceandfire.dread_shard.name=Осколок ужаса
 item.iceandfire.dread_sword.name=Меч раба ужаса
 item.iceandfire.dread_knight_sword.name=Меч рыцаря ужаса
+
 item.iceandfire.custom_banner.jei_desc=Унакальный паттерн баннера!
+
 item.iceandfire.ghost_sword.name=Призрачный клинок
 item.iceandfire.ghost_sword.desc_0=Выпускает крутящийся меч проходящий сквозь блоки
 item.iceandfire.ectoplasm.name=Эктоплазма

@@ -54,11 +54,9 @@ public class IafDragonForgeRecipeRegistry {
     public static DragonForgeRecipe getForgeRecipe(EnumDragonType type, ItemStack stack) {
         for (DragonForgeRecipe recipe : getForgeRecipes(type)) {
             if (!stack.isEmpty() && stack.isItemEqualIgnoreDurability(recipe.getInput())) {
-                IceAndFire.logger.info("Forge Recipe Found");
                 return recipe;
             }
         }
-        IceAndFire.logger.info("Forge Recipe Not Found");
         return null;
     }
 

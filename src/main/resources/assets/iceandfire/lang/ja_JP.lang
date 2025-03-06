@@ -94,8 +94,11 @@ tile.iceandfire.dread_torch.name=ドレッドストーントーチ
 tile.iceandfire.burnt_torch.name=火が消えた松明
 tile.iceandfire.dread_stone_slab.name=ドレッドストーンレンガのハーフブロック
 tile.iceandfire.dread_stone_stairs.name=ドレッドストーンレンガの階段
+tile.iceandfire.dreadwood_planks.name=ドレッドウッドの木材
+tile.iceandfire.dreadwood_planks_lock.name=ドレッドウッドの鍵穴
 tile.iceandfire.dread_spawner.name=ドレッドストーンスポナー
 tile.iceandfire.monster_spawner.name=モンスタースポナー
+
 tile.iceandfire.dragonforge_bricks.name=竜炉レンガ
 tile.iceandfire.dragonforge_core.name=竜炉コア
 tile.iceandfire.dragonforge_input.name=竜炉焚口
@@ -325,6 +328,7 @@ item.iceandfire.seaserpent_skull.name=シーサーペントの頭蓋骨
 item.iceandfire.hydra_skull.name=ヒドラの頭蓋骨
 
 item.iceandfire.lich_staff.name=恐怖の魔術師の杖
+item.iceandfire.dread_key.name=§bグレイヴマスターキー§r
 item.iceandfire.dread_shard.name=恐怖の欠片
 item.iceandfire.dread_sword.name=恐怖のしもべの剣
 item.iceandfire.dread_knight_sword.name=恐怖の騎士の剣

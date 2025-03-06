@@ -93,6 +93,8 @@ tile.iceandfire.dread_torch.name=Torcheffroie
 tile.iceandfire.burnt_torch.name=Torche brûlée
 tile.iceandfire.dread_stone_slab.name=Dalle de briqueffroie
 tile.iceandfire.dread_stone_stairs.name=Escalier en briqueffroie
+tile.iceandfire.dreadwood_planks.name=Planche de Dreadwood
+tile.iceandfire.dreadwood_planks_lock.name=Sérure en Dreadwood
 tile.iceandfire.dread_spawner.name=Générateur de monstreffroie
 tile.iceandfire.monster_spawner.name=Générateur de monstre
 
@@ -321,6 +323,7 @@ item.iceandfire.seaserpent_skull.name=Crâne de serpent de mer
 item.iceandfire.hydra_skull.name=Crâne d'hydre
 
 item.iceandfire.lich_staff.name=Bâton de Licheffroie
+item.iceandfire.dread_key.name=§bClé du Maître des Tombes§r
 item.iceandfire.dread_shard.name=Effroille
 item.iceandfire.dread_sword.name=Épée de gobeleffroie
 item.iceandfire.dread_knight_sword.name=Épée de chevaffroie

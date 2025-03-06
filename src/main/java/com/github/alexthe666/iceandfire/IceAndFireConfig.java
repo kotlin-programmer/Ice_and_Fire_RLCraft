@@ -211,6 +211,15 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int generateGorgonChance = 75;
 
+		@Config.Comment("Should InF generate Dread Mausoleums")
+		@Config.Name("Generate Mausoleums")
+		public boolean generateMausoleums = true;
+
+		@Config.Comment("Chance per chunk for Dread Mausoleums to generate, 1 in N chance")
+		@Config.Name("Generate Mausoleum Chance")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int generateMausoleumChance = 1000;
+
 		@Config.Comment("Should InF generate Pixie Villages and pixies")
 		@Config.Name("Generate Pixie Villages")
 		public boolean generatePixieVillages = true;

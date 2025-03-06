@@ -7,7 +7,7 @@ import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 
-public class BlockDragonBone extends BlockRotatedPillar {
+public class BlockDragonBone extends BlockRotatedPillar implements IDragonProof {
 
     public BlockDragonBone(String gameName, String name) {
         super(Material.ROCK);
