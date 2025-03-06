@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.capability.entityeffect;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.util.IHearsSiren;
 import net.minecraft.entity.Entity;
@@ -18,7 +19,7 @@ public class EntityEffectCapability implements IEntityEffectCapability {
         CHARMED(0, true, false) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) && (EntitySiren.isDrawnToSong(entity)) && !EntitySiren.isWearingEarplugs(entity);
+                return super.canBeApplied(entity) && (EntitySiren.isDrawnToSong(entity)) && !SensesUtils.isDeaf(entity);
             }
         },
         FROZEN(1, true, true) {

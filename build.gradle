@@ -45,6 +45,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
+    implementation fg.deobf("curse.maven:baubles-${baubles_version}")
     implementation fg.deobf("curse.maven:llibrary-${llibrary_version}")
     implementation fg.deobf("curse.maven:thaumcraft-${thaumcraft_version}")
     implementation fg.deobf("curse.maven:hwyla-${hwyla_version}")

@@ -253,7 +253,7 @@ public class IafItemRegistry {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":shiny_scales")
 	public static Item shiny_scales = new ItemGeneric("shiny_scales", "iceandfire.shiny_scales");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":earplugs")
-	public static Item earplugs = new ItemModArmor(earplugsArmor, 0, EntityEquipmentSlot.HEAD, "earplugs", "iceandfire.earplugs");
+	public static Item earplugs = new ItemEarplugs();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":hippocampus_fin")
 	public static Item hippocampus_fin = new ItemGeneric("hippocampus_fin", "iceandfire.hippocampus_fin", 1);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":hippocampus_slapper")
