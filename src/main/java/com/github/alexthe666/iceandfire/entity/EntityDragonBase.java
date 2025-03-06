@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.FoodUtils;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
 import com.github.alexthe666.iceandfire.client.model.util.LegSolverQuadruped;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -2362,7 +2363,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     if (this.isOwner(living) || this.isOwnersPet(living)) {
                         living.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 30 * size));
                     } else {
-                        if (living.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() != IafItemRegistry.earplugs) {
+                        if (!SensesUtils.isDeaf(living)) {
                             living.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 30 * size));
                         }
                     }

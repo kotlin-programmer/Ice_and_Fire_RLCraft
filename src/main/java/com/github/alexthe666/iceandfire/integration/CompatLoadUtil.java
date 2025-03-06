@@ -4,6 +4,8 @@ import net.minecraftforge.fml.common.Loader;
 
 public abstract class CompatLoadUtil {
 
+    private static final String BAUBLES_MODID = "baubles";
+    private static Boolean baublesLoaded;
     private static final String CLAIMIT_MODID = "claimit";
     private static Boolean claimitLoaded;
     private static final String VARIED_COMMODITIES_MODID = "variedcommodities";
@@ -17,6 +19,11 @@ public abstract class CompatLoadUtil {
 
     private static final String THE_ONE_PROBE_MODID = "theoneprobe";
     private static Boolean theOneProbeLoaded;
+
+    public static boolean isBaublesLoaded(){
+        if(baublesLoaded == null) baublesLoaded = Loader.isModLoaded(BAUBLES_MODID);
+        return baublesLoaded;
+    }
 
     public static boolean isClaimItLoaded() {
         if(claimitLoaded == null) claimitLoaded = Loader.isModLoaded(CLAIMIT_MODID);

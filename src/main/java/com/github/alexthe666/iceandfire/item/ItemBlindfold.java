@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.item;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import com.github.alexthe666.iceandfire.IceAndFire;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -27,8 +28,14 @@ public class ItemBlindfold extends ItemArmor implements IBauble {
 	}
 
 	@Optional.Method(modid = "baubles")
+	@Override
 	public BaubleType getBaubleType(ItemStack itemStack) {
 		return BaubleType.HEAD;
 	}
 
+	@Optional.Method(modid = "baubles")
+	@Override
+	public void onWornTick(ItemStack itemstack, EntityLivingBase player){
+		player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 20, 2, true, false));
+	}
 }

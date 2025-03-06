@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
@@ -294,11 +295,6 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
         this.setSinging(true);
     }
 
-    public static boolean isWearingEarplugs(EntityLivingBase entity) {
-        ItemStack helmet = entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        return helmet.getItem() == IafItemRegistry.earplugs || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
-    }
-
     @Override
     public boolean attackEntityFrom(DamageSource source, float amount) {
         if (source.getTrueSource() != null && source.getTrueSource() instanceof EntityLivingBase) {
@@ -324,7 +320,7 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
             List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(50, 12, 50), SIREN_PREY);
             for (EntityLivingBase entity : entities) {
                 IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entity);
-                if(!isWearingEarplugs(entity) && capability != null && (!capability.isCharmed() || capability.getSiren(world) == null)) {
+                if(!SensesUtils.isDeaf(entity) && capability != null && (!capability.isCharmed() || capability.getSiren(world) == null)) {
                     capability.setCharmed(this.getEntityId());
                 }
             }

@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.FoodUtils;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
@@ -234,9 +235,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
 
     @Nullable
     public EntityLivingBase getTargetedEntity() {
-        boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) ||
-                this.getAttackTarget() != null && this.getAttackTarget().isPotionActive(MobEffects.BLINDNESS) ||
-                this.getAttackTarget() != null && EntityGorgon.isBlindfolded(this.getAttackTarget());
+        boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || SensesUtils.isBlind(this.getAttackTarget());
         if(blindness){
             return null;
         }
@@ -471,9 +470,7 @@ public class EntityCockatrice extends EntityTameable implements IAnimatedEntity,
                 forcePreyToLook((EntityLiving) this.getAttackTarget());
             }
         }
-        boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) ||
-                this.getAttackTarget() != null && this.getAttackTarget().isPotionActive(MobEffects.BLINDNESS) ||
-                this.getAttackTarget() != null && EntityGorgon.isBlindfolded(this.getAttackTarget());
+        boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || SensesUtils.isBlind(this.getAttackTarget());
         if(blindness){
             this.setStaring(false);
         }
