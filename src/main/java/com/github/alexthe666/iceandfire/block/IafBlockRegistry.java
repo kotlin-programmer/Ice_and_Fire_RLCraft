@@ -160,6 +160,10 @@ public class IafBlockRegistry {
 	public static BlockGenericSlab dread_stone_bricks_double_slab = new BlockDreadStoneBrickSlab.Double("dread_stone_slab", 10.0F, 10000F, SoundType.STONE);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_stone_slab")
 	public static BlockGenericSlab dread_stone_bricks_slab = new BlockDreadStoneBrickSlab.Half("dread_stone_slab", 10.0F, 10000F, SoundType.STONE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dreadwood_planks")
+	public static BlockDreadBase dreadwood_planks = new BlockDreadBase(Material.WOOD, "dreadwood_planks", "iceandfire.dreadwood_planks", "axe", 3, 20.0F, 100000.0F, SoundType.WOOD);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dreadwood_planks_lock")
+	public static Block dreadwood_planks_lock = new BlockDreadWoodLock();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_spawner")
 	public static Block dread_spawner = new BlockDreadSpawner();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":monster_spawner")

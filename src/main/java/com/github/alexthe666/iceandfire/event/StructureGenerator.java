@@ -9,12 +9,15 @@ import com.github.alexthe666.iceandfire.structures.*;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import com.github.alexthe666.iceandfire.world.village.MapGenPixieVillage;
 import com.github.alexthe666.iceandfire.world.village.MapGenSnowVillage;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -52,6 +55,7 @@ public class StructureGenerator implements IWorldGenerator {
 	private static final WorldGenHydraCave HYDRA_CAVE = new WorldGenHydraCave();
 	private static final ResourceLocation GORGON_TEMPLE = new ResourceLocation(IceAndFire.MODID, "gorgon_temple");
 
+	private BlockPos lastMausoleum = null;
 	private BlockPos lastCyclopsCave = null;
 
 	@Override
@@ -87,6 +91,17 @@ public class StructureGenerator implements IWorldGenerator {
 				BlockPos corner4 = height.add(0, -1, template.getSize().getZ());
 				if (world.getBlockState(center).isOpaqueCube() && world.getBlockState(corner1).isOpaqueCube() && world.getBlockState(corner2).isOpaqueCube() && world.getBlockState(corner3).isOpaqueCube() && world.getBlockState(corner4).isOpaqueCube()) {
 					template.addBlocksToWorldChunk(world, center, settings);
+				}
+			}
+
+			if (IceAndFireConfig.WORLDGEN.generateMausoleums && isCold && isSnowy) {
+				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateMausoleumChance) == 0) {
+					if (lastMausoleum == null || lastMausoleum.distanceSq(height) >= spawnCheck) {
+						BlockPos surface = world.getHeight(new BlockPos(x, 0, z));
+						surface = degradeSurface(world, surface);
+						new WorldGenMausoleum(EnumFacing.byHorizontalIndex(random.nextInt(3))).generate(world, random, surface);
+						lastMausoleum = surface;
+					}
 				}
 			}
 
@@ -368,6 +383,18 @@ public class StructureGenerator implements IWorldGenerator {
 			}
 		}
 		return false;
+	}
+
+	private static boolean canHeightSkipBlock(BlockPos pos, World world) {
+		IBlockState state = world.getBlockState(pos);
+		return state.getBlock() instanceof BlockLog || state.getBlock() instanceof BlockLiquid;
+	}
+
+	public static BlockPos degradeSurface(World world, BlockPos surface) {
+		while ((!world.getBlockState(surface).isOpaqueCube() || canHeightSkipBlock(surface, world)) && surface.getY() > 1) {
+			surface = surface.down();
+		}
+		return surface;
 	}
 
 	@Nullable

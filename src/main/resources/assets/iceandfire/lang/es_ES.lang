@@ -95,6 +95,8 @@ tile.iceandfire.dread_torch.name=Antorcha de Piedra del horror
 tile.iceandfire.burnt_torch.name=Antorcha quemada
 tile.iceandfire.dread_stone_slab.name=Losa de ladrillos de piedra del horror
 tile.iceandfire.dread_stone_stairs.name=Escaleras de ladrillos de piedra del horror
+tile.iceandfire.dreadwood_planks.name=Tablones de madera aterradora
+tile.iceandfire.dreadwood_planks_lock.name=Cerradura aterradora
 tile.iceandfire.dread_spawner.name=Generador de criaturas de piedra del horror
 tile.iceandfire.monster_spawner.name=Generador de criaturas
 
@@ -327,6 +329,7 @@ item.iceandfire.seaserpent_skull.name=Craneo de Serpiente Marina
 item.iceandfire.hydra_skull.name=Craneo de Hidra
 
 item.iceandfire.lich_staff.name=Baston de Liche del horror
+item.iceandfire.dread_key.name=§bLlave del sepulturero§r
 item.iceandfire.dread_shard.name=Fragmento del horror
 item.iceandfire.dread_sword.name=Espada de Thrall del horror
 item.iceandfire.dread_knight_sword.name=Espada de Caballero del horror

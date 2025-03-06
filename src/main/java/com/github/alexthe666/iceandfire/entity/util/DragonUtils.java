@@ -299,9 +299,7 @@ public class DragonUtils {
 				&& block != net.minecraft.init.Blocks.COMMAND_BLOCK
 				&& block != net.minecraft.init.Blocks.REPEATING_COMMAND_BLOCK
 				&& block != net.minecraft.init.Blocks.CHAIN_COMMAND_BLOCK
-				&& block != net.minecraft.init.Blocks.IRON_BARS
-				&& block != IafBlockRegistry.dragon_bone_block
-				&& block != IafBlockRegistry.dragon_bone_block_wall;
+				&& block != net.minecraft.init.Blocks.IRON_BARS;
 	}
 
 	public static boolean hasSameOwner(Entity entity1, Entity entity2) {

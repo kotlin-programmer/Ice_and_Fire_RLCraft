@@ -86,6 +86,8 @@ tile.iceandfire.dread_torch.name=悚石火把
 tile.iceandfire.burnt_torch.name=烬灭火把
 tile.iceandfire.dread_stone_slab.name=悚砖台阶
 tile.iceandfire.dread_stone_stairs.name=悚砖楼梯
+tile.iceandfire.dreadwood_planks.name=悚木木板
+tile.iceandfire.dreadwood_planks_lock.name=悚木锁孔
 tile.iceandfire.dread_spawner.name=悚域刷怪笼
 tile.iceandfire.monster_spawner.name=刷怪笼
 
@@ -577,10 +579,12 @@ item.iceandfire.fire_stew.jei_desc=可促使一对异性龙繁殖。母龙会在
 item.iceandfire.frost_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
 item.iceandfire.lightning_stew.jei_desc=可促使一对异性龙繁殖。母龙会在随后建造一个龙巢并在里面下蛋。
 
+item.iceandfire.lich_staff.name=悚怖尸巫之杖
+item.iceandfire.dread_key.name=§b陵主之钥§r
+item.iceandfire.dread_shard.name=悚怖碎片
 item.iceandfire.dread_sword.name=悚怖尸奴之剑
 item.iceandfire.dread_knight_sword.name=悚怖尸骑之剑
-item.iceandfire.lich_staff.name=悚怖尸巫之杖
-item.iceandfire.dread_shard.name=悚怖碎片
+
 item.iceandfire.ghost_sword.name=幻灵剑
 item.iceandfire.ghost_sword.desc_0=投射出一柄能穿过方块的旋转剑
 item.iceandfire.ectoplasm.name=魂质

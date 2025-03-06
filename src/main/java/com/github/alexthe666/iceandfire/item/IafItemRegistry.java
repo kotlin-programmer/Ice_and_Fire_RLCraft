@@ -374,6 +374,8 @@ public class IafItemRegistry {
 	public static Item lich_staff = new ItemLichStaff();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_shard")
 	public static Item dread_shard = new ItemGeneric("dread_shard", "iceandfire.dread_shard");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_key")
+	public static Item dread_key = new ItemGeneric("dread_key", "iceandfire.dread_key");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_sword")
 	public static Item dread_sword = new ItemModSword(dread_sword_tools, "dread_sword", "iceandfire.dread_sword");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_knight_sword")
