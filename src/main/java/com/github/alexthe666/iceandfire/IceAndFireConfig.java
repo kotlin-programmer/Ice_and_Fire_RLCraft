@@ -672,6 +672,10 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int chickenEggChance = 30;
 
+		@Config.Comment("Maximum health of the Dread Queen")
+		@Config.Name("Dread Queen Max Health")
+		public int dreadQueenMaxHealth = 750;
+
 		@Config.Comment("How many blocks away can Stymphalian Birds spot potential prey")
 		@Config.Name("Stymphalian Bird Target Search Range")
 		@Config.RangeInt(min = 1, max = 10000)

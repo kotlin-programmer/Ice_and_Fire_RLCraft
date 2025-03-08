@@ -327,7 +327,12 @@ item.iceandfire.dread_key.name=§bClé du Maître des Tombes§r
 item.iceandfire.dread_shard.name=Effroille
 item.iceandfire.dread_sword.name=Épée de gobeleffroie
 item.iceandfire.dread_knight_sword.name=Épée de chevaffroie
+
+item.iceandfire.dread_queen_sword.name=Lame de la Reine de l'Épouvante
+item.iceandfire.dread_queen_staff.name=Bâton de la Reine de l'Épouvante
+
 item.iceandfire.custom_banner.jei_desc=Un unique motif de bannière !
+
 item.iceandfire.ghost_sword.name=Lame fantasmatique
 item.iceandfire.ghost_sword.desc_0=Tire une épée tournoyante qui traverse les blocs.
 item.iceandfire.ectoplasm.name=Ectoplasme
@@ -679,6 +684,9 @@ entity.dread_lich.name=Licheffroie
 entity.dread_lich_skull.name=Crâne de Licheffroie
 entity.dread_knight.name=Chevaffroie
 entity.dread_horse.name=Cheval de chevaffroie
+
+entity.black_frost.name=Black Frost
+entity.dread_queen.name=Dread Queen
 
 entity.if_hydra.name=Hydre
 entity.hydra_breath.name=Souffle d'hydre

@@ -329,6 +329,9 @@ item.iceandfire.dread_shard.name=Fragmento Medonho
 item.iceandfire.dread_sword.name=Espada do Servo Pavoroso
 item.iceandfire.dread_knight_sword.name=Espada do Cavaleiro Medonho
 
+item.iceandfire.dread_queen_sword.name=Espada da Rainha Medonha
+item.iceandfire.dread_queen_staff.name=Cajado da Rainha Medonha
+
 item.iceandfire.custom_banner.jei_desc=Tem um desenho de estandarte único!
 
 item.iceandfire.ghost_sword.name=Espada Fantasma
@@ -463,6 +466,9 @@ entity.dread_lich.name=Lich Medonho
 entity.dread_lich_skull.name=Crânio do Lich Medonho
 entity.dread_knight.name=Cavaleiro Medonho
 entity.dread_horse.name=Cavalo Medonho
+
+entity.black_frost.name=Frio Sombrio
+entity.dread_queen.name=Rainha Medonha
 
 entity.if_hydra.name=Hidra
 entity.hydra_breath.name=Bafo da Hidra

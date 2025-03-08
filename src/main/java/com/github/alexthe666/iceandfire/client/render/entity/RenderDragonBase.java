@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;

@@ -37,6 +37,7 @@ public class IafItemRegistry {
 	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 1.0F, 25);
 	public static ToolMaterial dread_sword_tools = EnumHelper.addToolMaterial("DreadSword", 0, 100, 0.0F, 1F, 0);
 	public static ToolMaterial dread_knight_sword_tools = EnumHelper.addToolMaterial("DreadKnightSword", 0, 1200, 0.0F, 4F, 10);
+	public static ToolMaterial dread_queen_sword_tools = EnumHelper.addToolMaterial("DreadQueenSword", 0, 3000, 10.0F, 7F, 25);
 
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":bestiary")
 	public static Item bestiary = new ItemBestiary();
@@ -372,6 +373,10 @@ public class IafItemRegistry {
 	public static Item tide_trident = new ItemTideTrident();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lich_staff")
 	public static Item lich_staff = new ItemLichStaff();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_queen_sword")
+	public static Item dread_queen_sword = new ItemModSword(dread_queen_sword_tools, "dread_queen_sword", "iceandfire.dread_queen_sword");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_queen_staff")
+	public static Item dread_queen_staff = new ItemDreadQueenStaff();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_shard")
 	public static Item dread_shard = new ItemGeneric("dread_shard", "iceandfire.dread_shard");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_key")

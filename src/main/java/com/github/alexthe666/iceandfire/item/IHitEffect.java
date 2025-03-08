@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.api.ChainLightningUtils;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
+import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
 import net.minecraft.entity.EntityLivingBase;
@@ -43,6 +44,18 @@ public interface IHitEffect {
         }
         else if (getMaterial() == IafItemRegistry.iceBoneTools) {
             if (target instanceof EntityFireDragon) {
+                target.attackEntityFrom(DamageSource.DROWN, 3.0F + getMaterial().getAttackDamage() + 13.5F);
+            }
+            if (!target.world.isRemote) {
+                IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(target);
+                if (capability != null) capability.setFrozen(200);
+            }
+            target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 2));
+            target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, 2));
+            target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
+        }
+        else if (getMaterial() == IafItemRegistry.dread_queen_sword_tools) {
+            if (target instanceof EntityDragonBase) {
                 target.attackEntityFrom(DamageSource.DROWN, 3.0F + getMaterial().getAttackDamage() + 13.5F);
             }
             if (!target.world.isRemote) {

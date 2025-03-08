@@ -77,7 +77,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 		this.tasks.addTask(7, new DragonAILookIdle(this));
 		this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(4, new DragonAITarget<>(this, EntityLivingBase.class, true, new Predicate<Entity>() {
 			@Override
 			public boolean apply(@Nullable Entity entity) {
@@ -276,7 +276,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 		float flightXz = 1.0F + flyProg + hoverProg;
 		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.8F - sleepProg * 0.9F) * flightXz * getRenderSize();		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
 		float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.cos(rotationYaw * Math.PI / 180));
-		float headPosY = (float) (posY + (0.7F + (sitProg * 5F) + hoverProg + deadProg + (sleepProg * 6F) + flyProg) * getRenderSize() * 0.3F);
+		float headPosY = (float) (posY + (0.7F + sitProg * 5F + (flyProg + hoverProg) * 0.45F + deadProg + sleepProg * 6F) * getRenderSize() * 0.3F);
 		float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.sin(rotationYaw * Math.PI / 180));
 		return new Vec3d(headPosX, headPosY, headPosZ);
 	}

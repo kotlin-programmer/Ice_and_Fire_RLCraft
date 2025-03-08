@@ -332,6 +332,10 @@ item.iceandfire.dread_key.name=§bグレイヴマスターキー§r
 item.iceandfire.dread_shard.name=恐怖の欠片
 item.iceandfire.dread_sword.name=恐怖のしもべの剣
 item.iceandfire.dread_knight_sword.name=恐怖の騎士の剣
+
+item.iceandfire.dread_queen_sword.name=恐怖の女王の刃
+item.iceandfire.dread_queen_staff.name=恐怖の女王の杖
+
 item.iceandfire.custom_banner.jei_desc=旗の模様付けに使えます！
 
 #BANNERS
@@ -658,6 +662,9 @@ entity.dread_lich.name=ドレッドリッチ
 entity.dread_lich_skull.name=ドレッドリッチの弾
 entity.dread_knight.name=ドレッドナイト
 entity.dread_horse.name=ドレッドナイトホース
+
+entity.black_frost.name=ドレッドクイーン
+entity.dread_queen.name=ヒドラ
 
 entity.if_hydra.name=ヒドラ
 entity.hydra_breath.name=ヒドラのブレス

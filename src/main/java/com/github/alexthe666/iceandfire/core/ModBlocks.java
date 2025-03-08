@@ -79,6 +79,8 @@ public class ModBlocks {
 	public static Block dread_stone_bricks_stairs = IafBlockRegistry.dread_stone_bricks_stairs;
 	public static BlockGenericSlab dread_stone_bricks_double_slab = IafBlockRegistry.dread_stone_bricks_double_slab;
 	public static BlockGenericSlab dread_stone_bricks_slab = IafBlockRegistry.dread_stone_bricks_slab;
+	public static BlockDreadBase dreadwood_planks = IafBlockRegistry.dreadwood_planks;
+	public static Block dreadwood_planks_lock = IafBlockRegistry.dreadwood_planks_lock;
 	public static Block dread_spawner = IafBlockRegistry.dread_spawner;
 	public static Block monster_spawner = IafBlockRegistry.monster_spawner;
 	public static Block dragonforge_bricks = IafBlockRegistry.dragonforge_bricks;

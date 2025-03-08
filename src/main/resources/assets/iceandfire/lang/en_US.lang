@@ -344,7 +344,11 @@ item.iceandfire.dread_key.name=§bGravemaster's Key§r
 item.iceandfire.dread_shard.name=Dread Shard
 item.iceandfire.dread_sword.name=Dread Thrall's Sword
 item.iceandfire.dread_knight_sword.name=Dread Knight's Sword
+item.iceandfire.dread_queen_sword.name=Blade of the Dreaded Queen
+item.iceandfire.dread_queen_staff.name=Staff of the Dreaded Queen
+
 item.iceandfire.custom_banner.jei_desc=Has a unique banner pattern!
+
 item.iceandfire.ghost_sword.name=Phantasmal Blade
 item.iceandfire.ghost_sword.desc_0=Fires a spinning sword that travels through blocks
 item.iceandfire.ectoplasm.name=Ectoplasm
@@ -698,6 +702,9 @@ entity.dread_lich.name=Dread Lich
 entity.dread_lich_skull.name=Dread Lich Skull
 entity.dread_knight.name=Dread Knight
 entity.dread_horse.name=Dread Knight Horse
+
+entity.black_frost.name=Black Frost
+entity.dread_queen.name=Dread Queen
 
 entity.if_hydra.name=Hydra
 entity.hydra_breath.name=Hydra Breath

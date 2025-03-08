@@ -333,7 +333,12 @@ item.iceandfire.dread_key.name=§bLlave del sepulturero§r
 item.iceandfire.dread_shard.name=Fragmento del horror
 item.iceandfire.dread_sword.name=Espada de Thrall del horror
 item.iceandfire.dread_knight_sword.name=Espada de Caballero del horror
+
+item.iceandfire.dread_queen_sword.name=Espada de la Reina aterradora
+item.iceandfire.dread_queen_staff.name=Baston de la Reina aterradora
+
 item.iceandfire.custom_banner.jei_desc=¡Tiene un patrón único de estandarte!
+
 item.iceandfire.ghost_sword.name=Navaja fantasmal
 item.iceandfire.ghost_sword.desc_0=Dispara una espada giratoria que atraviesa bloques
 item.iceandfire.ectoplasm.name=Ectoplasma
@@ -686,6 +691,9 @@ entity.dread_lich.name=Liche del horror
 entity.dread_lich_skull.name=Craneo de Liche del horror
 entity.dread_knight.name=Caballero del horror
 entity.dread_horse.name=Caballo del Caballero del horror
+
+entity.black_frost.name=Escarcha negra
+entity.dread_queen.name=Reina aterradora
 
 entity.if_hydra.name=Hidra
 entity.hydra_breath.name=Aliento de Hidra
