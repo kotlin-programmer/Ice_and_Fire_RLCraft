@@ -38,7 +38,6 @@ public class LayerHeadBauble implements LayerRenderer<EntityPlayer> {
 
     @Override
     public final void doRenderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(player.getItemStackFromSlot(EntityEquipmentSlot.HEAD) != ItemStack.EMPTY) return;
         if(!Config.renderBaubles || player.getActivePotionEffect(MobEffects.INVISIBILITY) != null) return;
 
         GlStateManager.enableLighting();
@@ -50,9 +49,12 @@ public class LayerHeadBauble implements LayerRenderer<EntityPlayer> {
     }
 
     protected void renderLayer(@Nonnull EntityPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale){
+        if(!this.shouldRenderInSlot(player, EntityEquipmentSlot.HEAD)) return;
         if(BaublesApi.isBaubleEquipped(player, IafItemRegistry.blindfold) == -1 && BaublesApi.isBaubleEquipped(player, IafItemRegistry.earplugs) == -1) return;
+
         ItemStack stack = BaublesApi.getBaublesHandler(player).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]);
-        if(stack.getItem() == IafItemRegistry.blindfold) Minecraft.getMinecraft().getTextureManager().bindTexture(BLINDFOLD);
+        if(!this.shouldItemStackRender(player, stack)) return;
+        else if(stack.getItem() == IafItemRegistry.blindfold) Minecraft.getMinecraft().getTextureManager().bindTexture(BLINDFOLD);
         else if(stack.getItem() == IafItemRegistry.earplugs) Minecraft.getMinecraft().getTextureManager().bindTexture(EAR_PLUGS);
 
         if(player.isSneaking()) GlStateManager.translate(0, 0.2F, 0);
@@ -63,5 +65,18 @@ public class LayerHeadBauble implements LayerRenderer<EntityPlayer> {
     @Override
     public boolean shouldCombineTextures() {
         return false;
+    }
+
+    // https://github.com/fonnymunkey/RLArtifacts/blob/1.12/src/main/java/artifacts/common/util/RenderHelper.java
+    public boolean shouldRenderInSlot(EntityPlayer player, EntityEquipmentSlot slot) {
+        ItemStack stack = player.getItemStackFromSlot(slot);
+        return stack.isEmpty() ||
+                (stack.getTagCompound() != null &&
+                        stack.getTagCompound().getBoolean("classy_hat_invisible") &&
+                        stack.getTagCompound().getCompoundTag("classy_hat_disguise").isEmpty());
+    }
+
+    public boolean shouldItemStackRender(EntityPlayer player, ItemStack stack) {
+        return stack.getTagCompound() == null || !stack.getTagCompound().getBoolean("phantom_thread_invisible");
     }
 }
