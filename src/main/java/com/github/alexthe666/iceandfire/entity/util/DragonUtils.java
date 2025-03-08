@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.util;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockDragonBone;
 import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
@@ -59,6 +60,21 @@ public class DragonUtils {
 		int allowableHeightFromGround = IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight - world.getSeaLevel();
 		BlockPos groundPos = world.getHeight(pos);
 		return Math.max(IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight, groundPos.getY() + allowableHeightFromGround);
+	}
+
+	public static BlockPos getBlockInViewEscort(EntityDragonBase dragon) {
+		BlockPos escortPos = dragon.getEscortPosition();
+		BlockPos ground = dragon.world.getHeight(escortPos);
+		int distFromGround = escortPos.getY() - ground.getY();
+		for (int i = 0; i < 10; i++) {
+			BlockPos pos = new BlockPos(escortPos.getX() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance / 2,
+					(distFromGround > 16 ? escortPos.getY() : escortPos.getY() + 8 + dragon.getRNG().nextInt(16)),
+					(escortPos.getZ() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance / 2));
+			if (!dragon.isTargetBlocked(new Vec3d(pos)) && dragon.getDistanceSqToCenter(pos) > 6) {
+				return pos;
+			}
+		}
+		return null;
 	}
 
 	public static BlockPos getBlockInView(EntityDragonBase dragon) {
@@ -314,11 +330,10 @@ public class DragonUtils {
 		return owner.equals(owner2);
 	}
 
-	public static boolean isDragonRider(Entity entity) {
+	public static boolean isDragonRider(EntityDragonBase dragon, Entity entity) {
 		if (entity instanceof EntityPlayer) {
 			return false;
-		}
-		if (entity instanceof EntityLiving) {
+		} else if (entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
 			if (!living.hasCustomName()) {
 				return false;

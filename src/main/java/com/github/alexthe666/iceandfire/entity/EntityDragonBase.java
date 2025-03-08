@@ -676,7 +676,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 if (this.isTamed() && this.getOwnerId() != null && this.getOwnerId().equals(player.getUniqueID())) {
                     return player;
                 }
-            } else if (passenger instanceof EntityLiving && DragonUtils.isDragonRider(passenger)) {
+            } else if (passenger instanceof EntityLiving && DragonUtils.isDragonRider(this, passenger)) {
                 return passenger;
             }
         }
@@ -1517,7 +1517,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 this.setFlying(false);
                 this.setHovering(false);
             }
-            if ((capability == null || !capability.isStoned()) && (this.getRNG().nextInt(FLIGHT_CHANCE_PER_TICK) == 0 && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround || this.posY < -1)) {
+            if ((capability == null || !capability.isStoned()) && (this.getRNG().nextInt(getFlightChancePerTick()) == 0 && !this.isFlying() && !this.isChild() && !this.isHovering() && this.canMove() && this.onGround || this.posY < -1)) {
                 this.setHovering(true);
                 this.setSleeping(false);
                 this.setSitting(false);
@@ -1732,7 +1732,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return bob * this.getRenderSize() / 3;
     }
 
-    private void updatePreyInMouth(Entity prey) {
+    protected void updatePreyInMouth(Entity prey) {
         this.setAnimation(ANIMATION_SHAKEPREY);
         if (this.getAnimation() == ANIMATION_SHAKEPREY && this.getAnimationTick() > 55 && prey != null) {
             this.doBiteAttack(prey);
@@ -2329,6 +2329,32 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         super.travel(strafe, forward, vertical);
     }
 
+    public boolean isAllowedToTriggerFlight() {
+        return this.hasFlightClearance() && !this.isSitting() && this.getPassengers().isEmpty() && !this.isChild() && !this.isSleeping() && this.canMove() && this.onGround;
+    }
+
+    public BlockPos getEscortPosition() {
+        return this.getOwner() != null ? this.getOwner().getPosition() : this.getPosition();
+    }
+
+    public boolean shouldTPtoOwner() {
+        return this.getOwner() != null && this.getDistance(this.getOwner()) > 10;
+    }
+
+    public boolean hasFlightClearance() {
+        BlockPos topOfBB = new BlockPos(this.posX, this.getEntityBoundingBox().maxY, this.posZ);
+        for (int i = 1; i < 4; i++) {
+            if (!world.isAirBlock(topOfBB.up(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected int getFlightChancePerTick(){
+        return FLIGHT_CHANCE_PER_TICK;
+    }
+
     public void updateCheckPlayer() {
         double checklength = this.getEntityBoundingBox().getAverageEdgeLength() * 3;
         EntityPlayer player = world.getClosestPlayerToEntity(this, checklength);
@@ -2442,10 +2468,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         float sitProg = this.sitProgress * 0.015F;
         float sleepProg = this.sleepProgress * -0.025F;
         final float flightXz = Math.max(1.0F + flyProg + hoverProg, 1.1F);
-        final float xzMod = 1.7F * getRenderSize() * (0.3F * flightXz + hoverProg * -0.45F);
-        final float headPosX = (float) (posX + (xzMod) * Math.cos((rotationYaw + 90) * Math.PI / 180));
-        final float headPosY = (float) (posY + (0.7F + (sitProg * 0.82F) + hoverProg + deadProg + sleepProg + flyProg) * getRenderSize() * 0.3F);
-        final float headPosZ = (float) (posZ + (xzMod) * Math.sin((rotationYaw + 90) * Math.PI / 180));
+        final float xzMod = getRenderSize() * (0.51F * flightXz - 0.45F * hoverProg);
+        final float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180));
+        final float headPosY = (float) (posY + (0.7F + sitProg * 0.82F + (flyProg + hoverProg) * 0.35F + deadProg + sleepProg) * getRenderSize() * 0.3F);
+        final float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180));
         return new Vec3d(headPosX, headPosY, headPosZ);
     }
 

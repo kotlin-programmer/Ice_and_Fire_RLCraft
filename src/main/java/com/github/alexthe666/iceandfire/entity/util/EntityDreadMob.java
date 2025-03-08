@@ -101,7 +101,7 @@ public class EntityDreadMob extends EntityMob implements IDreadMob {
                 if (!world.isRemote) {
                     Entity entity = world.getMinecraftServer().getWorld(this.dimension).getEntityFromUuid(uuid);
                     if (entity instanceof EntityLivingBase) {
-                        return (EntityLivingBase) entity;
+                        return entity;
                     }
                 }
             }

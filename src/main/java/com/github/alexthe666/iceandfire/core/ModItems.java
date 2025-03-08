@@ -1,9 +1,13 @@
 package com.github.alexthe666.iceandfire.core;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.item.ItemDreadQueenStaff;
+import com.github.alexthe666.iceandfire.item.ItemModSword;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModItems {
     public static ArmorMaterial copperMetal = IafItemRegistry.copperMetal;
@@ -199,7 +203,10 @@ public class ModItems {
     public static Item hydra_arrow = IafItemRegistry.hydra_arrow;
     public static Item tide_trident = IafItemRegistry.tide_trident;
     public static Item lich_staff = IafItemRegistry.lich_staff;
+    public static Item dread_queen_sword = IafItemRegistry.dread_queen_sword;
+    public static Item dread_queen_staff = IafItemRegistry.dread_queen_staff;
     public static Item dread_shard = IafItemRegistry.dread_shard;
+    public static Item dread_key = IafItemRegistry.dread_key;
     public static Item dread_sword = IafItemRegistry.dread_sword;
     public static Item dread_knight_sword = IafItemRegistry.dread_knight_sword;
     public static Item ghost_ingot = IafItemRegistry.ghost_ingot;

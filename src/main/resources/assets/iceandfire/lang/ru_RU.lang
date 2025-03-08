@@ -332,6 +332,9 @@ item.iceandfire.dread_shard.name=Осколок ужаса
 item.iceandfire.dread_sword.name=Меч раба ужаса
 item.iceandfire.dread_knight_sword.name=Меч рыцаря ужаса
 
+item.iceandfire.dread_queen_sword.name=Клинок Королевы ужаса
+item.iceandfire.dread_queen_staff.name=Посох Королевы ужаса
+
 item.iceandfire.custom_banner.jei_desc=Унакальный паттерн баннера!
 
 item.iceandfire.ghost_sword.name=Призрачный клинок
@@ -683,6 +686,9 @@ entity.dread_lich.name=Лич ужаса
 entity.dread_lich_skull.name=Череп лича ужаса
 entity.dread_knight.name=Рыцарь ужаса
 entity.dread_horse.name=Лошадь рыцаря ужаса
+
+entity.black_frost.name=Ледяная Тьма
+entity.dread_queen.name=Королева ужаса
 
 entity.if_hydra.name=Гидра
 entity.hydra_breath.name=Дыхание гидры
