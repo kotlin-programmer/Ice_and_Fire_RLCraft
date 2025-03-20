@@ -16,6 +16,7 @@ import com.github.alexthe666.iceandfire.entity.tile.TileEntitySpawnerBase;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.VariedCommoditiesCompat;
+import com.github.alexthe666.iceandfire.item.ItemBloodedArmor;
 import com.github.alexthe666.iceandfire.item.ItemGhostSword;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemTideTrident;
@@ -165,27 +166,6 @@ public class EventLiving {
 	}
 
 	@SubscribeEvent
-	public void onEntityDamage(LivingHurtEvent event) {
-		EntityLivingBase entity = event.getEntityLiving();
-		if (event.getSource().isProjectile()) {
-			float multi = 1;
-			if (entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemTrollArmor) {
-				multi -= 0.1F;
-			}
-			if (entity.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemTrollArmor) {
-				multi -= 0.3F;
-			}
-			if (entity.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemTrollArmor) {
-				multi -= 0.2F;
-			}
-			if (entity.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemTrollArmor) {
-				multi -= 0.1F;
-			}
-			event.setAmount(event.getAmount() * multi);
-		}
-	}
-
-	@SubscribeEvent
 	public void onEntityDrop(LivingDropsEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		if (entity instanceof EntityWitherSkeleton) {
@@ -197,7 +177,6 @@ public class EventLiving {
 				event.setCanceled(true);
 			}
 		}
-
 	}
 
 	@SubscribeEvent
@@ -256,20 +235,43 @@ public class EventLiving {
 		DamageSource source = event.getSource();
 		EntityLivingBase victim = event.getEntityLiving();
 
+		if (source.isProjectile()) {
+			float multi = 1;
+			if (victim.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() instanceof ItemTrollArmor) {
+				multi -= 0.1F;
+			}
+			if (victim.getItemStackFromSlot(EntityEquipmentSlot.CHEST).getItem() instanceof ItemTrollArmor) {
+				multi -= 0.3F;
+			}
+			if (victim.getItemStackFromSlot(EntityEquipmentSlot.LEGS).getItem() instanceof ItemTrollArmor) {
+				multi -= 0.2F;
+			}
+			if (victim.getItemStackFromSlot(EntityEquipmentSlot.FEET).getItem() instanceof ItemTrollArmor) {
+				multi -= 0.1F;
+			}
+			event.setAmount(event.getAmount() * multi);
+		}
+
 		if (event.getAmount() <= 0.0f
 				|| source.isProjectile()
 				|| source.isFireDamage()
 				|| source.isExplosion()
-				|| source.isMagicDamage()
-				|| !source.getDamageType().equals("player")) {
+				|| source.isMagicDamage()) {
 			return;
 		}
 
-		if (source.getImmediateSource() == source.getTrueSource() && source.getTrueSource() instanceof EntityLivingBase && victim != null) {
+		if (source.getImmediateSource() == source.getTrueSource() && source.getTrueSource() instanceof EntityLivingBase) {
 			EntityLivingBase attacker = (EntityLivingBase) source.getTrueSource();
 			ItemStack stack = attacker.getHeldItemMainhand();
-			if (stack.getItem() instanceof ItemTideTrident && stack.hasTagCompound() && ItemTideTrident.isEmpty(stack)) {
+			if (stack.getItem() instanceof ItemTideTrident
+					&& ItemTideTrident.isEmpty(stack)
+					&& source.getDamageType().equals("player")) {
 				event.setAmount(1.0f);
+			}
+			if (!CompatLoadUtil.isFirstAidLoaded()) {
+				if (victim instanceof EntityPlayer) {
+					ItemBloodedArmor.applySetEffect((EntityPlayer) victim, attacker);
+				}
 			}
 		}
 	}

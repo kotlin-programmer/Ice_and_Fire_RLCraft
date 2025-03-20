@@ -40,6 +40,44 @@ public class ChainLightningUtils {
         createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled, paralysisTicks);
     }
 
+    public static void createChainLightningToTargetFromPlayer(
+            EntityLivingBase target,
+            EntityPlayer player
+    ) {
+        if (!canHurt(target, player)) {
+            return;
+        }
+        float[] damage = new float[] {
+                IceAndFireConfig.MISC_SETTINGS.chainLightningDamagePerHop[0]
+        };
+        boolean isParalysisEnabled = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysis;
+        int[] paralysisTicks = new int[] {
+                IceAndFireConfig.MISC_SETTINGS.chainLightningParalysisTicksPerHop[0]
+        };
+
+        attackEntityWithLightningDamage(player, target, 0, damage);
+
+        if (isParalysisEnabled) {
+            applyParalysis(target, 0, paralysisTicks);
+        }
+
+        target.playSound(IafSoundRegistry.LIGHTNING_STRIKE, 0.5F, 1);
+
+        List<Integer> entities = new ArrayList<>();
+        entities.add(player.getEntityId());
+        entities.add(target.getEntityId());
+        IceAndFire.NETWORK_WRAPPER.sendToAllAround(
+                new MessageChainLightningFX(entities),
+                new NetworkRegistry.TargetPoint(
+                        player.dimension,
+                        player.posX,
+                        player.posY + player.height / 2,
+                        player.posZ,
+                        60
+                )
+        );
+    }
+
     public static void createChainLightningFromTarget(
             World world,
             EntityLivingBase target,
@@ -114,7 +152,7 @@ public class ChainLightningUtils {
                     new NetworkRegistry.TargetPoint(
                             target.dimension,
                             target.posX,
-                            target.posY+ target.height / 2,
+                            target.posY + target.height / 2,
                             target.posZ,
                             60
                     )
