@@ -18,6 +18,7 @@ import com.github.alexthe666.iceandfire.client.render.entity.player.RenderModArm
 import com.github.alexthe666.iceandfire.client.render.entity.player.RenderModCapes;
 import com.github.alexthe666.iceandfire.client.render.tile.*;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.integration.baubles.BaublesCompatBridge;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
 import com.github.alexthe666.iceandfire.entity.*;
@@ -288,6 +289,7 @@ public class ClientProxy extends CommonProxy {
 		ForgeHooksClient.registerTESRItemStack(IafItemRegistry.gorgon_head, 0, TileEntityDummyGorgonHead.class);
 		ForgeHooksClient.registerTESRItemStack(IafItemRegistry.gorgon_head, 1, TileEntityDummyGorgonHeadActive.class);
 		renderEntities();
+		BaublesCompatBridge.loadBaublesClientModels();
 	}
 
 	@SideOnly(Side.CLIENT)
