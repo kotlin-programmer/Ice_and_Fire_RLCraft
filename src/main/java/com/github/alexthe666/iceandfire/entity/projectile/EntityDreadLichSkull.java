@@ -35,12 +35,12 @@ public class EntityDreadLichSkull extends EntityArrow {
     public EntityDreadLichSkull(World worldIn, double x, double y, double z) {
         this(worldIn);
         this.setPosition(x, y, z);
-        this.setDamage(5F);
+        this.setDamage(6F);
     }
 
     public EntityDreadLichSkull(World worldIn, EntityLivingBase shooter, double x, double y, double z) {
         super(worldIn, shooter);
-        this.setDamage(5F);
+        this.setDamage(6F);
         targetSorter = new EntityAINearestAttackableTarget.Sorter(shooter);
     }
 
@@ -135,6 +135,9 @@ public class EntityDreadLichSkull extends EntityArrow {
             if (this.shootingEntity != null && entity.isOnSameTeam(this.shootingEntity)) {
                 return;
             }
+            motionX = 0F;
+            motionY = 1F;
+            motionZ = 0F;
         }
         super.onHit(raytraceResultIn);
     }
