@@ -41,7 +41,7 @@ public class ItemLichStaff extends ItemGeneric {
         charge.shoot(d2, d3, d4, 1, 1);
         playerIn.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1F, 0.75F + 0.5F * playerIn.getRNG().nextFloat());
         itemStackIn.damageItem(1, playerIn);
-        playerIn.getCooldownTracker().setCooldown(this, 4);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+        playerIn.getCooldownTracker().setCooldown(this, 8);
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
     }
 }
