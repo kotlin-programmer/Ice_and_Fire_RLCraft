@@ -867,6 +867,11 @@ public class IceAndFireConfig {
 		@Config.Name("Tide Trident Underwater Damage Multiplier")
 		@Config.RangeDouble(min = 1, max = 1000)
 		public float tideTridentUnderwaterDamageMultiplier = 2.0f;
+
+		@Config.Comment("Length in required between the activation of the Blooded Dragon Armor Set Effects")
+		@Config.Name("Blooded Dragon Armor Set Effect Cooldown")
+		@Config.RangeInt(min = 10, max = 1000)
+		public int bloodedDragonArmorSetEffectCooldown = 300;
 	}
 
 	public static class ClientConfig {

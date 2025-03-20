@@ -11,6 +11,7 @@ import com.github.alexthe666.iceandfire.event.StructureGenerator;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.RLCombatCompat;
 import com.github.alexthe666.iceandfire.integration.crafttweaker.CraftTweakerCompatBridge;
+import com.github.alexthe666.iceandfire.integration.firstaid.FirstAidCompat;
 import com.github.alexthe666.iceandfire.integration.thaumcraft.ThaumcraftCompatBridge;
 import com.github.alexthe666.iceandfire.integration.theoneprobe.TheOneProbeCompatBridge;
 import com.github.alexthe666.iceandfire.loot.CustomizeToDragon;
@@ -87,6 +88,7 @@ public class IceAndFire {
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         if(CompatLoadUtil.isRLCombatLoaded()) MinecraftForge.EVENT_BUS.register(RLCombatCompat.class);
+        if(CompatLoadUtil.isFirstAidLoaded()) MinecraftForge.EVENT_BUS.register(FirstAidCompat.class);
         TAB_ITEMS = new CreativeTab(MODID + "_items");
         TAB_BLOCKS = new CreativeTab(MODID + "_blocks");
         MinecraftForge.EVENT_BUS.register(PROXY);
