@@ -1,5 +1,6 @@
-itemGroup.iceandfire=Ice And Fire
-iceandfire.empty=Empty
+itemGroup.iceandfire_items=Ice And Fire: Articles
+itemGroup.iceandfire_blocks=Ice And Fire: Blocs
+iceandfire.empty =Empty
 
 tile.iceandfire.lectern.name=Lectern
 tile.iceandfire.podium.name=Podium

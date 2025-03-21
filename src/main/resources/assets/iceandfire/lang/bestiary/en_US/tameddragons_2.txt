@@ -34,8 +34,8 @@ single egg, of any color.
 
 
 
-Dragon horns canbe used to summon
-and desummon dragons. One can
-desummon a dragon by interacting
+Dragon horns can be used to summon
+and de-summon dragons. One can
+de-summon a dragon by interacting
 with it while holding a horn, and
 blowing a horn can summon one.

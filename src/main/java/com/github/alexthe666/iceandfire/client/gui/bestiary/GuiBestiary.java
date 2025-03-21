@@ -291,6 +291,7 @@ public class GuiBestiary extends GuiScreen {
 			case LIGHTNINGDRAGONEGG:
 			case HYDRA:
 			case DREAD_MOBS:
+			case DRAGONFORGE:
 				drawFromTxt();
 				writeFromTxt();
 				break;

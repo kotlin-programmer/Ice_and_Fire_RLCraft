@@ -26,18 +26,15 @@ alvo e irão curar o atirador.
 
 
 
-O coração da hidra é um item raro
-amplamente procurado pelos seus
-efeitos. Enquanto estiver equipado
-na barra de itens, o coração da hidra
-fornecerá níveis crescentes de 
-regeneração tendo como base a 
-quantidade de vida perdida pelo 
-usuário.
 
-O coração poderoso deste
-monstro faz com que a
-difícil batalha valha à
-pena, isso explica o 
-motivo do covil da Hidra
-conter tantos ossos.
+
+
+O coração de hidra é um item raro
+da fera, amplamente cobiçado por
+suas propriedades regenerativas.
+
+O poderoso coração dessa criatura
+torna a difícil batalha muito
+recompensadora — e talvez explique
+por que a caverna da Hidra contém
+tantos ossos.
