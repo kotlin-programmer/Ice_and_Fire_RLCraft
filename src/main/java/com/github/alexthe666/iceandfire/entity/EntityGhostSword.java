@@ -159,11 +159,8 @@ public class EntityGhostSword extends EntityArrow
                     }
                 }
             }
-
-            this.playSound(SoundEvents.ENTITY_ARROW_HIT, 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
-            if (!(entity instanceof EntityEnderman)) {
-                this.setDead();
-            }
+        } else {
+            this.setDead();
         }
     }
 
