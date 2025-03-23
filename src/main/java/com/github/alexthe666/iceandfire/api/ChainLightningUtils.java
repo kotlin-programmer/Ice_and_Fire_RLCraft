@@ -30,13 +30,18 @@ public class ChainLightningUtils {
         float[] damage = IceAndFireConfig.MISC_SETTINGS.chainLightningDamagePerHop;
         int range = IceAndFireConfig.MISC_SETTINGS.chainLightningRange;
         boolean isParalysisEnabled = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysis;
+        createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled);
+    }
 
+    public static void createChainLightningFromTarget(World world, EntityLivingBase target, EntityLivingBase attacker) {
+        float[] damage = IceAndFireConfig.MISC_SETTINGS.chainLightningDamagePerHop;
+        int range = IceAndFireConfig.MISC_SETTINGS.chainLightningRange;
+        boolean isParalysisEnabled = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysis;
         createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled);
     }
 
     public static void createChainLightningFromTarget(World world, EntityLivingBase target, Entity attacker, float[] damage, int range, boolean isParalysisEnabled) {
         int[] paralysisTicks = IceAndFireConfig.MISC_SETTINGS.chainLightningParalysisTicksPerHop;
-
         createChainLightningFromTarget(world, target, attacker, damage, range, isParalysisEnabled, paralysisTicks);
     }
 
