@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -60,17 +61,17 @@ public class EntityDragonArrow extends EntityArrow {
 
 	public EntityDragonArrow(World worldIn) {
 		super(worldIn);
-		this.setDamage(10);
+		this.setDamage(6);
 	}
 
 	public EntityDragonArrow(World worldIn, double x, double y, double z) {
 		super(worldIn, x, y, z);
-		this.setDamage(10);
+		this.setDamage(6);
 	}
 
 	public EntityDragonArrow(World worldIn, EntityLivingBase shooter) {
 		super(worldIn, shooter);
-		this.setDamage(10);
+		this.setDamage(6);
 	}
 
 	@Override
@@ -82,6 +83,16 @@ public class EntityDragonArrow extends EntityArrow {
 	public void setType(Type type) {
 		this.getDataManager().set(TYPE, type.ordinal());
 		this.getDataManager().setDirty(TYPE);
+	}
+
+	public void shoot(Entity shooter, float pitch, float yaw, float p_184547_4_, float velocity, float inaccuracy)
+	{
+		super.shoot(shooter, pitch, yaw, p_184547_4_, velocity * 0.8f, inaccuracy);
+	}
+
+	public void shoot(double x, double y, double z, float velocity, float inaccuracy)
+	{
+		super.shoot(x, y, z, velocity * 0.8f, inaccuracy);
 	}
 
 	@Override

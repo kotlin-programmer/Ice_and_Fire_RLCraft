@@ -78,11 +78,17 @@ public class ItemDragonBow extends ItemBow implements ICustomRendered {
 			return player.getHeldItem(EnumHand.OFF_HAND);
 		} else if (isDragonboneArrow(player.getHeldItem(EnumHand.MAIN_HAND))) {
 			return player.getHeldItem(EnumHand.MAIN_HAND);
+		} else if (isArrowStack(player.getHeldItem(EnumHand.OFF_HAND))) {
+			return ItemStack.EMPTY;
+		} else if (isArrowStack(player.getHeldItem(EnumHand.MAIN_HAND))) {
+			return ItemStack.EMPTY;
 		}
 		for (int i = 0; i < player.inventory.getSizeInventory(); ++i) {
 			ItemStack stack = player.inventory.getStackInSlot(i);
 			if (isDragonboneArrow(stack)) {
 				return stack;
+			} else if (isArrowStack(stack)) {
+				return ItemStack.EMPTY;
 			}
 		}
 		return ItemStack.EMPTY;
@@ -97,6 +103,14 @@ public class ItemDragonBow extends ItemBow implements ICustomRendered {
 				|| stack.getItem() == IafItemRegistry.dragonbone_arrow_ice
 				|| stack.getItem() == IafItemRegistry.dragonbone_arrow_lightning;
 	}
+
+	private static boolean isArrowStack(ItemStack stack) {
+		if (stack.isEmpty()) {
+			return false;
+		}
+		return stack.getItem() instanceof ItemArrow;
+	}
+
 
 	@Override
 	public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
@@ -121,7 +135,7 @@ public class ItemDragonBow extends ItemBow implements ICustomRendered {
 
 					if (!worldIn.isRemote) {
 						EntityArrow arrow = createArrow(worldIn, itemstack, entityplayer);
-						arrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+						arrow.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 0.7F);
 
 						if (f == 1.0F) {
 							arrow.setIsCritical(true);
@@ -166,6 +180,17 @@ public class ItemDragonBow extends ItemBow implements ICustomRendered {
 				}
 			}
 		}
+	}
+
+	public static float getArrowVelocity(int charge) {
+		float f = (float)charge / 20.0F;
+		f = (f * f + f * 2.0F) / 3.0F;
+
+		if (f > 1.25F) {
+			f = 1.25F;
+		}
+
+		return f;
 	}
 
 	public boolean hasInfinity(ItemStack bow) {

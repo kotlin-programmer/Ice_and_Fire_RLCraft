@@ -1,16 +1,9 @@
 package com.github.alexthe666.iceandfire.core;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonArrow;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.item.ItemDragonBow;
-import com.github.alexthe666.iceandfire.item.ItemDreadQueenStaff;
-import com.github.alexthe666.iceandfire.item.ItemGeneric;
-import com.github.alexthe666.iceandfire.item.ItemModSword;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModItems {
     public static ArmorMaterial copperMetal = IafItemRegistry.copperMetal;
