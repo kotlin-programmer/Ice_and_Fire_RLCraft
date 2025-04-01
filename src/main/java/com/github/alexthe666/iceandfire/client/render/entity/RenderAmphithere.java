@@ -2,9 +2,11 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelAmphithere;
 import com.github.alexthe666.iceandfire.entity.EntityAmphithere;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
@@ -16,12 +18,13 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 	private static final ResourceLocation TEXTURE_BLUE_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_blue_blink.png");
 	private static final ResourceLocation TEXTURE_GREEN = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_green.png");
 	private static final ResourceLocation TEXTURE_GREEN_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_green_blink.png");
-	private static final ResourceLocation TEXTURE_OLIVE = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_olive.png");
-	private static final ResourceLocation TEXTURE_OLIVE_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_olive_blink.png");
+	private static final ResourceLocation TEXTURE_PURPLE = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_purple.png");
+	private static final ResourceLocation TEXTURE_PURPLE_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_purple_blink.png");
 	private static final ResourceLocation TEXTURE_RED = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_red.png");
 	private static final ResourceLocation TEXTURE_RED_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_red_blink.png");
 	private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_yellow.png");
 	private static final ResourceLocation TEXTURE_YELLOW_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_yellow_blink.png");
+	private static final String NISCHHELM = "Nischhelm";
 
 	public RenderAmphithere(RenderManager renderManager) {
 		super(renderManager, new ModelAmphithere(), 1.6F);
@@ -29,7 +32,15 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 
 	@Override
 	public void preRenderCallback(EntityAmphithere entitylivingbaseIn, float partialTickTime) {
-		GL11.glScalef(2.0F, 2.0F, 2.0F);
+		String s = TextFormatting.getTextWithoutFormattingCodes(entitylivingbaseIn.getName());
+		if (s != null && s.equals(NISCHHELM)) {
+			GlStateManager.translate(0, -entitylivingbaseIn.height, 0);
+			GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
+			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
+			GL11.glScalef(1.1F, 1.1F, 1.1F);
+		} else {
+			GL11.glScalef(2.0F, 2.0F, 2.0F);
+		}
 	}
 
 	@Override
@@ -37,7 +48,7 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 		switch(amphithere.getVariant()) {
 			case 0: return amphithere.isBlinking() ? TEXTURE_BLUE_BLINK : TEXTURE_BLUE;
 			case 1: return amphithere.isBlinking() ? TEXTURE_GREEN_BLINK : TEXTURE_GREEN;
-			case 2: return amphithere.isBlinking() ? TEXTURE_OLIVE_BLINK : TEXTURE_OLIVE;
+			case 2: return amphithere.isBlinking() ? TEXTURE_PURPLE_BLINK : TEXTURE_PURPLE;
 			case 3: return amphithere.isBlinking() ? TEXTURE_RED_BLINK : TEXTURE_RED;
 			case 4: return amphithere.isBlinking() ? TEXTURE_YELLOW_BLINK : TEXTURE_YELLOW;
 			default: return TEXTURE_GREEN;
