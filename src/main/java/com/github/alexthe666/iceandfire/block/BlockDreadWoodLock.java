@@ -5,7 +5,6 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,10 +15,10 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlock {
-    public static final PropertyBool PLAYER_PLACED = PropertyBool.create("player_placed");
 
     public BlockDreadWoodLock() {
         super(Material.ROCK);
@@ -29,7 +28,7 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
         this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire.dreadwood_planks_lock");
         this.setRegistryName(IceAndFire.MODID, "dreadwood_planks_lock");
-        this.setDefaultState(this.blockState.getBaseState().withProperty(PLAYER_PLACED, Boolean.valueOf(false)));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(PLAYER_PLACED, Boolean.FALSE));
     }
 
     @Override
@@ -39,8 +38,8 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = playerIn.getHeldItem(hand);
-        if(stack.getItem() == IafItemRegistry.dread_key) {
-            if(!playerIn.isCreative()){
+        if (stack.getItem() == IafItemRegistry.dread_key) {
+            if (!playerIn.isCreative()) {
                 stack.shrink(1);
             }
             deleteNearbyWood(worldIn, pos, pos);
@@ -52,9 +51,11 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
 
     private void deleteNearbyWood(World worldIn, BlockPos pos, BlockPos startPos) {
         if(pos.getDistance(startPos.getX(), startPos.getY(), startPos.getZ()) < 32){
-            if(worldIn.getBlockState(pos).getBlock() == IafBlockRegistry.dreadwood_planks || worldIn.getBlockState(pos).getBlock() == IafBlockRegistry.dreadwood_planks_lock){
+            IBlockState state = worldIn.getBlockState(pos);
+            if(state.getBlock() == IafBlockRegistry.dreadwood_planks || state.getBlock() == IafBlockRegistry.dreadwood_planks_lock) {
+                worldIn.setBlockState(pos, state.getBlock().getDefaultState().withProperty(PLAYER_PLACED, true));
                 worldIn.destroyBlock(pos, false);
-                for(EnumFacing facing : EnumFacing.values()){
+                for (EnumFacing facing : EnumFacing.values()) {
                     deleteNearbyWood(worldIn, pos.offset(facing), startPos);
                 }
             }
@@ -62,11 +63,11 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
     }
 
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(PLAYER_PLACED, Boolean.valueOf(meta > 0));
+        return this.getDefaultState().withProperty(PLAYER_PLACED, meta > 0);
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(PLAYER_PLACED).booleanValue() ? 1 : 0;
+        return state.getValue(PLAYER_PLACED) ? 1 : 0;
     }
 
     protected BlockStateContainer createBlockState() {
@@ -75,5 +76,14 @@ public class BlockDreadWoodLock extends Block implements IDragonProof, IDreadBlo
 
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(PLAYER_PLACED, true);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+        IBlockState state = world.getBlockState(pos);
+        if (IDreadBlock.isIndestructible(state)) {
+            return player.capabilities.isCreativeMode;
+        }
+        return super.canHarvestBlock(world, pos, player);
     }
 }

@@ -40,7 +40,7 @@ public class ItemDragonBow extends ItemBow implements ICustomRendered {
 					return 0.0F;
 				} else {
 					ItemStack itemstack = entityIn.getActiveItemStack();
-					return !itemstack.isEmpty() && itemstack.getItem() == IafItemRegistry.dragonbone_bow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
+					return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemDragonBow ? (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 20.0F : 0.0F;
 				}
 			}
 		});

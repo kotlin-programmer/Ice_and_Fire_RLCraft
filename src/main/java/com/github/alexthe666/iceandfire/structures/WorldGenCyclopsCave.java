@@ -29,7 +29,7 @@ public class WorldGenCyclopsCave extends WorldGenerator {
         int i2 = i1 - 2;
         int sheepPenCount = 0;
         int dist = 6;
-        if(worldIn.isAirBlock(position.add(i1 - dist, -3, -i1 + dist)) || worldIn.isAirBlock(position.add(i1 - dist, -3, i1 - dist)) || worldIn.isAirBlock(position.add(-i1 + dist, -3, -i1 + dist)) || worldIn.isAirBlock(position.add(-i1 + dist, -3, i1 - dist))){
+        if (worldIn.isAirBlock(position.add(i1 - dist, -3, -i1 + dist)) || worldIn.isAirBlock(position.add(i1 - dist, -3, i1 - dist)) || worldIn.isAirBlock(position.add(-i1 + dist, -3, -i1 + dist)) || worldIn.isAirBlock(position.add(-i1 + dist, -3, i1 - dist))){
             return false;
         }
 
@@ -49,12 +49,11 @@ public class WorldGenCyclopsCave extends WorldGenerator {
                     if (!(worldIn.getBlockState(position).getBlock() instanceof BlockChest) && worldIn.getBlockState(position).getBlock().getBlockHardness(worldIn.getBlockState(position), worldIn, position) >= 0 && isNotInDoorway) {
                         worldIn.setBlockState(blockpos, Blocks.STONE.getDefaultState(), 3);
                     }
-                    if(blockpos.getY() == position.getY()){
+                    if (blockpos.getY() == position.getY()){
                         worldIn.setBlockState(blockpos, Blocks.MOSSY_COBBLESTONE.getDefaultState(), 3);
                     }
-                    if(blockpos.getY() <= position.getY() - 1 && !worldIn.isBlockFullCube(blockpos)){
+                    if (blockpos.getY() <= position.getY() - 1 && !worldIn.isBlockFullCube(blockpos)){
                         worldIn.setBlockState(blockpos, Blocks.COBBLESTONE.getDefaultState(), 3);
-
                     }
                 }
             }
@@ -77,15 +76,15 @@ public class WorldGenCyclopsCave extends WorldGenerator {
             }
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
                 if (blockpos.distanceSq(position) <= (double) (f * f) && blockpos.getY() == position.getY()) {
-                    if(rand.nextInt(130) == 0 && isTouchingAir(worldIn, blockpos.up())){
+                    if (rand.nextInt(130) == 0 && isTouchingAir(worldIn, blockpos.up())){
                         this.genSkeleton(worldIn, blockpos.up(), rand, position, f);
                     }
 
-                    if(rand.nextInt(130) == 0 && blockpos.distanceSq(position) <= (double) (f * f) * 0.8F && sheepPenCount < 2){
+                    if (rand.nextInt(130) == 0 && blockpos.distanceSq(position) <= (double) (f * f) * 0.8F && sheepPenCount < 2){
                         this.genSheepPen(worldIn, blockpos.up(), rand, position, f);
                         sheepPenCount++;
                     }
-                    if(rand.nextInt(80) == 0 && isTouchingAir(worldIn, blockpos.up())){
+                    if (rand.nextInt(80) == 0 && isTouchingAir(worldIn, blockpos.up())){
                         worldIn.setBlockState(blockpos.up(), IafBlockRegistry.goldPile.getDefaultState().withProperty(BlockCoinPile.LAYERS, 8), 3);
                         worldIn.setBlockState(blockpos.up().north(), IafBlockRegistry.goldPile.getDefaultState().withProperty(BlockCoinPile.LAYERS, 1 + new Random().nextInt(7)), 3);
                         worldIn.setBlockState(blockpos.up().south(), IafBlockRegistry.goldPile.getDefaultState().withProperty(BlockCoinPile.LAYERS, 1 + new Random().nextInt(7)), 3);
@@ -102,7 +101,7 @@ public class WorldGenCyclopsCave extends WorldGenerator {
                     }
 
 
-                    if(rand.nextInt(50) == 0 && isTouchingAir(worldIn, blockpos.up())){
+                    if (rand.nextInt(50) == 0 && isTouchingAir(worldIn, blockpos.up())){
                         int torchHeight = rand.nextInt(2) + 1;
                         for(int fence = 0; fence < torchHeight; fence++){
                             worldIn.setBlockState(blockpos.up(1 + fence), Blocks.OAK_FENCE.getDefaultState());
@@ -129,13 +128,13 @@ public class WorldGenCyclopsCave extends WorldGenerator {
             for(int side = 0; side < width; side++){
                 if (origin.distanceSq(end.offset(direction, side)) <= (double) (radius * radius)) {
                     worldIn.setBlockState(end.offset(direction, side), Blocks.OAK_FENCE.getDefaultState());
-                    if(worldIn.isAirBlock(end.offset(direction, side).offset(direction.rotateY())) && sheepsSpawned < sheeps){
+                    if (worldIn.isAirBlock(end.offset(direction, side).offset(direction.rotateY())) && sheepsSpawned < sheeps){
                         BlockPos sheepPos = end.offset(direction, side).offset(direction.rotateY());
 
                         EntitySheep entitySheep = new EntitySheep(worldIn);
                         entitySheep.setPosition(sheepPos.getX() + 0.5F, sheepPos.getY() + 0.5F, sheepPos.getZ() + 0.5F);
                         entitySheep.setFleeceColor(rand.nextInt(4) == 0 ? EnumDyeColor.YELLOW : EnumDyeColor.WHITE);
-                        if(!worldIn.isRemote){
+                        if (!worldIn.isRemote){
                             worldIn.spawnEntity(entitySheep);
                         }
                         sheepsSpawned++;
@@ -157,7 +156,7 @@ public class WorldGenCyclopsCave extends WorldGenerator {
     private boolean isTouchingAir(World worldIn, BlockPos pos){
         boolean isTouchingAir = true;
         for(EnumFacing direction : EnumFacing.HORIZONTALS){
-            if(!worldIn.isAirBlock(pos.offset(direction))){
+            if (!worldIn.isAirBlock(pos.offset(direction))){
                 isTouchingAir = false;
             }
         }
@@ -173,7 +172,7 @@ public class WorldGenCyclopsCave extends WorldGenerator {
             if (origin.distanceSq(segment) <= (double) (radius * radius)){
                 worldIn.setBlockState(segment, Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockBone.AXIS, direction.getAxis()));
             }
-            if(spine % 2 != 0){
+            if (spine % 2 != 0){
                 BlockPos rightRib = segment.offset(direction.rotateYCCW());
                 BlockPos leftRib = segment.offset(direction.rotateY());
                 if (origin.distanceSq(rightRib) <= (double) (radius * radius)) {

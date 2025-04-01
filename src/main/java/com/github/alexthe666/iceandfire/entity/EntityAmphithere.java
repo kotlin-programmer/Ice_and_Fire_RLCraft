@@ -681,6 +681,9 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             if (this.isOwner(this.getAttackTarget()) || DragonUtils.isControllingPassenger(this, this.getAttackTarget())) {
                 this.setAttackTarget(null);
             }
+            if (this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
+                this.setAttackTarget(null);
+            }
         }
     }
 

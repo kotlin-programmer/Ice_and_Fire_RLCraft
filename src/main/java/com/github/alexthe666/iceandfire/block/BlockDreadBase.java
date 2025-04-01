@@ -2,16 +2,16 @@ package com.github.alexthe666.iceandfire.block;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDreadBlock {
-    public static final PropertyBool PLAYER_PLACED = PropertyBool.create("player_placed");
 
     public BlockDreadBase(Material materialIn, String gameName, String name, String toolUsed, int toolStrength, float hardness, float resistance, SoundType sound) {
         super(materialIn, gameName, name, toolUsed, toolStrength, hardness, resistance, sound);
@@ -51,5 +51,14 @@ public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDread
     @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         return this.getDefaultState().withProperty(PLAYER_PLACED, Boolean.TRUE);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+        IBlockState state = world.getBlockState(pos);
+        if (IDreadBlock.isIndestructible(state)) {
+            return player.capabilities.isCreativeMode;
+        }
+        return super.canHarvestBlock(world, pos, player);
     }
 }

@@ -238,15 +238,15 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledCobblestone, (new StateMap.Builder()).ignore(BlockReturningState.REVERTS).build());
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledGravel, (new StateMap.Builder()).ignore(BlockFallingReturningState.REVERTS).build());
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.crackledGrassPath, (new StateMap.Builder()).ignore(BlockPath.REVERTS).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_chiseled, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_cracked, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_mossy, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_tile, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_face, (new StateMap.Builder()).ignore(BlockDreadStoneFace.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dreadwood_planks, (new StateMap.Builder()).ignore(BlockDreadBase.PLAYER_PLACED).build());
-		ModelLoader.setCustomStateMapper(IafBlockRegistry.dreadwood_planks_lock, (new StateMap.Builder()).ignore(BlockDreadWoodLock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_chiseled, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_cracked, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_mossy, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_tile, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_face, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dreadwood_planks, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dreadwood_planks_lock, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
 		try {
 			for (Field f : IafBlockRegistry.class.getDeclaredFields()) {
 				Object obj = f.get(null);

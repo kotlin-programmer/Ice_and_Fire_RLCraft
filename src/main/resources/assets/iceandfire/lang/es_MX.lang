@@ -849,11 +849,11 @@ silvertools.hurt=Daño contra no-muertos: +2
 myrmextools.hurt=Daño contra no-artropodos y Gusanos de la Muerte: +4
 myrmextools.poison=Envenena por 10 segundos
 
-dragon_sword_fire.hurt1=Daño contra Dragones de hielo: +8
+dragon_sword_fire.hurt1=Daño contra Dragones de hielo: +13.5
 dragon_sword_fire.hurt2=Incendia y empuja a enemigos
-dragon_sword_ice.hurt1=Daño contra Dragones de fuego: +8
+dragon_sword_ice.hurt1=Daño contra Dragones de fuego: +13.5
 dragon_sword_ice.hurt2=Ralentiza y empuja a enemigos
-dragon_sword_lightning.hurt1=Daño contra Dragones de fuego y hielo: +4
+dragon_sword_lightning.hurt1=Daño contra Dragones de fuego y hielo: +6.75
 dragon_sword_lightning.hurt2=§5Golpea a los enemigos con un rayo
 
 message.iceandfire.tryAgain=Por favor inténtalo de nuevo.

@@ -1048,7 +1048,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		if (world.isRemote) {
 			roll_buffer.calculateChainFlapBuffer(35, 8, 6, this);
 		}
-		if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() != null && this.getAttackTarget() instanceof EntityDragonBase && ((EntityDragonBase) this.getAttackTarget()).isDead) {
+		if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
 			this.setAttackTarget(null);
 		}
 	}

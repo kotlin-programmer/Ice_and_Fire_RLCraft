@@ -840,11 +840,11 @@ silvertools.hurt=+2 dégâts contre les morts-vivants
 myrmextools.hurt=+4 dégâts contre les non-arthropodes et les vers des sables
 myrmextools.poison=poison pendant 10 secondes
 
-dragon_sword_fire.hurt1=+8 dégâts contre les Dragons de Glace
+dragon_sword_fire.hurt1=+13.5 dégâts contre les Dragons de Glace
 dragon_sword_fire.hurt2=Enflamme et renverse les cibles
-dragon_sword_ice.hurt1=+8 dégâts contre les Dragons de Feu
+dragon_sword_ice.hurt1=+13.5 dégâts contre les Dragons de Feu
 dragon_sword_ice.hurt2=Ralentit et fait reculer les cibles
-dragon_sword_lightning.hurt1=+4 dégâts contre les Dragons de Feu et de Glace
+dragon_sword_lightning.hurt1=+6.75 dégâts contre les Dragons de Feu et de Glace
 dragon_sword_lightning.hurt2=Frappe les cibles avec la foudre
 
 message.iceandfire.tryAgain=Veuillez réessayer.

@@ -1931,7 +1931,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             turn_buffer.calculateChainSwingBuffer(50, 0, 4, this);
             tail_buffer.calculateChainSwingBuffer(90, 10, 2.5F, this);
         }
-        if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() != null && this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
+        if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
             this.setAttackTarget(null);
         }
         if (!this.world.isRemote) {

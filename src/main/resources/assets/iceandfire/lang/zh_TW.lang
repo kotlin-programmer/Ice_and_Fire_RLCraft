@@ -418,9 +418,9 @@ silvertools.hurt=+2 對亡靈生物的傷害
 myrmextools.hurt=+4 對非節肢生物和死亡蠕蟲的傷害
 myrmextools.poison=中毒10秒
 
-dragon_sword_fire.hurt1=+8 冰龍克制
+dragon_sword_fire.hurt1=+13.5 冰龍克制
 dragon_sword_fire.hurt2=點燃並擊退目標
-dragon_sword_ice.hurt1=+8 火龍克制
+dragon_sword_ice.hurt1=+13.5 火龍克制
 dragon_sword_ice.hurt2=減速並擊退目標
 
 message.iceandfire.dragonWander=龍正待命.

@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
 import com.github.alexthe666.iceandfire.block.BlockMonsterSpawner;
+import com.github.alexthe666.iceandfire.block.IDreadBlock;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModPotions;
@@ -24,6 +25,8 @@ import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
 import com.github.alexthe666.iceandfire.message.MessageSwingArm;
 import com.github.alexthe666.iceandfire.structures.WorldGenLightningDragonCave;
+import com.lycanitesmobs.core.info.altar.AltarInfoCelestialGeonach;
+import com.lycanitesmobs.core.mobevent.trigger.AltarMobEventTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
@@ -41,6 +44,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -115,6 +119,11 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onEntityMount(EntityMountEvent event) {
+		if (event.isMounting() && event.getEntityMounting() instanceof IDreadMob) {
+			if (!(event.getEntityBeingMounted() instanceof AbstractHorse || event.getEntityBeingMounted() instanceof IDreadMob)) {
+				event.setCanceled(true);
+			}
+		}
 		if (event.getEntityMounting() instanceof  EntityPlayer) {
 			if (event.isDismounting()) {
 				if (!DragonUtils.canDismount(event.getEntityBeingMounted())) {
@@ -129,7 +138,6 @@ public class EventLiving {
 				}
 			}
 		}
-
 		if (event.getEntityBeingMounted() instanceof EntityDragonBase) {
 			EntityDragonBase dragon = (EntityDragonBase)event.getEntityBeingMounted();
 			if (event.isDismounting() && event.getEntityMounting() instanceof EntityPlayer && !event.getEntityMounting().world.isRemote) {
@@ -161,6 +169,12 @@ public class EventLiving {
 			if (event.isDismounting() && event.getEntityMounting() instanceof EntityPlayer && !event.getEntityMounting().world.isRemote && amphithere.isOwner((EntityPlayer)event.getEntityMounting())) {
 				EntityPlayer player = (EntityPlayer) event.getEntityMounting();
 				amphithere.setPositionAndRotation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
+			}
+		}
+		if (event.isMounting()) {
+			AxisAlignedBB bb = event.getEntityBeingMounted().getEntityBoundingBox();
+			if (IDreadBlock.containsIndestructibleBlock(event.getWorldObj(), bb)) {
+				event.setCanceled(true);
 			}
 		}
 	}
@@ -400,9 +414,9 @@ public class EventLiving {
 	}
 
 	@SubscribeEvent
-	public void onEntityUseItem(PlayerInteractEvent.RightClickItem event){
+	public void onEntityUseItem(PlayerInteractEvent.RightClickItem event) {
 		EntityLivingBase entity = event.getEntityLiving();
-		if (entity instanceof EntityPlayer && event.getHand() == EnumHand.MAIN_HAND && entity.rotationPitch > 87 && entity.getRidingEntity() != null && entity.getRidingEntity() instanceof EntityDragonBase){
+		if (entity instanceof EntityPlayer && event.getHand() == EnumHand.MAIN_HAND && entity.rotationPitch > 87 && entity.getRidingEntity() != null && entity.getRidingEntity() instanceof EntityDragonBase) {
 			((EntityDragonBase) entity.getRidingEntity()).processInteract((EntityPlayer)entity, event.getHand());
 		}
 	}
@@ -517,11 +531,23 @@ public class EventLiving {
 	}
 
 	@SubscribeEvent
+	public void onPlayerLeftClick(PlayerInteractEvent.LeftClickBlock event) {
+		if (event.getEntityPlayer() != null && event.getEntityPlayer().capabilities.isCreativeMode) {
+			return;
+		}
+		IBlockState state = event.getWorld().getBlockState(event.getPos());
+		if (IDreadBlock.isIndestructible(state)) {
+			event.setCanceled(true);
+		}
+	}
+
+	@SubscribeEvent
 	public void onBreakBlock(BlockEvent.BreakEvent event) {
 		if (event.getPlayer() == null) {
 			return;
 		}
-		Block block = event.getState().getBlock();
+		IBlockState state = event.getState();
+		Block block = state.getBlock();
 		EntityPlayer player = event.getPlayer();
 		if (block == IafBlockRegistry.goldPile || block == IafBlockRegistry.silverPile || block == IafBlockRegistry.diamondPile) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
@@ -549,6 +575,27 @@ public class EventLiving {
 					event.setCanceled(true);
 				}
 			}
+		}
+		if (player == null || !player.capabilities.isCreativeMode) {
+			if (IDreadBlock.isIndestructible(state)) {
+				event.setCanceled(true);
+			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onLivingDestroyBlock(LivingDestroyBlockEvent event) {
+		IBlockState state = event.getState();
+		if (IDreadBlock.isIndestructible(state)) {
+			event.setCanceled(true);
+		}
+	}
+
+	@SubscribeEvent
+	public void onEnderTeleport(EnderTeleportEvent event) {
+		BlockPos pos = new BlockPos(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+		if (IDreadBlock.isBlockInsideMausoleum(event.getEntity().world, pos)) {
+			event.setCanceled(true);
 		}
 	}
 

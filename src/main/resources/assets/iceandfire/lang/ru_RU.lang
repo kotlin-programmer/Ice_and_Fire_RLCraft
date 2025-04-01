@@ -842,11 +842,11 @@ silvertools.hurt=+2 урон против нежити
 myrmextools.hurt=+4 урона против не-членистоногих и червей смерти
 myrmextools.poison=отравление на 10 секунд
 
-dragon_sword_fire.hurt1=+8 урон против ледяных драконов
+dragon_sword_fire.hurt1=+13.5 урон против ледяных драконов
 dragon_sword_fire.hurt2=Поджигает и отбрасывает цель
-dragon_sword_ice.hurt1=+8 урон против огненных драконов
+dragon_sword_ice.hurt1=+13.5 урон против огненных драконов
 dragon_sword_ice.hurt2=Замедляет и отбрасывает цель
-dragon_sword_lightning.hurt1=+4 урон против огненных и ледяных драконов
+dragon_sword_lightning.hurt1=+6.75 урон против огненных и ледяных драконов
 dragon_sword_lightning.hurt2=Поражает цели молнией
 
 message.iceandfire.tryAgain=Пожалуйста, попробуйте еще раз.

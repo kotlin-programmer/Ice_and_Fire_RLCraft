@@ -20,13 +20,12 @@ public class DreadAIRideHorse extends EntityAIBase {
             return false;
         } else {
             List<AbstractHorse> list = this.knight.world.getEntitiesWithinAABB(AbstractHorse.class, this.knight.getEntityBoundingBox().grow(16.0D, 7.0D, 16.0D));
-
             if (list.isEmpty()) {
                 return false;
             } else {
-                for (AbstractHorse entityirongolem : list) {
-                    if(!entityirongolem.isBeingRidden()){
-                        this.horse = entityirongolem;
+                for (AbstractHorse horse : list) {
+                    if (!horse.isBeingRidden()) {
+                        this.horse = horse;
                         break;
                     }
                 }
