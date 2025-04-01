@@ -57,7 +57,7 @@ public enum EnumBloodedDragonArmor {
 				EnumBloodedDragonArmor.values()[i].boots.setRegistryName(IceAndFire.MODID, EnumBloodedDragonArmor.values()[i].name() + "_boots_flamed");
 			}
 			else if(EnumBloodedDragonArmor.values()[i].eggType.dragonType == EnumDragonType.ICE) {
-				EnumBloodedDragonArmor.values()[i].armorMaterial = EnumHelper.addArmorMaterial("IcedDragonScales" + (i + 1), "iceandfire:armor_dragon_scales" + (i + 1), 44, new int[]{5, 7, 9, 5}, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2);
+				EnumBloodedDragonArmor.values()[i].armorMaterial = EnumHelper.addArmorMaterial("IcedDragonScales" + (i + 1), "iceandfire:armor_dragon_scales" + (i + 1), 50, new int[]{5, 7, 9, 5}, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2);
 				EnumBloodedDragonArmor.values()[i].helmet = new ItemBloodedArmor(EnumBloodedDragonArmor.values()[i].eggType, EnumBloodedDragonArmor.values()[i], EnumBloodedDragonArmor.values()[i].armorMaterial, 0, EntityEquipmentSlot.HEAD).setTranslationKey("iceandfire.dragonHelmet.iced");
 				EnumBloodedDragonArmor.values()[i].chestplate = new ItemBloodedArmor(EnumBloodedDragonArmor.values()[i].eggType, EnumBloodedDragonArmor.values()[i], EnumBloodedDragonArmor.values()[i].armorMaterial, 1, EntityEquipmentSlot.CHEST).setTranslationKey("iceandfire.dragonChestplate.iced");
 				EnumBloodedDragonArmor.values()[i].leggings = new ItemBloodedArmor(EnumBloodedDragonArmor.values()[i].eggType, EnumBloodedDragonArmor.values()[i], EnumBloodedDragonArmor.values()[i].armorMaterial, 2, EntityEquipmentSlot.LEGS).setTranslationKey("iceandfire.dragonLeggings.iced");
@@ -68,7 +68,7 @@ public enum EnumBloodedDragonArmor {
 				EnumBloodedDragonArmor.values()[i].boots.setRegistryName(IceAndFire.MODID, EnumBloodedDragonArmor.values()[i].name() + "_boots_iced");
 			}
 			else {
-				EnumBloodedDragonArmor.values()[i].armorMaterial = EnumHelper.addArmorMaterial("ShockedDragonScales" + (i + 1), "iceandfire:armor_dragon_scales" + (i + 1), 44, new int[]{5, 7, 9, 5}, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2);
+				EnumBloodedDragonArmor.values()[i].armorMaterial = EnumHelper.addArmorMaterial("ShockedDragonScales" + (i + 1), "iceandfire:armor_dragon_scales" + (i + 1), 50, new int[]{5, 7, 9, 5}, 25, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 2);
 				EnumBloodedDragonArmor.values()[i].helmet = new ItemBloodedArmor(EnumBloodedDragonArmor.values()[i].eggType, EnumBloodedDragonArmor.values()[i], EnumBloodedDragonArmor.values()[i].armorMaterial, 0, EntityEquipmentSlot.HEAD).setTranslationKey("iceandfire.dragonHelmet.shocked");
 				EnumBloodedDragonArmor.values()[i].chestplate = new ItemBloodedArmor(EnumBloodedDragonArmor.values()[i].eggType, EnumBloodedDragonArmor.values()[i], EnumBloodedDragonArmor.values()[i].armorMaterial, 1, EntityEquipmentSlot.CHEST).setTranslationKey("iceandfire.dragonChestplate.shocked");
 				EnumBloodedDragonArmor.values()[i].leggings = new ItemBloodedArmor(EnumBloodedDragonArmor.values()[i].eggType, EnumBloodedDragonArmor.values()[i], EnumBloodedDragonArmor.values()[i].armorMaterial, 2, EntityEquipmentSlot.LEGS).setTranslationKey("iceandfire.dragonLeggings.shocked");
