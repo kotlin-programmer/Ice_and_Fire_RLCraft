@@ -29,7 +29,7 @@ public class BlockDreadStoneFace extends BlockHorizontal implements IDragonProof
         this.setResistance(10000F);
         this.setSoundType(SoundType.STONE);
         this.setCreativeTab(IceAndFire.TAB_BLOCKS);
-        setRegistryName(IceAndFire.MODID, "dread_stone_face");
+        this.setRegistryName(IceAndFire.MODID, "dread_stone_face");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class BlockDreadStoneFace extends BlockHorizontal implements IDragonProof
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getHorizontalIndex() * (state.getValue(PLAYER_PLACED) ? 1 : 2);
+        return (state.getValue(PLAYER_PLACED) ? 0 : 4) + state.getValue(FACING).getHorizontalIndex();
     }
 
     protected BlockStateContainer createBlockState() {

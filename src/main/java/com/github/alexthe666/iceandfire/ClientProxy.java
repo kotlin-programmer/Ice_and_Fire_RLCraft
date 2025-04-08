@@ -245,6 +245,8 @@ public class ClientProxy extends CommonProxy {
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_mossy, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_tile, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_face, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_slab, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
+		ModelLoader.setCustomStateMapper(IafBlockRegistry.dread_stone_bricks_double_slab, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.dreadwood_planks, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
 		ModelLoader.setCustomStateMapper(IafBlockRegistry.dreadwood_planks_lock, (new StateMap.Builder()).ignore(IDreadBlock.PLAYER_PLACED).build());
 		try {

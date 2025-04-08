@@ -6,9 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
 public class BlockDreadStoneBrickSlab {
-    public static class Double extends BlockGenericSlab {
+    public static class Double extends BlockDreadSlab {
         public Double(String name, float hardness, float resistance, SoundType soundType) {
-            super(name, hardness, resistance, soundType, Material.WOOD, IafBlockRegistry.dread_stone_bricks);
+            super(name, hardness, resistance, soundType, Material.WOOD);
 
         }
 
@@ -24,13 +24,13 @@ public class BlockDreadStoneBrickSlab {
 
         @Override
         public ItemBlock getItemBlock() {
-            return new GenericSlabBlockItem(this, IafBlockRegistry.dread_stone_bricks_slab, IafBlockRegistry.dread_stone_bricks_double_slab);
+            return new DreadSlabBlockItem(this, IafBlockRegistry.dread_stone_bricks_slab, IafBlockRegistry.dread_stone_bricks_double_slab);
         }
     }
 
-    public static class Half extends BlockGenericSlab {
+    public static class Half extends BlockDreadSlab {
         public Half(String name, float hardness, float resistance, SoundType soundType) {
-            super(name, hardness, resistance, soundType, Material.WOOD, IafBlockRegistry.dread_stone_bricks);
+            super(name, hardness, resistance, soundType, Material.WOOD);
         }
 
         @Override
@@ -45,7 +45,7 @@ public class BlockDreadStoneBrickSlab {
 
         @Override
         public ItemBlock getItemBlock() {
-            return new GenericSlabBlockItem(this, IafBlockRegistry.dread_stone_bricks_slab, IafBlockRegistry.dread_stone_bricks_double_slab);
+            return new DreadSlabBlockItem(this, IafBlockRegistry.dread_stone_bricks_slab, IafBlockRegistry.dread_stone_bricks_double_slab);
         }
     }
 }

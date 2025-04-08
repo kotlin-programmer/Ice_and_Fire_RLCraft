@@ -24,7 +24,7 @@ public class ItemBlindfold extends ItemArmor implements IBauble {
 	}
 
 	public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-		player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 20, 2, true, false));
+		player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 30, 2, true, false));
 	}
 
 	@Optional.Method(modid = "baubles")
@@ -36,6 +36,6 @@ public class ItemBlindfold extends ItemArmor implements IBauble {
 	@Optional.Method(modid = "baubles")
 	@Override
 	public void onWornTick(ItemStack itemstack, EntityLivingBase player){
-		player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 20, 2, true, false));
+		player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 30, 2, true, false));
 	}
 }

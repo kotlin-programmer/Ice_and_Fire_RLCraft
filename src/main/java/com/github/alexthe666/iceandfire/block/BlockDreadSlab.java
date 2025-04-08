@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -15,25 +16,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
-public abstract class BlockGenericSlab extends BlockSlab {
+public abstract class BlockDreadSlab extends BlockSlab implements IDreadBlock, IDragonProof {
 
-	private final Block baseBlock;
-
-	public BlockGenericSlab(String name, float hardness, float resistance, SoundType soundType, Material material, Block baseBlock) {
+    public BlockDreadSlab(String name, float hardness, float resistance, SoundType soundType, Material material) {
 		super(material);
-		this.baseBlock = baseBlock;
+		this.setDefaultState(this.blockState.getBaseState().withProperty(PLAYER_PLACED, Boolean.FALSE));
+		this.setHarvestLevel("pickaxe", 3);
 		this.setLightOpacity(0);
 		this.useNeighborBrightness = true;
-		setHardness(hardness);
-		setResistance(resistance);
-		setSoundType(soundType);
+		this.setHardness(hardness);
+		this.setResistance(resistance);
+		this.setSoundType(soundType);
 		if (this.isDouble()) {
 			setTranslationKey("iceandfire." + name + "_double");
 			this.setRegistryName(name + "_double");
@@ -44,13 +44,7 @@ public abstract class BlockGenericSlab extends BlockSlab {
 		}
 	}
 
-	@SideOnly(Side.CLIENT)
-	protected static boolean isHalfSlab(IBlockState state) {
-		return state.getBlock() instanceof BlockGenericSlab && !((BlockGenericSlab) state.getBlock()).isDouble();
-	}
-
 	@Override
-    @Nullable
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return getSlabItem();
 	}
@@ -65,30 +59,50 @@ public abstract class BlockGenericSlab extends BlockSlab {
 		return new ItemStack(getSlabItem());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-    public IBlockState getStateFromMeta(int meta) {
-		IBlockState iblockstate = this.getDefaultState();
-		if (!this.isDouble()) {
-			return iblockstate.withProperty(HALF, meta == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP);
-		} else {
-			return iblockstate;
-		}
+	public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
+		return blockState.getValue(PLAYER_PLACED) ? super.getBlockHardness(blockState, worldIn, pos) : -1;
 	}
 
 	@Override
-    public int getMetaFromState(IBlockState state) {
-		int i = 0;
-		if (!this.isDouble() && state.getValue(HALF) == EnumBlockHalf.TOP) {
-			i = 1;
+	public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+		return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(PLAYER_PLACED, true);
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		IBlockState iblockstate = this.getDefaultState();
+		if (this.isDouble()) {
+			return iblockstate.withProperty(PLAYER_PLACED, meta > 0);
+		}
+		return iblockstate.withProperty(HALF, (meta % 2) == 0 ? EnumBlockHalf.BOTTOM : EnumBlockHalf.TOP)
+				.withProperty(PLAYER_PLACED, (meta & 2) > 0);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		if (this.isDouble()) {
+			return state.getValue(PLAYER_PLACED) ? 0 : 1;
+		}
+		int i = state.getValue(PLAYER_PLACED) ? 0 : 2;
+		if (state.getValue(HALF) == EnumBlockHalf.TOP) {
+			return i + 1;
 		}
 		return i;
+	}
 
+	@Override
+	public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+		IBlockState state = world.getBlockState(pos);
+		if (IDreadBlock.isIndestructible(state)) {
+			return player.capabilities.isCreativeMode;
+		}
+		return super.canHarvestBlock(world, pos, player);
 	}
 
 	@Override
     protected BlockStateContainer createBlockState() {
-		return this.isDouble() ? super.createBlockState() : new BlockStateContainer(this, HALF);
+		return this.isDouble() ? new BlockStateContainer(this, PLAYER_PLACED) : new BlockStateContainer(this, HALF, PLAYER_PLACED);
 	}
 
 	@Override
@@ -115,9 +129,9 @@ public abstract class BlockGenericSlab extends BlockSlab {
 		}
 	}
 
-	public abstract static class Double extends BlockGenericSlab {
-		public Double(String name, float hardness, float resistance, SoundType soundType, Material material, Block baseBlock) {
-			super(name, hardness, resistance, soundType, material, baseBlock);
+	public abstract static class Double extends BlockDreadSlab {
+		public Double(String name, float hardness, float resistance, SoundType soundType, Material material) {
+			super(name, hardness, resistance, soundType, material);
 		}
 
 		@Override
@@ -126,9 +140,9 @@ public abstract class BlockGenericSlab extends BlockSlab {
 		}
 	}
 
-	public abstract static class Half extends BlockGenericSlab {
-		public Half(String name, float hardness, float resistance, SoundType soundType, Material material, Block baseBlock) {
-			super(name, hardness, resistance, soundType, material, baseBlock);
+	public abstract static class Half extends BlockDreadSlab {
+		public Half(String name, float hardness, float resistance, SoundType soundType, Material material) {
+			super(name, hardness, resistance, soundType, material);
 		}
 
 		@Override
@@ -138,11 +152,11 @@ public abstract class BlockGenericSlab extends BlockSlab {
 
 	}
 
-	class GenericSlabBlockItem extends ItemBlock {
+	static class DreadSlabBlockItem extends ItemBlock {
 		private final BlockSlab singleSlab;
 		private final BlockSlab doubleSlab;
 
-		public GenericSlabBlockItem(Block block, BlockSlab singleSlab, BlockSlab doubleSlab) {
+		public DreadSlabBlockItem(Block block, BlockSlab singleSlab, BlockSlab doubleSlab) {
 			super(block);
 			this.singleSlab = singleSlab;
 			this.doubleSlab = doubleSlab;
@@ -167,12 +181,11 @@ public abstract class BlockGenericSlab extends BlockSlab {
 				return EnumActionResult.SUCCESS;
 			}
 			if (stack.getCount() != 0 && playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
-				Comparable<?> comparable = this.singleSlab.getTypeForItem(stack);
 				IBlockState iblockstate = worldIn.getBlockState(pos);
-				if (iblockstate.getBlock() == this.singleSlab) {
+				if (iblockstate.getBlock() == this.singleSlab && (iblockstate.getValue(PLAYER_PLACED) || playerIn.capabilities.isCreativeMode)) {
 					EnumBlockHalf blockslab$enumblockhalf = iblockstate.getValue(BlockSlab.HALF);
 					if ((facing == EnumFacing.UP && blockslab$enumblockhalf == EnumBlockHalf.BOTTOM || facing == EnumFacing.DOWN && blockslab$enumblockhalf == EnumBlockHalf.TOP)) {
-						IBlockState iblockstate1 = this.doubleSlab.getDefaultState();
+						IBlockState iblockstate1 = this.doubleSlab.getDefaultState().withProperty(PLAYER_PLACED, iblockstate.getValue(PLAYER_PLACED));
 						AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, pos);
 						if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(pos)) && worldIn.setBlockState(pos, iblockstate1, 11)) {
 							SoundType soundtype = this.doubleSlab.getSoundType(iblockstate1, worldIn, pos, playerIn);
@@ -182,7 +195,7 @@ public abstract class BlockGenericSlab extends BlockSlab {
 						return EnumActionResult.SUCCESS;
 					}
 				}
-				return this.tryPlace(playerIn, stack, worldIn, pos.offset(facing), comparable) ? EnumActionResult.SUCCESS : super.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+				return this.tryPlace(playerIn, stack, worldIn, pos.offset(facing)) ? EnumActionResult.SUCCESS : super.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 			} else {
 				return EnumActionResult.FAIL;
 			}
@@ -194,7 +207,7 @@ public abstract class BlockGenericSlab extends BlockSlab {
 			BlockPos blockpos = pos;
 			IBlockState iblockstate = worldIn.getBlockState(pos);
 
-			if (iblockstate.getBlock() == this.singleSlab) {
+			if (iblockstate.getBlock() == this.singleSlab && (iblockstate.getValue(PLAYER_PLACED) || player.capabilities.isCreativeMode)) {
 				boolean flag = iblockstate.getValue(BlockSlab.HALF) == EnumBlockHalf.TOP;
 				if ((side == EnumFacing.UP && !flag || side == EnumFacing.DOWN && flag)) {
 					return true;
@@ -202,13 +215,13 @@ public abstract class BlockGenericSlab extends BlockSlab {
 			}
 			pos = pos.offset(side);
 			IBlockState iblockstate1 = worldIn.getBlockState(pos);
-			return iblockstate1.getBlock() == this.singleSlab || super.canPlaceBlockOnSide(worldIn, blockpos, side, player, stack);
+			return iblockstate1.getBlock() == this.singleSlab && (iblockstate1.getValue(PLAYER_PLACED) || player.capabilities.isCreativeMode) || super.canPlaceBlockOnSide(worldIn, blockpos, side, player, stack);
 		}
 
-		private boolean tryPlace(EntityPlayer player, ItemStack stack, World worldIn, BlockPos pos, Object itemSlabType) {
+		private boolean tryPlace(EntityPlayer player, ItemStack stack, World worldIn, BlockPos pos) {
 			IBlockState iblockstate = worldIn.getBlockState(pos);
-			if (iblockstate.getBlock() == this.singleSlab) {
-				IBlockState iblockstate1 = this.doubleSlab.getDefaultState();
+			if (iblockstate.getBlock() == this.singleSlab && (iblockstate.getValue(PLAYER_PLACED) || player.capabilities.isCreativeMode)) {
+				IBlockState iblockstate1 = this.doubleSlab.getDefaultState().withProperty(PLAYER_PLACED, iblockstate.getValue(PLAYER_PLACED));
 				AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, pos);
 				if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(pos)) && worldIn.setBlockState(pos, iblockstate1, 11)) {
 					SoundType soundtype = this.doubleSlab.getSoundType(iblockstate1, worldIn, pos, player);

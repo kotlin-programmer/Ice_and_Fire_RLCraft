@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.core;
 
 import com.github.alexthe666.iceandfire.block.*;
-import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 
@@ -74,11 +73,11 @@ public class ModBlocks {
 	public static BlockDreadBase dread_stone_bricks_cracked = IafBlockRegistry.dread_stone_bricks_cracked;
 	public static BlockDreadBase dread_stone_bricks_mossy = IafBlockRegistry.dread_stone_bricks_mossy;
 	public static BlockDreadBase dread_stone_tile = IafBlockRegistry.dread_stone_tile;
-	public static Block dread_stone_face = IafBlockRegistry.dread_stone_face;
+	public static BlockDreadStoneFace dread_stone_face = IafBlockRegistry.dread_stone_face;
 	public static Block dread_torch = IafBlockRegistry.dread_torch;
-	public static Block dread_stone_bricks_stairs = IafBlockRegistry.dread_stone_bricks_stairs;
-	public static BlockGenericSlab dread_stone_bricks_double_slab = IafBlockRegistry.dread_stone_bricks_double_slab;
-	public static BlockGenericSlab dread_stone_bricks_slab = IafBlockRegistry.dread_stone_bricks_slab;
+	public static BlockDreadStairs dread_stone_bricks_stairs = IafBlockRegistry.dread_stone_bricks_stairs;
+	public static BlockDreadSlab dread_stone_bricks_double_slab = IafBlockRegistry.dread_stone_bricks_double_slab;
+	public static BlockDreadSlab dread_stone_bricks_slab = IafBlockRegistry.dread_stone_bricks_slab;
 	public static BlockDreadBase dreadwood_planks = IafBlockRegistry.dreadwood_planks;
 	public static Block dreadwood_planks_lock = IafBlockRegistry.dreadwood_planks_lock;
 	public static Block dread_spawner = IafBlockRegistry.dread_spawner;

@@ -4,19 +4,16 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.state.IBlockState;
 
-public class BlockGenericStairs extends BlockStairs {
+public class BlockDreadStairs extends BlockStairs implements IDragonProof {
 
-    public BlockGenericStairs(IBlockState modelState, String name) {
+    public BlockDreadStairs(IBlockState modelState, String name) {
         super(modelState);
+        this.setHarvestLevel("pickaxe", 3);
+        this.setHardness(20F);
+        this.setResistance(10000F);
         this.setLightOpacity(0);
         this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire." + name);
         this.setRegistryName(name);
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
     }
 }
