@@ -167,6 +167,7 @@ public class ModRecipes {
         addBanner("amphithere", new ItemStack(IafItemRegistry.amphithere_feather));
         addBanner("sea_serpent", new ItemStack(IafItemRegistry.sea_serpent_fang));
         addBanner("stymphalian_bird", new ItemStack(IafItemRegistry.stymphalian_bird_feather));
+        addBanner("eye", new ItemStack(IafItemRegistry.cyclops_eye));
         addBanner("hippocampus", new ItemStack(IafItemRegistry.hippocampus_fin));
         addBanner("hippogryph", new ItemStack(EnumSkullType.HIPPOGRYPH.skull_item));
         addBanner("troll", new ItemStack(IafItemRegistry.troll_tusk));

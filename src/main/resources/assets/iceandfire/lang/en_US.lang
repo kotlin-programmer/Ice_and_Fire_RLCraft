@@ -325,6 +325,10 @@ item.iceandfire.hippocampus_slapper.name=Hippocampus Slapper
 item.iceandfire.hippocampus_slapper.desc_0=§dComical Weapon§r
 item.iceandfire.hippocampus_slapper.desc_1=Dazes and slows targets; it's quite confusing to be hit with a fish tail
 
+item.iceandfire.cyclops_eye.name=Eye of Cyclops
+item.iceandfire.cyclops_eye.desc_0=Area of Effect Weapon
+item.iceandfire.cyclops_eye.desc_1=Inflicts weakness to all nearby hostiles when held
+
 item.iceandfire.tide_trident.name=Tide Trident
 item.iceandfire.tide_trident.desc_0=Deals more damage when thrown underwater
 item.iceandfire.tide_trident.desc_1=Pierces through multiple enemies
@@ -568,6 +572,23 @@ item.banner.stymphalian_bird.brown=Brown Bird
 item.banner.stymphalian_bird.green=Green Bird
 item.banner.stymphalian_bird.red=Red Bird
 item.banner.stymphalian_bird.black=Black Bird
+
+item.banner.eye.white=White Eye
+item.banner.eye.orange=Orange Eye
+item.banner.eye.magenta=Magenta Eye
+item.banner.eye.light_blue=Light Blue Eye
+item.banner.eye.yellow=Yellow Eye
+item.banner.eye.lime=Lime Eye
+item.banner.eye.pink=Pink Eye
+item.banner.eye.gray=Gray Eye
+item.banner.eye.silver=Silver Eye
+item.banner.eye.cyan=Cyan Eye
+item.banner.eye.purple=Purple Eye
+item.banner.eye.blue=Blue Eye
+item.banner.eye.brown=Brown Eye
+item.banner.eye.green=Green Eye
+item.banner.eye.red=Red Eye
+item.banner.eye.black=Black Eye
 
 item.banner.amphithere.white=White Amphithere
 item.banner.amphithere.orange=Orange Amphithere

@@ -858,6 +858,10 @@ public class IceAndFireConfig {
 		@Config.Name("Hydra Heart Passive Healing")
 		public boolean hydraHeartPassiveHealing = false;
 
+		@Config.Comment("If true, cyclops eyes will provide a weakness aura")
+		@Config.Name("Cyclops Eye Weakness Aura")
+		public boolean cyclopsEyeWeaknessAura = false;
+
 		@Config.Comment("Base damage for the Tide Trident")
 		@Config.Name("Tide Trident Base Damage")
 		@Config.RangeDouble(min = 1, max = 1000)

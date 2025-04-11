@@ -308,9 +308,14 @@ item.iceandfire.summoning_crystal.bound=Привязка к %s
 
 item.iceandfire.hippocampus_fin.name=Плавник гиппокампа
 item.iceandfire.hippocampus_fin.desc_0=§6Редкий дроп§r
+
 item.iceandfire.hippocampus_slapper.name=Шлёп-шлёп гиппокампа
 item.iceandfire.hippocampus_slapper.desc_0=§dКомическое оружие§r
 item.iceandfire.hippocampus_slapper.desc_1=Удивляет и замедляет цель. Удар рыбьим хвостом точно сбивает с толку.
+
+item.iceandfire.cyclops_eye.name=Глаз циклопа
+item.iceandfire.cyclops_eye.desc_0=Оружие с радиусом эффекта
+item.iceandfire.cyclops_eye.desc_1=Ослабляет ближайших противников, когда в руке
 
 item.iceandfire.tide_trident.name=Трезубец Волны
 item.iceandfire.tide_trident.desc_0=Наносит больше урона при броске под воду
@@ -555,6 +560,23 @@ item.banner.stymphalian_bird.brown=Коричневая птица
 item.banner.stymphalian_bird.green=Зелёная птица
 item.banner.stymphalian_bird.red=Красная птица
 item.banner.stymphalian_bird.black=Чёрная птица
+
+item.banner.eye.white=Белый глаз
+item.banner.eye.orange=Оранжевый глаз
+item.banner.eye.magenta=Пурпурный глаз
+item.banner.eye.light_blue=Голубый глаз
+item.banner.eye.yellow=Жёлтый глаз
+item.banner.eye.lime=Лаймовый глаз
+item.banner.eye.pink=Розовый глаз
+item.banner.eye.gray=Серый глаз
+item.banner.eye.silver=Серебряный глаз
+item.banner.eye.cyan=Бирюзовый глаз
+item.banner.eye.purple=Фиолетовый глаз
+item.banner.eye.blue=Синий глаз
+item.banner.eye.brown=Коричневый глаз
+item.banner.eye.green=Зелёный глаз
+item.banner.eye.red=Красный глаз
+item.banner.eye.black=Чёрный глаз
 
 item.banner.amphithere.white=Белая амфитера
 item.banner.amphithere.orange=Оранжевая амфитера

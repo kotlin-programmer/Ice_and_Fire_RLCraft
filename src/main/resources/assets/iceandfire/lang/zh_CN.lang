@@ -288,6 +288,10 @@ item.iceandfire.hippocampus_slapper.name=海马拍桨
 item.iceandfire.hippocampus_slapper.desc_0=§d滑稽武器§r
 item.iceandfire.hippocampus_slapper.desc_1=眩晕并使目标减速，被鱼尾巴拍中可是会让人好好感受天旋地转的滋味的哦
 
+item.iceandfire.cyclops_eye.name=巨人独眼
+item.iceandfire.cyclops_eye.desc_0=范围武器
+item.iceandfire.cyclops_eye.desc_1=持有时向周围敌人施加虚弱效果
+
 item.iceandfire.tide_trident.name=海潮三叉戟
 item.iceandfire.tide_trident.desc_0=在水下造成更多伤害
 item.iceandfire.tide_trident.desc_1=扔到水下时会造成更多伤害
@@ -506,6 +510,23 @@ item.banner.stymphalian_bird.brown=棕色泽鹗徽标
 item.banner.stymphalian_bird.green=绿色泽鹗徽标
 item.banner.stymphalian_bird.red=红色泽鹗徽标
 item.banner.stymphalian_bird.black=黑色泽鹗徽标
+
+item.banner.eye.white=白色独眼徽标
+item.banner.eye.orange=橙色独眼徽标
+item.banner.eye.magenta=品红独眼徽标
+item.banner.eye.light_blue=浅蓝独眼徽标
+item.banner.eye.yellow=黄色独眼徽标
+item.banner.eye.lime=黄绿独眼徽标
+item.banner.eye.pink=粉色独眼徽标
+item.banner.eye.gray=灰色独眼徽标
+item.banner.eye.silver=银色独眼徽标
+item.banner.eye.cyan=青色独眼徽标
+item.banner.eye.purple=紫色独眼徽标
+item.banner.eye.blue=蓝色独眼徽标
+item.banner.eye.brown=棕色独眼徽标
+item.banner.eye.green=绿色独眼徽标
+item.banner.eye.red=红色独眼徽标
+item.banner.eye.black=黑色独眼徽标
 
 item.banner.amphithere.white=白色翼蚺纹章
 item.banner.amphithere.orange=橙色翼蚺纹章

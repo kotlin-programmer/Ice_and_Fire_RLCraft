@@ -313,6 +313,10 @@ item.iceandfire.hippocampus_slapper.name=ヒッポカムポスはたき
 item.iceandfire.hippocampus_slapper.desc_0=§dネタ武器§r
 item.iceandfire.hippocampus_slapper.desc_1=尻尾で叩いて移動速度低下と吐き気を与える（吐き気はプレイヤー以外に通用しない）
 
+item.iceandfire.cyclops_eye.name=サイクロプスの眼
+item.iceandfire.cyclops_eye.desc_0=範囲効果武器
+item.iceandfire.cyclops_eye.desc_1=持っている間周りの全ての敵性モブに弱体化を付与する
+
 item.iceandfire.tide_trident.name=タイドトライデント
 item.iceandfire.tide_trident.desc_0=水中に投げられるとより多くのダメージを与えます0
 item.iceandfire.tide_trident.desc_1=複数の敵を貫通する
@@ -550,6 +554,23 @@ item.banner.stymphalian_bird.brown=茶色の飛鳥
 item.banner.stymphalian_bird.green=緑の飛鳥
 item.banner.stymphalian_bird.red=赤の飛鳥
 item.banner.stymphalian_bird.black=黒の飛鳥
+
+item.banner.eye.white=白の目玉
+item.banner.eye.orange=橙の目玉
+item.banner.eye.magenta=赤紫の目玉
+item.banner.eye.light_blue=空色の目玉
+item.banner.eye.yellow=黄色の目玉
+item.banner.eye.lime=黄緑の目玉
+item.banner.eye.pink=桃色の目玉
+item.banner.eye.gray=灰色の目玉
+item.banner.eye.silver=薄灰の目玉
+item.banner.eye.cyan=水色の目玉
+item.banner.eye.purple=紫の目玉
+item.banner.eye.blue=青の目玉
+item.banner.eye.brown=茶色の目玉
+item.banner.eye.green=緑の目玉
+item.banner.eye.red=赤の目玉
+item.banner.eye.black=黒の目玉
 
 item.banner.amphithere.white=白のアンピプテラ
 item.banner.amphithere.orange=橙のアンピプテラ

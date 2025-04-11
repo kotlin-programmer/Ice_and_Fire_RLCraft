@@ -203,6 +203,7 @@ public class ModItems {
     public static Item hydra_fang = IafItemRegistry.hydra_fang;
     public static Item hydra_heart = IafItemRegistry.hydra_heart;
     public static Item hydra_arrow = IafItemRegistry.hydra_arrow;
+    public static Item cyclops_eye = IafItemRegistry.cyclops_eye;
     public static Item tide_trident = IafItemRegistry.tide_trident;
     public static Item lich_staff = IafItemRegistry.lich_staff;
     public static Item dread_queen_sword = IafItemRegistry.dread_queen_sword;

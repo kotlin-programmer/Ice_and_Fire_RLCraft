@@ -314,6 +314,10 @@ item.iceandfire.hippocampus_slapper.name=Abofeteador de Hipocampo
 item.iceandfire.hippocampus_slapper.desc_0=§dArma Cómica§r
 item.iceandfire.hippocampus_slapper.desc_1=Aturde y ralentiza al objetivo. Es muy confuso ser abofeteado con una cola de pescado.
 
+item.iceandfire.cyclops_eye.name=Ojo de Cíclope
+item.iceandfire.cyclops_eye.desc_0=Arma de efecto de área
+item.iceandfire.cyclops_eye.desc_1=Inflige debilidad a todos los hostiles cercanos cuando se mantiene
+
 item.iceandfire.tide_trident.name=Tridente de la Marea
 item.iceandfire.tide_trident.desc_0=§aInflige mas daño cuando se arroja bajo el agua
 item.iceandfire.tide_trident.desc_1=§3Atraviesa multiples enemigos
@@ -559,6 +563,23 @@ item.banner.stymphalian_bird.brown=Ave del Estinfalo cafe
 item.banner.stymphalian_bird.green=Ave del Estinfalo verde
 item.banner.stymphalian_bird.red=Ave del Estinfalo roja
 item.banner.stymphalian_bird.black=Ave del Estinfalo negra
+
+item.banner.eye.white=Ojo Blanco
+item.banner.eye.orange=Ojo Naranja
+item.banner.eye.magenta=Ojo Magenta
+item.banner.eye.light_blue=Ojo Azul Claro
+item.banner.eye.yellow=Ojo Amarillo
+item.banner.eye.lime=Ojo Lima
+item.banner.eye.pink=Ojo Rosa
+item.banner.eye.gray=Ojo Gris
+item.banner.eye.silver=Ojo Plateado
+item.banner.eye.cyan=Ojo Cian
+item.banner.eye.purple=Ojo Púrpura
+item.banner.eye.blue=Ojo Azul
+item.banner.eye.brown=Ojo Marrón
+item.banner.eye.green=Ojo Verde
+item.banner.eye.red=Ojo Rojo
+item.banner.eye.black=Ojo Negro
 
 item.banner.amphithere.white=Anfiptero blanco
 item.banner.amphithere.orange=Anfiptero naranja

@@ -309,6 +309,10 @@ item.iceandfire.hippocampus_slapper.name=Gifleur d'hippocampus
 item.iceandfire.hippocampus_slapper.desc_0=§dArme comique§r
 item.iceandfire.hippocampus_slapper.desc_1=Étourdit et ralentit les cibles ; il est assez déroutant de se faire frapper par une queue de poisson
 
+item.iceandfire.cyclops_eye.name=Oeil de Cyclope
+item.iceandfire.cyclops_eye.desc_0=Arme à effet de zone
+item.iceandfire.cyclops_eye.desc_1=Inflige une faiblesse à toutes les créatures hostiles proches lorsqu'il est tenu.
+
 item.iceandfire.tide_trident.name=Trident de marée
 item.iceandfire.tide_trident.desc_0=Inflige plus de dégâts quand il est jeté dans l'eau
 item.iceandfire.tide_trident.desc_1=Perce de multiple ennemies
@@ -553,6 +557,23 @@ item.banner.stymphalian_bird.brown=Oiseau stymphalien marron
 item.banner.stymphalian_bird.green=Oiseau stymphalien vert
 item.banner.stymphalian_bird.red=Oiseau stymphalien rouge
 item.banner.stymphalian_bird.black=Oiseau stymphalien noir
+
+item.banner.eye.white=Oeil blanc
+item.banner.eye.orange=Oeil orange
+item.banner.eye.magenta=Oeil magenta
+item.banner.eye.light_blue=Oeil clair
+item.banner.eye.yellow=Oeil jaune
+item.banner.eye.lime=Oeil vert clair
+item.banner.eye.pink=Oeil rose
+item.banner.eye.gray=Oeil gris
+item.banner.eye.silver=Oeil argenté
+item.banner.eye.cyan=Oiseau oeil cyan
+item.banner.eye.purple=Oiseau oeil violet
+item.banner.eye.blue=Oiseau oeil bleu
+item.banner.eye.brown=Oiseau stymphalien marron
+item.banner.eye.green=Oiseau stymphalien vert
+item.banner.eye.red=Oiseau stymphalien rouge
+item.banner.eye.black=Oiseau stymphalien noir
 
 item.banner.amphithere.white=Amphithère blanc
 item.banner.amphithere.orange=Amphithère orange
