@@ -37,7 +37,7 @@ public class IafBlockRegistry {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_ore")
 	public static Block amethystOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.amethystOre", "amethyst_ore", IafItemRegistry.amethystGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_ore")
-	public static Block copperOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.copperOre", "copper_ore");
+	public static Block copperOre = new BlockDragonOre(1, 3.0F, 5.0F, "iceandfire.copperOre", "copper_ore");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silver_ore")
 	public static Block silverOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.silverOre", "silver_ore");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_ore")
@@ -45,7 +45,7 @@ public class IafBlockRegistry {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_block")
 	public static Block amethystBlock = new BlockGeneric(Material.IRON, "amethyst_block", "iceandfire.amethystBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_block")
-	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
+	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 1, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silver_block")
 	public static Block silverBlock = new BlockGeneric(Material.IRON, "silver_block", "iceandfire.silverBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_block")
