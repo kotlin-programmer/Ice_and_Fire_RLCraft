@@ -81,15 +81,22 @@ public class HippogryphAITargetItems<T extends EntityItem> extends EntityAITarge
 			this.taskOwner.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
 			hippo.setAnimation(EntityHippogryph.ANIMATION_EAT);
 			hippo.heal(4);
-			if (hippo.getRNG().nextInt(3) == 0 && !hippo.isTamed() && this.targetEntity.getThrower() != null && !this.targetEntity.getThrower().isEmpty() && this.taskOwner.world.getPlayerEntityByName(this.targetEntity.getThrower()) != null) {
-				EntityPlayer owner = this.taskOwner.world.getPlayerEntityByName(this.targetEntity.getThrower());
-				hippo.setTamed(true);
-				hippo.setOwnerId(owner.getUniqueID());
-				hippo.setAttackTarget(null);
-				hippo.setCommand(1);
-				//owner.addStat(ModAchievements.tameHippogryph);
-				hippo.setSitting(true);
-			}
+			if (hippo.getRNG().nextInt(3) == 0 && !hippo.isTamed()) {
+				String thrower = this.targetEntity.getThrower();
+				EntityPlayer owner;
+				if (thrower != null && !thrower.isEmpty()) {
+					owner = this.taskOwner.world.getPlayerEntityByName(this.targetEntity.getThrower());
+				} else {
+					owner = this.taskOwner.world.getClosestPlayerToEntity(this.taskOwner, 10D);
+				}
+				if (owner != null) {
+					hippo.setTamed(true);
+					hippo.setOwnerId(owner.getUniqueID());
+					hippo.setAttackTarget(null);
+					hippo.setCommand(1);
+					hippo.setSitting(true);
+				}
+            }
 			resetTask();
 		}
 	}
