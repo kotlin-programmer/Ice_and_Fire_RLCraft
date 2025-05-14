@@ -35,16 +35,16 @@ public class MausoleumProcessor implements ITemplateProcessor {
         if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dread_stone_bricks) {
             IBlockState state = getRandomCrackedBlock(worldIn.rand);
             return new Template.BlockInfo(pos, state, null);
-        }
-        if (blockInfoIn.blockState.getBlock() instanceof BlockChest) {
+        } else if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dragonforge_bricks && worldIn.rand.nextBoolean()) {
+            return new Template.BlockInfo(pos, IafBlockRegistry.dragonforge_bricks_cracked.getDefaultState(), null);
+        } else if (blockInfoIn.blockState.getBlock() instanceof BlockChest) {
             ResourceLocation loot = DREAD_CHEST_LOOT;
             Random rand = new Random(worldIn.getSeed() + pos.toLong());
             NBTTagCompound tag = blockInfoIn.tileentityData == null ? new NBTTagCompound() : blockInfoIn.tileentityData;
             tag.setString("LootTable", loot.toString());
             tag.setLong("LootTableSeed", rand.nextLong());
             return new Template.BlockInfo(pos, Blocks.CHEST.getDefaultState(), tag);
-        }
-        if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dread_spawner) {
+        } else if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dread_spawner) {
             NBTTagCompound tag = blockInfoIn.tileentityData == null ? new NBTTagCompound() : blockInfoIn.tileentityData;
             NBTTagCompound spawnData = new NBTTagCompound();
             Random rand = new Random(worldIn.getSeed() + pos.toLong());

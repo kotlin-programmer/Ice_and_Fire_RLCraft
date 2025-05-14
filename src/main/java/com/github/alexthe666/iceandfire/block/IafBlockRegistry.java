@@ -170,6 +170,8 @@ public class IafBlockRegistry {
 	public static Block monster_spawner = new BlockMonsterSpawner();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_bricks")
 	public static Block dragonforge_bricks = new BlockDragonforgeBricks();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_bricks_cracked")
+	public static Block dragonforge_bricks_cracked = new BlockDragonProofGeneric(Material.ROCK, "dragonforge_bricks_cracked", "iceandfire.dragonforge_bricks_cracked", 40.0F, 500F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_input")
 	public static Block dragonforge_input = new BlockDragonforgeInput();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_core_fire")

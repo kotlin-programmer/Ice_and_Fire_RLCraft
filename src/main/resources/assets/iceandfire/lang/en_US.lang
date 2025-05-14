@@ -100,6 +100,7 @@ tile.iceandfire.dread_spawner.name=Dreadstone Mob Spawner
 tile.iceandfire.monster_spawner.name=Mob Spawner
 
 tile.iceandfire.dragonforge_bricks.name=Dragonforge Bricks
+tile.iceandfire.dragonforge_bricks_cracked.name=Cracked Dragonforge Bricks
 tile.iceandfire.dragonforge_core.name=Dragonforge Core
 tile.iceandfire.dragonforge_input.name=Dragonforge Aperture
 

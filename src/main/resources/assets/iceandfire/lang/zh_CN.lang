@@ -76,12 +76,12 @@ tile.iceandfire.crackledGrassPath.name=霆霹草径
 tile.iceandfire.lightning_stone.name=闪电石
 
 tile.iceandfire.dread_stone.name=悚石
-tile.iceandfire.dread_stone_bricks.name=悚砖
-tile.iceandfire.dread_stone_bricks_chiseled.name=錾制悚砖
-tile.iceandfire.dread_stone_bricks_cracked.name=裂悚砖
-tile.iceandfire.dread_stone_bricks_mossy.name=苔悚砖
+tile.iceandfire.dread_stone_bricks.name=悚石砖
+tile.iceandfire.dread_stone_bricks_chiseled.name=錾制悚悚石
+tile.iceandfire.dread_stone_bricks_cracked.name=破裂的悚石
+tile.iceandfire.dread_stone_bricks_mossy.name=苔悚悚石
 tile.iceandfire.dread_stone_face.name=錾制骷面悚砖
-tile.iceandfire.dread_stone_tile.name=悚石瓦块
+tile.iceandfire.dread_stone_tile.name=悚石瓷砖
 tile.iceandfire.dread_torch.name=悚石火把
 tile.iceandfire.burnt_torch.name=烬灭火把
 tile.iceandfire.dread_stone_slab.name=悚砖台阶
@@ -97,6 +97,7 @@ tile.iceandfire.dragon_bone_block.name=龙骨块
 tile.iceandfire.dragon_bone_wall.name=龙骨墙
 
 tile.iceandfire.dragonforge_bricks.name=龙锻炉砖块
+tile.iceandfire.dragonforge_bricks_cracked.name=破裂的龙锻炉砖块
 tile.iceandfire.dragonforge_core.name=龙锻炉核心
 tile.iceandfire.dragonforge_input.name=龙锻炉焰孔
 

@@ -97,6 +97,7 @@ tile.iceandfire.dread_spawner.name=Gerador de Monstros Medonhos
 tile.iceandfire.monster_spawner.name=Gerador de Monstros
 
 tile.iceandfire.dragonforge_bricks.name=Bloco da Forja Dracônica
+tile.iceandfire.dragonforge_bricks_cracked.name=Bloco da Forja Dracônica Rachados
 tile.iceandfire.dragonforge_core.name=Núcleo da Forja Dracônica
 tile.iceandfire.dragonforge_input.name=Abertura da Forja Dracônica
 

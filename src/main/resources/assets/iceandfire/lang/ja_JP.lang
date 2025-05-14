@@ -100,6 +100,7 @@ tile.iceandfire.dread_spawner.name=ドレッドストーンスポナー
 tile.iceandfire.monster_spawner.name=モンスタースポナー
 
 tile.iceandfire.dragonforge_bricks.name=竜炉レンガ
+tile.iceandfire.dragonforge_bricks_cracked.name=ひび割れた竜炉レンガ
 tile.iceandfire.dragonforge_core.name=竜炉コア
 tile.iceandfire.dragonforge_input.name=竜炉焚口
 

@@ -101,6 +101,7 @@ tile.iceandfire.dread_spawner.name=Generador de criaturas de piedra del horror
 tile.iceandfire.monster_spawner.name=Generador de criaturas
 
 tile.iceandfire.dragonforge_bricks.name=Ladrillo de Forja Draconica
+tile.iceandfire.dragonforge_bricks_cracked.name=Ladrillo de Forja Draconica agrietados
 tile.iceandfire.dragonforge_core.name=Nucleo de Forja Draconica
 tile.iceandfire.dragonforge_input.name=Abertura de Forja Draconica
 

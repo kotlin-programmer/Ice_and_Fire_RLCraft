@@ -100,6 +100,7 @@ tile.iceandfire.dread_spawner.name=Спаунер мобов ужаса
 tile.iceandfire.monster_spawner.name=Спаунер мобов
 
 tile.iceandfire.dragonforge_bricks.name=Кирпичи драконьей кузни
+tile.iceandfire.dragonforge_bricks_cracked.name=Потрескавшиеся Кирпичи драконьей кузни
 tile.iceandfire.dragonforge_core.name=Сердце драконьей кузни
 tile.iceandfire.dragonforge_input.name=Слив драконьей кузни
 

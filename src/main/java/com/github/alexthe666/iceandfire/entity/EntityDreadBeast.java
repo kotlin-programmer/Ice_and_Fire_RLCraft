@@ -36,7 +36,6 @@ public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity,
     public static Animation ANIMATION_BITE = Animation.create(15);
     private int animationTick;
     private Animation currentAnimation;
-    private int hostileTicks = 0;
     private static final DataParameter<Float> SCALE = EntityDataManager.createKey(EntityDreadBeast.class, DataSerializers.FLOAT);
     private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityDreadBeast.class, DataSerializers.VARINT);
     private static final float INITIAL_WIDTH = 1.2F;
@@ -67,9 +66,9 @@ public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity,
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.45D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0D);
     }

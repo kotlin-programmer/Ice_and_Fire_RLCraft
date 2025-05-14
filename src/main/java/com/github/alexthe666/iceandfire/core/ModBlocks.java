@@ -83,6 +83,7 @@ public class ModBlocks {
 	public static Block dread_spawner = IafBlockRegistry.dread_spawner;
 	public static Block monster_spawner = IafBlockRegistry.monster_spawner;
 	public static Block dragonforge_bricks = IafBlockRegistry.dragonforge_bricks;
+	public static Block dragonforge_bricks_cracked = IafBlockRegistry.dragonforge_bricks_cracked;
 	public static Block dragonforge_input = IafBlockRegistry.dragonforge_input;
 	public static Block dragonforge_core_fire = IafBlockRegistry.dragonforge_core_fire;
 	public static Block dragonforge_core_ice = IafBlockRegistry.dragonforge_core_ice;

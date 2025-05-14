@@ -66,21 +66,22 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(6.0D);
     }
 
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(CUSTOM_ARMOR_INDEX, Integer.valueOf(0));
-        this.dataManager.register(CUSTOM_ARMOR_HEAD, Boolean.valueOf(false));
-        this.dataManager.register(CUSTOM_ARMOR_CHEST, Boolean.valueOf(false));
-        this.dataManager.register(CUSTOM_ARMOR_LEGS, Boolean.valueOf(false));
-        this.dataManager.register(CUSTOM_ARMOR_FEET, Boolean.valueOf(false));
+        this.dataManager.register(CUSTOM_ARMOR_INDEX, 0);
+        this.dataManager.register(CUSTOM_ARMOR_HEAD, Boolean.FALSE);
+        this.dataManager.register(CUSTOM_ARMOR_CHEST, Boolean.FALSE);
+        this.dataManager.register(CUSTOM_ARMOR_LEGS, Boolean.FALSE);
+        this.dataManager.register(CUSTOM_ARMOR_FEET, Boolean.FALSE);
     }
 
     public void onLivingUpdate() {
