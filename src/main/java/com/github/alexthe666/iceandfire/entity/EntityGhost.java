@@ -1,10 +1,8 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
 import com.github.alexthe666.iceandfire.entity.ai.EntityAIRestrictSunFlying;
 import com.github.alexthe666.iceandfire.entity.ai.GhostAICharge;
 import com.github.alexthe666.iceandfire.entity.ai.GhostPathNavigator;
@@ -12,7 +10,6 @@ import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
 import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
 import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -24,7 +21,6 @@ import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -32,7 +28,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -266,20 +261,6 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
     }
 
     @Override
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        ItemStack itemstack = player.getHeldItem(hand);
-        if (!itemstack.isEmpty() && itemstack.getItem() == IafItemRegistry.manuscript && !this.isHauntedShoppingList()) {
-            this.setColor(-1);
-            this.playSound(IafSoundRegistry.BESTIARY_PAGE, 1, 1);
-            if (!player.isCreative()) {
-                itemstack.shrink(1);
-            }
-            return true;
-        }
-        return super.processInteract(player, hand);
-    }
-
-    @Override
     public void travel(float strafe, float vertical, float forward) {
         if (this.isDaytimeMode()) {
             super.travel(0, 0, 0);
@@ -293,13 +274,8 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setColor(this.rand.nextInt(3));
-        if (rand.nextInt(200) == 0) {
-            this.setColor(-1);
-        }
-
         return livingdata;
     }
-
 
     @Override
     protected void entityInit() {
@@ -312,7 +288,7 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
     }
 
     public int getColor() {
-        return MathHelper.clamp(this.getDataManager().get(COLOR), -1, 2);
+        return MathHelper.clamp(this.getDataManager().get(COLOR), 0, 2);
     }
 
     public void setColor(int color) {
@@ -345,10 +321,6 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         compound.setBoolean("FromChest", this.wasFromChest());
     }
 
-    public boolean isHauntedShoppingList() {
-        return this.getColor() == -1;
-    }
-
     @Override
     public int getAnimationTick() {
         return animationTick;
@@ -374,6 +346,10 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         return new Animation[]{NO_ANIMATION, ANIMATION_SCARE, ANIMATION_HIT};
     }
 
+    @Override
+    protected boolean canDespawn() {
+        return false;
+    }
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {

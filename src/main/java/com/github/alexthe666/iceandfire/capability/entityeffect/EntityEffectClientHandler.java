@@ -97,7 +97,7 @@ public class EntityEffectClientHandler {
         else if (capability.isSpooked()) {
             EntityGhost ghost = capability.getGhost(world);
             if (ghost != null) {
-                if (ghost.getAnimation() == EntityGhost.ANIMATION_SCARE && ghost.getAnimationTick() == 3 && !ghost.isHauntedShoppingList()) {
+                if (ghost.getAnimation() == EntityGhost.ANIMATION_SCARE && ghost.getAnimationTick() == 3) {
                     if (world.rand.nextInt(3) == 0) {
                         IceAndFire.PROXY.spawnParticle(EnumParticle.GHOST_APPEARANCE, world, ghost.posX, ghost.posY, ghost.posZ, 0, 0, 0);
                     }

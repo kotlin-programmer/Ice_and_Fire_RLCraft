@@ -15,7 +15,6 @@ public class RenderGhost extends RenderLiving<EntityGhost> {
 	public static final ResourceLocation TEXTURE_0 = new ResourceLocation("iceandfire:textures/models/ghost/ghost_white.png");
 	public static final ResourceLocation TEXTURE_1 = new ResourceLocation("iceandfire:textures/models/ghost/ghost_blue.png");
 	public static final ResourceLocation TEXTURE_2 = new ResourceLocation("iceandfire:textures/models/ghost/ghost_green.png");
-	public static final ResourceLocation TEXTURE_SHOPPING_LIST = new ResourceLocation("iceandfire:textures/models/ghost/haunted_shopping_list.png");
 
 	public RenderGhost(RenderManager renderManager) {
 		super(renderManager, new ModelGhost(0.0F), 0.55F);
@@ -62,8 +61,6 @@ public class RenderGhost extends RenderLiving<EntityGhost> {
 				return TEXTURE_1;
 			case 2:
 				return TEXTURE_2;
-			case -1:
-				return TEXTURE_SHOPPING_LIST;
 			default:
 				return TEXTURE_0;
 		}

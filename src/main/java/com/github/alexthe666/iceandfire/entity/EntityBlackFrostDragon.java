@@ -234,11 +234,6 @@ public class EntityBlackFrostDragon extends EntityIceDragon implements IDreadMob
 	}
 
 	@Override
-	public boolean isNoDespawnRequired() {
-		return true;
-	}
-
-	@Override
 	protected boolean canDespawn() {
 		return false;
 	}

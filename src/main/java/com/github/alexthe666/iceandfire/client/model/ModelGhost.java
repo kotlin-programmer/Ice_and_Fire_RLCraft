@@ -4,8 +4,6 @@ import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
-import net.minecraft.client.model.ModelBox;
-import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class ModelGhost extends ModelDragonBase {
@@ -24,7 +22,6 @@ public class ModelGhost extends ModelDragonBase {
     public AdvancedModelRenderer robeLowerRight;
     public AdvancedModelRenderer robeLowerLeft;
     public AdvancedModelRenderer sleeveLeft;
-    private final ModelRenderer shopping_list;
     private final ModelAnimator animator;
 
     @Override
@@ -99,19 +96,12 @@ public class ModelGhost extends ModelDragonBase {
         this.armLeft.addChild(this.sleeveLeft);
         animator = ModelAnimator.create();
         this.updateDefaultPose();
-
-        shopping_list = new ModelRenderer(this);
-        shopping_list.setRotationPoint(0.0F, 24.0F, 0.0F);
-        shopping_list.cubeList.add(new ModelBox(shopping_list, 0, 0, -8.0F, -26.0F, -1.0F, 16, 18, 0, 0.0F, false));
     }
 
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, 1);
-        if (!((EntityGhost) entity).isHauntedShoppingList()) {
-            this.body.render(f5);
-        } else
-            this.shopping_list.render(f5);
+        this.body.render(f5);
     }
 
     @Override
@@ -141,7 +131,7 @@ public class ModelGhost extends ModelDragonBase {
         this.flap(armRight, speed_idle * 1.5F, degree_idle * 0.2F, true, 2, 0.2F, f2, 1);
         this.walk(legLeft, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, f2, 1);
         this.walk(legRight, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, f2, 1);
-        this.flap(body, speed_idle * 1F, degree_idle * 0.1F, true, 3, 0, f2, 1);
+        this.flap(body, speed_idle, degree_idle * 0.1F, true, 3, 0, f2, 1);
         this.bob(body, speed_idle * 0.5F, degree_idle * 4.1F, false, f2, 1);
         this.bob(body, speed_walk * 0.75F, degree_walk * 2.1F, false, f, f1);
 
