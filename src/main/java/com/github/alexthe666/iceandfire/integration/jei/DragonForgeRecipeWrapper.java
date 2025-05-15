@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.integration.jei.lightningdragonforge.icedragonforge;
+package com.github.alexthe666.iceandfire.integration.jei;
 
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import mezz.jei.api.ingredients.IIngredients;
@@ -8,11 +8,11 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LightningDragonForgeRecipeWrapper implements IRecipeWrapper {
+public class DragonForgeRecipeWrapper implements IRecipeWrapper {
 
     private final DragonForgeRecipe recipe;
 
-    public LightningDragonForgeRecipeWrapper(DragonForgeRecipe recipe) {
+    public DragonForgeRecipeWrapper(DragonForgeRecipe recipe) {
         this.recipe = recipe;
     }
 

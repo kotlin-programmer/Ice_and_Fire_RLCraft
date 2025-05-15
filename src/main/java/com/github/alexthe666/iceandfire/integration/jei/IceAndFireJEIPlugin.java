@@ -1,15 +1,7 @@
 package com.github.alexthe666.iceandfire.integration.jei;
 
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.integration.jei.firedragonforge.FireDragonForgeCatagory;
-import com.github.alexthe666.iceandfire.integration.jei.firedragonforge.FireDragonForgeRecipeHandler;
-import com.github.alexthe666.iceandfire.integration.jei.firedragonforge.FireDragonForgeRecipeWrapper;
-import com.github.alexthe666.iceandfire.integration.jei.icedragonforge.IceDragonForgeCatagory;
-import com.github.alexthe666.iceandfire.integration.jei.icedragonforge.IceDragonForgeRecipeHandler;
-import com.github.alexthe666.iceandfire.integration.jei.icedragonforge.IceDragonForgeRecipeWrapper;
-import com.github.alexthe666.iceandfire.integration.jei.lightningdragonforge.icedragonforge.LightningDragonForgeCatagory;
-import com.github.alexthe666.iceandfire.integration.jei.lightningdragonforge.icedragonforge.LightningDragonForgeRecipeHandler;
-import com.github.alexthe666.iceandfire.integration.jei.lightningdragonforge.icedragonforge.LightningDragonForgeRecipeWrapper;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModRecipes;
@@ -19,8 +11,6 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
-import mezz.jei.api.recipe.IRecipeWrapper;
-import mezz.jei.api.recipe.IRecipeWrapperFactory;
 import net.minecraft.item.ItemStack;
 
 @JEIPlugin
@@ -37,22 +27,20 @@ public class IceAndFireJEIPlugin implements IModPlugin {
     @Override
     public void register(IModRegistry registry) {
         registry.addRecipes(IafDragonForgeRecipeRegistry.FIRE_FORGE_RECIPES, FIRE_DRAGON_FORGE_ID);
-        registry.addRecipeHandlers(new FireDragonForgeRecipeHandler());
-        registry.handleRecipes(DragonForgeRecipe.class, new FireDragonForgeFactory(), FIRE_DRAGON_FORGE_ID);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(IafBlockRegistry.dragonforge_core_fire), FIRE_DRAGON_FORGE_ID);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(IafBlockRegistry.dragonforge_core), FIRE_DRAGON_FORGE_ID);
+        registry.handleRecipes(DragonForgeRecipe.class, DragonForgeRecipeWrapper::new, FIRE_DRAGON_FORGE_ID);
+        registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core_fire), FIRE_DRAGON_FORGE_ID);
+        registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core), FIRE_DRAGON_FORGE_ID);
 
         registry.addRecipes(IafDragonForgeRecipeRegistry.ICE_FORGE_RECIPES, ICE_DRAGON_FORGE_ID);
-        registry.addRecipeHandlers(new IceDragonForgeRecipeHandler());
-        registry.handleRecipes(DragonForgeRecipe.class, new IceDragonForgeFactory(), ICE_DRAGON_FORGE_ID);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(IafBlockRegistry.dragonforge_core_ice), ICE_DRAGON_FORGE_ID);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(IafBlockRegistry.dragonforge_core), ICE_DRAGON_FORGE_ID);
+        registry.handleRecipes(DragonForgeRecipe.class, DragonForgeRecipeWrapper::new, ICE_DRAGON_FORGE_ID);
+        registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core_ice), ICE_DRAGON_FORGE_ID);
+        registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core), ICE_DRAGON_FORGE_ID);
 
         registry.addRecipes(IafDragonForgeRecipeRegistry.LIGHTNING_FORGE_RECIPES, LIGHTNING_DRAGON_FORGE_ID);
-        registry.addRecipeHandlers(new LightningDragonForgeRecipeHandler());
-        registry.handleRecipes(DragonForgeRecipe.class, new LightningDragonForgeFactory(), LIGHTNING_DRAGON_FORGE_ID);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(IafBlockRegistry.dragonforge_core_lightning), LIGHTNING_DRAGON_FORGE_ID);
-        registry.addRecipeCategoryCraftingItem(new ItemStack(IafBlockRegistry.dragonforge_core), LIGHTNING_DRAGON_FORGE_ID);
+        registry.handleRecipes(DragonForgeRecipe.class, DragonForgeRecipeWrapper::new, LIGHTNING_DRAGON_FORGE_ID);
+        registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core_lightning), LIGHTNING_DRAGON_FORGE_ID);
+        registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core), LIGHTNING_DRAGON_FORGE_ID);
+
 
         addDescription(registry, new ItemStack(IafItemRegistry.fire_dragon_blood));
         addDescription(registry, new ItemStack(IafItemRegistry.ice_dragon_blood));
@@ -86,29 +74,8 @@ public class IceAndFireJEIPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registry) {
-        registry.addRecipeCategories(new FireDragonForgeCatagory());
-        registry.addRecipeCategories(new IceDragonForgeCatagory());
-        registry.addRecipeCategories(new LightningDragonForgeCatagory());
-    }
-
-    public static class FireDragonForgeFactory implements IRecipeWrapperFactory<DragonForgeRecipe> {
-        @Override
-        public IRecipeWrapper getRecipeWrapper(DragonForgeRecipe recipe) {
-            return new FireDragonForgeRecipeWrapper(recipe);
-        }
-    }
-
-    public static class IceDragonForgeFactory implements IRecipeWrapperFactory<DragonForgeRecipe> {
-        @Override
-        public IRecipeWrapper getRecipeWrapper(DragonForgeRecipe recipe) {
-            return new IceDragonForgeRecipeWrapper(recipe);
-        }
-    }
-
-    public static class LightningDragonForgeFactory implements IRecipeWrapperFactory<DragonForgeRecipe> {
-        @Override
-        public IRecipeWrapper getRecipeWrapper(DragonForgeRecipe recipe) {
-            return new LightningDragonForgeRecipeWrapper(recipe);
-        }
+        registry.addRecipeCategories(new DragonForgeCategory(EnumDragonType.FIRE));
+        registry.addRecipeCategories(new DragonForgeCategory(EnumDragonType.ICE));
+        registry.addRecipeCategories(new DragonForgeCategory(EnumDragonType.LIGHTNING));
     }
 }
