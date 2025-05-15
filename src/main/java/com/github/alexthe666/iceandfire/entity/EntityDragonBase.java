@@ -978,6 +978,17 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         ItemStack stack = player.getHeldItem(hand);
         int lastDeathStage = this.getAgeInDays() / 5;
         if (this.isModelDead() && this.getDeathStage() < lastDeathStage && player.capabilities.allowEdit) {
+            if (!world.isRemote && this.getDeathStage() == (lastDeathStage / 2) - 1 && IceAndFireConfig.DRAGON_SETTINGS.dragonDropHeart) {
+                ItemStack heart = new ItemStack(getHeart(), 1);
+                ItemStack egg = new ItemStack(this.getVariantEgg(this.rand.nextInt(4)), 1);
+                if (!world.isRemote) {
+                    this.entityDropItem(heart, 1);
+                    if (!this.isMale() && this.getDragonStage() > 3) {
+                        this.entityDropItem(egg, 1);
+                    }
+                }
+            }
+
             if (!world.isRemote && !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && this.getDeathStage() < lastDeathStage / 2 && IceAndFireConfig.DRAGON_SETTINGS.dragonDropBlood) {
                 if (!player.capabilities.isCreativeMode) {
                     stack.shrink(1);
@@ -997,16 +1008,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         this.entityDropItem(skull, 1);
                     }
                     this.setDead();
-                } else if (this.getDeathStage() == (int) (lastDeathStage / 2) - 1 && IceAndFireConfig.DRAGON_SETTINGS.dragonDropHeart) {
-                    ItemStack heart = new ItemStack(getHeart(), 1);
-                    ItemStack egg = new ItemStack(this.getVariantEgg(this.rand.nextInt(4)), 1);
-                    if (!world.isRemote) {
-                        this.entityDropItem(heart, 1);
-                        if (!this.isMale() && this.getDragonStage() > 3) {
-                            this.entityDropItem(egg, 1);
-                        }
-                    }
-                    this.setDeathStage(this.getDeathStage() + 1);
                 } else {
                     this.setDeathStage(this.getDeathStage() + 1);
                     ItemStack drop = getRandomDrop();
