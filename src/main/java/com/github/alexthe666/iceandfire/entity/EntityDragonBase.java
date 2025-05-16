@@ -980,12 +980,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (this.isModelDead() && this.getDeathStage() < lastDeathStage && player.capabilities.allowEdit) {
             if (!world.isRemote && this.getDeathStage() == (lastDeathStage / 2) - 1 && IceAndFireConfig.DRAGON_SETTINGS.dragonDropHeart) {
                 ItemStack heart = new ItemStack(getHeart(), 1);
-                ItemStack egg = new ItemStack(this.getVariantEgg(this.rand.nextInt(4)), 1);
-                if (!world.isRemote) {
-                    this.entityDropItem(heart, 1);
-                    if (!this.isMale() && this.getDragonStage() > 3) {
-                        this.entityDropItem(egg, 1);
-                    }
+                this.entityDropItem(heart, 1);
+                if (!this.isMale() && this.getDragonStage() > 3) {
+                    ItemStack egg = new ItemStack(this.getVariantEgg(this.rand.nextInt(4)), 1);
+                    this.entityDropItem(egg, 1);
                 }
             }
 
