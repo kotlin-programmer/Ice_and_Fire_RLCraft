@@ -1,5 +1,6 @@
-package com.github.alexthe666.iceandfire.integration.jei.firedragonforge;
+package com.github.alexthe666.iceandfire.integration.jei;
 
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import mezz.jei.api.gui.IDrawable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -8,8 +9,16 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
-public class FireDragonForgeDrawable implements IDrawable {
-    private static final ResourceLocation TEXTURE = new ResourceLocation("iceandfire:textures/gui/dragonforge_fire_jei.png");
+public class DragonForgeDrawable implements IDrawable {
+    private final ResourceLocation TEXTURE;
+
+    public DragonForgeDrawable(EnumDragonType type){
+        switch (type){
+            case FIRE: TEXTURE = new ResourceLocation("iceandfire:textures/gui/dragonforge_fire_jei.png"); break;
+            case ICE: TEXTURE = new ResourceLocation("iceandfire:textures/gui/dragonforge_ice_jei.png"); break;
+            case LIGHTNING: default: TEXTURE = new ResourceLocation("iceandfire:textures/gui/dragonforge_lightning_jei.png");
+        }
+    }
 
     @Override
     public int getWidth() {
