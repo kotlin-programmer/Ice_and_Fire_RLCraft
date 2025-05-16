@@ -82,6 +82,25 @@ public class IafDragonForgeRecipeRegistry {
         return null;
     }
 
+    public static boolean isValidBlood(ItemStack stack) {
+        if (stack == null || stack.isEmpty()) {
+            return false;
+        }
+        if (stack.getItem() == IafItemRegistry.fire_dragon_blood
+                || stack.getItem() == IafItemRegistry.ice_dragon_blood
+                || stack.getItem() == IafItemRegistry.lightning_dragon_blood) {
+            return true;
+        }
+        for (EnumDragonType type : EnumDragonType.values()) {
+            for (DragonForgeRecipe recipe : getForgeRecipes(type)) {
+                if (stack.isItemEqual(recipe.getBlood())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static List<DragonForgeRecipe> getForgeRecipes(EnumDragonType type) {
         if (type == null) {
             return new ArrayList<>();

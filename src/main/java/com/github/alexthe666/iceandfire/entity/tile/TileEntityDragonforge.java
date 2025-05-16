@@ -1,12 +1,9 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeBricks;
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeCore;
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeInput;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
-import com.github.alexthe666.iceandfire.core.ModRecipes;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
