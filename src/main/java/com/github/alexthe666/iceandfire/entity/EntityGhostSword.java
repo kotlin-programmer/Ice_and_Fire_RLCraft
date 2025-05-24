@@ -20,8 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityGhostSword extends EntityArrow
-{
+public class EntityGhostSword extends EntityArrow {
     public static final DataParameter<Integer> DISPOSE_TIME = EntityDataManager.createKey(EntityGhostSword.class, DataSerializers.VARINT);
 
     public Entity shooter;
@@ -29,19 +28,16 @@ public class EntityGhostSword extends EntityArrow
     private int knockbackStrength;
 
     @Override
-    public void notifyDataManagerChange(DataParameter<?> key)
-    {
+    public void notifyDataManagerChange(DataParameter<?> key) {
         super.notifyDataManagerChange(key);
-        if(key == DISPOSE_TIME)
-        {
+        if (key == DISPOSE_TIME) {
             maxDisposeTime = Math.min(dataManager.get(DISPOSE_TIME) - ticksExisted, 15);
         }
     }
 
-    public EntityGhostSword(World w)
-    {
+    public EntityGhostSword(World w) {
         super(w);
-        this.setDamage(9F);
+        this.setDamage(1.5F);
     }
 
     public EntityGhostSword(World worldIn, EntityLivingBase shooter, double dmg) {
@@ -82,8 +78,7 @@ public class EntityGhostSword extends EntityArrow
         return d0 * d0 + d1 * d1 + d2 * d2;
     }
 
-    public void onUpdate()
-    {
+    public void onUpdate() {
         super.onUpdate();
         noClip = true;
 
@@ -101,9 +96,9 @@ public class EntityGhostSword extends EntityArrow
         if (particleDistSq(x, y, z) < f * f) {
             this.world.spawnParticle(EnumParticleTypes.END_ROD, x, y + 0.5D, z, d0, d1, d2);
         }
-
-        if (this.ticksExisted >= 20)
+        if (this.ticksExisted >= 20) {
             this.setDead();
+        }
     }
 
     public boolean hasNoGravity()
@@ -113,14 +108,16 @@ public class EntityGhostSword extends EntityArrow
 
     @Override
     protected void onHit(RayTraceResult object) {
-        if (this.isDead)
+        if (this.isDead) {
             return;
+        }
 
         Entity entity = object.entityHit;
         if (entity != null) {
             Entity e = object.entityHit;
-            if (e == shooter)
+            if (e == shooter) {
                 return;
+            }
 
             int damage = MathHelper.ceil(getDamage());
             if (this.getIsCritical()) {

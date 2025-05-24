@@ -39,9 +39,19 @@ public class ItemGhostSword extends ItemSword {
             return;
         final Multimap<String, AttributeModifier> dmg = stack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
         double totalDmg = 0D;
-        for (AttributeModifier modifier : dmg.get(String.valueOf(SharedMonsterAttributes.ATTACK_DAMAGE))) {
-            totalDmg += modifier.getAmount();
+        double multiplyBase = 1D;
+        double multiply = 1D;
+        for (AttributeModifier modifier : dmg.get(SharedMonsterAttributes.ATTACK_DAMAGE.getName())) {
+            if (modifier.getOperation() == 0) {
+                totalDmg += modifier.getAmount();
+            } else if (modifier.getOperation() == 1) {
+                multiplyBase += modifier.getAmount();
+            } else if (modifier.getOperation() == 2) {
+                multiply *= 1D + modifier.getAmount();
+            }
         }
+        totalDmg *= multiplyBase;
+        totalDmg *= multiply;
         playerEntity.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
         EntityGhostSword shot = new EntityGhostSword(playerEntity.world, playerEntity, totalDmg * 0.5F);
         Vec3d vector3d = playerEntity.getLook(1.0F);
@@ -60,11 +70,6 @@ public class ItemGhostSword extends ItemSword {
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.0D, 0));
         }
         return multimap;
-    }
-
-    @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-        return super.hitEntity(stack, target, attacker);
     }
 
     @Override

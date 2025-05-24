@@ -23,10 +23,8 @@ import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemTideTrident;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
 import com.github.alexthe666.iceandfire.message.MessagePlayerHitMultipart;
-import com.github.alexthe666.iceandfire.message.MessageSwingArm;
+import com.github.alexthe666.iceandfire.message.MessageSwingGhostSword;
 import com.github.alexthe666.iceandfire.structures.WorldGenLightningDragonCave;
-import com.lycanitesmobs.core.info.altar.AltarInfoCelestialGeonach;
-import com.lycanitesmobs.core.mobevent.trigger.AltarMobEventTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.state.IBlockState;
@@ -44,7 +42,6 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemMonsterPlacer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -516,17 +513,17 @@ public class EventLiving {
 		}
 	}
 
-	public static void onLeftClick(final EntityPlayer playerEntity, final ItemStack stack) {
-		if (stack.getItem() == IafItemRegistry.ghost_sword && !playerEntity.world.isRemote) {
+	public static void onSwingGhostSword(final EntityPlayer playerEntity, final ItemStack stack) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.ghost_sword) {
 			ItemGhostSword.spawnGhostSwordEntity(stack, playerEntity);
 		}
 	}
 
 	@SubscribeEvent
 	public void onPlayerLeftClick(PlayerInteractEvent.LeftClickEmpty event) {
-		onLeftClick(event.getEntityPlayer(), event.getItemStack());
-		if (event.getWorld().isRemote) {
-			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageSwingArm());
+		ItemStack stack = event.getItemStack();
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.ghost_sword) {
+			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageSwingGhostSword());
 		}
 	}
 

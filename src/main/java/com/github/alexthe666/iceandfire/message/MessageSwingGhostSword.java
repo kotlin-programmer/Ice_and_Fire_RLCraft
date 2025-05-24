@@ -9,20 +9,20 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-public class MessageSwingArm extends AbstractMessage<MessageSwingArm> {
+public class MessageSwingGhostSword extends AbstractMessage<MessageSwingGhostSword> {
 
-    public MessageSwingArm() {
-
-    }
-
-    @Override
-    public void onClientReceived(Minecraft minecraft, MessageSwingArm messageSwingArm, EntityPlayer entityPlayer, MessageContext messageContext) {
+    public MessageSwingGhostSword() {
 
     }
 
     @Override
-    public void onServerReceived(MinecraftServer minecraftServer, MessageSwingArm messageSwingArm, EntityPlayer entityPlayer, MessageContext messageContext) {
-        EventLiving.onLeftClick(entityPlayer, entityPlayer.getHeldItem(EnumHand.MAIN_HAND));
+    public void onClientReceived(Minecraft minecraft, MessageSwingGhostSword messageSwingGhostSword, EntityPlayer entityPlayer, MessageContext messageContext) {
+
+    }
+
+    @Override
+    public void onServerReceived(MinecraftServer minecraftServer, MessageSwingGhostSword messageSwingGhostSword, EntityPlayer entityPlayer, MessageContext messageContext) {
+        EventLiving.onSwingGhostSword(entityPlayer, entityPlayer.getHeldItem(EnumHand.MAIN_HAND));
     }
 
 
