@@ -435,7 +435,11 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setHairColor(this.getRNG().nextInt(3));
+        if (this.getRNG().nextInt(100) == 0) {
+            this.setHairColor(3);
+        } else {
+            this.setHairColor(this.getRNG().nextInt(3));
+        }
         this.setSingingPose(this.getRNG().nextInt(3));
         return livingdata;
     }
