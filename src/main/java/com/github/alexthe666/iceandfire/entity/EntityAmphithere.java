@@ -868,7 +868,11 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         EntityAmphithere amphithere = new EntityAmphithere(world);
-        amphithere.setVariant(this.getRNG().nextInt(5));
+        if (this.getRNG().nextInt(100) == 0) {
+            amphithere.setVariant(5);
+        } else {
+            amphithere.setVariant(this.getRNG().nextInt(5));
+        }
         return amphithere;
     }
 

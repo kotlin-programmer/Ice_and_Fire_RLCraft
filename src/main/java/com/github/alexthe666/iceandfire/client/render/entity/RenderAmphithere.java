@@ -24,7 +24,10 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 	private static final ResourceLocation TEXTURE_RED_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_red_blink.png");
 	private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_yellow.png");
 	private static final ResourceLocation TEXTURE_YELLOW_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_yellow_blink.png");
+	private static final ResourceLocation TEXTURE_RAINBOW = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_rainbow.png");
+	private static final ResourceLocation TEXTURE_RAINBOW_BLINK = new ResourceLocation("iceandfire:textures/models/amphithere/amphithere_rainbow_blink.png");
 	private static final String NISCHHELM = "Nischhelm";
+	private static final String RISKY = "Risky";
 
 	public RenderAmphithere(RenderManager renderManager) {
 		super(renderManager, new ModelAmphithere(), 1.6F);
@@ -33,7 +36,7 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 	@Override
 	public void preRenderCallback(EntityAmphithere entitylivingbaseIn, float partialTickTime) {
 		String s = TextFormatting.getTextWithoutFormattingCodes(entitylivingbaseIn.getName());
-		if (s != null && s.equals(NISCHHELM)) {
+		if (NISCHHELM.equals(s)) {
 			GlStateManager.translate(0, -entitylivingbaseIn.height, 0);
 			GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
@@ -45,13 +48,19 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityAmphithere amphithere) {
-		switch(amphithere.getVariant()) {
-			case 0: return amphithere.isBlinking() ? TEXTURE_BLUE_BLINK : TEXTURE_BLUE;
-			case 1: return amphithere.isBlinking() ? TEXTURE_GREEN_BLINK : TEXTURE_GREEN;
-			case 2: return amphithere.isBlinking() ? TEXTURE_PURPLE_BLINK : TEXTURE_PURPLE;
-			case 3: return amphithere.isBlinking() ? TEXTURE_RED_BLINK : TEXTURE_RED;
-			case 4: return amphithere.isBlinking() ? TEXTURE_YELLOW_BLINK : TEXTURE_YELLOW;
-			default: return TEXTURE_GREEN;
+		String s = TextFormatting.getTextWithoutFormattingCodes(amphithere.getName());
+		if (RISKY.equals(s)) {
+			return amphithere.isBlinking() ? TEXTURE_RAINBOW_BLINK : TEXTURE_RAINBOW;
+		} else {
+			switch(amphithere.getVariant()) {
+				case 0: return amphithere.isBlinking() ? TEXTURE_BLUE_BLINK : TEXTURE_BLUE;
+				case 1: return amphithere.isBlinking() ? TEXTURE_GREEN_BLINK : TEXTURE_GREEN;
+				case 2: return amphithere.isBlinking() ? TEXTURE_PURPLE_BLINK : TEXTURE_PURPLE;
+				case 3: return amphithere.isBlinking() ? TEXTURE_RED_BLINK : TEXTURE_RED;
+				case 4: return amphithere.isBlinking() ? TEXTURE_YELLOW_BLINK : TEXTURE_YELLOW;
+				case 5: return amphithere.isBlinking() ? TEXTURE_RAINBOW_BLINK : TEXTURE_RAINBOW;
+				default: return TEXTURE_GREEN;
+			}
 		}
 	}
 }
