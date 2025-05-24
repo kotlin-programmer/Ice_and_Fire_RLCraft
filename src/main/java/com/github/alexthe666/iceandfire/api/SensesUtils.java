@@ -12,28 +12,31 @@ import net.minecraft.item.ItemStack;
 
 public class SensesUtils {
 
-    public static boolean isBlind(EntityLivingBase entity){
-        if(entity == null) return false;
-        if(entity.isPotionActive(MobEffects.BLINDNESS)) return true;
-
-        ItemStack helmet = entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        if(helmet.getItem() == IafItemRegistry.blindfold)
+    public static boolean isBlind(EntityLivingBase entity) {
+        if (entity == null) {
+            return false;
+        } else if (entity.isPotionActive(MobEffects.BLINDNESS)) {
             return true;
-        else if(CompatLoadUtil.isBaublesLoaded() && entity instanceof EntityPlayer)
+        }
+        ItemStack helmet = entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
+        if (helmet.getItem() == IafItemRegistry.blindfold) {
+            return true;
+        } else if(CompatLoadUtil.isBaublesLoaded() && entity instanceof EntityPlayer) {
             return BaublesApi.getBaublesHandler((EntityPlayer)entity).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).getItem() == IafItemRegistry.blindfold;
-
+        }
         return false;
     }
 
-    public static boolean isDeaf(EntityLivingBase entity){
-        if(entity == null) return false;
-
+    public static boolean isDeaf(EntityLivingBase entity) {
+        if (entity == null) {
+            return false;
+        }
         ItemStack helmet = entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        if(helmet.getItem() == IafItemRegistry.earplugs || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff"))
+        if (helmet.getItem() == IafItemRegistry.earplugs || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff")) {
             return true;
-        else if (CompatLoadUtil.isBaublesLoaded() && entity instanceof EntityPlayer)
+        } else if (CompatLoadUtil.isBaublesLoaded() && entity instanceof EntityPlayer) {
             return BaublesApi.getBaublesHandler((EntityPlayer)entity).getStackInSlot(BaubleType.HEAD.getValidSlots()[0]).getItem() == IafItemRegistry.earplugs;
-
+        }
         return false;
     }
 }

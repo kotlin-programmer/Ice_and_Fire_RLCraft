@@ -61,6 +61,16 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		return d1 > 1.0D - degree / d0 && looker.canEntityBeSeen(seen) && !isStoneMob(seen);
 	}
 
+	public static boolean isBlindfolded(EntityLivingBase attackTarget) {
+		// See: https://github.com/kotlin-programmer/Ice_and_Fire_RLCraft/issues/35
+		return false;
+	}
+
+	public static boolean isBlind(EntityLivingBase attackTarget) {
+		return SensesUtils.isBlind(attackTarget) || isBlindfolded(attackTarget);
+	}
+
+
 	@Nullable
 	protected ResourceLocation getLootTable() {
 		return LOOT;
@@ -125,7 +135,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-		boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || SensesUtils.isBlind(this.getAttackTarget()) ||
+		boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(this.getAttackTarget()) ||
 				this.getAttackTarget() != null && this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) this.getAttackTarget()).canBeTurnedToStone();
 		if (blindness && this.deathTime == 0) {
 			if (this.getAnimation() != ANIMATION_HIT) {
@@ -146,7 +156,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
 		super.setAttackTarget(entitylivingbaseIn);
 		if (entitylivingbaseIn != null && !world.isRemote) {
-			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || SensesUtils.isBlind(entitylivingbaseIn) ||
+			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(entitylivingbaseIn) ||
 					entitylivingbaseIn instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entitylivingbaseIn).canBeTurnedToStone();
 			if (blindness && this.deathTime == 0) {
 				this.tasks.removeTask(aiStare);
@@ -200,7 +210,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		super.onLivingUpdate();
 		if(statueCooldown > 0) statueCooldown--;
 		if (this.getAttackTarget() != null) {
-			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || SensesUtils.isBlind(this.getAttackTarget()) ||
+			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(this.getAttackTarget()) ||
 					this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)this.getAttackTarget()).canBeTurnedToStone();
 			this.getLookHelper().setLookPosition(this.getAttackTarget().posX, this.getAttackTarget().posY + (double) this.getAttackTarget().getEyeHeight(), this.getAttackTarget().posZ, (float) this.getHorizontalFaceSpeed(), (float) this.getVerticalFaceSpeed());
 			if (!blindness && this.deathTime == 0 && this.getAttackTarget() instanceof EntityLiving && !(this.getAttackTarget() instanceof EntityPlayer)) {
@@ -209,7 +219,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		}
 
 		if (this.getAttackTarget() != null && isEntityLookingAt(this, this.getAttackTarget(), 0.4) && isEntityLookingAt(this.getAttackTarget(), this, 0.4)) {
-			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || SensesUtils.isBlind(this.getAttackTarget()) ||
+			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(this.getAttackTarget()) ||
 					this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)this.getAttackTarget()).canBeTurnedToStone();
 			if (!blindness && this.deathTime == 0) {
 				if (this.getAnimation() != ANIMATION_SCARE) {
