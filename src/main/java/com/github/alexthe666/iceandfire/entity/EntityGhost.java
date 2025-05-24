@@ -62,17 +62,8 @@ public class EntityGhost extends EntityMob implements IAnimatedEntity, IVillager
         this.moveHelper = new MoveHelper(this);
     }
 
-    @Override
-    protected int getExperiencePoints(EntityPlayer player) {
-        if (this.wasFromChest()) {
-            return 0;
-        } else {
-            return super.getExperiencePoints(player);
-        }
-    }
-
     protected ResourceLocation getLootTable() {
-        return this.wasFromChest() ? LootTableList.EMPTY : LOOT;
+        return LOOT;
     }
 
     @Nullable
