@@ -640,7 +640,7 @@ public class EntityHippocampus extends EntityTameable implements IAnimatedEntity
             return true;
         }
         if (stack.getItem() == Item.getItemFromBlock(Blocks.SPONGE) && stack.getMetadata() == 0) {
-            if(!this.isTamed() || this.getHealth() < this.getMaxHealth()) {
+            if(this.getHealth() < this.getMaxHealth() || !this.isTamed()) {
                 if (!player.capabilities.isCreativeMode) {
                     stack.shrink(1);
                 }
@@ -652,7 +652,7 @@ public class EntityHippocampus extends EntityTameable implements IAnimatedEntity
                     }
                 }
 
-                if (!this.world.isRemote) {
+                if (!this.world.isRemote && !this.isTamed()) {
                     if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
                         this.setTamedBy(player);
                         this.navigator.clearPath();
