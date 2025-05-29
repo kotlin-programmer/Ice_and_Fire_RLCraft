@@ -640,47 +640,45 @@ public class EntityHippocampus extends EntityTameable implements IAnimatedEntity
             return true;
         }
         if (stack.getItem() == Item.getItemFromBlock(Blocks.SPONGE) && stack.getMetadata() == 0) {
-            if (!world.isRemote) {
-                this.heal(5);
-                this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-                if (!player.isCreative()) {
+            if(this.getHealth() < this.getMaxHealth() || !this.isTamed()) {
+                if (!player.capabilities.isCreativeMode) {
                     stack.shrink(1);
                 }
-            }
-            else {
-                for (int i = 0; i < 3; i++) {
-                    ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0, 0, 0, Item.getIdFromItem(stack.getItem()), 0);
-                }
-            }
-            if (!this.isTamed() && this.getRNG().nextInt(3) == 0) {
-                this.setTamedBy(player);
-                if(this.world.isRemote) {
-                    for (int i = 0; i < 6; i++) {
-                        ParticleHelper.spawnParticle(this.world, EnumParticleTypes.HEART, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0, 0, 0);
+                this.heal(5);
+                this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
+                if (this.world.isRemote) {
+                    for (int i = 0; i < 3; i++) {
+                        ParticleHelper.spawnParticle(this.world, EnumParticleTypes.ITEM_CRACK, this.posX + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, this.posY + (double) (this.rand.nextFloat() * this.height), this.posZ + (double) (this.rand.nextFloat() * this.width * 2.0F) - (double) this.width, 0, 0, 0, Item.getIdFromItem(stack.getItem()), 0);
                     }
                 }
-            }
-            return true;
 
-        }
-        if (isOwner(player) && stack.getItem() == Items.PRISMARINE_CRYSTALS && this.getGrowingAge() == 0 && !isInLove()) {
-            this.setSitting(false);
-            this.setInLove(player);
-            this.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
-            if (!player.isCreative()) {
-                stack.shrink(1);
+                if (!this.world.isRemote && !this.isTamed()) {
+                    if (this.rand.nextInt(3) == 0 && !net.minecraftforge.event.ForgeEventFactory.onAnimalTame(this, player)) {
+                        this.setTamedBy(player);
+                        this.navigator.clearPath();
+                        this.setSitting(true);
+                        this.setHealth(this.getMaxHealth());
+                        this.playTameEffect(true);
+                        this.world.setEntityState(this, (byte) 7);
+                    } else {
+                        this.playTameEffect(false);
+                        this.world.setEntityState(this, (byte) 6);
+                    }
+                }
+                return true;
             }
-            return true;
         }
-        if (isOwner(player) && stack.getItem() == Items.STICK) {
-            this.setSitting(!this.isSitting());
-            return true;
-        }
-        if(isOwner(player) && stack.isEmpty()) {
+        if(isOwner(player)) {
+            if (stack.getItem() == Items.STICK) {
+                this.setSitting(!this.isSitting());
+                this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
+                return true;
+            }
             if (player.isSneaking()) {
                 this.openGUI(player);
                 return true;
             } else if (this.isSaddled() && !this.isChild() && !player.isRiding()) {
+                this.setSitting(false);
                 player.startRiding(this, true);
                 if (world.isRemote) {
                     IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), true));

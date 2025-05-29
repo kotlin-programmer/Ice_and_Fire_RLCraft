@@ -290,6 +290,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 						this.setCommand(0);
 					}
 					player.sendStatusMessage(new TextComponentTranslation("hippogryph.command." + (this.getCommand() == 1 ? "sit" : "stand")), true);
+					this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
 
 				}
 				return true;
@@ -320,17 +321,15 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				}
 				return true;
 			}
-			if(stack.isEmpty()) {
-				if (player.isSneaking()) {
-					this.openGUI(player);
-					return true;
-				} else if (this.isSaddled() && !this.isChild() && !player.isRiding()) {
-					player.startRiding(this, true);
-					if (world.isRemote) {
-						IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), true));
-					}
-					return true;
+			if (player.isSneaking()) {
+				this.openGUI(player);
+				return true;
+			} else if (this.isSaddled() && !this.isChild() && !player.isRiding()) {
+				player.startRiding(this, true);
+				if (world.isRemote) {
+					IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), true));
 				}
+				return true;
 			}
 		}
 		//Don't call EntityAnimal::processInteract() due to custom breeding handling
