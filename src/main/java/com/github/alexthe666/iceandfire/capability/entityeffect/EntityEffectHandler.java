@@ -55,7 +55,7 @@ public class EntityEffectHandler {
                     entity.motionZ += (Math.signum(siren.posZ - entity.posZ) * 0.5D - entity.motionZ) * 0.100000000372529;
                     if(entity.isRiding()) entity.dismountRidingEntity();
 
-                    if(entity.getDistanceSq(siren) < 25D) {//Within 5 blocks
+                    if(entity.getDistanceSq(siren) < 25D) { // Within 5 blocks
                         capability.reset();
                         siren.singCooldown = IceAndFireConfig.ENTITY_SETTINGS.sirenTimeBetweenSongs;
                         siren.setSinging(false);
@@ -65,10 +65,10 @@ public class EntityEffectHandler {
                     }
                     return;
                 }
-                //If siren exists but time is up or invalid, set cooldown
+                // If siren exists but time is up or invalid, set cooldown
                 siren.singCooldown = IceAndFireConfig.ENTITY_SETTINGS.sirenTimeBetweenSongs;
             }
-            //Reset effect if ended or invalid
+            // Reset effect if ended or invalid
             capability.reset();
         }
         else if(capability.isFrozen()) {
@@ -79,27 +79,27 @@ public class EntityEffectHandler {
                     extinguished = true;
                     entity.extinguish();
                 }
-                if(!extinguished || capability.getAdditionalData() > 0) {//Severity 0 if not burning and up
+                if(!extinguished || capability.getAdditionalData() > 0) { // Severity 0 if not burning and up
                     entity.motionX *= 0.25;
                     entity.motionZ *= 0.25;
                     if(!(entity instanceof EntityDragon) && !entity.onGround) entity.motionY -= 0.1D;
-                    if(capability.getAdditionalData() > 0) {//Severity 1 and up
+                    if(capability.getAdditionalData() > 0) { // Severity 1 and up
                         entity.motionX = 0;
                         entity.motionZ = 0;
                         if(entity.motionY > 0) entity.motionY = 0;
                         entity.rotationPitch = entity.prevRotationPitch;
                         entity.rotationYaw = entity.prevRotationYaw;
                         entity.onGround = false;
-                        if(capability.getAdditionalData() > 1) {//Severity 2 and up
+                        if(capability.getAdditionalData() > 1) { // Severity 2 and up
                             if(capability.getTime()%40 == 0) entity.attackEntityFrom(DamageSource.IN_WALL, 1.0F);
                         }
                     }
                     return;
                 }
             }
-            //Reset effect if ended or invalid
+            // Reset effect if ended or invalid
             capability.reset();
-            //Spawn particle and sound if ending
+            // Spawn particle and sound if ending
             for(int i = 0; i < 4; i++) {
                 ParticleHelper.spawnParticle(entity.world,
                         EnumParticleTypes.BLOCK_CRACK,
@@ -120,21 +120,21 @@ public class EntityEffectHandler {
                 if(!entity.isBurning()) entity.setFire(Math.max(capability.getTime()/20, 1));
                 entity.motionX *= 0.75;
                 entity.motionZ *= 0.75;
-                if(capability.getAdditionalData() < 2 && capability.getTime()%20 == 0) entity.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
-                if(capability.getAdditionalData() > 0) {//Severity 1 and up
+                if(capability.getAdditionalData() < 2 && capability.getTime() % 20 == 0) entity.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+                if(capability.getAdditionalData() > 0) {// Severity 1 and up
                     entity.motionX *= 0.4;
                     entity.motionZ *= 0.4;
                     if(entity.motionY > 0) entity.motionY *= 0.4;
-                    if(capability.getAdditionalData() > 1) {//Severity 2 and up
-                        if(capability.getTime()%20 == 0) entity.attackEntityFrom(DamageSource.LAVA, 2.0F);
+                    if(capability.getAdditionalData() > 1) { // Severity 2 and up
+                        if(capability.getTime() % 20 == 0) entity.attackEntityFrom(DamageSource.LAVA, 2.0F);
                     }
                 }
                 return;
             }
             if(entity.isBurning()) entity.extinguish();
-            //Reset effect if ended or invalid
+            // Reset effect if ended or invalid
             capability.reset();
-            //Spawn particle and sound if ending
+            // Spawn particle and sound if ending
             for(int i = 0; i < 4; i++) {
                 ParticleHelper.spawnParticle(entity.world,
                         EnumParticleTypes.SMOKE_NORMAL,
@@ -154,17 +154,51 @@ public class EntityEffectHandler {
                 entity.motionZ = 0;
                 if(entity.motionY > 0) entity.motionY = 0;
                 entity.onGround = false;
-                if(capability.getAdditionalData() > 0) {//Severity 1 and up
+                if(capability.getAdditionalData() > 0) { // Severity 1 and up
                     entity.rotationPitch = entity.prevRotationPitch;
                     entity.rotationYaw = entity.prevRotationYaw;
-                    if(capability.getAdditionalData() > 1) {//Severity 2 and up
+                    if(capability.getAdditionalData() > 1) { // Severity 2 and up
                         if(capability.getTime()%40 == 0) entity.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 2.0F);
                     }
                 }
                 return;
             }
-            //Reset effect if ended or invalid
+            // Reset effect if ended or invalid
             capability.reset();
+        }
+        else if(capability.isShivaxiBlazed()) {
+            capability.tickTime();
+            if(capability.getTime() > 0 &&
+                    !entity.isDead &&
+                    EntityEffectCapability.EntityEffectEnum.SHIVAXI_BLAZED.canBeApplied(entity) &&
+                    !entity.isInWater()) {
+                if(capability.getTime() % 20 == 0) entity.attackEntityFrom(DamageSource.ON_FIRE, capability.getAdditionalData() > 1 ? 2.0F : 1.0F);
+                entity.motionX *= 0.5;
+                entity.motionZ *= 0.5;
+                if(entity.motionY > 0) entity.motionY *= 0.5;
+                if(capability.getAdditionalData() > 0) { // Severity 1 and up
+                    entity.motionX *= 0.5;
+                    entity.motionZ *= 0.5;
+                    if(entity.motionY > 0) entity.motionY *= 0.5;
+                    entity.attackEntityFrom(DamageSource.ON_FIRE, 2.0F);
+                } else { // Default
+                    entity.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+                }
+                return;
+            }
+            if(entity.isBurning()) entity.extinguish();
+            // Reset effect if ended or invalid
+            capability.reset();
+            // Spawn particle and sound if ending
+            for(int i = 0; i < 4; i++) {
+                ParticleHelper.spawnParticle(entity.world,
+                        EnumParticleTypes.SMOKE_NORMAL,
+                        entity.posX + ((world.rand.nextDouble() - 0.5D) * entity.width),
+                        entity.posY + ((world.rand.nextDouble()) * entity.height),
+                        entity.posZ + ((world.rand.nextDouble() - 0.5D) * entity.width),
+                        0, 0, 0);
+            }
+            entity.playSound(SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, 3, 1);
         }
         else if(capability.isSpooked()) {
             capability.tickTime();
@@ -173,7 +207,7 @@ public class EntityEffectHandler {
                     EntityEffectCapability.EntityEffectEnum.SPOOKED.canBeApplied(entity)) {
                 return;
             }
-            //Reset effect if ended or invalid
+            // Reset effect if ended or invalid
             capability.reset();
         }
         else if(capability.isStoned()) {

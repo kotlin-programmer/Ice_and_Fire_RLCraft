@@ -719,6 +719,8 @@ entity.ghost_sword.name=Lame fantasmatique
 entity.lightningdragon.name=Dragon électrique
 entity.dragonlightningcharge.name=Charge électrisé
 
+entity.shivaxi_dragon.name=Dragon Shivaxi
+
 entity.dread_thrall.name=Squeleffroie
 entity.dread_ghoul.name=Gouleffroie
 entity.dread_beast.name=Bêteffroie

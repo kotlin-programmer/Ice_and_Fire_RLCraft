@@ -722,6 +722,8 @@ entity.ghost_sword.name=Призрачный клинок
 entity.lightningdragon.name=Грозовой дракон
 entity.dragonlightningcharge.name=Снаряд драконьей молнии
 
+entity.shivaxi_dragon.name=Шивакси Дракон
+
 entity.dread_thrall.name=Раб ужаса
 entity.dread_ghoul.name=Призрак ужаса
 entity.dread_beast.name=Зверь ужаса

@@ -484,6 +484,8 @@ entity.ghost_sword.name=Espada Fantasma
 entity.lightningdragon.name=Dragão Elétrico
 entity.dragonlightningcharge.name=Projétil de Dragão de Elétrico
 
+entity.shivaxi_dragon.name=Dragão Shivaxi
+
 entity.dread_thrall.name=Servo Pavoroso
 entity.dread_ghoul.name=Canibal Atroz
 entity.dread_beast.name=Besta Horrífera

@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.Entity;
@@ -157,6 +158,7 @@ public class EventClient {
 	private static final ResourceLocation TEXTURE_1 = new ResourceLocation("textures/blocks/frosted_ice_1.png");
 	private static final ResourceLocation TEXTURE_2 = new ResourceLocation("textures/blocks/frosted_ice_2.png");
 	private static final ResourceLocation TEXTURE_3 = new ResourceLocation("textures/blocks/frosted_ice_3.png");
+	private static final ResourceLocation SHIVAXI_FIRE_TEXTURE = new ResourceLocation("iceandfire:textures/models/misc/shivaxi_fire.png");
 
 	private static boolean shouldCancelRender(EntityLivingBase living) {
 		if (living.getRidingEntity() != null && living.getRidingEntity() instanceof EntityDragonBase) {
@@ -166,29 +168,87 @@ public class EventClient {
 	}
 
 	@SubscribeEvent
-	public void onPreRenderLiving(RenderLivingEvent.Pre event){
+	public void onPreRenderLiving(RenderLivingEvent.Pre<EntityLivingBase> event){
 		if (shouldCancelRender(event.getEntity())) {
 			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
-	public void onPostRenderLiving(RenderLivingEvent.Post event) {
-		if (shouldCancelRender(event.getEntity())) {
+	public void onPostRenderLiving(RenderLivingEvent.Post<EntityLivingBase> event) {
+		EntityLivingBase entity = event.getEntity();
+		if (shouldCancelRender(entity)) {
 			event.setCanceled(true);
 		}
-		IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(event.getEntity());
-		if(capability != null && capability.isFrozen()) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			GlStateManager.enableNormalize();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			float sideExpand = 0.25F;
-			AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(event.getEntity().getRenderBoundingBox().minX - event.getEntity().posX + event.getX() - sideExpand, event.getEntity().getRenderBoundingBox().minY - event.getEntity().posY + event.getY(), event.getEntity().getRenderBoundingBox().minZ - event.getEntity().posZ + event.getZ() - sideExpand, event.getEntity().getRenderBoundingBox().maxX - event.getEntity().posX + event.getX() + sideExpand, event.getEntity().getRenderBoundingBox().maxY - event.getEntity().posY + event.getY() + sideExpand, event.getEntity().getRenderBoundingBox().maxZ - event.getEntity().posZ + event.getZ() + sideExpand);
-			event.getRenderer().bindTexture(getIceTexture(capability.getTime()));
-			renderAABB(axisalignedbb1, 0, 0, 0);
-			GlStateManager.disableBlend();
-			GlStateManager.disableNormalize();
+		IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entity);
+		if (capability != null) {
+			if(capability.isFrozen()) {
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.enableNormalize();
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				float sideExpand = 0.25F;
+				AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(event.getEntity().getRenderBoundingBox().minX - event.getEntity().posX + event.getX() - sideExpand, event.getEntity().getRenderBoundingBox().minY - event.getEntity().posY + event.getY(), event.getEntity().getRenderBoundingBox().minZ - event.getEntity().posZ + event.getZ() - sideExpand, event.getEntity().getRenderBoundingBox().maxX - event.getEntity().posX + event.getX() + sideExpand, event.getEntity().getRenderBoundingBox().maxY - event.getEntity().posY + event.getY() + sideExpand, event.getEntity().getRenderBoundingBox().maxZ - event.getEntity().posZ + event.getZ() + sideExpand);
+				event.getRenderer().bindTexture(getIceTexture(capability.getTime()));
+				renderAABB(axisalignedbb1, 0, 0, 0);
+				GlStateManager.disableBlend();
+				GlStateManager.disableNormalize();
+			} else if(capability.isShivaxiBlazed()) {
+				GlStateManager.disableLighting();
+				GlStateManager.pushMatrix();
+				RenderManager renderManager = event.getRenderer().getRenderManager();
+				GlStateManager.translate(entity.posX - renderManager.viewerPosX, entity.posY - renderManager.viewerPosY, entity.posZ - renderManager.viewerPosZ);
+				float f = entity.width * 1.8F;
+				GlStateManager.scale(f, f, f);
+				Tessellator tessellator = Tessellator.getInstance();
+				BufferBuilder vertexbuffer = tessellator.getBuffer();
+
+				float f1 = 0.5F;
+				float f2 = 0.0F;
+				float f3 = entity.height / f;
+				float f4 = (float) (entity.posY - entity.getEntityBoundingBox().minY);
+
+				GlStateManager.rotate(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
+				GlStateManager.translate(0.0F, 0.0F, (float) ((int) f3) * 0.02F);
+
+				GlStateManager.color(1f, 1f, 1f, 1f);
+
+				float f5 = 0.0F;
+				int i = 0;
+
+				vertexbuffer.begin(7, DefaultVertexFormats.POSITION_TEX);
+				event.getRenderer().bindTexture(SHIVAXI_FIRE_TEXTURE);
+
+				while (f3 > 0.0F) {
+					boolean flag = i % 2 == 0;
+					int frame = entity.ticksExisted % 32;
+					float minU = flag ? 0.5f : 0.0f;
+					float minV = frame / 32f;
+					float maxU = flag ? 1.0f : 0.5f;
+					float maxV = (frame + 1) / 32f;
+
+					if (flag) {
+						float f10 = maxU;
+						maxU = minU;
+						minU = f10;
+					}
+
+					vertexbuffer.pos(f1 - f2, 0.0F - f4, f5).tex(maxU, maxV).endVertex();
+					vertexbuffer.pos(-f1 - f2, 0.0F - f4, f5).tex(minU, maxV).endVertex();
+					vertexbuffer.pos(-f1 - f2, 1.4F - f4, f5).tex(minU, minV).endVertex();
+					vertexbuffer.pos(f1 - f2, 1.4F - f4, f5).tex(maxU, minV).endVertex();
+
+					f3 -= 0.45F;
+					f4 -= 0.45F;
+					f1 *= 0.9F;
+					f5 += 0.03F;
+					++i;
+				}
+
+				tessellator.draw();
+				GlStateManager.popMatrix();
+				GlStateManager.enableLighting();
+			}
 		}
 	}
 

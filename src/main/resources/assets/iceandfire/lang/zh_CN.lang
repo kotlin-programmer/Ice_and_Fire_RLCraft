@@ -696,6 +696,8 @@ entity.ghost_sword.name=幻灵剑
 entity.lightningdragon.name=电龙
 entity.dragonlightningcharge.name=龙雷弹
 
+entity.shivaxi_dragon.name=史瓦西龙
+
 entity.if_hydra.name=九头蛇
 entity.hydra_breath.name=九头蛇吐息
 entity.hydra_arrow.name=九头蛇毒箭

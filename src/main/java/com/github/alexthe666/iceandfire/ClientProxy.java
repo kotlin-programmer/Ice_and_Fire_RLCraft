@@ -410,7 +410,9 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityGhost.class, new RenderGhost(Minecraft.getMinecraft().getRenderManager()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityGhostSword.class, new RenderGhostSword<>(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()));
 		RenderingRegistry.registerEntityRenderingHandler(EntityMobSkull.class, new RenderMobSkull(Minecraft.getMinecraft().getRenderManager(), seaserpent_model));
-		
+		RenderingRegistry.registerEntityRenderingHandler(EntityShivaxiDragon.class, new RenderDragonBase(Minecraft.getMinecraft().getRenderManager(), lightningdragon_model));
+		RenderingRegistry.registerEntityRenderingHandler(EntityShivaxiDragonLightning.class, new RenderNothing(Minecraft.getMinecraft().getRenderManager()));
+
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPodium.class, new RenderPodium());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLectern.class, new RenderLectern());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEggInIce.class, new RenderEggInIce());
@@ -429,6 +431,12 @@ public class ClientProxy extends CommonProxy {
 	@SideOnly(Side.CLIENT)
 	public void spawnLightningEffect(World world, ParticleLightningVector sourceVec, ParticleLightningVector targetVec, boolean isProjectile) {
 		Particle particle = new ParticleLightning(world, sourceVec, targetVec, isProjectile);
+		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+	}
+
+	@SideOnly(Side.CLIENT)
+	public void spawnLightningEffect(World world, ParticleLightningVector sourceVec, ParticleLightningVector targetVec, int colorOuter, int colorInner, boolean isProjectile) {
+		Particle particle = new ParticleLightning(world, sourceVec, targetVec, colorOuter, colorInner, isProjectile);
 		Minecraft.getMinecraft().effectRenderer.addEffect(particle);
 	}
 

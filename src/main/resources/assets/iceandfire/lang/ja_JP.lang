@@ -697,6 +697,8 @@ entity.seaserpent.name=シーサーペント
 entity.lightningdragon.name=ライトニングドラゴン
 entity.dragonlightningcharge.name=ドラゴンのライトニングチャージ
 
+entity.shivaxi_dragon.name=シヴァシ・ドラゴン
+
 entity.dread_thrall.name=ドレッドスレール
 entity.dread_ghoul.name=ドレッドグール
 entity.dread_beast.name=ドレッドビースト

@@ -1132,6 +1132,11 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     }
                 } else {
                     if (!player.isSneaking() && !this.isDead) {
+                        if (this instanceof EntityShivaxiDragon) {
+                            if (!EntityShivaxiDragon.isAuthorized(player)) {
+                                return true;
+                            }
+                        }
                         if (this.getDragonStage() < 2) {
                             this.startRiding(player, true);
                         }
@@ -2089,6 +2094,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             if (!dragon.isAdult() || !dragon.isInLove() || dragon.isBeingRidden()) {
                 return false;
             }
+            if (dragon instanceof EntityShivaxiDragon || dragon instanceof EntityBlackFrostDragon) {
+                return false;
+            }
             return this.isMale() && !dragon.isMale() || !this.isMale() && dragon.isMale();
         }
         return false;
@@ -2376,6 +2384,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return movingobjectposition == null || movingobjectposition.typeOfHit != RayTraceResult.Type.BLOCK;
     }
 
+    @Override
     public void onDeath(DamageSource cause) {
         super.onDeath(cause);
         if (dragonInv != null && !this.world.isRemote) {

@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.client.model.util.IEntityLivingBaseRenderContext;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
+import com.github.alexthe666.iceandfire.entity.EntityShivaxiDragon;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.mixin.vanilla.IEntityGuardianAccessor;
@@ -15,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -94,6 +96,16 @@ public class EntityEffectClientHandler {
             if(capability.getAdditionalData() > 0) {
                 entity.rotationPitch = entity.prevRotationPitch;
                 entity.rotationYaw = entity.prevRotationYaw;
+            }
+        }
+        else if(capability.isShivaxiBlazed()) {
+            entity.motionX *= 0.5;
+            entity.motionZ *= 0.5;
+            if (entity.motionY > 0) entity.motionY *= 0.5;
+            if(capability.getAdditionalData() > 0) {
+                entity.motionX *= 0.5;
+                entity.motionZ *= 0.5;
+                if (entity.motionY > 0) entity.motionY *= 0.5;
             }
         }
         else if (capability.isSpooked()) {

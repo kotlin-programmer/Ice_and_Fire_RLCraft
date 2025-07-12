@@ -80,7 +80,10 @@ public class EntityFireDragon extends EntityDragonBase {
         this.targetTasks.addTask(4, new DragonAITarget<>(this, EntityLivingBase.class, true, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
-                return entity instanceof EntityLivingBase && DragonUtils.isAlive((EntityLivingBase) entity) && !EntityFireDragon.this.isControllingPassenger(entity);
+                return entity instanceof EntityLivingBase
+                        && DragonUtils.isAlive((EntityLivingBase) entity)
+                        && !EntityFireDragon.this.isControllingPassenger(entity)
+                        && !(entity instanceof EntityShivaxiDragon && !((EntityShivaxiDragon) entity).isTamed());
             }
         }));
         this.targetTasks.addTask(5, new DragonAITargetItems<>(this, false));
@@ -308,8 +311,8 @@ public class EntityFireDragon extends EntityDragonBase {
 
     public void riderShootFire(Entity controller) {
         if (this.getRNG().nextInt(5) == 0 && !this.isChild()) {
-            if (this.getAnimation() != this.ANIMATION_FIRECHARGE) {
-                this.setAnimation(this.ANIMATION_FIRECHARGE);
+            if (this.getAnimation() != ANIMATION_FIRECHARGE) {
+                this.setAnimation(ANIMATION_FIRECHARGE);
             } else if (this.getAnimationTick() == 15) {
                 rotationYaw = renderYawOffset;
                 Vec3d headPos = getHeadPosition();
