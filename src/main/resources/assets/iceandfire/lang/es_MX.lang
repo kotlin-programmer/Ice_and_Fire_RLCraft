@@ -728,6 +728,8 @@ entity.ghost_sword.name=Navaja fantasmal
 entity.lightningdragon.name=Dragon de rayo
 entity.dragonlightningcharge.name=Carga de dragon de rayo
 
+entity.shivaxi_dragon.name=Dragon Shivaxi
+
 entity.dread_thrall.name=Thrall del horror
 entity.dread_ghoul.name=Necrofago del horror
 entity.dread_beast.name=Bestia del horror

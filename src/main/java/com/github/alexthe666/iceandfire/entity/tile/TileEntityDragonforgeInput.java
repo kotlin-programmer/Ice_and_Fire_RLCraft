@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.entity.tile;
 
 import com.github.alexthe666.iceandfire.block.BlockDragonforgeInput;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
+import com.github.alexthe666.iceandfire.entity.EntityShivaxiDragon;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -41,6 +42,7 @@ public class TileEntityDragonforgeInput extends TileEntity implements ITickable 
         for (EntityDragonBase dragon : world.getEntitiesWithinAABB(EntityDragonBase.class, new AxisAlignedBB((double) pos.getX() - LURE_DISTANCE, (double) pos.getY() - LURE_DISTANCE, (double) pos.getZ() - LURE_DISTANCE, (double) pos.getX() + LURE_DISTANCE, (double) pos.getY() + LURE_DISTANCE, (double) pos.getZ() + LURE_DISTANCE))) {
             if (!dragonSelected
                     && dragon.isTamed()
+                    && !(dragon instanceof EntityShivaxiDragon)
                     && core != null
                     && core.assembled()
                     && core.canSmelt(dragon.dragonType)

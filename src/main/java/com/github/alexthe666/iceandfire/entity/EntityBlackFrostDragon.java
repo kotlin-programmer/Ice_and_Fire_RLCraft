@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -80,11 +81,6 @@ public class EntityBlackFrostDragon extends EntityIceDragon implements IDreadMob
 			}
 		}
 		return super.getControllingPassenger();
-	}
-
-	@Override
-	public boolean canBeSteered() {
-		return false;
 	}
 
 	@Override

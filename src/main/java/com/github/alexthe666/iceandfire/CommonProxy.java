@@ -138,6 +138,8 @@ public class CommonProxy {
         registerUnspawnable(EntityEntryBuilder.<EntityMobSkull>create(), event, EntityMobSkull.class, "if_mob_skull", 55, 64);
         registerSpawnable(EntityEntryBuilder.create(), event, EntityBlackFrostDragon.class, "black_frost", 56, 0XE0E6E6, 0XB5DDFB, 128);
         registerSpawnable(EntityEntryBuilder.create(), event, EntityDreadQueen.class, "dread_queen", 57, 0XB5DDFB, 0XE0E6E6, 128);
+        registerSpawnable(EntityEntryBuilder.create(), event, EntityShivaxiDragon.class, "shivaxi_dragon", 58, 0x1591EA, 0X0E65A3, 128);
+        registerUnspawnable(EntityEntryBuilder.<EntityShivaxiDragonLightning>create(), event, EntityShivaxiDragonLightning.class, "shivaxi_dragon_lightning", 59, 80);
     }
 
     public static void registerSpawnable(EntityEntryBuilder builder, RegistryEvent.Register<EntityEntry> event, Class<? extends Entity> entityClass, String name, int id, int mainColor, int subColor, int range) {
@@ -275,6 +277,9 @@ public class CommonProxy {
     }
 
     public void spawnLightningEffect(World world, ParticleLightningVector sourceVec, ParticleLightningVector targetVec, boolean isProjectile) {
+    }
+
+    public void spawnLightningEffect(World world, ParticleLightningVector sourceVec, ParticleLightningVector targetVec, int colorOuter, int colorInner, boolean isProjectile) {
     }
 
     public void spawnDragonParticle(EntityDragonBase dragon) {

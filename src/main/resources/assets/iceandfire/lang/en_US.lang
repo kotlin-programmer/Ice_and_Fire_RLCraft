@@ -737,6 +737,8 @@ entity.ghost_sword.name=Phantasmal Blade
 entity.lightningdragon.name=Lightning Dragon
 entity.dragonlightningcharge.name=Dragon Lightning Charge
 
+entity.shivaxi_dragon.name=Shivaxi Dragon
+
 entity.dread_thrall.name=Dread Thrall
 entity.dread_ghoul.name=Dread Ghoul
 entity.dread_beast.name=Dread Beast

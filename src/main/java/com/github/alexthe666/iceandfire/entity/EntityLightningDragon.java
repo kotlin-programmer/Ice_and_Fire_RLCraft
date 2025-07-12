@@ -81,7 +81,10 @@ public class EntityLightningDragon extends EntityDragonBase {
 		this.targetTasks.addTask(4, new DragonAITarget<>(this, EntityLivingBase.class, true, new Predicate<Entity>() {
 			@Override
 			public boolean apply(@Nullable Entity entity) {
-				return entity instanceof EntityLivingBase && DragonUtils.isAlive((EntityLivingBase) entity) && !EntityLightningDragon.this.isControllingPassenger(entity);
+				return entity instanceof EntityLivingBase
+						&& DragonUtils.isAlive((EntityLivingBase) entity)
+						&& !EntityLightningDragon.this.isControllingPassenger(entity)
+						&& !(entity instanceof EntityShivaxiDragon && !((EntityShivaxiDragon) entity).isTamed());
 			}
 		}));
 		this.targetTasks.addTask(5, new DragonAITargetItems<>(this, false));
@@ -409,7 +412,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 		}
 	}
 
-	private void shootLightningAtMob(EntityLivingBase entity) {
+	protected void shootLightningAtMob(EntityLivingBase entity) {
 		if (!this.attackDecision) {
 			if (this.getRNG().nextInt(5) == 0) {
 				if (this.getAnimation() != ANIMATION_FIRECHARGE) {

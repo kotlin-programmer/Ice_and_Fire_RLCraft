@@ -25,37 +25,40 @@ public class EntityEffectCapability implements IEntityEffectCapability {
         FROZEN(1, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        !(entity instanceof EntityIceDragon);
+                return super.canBeApplied(entity) && !(entity instanceof EntityIceDragon);
             }
         },
         BLAZED(1, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        !(entity instanceof EntityFireDragon);
+                return super.canBeApplied(entity) && !(entity instanceof EntityFireDragon);
             }
         },
         SHOCKED(2, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        !(entity instanceof EntityLightningDragon);
+                return super.canBeApplied(entity) && !(entity instanceof EntityLightningDragon);
             }
         },
-        SPOOKED(3, true, true) {
+        SHIVAXI_BLAZED(3, true, true) {
+            @Override
+            public boolean canBeApplied(EntityLivingBase entity) {
+                return super.canBeApplied(entity) && !(entity instanceof EntityShivaxiDragon);
+            }
+        },
+        SPOOKED(4, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
                 return entity instanceof EntityPlayer;
             }
         },
-        NONE(4, false, false) {
+        NONE(5, false, false) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
                 return true;
             }
         },
-        STONED(5, false, true);
+        STONED(6, false, true);
 
         private final int priority;
         private final boolean syncToClient;
@@ -196,6 +199,21 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     }
 
     @Override
+    public void setShivaxiBlazed() {
+        this.setShivaxiBlazed(100);
+    }
+
+    @Override
+    public void setShivaxiBlazed(int time) {
+        this.setShivaxiBlazed(time, 0);
+    }
+
+    @Override
+    public void setShivaxiBlazed(int time, int severity) {
+        this.setEffect(EntityEffectEnum.SHIVAXI_BLAZED, time, severity);
+    }
+
+    @Override
     public void setSpooked(int entityID) {
         this.setSpooked(20, entityID);
     }
@@ -229,6 +247,11 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     @Override
     public boolean isShocked() {
         return this.activeEffect == EntityEffectEnum.SHOCKED;
+    }
+
+    @Override
+    public boolean isShivaxiBlazed() {
+        return this.activeEffect == EntityEffectEnum.SHIVAXI_BLAZED;
     }
 
     @Override
