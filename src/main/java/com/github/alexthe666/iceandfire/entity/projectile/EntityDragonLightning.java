@@ -10,9 +10,7 @@ import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -20,7 +18,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EntityDragonLightning extends EntityFireball implements IDragonProjectile {
+public class EntityDragonLightning extends EntityDragonProjectile {
 
 	private int ticksInAir;
 	private Vec3d lastPos;
@@ -40,19 +38,6 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 		this.accelerationX = accelX / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationY = accelY / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationZ = accelZ / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
-	}
-
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	protected boolean isFireballFiery() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
 	}
 
 	@Override
@@ -75,7 +60,7 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, shootingEntity != null, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -155,11 +140,6 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 			}
 		}
 		this.setDead();
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
 	}
 
     private void emitLightningFx(Vec3d pos) {

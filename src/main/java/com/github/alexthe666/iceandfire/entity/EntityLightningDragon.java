@@ -369,6 +369,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 				float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 				lightningChargeProjectile.setSizes(size, size);
 				lightningChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+				lightningChargeProjectile.setShootingEntity(this.getEntityId());
 				if (!world.isRemote) {
 					world.spawnEntity(lightningChargeProjectile);
 				}
@@ -388,6 +389,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 					EntityDragonLightning lightningProjectile = new EntityDragonLightning(world, this, d2, d3, d4);
 					this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 					lightningProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+					lightningProjectile.setShootingEntity(this.getEntityId());
 					if (!world.isRemote) {
 						world.spawnEntity(lightningProjectile);
 					}
@@ -427,6 +429,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 					float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 					lightningChargeProjectile.setSizes(size, size);
 					lightningChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+					lightningChargeProjectile.setShootingEntity(this.getEntityId());
 					if (!world.isRemote) {
 						world.spawnEntity(lightningChargeProjectile);
 					}
@@ -451,6 +454,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 						EntityDragonLightning lightningProjectile = new EntityDragonLightning(world, this, d2, d3, d4);
 						float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 						lightningProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+						lightningProjectile.setShootingEntity(this.getEntityId());
 						if (!world.isRemote && !entity.isDead) {
 							world.spawnEntity(lightningProjectile);
 						}

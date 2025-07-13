@@ -325,6 +325,7 @@ public class EntityFireDragon extends EntityDragonBase {
                 float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
                 fireChargeProjectile.setSizes(size, size);
                 fireChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+                fireChargeProjectile.setShootingEntity(this.getEntityId());
                 if (!world.isRemote) {
                     world.spawnEntity(fireChargeProjectile);
                 }
@@ -344,6 +345,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     EntityDragonFire fireProjectile = new EntityDragonFire(world, this, d2, d3, d4);
                     this.playSound(IafSoundRegistry.FIREDRAGON_BREATH, 4, 1);
                     fireProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+                    fireProjectile.setShootingEntity(this.getEntityId());
                     if (!world.isRemote) {
                         world.spawnEntity(fireProjectile);
                     }
@@ -383,6 +385,7 @@ public class EntityFireDragon extends EntityDragonBase {
                     float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
                     fireChargeProjectile.setSizes(size, size);
                     fireChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+                    fireChargeProjectile.setShootingEntity(this.getEntityId());
                     if (!world.isRemote) {
                         world.spawnEntity(fireChargeProjectile);
                     }
@@ -407,6 +410,7 @@ public class EntityFireDragon extends EntityDragonBase {
                         EntityDragonFire fireProjectile = new EntityDragonFire(world, this, d2, d3, d4);
                         float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
                         fireProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+                        fireProjectile.setShootingEntity(this.getEntityId());
                         if (!world.isRemote && !entity.isDead) {
                             world.spawnEntity(fireProjectile);
                         }

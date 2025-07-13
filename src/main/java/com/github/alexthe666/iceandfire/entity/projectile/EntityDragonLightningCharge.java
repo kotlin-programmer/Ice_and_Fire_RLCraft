@@ -11,16 +11,14 @@ import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonLightningCharge extends EntityFireball implements IDragonProjectile {
+public class EntityDragonLightningCharge extends EntityDragonProjectile {
 
 	public int ticksInAir;
 
@@ -41,19 +39,6 @@ public class EntityDragonLightningCharge extends EntityFireball implements IDrag
 		this.accelerationZ = accelZ / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 	}
 
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	protected boolean isFireballFiery() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
-
 	@Override
 	public void onUpdate() {
 		if(this.world.isRemote) {
@@ -72,7 +57,7 @@ public class EntityDragonLightningCharge extends EntityFireball implements IDrag
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -158,11 +143,6 @@ public class EntityDragonLightningCharge extends EntityFireball implements IDrag
 			}
 		}
 		this.setDead();
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
 	}
 
 	@Override

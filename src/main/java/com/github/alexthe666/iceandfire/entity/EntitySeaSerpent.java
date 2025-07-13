@@ -852,13 +852,14 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
                     double d2 = entity.posX - headPosX;
                     double d3 = entity.posY - headPosY;
                     double d4 = entity.posZ - headPosZ;
-                    EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(world, this, d2, d3, d4);
+                    EntitySeaSerpentBubbles bubblesProjectile = new EntitySeaSerpentBubbles(world, this, d2, d3, d4);
                     float size = 0.8F;
-                    entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
+                    bubblesProjectile.setPosition(headPosX, headPosY, headPosZ);
+                    bubblesProjectile.setShootingEntity(this.getEntityId());
                     if (!world.isRemote && !entity.isDead) {
-                        world.spawnEntity(entitylargefireball);
+                        world.spawnEntity(bubblesProjectile);
                     }
-                    entitylargefireball.setSizes(size, size);
+                    bubblesProjectile.setSizes(size, size);
                     if (entity.isDead || entity == null) {
                         this.setBreathing(false);
                         this.attackDecision = this.getRNG().nextBoolean();

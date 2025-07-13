@@ -162,12 +162,13 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
                     double d2 = entity.posX - headPosX + this.rand.nextGaussian() * 0.4D;
                     double d3 = entity.posY + entity.getEyeHeight() - headPosY + this.rand.nextGaussian() * 0.4D;
                     double d4 = entity.posZ - headPosZ + this.rand.nextGaussian() * 0.4D;
-                    EntityHydraBreath entitylargefireball = new EntityHydraBreath(world, this, d2, d3, d4);
-                    entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
+                    EntityHydraBreath hydraBreathProjectile = new EntityHydraBreath(world, this, d2, d3, d4);
+                    hydraBreathProjectile.setPosition(headPosX, headPosY, headPosZ);
+                    hydraBreathProjectile.setShootingEntity(this.getEntityId());
                     if (!world.isRemote && !entity.isDead) {
-                        world.spawnEntity(entitylargefireball);
+                        world.spawnEntity(hydraBreathProjectile);
                     }
-                    entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
+                    hydraBreathProjectile.setPosition(headPosX, headPosY, headPosZ);
                 }
                 if (isBreathing[i] && (entity == null || entity.isDead || breathTicks[i] > 60) && !world.isRemote) {
                     isBreathing[i] = false;

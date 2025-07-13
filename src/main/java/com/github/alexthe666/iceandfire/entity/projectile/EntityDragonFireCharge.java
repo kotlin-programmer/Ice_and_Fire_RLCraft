@@ -8,16 +8,14 @@ import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonFireCharge extends EntityFireball implements IDragonProjectile {
+public class EntityDragonFireCharge extends EntityDragonProjectile {
 
 	public int ticksInAir;
 
@@ -42,15 +40,6 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 		this.accelerationZ = accelZ / d0 * 0.07D;
 	}
 
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
-
 	public void onUpdate() {
 		if(this.world.isRemote) {
 			for (int i = 0; i < 4; ++i) {
@@ -69,7 +58,7 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -150,11 +139,6 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 			}
 		}
 		this.setDead();
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
 	}
 
 	@Override

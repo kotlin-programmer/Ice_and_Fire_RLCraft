@@ -399,6 +399,7 @@ public class EntityIceDragon extends EntityDragonBase {
 				float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 				iceChargeProjectile.setSizes(size, size);
 				iceChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+				iceChargeProjectile.setShootingEntity(this.getEntityId());
 				if (!world.isRemote) {
 					world.spawnEntity(iceChargeProjectile);
 				}
@@ -419,6 +420,7 @@ public class EntityIceDragon extends EntityDragonBase {
 					EntityDragonIce iceProjectile = new EntityDragonIce(world, this, d2, d3, d4);
 					this.playSound(IafSoundRegistry.ICEDRAGON_BREATH, 4, 1);
 					iceProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+					iceProjectile.setShootingEntity(this.getEntityId());
 					if (!world.isRemote) {
 						world.spawnEntity(iceProjectile);
 					}
@@ -489,6 +491,7 @@ public class EntityIceDragon extends EntityDragonBase {
 					float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 					iceChargeProjectile.setSizes(size, size);
 					iceChargeProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+					iceChargeProjectile.setShootingEntity(this.getEntityId());
 					if (!world.isRemote) {
 						world.spawnEntity(iceChargeProjectile);
 					}
@@ -513,6 +516,7 @@ public class EntityIceDragon extends EntityDragonBase {
 						EntityDragonIce iceProjectile = new EntityDragonIce(world, this, d2, d3, d4);
 						float size = this.isChild() ? 0.4F : this.isAdult() ? 1.3F : 0.8F;
 						iceProjectile.setPosition(headPos.x, headPos.y, headPos.z);
+						iceProjectile.setShootingEntity(this.getEntityId());
 						if (!world.isRemote && !entity.isDead) {
 							world.spawnEntity(iceProjectile);
 						}
