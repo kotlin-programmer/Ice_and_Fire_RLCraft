@@ -18,7 +18,6 @@ import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -73,8 +72,8 @@ public class IceExplosion extends Explosion {
      */
     @Override
     public void doExplosionA() {
-        Set<BlockPos> set = Sets.newHashSet();
-
+        boolean canGrief = DragonUtils.canGrief(false);
+        BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
         for (int j = 0; j < 16; ++j) {
             for (int k = 0; k < 16; ++k) {
                 for (int l = 0; l < 16; ++l) {
@@ -92,9 +91,9 @@ public class IceExplosion extends Explosion {
                         double d8 = this.explosionZ;
 
                         for (; f > 0.0F; f -= 0.22500001F) {
-                            BlockPos blockpos = new BlockPos(d4, d6, d8);
+                            mutPos = mutPos.setPos(d4, d6, d8);
 
-                            TileEntity tileEntity = worldObj.getTileEntity(blockpos);
+                            TileEntity tileEntity = worldObj.getTileEntity(mutPos);
                             if (tileEntity instanceof TileEntityDragonforgeInput) {
                                 ((TileEntityDragonforgeInput) tileEntity).onHitWithFlame(EnumDragonType.ICE);
                                 if (exploder == null || exploder instanceof EntityDragonBase && ((EntityDragonBase) exploder).isTamed()) {
@@ -102,14 +101,17 @@ public class IceExplosion extends Explosion {
                                 }
                             }
 
-                            IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
-                            if (iblockstate.getMaterial() != Material.AIR) {
-                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(worldObj, blockpos, (Entity) null, this);
+                            IBlockState iblockstate = this.worldObj.getBlockState(mutPos);
+                            Block block = iblockstate.getBlock();
+                            if (block != Blocks.AIR) {
+                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, mutPos, iblockstate) : block.getExplosionResistance(worldObj, mutPos, null, this);
                                 f -= (f2 + 0.3F) * 0.3F;
                             }
-
-                            if (f > 0.0F && (this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.worldObj, blockpos, iblockstate, f)) && iblockstate.getBlock().canEntityDestroy(iblockstate, this.worldObj, blockpos, this.exploder)) {
-                                set.add(blockpos);
+                            
+                            if(canGrief) {
+                                if (f > 0.0F && (this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.worldObj, mutPos, iblockstate, f)) && block.canEntityDestroy(iblockstate, this.worldObj, mutPos, this.exploder)) {
+                                    this.affectedBlockPositions.add(mutPos.toImmutable());
+                                }
                             }
 
                             d4 += d0 * 0.30000001192092896D;
@@ -121,9 +123,6 @@ public class IceExplosion extends Explosion {
             }
         }
 
-        if(DragonUtils.canGrief(false)) {
-            this.affectedBlockPositions.addAll(set);
-        }
         float f3 = this.explosionSize * 2.0F;
         int k1 = MathHelper.floor(this.explosionX - f3 - 1.0D);
         int l1 = MathHelper.floor(this.explosionX + f3 + 1.0D);
@@ -193,12 +192,10 @@ public class IceExplosion extends Explosion {
      */
     @Override
     public void doExplosionB(boolean spawnParticles) {
+        if(this.affectedBlockPositions.isEmpty()) return;
         if (this.isSmoking) {
             List<MessageParticleFX.Particle> particles = new ArrayList<>();
             for (BlockPos blockpos : this.affectedBlockPositions) {
-                IBlockState state = this.worldObj.getBlockState(blockpos);
-                Block block = this.worldObj.getBlockState(blockpos).getBlock();
-
                 if (spawnParticles && this.worldObj.rand.nextFloat() > 0.95F) {
                     double d0 = blockpos.getX() + this.worldObj.rand.nextFloat();
                     double d1 = blockpos.getY() + this.worldObj.rand.nextFloat();
@@ -218,26 +215,31 @@ public class IceExplosion extends Explosion {
 
                     particles.add(MessageParticleFX.createParticle(d0, d1, d2, d3, d4, d5));
                 }
-
-                if (state.getMaterial() != Material.AIR && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos) && !DragonUtils.isDragonBlock(state.getBlock()) && dragonGriefing) {
-                    if (block == Blocks.GRASS_PATH) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenGrassPath.getDefaultState().withProperty(BlockPath.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
-                    } else if (block == Blocks.GRASS) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenGrass.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
-                    } else if (block instanceof BlockGrass || block instanceof BlockDirt) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenDirt.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
-                    } else if (block instanceof BlockLeaves) {
-                        worldObj.setBlockState(blockpos, Blocks.AIR.getDefaultState());
-                    } else if (block instanceof BlockGravel) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenGravel.getDefaultState().withProperty(BlockFallingReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
-                    } else if (state.getMaterial() == Material.WATER) {
-						worldObj.setBlockState(blockpos, Blocks.ICE.getDefaultState());
-                    } else if (state.getMaterial() == Material.WOOD) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenSplinters.getDefaultState());
-                    } else if (state.getMaterial() == Material.ROCK && (block != IafBlockRegistry.frozenCobblestone && block != Blocks.COBBLESTONE && block != Blocks.MOSSY_COBBLESTONE && block != Blocks.COBBLESTONE_WALL)) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenStone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
-                    } else if (state.getMaterial() == Material.ROCK) {
-                        worldObj.setBlockState(blockpos, IafBlockRegistry.frozenCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                
+                if(this.dragonGriefing) {
+                    IBlockState state = this.worldObj.getBlockState(blockpos);
+                    Block block = state.getBlock();
+                    if (block != Blocks.AIR && !DragonUtils.isDragonBlock(state.getBlock()) && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos)) {
+                        Material mat = state.getMaterial();
+                        if (block == Blocks.GRASS_PATH) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenGrassPath.getDefaultState().withProperty(BlockPath.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                        } else if (block == Blocks.GRASS) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenGrass.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                        } else if (block instanceof BlockGrass || block instanceof BlockDirt) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenDirt.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                        } else if (block instanceof BlockLeaves) {
+                            worldObj.setBlockState(blockpos, Blocks.AIR.getDefaultState());
+                        } else if (block instanceof BlockGravel) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenGravel.getDefaultState().withProperty(BlockFallingReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                        } else if (mat == Material.WATER) {
+                            worldObj.setBlockState(blockpos, Blocks.ICE.getDefaultState());
+                        } else if (mat == Material.WOOD) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenSplinters.getDefaultState());
+                        } else if (mat == Material.ROCK && (block != IafBlockRegistry.frozenCobblestone && block != Blocks.COBBLESTONE && block != Blocks.MOSSY_COBBLESTONE && block != Blocks.COBBLESTONE_WALL)) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenStone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                        } else if (mat == Material.ROCK) {
+                            worldObj.setBlockState(blockpos, IafBlockRegistry.frozenCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+                        }
                     }
                 }
             }
@@ -249,9 +251,11 @@ public class IceExplosion extends Explosion {
             }
         }
 
-        for (BlockPos blockpos1 : this.affectedBlockPositions) {
-            if (this.worldObj.getBlockState(blockpos1).getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock() && this.explosionRNG.nextInt(3) == 0 && dragonGriefing) {
-                this.worldObj.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, explosionRNG.nextInt(7) + 1));
+        if(this.dragonGriefing) {
+            for (BlockPos blockpos1 : this.affectedBlockPositions) {
+                if (this.explosionRNG.nextInt(3) == 0 && this.worldObj.getBlockState(blockpos1).getBlock() == Blocks.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock()) {
+                    this.worldObj.setBlockState(blockpos1, Blocks.SNOW_LAYER.getDefaultState().withProperty(BlockSnow.LAYERS, explosionRNG.nextInt(7) + 1));
+                }
             }
         }
     }
