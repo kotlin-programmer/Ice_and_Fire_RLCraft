@@ -287,6 +287,22 @@ public class StructureGenerator implements IWorldGenerator {
 			}
 		}
 
+		if (IceAndFireConfig.WORLDGEN.generateRubyOre) {
+			if (types.contains(Type.HOT) && types.contains(Type.SANDY)) {
+				int count = 3 + random.nextInt(6);
+				for (int rubyAmount = 0; rubyAmount < count; rubyAmount++) {
+					int oreHeight = random.nextInt(28) + 4;
+					int xOre = (chunkX * 16) + random.nextInt(16);
+					int zOre = (chunkZ * 16) + random.nextInt(16);
+					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
+					IBlockState state = world.getBlockState(pos);
+					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
+						world.setBlockState(pos, IafBlockRegistry.rubyOre.getDefaultState());
+					}
+				}
+			}
+		}
+
 		if (IceAndFireConfig.WORLDGEN.generateSapphireOre) {
 			if (isSnowy) {
 				int count = 3 + random.nextInt(6);
@@ -312,7 +328,7 @@ public class StructureGenerator implements IWorldGenerator {
 				if (IafBlockRegistry.frost_lily.canPlaceBlockAt(world, height)) {
 					world.setBlockState(height, IafBlockRegistry.frost_lily.getDefaultState());
 				}
-			} else if (types.contains(Type.HOT) && (types.contains(Type.SANDY))) {
+			} else if (types.contains(Type.HOT) && types.contains(Type.SANDY)) {
 				if (IafBlockRegistry.fire_lily.canPlaceBlockAt(world, height)) {
 					world.setBlockState(height, IafBlockRegistry.fire_lily.getDefaultState());
 				}

@@ -77,6 +77,13 @@ tile.iceandfire.crackledGravel.name=Gravier craquelée
 tile.iceandfire.crackledGrassPath.name=Chemin de terre craquelée
 tile.iceandfire.lightning_stone.name=Pierre électrisé
 
+tile.iceandfire.rubyOre.name=Minerai d'rubis
+tile.iceandfire.rubyBlock.name=Bloc de rubis
+
+tile.iceandfire.charedRubyOre.name=Minerai d'rubis cendré
+tile.iceandfire.crackledAmethystOre.name=Minerai d'améthyste craquelée
+tile.iceandfire.frozenSapphireOre.name=Minerai de saphir gelé
+
 tile.iceandfire.ancient_dragon_bone_block.name=Bloc d'os de dragon ancient
 tile.iceandfire.ancient_dragon_bone_wall.name=Muret d'os de dragon ancient
 tile.iceandfire.dragon_bone_block.name=Bloc d'os de dragon
@@ -287,6 +294,8 @@ item.iceandfire.lightning_dragon_flesh.name=Chair de dragon électrique
 item.iceandfire.lightning_dragon_heart.name=Coeur de dragon électrique
 item.iceandfire.lightning_dragon_blood.name=Sang de dragon électrique
 item.iceandfire.dragon_horn_lightning.name=Corne de dragon
+
+item.iceandfire.rubyGem.name=Rubis
 
 item.iceandfire.hydra_fang.name=Dent d'hydre
 item.iceandfire.hydra_heart.name=Coeur d'hydre

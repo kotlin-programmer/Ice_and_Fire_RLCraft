@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.structures;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
@@ -26,7 +27,7 @@ public class WorldGenFireDragonCave extends WorldGenDragonCave {
 	}
 
 	protected IBlockState getGemstone() {
-		return Blocks.EMERALD_ORE.getDefaultState();
+		return IceAndFireConfig.WORLDGEN.generateRubyOre ? IafBlockRegistry.charedRubyOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
 	}
 
 	protected ResourceLocation getLootTable() {

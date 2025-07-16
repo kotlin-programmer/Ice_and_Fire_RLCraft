@@ -35,6 +35,7 @@ public class ModItems {
     public static Item bestiary = IafItemRegistry.bestiary;
     public static Item manuscript = IafItemRegistry.manuscript;
     public static Item amethystGem = IafItemRegistry.amethystGem;
+    public static Item rubyGem = IafItemRegistry.rubyGem;
     public static Item sapphireGem = IafItemRegistry.sapphireGem;
     public static Item bronzeAlloy = IafItemRegistry.bronzeAlloy;
     public static Item copperIngot = IafItemRegistry.copperIngot;

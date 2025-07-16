@@ -79,6 +79,10 @@ public class IceAndFireConfig {
 		@Config.Name("Generate Amethyst Ore")
 		public boolean generateAmethystOre = true;
 
+		@Config.Comment("Should InF generate ruby ore")
+		@Config.Name("Generate Ruby Ore")
+		public boolean generateRubyOre = true;
+
 		@Config.Comment("Should InF generate sapphire ore")
 		@Config.Name("Generate Sapphire Ore")
 		public boolean generateSapphireOre = true;

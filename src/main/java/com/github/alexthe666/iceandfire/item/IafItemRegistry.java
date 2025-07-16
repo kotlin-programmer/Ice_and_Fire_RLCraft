@@ -46,6 +46,8 @@ public class IafItemRegistry {
 	public static Item manuscript = new ItemGeneric("manuscript", "iceandfire.manuscript");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":amethyst_gem")
 	public static Item amethystGem = new ItemGeneric("amethyst_gem", "iceandfire.amethystGem");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ruby_gem")
+	public static Item rubyGem = new ItemGeneric("ruby_gem", "iceandfire.rubyGem");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_gem")
 	public static Item sapphireGem = new ItemGeneric("sapphire_gem", "iceandfire.sapphireGem");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":bronze_alloy")

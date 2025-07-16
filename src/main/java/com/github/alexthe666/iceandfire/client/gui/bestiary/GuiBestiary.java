@@ -447,7 +447,7 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 1) {
 					int frame = Minecraft.getMinecraft().player.ticksExisted % 60;
 					Item summoningCrystal = IafItemRegistry.summoning_crystal_fire;
-					Item gem = Items.EMERALD;
+					Item gem = IafItemRegistry.rubyGem;
 					Item blood = IafItemRegistry.fire_dragon_blood;
 					if (frame >= 40) {
 						summoningCrystal = IafItemRegistry.summoning_crystal_lightning;

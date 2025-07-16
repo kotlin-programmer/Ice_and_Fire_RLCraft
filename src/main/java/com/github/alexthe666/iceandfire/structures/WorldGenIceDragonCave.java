@@ -28,7 +28,7 @@ public class WorldGenIceDragonCave extends WorldGenDragonCave {
 	}
 
 	protected IBlockState getGemstone() {
-		return IceAndFireConfig.WORLDGEN.generateSapphireOre ? IafBlockRegistry.sapphireOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
+		return IceAndFireConfig.WORLDGEN.generateSapphireOre ? IafBlockRegistry.frozenSapphireOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
 	}
 
 	protected ResourceLocation getLootTable() {

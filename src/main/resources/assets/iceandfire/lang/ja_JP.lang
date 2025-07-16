@@ -78,6 +78,13 @@ tile.iceandfire.crackledGravel.name=ひび割れた砂利
 tile.iceandfire.crackledGrassPath.name=ひび割れた土の道
 tile.iceandfire.lightning_stone.name=雷の石
 
+tile.iceandfire.rubyOre.name=ルビー鉱石
+tile.iceandfire.rubyBlock.name=ルビーブロック
+
+tile.iceandfire.charedRubyOre.name=焼け焦げたルビー鉱石
+tile.iceandfire.crackledAmethystOre.name=ひび割れたアメジスト鉱石
+tile.iceandfire.frozenSapphireOre.name=凍てついたサファイア鉱石
+
 tile.iceandfire.ancient_dragon_bone_block.name=古代ドラゴンの骨ブロック
 tile.iceandfire.ancient_dragon_bone_wall.name=古代ドラゴンの骨の壁
 tile.iceandfire.dragon_bone_block.name=ドラゴンの骨ブロック
@@ -292,6 +299,8 @@ item.iceandfire.lightning_dragon_flesh.name=ライトニングドラゴンの肉
 item.iceandfire.lightning_dragon_heart.name=ライトニングドラゴンの心臓
 item.iceandfire.lightning_dragon_blood.name=ライトニングドラゴンの血
 item.iceandfire.dragon_horn_lightning.name=ドラゴンの角笛
+
+item.iceandfire.rubyGem.name=ルビー
 
 item.iceandfire.hydra_fang.name=ヒドラの毒牙
 item.iceandfire.hydra_heart.name=ヒドラの心臓

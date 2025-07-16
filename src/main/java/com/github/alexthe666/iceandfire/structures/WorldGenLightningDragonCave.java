@@ -30,7 +30,7 @@ public class WorldGenLightningDragonCave extends WorldGenDragonCave {
 	}
 
 	protected IBlockState getGemstone() {
-		return IceAndFireConfig.WORLDGEN.generateAmethystOre ? IafBlockRegistry.amethystOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
+		return IceAndFireConfig.WORLDGEN.generateAmethystOre ? IafBlockRegistry.crackledAmethystOre.getDefaultState() : Blocks.EMERALD_ORE.getDefaultState();
 	}
 
 	protected ResourceLocation getLootTable() {

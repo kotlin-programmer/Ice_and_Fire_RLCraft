@@ -192,10 +192,12 @@ public class WorldGenMyrmexDecoration {
                 } else if (rand.nextInt(3) == 0) {
                     ore = Blocks.DIAMOND_ORE;
                 } else if (rand.nextInt(2) == 0) {
-                    int chance = rand.nextInt(3);
-                    if (chance == 1 && IceAndFireConfig.WORLDGEN.generateSapphireOre) {
+                    int chance = rand.nextInt(4);
+                    if (chance == 1 && IceAndFireConfig.WORLDGEN.generateRubyOre) {
+                        ore = IafBlockRegistry.rubyOre;
+                    } else if (chance == 2 && IceAndFireConfig.WORLDGEN.generateSapphireOre) {
                         ore = IafBlockRegistry.sapphireOre;
-                    } else if (chance == 2 && IceAndFireConfig.WORLDGEN.generateAmethystOre) {
+                    } else if (chance == 3 && IceAndFireConfig.WORLDGEN.generateAmethystOre) {
                         ore = IafBlockRegistry.amethystOre;
                     } else {
                         ore = Blocks.EMERALD_ORE;

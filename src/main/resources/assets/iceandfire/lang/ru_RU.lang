@@ -77,6 +77,13 @@ tile.iceandfire.crackledGravel.name=Треснувший гравий
 tile.iceandfire.crackledGrassPath.name=Треснувшая тропа
 tile.iceandfire.lightning_stone.name=Камень молнии
 
+tile.iceandfire.rubyOre.name=Рубин руда
+tile.iceandfire.rubyBlock.name=Рубин блок
+
+tile.iceandfire.charedRubyOre.name=Обугленный Рубин руда
+tile.iceandfire.crackledAmethystOre.name=Треснувший Аметистовая руда
+tile.iceandfire.frozenSapphireOre.name=Замёрзший Сапфировая руда
+
 tile.iceandfire.ancient_dragon_bone_block.name=древний Блок драконьих костей
 tile.iceandfire.ancient_dragon_bone_wall.name=древний Ограда из драконьих костей
 tile.iceandfire.dragon_bone_block.name=Блок драконьих костей
@@ -292,6 +299,8 @@ item.iceandfire.lightning_dragon_flesh.name=Плоть Грозового дра
 item.iceandfire.lightning_dragon_heart.name=Сердце Грозового дракона
 item.iceandfire.lightning_dragon_blood.name=Кровь Грозового дракона
 item.iceandfire.dragon_horn_lightning.name=Рог дракона
+
+item.iceandfire.rubyGem.name=Рубин
 
 item.iceandfire.hydra_fang.name=Клык гидры
 item.iceandfire.hydra_heart.name=Сердце гидры

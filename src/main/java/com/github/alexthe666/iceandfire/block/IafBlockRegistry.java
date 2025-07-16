@@ -38,6 +38,8 @@ public class IafBlockRegistry {
 	public static Block amethystOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.amethystOre", "amethyst_ore", IafItemRegistry.amethystGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_ore")
 	public static Block copperOre = new BlockDragonOre(1, 3.0F, 5.0F, "iceandfire.copperOre", "copper_ore");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ruby_ore")
+	public static Block rubyOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.rubyOre", "ruby_ore", IafItemRegistry.rubyGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silver_ore")
 	public static Block silverOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.silverOre", "silver_ore");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_ore")
@@ -46,6 +48,8 @@ public class IafBlockRegistry {
 	public static Block amethystBlock = new BlockGeneric(Material.IRON, "amethyst_block", "iceandfire.amethystBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":copper_block")
 	public static Block copperBlock = new BlockGeneric(Material.IRON, "copper_block", "iceandfire.copperBlock", "pickaxe", 1, 3.0F, 10.0F, SoundType.METAL);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ruby_block")
+	public static Block rubyBlock = new BlockGeneric(Material.IRON, "ruby_block", "iceandfire.rubyBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":silver_block")
 	public static Block silverBlock = new BlockGeneric(Material.IRON, "silver_block", "iceandfire.silverBlock", "pickaxe", 2, 3.0F, 10.0F, SoundType.METAL);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":sapphire_block")
@@ -62,6 +66,8 @@ public class IafBlockRegistry {
 	public static Block charedGravel = new BlockFallingReturningState(Material.GROUND, "chared_gravel", "iceandfire.charedGravel", "pickaxe", 0, 0.6F, 0F, SoundType.GROUND, Blocks.GRAVEL.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_grass_path")
 	public static Block charedGrassPath = new BlockPath(BlockPath.Type.CHARED);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_ruby_ore")
+	public static Block charedRubyOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.charedRubyOre", "chared_ruby_ore", IafItemRegistry.rubyGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_dirt")
 	public static Block crackledDirt = new BlockReturningState(Material.GROUND, "crackled_dirt", "iceandfire.crackledDirt", "shovel", 0, 0.5F, 0.0F, SoundType.GROUND, Blocks.DIRT.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_grass")
@@ -74,6 +80,8 @@ public class IafBlockRegistry {
 	public static Block crackledGravel = new BlockFallingReturningState(Material.GROUND, "crackled_gravel", "iceandfire.crackledGravel", "pickaxe", 0, 0.6F, 0F, SoundType.GROUND, Blocks.GRAVEL.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_grass_path")
 	public static Block crackledGrassPath = new BlockPath(BlockPath.Type.CRACKLED);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_amethyst_ore")
+	public static Block crackledAmethystOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.crackledAmethystOre", "crackled_amethyst_ore", IafItemRegistry.amethystGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ash")
 	public static Block ash = new BlockFallingGeneric(Material.SAND, "ash", "iceandfire.ash", "shovel", 0, 0.5F, 0F, SoundType.SAND);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_dirt")
@@ -90,6 +98,8 @@ public class IafBlockRegistry {
 	public static Block frozenGrassPath = new BlockPath(BlockPath.Type.FROZEN);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_splinters")
 	public static Block frozenSplinters = new BlockGeneric(Material.WOOD, "frozen_splinters", "iceandfire.frozenSplinters", "pickaxe", 0, 2.0F, 10.0F, SoundType.GLASS, true);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_sapphire_ore")
+	public static Block frozenSapphireOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.frozenSapphireOre", "frozen_sapphire_ore", IafItemRegistry.sapphireGem);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_ice")
 	public static Block dragon_ice = new BlockGeneric(Material.PACKED_ICE, "dragon_ice", "iceandfire.dragon_ice", "pickaxe", 0, 0.5F, 0F, SoundType.GLASS, true);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lightning_stone")

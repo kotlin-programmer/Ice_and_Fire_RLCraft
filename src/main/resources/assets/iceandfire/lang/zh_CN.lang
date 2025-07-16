@@ -75,6 +75,13 @@ tile.iceandfire.crackledGravel.name=霆霹砂砾
 tile.iceandfire.crackledGrassPath.name=霆霹草径
 tile.iceandfire.lightning_stone.name=闪电石
 
+tile.iceandfire.rubyOre.name=红宝石矿石
+tile.iceandfire.rubyBlock.name=红宝石块
+
+tile.iceandfire.charedRubyOre.name=焦红宝石矿石
+tile.iceandfire.crackledAmethystOre.name=霆霹紫水晶矿石
+tile.iceandfire.frozenSapphireOre.name=霜冻蓝宝石矿石
+
 tile.iceandfire.dread_stone.name=悚石
 tile.iceandfire.dread_stone_bricks.name=悚石砖
 tile.iceandfire.dread_stone_bricks_chiseled.name=錾制悚悚石
@@ -268,6 +275,8 @@ item.iceandfire.lightning_dragon_flesh.name=电龙肉
 item.iceandfire.lightning_dragon_heart.name=电龙心脏
 item.iceandfire.lightning_dragon_blood.name=电龙心脏
 item.iceandfire.dragon_horn_lightning.name=龙吟号角
+
+item.iceandfire.rubyGem.name=红宝石
 
 item.iceandfire.hydra_fang.name=九头蛇毒牙
 item.iceandfire.hydra_heart.name=九头蛇心脏

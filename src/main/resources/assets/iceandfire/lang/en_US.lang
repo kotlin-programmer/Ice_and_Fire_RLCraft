@@ -77,6 +77,13 @@ tile.iceandfire.crackledGravel.name=Crackled Gravel
 tile.iceandfire.crackledGrassPath.name=Crackled Grass Path
 tile.iceandfire.lightning_stone.name=Lightning Stone
 
+tile.iceandfire.rubyOre.name=Ruby Ore
+tile.iceandfire.rubyBlock.name=Ruby Block
+
+tile.iceandfire.charedRubyOre.name=Charred Ruby Ore
+tile.iceandfire.crackledAmethystOre.name=Crackled Amethyst Ore
+tile.iceandfire.frozenSapphireOre.name=Frozen Sapphire Ore
+
 tile.iceandfire.ancient_dragon_bone_block.name=Block of Ancient Dragon Bones
 tile.iceandfire.ancient_dragon_bone_wall.name=Ancient Dragon Bone Wall
 tile.iceandfire.dragon_bone_block.name=Block of Dragon Bones
@@ -304,6 +311,8 @@ item.iceandfire.lightning_dragon_flesh.name=Lightning Dragon Flesh
 item.iceandfire.lightning_dragon_heart.name=Lightning Dragon Heart
 item.iceandfire.lightning_dragon_blood.name=Lightning Dragon Blood
 item.iceandfire.dragon_horn_lightning.name=Dragon Horn
+
+item.iceandfire.rubyGem.name=Ruby
 
 item.iceandfire.hydra_fang.name=Hydra Fang
 item.iceandfire.hydra_heart.name=Hydra Heart

@@ -81,6 +81,13 @@ tile.iceandfire.crackledGravel.name=Cascalho Rachado
 tile.iceandfire.crackledGrassPath.name=Caminho de Grama Rachada
 tile.iceandfire.lightning_stone.name=Pedra Relâmpago
 
+tile.iceandfire.rubyOre.name=Minério de Rubi
+tile.iceandfire.rubyBlock.name=Bloco de Rubi
+
+tile.iceandfire.charedRubyOre.name=Minério de Rubi Carbonizada
+tile.iceandfire.crackledAmethystOre.name=Minério de Ametista Rachada
+tile.iceandfire.frozenSapphireOre.name=Minério de Safira Congelada
+
 tile.iceandfire.dread_stone.name=Medolita
 tile.iceandfire.dread_stone_bricks.name=Tijolos de Medolita
 tile.iceandfire.dread_stone_bricks_chiseled.name=Tijolos de Medolita Talhados
@@ -288,6 +295,8 @@ item.iceandfire.lightning_dragon_flesh.name=Carne de Dragão Elétrico
 item.iceandfire.lightning_dragon_heart.name=Coração de Dragão Elétrico
 item.iceandfire.lightning_dragon_blood.name=Sangue de Dragão Elétrico
 item.iceandfire.dragon_horn_lightning.name=Chifre de Dragão
+
+item.iceandfire.rubyGem.name=Rubi
 
 item.iceandfire.hydra_fang.name=Presa da Hidra
 item.iceandfire.hydra_heart.name=Coração da Hidra

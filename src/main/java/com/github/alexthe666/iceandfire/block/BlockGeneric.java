@@ -85,6 +85,7 @@ public class BlockGeneric extends Block {
 	public boolean isBeaconBase(IBlockAccess worldObj, BlockPos pos, BlockPos beacon) {
 		return this == IafBlockRegistry.amethystBlock
 				|| this == IafBlockRegistry.copperBlock
+				|| this == IafBlockRegistry.rubyBlock
 				|| this == IafBlockRegistry.sapphireBlock
 				|| this == IafBlockRegistry.silverBlock;
 	}

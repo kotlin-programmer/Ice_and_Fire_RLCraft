@@ -18,11 +18,13 @@ public class ModBlocks {
 	public static Block diamondPile = IafBlockRegistry.diamondPile;
 	public static Block amethystOre = IafBlockRegistry.amethystOre;
 	public static Block copperOre = IafBlockRegistry.copperOre;
+	public static Block rubyOre = IafBlockRegistry.rubyOre;
 	public static Block silverOre = IafBlockRegistry.silverOre;
 	public static Block sapphireOre = IafBlockRegistry.sapphireOre;
 	public static Block amethystBlock = IafBlockRegistry.amethystBlock;
 	public static Block copperBlock = IafBlockRegistry.copperBlock;
 	public static Block silverBlock = IafBlockRegistry.silverBlock;
+	public static Block rubyBlock = IafBlockRegistry.rubyBlock;
 	public static Block sapphireBlock = IafBlockRegistry.sapphireBlock;
 	public static Block charedDirt = IafBlockRegistry.charedDirt;
 	public static Block charedGrass = IafBlockRegistry.charedGrass;
@@ -30,12 +32,14 @@ public class ModBlocks {
 	public static Block charedCobblestone = IafBlockRegistry.charedCobblestone;
 	public static Block charedGravel = IafBlockRegistry.charedGravel;
 	public static Block charedGrassPath = IafBlockRegistry.charedGrassPath;
+	public static Block charedRubyOre = IafBlockRegistry.charedRubyOre;
 	public static Block crackledDirt = IafBlockRegistry.crackledDirt;
 	public static Block crackledGrass = IafBlockRegistry.crackledGrass;
 	public static Block crackledStone = IafBlockRegistry.crackledStone;
 	public static Block crackledCobblestone = IafBlockRegistry.crackledCobblestone;
 	public static Block crackledGravel = IafBlockRegistry.crackledGravel;
 	public static Block crackledGrassPath = IafBlockRegistry.crackledGrassPath;
+	public static Block crackledAmethystOre = IafBlockRegistry.crackledAmethystOre;
 	public static Block ash = IafBlockRegistry.ash;
 	public static Block frozenDirt = IafBlockRegistry.frozenDirt;
 	public static Block frozenGrass = IafBlockRegistry.frozenGrass;
@@ -44,6 +48,7 @@ public class ModBlocks {
 	public static Block frozenGravel = IafBlockRegistry.frozenGravel;
 	public static Block frozenGrassPath = IafBlockRegistry.frozenGrassPath;
 	public static Block frozenSplinters = IafBlockRegistry.frozenSplinters;
+	public static Block frozenSapphireOre = IafBlockRegistry.frozenSapphireOre;
 	public static Block dragon_ice = IafBlockRegistry.dragon_ice;
 	public static Block lightning_stone = IafBlockRegistry.lightning_stone;
 	public static Block dragon_ice_spikes = IafBlockRegistry.dragon_ice_spikes;

@@ -23,7 +23,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:emerald",
+          "name": "iceandfire:ruby_gem",
           "functions": [
             {
               "function": "set_count",
