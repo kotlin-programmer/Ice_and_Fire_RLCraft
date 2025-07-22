@@ -16,6 +16,8 @@
   },
   "client": [
     "vanilla.EntityLivingBaseMixin",
-    "vanilla.LayerArmorBaseMixin"
+    "vanilla.IRenderInvoker",
+    "vanilla.LayerArmorBaseMixin",
+    "vanilla.IEntityGuardianAccessor"
   ]
 }

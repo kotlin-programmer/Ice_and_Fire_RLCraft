@@ -896,9 +896,9 @@ public class IceAndFireConfig {
 		@Config.Name("Use Siren Shader")
 		public boolean sirenShader = true;
 
-		@Config.Comment("Render stoned entities using layered rendering")
-		@Config.Name("Layered Stoned Entity Texture")
-		public boolean customStoneTexture = false;
+		@Config.Comment("Render stoned entities using more advanced layered rendering, disable if you are using a very high resolution texture pack and lag too much")
+		@Config.Name("Advanced Stoned Entity Render")
+		public boolean advancedStonedEntityRender = true;
 
 		@Config.Comment("Enables armor rendering fixes - to resolve overlapping armor model issues")
 		@Config.Name("Enable Armor Rendering Fixes")

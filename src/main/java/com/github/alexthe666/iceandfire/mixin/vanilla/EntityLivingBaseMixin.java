@@ -2,12 +2,9 @@ package com.github.alexthe666.iceandfire.mixin.vanilla;
 
 import com.github.alexthe666.iceandfire.block.IDreadBlock;
 import com.github.alexthe666.iceandfire.client.model.util.IEntityLivingBaseRenderContext;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -28,14 +25,46 @@ public abstract class EntityLivingBaseMixin extends Entity implements IEntityLiv
 	@Unique
 	private boolean iceAndFire$isRenderingWithGlint = false;
 	
+	@Unique
 	@Override
 	public void iceAndFire$setGlintContext(boolean val) {
 		this.iceAndFire$isRenderingWithGlint = val;
 	}
 	
+	@Unique
 	@Override
 	public boolean iceAndFire$getGlintContext() {
 		return this.iceAndFire$isRenderingWithGlint;
+	}
+	
+	@Unique
+	private boolean iceAndFire$stoned = false;
+	
+	@Unique
+	@Override
+	public void iceAndFire$setStoned(boolean val) {
+		this.iceAndFire$stoned = val;
+	}
+	
+	@Unique
+	@Override
+	public boolean iceAndFire$getStoned() {
+		return this.iceAndFire$stoned;
+	}
+	
+	@Unique
+	private int iceAndFire$stonedData = 0;
+	
+	@Unique
+	@Override
+	public void iceAndFire$setStonedData(int val) {
+		this.iceAndFire$stonedData = val;
+	}
+	
+	@Unique
+	@Override
+	public int iceAndFire$getStonedData() {
+		return this.iceAndFire$stonedData;
 	}
 
 	@Inject(

@@ -6,7 +6,6 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.render.entity.ICustomStoneLayer;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerStoneEntity;
-import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerStoneEntityCrack;
 import com.github.alexthe666.iceandfire.core.ModKeys;
 import com.github.alexthe666.iceandfire.entity.*;
 import net.minecraft.client.Minecraft;
@@ -37,11 +36,10 @@ import java.util.Map;
 public class EventClient {
 
 	public static void initializeStoneLayer() {
-		for (Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
+		for(Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
 			Render<? extends Entity> render = entry.getValue();
-			if (render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
-				((RenderLivingBase) render).addLayer(new LayerStoneEntity((RenderLivingBase) render));
-				((RenderLivingBase) render).addLayer(new LayerStoneEntityCrack((RenderLivingBase) render));
+			if(render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
+				((RenderLivingBase)render).addLayer(new LayerStoneEntity((RenderLivingBase)render));
 			}
 		}
 
@@ -50,10 +48,11 @@ public class EventClient {
 			Field renderingRegInstanceField = RenderingRegistry.class.getDeclaredField("INSTANCE");
 			renderingRegInstanceField.setAccessible(true);
 			registry = (RenderingRegistry)renderingRegInstanceField.get(null);
-		} catch (Exception e) {
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 		}
-		if (registry != null) {
+		if(registry != null) {
 			Map<Class<? extends Entity>, IRenderFactory<? extends Entity>> entityRenders = null;
 			Map<Class<? extends Entity>, Render<? extends Entity>> entityRendersOld = null;
 			try {
@@ -63,35 +62,44 @@ public class EventClient {
 				renderingRegOldRendersField.setAccessible(true);
 				entityRenders = (Map<Class<? extends Entity>, IRenderFactory<? extends Entity>>)renderingRegRendersField.get(registry);
 				entityRendersOld = (Map<Class<? extends Entity>, Render<? extends Entity>>)renderingRegOldRendersField.get(registry);
-			} catch (Exception e) {
+			}
+			catch(Exception e) {
 				e.printStackTrace();
 			}
-			if (entityRenders != null) {
-				for (Map.Entry<Class<? extends Entity>, IRenderFactory<? extends Entity>> entry : entityRenders.entrySet()) {
-					if (entry.getValue() != null) {
+			if(entityRenders != null) {
+				for(Map.Entry<Class<? extends Entity>, IRenderFactory<? extends Entity>> entry : entityRenders.entrySet()) {
+					if(entry.getValue() != null) {
 						try{
 							Render<? extends Entity> render = entry.getValue().createRenderFor(Minecraft.getMinecraft().getRenderManager());
-							if (render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
-								LayerRenderer stoneLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase) render) : new LayerStoneEntity((RenderLivingBase) render);
-								LayerRenderer crackLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getCrackLayer((RenderLivingBase) render) : new LayerStoneEntityCrack((RenderLivingBase) render);
-								((RenderLivingBase) render).addLayer(stoneLayer);
-								((RenderLivingBase) render).addLayer(crackLayer);
+							if(render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
+								if(render instanceof ICustomStoneLayer) {
+									LayerRenderer stoneLayerCustom = ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase)render);
+									((RenderLivingBase)render).addLayer(stoneLayerCustom);
+								}
+								else {
+									LayerRenderer stoneLayer = new LayerStoneEntity((RenderLivingBase)render);
+									((RenderLivingBase)render).addLayer(stoneLayer);
+								}
 							}
 						}
-						catch(NullPointerException exp){
+						catch(NullPointerException exp) {
 							IceAndFire.logger.error("Ice and Fire: Could not apply stone render layer to " + entry.getKey().getSimpleName() + ", someone isn't registering their renderer properly... <.<");
 						}
 					}
 				}
 			}
-			if (entityRendersOld != null) {
-				for (Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : entityRendersOld.entrySet()) {
+			if(entityRendersOld != null) {
+				for(Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : entityRendersOld.entrySet()) {
 					Render<? extends Entity> render = entry.getValue();
-					if (render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
-						LayerRenderer stoneLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase) render) : new LayerStoneEntity((RenderLivingBase) render);
-						LayerRenderer crackLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getCrackLayer((RenderLivingBase) render) : new LayerStoneEntityCrack((RenderLivingBase) render);
-						((RenderLivingBase) render).addLayer(stoneLayer);
-						((RenderLivingBase) render).addLayer(crackLayer);
+					if(render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
+						if(render instanceof ICustomStoneLayer) {
+							LayerRenderer stoneLayerCustom = ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase)render);
+							((RenderLivingBase)render).addLayer(stoneLayerCustom);
+						}
+						else {
+							LayerRenderer stoneLayer = new LayerStoneEntity((RenderLivingBase)render);
+							((RenderLivingBase)render).addLayer(stoneLayer);
+						}
 					}
 				}
 			}

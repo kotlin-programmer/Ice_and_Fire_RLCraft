@@ -96,16 +96,27 @@ public class RenderStoneStatue extends RenderLiving<EntityStoneStatue> {
 		@Override
 		public void doRenderLayer(EntityStoneStatue stoneStatue, float f, float f1, float i, float f2, float f3, float f4, float f5) {
 			int breakCount = stoneStatue.getCrackAmount();
-			if (breakCount > 0) {
-				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-				GlStateManager.doPolygonOffset(-3.0F, -3.0F);
-				GlStateManager.enablePolygonOffset();
+			if(breakCount > 0) {
+				GlStateManager.pushMatrix();
 				GlStateManager.enableBlend();
-				GlStateManager.depthMask(true);
+				GlStateManager.enableAlpha();
+				GlStateManager.depthFunc(514);
+				GlStateManager.depthMask(false);
+				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+				GlStateManager.matrixMode(5890);
+				GlStateManager.loadIdentity();
+				GlStateManager.scale((float)this.renderer.getMainModel().textureHeight / 16.0F, (float)this.renderer.getMainModel().textureWidth / 16.0F, 1.0F);
+				GlStateManager.matrixMode(5888);
 				this.renderer.bindTexture(DESTROY_STAGES[breakCount - 1]);
 				this.renderer.getMainModel().render(stoneStatue, f, f1, f2, f3, f4, f5);
-				GlStateManager.doPolygonOffset(0.0F, 0.0F);
-				GlStateManager.disablePolygonOffset();
+				GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				GlStateManager.matrixMode(5890);
+				GlStateManager.loadIdentity();
+				GlStateManager.matrixMode(5888);
+				GlStateManager.depthMask(true);
+				GlStateManager.depthFunc(515);
+				GlStateManager.disableBlend();
+				GlStateManager.popMatrix();
 			}
 		}
 

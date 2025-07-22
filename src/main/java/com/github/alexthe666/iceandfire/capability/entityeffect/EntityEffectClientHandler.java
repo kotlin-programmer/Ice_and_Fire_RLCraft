@@ -3,15 +3,17 @@ package com.github.alexthe666.iceandfire.capability.entityeffect;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
+import com.github.alexthe666.iceandfire.client.model.util.IEntityLivingBaseRenderContext;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
-import com.github.alexthe666.iceandfire.entity.EntityStoneStatue;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
+import com.github.alexthe666.iceandfire.mixin.vanilla.IEntityGuardianAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
@@ -105,21 +107,30 @@ public class EntityEffectClientHandler {
             }
         }
         else if(capability.isStoned()) {
-            boolean stonedPlayer = entity instanceof EntityStoneStatue;
+            //Avoid render calls having to check capability multiple times a frame
+            ((IEntityLivingBaseRenderContext)entity).iceAndFire$setStoned(true);
+            ((IEntityLivingBaseRenderContext)entity).iceAndFire$setStonedData(capability.getAdditionalData());
             entity.motionX = 0;
             entity.motionZ = 0;
             entity.motionY -= 0.1D;
             entity.swingProgress = 0;
             entity.limbSwing = 0;
-            entity.setInvisible(!stonedPlayer);
+            //Set in ClientProxy render pre event to fix lycanite issue
+            //entity.setInvisible(!(entity instanceof EntityStoneStatue));
             if(entity instanceof EntityLiving) {
-                EntityLiving living = (EntityLiving)entity;
-                living.livingSoundTime = 0;
+                ((EntityLiving)entity).livingSoundTime = 0;
             }
             if(entity instanceof EntityHorse) {
                 EntityHorse horse = (EntityHorse)entity;
                 horse.tailCounter = 0;
                 horse.setEatingHaystack(false);
+            }
+            if(entity instanceof EntityGuardian) {
+                EntityGuardian guardian = (EntityGuardian)entity;
+                ((IEntityGuardianAccessor)guardian).setClientSideTailAnimation(0);
+                ((IEntityGuardianAccessor)guardian).setClientSideTailAnimation0(0);
+                ((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation(1);
+                ((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation0(1);
             }
         }
     }

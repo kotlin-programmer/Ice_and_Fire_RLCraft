@@ -6,5 +6,4 @@ import net.minecraft.entity.EntityLivingBase;
 
 public interface ICustomStoneLayer {
     LayerRenderer<? extends EntityLivingBase> getStoneLayer(RenderLivingBase<? extends EntityLivingBase> render);
-    LayerRenderer<? extends EntityLivingBase> getCrackLayer(RenderLivingBase<? extends EntityLivingBase> render);
 }

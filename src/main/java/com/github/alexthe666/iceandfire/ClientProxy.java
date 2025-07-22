@@ -8,6 +8,7 @@ import com.github.alexthe666.iceandfire.client.model.*;
 import com.github.alexthe666.iceandfire.client.model.animator.*;
 import com.github.alexthe666.iceandfire.client.model.util.EnumDragonAnimations;
 import com.github.alexthe666.iceandfire.client.model.util.EnumSeaSerpentAnimations;
+import com.github.alexthe666.iceandfire.client.model.util.IEntityLivingBaseRenderContext;
 import com.github.alexthe666.iceandfire.client.model.util.IceAndFireTabulaModel;
 import com.github.alexthe666.iceandfire.client.particle.*;
 import com.github.alexthe666.iceandfire.client.particle.lightning.ParticleLightningRenderer;
@@ -29,6 +30,7 @@ import com.github.alexthe666.iceandfire.enums.*;
 import com.github.alexthe666.iceandfire.event.EventClient;
 import com.github.alexthe666.iceandfire.event.EventNewMenu;
 import com.github.alexthe666.iceandfire.item.ICustomRendered;
+import com.github.alexthe666.iceandfire.mixin.vanilla.IEntityGuardianAccessor;
 import net.ilexiconn.llibrary.client.model.tabula.TabulaModelHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -40,6 +42,10 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.resources.IReloadableResourceManager;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityGuardian;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -49,6 +55,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -611,5 +618,32 @@ public class ClientProxy extends CommonProxy {
 
 	public static void setReferedClientHive(MyrmexHive hive){
 		referedClientHive = hive;
+	}
+	
+	@SubscribeEvent
+	@SideOnly(Side.CLIENT)
+	public static void onRenderLivingEventPre(RenderLivingEvent.Pre<EntityLivingBase> event) {
+		EntityLivingBase entity = event.getEntity();
+		if(entity == null) return;
+		if(((IEntityLivingBaseRenderContext)entity).iceAndFire$getStoned()) {
+			//Reset invis right before render again to fix other entities/mods changing values themselves (lycanite)
+			entity.setInvisible(!(entity instanceof EntityStoneStatue));
+			entity.swingProgress = 0;
+			entity.limbSwing = 0;
+			if(entity instanceof EntityLiving) {
+				((EntityLiving)entity).livingSoundTime = 0;
+			}
+			if(entity instanceof EntityHorse) {
+				EntityHorse horse = (EntityHorse)entity;
+				horse.tailCounter = 0;
+			}
+			if(entity instanceof EntityGuardian) {
+				EntityGuardian guardian = (EntityGuardian)entity;
+				((IEntityGuardianAccessor)guardian).setClientSideTailAnimation(0);
+				((IEntityGuardianAccessor)guardian).setClientSideTailAnimation0(0);
+				((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation(1);
+				((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation0(1);
+			}
+		}
 	}
 }
