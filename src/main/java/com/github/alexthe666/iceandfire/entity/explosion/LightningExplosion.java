@@ -240,6 +240,8 @@ public class LightningExplosion extends Explosion {
 							worldObj.setBlockState(blockpos, IafBlockRegistry.crackledStone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
 						} else if (mat == Material.ROCK) {
 							worldObj.setBlockState(blockpos, IafBlockRegistry.crackledCobblestone.getDefaultState().withProperty(BlockReturningState.REVERTS, IceAndFireConfig.DRAGON_SETTINGS.dragonAffectedBlocksRevert));
+						} else if (mat == Material.SAND) {
+							worldObj.setBlockState(blockpos, IafBlockRegistry.fulgurite.getDefaultState());
 						}
 					}
 				}

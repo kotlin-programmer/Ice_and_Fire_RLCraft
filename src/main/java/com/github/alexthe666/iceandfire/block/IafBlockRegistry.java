@@ -68,6 +68,8 @@ public class IafBlockRegistry {
 	public static Block charedGrassPath = new BlockPath(BlockPath.Type.CHARED);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chared_ruby_ore")
 	public static Block charedRubyOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.charedRubyOre", "chared_ruby_ore", IafItemRegistry.rubyGem);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ash")
+	public static Block ash = new BlockFallingGeneric(Material.SAND, "ash", "iceandfire.ash", "shovel", 0, 0.5F, 0F, SoundType.SAND);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_dirt")
 	public static Block crackledDirt = new BlockReturningState(Material.GROUND, "crackled_dirt", "iceandfire.crackledDirt", "shovel", 0, 0.5F, 0.0F, SoundType.GROUND, Blocks.DIRT.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_grass")
@@ -82,8 +84,8 @@ public class IafBlockRegistry {
 	public static Block crackledGrassPath = new BlockPath(BlockPath.Type.CRACKLED);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":crackled_amethyst_ore")
 	public static Block crackledAmethystOre = new BlockDragonOre(2, 3.0F, 5.0F, "iceandfire.crackledAmethystOre", "crackled_amethyst_ore", IafItemRegistry.amethystGem);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ash")
-	public static Block ash = new BlockFallingGeneric(Material.SAND, "ash", "iceandfire.ash", "shovel", 0, 0.5F, 0F, SoundType.SAND);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":fulgurite")
+	public static Block fulgurite = new BlockGeneric(Material.ROCK, "fulgurite", "iceandfire.fulgurite", "pickaxe", 0, 1.5F, 10.0F, SoundType.GLASS);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_dirt")
 	public static Block frozenDirt = new BlockReturningState(Material.GROUND, "frozen_dirt", "iceandfire.frozenDirt", "shovel", 0, 0.5F, 0.0F, SoundType.GLASS, true, Blocks.DIRT.getDefaultState());
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":frozen_grass")

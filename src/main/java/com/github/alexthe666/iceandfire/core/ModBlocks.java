@@ -33,6 +33,7 @@ public class ModBlocks {
 	public static Block charedGravel = IafBlockRegistry.charedGravel;
 	public static Block charedGrassPath = IafBlockRegistry.charedGrassPath;
 	public static Block charedRubyOre = IafBlockRegistry.charedRubyOre;
+	public static Block ash = IafBlockRegistry.ash;
 	public static Block crackledDirt = IafBlockRegistry.crackledDirt;
 	public static Block crackledGrass = IafBlockRegistry.crackledGrass;
 	public static Block crackledStone = IafBlockRegistry.crackledStone;
@@ -40,7 +41,7 @@ public class ModBlocks {
 	public static Block crackledGravel = IafBlockRegistry.crackledGravel;
 	public static Block crackledGrassPath = IafBlockRegistry.crackledGrassPath;
 	public static Block crackledAmethystOre = IafBlockRegistry.crackledAmethystOre;
-	public static Block ash = IafBlockRegistry.ash;
+	public static Block fulgurite = IafBlockRegistry.fulgurite;
 	public static Block frozenDirt = IafBlockRegistry.frozenDirt;
 	public static Block frozenGrass = IafBlockRegistry.frozenGrass;
 	public static Block frozenStone = IafBlockRegistry.frozenStone;

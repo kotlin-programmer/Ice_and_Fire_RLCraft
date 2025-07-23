@@ -30,7 +30,7 @@ public class WorldGenFireDragonRoost extends WorldGenDragonRoost {
             world.setBlockState(blockpos, IafBlockRegistry.charedStone.getDefaultState());
         } else if (state.getBlock() == Blocks.GRASS_PATH) {
             world.setBlockState(blockpos, IafBlockRegistry.charedGrassPath.getDefaultState());
-        } else if (state.getMaterial() == Material.WOOD) {
+        } else if (state.getMaterial() == Material.WOOD || state.getMaterial() == Material.SAND) {
             world.setBlockState(blockpos, IafBlockRegistry.ash.getDefaultState());
         } else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS) {
             world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
@@ -52,7 +52,8 @@ public class WorldGenFireDragonRoost extends WorldGenDragonRoost {
                 IafBlockRegistry.charedGravel,
                 IafBlockRegistry.charedGrassPath,
                 IafBlockRegistry.charedStone,
-                IafBlockRegistry.charedCobblestone
+                IafBlockRegistry.charedCobblestone,
+                IafBlockRegistry.ash
         };
     }
 
