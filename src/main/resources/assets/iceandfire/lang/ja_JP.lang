@@ -848,11 +848,11 @@ silvertools.hurt=アンデッドに+2ダメージ
 myrmextools.hurt=虫でないものとデスワームに+4ダメージ
 myrmextools.poison=毒（0:10）
 
-dragon_sword_fire.hurt1=アイスドラゴンに+13.5ダメージ
+dragon_sword_fire.hurt1=アイスドラゴンに+8ダメージ
 dragon_sword_fire.hurt2=炎で飲みこみ、突き飛ばす
-dragon_sword_ice.hurt1=ファイアドラゴンに+13.5ダメージ
+dragon_sword_ice.hurt1=ファイアドラゴンに+8ダメージ
 dragon_sword_ice.hurt2=氷に閉ざし、突き飛ばす
-dragon_sword_lightning.hurt1=ファイアドラゴン、アイスドラゴンに+6.75ダメージ
+dragon_sword_lightning.hurt1=ファイアドラゴン、アイスドラゴンに+4ダメージ
 dragon_sword_lightning.hurt2=§5雷の力で感電させる
 
 message.iceandfire.tryAgain=もう一度試してください。

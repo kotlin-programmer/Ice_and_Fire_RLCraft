@@ -37,26 +37,14 @@ public interface IHitEffect {
         }
         else if (getMaterial() == IafItemRegistry.fireBoneTools) {
             if (target instanceof EntityIceDragon) {
-                target.attackEntityFrom(DamageSource.IN_FIRE, 3.0F + getMaterial().getAttackDamage() + 13.5F);
+                target.attackEntityFrom(DamageSource.IN_FIRE, 3.0F + getMaterial().getAttackDamage() + 8F);
             }
             target.setFire(5);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        else if (getMaterial() == IafItemRegistry.iceBoneTools) {
+        else if (getMaterial() == IafItemRegistry.iceBoneTools  || getMaterial() == IafItemRegistry.dread_queen_sword_tools) {
             if (target instanceof EntityFireDragon) {
-                target.attackEntityFrom(DamageSource.DROWN, 3.0F + getMaterial().getAttackDamage() + 13.5F);
-            }
-            if (!target.world.isRemote) {
-                IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(target);
-                if (capability != null) capability.setFrozen(200);
-            }
-            target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 2));
-            target.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 100, 2));
-            target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
-        }
-        else if (getMaterial() == IafItemRegistry.dread_queen_sword_tools) {
-            if (target instanceof EntityDragonBase) {
-                target.attackEntityFrom(DamageSource.DROWN, 3.0F + getMaterial().getAttackDamage() + 13.5F);
+                target.attackEntityFrom(DamageSource.DROWN, 3.0F + getMaterial().getAttackDamage() + 8F);
             }
             if (!target.world.isRemote) {
                 IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(target);
@@ -68,7 +56,7 @@ public interface IHitEffect {
         }
         else if (getMaterial() == IafItemRegistry.lightningBoneTools) {
             if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
-                target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 3.0F + getMaterial().getAttackDamage() + 6.75F);
+                target.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 3.0F + getMaterial().getAttackDamage() + 4F);
             }
             ChainLightningUtils.createChainLightningFromTarget(target.world, target, attacker);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
@@ -98,14 +86,14 @@ public interface IHitEffect {
         }
         else if (getMaterial() == IafItemRegistry.fireBoneTools) {
             if (target instanceof EntityIceDragon) {
-                mod += 13.5F;
+                mod += 8F;
             }
             target.setFire(5);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
         }
-        else if (getMaterial() == IafItemRegistry.iceBoneTools) {
+        else if (getMaterial() == IafItemRegistry.iceBoneTools || getMaterial() == IafItemRegistry.dread_queen_sword_tools) {
             if (target instanceof EntityFireDragon) {
-                mod += 13.5F;
+                mod += 8F;
             }
             if (!target.world.isRemote) {
                 IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(target);
@@ -117,7 +105,7 @@ public interface IHitEffect {
         }
         else if (getMaterial() == IafItemRegistry.lightningBoneTools) {
             if (target instanceof EntityFireDragon || target instanceof EntityIceDragon) {
-                mod += 6.75F;
+                mod += 4F;
             }
             ChainLightningUtils.createChainLightningFromTarget(target.world, target, attacker);
             target.knockBack(target, 1F, attacker.posX - target.posX, attacker.posZ - target.posZ);
