@@ -281,7 +281,7 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, IafBlockRegistry.amethystOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.amethystOre.getDefaultState(), 2);
 					}
 				}
 			}
@@ -297,7 +297,7 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, IafBlockRegistry.rubyOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.rubyOre.getDefaultState(), 2);
 					}
 				}
 			}
@@ -313,7 +313,7 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, IafBlockRegistry.sapphireOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.sapphireOre.getDefaultState(), 2);
 					}
 				}
 			}
@@ -322,15 +322,15 @@ public class StructureGenerator implements IWorldGenerator {
 		if (random.nextInt(5) == 0) {
 			if (types.contains(Type.JUNGLE)) {
 				if (IafBlockRegistry.lightning_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, IafBlockRegistry.lightning_lily.getDefaultState());
+					world.setBlockState(height, IafBlockRegistry.lightning_lily.getDefaultState(), 2);
 				}
 			} else if (isCold && isSnowy) {
 				if (IafBlockRegistry.frost_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, IafBlockRegistry.frost_lily.getDefaultState());
+					world.setBlockState(height, IafBlockRegistry.frost_lily.getDefaultState(), 2);
 				}
 			} else if (types.contains(Type.HOT) && types.contains(Type.SANDY)) {
 				if (IafBlockRegistry.fire_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, IafBlockRegistry.fire_lily.getDefaultState());
+					world.setBlockState(height, IafBlockRegistry.fire_lily.getDefaultState(), 2);
 				}
 			}
 		}
@@ -339,7 +339,7 @@ public class StructureGenerator implements IWorldGenerator {
 			if (types.contains(Type.NETHER)) {
 				BlockPos surface = getNetherHeight(world, new BlockPos(x, 0, z));
 				if (surface != null) {
-					world.setBlockState(surface.up(), IafBlockRegistry.fire_lily.getDefaultState());
+					world.setBlockState(surface.up(), IafBlockRegistry.fire_lily.getDefaultState(), 2);
 				}
 			}
 		}

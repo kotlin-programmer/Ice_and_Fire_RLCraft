@@ -16,23 +16,23 @@ public class WorldGenLightningDragonRoost extends WorldGenDragonRoost {
 
     protected void transformState(World world, BlockPos blockpos, IBlockState state) {
         if (state.getMaterial() == Material.GRASS && state.getBlock() == Blocks.GRASS) {
-            world.setBlockState(blockpos, IafBlockRegistry.crackledGrass.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.crackledGrass.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.GRASS || state.getMaterial() == Material.GROUND && state.getBlock() == Blocks.DIRT) {
-            world.setBlockState(blockpos, IafBlockRegistry.crackledDirt.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.crackledDirt.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.GROUND && state.getBlock() == Blocks.GRAVEL) {
-            world.setBlockState(blockpos, IafBlockRegistry.crackledGravel.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.crackledGravel.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.ROCK && (state.getBlock() == Blocks.COBBLESTONE || state.getBlock().getTranslationKey().contains("cobblestone"))) {
-            world.setBlockState(blockpos, IafBlockRegistry.crackledCobblestone.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.crackledCobblestone.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.ROCK && state.getBlock() != IafBlockRegistry.crackledCobblestone) {
-            world.setBlockState(blockpos, IafBlockRegistry.crackledStone.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.crackledStone.getDefaultState(), 2);
         } else if (state.getBlock() == Blocks.GRASS_PATH) {
-            world.setBlockState(blockpos, IafBlockRegistry.crackledGrassPath.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.crackledGrassPath.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.WOOD) {
-            world.setBlockState(blockpos, IafBlockRegistry.ash.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.ash.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS) {
-            world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
+            world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.SAND) {
-            world.setBlockState(blockpos, IafBlockRegistry.fulgurite.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.fulgurite.getDefaultState(), 2);
         }
     }
 

@@ -15,23 +15,23 @@ public class WorldGenIceDragonRoost extends WorldGenDragonRoost {
 
     protected void transformState(World world, BlockPos blockpos, IBlockState state) {
         if (state.getMaterial() == Material.GRASS && state.getBlock() == Blocks.GRASS) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenGrass.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenGrass.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.GRASS || state.getMaterial() == Material.GROUND && state.getBlock() == Blocks.DIRT) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenDirt.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenDirt.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.GROUND && state.getBlock() == Blocks.GRAVEL) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenGravel.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenGravel.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.ROCK && (state.getBlock() == Blocks.COBBLESTONE || state.getBlock().getTranslationKey().contains("cobblestone"))) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenCobblestone.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenCobblestone.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.ROCK && state.getBlock() != IafBlockRegistry.frozenCobblestone) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenStone.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenStone.getDefaultState(), 2);
         } else if (state.getBlock() == Blocks.GRASS_PATH) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenGrassPath.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenGrassPath.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.WOOD) {
-            world.setBlockState(blockpos, IafBlockRegistry.frozenSplinters.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.frozenSplinters.getDefaultState(), 2);
         } else if (state.getMaterial() == Material.PACKED_ICE || state.getMaterial() == Material.CRAFTED_SNOW) {
-            world.setBlockState(blockpos, IafBlockRegistry.dragon_ice.getDefaultState());
+            world.setBlockState(blockpos, IafBlockRegistry.dragon_ice.getDefaultState(),2 );
         } else if (state.getMaterial() == Material.LEAVES || state.getMaterial() == Material.PLANTS || state.getMaterial() == Material.SNOW) {
-            world.setBlockState(blockpos, Blocks.AIR.getDefaultState());
+            world.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
         }
     }
 

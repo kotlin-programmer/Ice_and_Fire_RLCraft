@@ -76,7 +76,7 @@ public class WorldGenMausoleum extends WorldGenerator {
                     height.down().offset(facing, (-template.getSize().getZ() / 2) + 1).offset(facing.rotateYCCW(), -template.getSize().getX() / 2),
                     height.down(3).offset(facing, (template.getSize().getZ() / 2) - 1).offset(facing.rotateYCCW(), template.getSize().getX() / 2)
             )) {
-                worldIn.setBlockState(underPos, IafBlockRegistry.dread_stone_tile.getDefaultState());
+                worldIn.setBlockState(underPos, IafBlockRegistry.dread_stone_tile.getDefaultState(), 2);
             }
         }
         return true;

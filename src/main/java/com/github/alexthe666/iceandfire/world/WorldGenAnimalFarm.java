@@ -77,27 +77,27 @@ public class WorldGenAnimalFarm extends WorldGenerator {
 		for(int x = -4; x < +5; x++) {
 			for(int z = -4; z < +5; z++) {
 				if(((x % 4 == 0 || z % 4 == 0) || (x % -4 == 0 || z % -4 == 0)) && Math.abs(x) != 0 && Math.abs(z) != 0) {
-					worldIn.setBlockState(position.add(x, 0, z), sandy ? Blocks.SAND.getDefaultState() : Blocks.GRASS.getDefaultState());
-					worldIn.setBlockState(position.add(x, 1, z), fence.getDefaultState());
+					worldIn.setBlockState(position.add(x, 0, z), sandy ? Blocks.SAND.getDefaultState() : Blocks.GRASS.getDefaultState(), 2);
+					worldIn.setBlockState(position.add(x, 1, z), fence.getDefaultState(), 2);
 				}
 				else {
-					worldIn.setBlockState(position.add(x, 0, z), Blocks.GRASS_PATH.getDefaultState());
-					worldIn.setBlockState(position.add(x, 1, z), Blocks.AIR.getDefaultState());
-					worldIn.setBlockState(position.add(x, 2, z), Blocks.AIR.getDefaultState());
+					worldIn.setBlockState(position.add(x, 0, z), Blocks.GRASS_PATH.getDefaultState(), 2);
+					worldIn.setBlockState(position.add(x, 1, z), Blocks.AIR.getDefaultState(), 2);
+					worldIn.setBlockState(position.add(x, 2, z), Blocks.AIR.getDefaultState(), 2);
 				}
 
 				if(x == 0) {
-					worldIn.setBlockState(position.add(0, 1, 4), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.SOUTH));
-					worldIn.setBlockState(position.add(0, 1, -4), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.NORTH));
-					worldIn.setBlockState(position.add(0, 0, 4), Blocks.GRASS_PATH.getDefaultState());
-					worldIn.setBlockState(position.add(0, 0, -4), Blocks.GRASS_PATH.getDefaultState());
+					worldIn.setBlockState(position.add(0, 1, 4), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.SOUTH), 2);
+					worldIn.setBlockState(position.add(0, 1, -4), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.NORTH), 2);
+					worldIn.setBlockState(position.add(0, 0, 4), Blocks.GRASS_PATH.getDefaultState(), 2);
+					worldIn.setBlockState(position.add(0, 0, -4), Blocks.GRASS_PATH.getDefaultState(), 2);
 				}
 
 				if(z == 0) {
-					worldIn.setBlockState(position.add(4, 1, 0), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.EAST));
-					worldIn.setBlockState(position.add(-4, 1, 0), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.WEST));
-					worldIn.setBlockState(position.add(4, 0, 0), Blocks.GRASS_PATH.getDefaultState());
-					worldIn.setBlockState(position.add(-4, 0, 0), Blocks.GRASS_PATH.getDefaultState());
+					worldIn.setBlockState(position.add(4, 1, 0), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.EAST), 2);
+					worldIn.setBlockState(position.add(-4, 1, 0), fence_gate.getDefaultState().withProperty(BlockFenceGate.FACING, EnumFacing.WEST), 2);
+					worldIn.setBlockState(position.add(4, 0, 0), Blocks.GRASS_PATH.getDefaultState(), 2);
+					worldIn.setBlockState(position.add(-4, 0, 0), Blocks.GRASS_PATH.getDefaultState(), 2);
 				}
 			}
 		}

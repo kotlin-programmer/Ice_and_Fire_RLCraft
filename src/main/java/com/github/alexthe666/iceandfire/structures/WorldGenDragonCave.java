@@ -30,9 +30,9 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
 
         if (chance < 60) {
             boolean generateGold = IceAndFireConfig.WORLDGEN.dragonDenGoldAmount <= 1 || rand.nextInt(IceAndFireConfig.WORLDGEN.dragonDenGoldAmount) == 0;
-            world.setBlockState(pos, generateGold ? getPile().withProperty(BlockCoinPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 3);
+            world.setBlockState(pos, generateGold ? getPile().withProperty(BlockCoinPile.LAYERS, 1 + rand.nextInt(7)) : Blocks.AIR.getDefaultState(), 2);
         } else if (chance == 60) {
-            world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 3);
+            world.setBlockState(pos, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 2);
             if (world.getBlockState(pos).getBlock() instanceof BlockChest) {
                 TileEntity chest = world.getTileEntity(pos);
                 if (chest instanceof TileEntityChest && !(chest).isInvalid()) {
@@ -51,30 +51,30 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
         if (isOre) {
             int chance = world.rand.nextInt(200);
             if (chance < 30) {
-                world.setBlockState(pos, Blocks.IRON_ORE.getDefaultState(), 3);
+                world.setBlockState(pos, Blocks.IRON_ORE.getDefaultState(), 2);
             } else if (chance < 40) {
-                world.setBlockState(pos, Blocks.GOLD_ORE.getDefaultState(), 3);
+                world.setBlockState(pos, Blocks.GOLD_ORE.getDefaultState(), 2);
             } else if (chance < 45) {
-                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateCopperOre ? IafBlockRegistry.copperOre.getDefaultState() : getStone(), 3);
+                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateCopperOre ? IafBlockRegistry.copperOre.getDefaultState() : getStone(), 2);
             } else if (chance < 50) {
-                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateSilverOre ? IafBlockRegistry.silverOre.getDefaultState() : getStone(), 3);
+                world.setBlockState(pos, IceAndFireConfig.WORLDGEN.generateSilverOre ? IafBlockRegistry.silverOre.getDefaultState() : getStone(), 2);
             } else if (chance < 60) {
-                world.setBlockState(pos, Blocks.COAL_ORE.getDefaultState(), 3);
+                world.setBlockState(pos, Blocks.COAL_ORE.getDefaultState(), 2);
             } else if (chance < 70) {
-                world.setBlockState(pos, Blocks.REDSTONE_ORE.getDefaultState(), 3);
+                world.setBlockState(pos, Blocks.REDSTONE_ORE.getDefaultState(), 2);
             } else if (chance < 80) {
-                world.setBlockState(pos, Blocks.LAPIS_ORE.getDefaultState(), 3);
+                world.setBlockState(pos, Blocks.LAPIS_ORE.getDefaultState(), 2);
             } else if (chance < 90) {
-                world.setBlockState(pos, Blocks.DIAMOND_ORE.getDefaultState(), 3);
+                world.setBlockState(pos, Blocks.DIAMOND_ORE.getDefaultState(), 2);
             } else {
-                world.setBlockState(pos, getGemstone(), 3);
+                world.setBlockState(pos, getGemstone(), 2);
             }
         } else {
             int chance = rand.nextInt(2);
             if (chance == 0) {
-                world.setBlockState(pos, getStone(), 3);
+                world.setBlockState(pos, getStone(), 2);
             } else {
-                world.setBlockState(pos, getCobblestone(), 3);
+                world.setBlockState(pos, getCobblestone(), 2);
             }
         }
     }
@@ -94,7 +94,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
                 if (blockpos.distanceSq(position) <= (double) (f * f)) {
                     if (!(worldIn.getBlockState(position).getBlock() instanceof BlockChest) && worldIn.getBlockState(position).getBlock().getBlockHardness(worldIn.getBlockState(position), worldIn, position) >= 0) {
-                        worldIn.setBlockState(blockpos, Blocks.STONE.getDefaultState(), 3);
+                        worldIn.setBlockState(blockpos, Blocks.STONE.getDefaultState(), 2);
                     }
                 }
             }
@@ -107,7 +107,7 @@ public abstract class WorldGenDragonCave extends WorldGenerator {
             for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
                 if (blockpos.distanceSq(position) <= (double) (f * f)) {
                     if (!(worldIn.getBlockState(position).getBlock() instanceof BlockChest)) {
-                        worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
+                        worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
                     }
                 }
             }
