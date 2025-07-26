@@ -422,9 +422,9 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 0) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(IafItemRegistry.fire_dragon_blood), 10, 24, 1.65F);
-					drawItemStack(new ItemStack(IafItemRegistry.ice_dragon_blood), 18, 24, 1.65F);
-					drawItemStack(new ItemStack(IafItemRegistry.lightning_dragon_blood), 26, 24, 1.65F);
+					drawItemStack(new ItemStack(IafItemRegistry.fire_dragon_blood), 10, 34, 1.65F);
+					drawItemStack(new ItemStack(IafItemRegistry.ice_dragon_blood), 18, 34, 1.65F);
+					drawItemStack(new ItemStack(IafItemRegistry.lightning_dragon_blood), 26, 34, 1.65F);
 					GL11.glPopMatrix();
 					int frame = Minecraft.getMinecraft().player.ticksExisted % 60;
 					Item blood = IafItemRegistry.fire_dragon_blood;
@@ -436,8 +436,8 @@ public class GuiBestiary extends GuiScreen {
 						blood = IafItemRegistry.ice_dragon_blood;
 						sword = IafItemRegistry.dragonbone_sword_ice;
 					}
-					drawItemStack(new ItemStack(IafItemRegistry.dragonbone_sword), 161, 17, 1.5F);
-					drawItemStack(new ItemStack(blood), 161, 32, 1.5F);
+					drawItemStack(new ItemStack(IafItemRegistry.dragonbone_sword), 163, 15, 1.5F);
+					drawItemStack(new ItemStack(blood), 161, 33, 1.5F);
 					drawItemStack(new ItemStack(sword), 151, 10, 2F);
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
@@ -1169,8 +1169,14 @@ public class GuiBestiary extends GuiScreen {
 
 	private void drawRecipe(ItemStack result, ItemStack[] ingredients) {
 		drawItemStack(result, 62, 17, 2F);
-		for (int i = 0; i < 9; i++) {
-			drawItemStack(ingredients[i], ((i % 3) * 22 + 30), ((i / 3) * 22 + 10), 1.25F);
+		for (int i = 0; i < 3; i++) {
+			drawItemStack(ingredients[i], ((i % 3) * 22 + 31), 13, 1.2F);
+		}
+		for (int i = 3; i < 6; i++) {
+			drawItemStack(ingredients[i], ((i % 3) * 22 + 31), 33, 1.2F);
+		}
+		for (int i = 6; i < 9; i++) {
+			drawItemStack(ingredients[i], ((i % 3) * 22 + 31), 53, 1.2F);
 		}
 		GL11.glPushMatrix();
 		GL11.glTranslatef(37F, 13, 1F);
@@ -1197,7 +1203,9 @@ public class GuiBestiary extends GuiScreen {
 		net.minecraft.client.gui.FontRenderer font = null;
 		if (!stack.isEmpty()) font = stack.getItem().getFontRenderer(stack);
 		if (font == null) font = fontRenderer;
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
+		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, null);
 		this.zLevel = 0.0F;
 		this.itemRender.zLevel = 0.0F;
