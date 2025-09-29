@@ -200,7 +200,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        this.targetTasks.addTask(3, new AmphithereAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
     }
 
     public boolean isStill() {

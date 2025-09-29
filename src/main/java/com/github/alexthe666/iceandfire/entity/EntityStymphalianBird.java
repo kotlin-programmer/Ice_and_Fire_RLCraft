@@ -97,8 +97,8 @@ public class EntityStymphalianBird extends EntityCreature implements IAnimatedEn
         this.tasks.addTask(6, new StymphalianBirdAIAirTarget(this));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityLivingBase.class, 6.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
-        this.targetTasks.addTask(2, new StymphalianBirdAITarget(this, EntityLivingBase.class, true));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
+        this.targetTasks.addTask(2, new StymphalianBirdAITarget<>(this, EntityLivingBase.class, true));
     }
 
     @Override

@@ -91,9 +91,9 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
         this.tasks.addTask(5, new DeathWormAIWander(this, 1));
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(3, new DeathwormAITargetItems(this, false, false));
-        this.targetTasks.addTask(5, new DeathWormAITarget(this, EntityLivingBase.class, false, new Predicate<EntityLivingBase>() {
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(3, new DeathwormAITargetItems<>(this, false, false));
+        this.targetTasks.addTask(5, new DeathWormAITarget<>(this, EntityLivingBase.class, false, new Predicate<EntityLivingBase>() {
             @Override
             public boolean apply(@Nullable EntityLivingBase input) {
                 if (EntityDeathWorm.this.isTamed()) {

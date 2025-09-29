@@ -92,14 +92,14 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
         this.tasks.addTask(3, new EntityAILookIdle(this));
         this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
             @Override
             public boolean apply(@Nullable EntityPlayer entity) {
                 return EntitySiren.this.isAgressive() && !(entity.isCreative() || entity.isSpectator());
             }
         }));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, true, false, new Predicate<EntityVillager>() {
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, 0, true, false, new Predicate<EntityVillager>() {
             @Override
             public boolean apply(@Nullable EntityVillager entity) {
                 return EntitySiren.this.isAgressive();

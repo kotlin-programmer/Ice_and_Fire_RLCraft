@@ -124,7 +124,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
         this.tasks.addTask(1, new SeaSerpentAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(2, new SeaSerpentAIGetInWater(this, 1.0D));
         this.tasks.addTask(3, new EntityAIWatchClosestIgnoreRider(this, EntityLivingBase.class, 6.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new FlyingAITarget(this, EntityLivingBase.class, 0, true, false, NOT_SEA_SERPENT));
     }
 

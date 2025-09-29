@@ -106,7 +106,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 			}
 		});
 		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
 			@Override
 			public boolean apply(@Nullable EntityPlayer entity) {
