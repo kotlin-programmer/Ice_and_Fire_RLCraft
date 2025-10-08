@@ -46,9 +46,4 @@ public class MyrmexAIMoveThroughHive extends EntityAIBase {
         this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
     }
 
-    public void resetTask() {
-        nextRoom = BlockPos.ORIGIN;
-        this.myrmex.getNavigator().setPath(null, this.movementSpeed);
-
-    }
 }
