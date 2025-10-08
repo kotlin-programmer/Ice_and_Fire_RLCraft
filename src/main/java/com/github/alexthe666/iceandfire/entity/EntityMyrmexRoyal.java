@@ -268,6 +268,11 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         return 2;
     }
 
+    @Override
+    public boolean needsGaurding() {
+        return !this.isFlying;
+    }
+
     public boolean shouldLeaveHive() {
         return isBreedingSeason();
     }
