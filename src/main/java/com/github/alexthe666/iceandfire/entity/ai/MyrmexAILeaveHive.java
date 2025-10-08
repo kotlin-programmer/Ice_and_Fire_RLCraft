@@ -11,7 +11,6 @@ import net.minecraft.util.math.BlockPos;
 public class MyrmexAILeaveHive extends EntityAIBase {
     private final EntityMyrmexBase myrmex;
     private final double movementSpeed;
-    private Path path;
     private BlockPos nextEntrance = BlockPos.ORIGIN;
 
     public MyrmexAILeaveHive(EntityMyrmexBase entityIn, double movementSpeedIn) {
@@ -21,16 +20,11 @@ public class MyrmexAILeaveHive extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if(this.myrmex instanceof EntityMyrmexQueen){
-            return false;
-        }
         if(this.myrmex.isChild()){
             return false;
         }
 
-        if(this.myrmex instanceof EntityMyrmexSentinel){
-        }
-        if(!this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || this.myrmex.canSeeSky() || this.myrmex instanceof EntityMyrmexWorker && (((EntityMyrmexWorker)this.myrmex).holdingBaby() || !this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) || this.myrmex.isEnteringHive){
+        if(!this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || !this.myrmex.isOnResin() || this.myrmex instanceof EntityMyrmexWorker && (((EntityMyrmexWorker)this.myrmex).holdingBaby() || !this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) || this.myrmex.isEnteringHive) {
             return false;
         }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 1000);
@@ -38,25 +32,17 @@ public class MyrmexAILeaveHive extends EntityAIBase {
             return false;
         } else {
             nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), true));
-            this.path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
-            return this.path != null;
+            Path path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
+            this.myrmex.getNavigator().setPath(path, this.movementSpeed);
+            this.myrmex.isEnteringHive = false;
+            return path != null;
         }
     }
 
     public boolean shouldContinueExecuting() {
-
-        if(this.myrmex.getDistanceSq(nextEntrance) <= 3 || this.myrmex.shouldEnterHive()){
+        if(this.myrmex.getDistanceSq(nextEntrance) <= 3 || this.myrmex.shouldEnterHive()) {
             return false;
         }
         return !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextEntrance) > 3 && this.myrmex.shouldLeaveHive();
-    }
-
-    public void startExecuting() {
-        this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
-    }
-
-    public void resetTask() {
-        nextEntrance = BlockPos.ORIGIN;
-        this.myrmex.getNavigator().setPath(null, this.movementSpeed);
     }
 }
