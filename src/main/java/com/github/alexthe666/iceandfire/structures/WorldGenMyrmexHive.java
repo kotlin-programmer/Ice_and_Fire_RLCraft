@@ -141,7 +141,8 @@ public class WorldGenMyrmexHive extends WorldGenerator {
                 for (int i = 0; i < length; i++) {
                     generateCircle(world, rand, hive, offset.offset(direction, i), 3, 5, direction);
                 }
-                if (entrances < 3 && rand.nextInt(1 + entrances * 2) == 0 && hasFoodRoom && hasNursery && totalRooms > 3) {
+                //Fix: Make sure at least one of the paths from the main chamber is an entrance, otherwise it's possible a hive has no entrance
+                if ((roomChance == 100 && entrances == 0 && rand.nextInt(Math.max(1, 6 - direction.getIndex())) == 0) || (entrances <= 2 && rand.nextInt(1 + entrances * 2) == 0 && hasFoodRoom && hasNursery && totalRooms >= 4)) {
                     generateEntrance(world, rand, hive, offset.offset(direction, length), 4, 4, direction);
                 } else {
                     generateRoom(world, rand, hive, offset.offset(direction, length), 7, 4, roomChance / 2, direction);
