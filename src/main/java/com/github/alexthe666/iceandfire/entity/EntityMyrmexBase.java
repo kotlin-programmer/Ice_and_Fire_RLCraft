@@ -6,7 +6,6 @@ import com.github.alexthe666.iceandfire.block.BlockMyrmexConnectedResin;
 import com.github.alexthe666.iceandfire.block.BlockMyrmexResin;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
-import com.github.alexthe666.iceandfire.entity.ai.PathNavigateMyrmex;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -35,7 +34,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
@@ -169,10 +167,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     }
 
     public float getBlockPathWeight(BlockPos pos) {
-    }
-
-    protected PathNavigate createNavigator(World worldIn) {
-        return new PathNavigateMyrmex(this, worldIn);
         Block block = this.world.getBlockState(pos.down()).getBlock();
         return block instanceof BlockMyrmexResin || block instanceof BlockMyrmexConnectedResin ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
     }
