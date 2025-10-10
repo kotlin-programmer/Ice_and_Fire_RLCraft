@@ -104,11 +104,11 @@ public class MyrmexHive {
     }
 
     public static BlockPos getGroundedPos(World world, BlockPos pos) {
-        BlockPos current = pos;
-        while(world.isAirBlock(current.down()) && current.getY() > 0){
-            current = current.down();
+        BlockPos.MutableBlockPos current = new BlockPos.MutableBlockPos(pos);
+        while(world.isAirBlock(current) && current.getY() > 0){
+            current.move(EnumFacing.DOWN, 1);
         }
-        return current;
+        return current.toImmutable();
     }
 
     public int getVillageRadius() {
