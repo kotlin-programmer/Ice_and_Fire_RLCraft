@@ -169,11 +169,12 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     }
 
     public float getBlockPathWeight(BlockPos pos) {
-        return this.world.getBlockState(pos.down()).getBlock() instanceof BlockMyrmexResin ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
     }
 
     protected PathNavigate createNavigator(World worldIn) {
         return new PathNavigateMyrmex(this, worldIn);
+        Block block = this.world.getBlockState(pos.down()).getBlock();
+        return block instanceof BlockMyrmexResin || block instanceof BlockMyrmexConnectedResin ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
     }
 
     protected void entityInit() {
@@ -671,13 +672,12 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     }
 
     public boolean isOnResin() {
-        double d0 = this.posY - 1;
-        BlockPos blockpos = new BlockPos(this.posX, d0, this.posZ);
-        while (world.isAirBlock(blockpos) && blockpos.getY() > 1) {
-            blockpos = blockpos.down();
+        BlockPos.MutableBlockPos blockpos = new BlockPos.MutableBlockPos(this.getPos());
+        while ((world.isAirBlock(blockpos) || !world.getBlockState(blockpos).isFullBlock()) && blockpos.getY() > 1) {
+            blockpos = blockpos.move(EnumFacing.DOWN, 1);
         }
-        IBlockState iblockstate = this.world.getBlockState(blockpos);
-        return iblockstate.getBlock() instanceof BlockMyrmexResin || iblockstate.getBlock() instanceof BlockMyrmexConnectedResin;
+        Block block = this.world.getBlockState(blockpos).getBlock();
+        return block instanceof BlockMyrmexResin || block instanceof BlockMyrmexConnectedResin || block instanceof BlockMyrmexBiolight;
     }
 
 
