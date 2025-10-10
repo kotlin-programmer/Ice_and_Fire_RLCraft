@@ -227,10 +227,6 @@ public class EntityMyrmexQueen extends EntityMyrmexBase {
     public void fall(float distance, float damageMultiplier) {
     }
 
-    public boolean shouldMoveThroughHive(){
-        return false;
-    }
-
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
