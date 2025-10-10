@@ -173,7 +173,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     }
 
 
-    private boolean holdingSomething(){
+    public boolean holdingSomething(){
         return this.getHeldEntity() != null || !this.getHeldItem(EnumHand.MAIN_HAND).isEmpty() || this.getAttackTarget() != null;
     }
 
