@@ -135,6 +135,11 @@ public class MyrmexWorldData extends WorldSavedData {
             instance = new MyrmexWorldData(world);
             storage.setData(IDENTIFIER, instance);
         }
+        if(instance.world == null) {
+            instance.world = world;
+            instance.setWorldsForAll(world);
+        }
+
         instance.markDirty();
         return instance;
     }
