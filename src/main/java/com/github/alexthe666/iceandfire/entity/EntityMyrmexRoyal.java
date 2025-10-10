@@ -269,7 +269,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     }
 
     public boolean shouldLeaveHive() {
-        return isBreedingSeason() && isOnResin();
+        return isBreedingSeason();
     }
 
     public boolean shouldEnterHive() {
