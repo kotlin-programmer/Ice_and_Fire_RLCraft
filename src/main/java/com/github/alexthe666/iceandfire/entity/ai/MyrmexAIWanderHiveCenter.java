@@ -42,7 +42,6 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
     }
 
     public void startExecuting() {
-        System.out.println(this.myrmex.getEntityId() + " setting path in wanderhivecenter");
         this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
     }
 

@@ -711,10 +711,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         return true;
     }
 
-    public boolean shouldMoveThroughHive() {
-        return true;
-    }
-
     public boolean shouldWander() {
         return this.getHive() == null;
     }

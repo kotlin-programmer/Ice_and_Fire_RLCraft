@@ -241,10 +241,6 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexRoyal : IafVillagerRegistry.INSTANCE.desertMyrmexRoyal;
     }
 
-    public boolean shouldMoveThroughHive() {
-        return false;
-    }
-
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);

@@ -205,7 +205,7 @@ public class EntityMyrmexSentinel extends EntityMyrmexBase {
     }
 
     public boolean shouldEnterHive(){
-        return false;
+        return true; //only used in MoveThroughHive
     }
 
     @Override
