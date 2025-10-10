@@ -72,7 +72,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(FLYING, Boolean.valueOf(false));
+        this.dataManager.register(FLYING, false);
     }
 
     private void switchNavigator(boolean onLand) {
@@ -89,7 +89,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
 
     public boolean isFlying() {
         if (world.isRemote) {
-            return this.isFlying = this.dataManager.get(FLYING).booleanValue();
+            return this.isFlying = this.dataManager.get(FLYING);
         }
         return isFlying;
     }
@@ -203,7 +203,6 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.tasks.addTask(1, new AIFlyRandom());
         this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(3, new MyrmexAILeaveHive(this, 1.0D));
-        this.tasks.addTask(3, new MyrmexAIReEnterHive(this, 1.0D));
         this.tasks.addTask(4, new MyrmexAISitIdle(this));
         this.tasks.addTask(4, new MyrmexAIWanderHiveCenter(this, 1.0D));
         this.tasks.addTask(5, new MyrmexAIWander(this, 1D));
@@ -270,11 +269,11 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     }
 
     public boolean shouldLeaveHive() {
-        return isBreedingSeason();
+        return isBreedingSeason() && isOnResin();
     }
 
     public boolean shouldEnterHive() {
-        return !isBreedingSeason();
+        return true; //only used in WanderHiveCenter
     }
 
     @Override
@@ -282,8 +281,8 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         if (this.getGrowthStage() < 2) {
             return false;
         }
-        if (this.getAnimation() != this.ANIMATION_STING && this.getAnimation() != this.ANIMATION_BITE) {
-            this.setAnimation(this.getRNG().nextBoolean() ? this.ANIMATION_STING : this.ANIMATION_BITE);
+        if (this.getAnimation() != ANIMATION_STING && this.getAnimation() != ANIMATION_BITE) {
+            this.setAnimation(this.getRNG().nextBoolean() ? ANIMATION_STING : ANIMATION_BITE);
             return true;
         }
         return false;
