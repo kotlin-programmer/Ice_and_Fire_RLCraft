@@ -120,7 +120,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
 
                     if (this.getHive() != null && this.lastBuyingPlayer != null) {
                         this.world.setEntityState(this, (byte) 14);
-                        this.getHive().setWorld(this.world);
                         this.getHive().modifyPlayerReputation(this.lastBuyingPlayer, 1);
                     }
                 }
@@ -291,7 +290,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         this.livingSoundTime = -this.getTalkInterval();
         boolean shouldRewardExp = true;
         if (this.getHive() != null && this.getCustomer() != null) {
-            this.getHive().setWorld(this.world);
             if (this.getHive().isPlayerReputationMaxed(this.getCustomer().getUniqueID())){
                 // Do not reward XP if the reputation is already maxed
                 shouldRewardExp = false;
@@ -494,7 +492,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         if (this.getHive() != null && livingBase != null) {
             if (livingBase instanceof EntityPlayer) {
                 int i = -5 * this.getCasteImportance();
-                this.getHive().setWorld(this.world);
                 this.getHive().modifyPlayerReputation(livingBase.getUniqueID(), i);
                 if (this.isEntityAlive()) {
                     this.world.setEntityState(this, (byte) 13);
@@ -508,7 +505,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         if (this.getHive() != null) {
             Entity entity = cause.getTrueSource();
             if (entity != null) {
-                this.getHive().setWorld(this.world);
                 this.getHive().modifyPlayerReputation(entity.getUniqueID(), -15);
             }
         }
@@ -568,7 +564,6 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
             if (staffUUID != null && staffUUID.equals(this.getHive().hiveUUID)) {
                 player.sendStatusMessage(new TextComponentTranslation("myrmex.message.staff_already_set"), true);
             } else {
-                this.getHive().setWorld(this.world);
                 EntityMyrmexQueen queen = this.getHive().getQueen();
                 BlockPos center = this.getHive().getCenterGround();
                 if (queen.hasCustomName()) {
