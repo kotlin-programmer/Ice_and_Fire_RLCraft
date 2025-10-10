@@ -15,7 +15,7 @@ public class MyrmexAISitIdle extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        return this.myrmex.getRNG().nextFloat() < 0.5F && !this.myrmex.shouldLeaveHive() && this.myrmex.isOnResin() && !this.myrmex.canSeeSky();
+        return this.myrmex.getRNG().nextFloat() < 0.5F && !this.myrmex.shouldLeaveHive() && this.myrmex.isInHive();
     }
 
     public void startExecuting() {

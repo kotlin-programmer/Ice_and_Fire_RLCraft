@@ -19,7 +19,6 @@ public class MyrmexAIStoreItems extends EntityAIBase {
     private final EntityMyrmexWorker myrmex;
     private final double movementSpeed;
     private Path path;
-    private BlockPos nextRoom = BlockPos.ORIGIN;
     private BlockPos nextCocoon = null;
 
     public MyrmexAIStoreItems(EntityMyrmexWorker entityIn, double movementSpeedIn) {
@@ -29,14 +28,14 @@ public class MyrmexAIStoreItems extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if (!this.myrmex.canMove() || this.myrmex.holdingBaby() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigator().noPath() || !this.myrmex.isOnResin() || this.myrmex.canSeeSky() || this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
+        if (!this.myrmex.canMove() || !this.myrmex.holdingSomething() || this.myrmex.holdingBaby() || !this.myrmex.getNavigator().noPath() || !this.myrmex.isInHive()) {
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
         if (village == null) {
             return false;
         } else {
-            nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(WorldGenMyrmexHive.RoomType.FOOD, this.myrmex.getRNG(), this.myrmex.getPosition()));
+            BlockPos nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(WorldGenMyrmexHive.RoomType.FOOD, this.myrmex.getRNG(), this.myrmex.getPosition()));
             nextCocoon = getNearbyCocoon(nextRoom);
             if (nextCocoon != null) {
                 this.path = this.myrmex.getNavigator().getPathToPos(nextCocoon);
@@ -52,7 +51,6 @@ public class MyrmexAIStoreItems extends EntityAIBase {
     }
 
     public void startExecuting() {
-        System.out.println(this.myrmex.getEntityId() + " setting path in storeitems");
         this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
     }
 

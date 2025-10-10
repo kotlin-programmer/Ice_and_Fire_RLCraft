@@ -19,7 +19,7 @@ public class MyrmexAIStoreBabies extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if (!this.myrmex.canMove() || !this.myrmex.holdingBaby() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigator().noPath() || this.myrmex.canSeeSky() || !this.myrmex.isOnResin()) {
+        if (!this.myrmex.canMove() || !this.myrmex.holdingBaby() || !this.myrmex.isInHive()) {
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
@@ -32,13 +32,13 @@ public class MyrmexAIStoreBabies extends EntityAIBase {
     }
 
     public boolean shouldContinueExecuting() {
-        return this.myrmex.holdingBaby() && !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextRoom) > 3 && this.myrmex.shouldEnterHive();
+        return this.myrmex.holdingBaby() && !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextRoom) > 3;
     }
 
     @Override
     public void updateTask() {
         this.myrmex.getNavigator().tryMoveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
-        if (nextRoom != null && this.myrmex.getDistanceSq(nextRoom) < 4 && this.myrmex.holdingBaby()) {
+        if (nextRoom != null && this.myrmex.getDistanceSq(nextRoom) < 4) {
             if(!this.myrmex.getPassengers().isEmpty()){
                 for(Entity entity : this.myrmex.getPassengers()){
                     entity.dismountRidingEntity();

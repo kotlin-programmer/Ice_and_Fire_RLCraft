@@ -598,6 +598,14 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         return biome.topBlock != Blocks.SAND && biome.fillerBlock != Blocks.SAND && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
     }
 
+    public boolean isInHive() {
+        //will not always work, for example
+        // - on filler blocks inside the hive
+        // - if the hive is exposed to sky
+        // - if the hive ground is filled with other blocks
+        return !canSeeSky() && isOnResin();
+    }
+
     public abstract boolean shouldLeaveHive();
 
     public abstract boolean shouldEnterHive();
