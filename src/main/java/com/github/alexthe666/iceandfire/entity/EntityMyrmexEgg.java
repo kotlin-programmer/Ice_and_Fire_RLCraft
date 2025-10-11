@@ -205,14 +205,11 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
 
     public boolean isInNursery() {
         MyrmexHive hive = MyrmexWorldData.get(this.world).getNearestHive(new BlockPos(this), 100);
-        if (hive != null && hive.getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && hive.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRNG(), this.getPosition()) != null) {
+        if (hive == null || hive.getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty()) {
             return false;
         }
-        if(hive != null) {
-            BlockPos nursery = hive.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRNG(), this.getPosition());
-            return this.getDistanceSqToCenter(nursery) < 45;
-        }
-        return false;
+        BlockPos nursery = hive.getNearestRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getPosition());
+        return this.getDistanceSqToCenter(nursery) < 45;
     }
 
     @Override
