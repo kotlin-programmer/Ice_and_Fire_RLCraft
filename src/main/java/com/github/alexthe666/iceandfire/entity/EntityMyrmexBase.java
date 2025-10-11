@@ -684,14 +684,9 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
 
 
     public boolean isInNursery() {
-        if (getHive() != null && getHive().getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRNG(), this.getPosition()) != null) {
-            return false;
-        }
-        if (getHive() != null) {
-            BlockPos nursery = getHive().getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRNG(), this.getPosition());
-            return this.getDistanceSqToCenter(nursery) < 45;
-        }
-        return false;
+        if (getHive() == null || getHive().getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty()) return false;
+        BlockPos nursery = getHive().getNearestRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getPosition());
+        return this.getDistanceSqToCenter(nursery) < 45;
     }
 
     @Override

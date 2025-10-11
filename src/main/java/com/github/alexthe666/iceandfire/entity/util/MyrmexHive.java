@@ -520,11 +520,26 @@ public class MyrmexHive {
 
     public BlockPos getRandomRoom(Random random, BlockPos returnPos){
         List<BlockPos> rooms = getAllRooms();
-        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(Math.max(rooms.size() - 1, 1)));
+        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(rooms.size()));
     }
     public BlockPos getRandomRoom(WorldGenMyrmexHive.RoomType roomType, Random random, BlockPos returnPos){
         List<BlockPos> rooms = getRooms(roomType);
-        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(Math.max(rooms.size() - 1, 1)));
+        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(rooms.size()));
+    }
+    public BlockPos getNearestRoom(WorldGenMyrmexHive.RoomType roomType, BlockPos currPos){
+        List<BlockPos> rooms = getRooms(roomType);
+        if(rooms.isEmpty()) return currPos;
+
+        double minDistSq = Double.MAX_VALUE;
+        BlockPos nearestRoom = rooms.get(0);
+        for(BlockPos pos : rooms){
+            double currDistSq = pos.distanceSq(currPos);
+            if(currDistSq < minDistSq){
+                nearestRoom = pos;
+                minDistSq = currDistSq;
+            }
+        }
+        return nearestRoom;
     }
 
     public BlockPos getClosestEntranceToEntity(Entity entity, Random random, boolean randomize){
