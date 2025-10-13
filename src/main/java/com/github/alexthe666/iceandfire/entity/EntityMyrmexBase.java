@@ -241,7 +241,8 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
         this.setGrowthStage(tag.getInteger("GrowthStage"));
         this.growthTicks = tag.getInteger("GrowthTicks");
         this.setJungleVariant(tag.getBoolean("Variant"));
-        this.setHive(MyrmexWorldData.get(world).getHiveFromUUID(tag.getUniqueId("HiveUUID")));
+        if(tag.hasUniqueId("HiveUUID"))
+            this.setHive(MyrmexWorldData.get(world).getHiveFromUUID(tag.getUniqueId("HiveUUID")));
         this.careerId = tag.getInteger("Career");
         this.careerLevel = tag.getInteger("CareerLevel");
         if (tag.hasKey("Offers", 10)) {
