@@ -28,7 +28,7 @@ public class MyrmexAIStoreItems extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if (!this.myrmex.canMove() || !this.myrmex.holdingSomething() || this.myrmex.holdingBaby() || !this.myrmex.getNavigator().noPath() || !this.myrmex.isInHive()) {
+        if (!this.myrmex.canMove() || this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty() || !this.myrmex.getNavigator().noPath() || !this.myrmex.isInHive()) {
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
@@ -47,7 +47,7 @@ public class MyrmexAIStoreItems extends EntityAIBase {
     }
 
     public boolean shouldContinueExecuting() {
-        return !this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty() && !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextCocoon) > 3 && this.myrmex.shouldEnterHive() && nextCocoon != null && isUseableCocoon(nextCocoon);
+        return !this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty() && !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextCocoon) > 3 && nextCocoon != null && isUseableCocoon(nextCocoon);
     }
 
     public void startExecuting() {
@@ -97,11 +97,11 @@ public class MyrmexAIStoreItems extends EntityAIBase {
         int RADIUS_XZ = 15;
         int RADIUS_Y = 7;
         List<BlockPos> closeCocoons = new ArrayList<BlockPos>();
-        for (BlockPos blockpos : BlockPos.getAllInBox(roomCenter.add(-RADIUS_XZ, -RADIUS_Y, -RADIUS_XZ), roomCenter.add(RADIUS_XZ, RADIUS_Y, RADIUS_XZ))) {
+        for (BlockPos blockpos : BlockPos.getAllInBoxMutable(roomCenter.add(-RADIUS_XZ, -RADIUS_Y, -RADIUS_XZ), roomCenter.add(RADIUS_XZ, RADIUS_Y, RADIUS_XZ))) {
             TileEntity tile = this.myrmex.world.getTileEntity(blockpos);
             if (this.myrmex.world.getBlockState(blockpos).getBlock() instanceof BlockMyrmexCocoon && tile instanceof TileEntityMyrmexCocoon) {
                 if (!((TileEntityMyrmexCocoon) tile).isFull(this.myrmex.getHeldItem(EnumHand.MAIN_HAND))) {
-                    closeCocoons.add(blockpos);
+                    closeCocoons.add(blockpos.toImmutable());
                 }
             }
         }
