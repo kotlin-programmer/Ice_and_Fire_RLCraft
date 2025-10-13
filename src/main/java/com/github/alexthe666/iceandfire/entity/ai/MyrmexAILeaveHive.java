@@ -5,6 +5,7 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.Path;
+import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
 
 public class MyrmexAILeaveHive extends EntityAIBase {
@@ -29,24 +30,26 @@ public class MyrmexAILeaveHive extends EntityAIBase {
         } else {
             BlockPos nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), true));
             Path path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
-            if(path == null) {
+            if(path == null || distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {
                 //fallback 1: path to bottom of entrance
                 nextEntrance = village.getClosestEntranceBottomToEntity(this.myrmex, this.myrmex.getRNG());
                 path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
-                if(path == null) {
-                    //fallback 2: path to hive center
-                    nextEntrance = village.getCenterGround();
-                    path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
-                }
             }
-            if(path != null) {
+            if(path != null && !distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {
                 this.myrmex.getNavigator().setPath(path, this.movementSpeed);
                 this.myrmex.isEnteringHive = false;
+                return true;
             } else {
-                delay = 100; //allow the myrmex to do other tasks, maybe it will find the way later
+                delay = 50; //allow the myrmex to do other tasks, maybe it will find the way later
+                return false;
             }
-            return path != null;
         }
+    }
+
+    private static boolean distanceToTargetTooBig(PathPoint endPoint, BlockPos targetPos){
+        double distXZ = Math.sqrt(new BlockPos(endPoint.x, targetPos.getY(), endPoint.z).distanceSq(targetPos));
+        double distY = Math.abs(targetPos.getY() - endPoint.y);
+        return distXZ > 3 || distY > 15;
     }
 
     public boolean shouldContinueExecuting() {

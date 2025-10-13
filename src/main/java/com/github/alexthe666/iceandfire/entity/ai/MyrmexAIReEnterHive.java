@@ -22,7 +22,7 @@ public class MyrmexAIReEnterHive extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if(!this.myrmex.canMove() || this.myrmex.shouldLeaveHive() || this.myrmex.isInHive() || !traversingToTopPart){
+        if(!this.myrmex.canMove() || this.myrmex.isInHive() || !traversingToTopPart || !this.myrmex.shouldEnterHive()){
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
