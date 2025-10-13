@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
-import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -11,8 +10,6 @@ import net.minecraft.util.math.BlockPos;
 public class MyrmexAIMoveThroughHive extends EntityAIBase {
     private final EntityMyrmexBase myrmex;
     private final double movementSpeed;
-    private Path path;
-    private BlockPos nextRoom = BlockPos.ORIGIN;
 
     public MyrmexAIMoveThroughHive(EntityMyrmexBase entityIn, double movementSpeedIn) {
         this.myrmex = entityIn;
@@ -21,7 +18,7 @@ public class MyrmexAIMoveThroughHive extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if(!this.myrmex.canMove() || !this.myrmex.shouldEnterHive() || !this.myrmex.getNavigator().noPath() || this.myrmex.canSeeSky()){
+        if(!this.myrmex.canMove() || !this.myrmex.getNavigator().noPath() || this.myrmex.canSeeSky()){
             return false;
         }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 300);
@@ -41,11 +38,6 @@ public class MyrmexAIMoveThroughHive extends EntityAIBase {
     }
 
     public boolean shouldContinueExecuting() {
-        return !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextRoom) > 3 && this.myrmex.shouldEnterHive() && !(this.myrmex instanceof EntityMyrmexWorker && ((EntityMyrmexWorker)this.myrmex).holdingBaby());
+        return !this.myrmex.getNavigator().noPath();
     }
-
-    public void startExecuting() {
-        this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
-    }
-
 }
