@@ -526,6 +526,15 @@ public class MyrmexHive {
         List<BlockPos> rooms = getRooms(roomType);
         return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(rooms.size()));
     }
+
+    public BlockPos getNextRoom(BlockPos startPos){
+        List<BlockPos> rooms = new ArrayList<>(getAllRooms());
+        if(rooms.isEmpty()) return startPos;
+        if(rooms.size() == 1) return rooms.get(0);
+        rooms.sort(Comparator.comparingDouble(room -> room.distanceSq(startPos)));
+        if(rooms.get(0).distanceSq(startPos) > 64) return rooms.get(0);
+        return rooms.get(1); //already in a room. next room is second closest
+    }
     public BlockPos getNearestRoom(WorldGenMyrmexHive.RoomType roomType, BlockPos currPos){
         List<BlockPos> rooms = getRooms(roomType);
         if(rooms.isEmpty()) return currPos;

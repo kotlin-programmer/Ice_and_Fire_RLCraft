@@ -31,9 +31,12 @@ public class MyrmexAIMoveThroughHive extends EntityAIBase {
         if (village == null) {
             return false;
         } else {
-            nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(this.myrmex.getRNG(), this.myrmex.getPosition()));
-            this.path = this.myrmex.getNavigator().getPathToPos(nextRoom);
-            return this.path != null;
+            BlockPos nextRoom = this.myrmex.getRNG().nextInt(2) == 0 ?
+                    MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(this.myrmex.getRNG(), this.myrmex.getPosition())) :
+                    MyrmexHive.getGroundedPos(this.myrmex.world, village.getNextRoom(this.myrmex.getPosition()));
+            Path path = this.myrmex.getNavigator().getPathToPos(nextRoom);
+            this.myrmex.getNavigator().setPath(path, this.movementSpeed);
+            return path != null;
         }
     }
 
