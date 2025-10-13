@@ -82,6 +82,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 egg.copyLocationAndAnglesFrom(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
+                if(getHive() != null) egg.hiveUUID = this.getHive().hiveUUID;
                 if (!world.isRemote){
                     world.spawnEntity(egg);
                 }

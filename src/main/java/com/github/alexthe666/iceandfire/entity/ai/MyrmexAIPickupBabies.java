@@ -51,8 +51,7 @@ public class MyrmexAIPickupBabies extends EntityAITarget {
 
     @Override
     public void updateTask() {
-        super.updateTask();
-        if (this.targetEntity == null || this.targetEntity.isDead) {
+        if (this.targetEntity == null || this.targetEntity.isDead || (this.targetEntity.isRiding() && this.targetEntity.getRidingEntity() instanceof EntityMyrmexWorker) ) {
             this.myrmex.getNavigator().clearPath();
             this.resetTask();
         }
@@ -65,6 +64,6 @@ public class MyrmexAIPickupBabies extends EntityAITarget {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return !this.taskOwner.getNavigator().noPath();
+        return !this.taskOwner.getNavigator().noPath() && !this.myrmex.holdingSomething();
     }
 }

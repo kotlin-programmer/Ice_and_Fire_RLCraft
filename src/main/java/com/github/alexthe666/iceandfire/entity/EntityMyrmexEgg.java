@@ -215,7 +215,7 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
             return false;
         }
         BlockPos nursery = hive.getNearestRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getPosition());
-        return this.getDistanceSqToCenter(nursery) < 81;
+        return this.getDistanceSqToCenter(nursery) < 64;
     }
 
     @Override
