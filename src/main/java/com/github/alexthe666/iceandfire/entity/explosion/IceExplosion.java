@@ -243,7 +243,7 @@ public class IceExplosion extends Explosion {
                     }
                 }
             }
-            if (!particles.isEmpty()) {
+            if (!particles.isEmpty() && this.exploder != null) {
                 List<EnumParticle> types = new ArrayList<>();
                 types.add(EnumParticle.SNOWFLAKE);
                 types.add(EnumParticle.CLOUD);

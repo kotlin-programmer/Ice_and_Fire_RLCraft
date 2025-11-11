@@ -182,7 +182,7 @@ public class SandExplosion extends Explosion {
 
             }
         }
-        if (!particles.isEmpty()) {
+        if (!particles.isEmpty() && this.exploder != null) {
             List<EnumParticleTypes> types = new ArrayList<>();
             types.add(EnumParticleTypes.BLOCK_CRACK);
             types.add(EnumParticleTypes.BLOCK_CRACK);

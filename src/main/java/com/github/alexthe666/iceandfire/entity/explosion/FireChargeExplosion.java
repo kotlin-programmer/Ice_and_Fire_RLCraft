@@ -220,7 +220,7 @@ public class FireChargeExplosion extends Explosion {
 					}
 				}
 			}
-			if (!particles.isEmpty()) {
+			if (!particles.isEmpty() && this.exploder != null) {
 				List<EnumParticle> types = new ArrayList<>();
 				if (exploder instanceof EntityFireDragon) {
 					types.add(EnumParticle.DRAGON_FIRE);

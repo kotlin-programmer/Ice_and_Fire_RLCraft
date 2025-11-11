@@ -233,7 +233,7 @@ public class FireExplosion extends Explosion {
 					}
 				}
 			}
-			if (!particles.isEmpty()) {
+			if (!particles.isEmpty() && this.exploder != null) {
 				List<EnumParticle> types = new ArrayList<>();
 				types.add(EnumParticle.FLAME);
 				types.add(EnumParticle.SMOKE_NORMAL);
