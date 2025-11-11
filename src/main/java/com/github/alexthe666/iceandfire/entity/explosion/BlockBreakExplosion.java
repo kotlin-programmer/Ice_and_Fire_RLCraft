@@ -173,10 +173,10 @@ public class BlockBreakExplosion extends Explosion {
                 block.onBlockExploded(this.worldObj, blockpos, this);
             }
         }
-        if (!explosionParticles.isEmpty()) {
+        if (!explosionParticles.isEmpty() && this.exploder != null) {
             IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(EnumParticle.EXPLOSION, explosionParticles), this.exploder);
         }
-        if (!smokeParticles.isEmpty()) {
+        if (!smokeParticles.isEmpty() && this.exploder != null) {
             IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(EnumParticle.SMOKE_NORMAL, smokeParticles), this.exploder);
         }
     }
