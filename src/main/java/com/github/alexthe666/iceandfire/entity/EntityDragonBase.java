@@ -985,6 +985,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     ItemStack egg = new ItemStack(this.getVariantEgg(this.rand.nextInt(4)), 1);
                     this.entityDropItem(egg, 1);
                 }
+                this.setDeathStage(this.getDeathStage() + 1);
             }
 
             if (!world.isRemote && !stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && this.getDeathStage() < lastDeathStage / 2 && IceAndFireConfig.DRAGON_SETTINGS.dragonDropBlood) {
