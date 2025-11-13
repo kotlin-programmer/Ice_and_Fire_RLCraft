@@ -9,7 +9,6 @@ import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
-import com.github.alexthe666.iceandfire.message.MessageUpdateRidingState;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.ilexiconn.llibrary.server.animation.Animation;
 import net.ilexiconn.llibrary.server.animation.AnimationHandler;
@@ -44,7 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EntityAmphithere extends EntityTameable implements IAnimatedEntity, IPhasesThroughBlock, IFlapable, IDragonFlute, ISyncMount {
+public class EntityAmphithere extends EntityTameable implements IAnimatedEntity, IPhasesThroughBlock, IFlapable, IDragonFlute {
 
     private int animationTick;
     private Animation currentAnimation;
@@ -169,11 +168,8 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                     return true;
                 }
                 return true;
-            } else if ((!this.isTamed() || this.isOwner(player)) && !this.isChild()) {
+            } else if (!this.world.isRemote && (!this.isTamed() || this.isOwner(player)) && !this.isChild()) {
                 player.startRiding(this, true);
-                if (world.isRemote) {
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), true));
-                }
                 return true;
             }
 
@@ -659,13 +655,6 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 } else {
                     this.setCommand(2);
                 }
-            }
-        }
-        if (this.getRider() != null && this.getRider().isSneaking()) {
-            this.getRider().setSneaking(false);
-            this.getRider().dismountRidingEntity();
-            if (world.isRemote) {
-                IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), false));
             }
         }
         if (this.attack() && this.getControllingPassenger() instanceof EntityPlayer) {
