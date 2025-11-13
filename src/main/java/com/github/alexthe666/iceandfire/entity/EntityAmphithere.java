@@ -286,7 +286,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         if (this.isChild() && this.getAttackTarget() != null) {
             this.setAttackTarget(null);
         }
-        if (this.isInLove()) {
+        if (this.isInLove() && !this.isBeingRidden()) {
             this.setFlying(false);
         }
         if (this.isSitting() && this.getAttackTarget() != null) {
