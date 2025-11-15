@@ -399,15 +399,6 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int amphithereSpawnRate = 10;
 
-		@Config.Comment("True if allow spawn ghost when player death")
-		@Config.Name("Player Death Spawns Ghost")
-		public boolean ghostSpawnFromPlayerDeaths = false;
-
-		@Config.Comment("Chance graveyard soil spawn a ghost, Higher number = more rare")
-		@Config.Name("Ghost Spawn Rate At Graveyard Soid")
-		@Config.RangeInt(min = 1, max = 100)
-		public int ghostSpawnChanceFromGraveyardSoil = 9;
-
 		@Config.Comment("Should InF spawn Dread Liches")
 		@Config.Name("Spawn Dread Liches")
 		public boolean spawnLiches = true;
