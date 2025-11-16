@@ -67,6 +67,9 @@ public class ItemDragonArmor extends Item implements ICustomRendered{
 		GOLD,
 		DIAMOND,
 		SILVER,
-		COPPER
+		COPPER,
+		FIRE_DRAGONSTEEL,
+		ICE_DRAGONSTEEL,
+		LIGHTNING_DRAGONSTEEL
 	}
 }

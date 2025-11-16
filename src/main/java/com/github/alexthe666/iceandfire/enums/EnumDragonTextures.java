@@ -501,21 +501,33 @@ public enum EnumDragonTextures {
         ARMORBODY3("armor_body_3"),
         ARMORBODY4("armor_body_4"),
         ARMORBODY5("armor_body_5"),
+        ARMORBODY6("armor_body_6"),
+        ARMORBODY7("armor_body_7"),
+        ARMORBODY8("armor_body_8"),
         ARMORHEAD1("armor_head_1"),
         ARMORHEAD2("armor_head_2"),
         ARMORHEAD3("armor_head_3"),
         ARMORHEAD4("armor_head_4"),
         ARMORHEAD5("armor_head_5"),
+        ARMORHEAD6("armor_head_6"),
+        ARMORHEAD7("armor_head_7"),
+        ARMORHEAD8("armor_head_8"),
         ARMORNECK1("armor_neck_1"),
         ARMORNECK2("armor_neck_2"),
         ARMORNECK3("armor_neck_3"),
         ARMORNECK4("armor_neck_4"),
         ARMORNECK5("armor_neck_5"),
+        ARMORNECK6("armor_neck_6"),
+        ARMORNECK7("armor_neck_7"),
+        ARMORNECK8("armor_neck_8"),
         ARMORTAIL1("armor_tail_1"),
         ARMORTAIL2("armor_tail_2"),
         ARMORTAIL3("armor_tail_3"),
         ARMORTAIL4("armor_tail_4"),
-        ARMORTAIL5("armor_tail_5");
+        ARMORTAIL5("armor_tail_5"),
+        ARMORTAIL6("armor_tail_6"),
+        ARMORTAIL7("armor_tail_7"),
+        ARMORTAIL8("armor_tail_8");
 
         public final ResourceLocation FIRETEXTURE;
         public final ResourceLocation ICETEXTURE;
@@ -551,6 +563,12 @@ public enum EnumDragonTextures {
                             return ARMORNECK4;
                         case 5:
                             return ARMORNECK5;
+                        case 6:
+                            return ARMORNECK6;
+                        case 7:
+                            return ARMORNECK7;
+                        case 8:
+                            return ARMORNECK8;
                     }
                 case LEGS:
                     //body
@@ -567,6 +585,12 @@ public enum EnumDragonTextures {
                             return ARMORBODY4;
                         case 5:
                             return ARMORBODY5;
+                        case 6:
+                            return ARMORBODY6;
+                        case 7:
+                            return ARMORBODY7;
+                        case 8:
+                            return ARMORBODY8;
                     }
                 case FEET:
                     //tail
@@ -583,6 +607,12 @@ public enum EnumDragonTextures {
                             return ARMORTAIL4;
                         case 5:
                             return ARMORTAIL5;
+                        case 6:
+                            return ARMORTAIL6;
+                        case 7:
+                            return ARMORTAIL7;
+                        case 8:
+                            return ARMORTAIL8;
                     }
                 default:
                     //head
@@ -599,6 +629,12 @@ public enum EnumDragonTextures {
                             return ARMORHEAD4;
                         case 5:
                             return ARMORHEAD5;
+                        case 6:
+                            return ARMORHEAD6;
+                        case 7:
+                            return ARMORHEAD7;
+                        case 8:
+                            return ARMORHEAD8;
                     }
             }
         }

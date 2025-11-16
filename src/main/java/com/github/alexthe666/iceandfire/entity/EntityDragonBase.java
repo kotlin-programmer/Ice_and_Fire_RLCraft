@@ -960,6 +960,15 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 case 5:
                     val += 1D;
                     break;
+                case 6:
+                    val += 10D;
+                    break;
+                case 7:
+                    val += 10D;
+                    break;
+                case 8:
+                    val += 10D;
+                    break;
             }
         }
         return val;
