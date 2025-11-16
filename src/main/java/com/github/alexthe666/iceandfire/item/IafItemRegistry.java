@@ -412,6 +412,10 @@ public class IafItemRegistry {
 	public static ItemSummoningCrystal summoning_crystal_ice = new ItemSummoningCrystal("ice");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_lightning")
 	public static ItemSummoningCrystal summoning_crystal_lightning = new ItemSummoningCrystal("lightning");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chain_link")
+	public static Item chain_link = new ItemGeneric("chain_link", "iceandfire.chain_link");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chain")
+	public static Item chain = new ItemGeneric("chain", "iceandfire.chain");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_collar")
 	public static Item dragon_collar = new ItemGeneric("dragon_collar", "iceandfire.dragon_collar");
 

@@ -317,6 +317,9 @@ item.iceandfire.summoning_crystal.desc_0=ドラゴンに右クリックで関連
 item.iceandfire.summoning_crystal.desc_1=使うとドラゴンをワープさせる
 item.iceandfire.summoning_crystal.bound=ドラゴン: %s
 
+item.iceandfire.chain_link.name=鉄のチェーンリンク
+item.iceandfire.chain.name=鉄の鎖
+
 item.iceandfire.hippocampus_fin.name=ヒッポカムポスのヒレ
 item.iceandfire.hippocampus_fin.desc_0=§6レアドロップ§r
 

@@ -313,6 +313,9 @@ item.iceandfire.summoning_crystal.desc_0=Clique com o botão direito para vincul
 item.iceandfire.summoning_crystal.desc_1=Use quando precisar teletransportar o dragão
 item.iceandfire.summoning_crystal.bound=Teleportado para %s
 
+item.iceandfire.chain_link.name=Elo de Corrente de Ferro
+item.iceandfire.chain.name=Corrente de Ferro
+
 item.iceandfire.hippocampus_fin.name=Nadadeira de Hipocampo
 item.iceandfire.hippocampus_fin.desc_0=§6Item Raro§r
 

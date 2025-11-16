@@ -218,6 +218,8 @@ public class ModItems {
     public static Item summoning_crystal_fire = IafItemRegistry.summoning_crystal_fire;
     public static Item summoning_crystal_ice = IafItemRegistry.summoning_crystal_ice;
     public static Item summoning_crystal_lightning = IafItemRegistry.summoning_crystal_lightning;
+    public static Item chain = IafItemRegistry.chain;
+    public static Item chain_link = IafItemRegistry.chain_link;
     public static Item dragon_collar = IafItemRegistry.dragon_collar;
 }
 

@@ -329,6 +329,9 @@ item.iceandfire.summoning_crystal.desc_0=Right click on a dragon to bind it
 item.iceandfire.summoning_crystal.desc_1=Use when bound to teleport dragon
 item.iceandfire.summoning_crystal.bound=Bound to %s
 
+item.iceandfire.chain_link.name=Iron Chain Link
+item.iceandfire.chain.name=Iron Chain
+
 item.iceandfire.hippocampus_fin.name=Hippocampus Fin
 item.iceandfire.hippocampus_fin.desc_0=§6Rare drop§r
 

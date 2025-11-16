@@ -312,6 +312,9 @@ item.iceandfire.summoning_crystal.desc_0=Clic droit pour lier un dragon
 item.iceandfire.summoning_crystal.desc_1=Utile pour téléporter un dragon
 item.iceandfire.summoning_crystal.bound=Lié à %s
 
+item.iceandfire.chain_link.name=Maillon de chaîne en fer
+item.iceandfire.chain.name=Chaîne de fer
+
 item.iceandfire.hippocampus_fin.name=Nageoire d'hippocampus
 item.iceandfire.hippocampus_fin.desc_0=§6Butin rare§r
 

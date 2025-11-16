@@ -318,6 +318,9 @@ item.iceandfire.summoning_crystal.desc_0=Da clic derecho a un dragon para vincul
 item.iceandfire.summoning_crystal.desc_1=Cuando este vinculado, usalo para teletransportar al dragon a tu posicion
 item.iceandfire.summoning_crystal.bound=Vinculado a %s
 
+item.iceandfire.chain_link.name=Eslabon de Cadena de Hierro
+item.iceandfire.chain.name=Cadena de Hierro
+
 item.iceandfire.hippocampus_fin.name=Aleta de Hipocampo
 item.iceandfire.hippocampus_fin.desc_0=§6Recompensa Rara§r
 

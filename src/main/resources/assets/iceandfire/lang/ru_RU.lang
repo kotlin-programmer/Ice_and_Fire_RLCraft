@@ -317,6 +317,9 @@ item.iceandfire.summoning_crystal.desc_0=ПКМ по дракону для пр�
 item.iceandfire.summoning_crystal.desc_1=Используется для телепортации дракона
 item.iceandfire.summoning_crystal.bound=Привязка к %s
 
+item.iceandfire.chain_link.name=Железное звено цепи
+item.iceandfire.chain.name=Железная цепь
+
 item.iceandfire.hippocampus_fin.name=Плавник гиппокампа
 item.iceandfire.hippocampus_fin.desc_0=§6Редкий дроп§r
 
