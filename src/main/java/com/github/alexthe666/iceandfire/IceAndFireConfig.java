@@ -53,6 +53,11 @@ public class IceAndFireConfig {
 		@Config.Name("InF Chunk Gen Dimension Use Whitelist")
 		public boolean chunkGenWhitelist = true;
 
+		@Config.Comment("How far apart structures (Dragons, Cyclops, etc) should spawn apart from each other")
+		@Config.Name("World Gen Minimum Distance")
+		@Config.RangeInt(min = 0, max = 10000)
+		public int worldGenDistance = 300;
+
 		@Config.Comment("Minimum distance from spawn for dangerous world gen to begin generating (Dragons, Cyclops, etc)")
 		@Config.Name("Dangerous World Gen Minimum Spawn Distance")
 		@Config.RangeInt(min = 0, max = 10000)
