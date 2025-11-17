@@ -76,8 +76,13 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
 
     @Override
     public boolean getCanSpawnHere() {
+        if (IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance > 0) {
+            if (this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance) != 0) {
+                return false;
+            }
+        }
         BlockPos pos = new BlockPos(this);
-        return this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance) == 0 && !this.world.canSeeSky(pos) && super.getCanSpawnHere();
+        return !this.world.canSeeSky(pos) && super.getCanSpawnHere();
     }
 
     @Override

@@ -106,11 +106,16 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
     }
 
     public boolean getCanSpawnHere() {
+        if (IceAndFireConfig.ENTITY_SPAWNING.deathWormSpawnCheckChance > 0) {
+            if (this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.deathWormSpawnCheckChance) != 0) {
+                return false;
+            }
+        }
         int i = MathHelper.floor(this.posX);
         int j = MathHelper.floor(this.getEntityBoundingBox().minY);
         int k = MathHelper.floor(this.posZ);
         BlockPos blockpos = new BlockPos(i, j, k);
-        return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.deathWormSpawnCheckChance) == 0 && this.world.getLight(blockpos) > 8 && super.getCanSpawnHere();
+        return this.world.getBlockState(blockpos.down()).getBlock() == this.spawnableBlock && this.world.getLight(blockpos) > 8 && super.getCanSpawnHere();
     }
 
     public void onUpdateParts() {
