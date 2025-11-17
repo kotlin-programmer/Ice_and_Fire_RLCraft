@@ -6,8 +6,6 @@ import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityHydraBreath;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
