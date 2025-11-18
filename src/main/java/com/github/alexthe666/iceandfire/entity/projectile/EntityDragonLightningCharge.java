@@ -117,7 +117,7 @@ public class EntityDragonLightningCharge extends EntityDragonProjectile {
 			}
 			if (!(movingObject.entityHit instanceof IDragonProjectile) && !movingObject.entityHit.isEntityEqual(shootingEntity)) {
 				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
-					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonLightning, 10.0F);
+					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonLightning, IceAndFireConfig.DRAGON_SETTINGS.dragonLightningChargeDamage);
 					if (movingObject.entityHit instanceof EntityLivingBase && ((EntityLivingBase) movingObject.entityHit).getHealth() == 0) {
 						((EntityDragonBase) this.shootingEntity).attackDecision = true;
 					}

@@ -501,6 +501,56 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int dragonAttackDamage = 17;
 
+        @Config.Comment("Projectile attack damage for Fire Dragons")
+        @Config.Name("Fire Dragon Projectile Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonFireDamage = 3;
+
+        @Config.Comment("Charged projectile attack damage for Fire Dragons")
+        @Config.Name("Fire Dragon Charge Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonFireChargeDamage = 10;
+
+        @Config.Comment("Explosion attack damage for Fire Dragon")
+        @Config.Name("Fire Dragon Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonFireExplosionDamage = 7;
+
+        @Config.Comment("Projectile attack damage for Ice Dragons")
+        @Config.Name("Ice Dragon Projectile Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonIceDamage = 3;
+
+        @Config.Comment("Charged projectile attack damage for Ice Dragons")
+        @Config.Name("Ice Dragon Charge Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonIceChargeDamage = 10;
+
+        @Config.Comment("Explosion attack damage for Ice Dragons")
+        @Config.Name("Ice Dragon Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonIceExplosionDamage =7;
+
+        @Config.Comment("Projectile attack damage for Lightning Dragons")
+        @Config.Name("Lightning Dragon Projectile Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonLightningDamage = 3;
+
+        @Config.Comment("Charged projectile attack damage for Lightning Dragons")
+        @Config.Name("Lightning Dragon Charge Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonLightningChargeDamage = 10;
+
+        @Config.Comment("Explosion attack damage for Lightning Dragon")
+        @Config.Name("Lightning Dragon Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonLightningExplosionDamage = 7;
+
+        @Config.Comment("Explosion attack damage for dragon charged projectiles")
+        @Config.Name("Dragon Charge Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonChargeExplosionDamage = 7;
+
 		@Config.Comment("Percentage of damage done when a dragon bites a target that the dragon will heal for")
 		@Config.Name("Dragon Bite Healing Percentage")
 		@Config.RangeDouble(min = 0D, max = 1D)

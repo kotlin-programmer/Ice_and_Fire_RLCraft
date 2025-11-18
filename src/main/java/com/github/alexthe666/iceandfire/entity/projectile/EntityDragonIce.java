@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
@@ -118,7 +119,7 @@ public class EntityDragonIce extends EntityDragonProjectile {
 					}
 				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
-				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, 3);
+				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, IceAndFireConfig.DRAGON_SETTINGS.dragonIceDamage);
 				if (movingObject.entityHit instanceof EntityLivingBase) {
 					IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)movingObject.entityHit);
 					if (capability != null) {

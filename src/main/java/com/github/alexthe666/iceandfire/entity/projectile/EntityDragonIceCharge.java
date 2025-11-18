@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
@@ -121,7 +122,7 @@ public class EntityDragonIceCharge extends EntityDragonProjectile {
 			}
 			if (!(movingObject.entityHit instanceof IDragonProjectile) && !movingObject.entityHit.isEntityEqual(shootingEntity)) {
 				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && !movingObject.entityHit.isEntityEqual(shootingEntity)) {
-					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, 10.0F);
+					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, IceAndFireConfig.DRAGON_SETTINGS.dragonIceChargeDamage);
 					if (movingObject.entityHit instanceof EntityLivingBase) {
 						IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)movingObject.entityHit);
 						if (capability != null) {

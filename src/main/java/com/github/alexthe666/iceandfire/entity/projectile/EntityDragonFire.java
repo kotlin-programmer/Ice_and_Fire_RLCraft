@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
@@ -118,13 +119,11 @@ public class EntityDragonFire extends EntityDragonProjectile {
 				this.setDead();
 				return;
 			}
-			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
+            if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
+                if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
 					FireExplosion explosion = new FireExplosion(world, shootingEntity, this.posX, this.posY, this.posZ, ((EntityDragonBase) this.shootingEntity).getDragonStage() * 2.5F, flag);
 					explosion.doExplosionA();
 					explosion.doExplosionB(true);
-				} else if (movingObject.entityHit != null) {
-					movingObject.entityHit.setFire(5);
 				}
 				this.setDead();
 			}
@@ -135,7 +134,9 @@ public class EntityDragonFire extends EntityDragonProjectile {
 					}
 				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
-			}
+                movingObject.entityHit.attackEntityFrom(IceAndFire.dragonFire, IceAndFireConfig.DRAGON_SETTINGS.dragonFireDamage);
+                movingObject.entityHit.setFire(5);
+            }
 		}
 		this.setDead();
 	}

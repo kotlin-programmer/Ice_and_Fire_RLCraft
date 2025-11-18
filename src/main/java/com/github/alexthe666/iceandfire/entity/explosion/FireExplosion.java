@@ -151,9 +151,9 @@ public class FireExplosion extends Explosion {
 							if (exploder instanceof EntityDragonBase) {
 								if (!DragonUtils.isControllingPassenger(exploder, entity)) {
 									if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
-										entity.attackEntityFrom(IceAndFire.dragonFire, ((float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D))) / 6);
-									} else if(!entity.isEntityEqual(exploder)){
-										entity.attackEntityFrom(IceAndFire.dragonFire, (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)) / 3);
+										entity.attackEntityFrom(IceAndFire.dragonFire, ((float) ((int) ((d10 * d10 + d10) / 2.0D * IceAndFireConfig.DRAGON_SETTINGS.dragonFireExplosionDamage * (double) f3 + 1.0D))) / 6);
+									} else if(!entity.isEntityEqual(exploder)) {
+										entity.attackEntityFrom(IceAndFire.dragonFire, (float) ((int) ((d10 * d10 + d10) / 2.0D * IceAndFireConfig.DRAGON_SETTINGS.dragonFireExplosionDamage * (double) f3 + 1.0D)) / 3);
 									}
 									if (entity.isDead) {
 										((EntityDragonBase) this.exploder).attackDecision = true;
