@@ -211,6 +211,14 @@ public class EventLiving {
 	}
 
 	@SubscribeEvent
+	public void onSpecialSpawn(LivingSpawnEvent.SpecialSpawn event) {
+		EntityLivingBase entity = event.getEntityLiving();
+		if (entity instanceof EntityDreadLich && event.getSpawner() != null) {
+			EntityDreadLich lich = (EntityDreadLich) entity;
+		}
+	}
+
+	@SubscribeEvent
 	public void onEntityDespawn(LivingSpawnEvent.AllowDespawn event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		if (entity instanceof EntityLiving) {

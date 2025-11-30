@@ -36,9 +36,11 @@ import net.minecraft.world.storage.loot.LootTableList;
 import javax.annotation.Nullable;
 
 public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, IRangedAttackMob {
+    public static final ResourceLocation LOOT_GUARANTEE_KEY = LootTableList.register(new ResourceLocation("iceandfire", "dread_lich_guarantee_key"));
     public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation("iceandfire", "dread_lich"));
     private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityDreadLich.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> MINION_COUNT = EntityDataManager.createKey(EntityDreadLich.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> GUARANTEE_KEY = EntityDataManager.createKey(EntityDreadLich.class, DataSerializers.BOOLEAN);
     public static Animation ANIMATION_SPAWN = Animation.create(40);
     public static Animation ANIMATION_SUMMON = Animation.create(15);
     private final DreadLichAIStrife aiArrowAttack = new DreadLichAIStrife(this, 1.0D, 20, 15.0F);
@@ -80,8 +82,9 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(VARIANT, Integer.valueOf(0));
-        this.dataManager.register(MINION_COUNT, Integer.valueOf(0));
+        this.dataManager.register(VARIANT, 0);
+        this.dataManager.register(MINION_COUNT, 0);
+        this.dataManager.register(GUARANTEE_KEY, true);
     }
 
     public void onLivingUpdate() {
@@ -143,6 +146,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         super.writeEntityToNBT(compound);
         compound.setInteger("Variant", this.getVariant());
         compound.setInteger("MinionCount", this.getMinionCount());
+        compound.setBoolean("GuaranteeKey", this.shouldGuaranteeKey());
     }
 
     @Override
@@ -150,19 +154,28 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         super.readEntityFromNBT(compound);
         this.setVariant(compound.getInteger("Variant"));
         this.setMinionCount(compound.getInteger("MinionCount"));
+        this.setGuaranteeKey(compound.getBoolean("GuaranteeKey"));
         this.setCombatTask();
     }
 
     public int getVariant() {
-        return this.dataManager.get(VARIANT).intValue();
+        return this.dataManager.get(VARIANT);
     }
 
     public void setVariant(int variant) {
         this.dataManager.set(VARIANT, variant);
     }
 
+    public boolean shouldGuaranteeKey() {
+        return this.dataManager.get(GUARANTEE_KEY);
+    }
+
+    public void setGuaranteeKey(boolean guaranteeKey) {
+        this.dataManager.set(GUARANTEE_KEY, guaranteeKey);
+    }
+
     public int getMinionCount() {
-        return this.dataManager.get(MINION_COUNT).intValue();
+        return this.dataManager.get(MINION_COUNT);
     }
 
     public void setMinionCount(int minions) {
@@ -292,6 +305,9 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     @Nullable
     protected ResourceLocation getLootTable() {
+        if (this.shouldGuaranteeKey()) {
+            return LOOT_GUARANTEE_KEY;
+        }
         return LOOT;
     }
 
