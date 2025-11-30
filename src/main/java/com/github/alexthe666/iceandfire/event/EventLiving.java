@@ -116,8 +116,8 @@ public class EventLiving {
 
 	@SubscribeEvent
 	public void onEntityMount(EntityMountEvent event) {
-		if (event.isMounting() && event.getEntityMounting() instanceof IDreadMob) {
-			if (!(event.getEntityBeingMounted() instanceof AbstractHorse || event.getEntityBeingMounted() instanceof IDreadMob)) {
+		if (event.isMounting() && IDreadMob.isOnSameTeam(event.getEntityMounting())) {
+			if (!(event.getEntityBeingMounted() instanceof AbstractHorse || IDreadMob.isOnSameTeam(event.getEntityBeingMounted()))) {
 				event.setCanceled(true);
 			}
 		}

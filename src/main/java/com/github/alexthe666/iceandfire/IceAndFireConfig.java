@@ -726,6 +726,11 @@ public class IceAndFireConfig {
 		@Config.Name("Dread Queen Max Health")
 		public int dreadQueenMaxHealth = 750;
 
+		@Config.Comment("Entities in this list will be blacklisted from being targeted by dread mobs")
+		@Config.Name("Dread Targeting Entity Blacklist")
+		public String[] dreadTargetingEntityBlacklist = {""};
+
+
 		@Config.Comment("How many blocks away can Stymphalian Birds spot potential prey")
 		@Config.Name("Stymphalian Bird Target Search Range")
 		@Config.RangeInt(min = 1, max = 10000)
@@ -975,6 +980,7 @@ public class IceAndFireConfig {
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
 	private static HashSet<ResourceLocation> chainLightningBlacklist = null;
+	private static HashSet<ResourceLocation> dreadTargetingBlacklist = null;
 	private static HashSet<String> myrmexDisabledNames = null;
 	private static HashMap<String, Integer> trollSpawnCheckHeight = null;
 	private static HashMap<String, String> trollSpawnCheckType = null;
@@ -1022,6 +1028,14 @@ public class IceAndFireConfig {
 		for(String string : MISC_SETTINGS.chainLightningEntityBlacklist) set.add(new ResourceLocation(string));
 		chainLightningBlacklist = set;
 		return chainLightningBlacklist;
+	}
+
+	public static HashSet<ResourceLocation> getDreadTargetingEntityBlacklist() {
+		if(dreadTargetingBlacklist != null) return dreadTargetingBlacklist;
+		HashSet<ResourceLocation> set = new HashSet<>();
+		for(String string : ENTITY_SETTINGS.dreadTargetingEntityBlacklist) set.add(new ResourceLocation(string));
+		dreadTargetingBlacklist = set;
+		return dreadTargetingBlacklist;
 	}
 
 	public static HashSet<String> getMyrmexDisabledNames() {

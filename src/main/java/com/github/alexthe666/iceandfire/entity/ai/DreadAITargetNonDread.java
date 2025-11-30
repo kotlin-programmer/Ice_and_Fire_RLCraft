@@ -9,17 +9,14 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 
 import javax.annotation.Nullable;
 
-public class DreadAITargetNonDread extends EntityAINearestAttackableTarget {
+public class DreadAITargetNonDread extends EntityAINearestAttackableTarget<EntityLivingBase> {
     public DreadAITargetNonDread(EntityCreature entityIn, Class<EntityLivingBase> classTarget, boolean checkSight, Predicate<? super EntityLivingBase> targetSelector) {
         super(entityIn, classTarget, 0, checkSight, false, targetSelector);
     }
 
     protected boolean isSuitableTarget(@Nullable EntityLivingBase target, boolean includeInvincibles) {
-        if(super.isSuitableTarget(target, includeInvincibles)){
-            if(target instanceof IDreadMob || !DragonUtils.isAlive(target)){
-                return false;
-            }
-            return true;
+        if (super.isSuitableTarget(target, includeInvincibles)) {
+            return !IDreadMob.isOnSameTeam(target) && DragonUtils.isAlive(target);
         }
         return false;
     }

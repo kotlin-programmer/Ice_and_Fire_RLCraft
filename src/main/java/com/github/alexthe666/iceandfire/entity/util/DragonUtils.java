@@ -1,12 +1,10 @@
 package com.github.alexthe666.iceandfire.entity.util;
 
-import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockDragonBone;
 import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
 import com.github.alexthe666.iceandfire.block.BlockDragonScales;
 import com.github.alexthe666.iceandfire.block.IDragonProof;
-import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.integration.claimit.ClaimItCompatBridge;
 import com.google.common.base.Predicate;

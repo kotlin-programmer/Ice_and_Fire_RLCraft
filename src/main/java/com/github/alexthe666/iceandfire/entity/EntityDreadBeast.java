@@ -194,7 +194,7 @@ public class EntityDreadBeast extends EntityDreadMob implements IAnimatedEntity,
 
     @Override
     public boolean isOnSameTeam(Entity entityIn){
-        return entityIn instanceof IDreadMob || super.isOnSameTeam(entityIn);
+        return IDreadMob.isOnSameTeam(entityIn) || super.isOnSameTeam(entityIn);
     }
 
     @Nullable
