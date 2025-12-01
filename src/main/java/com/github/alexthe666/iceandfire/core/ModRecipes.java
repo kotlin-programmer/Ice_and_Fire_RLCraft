@@ -104,9 +104,9 @@ public class ModRecipes {
         OreDictionary.registerOre("gemAmethyst", IafItemRegistry.amethystGem);
         OreDictionary.registerOre("oreAmethyst", IafBlockRegistry.amethystOre);
         OreDictionary.registerOre("blockAmethyst", IafBlockRegistry.amethystBlock);
-        OreDictionary.registerOre("gemRuby", IafItemRegistry.amethystGem);
-        OreDictionary.registerOre("oreRuby", IafBlockRegistry.amethystOre);
-        OreDictionary.registerOre("blockRuby", IafBlockRegistry.amethystBlock);
+        OreDictionary.registerOre("gemRuby", IafItemRegistry.rubyGem);
+        OreDictionary.registerOre("oreRuby", IafBlockRegistry.rubyOre);
+        OreDictionary.registerOre("blockRuby", IafBlockRegistry.rubyBlock);
         OreDictionary.registerOre("gemSapphire", IafItemRegistry.sapphireGem);
         OreDictionary.registerOre("oreSapphire", IafBlockRegistry.sapphireOre);
         OreDictionary.registerOre("blockSapphire", IafBlockRegistry.sapphireBlock);
