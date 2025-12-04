@@ -180,6 +180,7 @@ public class ModRecipes {
         GameRegistry.addSmelting(IafBlockRegistry.copperOre, new ItemStack(IafItemRegistry.copperIngot), 1);
         GameRegistry.addSmelting(IafBlockRegistry.silverOre, new ItemStack(IafItemRegistry.silverIngot), 1);
         GameRegistry.addSmelting(IafBlockRegistry.amethystOre, new ItemStack(IafItemRegistry.amethystGem), 1);
+        GameRegistry.addSmelting(IafBlockRegistry.rubyOre, new ItemStack(IafItemRegistry.rubyGem), 1);
         GameRegistry.addSmelting(IafBlockRegistry.sapphireOre, new ItemStack(IafItemRegistry.sapphireGem), 1);
         GameRegistry.addSmelting(IafBlockRegistry.myrmex_desert_resin_block, new ItemStack(IafBlockRegistry.myrmex_desert_resin_glass), 1);
         GameRegistry.addSmelting(IafBlockRegistry.myrmex_jungle_resin_block, new ItemStack(IafBlockRegistry.myrmex_jungle_resin_glass), 1);
