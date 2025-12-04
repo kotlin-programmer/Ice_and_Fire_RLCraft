@@ -184,6 +184,7 @@ public class ModRecipes {
         GameRegistry.addSmelting(IafBlockRegistry.sapphireOre, new ItemStack(IafItemRegistry.sapphireGem), 1);
         GameRegistry.addSmelting(IafBlockRegistry.myrmex_desert_resin_block, new ItemStack(IafBlockRegistry.myrmex_desert_resin_glass), 1);
         GameRegistry.addSmelting(IafBlockRegistry.myrmex_jungle_resin_block, new ItemStack(IafBlockRegistry.myrmex_jungle_resin_glass), 1);
+        GameRegistry.addSmelting(IafBlockRegistry.dread_stone_bricks, new ItemStack(IafBlockRegistry.dread_stone_bricks_cracked), 1);
 
         if (IceAndFireConfig.WORLDGEN.generateCopperOre) {
             GameRegistry.addSmelting(IafItemRegistry.stymphalian_bird_feather, new ItemStack(IafItemRegistry.copperNugget), 1);
