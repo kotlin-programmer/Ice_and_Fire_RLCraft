@@ -123,7 +123,7 @@ public class EventLiving {
 		}
 		if (event.getEntityMounting() instanceof  EntityPlayer) {
 			if (event.isDismounting()) {
-				if (!DragonUtils.canDismount(event.getEntityBeingMounted())) {
+				if (!DragonUtils.canDismount(event.getEntityBeingMounted()) && event.getEntityMounting().isSneaking()) {
 					event.setCanceled(true);
 					return;
 				}
