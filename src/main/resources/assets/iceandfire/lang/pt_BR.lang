@@ -366,6 +366,14 @@ item.iceandfire.ectoplasm.name=Ectoplasma
 item.iceandfire.ghost_ingot.name=Barra Fantasmagórica
 item.iceandfire.ghost_ingot.desc_0=§6Item Raro§r
 
+item.iceandfire.deathworm_tongue.name=Língua de Verme da Morte
+item.iceandfire.deathworm_tongue.desc_0=§6Item Raro§r
+item.iceandfire.deathworm_gauntlet_yellow.name=Manopla de Verme da Morte
+item.iceandfire.deathworm_gauntlet_white.name=Manopla de Verme da Morte
+item.iceandfire.deathworm_gauntlet_red.name=Manopla de Verme da Morte
+item.iceandfire.deathworm_gauntlet.desc_0=Chicoteia o alvo com a língua causando 3 de dano
+item.iceandfire.deathworm_gauntlet.desc_1=Puxa o alvo para o jogador
+
 item.iceandfire.dragon_collar.name=Coleira de Dragão
 
 item.banner.firedragon.white=Figura de Dragão de Fogo Branco

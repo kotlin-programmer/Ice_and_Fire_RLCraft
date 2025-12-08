@@ -354,6 +354,14 @@ item.iceandfire.dread_knight_sword.name=恐怖の騎士の剣
 item.iceandfire.dread_queen_sword.name=恐怖の女王の刃
 item.iceandfire.dread_queen_staff.name=恐怖の女王の杖
 
+item.iceandfire.deathworm_tongue.name=デスワームの舌
+item.iceandfire.deathworm_tongue.desc_0=§6レアドロップ§r
+item.iceandfire.deathworm_gauntlet_yellow.name=デスワームのガントレット
+item.iceandfire.deathworm_gauntlet_white.name=デスワームのガントレット
+item.iceandfire.deathworm_gauntlet_red.name=デスワームのガントレット
+item.iceandfire.deathworm_gauntlet.desc_0=舌で攻撃し、3ダメージを与える
+item.iceandfire.deathworm_gauntlet.desc_1=ターゲットをプレイヤーの方へ引き寄せる
+
 item.iceandfire.custom_banner.jei_desc=旗の模様付けに使えます！
 
 item.iceandfire.dragonbone_arrow_fire.name=燃ドラゴンの骨の矢

@@ -14,9 +14,9 @@ import javax.annotation.Nullable;
 @SideOnly(Side.CLIENT)
 public class RenderDeathWorm extends RenderLiving<EntityDeathWorm> {
 
-    private static final ResourceLocation TEXTURE_RED = new ResourceLocation("iceandfire:textures/models/deathworm/deathworm_red.png");
-    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("iceandfire:textures/models/deathworm/deathworm_white.png");
-    private static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("iceandfire:textures/models/deathworm/deathworm_yellow.png");
+    public static final ResourceLocation TEXTURE_RED = new ResourceLocation("iceandfire:textures/models/deathworm/deathworm_red.png");
+    public static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("iceandfire:textures/models/deathworm/deathworm_white.png");
+    public static final ResourceLocation TEXTURE_YELLOW = new ResourceLocation("iceandfire:textures/models/deathworm/deathworm_yellow.png");
 
     public RenderDeathWorm(RenderManager renderManager) {
         super(renderManager, new ModelDeathWorm(), 0);

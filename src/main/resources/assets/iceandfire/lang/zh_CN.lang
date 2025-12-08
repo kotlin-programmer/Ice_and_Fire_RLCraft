@@ -629,6 +629,14 @@ item.iceandfire.ectoplasm.name=魂质
 item.iceandfire.ghost_ingot.name=灵锭
 item.iceandfire.ghost_ingot.desc_0=§6稀有掉落物§r
 
+item.iceandfire.deathworm_tongue.name=死亡沙虫之舌
+item.iceandfire.deathworm_tongue.desc_0=§6稀有掉落物§r
+item.iceandfire.deathworm_gauntlet_yellow.name=死亡沙虫臂铠
+item.iceandfire.deathworm_gauntlet_white.name=死亡沙虫臂铠
+item.iceandfire.deathworm_gauntlet_red.name=死亡沙虫臂铠
+item.iceandfire.deathworm_gauntlet.desc_0=用舌头抽击目标造成3点伤害
+item.iceandfire.deathworm_gauntlet.desc_1=将目标拉向玩家
+
 item.iceandfire.dragonbone_arrow_fire.name=烈火龙骨箭
 item.iceandfire.dragonbone_arrow_ice.name=寒冰龙骨箭
 item.iceandfire.dragonbone_arrow_lightning.name=雷霆龙骨箭

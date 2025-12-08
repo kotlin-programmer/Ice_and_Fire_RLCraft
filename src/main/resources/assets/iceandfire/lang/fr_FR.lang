@@ -357,6 +357,14 @@ item.iceandfire.ectoplasm.name=Ectoplasme
 item.iceandfire.ghost_ingot.name=Lingot fantasmagorique
 item.iceandfire.ghost_ingot.desc_0=§6Butin rare§r
 
+item.iceandfire.deathworm_tongue.name=Langue de Ver de la Mort
+item.iceandfire.deathworm_tongue.desc_0=§6Butin rare§r
+item.iceandfire.deathworm_gauntlet_yellow.name=Gantelet de Ver de la Mort
+item.iceandfire.deathworm_gauntlet_white.name=Gantelet de Ver de la Mort
+item.iceandfire.deathworm_gauntlet_red.name=Gantelet de Ver de la Mort
+item.iceandfire.deathworm_gauntlet.desc_0=Fouette la cible avec sa langue et inflige 3 dégâts
+item.iceandfire.deathworm_gauntlet.desc_1=Tire la cible vers le joueur
+
 item.iceandfire.dragonbone_arrow_fire.name=Flèche enflammé en os de dragon
 item.iceandfire.dragonbone_arrow_ice.name=Flèche givré en os de dragon
 item.iceandfire.dragonbone_arrow_lightning.name=Flèche électrifié en os de dragon

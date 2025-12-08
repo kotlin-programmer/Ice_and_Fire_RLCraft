@@ -333,6 +333,9 @@ public class ClientProxy extends CommonProxy {
 		for(EnumTroll.Weapon weapon : EnumTroll.Weapon.values()) {
 			weapon.item.setTileEntityItemStackRenderer(TEISR);
 		}
+		IafItemRegistry.deathworm_gauntlet_yellow.setTileEntityItemStackRenderer(TEISR);
+		IafItemRegistry.deathworm_gauntlet_white.setTileEntityItemStackRenderer(TEISR);
+		IafItemRegistry.deathworm_gauntlet_red.setTileEntityItemStackRenderer(TEISR);
 	}
 
 	@SuppressWarnings("deprecation")

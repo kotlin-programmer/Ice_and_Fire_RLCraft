@@ -362,6 +362,14 @@ item.iceandfire.ectoplasm.name=Эктоплазма
 item.iceandfire.ghost_ingot.name=Призрачный слиток
 item.iceandfire.ghost_ingot.desc_0=§6Редкий дроп§r
 
+item.iceandfire.deathworm_tongue.name=Язык Червя Смерти
+item.iceandfire.deathworm_tongue.desc_0=§6Редкий дроп§r
+item.iceandfire.deathworm_gauntlet_yellow.name=Латный Коготь Червя Смерти
+item.iceandfire.deathworm_gauntlet_white.name=Латный Коготь Червя Смерти
+item.iceandfire.deathworm_gauntlet_red.name=Латный Коготь Червя Смерти
+item.iceandfire.deathworm_gauntlet.desc_0=Бьёт цель языком, нанося 3 единицы урона
+item.iceandfire.deathworm_gauntlet.desc_1=Притягивает цель к игроку
+
 item.iceandfire.dragonbone_arrow_fire.name=Разожженный Стрела из драконьей кости
 item.iceandfire.dragonbone_arrow_ice.name=Оледяневший Стрела из драконьей кости
 item.iceandfire.dragonbone_arrow_lightning.name=Грозовой Стрела из драконьей кости

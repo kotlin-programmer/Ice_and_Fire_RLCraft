@@ -1,9 +1,12 @@
 package com.github.alexthe666.iceandfire;
 
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
+import com.github.alexthe666.iceandfire.api.IEntityPropertiesCapability;
 import com.github.alexthe666.iceandfire.capability.CapabilityHandler;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectStorage;
+import com.github.alexthe666.iceandfire.capability.entityproperties.EntityPropertiesCapability;
+import com.github.alexthe666.iceandfire.capability.entityproperties.EntityPropertiesStorage;
 import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
 import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
 import com.github.alexthe666.iceandfire.event.EventLiving;
@@ -64,9 +67,10 @@ public class IceAndFire {
             MessageUpdatePixieHouse.class, MessageUpdatePodium.class, MessageUpdatePixieHouseModel.class,
             MessageUpdatePixieJar.class, MessageSirenSong.class, MessageDeathWormHitbox.class,
             MessageMultipartInteract.class, MessageGetMyrmexHive.class, MessageSetMyrmexHiveNull.class,
-            MessagePlayerHitMultipart.class, MessageChainLightningFX.class, MessageEntityEffect.class,
-            MessageResetEntityEffect.class, MessageParticleFX.class, MessageParticleVanillaFX.class,
-            MessageSwingGhostSword.class, MessageUpdateSpawner.class, MessageDragonSyncFire.class
+            MessagePlayerHitMultipart.class, MessageChainLightningFX.class, MessageParticleFX.class,
+            MessageEntityEffect.class, MessageResetEntityEffect.class, MessageEntityProperties.class,
+            MessageParticleVanillaFX.class, MessageUpdateSpawner.class, MessageSwingGhostSword.class,
+            MessageDragonSyncFire.class
     })
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
     @SidedProxy(clientSide = "com.github.alexthe666.iceandfire.ClientProxy", serverSide = "com.github.alexthe666.iceandfire.CommonProxy")
@@ -84,6 +88,7 @@ public class IceAndFire {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(IEntityEffectCapability.class, new EntityEffectStorage(), EntityEffectCapability::new);
+        CapabilityManager.INSTANCE.register(IEntityPropertiesCapability.class, new EntityPropertiesStorage(), EntityPropertiesCapability::new);
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         if(CompatLoadUtil.isRLCombatLoaded()) MinecraftForge.EVENT_BUS.register(RLCombatCompat.class);

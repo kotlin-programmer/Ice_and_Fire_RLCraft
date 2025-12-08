@@ -361,7 +361,15 @@ item.iceandfire.ghost_sword.name=Navaja fantasmal
 item.iceandfire.ghost_sword.desc_0=Dispara una espada giratoria que atraviesa bloques
 item.iceandfire.ectoplasm.name=Ectoplasma
 item.iceandfire.ghost_ingot.name=Lingote fantasmal
-item.iceandfire.ghost_ingot.desc_0=§6Drop raro§r
+item.iceandfire.ghost_ingot.desc_0=§6Recompensa Rara§r
+
+item.iceandfire.deathworm_tongue.name=Lengua de Gusano Mortal
+item.iceandfire.deathworm_tongue.desc_0=§6Recompensa Rara§r
+item.iceandfire.deathworm_gauntlet_yellow.name=Guantelete de Gusano Mortal
+item.iceandfire.deathworm_gauntlet_white.name=Guantelete de Gusano Mortal
+item.iceandfire.deathworm_gauntlet_red.name=Guantelete de Gusano Mortal
+item.iceandfire.deathworm_gauntlet.desc_0=Ataca al objetivo con la lengua por 3 de daños.
+item.iceandfire.deathworm_gauntlet.desc_1=Tira del objetivo al jugador
 
 item.iceandfire.dragonbone_arrow_fire.name=Flecha de Dragon flameante
 item.iceandfire.dragonbone_arrow_ice.name=Flecha de Dragon gelida

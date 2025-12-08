@@ -53,7 +53,6 @@ public class ItemDragonSkull extends Item implements ICustomRendered {
             stack.setTagCompound(new NBTTagCompound());
             stack.getTagCompound().setInteger("Stage", 4);
             stack.getTagCompound().setInteger("DragonAge", 75);
-
         }
     }
 

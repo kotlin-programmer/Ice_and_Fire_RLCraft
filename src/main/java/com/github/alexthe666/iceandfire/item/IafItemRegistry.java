@@ -304,6 +304,14 @@ public class IafItemRegistry {
 	public static Item deathworm_red_boots = new ItemDeathwormArmor(red_deathworm, 3, EntityEquipmentSlot.FEET, "deathworm_red_boots", "iceandfire.deathworm_red_boots");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":deathworm_egg")
 	public static Item deathworm_egg = new ItemDeathwormEgg();
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":deathworm_tongue")
+	public static Item deathworm_tongue = new ItemGeneric("deathworm_tongue", "iceandfire.deathworm_tongue", 1);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":deathworm_gauntlet_yellow")
+	public static Item deathworm_gauntlet_yellow = new ItemDeathwormGauntlet("yellow");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":deathworm_gauntlet_white")
+	public static Item deathworm_gauntlet_white = new ItemDeathwormGauntlet("white");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":deathworm_gauntlet_red")
+	public static Item deathworm_gauntlet_red = new ItemDeathwormGauntlet("red");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":rotten_egg")
 	public static Item rotten_egg = new ItemRottenEgg();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":stymphalian_bird_feather")
@@ -403,7 +411,7 @@ public class IafItemRegistry {
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dread_knight_sword")
 	public static Item dread_knight_sword = new ItemModSword(dread_knight_sword_tools, "dread_knight_sword", "iceandfire.dread_knight_sword");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_ingot")
-	public static Item ghost_ingot = new ItemGeneric("ghost_ingot", "iceandfire.ghost_ingot");
+	public static Item ghost_ingot = new ItemGeneric("ghost_ingot", "iceandfire.ghost_ingot", 1);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ghost_sword")
 	public static Item ghost_sword = new ItemGhostSword();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":summoning_crystal_fire")
