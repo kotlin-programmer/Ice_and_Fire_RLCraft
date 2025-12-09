@@ -366,6 +366,15 @@ item.iceandfire.ectoplasm.name=Ectoplasma
 item.iceandfire.ghost_ingot.name=Barra Fantasmagórica
 item.iceandfire.ghost_ingot.desc_0=§6Item Raro§r
 
+item.iceandfire.myrmex_desert_swarm.name=Enxame de Myrmex
+item.iceandfire.myrmex_jungle_swarm.name=Enxame de Myrmex
+item.iceandfire.myrmex_swarm.desc_0=Invoca 5 Myrmex defensores que irão protegê-lo por 30 segundos
+item.iceandfire.myrmex_swarm.desc_1=Apenas para uso único
+item.iceandfire.hippogryph_talon.name=Garra de Hipogrifo
+item.iceandfire.hippogryph_talon.desc_0=§6Gota rara§r
+item.iceandfire.hippogryph_sword.name=Espada de Garra de Hipogrifo
+item.iceandfire.hippogryph_sword.desc_0=Sempre golpeia o alvo, causando dano extra
+
 item.iceandfire.dragon_collar.name=Coleira de Dragão
 
 item.banner.firedragon.white=Figura de Dragão de Fogo Branco
@@ -503,6 +512,7 @@ entity.hydra_breath.name=Bafo da Hidra
 entity.hydra_arrow.name=Flecha da Hidra
 
 entity.tide_trident.name=Tridente do Protetor da Maré
+entity.myrmex_swarmer.name=Myrmex Defensor
 
 entity.if_mob_skull.name=Crânio de Dragão
 

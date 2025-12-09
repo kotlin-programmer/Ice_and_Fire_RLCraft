@@ -629,6 +629,15 @@ item.iceandfire.ectoplasm.name=魂质
 item.iceandfire.ghost_ingot.name=灵锭
 item.iceandfire.ghost_ingot.desc_0=§6稀有掉落物§r
 
+item.iceandfire.myrmex_desert_swarm.name=恐蜂蚁巢
+item.iceandfire.myrmex_jungle_swarm.name=恐蜂蚁巢
+item.iceandfire.myrmex_swarm.desc_0=召唤5只恐蜂蚁保护你1分30秒
+item.iceandfire.myrmex_swarm.desc_1=一次性武器
+item.iceandfire.hippogryph_talon.name=骏鹰利爪
+item.iceandfire.hippogryph_talon.desc_0=§6稀有掉落物§r
+item.iceandfire.hippogryph_sword.name=骏鹰爪剑
+item.iceandfire.hippogryph_sword.desc_0=必定暴击，造成额外伤害
+
 item.iceandfire.dragonbone_arrow_fire.name=烈火龙骨箭
 item.iceandfire.dragonbone_arrow_ice.name=寒冰龙骨箭
 item.iceandfire.dragonbone_arrow_lightning.name=雷霆龙骨箭
@@ -703,6 +712,7 @@ entity.hydra_breath.name=九头蛇吐息
 entity.hydra_arrow.name=九头蛇毒箭
 
 entity.tide_trident.name=海潮三叉戟
+entity.myrmex_swarmer.name=恐蜂蚁
 
 entity.if_mob_skull.name=颅骨
 

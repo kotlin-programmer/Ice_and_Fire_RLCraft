@@ -89,7 +89,7 @@ public class ItemBloodedArmor extends ItemArmor {
 		}
 		else if (type == EnumDragonType.LIGHTNING) {
 			if (attacker instanceof EntityFireDragon || attacker instanceof EntityIceDragon) {
-				attacker.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 6.75F);
+				attacker.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 4F);
 			}
 			ChainLightningUtils.createChainLightningToTargetFromPlayer(attacker, player);
 			attacker.knockBack(attacker, 1F, player.posX - attacker.posX, player.posZ - attacker.posZ);

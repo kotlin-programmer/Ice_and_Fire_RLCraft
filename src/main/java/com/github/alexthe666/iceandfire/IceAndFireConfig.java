@@ -797,6 +797,16 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 100000)
 		public int myrmexLarvaTicks = 35000;
 
+		@Config.Comment("Maximum Myrmex Swarmer Attack strength")
+		@Config.Name("Myrmex Swarmer Attack Strength")
+		@Config.RangeDouble(min = 1, max = 10000)
+		public double myrmexSwarmerAttackStrength = 2D;
+
+		@Config.Comment("Maximum Myrmex Swarmer Health")
+		@Config.Name("Myrmex Swarmer Max Health")
+		@Config.RangeDouble(min = 1, max = 10000)
+		public double myrmexSwarmerMaxHealth = 5D;
+
 		@Config.Comment("Range that Amphitheres can detect villagers being hurt")
 		@Config.Name("Amphithere Villager Hurt Range")
 		@Config.RangeDouble(min = 1, max = 10000)

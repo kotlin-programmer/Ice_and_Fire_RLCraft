@@ -363,6 +363,15 @@ item.iceandfire.ectoplasm.name=Ectoplasma
 item.iceandfire.ghost_ingot.name=Lingote fantasmal
 item.iceandfire.ghost_ingot.desc_0=§6Drop raro§r
 
+item.iceandfire.myrmex_desert_swarm.name=Enjambre de Myrmex
+item.iceandfire.myrmex_jungle_swarm.name=Enjambre de Myrmex
+item.iceandfire.myrmex_swarm.desc_0=Invoca 5 enjambres de Myrmex que te defenderán durante 30 segundos
+item.iceandfire.myrmex_swarm.desc_1=De un solo uso
+item.iceandfire.hippogryph_talon.name=Garra de Hipogrifo
+item.iceandfire.hippogryph_talon.desc_0=§6Recompensa Rara§r
+item.iceandfire.hippogryph_sword.name=Espada de Garra de Hipogrifo
+item.iceandfire.hippogryph_sword.desc_0=Siempre corta al objetivo e inflige daño adicional
+
 item.iceandfire.dragonbone_arrow_fire.name=Flecha de Dragon flameante
 item.iceandfire.dragonbone_arrow_ice.name=Flecha de Dragon gelida
 item.iceandfire.dragonbone_arrow_lightning.name=Flecha de Dragon electrica
@@ -747,6 +756,7 @@ entity.hydra_breath.name=Aliento de Hidra
 entity.hydra_arrow.name=Flecha de Hidra
 
 entity.tide_trident.name=Tridente de la Marea
+entity.myrmex_swarmer.name=Enjambrador Myrmex
 
 entity.if_mob_skull.name=Craneo
 

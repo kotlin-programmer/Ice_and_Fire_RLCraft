@@ -35,6 +35,7 @@ public class IafItemRegistry {
 	public static ToolMaterial trollWeapon = EnumHelper.addToolMaterial("TrollWeapon", 2, 300, 11.0F, 1.0F, 1);
 	public static ToolMaterial myrmexChitin = EnumHelper.addToolMaterial("MyrmexChitin", 3, 600, 6.0F, 1.0F, 8);
 	public static ToolMaterial hippocampus_sword_tools = EnumHelper.addToolMaterial("HippocampusSword", 0, 500, 0.0F, -2F, 50);
+	public static ToolMaterial hippogryph_sword_tools = EnumHelper.addToolMaterial("HippogryphSword", 2, 500, 10.0F, 2.5F, 10);
 	public static ToolMaterial ghost_sword_tool_material = EnumHelper.addToolMaterial("GhostSword", 2, 3000, 5, 1.0F, 25);
 	public static ToolMaterial dread_sword_tools = EnumHelper.addToolMaterial("DreadSword", 0, 100, 0.0F, 1F, 0);
 	public static ToolMaterial dread_knight_sword_tools = EnumHelper.addToolMaterial("DreadKnightSword", 0, 1200, 0.0F, 4F, 10);
@@ -416,6 +417,15 @@ public class IafItemRegistry {
 	public static Item chain_link = new ItemGeneric("chain_link", "iceandfire.chain_link");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":chain")
 	public static Item chain = new ItemGeneric("chain", "iceandfire.chain");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":mymrex_desert_swarm")
+	public static Item mymrex_desert_swarm = new ItemMyrmexSwarm(false);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":mymrex_jungle_swarm")
+	public static Item mymrex_jungle_swarm = new ItemMyrmexSwarm(true);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":hippogryph_talon")
+	public static Item hippogryph_talon = new ItemGeneric("hippogryph_talon", "iceandfire.hippogryph_talon", 1);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":hippogryph_sword")
+	public static Item hippogryph_sword = new ItemHippogryphSword();
+
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_collar")
 	public static Item dragon_collar = new ItemGeneric("dragon_collar", "iceandfire.dragon_collar");
 

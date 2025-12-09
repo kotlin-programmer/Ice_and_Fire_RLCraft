@@ -354,6 +354,15 @@ item.iceandfire.dread_knight_sword.name=恐怖の騎士の剣
 item.iceandfire.dread_queen_sword.name=恐怖の女王の刃
 item.iceandfire.dread_queen_staff.name=恐怖の女王の杖
 
+item.iceandfire.myrmex_desert_swarm.name=ミュルメクススワーム
+item.iceandfire.myrmex_jungle_swarm.name=ミュルメクススワーム
+item.iceandfire.myrmex_swarm.desc_0=5頭のミュルメクススワーマーがプレイヤーを30秒間守ってくれる
+item.iceandfire.myrmex_swarm.desc_1=一回きり
+item.iceandfire.hippogryph_talon.name=ヒッポグリフの鉤爪
+item.iceandfire.hippogryph_talon.desc_0=§6レアドロップ§r
+item.iceandfire.hippogryph_sword.name=ヒッポグリフタロンソード
+item.iceandfire.hippogryph_sword.desc_0=常に範囲攻撃が可能
+
 item.iceandfire.custom_banner.jei_desc=旗の模様付けに使えます！
 
 item.iceandfire.dragonbone_arrow_fire.name=燃ドラゴンの骨の矢
@@ -716,6 +725,7 @@ entity.hydra_breath.name=ヒドラのブレス
 entity.hydra_arrow.name=ヒドラの矢
 
 entity.tide_trident.name=タイドトライデント
+entity.myrmex_swarmer.name=ミュルメクススワーマー
 
 entity.if_mob_skull.name=頭蓋骨
 
