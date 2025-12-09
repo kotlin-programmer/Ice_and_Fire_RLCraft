@@ -365,6 +365,15 @@ item.iceandfire.deathworm_gauntlet_red.name=Gantelet de Ver de la Mort
 item.iceandfire.deathworm_gauntlet.desc_0=Fouette la cible avec sa langue et inflige 3 dégâts
 item.iceandfire.deathworm_gauntlet.desc_1=Tire la cible vers le joueur
 
+item.iceandfire.myrmex_desert_swarm.name=Essaim de Myrmex
+item.iceandfire.myrmex_jungle_swarm.name=Essaim de Myrmex
+item.iceandfire.myrmex_swarm.desc_0=Invoque 5 Myrmex protecteurs qui vous défendront pendant 30 secondes
+item.iceandfire.myrmex_swarm.desc_1=Usage unique uniquement
+item.iceandfire.hippogryph_talon.name=Serre d’Hippogriffe
+item.iceandfire.hippogryph_talon.desc_0=§6Butin rare§r
+item.iceandfire.hippogryph_sword.name=Épée en serre d’Hippogriffe
+item.iceandfire.hippogryph_sword.desc_0=Frappe toujours la cible, infligeant des dégâts supplémentaires
+
 item.iceandfire.dragonbone_arrow_fire.name=Flèche enflammé en os de dragon
 item.iceandfire.dragonbone_arrow_ice.name=Flèche givré en os de dragon
 item.iceandfire.dragonbone_arrow_lightning.name=Flèche électrifié en os de dragon
@@ -746,6 +755,7 @@ entity.hydra_breath.name=Souffle d'hydre
 entity.hydra_arrow.name=Flèche d'hydre
 
 entity.tide_trident.name=Trident de marée
+entity.myrmex_swarmer.name=Myrmex Protecteur
 
 entity.if_mob_skull.name=Crâne
 

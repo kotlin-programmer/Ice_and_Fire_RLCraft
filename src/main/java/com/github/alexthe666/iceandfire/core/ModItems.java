@@ -1,9 +1,14 @@
 package com.github.alexthe666.iceandfire.core;
 
+import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.item.ItemGeneric;
+import com.github.alexthe666.iceandfire.item.ItemHippogryphSword;
+import com.github.alexthe666.iceandfire.item.ItemMyrmexSwarm;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class ModItems {
     public static ArmorMaterial copperMetal = IafItemRegistry.copperMetal;
@@ -28,6 +33,7 @@ public class ModItems {
     public static ToolMaterial trollWeapon = IafItemRegistry.trollWeapon;
     public static ToolMaterial myrmexChitin = IafItemRegistry.myrmexChitin;
     public static ToolMaterial hippocampus_sword_tools = IafItemRegistry.hippocampus_sword_tools;
+    public static ToolMaterial hippogryph_sword_tools = IafItemRegistry.hippogryph_sword_tools;
     public static ToolMaterial ghost_sword_tool_material = IafItemRegistry.ghost_sword_tool_material;
     public static ToolMaterial dread_sword_tools = IafItemRegistry.dread_sword_tools;
     public static ToolMaterial dread_knight_sword_tools = IafItemRegistry.dread_knight_sword_tools;
@@ -220,6 +226,10 @@ public class ModItems {
     public static Item summoning_crystal_lightning = IafItemRegistry.summoning_crystal_lightning;
     public static Item chain = IafItemRegistry.chain;
     public static Item chain_link = IafItemRegistry.chain_link;
+    public static Item mymrex_desert_swarm = IafItemRegistry.mymrex_desert_swarm;
+    public static Item mymrex_jungle_swarm = IafItemRegistry.mymrex_jungle_swarm;
+    public static Item hippogryph_talon = IafItemRegistry.hippogryph_talon;
+    public static Item hippogryph_sword = IafItemRegistry.hippogryph_sword;
     public static Item dragon_collar = IafItemRegistry.dragon_collar;
 }
 

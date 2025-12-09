@@ -162,7 +162,7 @@ public class EntityDragonArrow extends EntityArrow {
 				break;
 			case LIGHTNING:
 				if (living instanceof EntityFireDragon || living instanceof EntityIceDragon) {
-					living.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 6.75F);
+					living.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 4F);
 				}
 				ChainLightningUtils.createChainLightningFromTarget(this.world, living, this.shootingEntity);
 		}

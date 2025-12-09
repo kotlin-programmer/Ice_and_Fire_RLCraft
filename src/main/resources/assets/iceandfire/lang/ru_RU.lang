@@ -370,6 +370,15 @@ item.iceandfire.deathworm_gauntlet_red.name=Латный Коготь Червя
 item.iceandfire.deathworm_gauntlet.desc_0=Бьёт цель языком, нанося 3 единицы урона
 item.iceandfire.deathworm_gauntlet.desc_1=Притягивает цель к игроку
 
+item.iceandfire.myrmex_desert_swarm.name=Рой мирмексов
+item.iceandfire.myrmex_jungle_swarm.name=Рой мирмексов
+item.iceandfire.myrmex_swarm.desc_0=Призывает 5 мирмексов-трутней, которые будут защищать вас 30 секунд
+item.iceandfire.myrmex_swarm.desc_1=Одноразовый
+item.iceandfire.hippogryph_talon.name=Коготь гиппогрифа
+item.iceandfire.hippogryph_talon.desc_0=§6Редкий дроп§r
+item.iceandfire.hippogryph_sword.name=Меч из когтей гиппогрифа
+item.iceandfire.hippogryph_sword.desc_0=Всегда наносит порезы цели, что даёт доп. урон
+
 item.iceandfire.dragonbone_arrow_fire.name=Разожженный Стрела из драконьей кости
 item.iceandfire.dragonbone_arrow_ice.name=Оледяневший Стрела из драконьей кости
 item.iceandfire.dragonbone_arrow_lightning.name=Грозовой Стрела из драконьей кости
@@ -749,6 +758,7 @@ entity.hydra_breath.name=Дыхание гидры
 entity.hydra_arrow.name=Стрела гидры
 
 entity.tide_trident.name=Трезубец Прилива
+entity.myrmex_swarmer.name=Роевой мирмекс
 
 entity.if_mob_skull.name=Череп
 

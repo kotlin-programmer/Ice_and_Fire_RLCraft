@@ -127,7 +127,7 @@ public class EntityDragonLightning extends EntityDragonProjectile {
 					this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
 				}
 				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonLightning, IceAndFireConfig.DRAGON_SETTINGS.dragonLightningDamage);
-				if(movingObject.entityHit instanceof EntityLivingBase){
+				if (movingObject.entityHit instanceof EntityLivingBase) {
 					if (IceAndFireConfig.DRAGON_SETTINGS.lightningDragonKnockback && this.shootingEntity != null) {
 						double xRatio = this.shootingEntity.posX - movingObject.entityHit.posX;
 						double zRatio = this.shootingEntity.posZ - movingObject.entityHit.posZ;

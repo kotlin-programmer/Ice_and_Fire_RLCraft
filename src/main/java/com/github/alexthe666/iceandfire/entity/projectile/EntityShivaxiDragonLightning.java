@@ -6,10 +6,9 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.particle.lightning.ParticleLightningVector;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
-import com.github.alexthe666.iceandfire.entity.explosion.LightningExplosion;
+import com.github.alexthe666.iceandfire.entity.explosion.ShivaxiLightningExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
-import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.ProjectileHelper;
@@ -112,7 +111,7 @@ public class EntityShivaxiDragonLightning extends EntityDragonProjectile {
 			}
 			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
 				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
-					LightningExplosion explosion = new LightningExplosion(world, shootingEntity, this.posX, this.posY, this.posZ, ((EntityDragonBase) this.shootingEntity).getDragonStage() * 2.5F, flag);
+					ShivaxiLightningExplosion explosion = new ShivaxiLightningExplosion(world, shootingEntity, this.posX, this.posY, this.posZ, ((EntityDragonBase) this.shootingEntity).getDragonStage() * 2.5F, flag);
 					explosion.doExplosionA();
 					explosion.doExplosionB(true);
 				}
@@ -129,14 +128,11 @@ public class EntityShivaxiDragonLightning extends EntityDragonProjectile {
 					this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
 				}
 				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonLightning, 3);
-				if(movingObject.entityHit instanceof EntityLivingBase){
+				if (movingObject.entityHit instanceof EntityLivingBase) {
 					if (IceAndFireConfig.DRAGON_SETTINGS.lightningDragonKnockback && this.shootingEntity != null) {
 						double xRatio = this.shootingEntity.posX - movingObject.entityHit.posX;
 						double zRatio = this.shootingEntity.posZ - movingObject.entityHit.posZ;
 						((EntityLivingBase) movingObject.entityHit).knockBack(this.shootingEntity, 0.3F, xRatio, zRatio);
-					}
-					if (IceAndFireConfig.DRAGON_SETTINGS.lightningDragonParalysis) {
-						LycanitesCompat.applyParalysis(movingObject.entityHit, IceAndFireConfig.DRAGON_SETTINGS.lightningDragonParalysisTicks);
 					}
 					IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)movingObject.entityHit);
 					if (capability != null) {
