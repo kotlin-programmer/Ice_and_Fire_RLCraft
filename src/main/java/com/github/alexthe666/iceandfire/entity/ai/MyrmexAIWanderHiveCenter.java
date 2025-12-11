@@ -20,7 +20,7 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if(!this.myrmex.canMove() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigator().noPath() || this.myrmex.canSeeSky()){
+        if(!this.myrmex.canMove() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigator().noPath() || !this.myrmex.isInHive()){
             return false;
         }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 300);
@@ -30,7 +30,7 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
         if (village == null) {
             return false;
         } else {
-            target = getNearPos(MyrmexHive.getGroundedPos(this.myrmex.world, village.getCenter()));
+            target = MyrmexHive.getGroundedPos(this.myrmex.world, getNearPos(village.getCenter()));
 
             this.path = this.myrmex.getNavigator().getPathToPos(target);
             return this.path != null;
@@ -38,20 +38,14 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
     }
 
     public boolean shouldContinueExecuting() {
-        return !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(target) > 3 && this.myrmex.shouldEnterHive();
+        return !this.myrmex.getNavigator().noPath() && this.myrmex.shouldEnterHive();
     }
 
     public void startExecuting() {
         this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
     }
 
-    public void resetTask() {
-        target = BlockPos.ORIGIN;
-        this.myrmex.getNavigator().setPath(null, this.movementSpeed);
-
-    }
-
     public BlockPos getNearPos(BlockPos pos){
-        return pos.add(this.myrmex.getRNG().nextInt(15) - 7, 0, this.myrmex.getRNG().nextInt(15) - 7);
+        return pos.add(this.myrmex.getRNG().nextInt(11) - 5, 0, this.myrmex.getRNG().nextInt(11) - 5);
     }
 }

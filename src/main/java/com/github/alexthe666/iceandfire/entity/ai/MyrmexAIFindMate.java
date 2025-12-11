@@ -5,31 +5,22 @@ import com.github.alexthe666.iceandfire.entity.EntityMyrmexRoyal;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import com.google.common.base.Predicate;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends EntityAITarget {
+public class MyrmexAIFindMate extends EntityAITarget {
     protected final DragonAITargetItems.Sorter theNearestAttackableTargetSorter;
-    protected final Predicate<? super Entity> targetEntitySelector;
+    protected final Predicate<EntityMyrmexRoyal> targetEntitySelector;
     protected EntityMyrmexBase targetEntity;
     public EntityMyrmexRoyal myrmex;
 
     public MyrmexAIFindMate(EntityMyrmexRoyal myrmex) {
         super(myrmex, false, false);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(myrmex);
-        this.targetEntitySelector = new Predicate<Entity>() {
-            @Override
-            public boolean apply(@Nullable Entity myrmex) {
-                return myrmex != null && myrmex instanceof EntityMyrmexRoyal && ((EntityMyrmexRoyal) myrmex).getGrowthStage() >= 2;
-            }
-        };
+        this.targetEntitySelector =other -> other != myrmex && other.getGrowthStage() >= 2;
         this.myrmex = myrmex;
         this.setMutexBits(1);
     }
@@ -46,14 +37,14 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends EntityAITarget
         if (village != null) {
             return false;
         }
-        List<Entity> list = this.taskOwner.world.getEntitiesInAABBexcluding(myrmex, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
+        List<EntityMyrmexRoyal> list = this.taskOwner.world.getEntitiesWithinAABB(EntityMyrmexRoyal.class, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
         if (list.isEmpty()) {
             return false;
         } else {
-            Collections.sort(list, this.theNearestAttackableTargetSorter);
-            for(Entity royal : list){
-                if(this.myrmex.canMateWith((EntityMyrmexRoyal)royal)){
-                    this.myrmex.mate = (EntityMyrmexRoyal)royal;
+            list.sort(this.theNearestAttackableTargetSorter);
+            for(EntityMyrmexRoyal royal : list){
+                if(this.myrmex.canMateWith(royal)){
+                    this.myrmex.mate = royal;
                     this.myrmex.world.setEntityState(this.myrmex, (byte) 76);
                     return true;
                 }
@@ -69,19 +60,5 @@ public class MyrmexAIFindMate<T extends EntityMyrmexBase> extends EntityAITarget
     @Override
     public boolean shouldContinueExecuting() {
         return false;
-    }
-
-    public static class Sorter implements Comparator<Entity> {
-        private final Entity theEntity;
-
-        public Sorter(EntityMyrmexBase theEntityIn) {
-            this.theEntity = theEntityIn;
-        }
-
-        public int compare(Entity p_compare_1_, Entity p_compare_2_) {
-            double d0 = this.theEntity.getDistanceSq(p_compare_1_);
-            double d1 = this.theEntity.getDistanceSq(p_compare_2_);
-            return d0 < d1 ? -1 : (d0 > d1 ? 1 : 0);
-        }
     }
 }

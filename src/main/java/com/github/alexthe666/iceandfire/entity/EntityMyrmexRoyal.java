@@ -72,7 +72,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(FLYING, Boolean.valueOf(false));
+        this.dataManager.register(FLYING, false);
     }
 
     private void switchNavigator(boolean onLand) {
@@ -89,7 +89,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
 
     public boolean isFlying() {
         if (world.isRemote) {
-            return this.isFlying = this.dataManager.get(FLYING).booleanValue();
+            return this.isFlying = this.dataManager.get(FLYING);
         }
         return isFlying;
     }
@@ -203,12 +203,10 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.tasks.addTask(1, new AIFlyRandom());
         this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(3, new MyrmexAILeaveHive(this, 1.0D));
-        this.tasks.addTask(3, new MyrmexAIReEnterHive(this, 1.0D));
-        this.tasks.addTask(4, new MyrmexAIMoveThroughHive(this, 1.0D));
+        this.tasks.addTask(4, new MyrmexAISitIdle(this));
         this.tasks.addTask(4, new MyrmexAIWanderHiveCenter(this, 1.0D));
         this.tasks.addTask(5, new MyrmexAIWander(this, 1D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
         this.targetTasks.addTask(2, new MyrmexAIFindMate<>(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
@@ -242,10 +240,6 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexRoyal : IafVillagerRegistry.INSTANCE.desertMyrmexRoyal;
     }
 
-    public boolean shouldMoveThroughHive() {
-        return false;
-    }
-
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
@@ -269,12 +263,17 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         return 2;
     }
 
+    @Override
+    public boolean needsGaurding() {
+        return !this.isFlying;
+    }
+
     public boolean shouldLeaveHive() {
         return isBreedingSeason();
     }
 
     public boolean shouldEnterHive() {
-        return !isBreedingSeason();
+        return true; //only used in WanderHiveCenter
     }
 
     @Override
@@ -282,8 +281,8 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         if (this.getGrowthStage() < 2) {
             return false;
         }
-        if (this.getAnimation() != this.ANIMATION_STING && this.getAnimation() != this.ANIMATION_BITE) {
-            this.setAnimation(this.getRNG().nextBoolean() ? this.ANIMATION_STING : this.ANIMATION_BITE);
+        if (this.getAnimation() != ANIMATION_STING && this.getAnimation() != ANIMATION_BITE) {
+            this.setAnimation(this.getRNG().nextBoolean() ? ANIMATION_STING : ANIMATION_BITE);
             return true;
         }
         return false;

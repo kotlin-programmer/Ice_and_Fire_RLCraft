@@ -5,13 +5,11 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.BlockPos;
 
 public class MyrmexAIStoreBabies extends EntityAIBase {
     private final EntityMyrmexWorker myrmex;
     private final double movementSpeed;
-    private Path path;
     private BlockPos nextRoom = BlockPos.ORIGIN;
 
     public MyrmexAIStoreBabies(EntityMyrmexWorker entityIn, double movementSpeedIn) {
@@ -21,42 +19,31 @@ public class MyrmexAIStoreBabies extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if (!this.myrmex.canMove() || !this.myrmex.holdingBaby() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigator().noPath() || this.myrmex.canSeeSky()) {
+        if (!this.myrmex.canMove() || !this.myrmex.holdingBaby() || !this.myrmex.isInHive()) {
             return false;
         }
         MyrmexHive village = this.myrmex.getHive();
         if (village == null) {
             return false;
         } else {
-            nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRNG(), this.myrmex.getPosition())).up();
+            nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRNG(), this.myrmex.getPosition()).add(this.myrmex.getRNG().nextInt(11)-5, 1, this.myrmex.getRNG().nextInt(11)-5));
+            this.myrmex.getNavigator().tryMoveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
             return true;
         }
     }
 
     public boolean shouldContinueExecuting() {
-        return this.myrmex.holdingBaby() && !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextRoom) > 3 && this.myrmex.shouldEnterHive();
-    }
-
-    public void startExecuting() {
+        return this.myrmex.holdingBaby() && !this.myrmex.getNavigator().noPath();
     }
 
     @Override
     public void updateTask() {
-        this.myrmex.getNavigator().tryMoveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
-        if (nextRoom != null && this.myrmex.getDistanceSq(nextRoom) < 4 && this.myrmex.holdingBaby()) {
-            if(!this.myrmex.getPassengers().isEmpty()){
-                for(Entity entity : this.myrmex.getPassengers()){
-                    entity.dismountRidingEntity();
-                    resetTask();
-                    entity.copyLocationAndAnglesFrom(this.myrmex);
-                }
+        if (this.myrmex.getDistanceSq(nextRoom) < 4 && !this.myrmex.getPassengers().isEmpty()){
+            for(Entity entity : this.myrmex.getPassengers()){
+                entity.dismountRidingEntity();
+                this.myrmex.getNavigator().clearPath();
+                entity.copyLocationAndAnglesFrom(this.myrmex);
             }
         }
     }
-
-    public void resetTask() {
-        nextRoom = BlockPos.ORIGIN;
-        this.myrmex.getNavigator().setPath(null, this.movementSpeed);
-    }
-
 }

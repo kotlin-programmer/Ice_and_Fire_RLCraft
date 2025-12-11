@@ -104,11 +104,11 @@ public class MyrmexHive {
     }
 
     public static BlockPos getGroundedPos(World world, BlockPos pos) {
-        BlockPos current = pos;
-        while(world.isAirBlock(current.down()) && current.getY() > 0){
-            current = current.down();
+        BlockPos.MutableBlockPos current = new BlockPos.MutableBlockPos(pos);
+        while(world.isAirBlock(current) && current.getY() > 0){
+            current.move(EnumFacing.DOWN, 1);
         }
-        return current;
+        return current.toImmutable();
     }
 
     public int getVillageRadius() {
@@ -520,11 +520,35 @@ public class MyrmexHive {
 
     public BlockPos getRandomRoom(Random random, BlockPos returnPos){
         List<BlockPos> rooms = getAllRooms();
-        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(Math.max(rooms.size() - 1, 1)));
+        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(rooms.size()));
     }
     public BlockPos getRandomRoom(WorldGenMyrmexHive.RoomType roomType, Random random, BlockPos returnPos){
         List<BlockPos> rooms = getRooms(roomType);
-        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(Math.max(rooms.size() - 1, 1)));
+        return rooms.isEmpty() ? returnPos : rooms.get(random.nextInt(rooms.size()));
+    }
+
+    public BlockPos getNextRoom(BlockPos startPos){
+        List<BlockPos> rooms = new ArrayList<>(getAllRooms());
+        if(rooms.isEmpty()) return startPos;
+        if(rooms.size() == 1) return rooms.get(0);
+        rooms.sort(Comparator.comparingDouble(room -> room.distanceSq(startPos)));
+        if(rooms.get(0).distanceSq(startPos) > 64) return rooms.get(0);
+        return rooms.get(1); //already in a room. next room is second closest
+    }
+    public BlockPos getNearestRoom(WorldGenMyrmexHive.RoomType roomType, BlockPos currPos){
+        List<BlockPos> rooms = getRooms(roomType);
+        if(rooms.isEmpty()) return currPos;
+
+        double minDistSq = Double.MAX_VALUE;
+        BlockPos nearestRoom = rooms.get(0);
+        for(BlockPos pos : rooms){
+            double currDistSq = pos.distanceSq(currPos);
+            if(currDistSq < minDistSq){
+                nearestRoom = pos;
+                minDistSq = currDistSq;
+            }
+        }
+        return nearestRoom;
     }
 
     public BlockPos getClosestEntranceToEntity(Entity entity, Random random, boolean randomize){

@@ -5,14 +5,13 @@ import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.EnumHand;
+import net.minecraft.pathfinding.PathPoint;
 import net.minecraft.util.math.BlockPos;
 
 public class MyrmexAILeaveHive extends EntityAIBase {
     private final EntityMyrmexBase myrmex;
     private final double movementSpeed;
-    private Path path;
-    private BlockPos nextEntrance = BlockPos.ORIGIN;
+    private int delay = 0;
 
     public MyrmexAILeaveHive(EntityMyrmexBase entityIn, double movementSpeedIn) {
         this.myrmex = entityIn;
@@ -21,42 +20,39 @@ public class MyrmexAILeaveHive extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if(this.myrmex instanceof EntityMyrmexQueen){
-            return false;
-        }
-        if(this.myrmex.isChild()){
-            return false;
-        }
-
-        if(this.myrmex instanceof EntityMyrmexSentinel){
-        }
-        if(!this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || this.myrmex.canSeeSky() || this.myrmex instanceof EntityMyrmexWorker && (((EntityMyrmexWorker)this.myrmex).holdingBaby() || !this.myrmex.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) || this.myrmex.isEnteringHive){
+        if(delay > 0) delay--;
+        if(delay > 0 || !this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || !this.myrmex.isOnResin() || !this.myrmex.getNavigator().noPath() || this.myrmex.isEnteringHive) {
             return false;
         }
         MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 1000);
         if (village == null) {
             return false;
         } else {
-            nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), true));
-            this.path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
-            return this.path != null;
+            BlockPos nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), true));
+            Path path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
+            if(path == null || distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {
+                //fallback 1: path to bottom of entrance
+                nextEntrance = village.getClosestEntranceBottomToEntity(this.myrmex, this.myrmex.getRNG());
+                path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
+            }
+            if(path != null && !distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {
+                this.myrmex.getNavigator().setPath(path, this.movementSpeed);
+                this.myrmex.isEnteringHive = false;
+                return true;
+            } else {
+                delay = 50; //allow the myrmex to do other tasks, maybe it will find the way later
+                return false;
+            }
         }
+    }
+
+    private static boolean distanceToTargetTooBig(PathPoint endPoint, BlockPos targetPos){
+        double distXZ = Math.sqrt(new BlockPos(endPoint.x, targetPos.getY(), endPoint.z).distanceSq(targetPos));
+        double distY = Math.abs(targetPos.getY() - endPoint.y);
+        return distXZ > 3 || distY > 15;
     }
 
     public boolean shouldContinueExecuting() {
-
-        if(this.myrmex.getDistanceSq(nextEntrance) <= 3 || this.myrmex.shouldEnterHive()){
-            return false;
-        }
-        return !this.myrmex.getNavigator().noPath() && this.myrmex.getDistanceSq(nextEntrance) > 3 && this.myrmex.shouldLeaveHive();
-    }
-
-    public void startExecuting() {
-        this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
-    }
-
-    public void resetTask() {
-        nextEntrance = BlockPos.ORIGIN;
-        this.myrmex.getNavigator().setPath(null, this.movementSpeed);
+        return !this.myrmex.getNavigator().noPath();
     }
 }
