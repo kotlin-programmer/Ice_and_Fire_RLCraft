@@ -27,12 +27,12 @@ import java.util.*;
 public class MyrmexHive {
     private World world;
     private final List<VillageDoorInfo> villageDoorInfoList = Lists.<VillageDoorInfo>newArrayList();
-    private final List<BlockPos> foodRooms = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> babyRooms = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> miscRooms = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> allRooms = Lists.<BlockPos>newArrayList();
-    private final Map<BlockPos, EnumFacing> entrances = Maps.<BlockPos, EnumFacing>newHashMap();
-    private final Map<BlockPos, EnumFacing> entranceBottoms = Maps.<BlockPos, EnumFacing>newHashMap();
+    private final List<BlockPos> foodRooms = Lists.newArrayList();
+    private final List<BlockPos> babyRooms = Lists.newArrayList();
+    private final List<BlockPos> miscRooms = Lists.newArrayList();
+    private final List<BlockPos> allRooms = Lists.newArrayList();
+    private final Map<BlockPos, EnumFacing> entrances = Maps.newHashMap();
+    private final Map<BlockPos, EnumFacing> entranceBottoms = Maps.newHashMap();
     private BlockPos centerHelper = BlockPos.ORIGIN;
     private BlockPos center = BlockPos.ORIGIN;
     private int villageRadius;

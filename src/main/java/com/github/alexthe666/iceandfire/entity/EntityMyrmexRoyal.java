@@ -208,7 +208,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.tasks.addTask(5, new MyrmexAIWander(this, 1D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIFindMate<>(this));
+        this.targetTasks.addTask(2, new MyrmexAIFindMate(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {

@@ -21,16 +21,16 @@ public class MyrmexAIMoveThroughHive extends EntityAIBase {
         if(!this.myrmex.canMove() || !this.myrmex.getNavigator().noPath() || this.myrmex.canSeeSky()){
             return false;
         }
-        MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 300);
-        if (village == null) {
-            village = this.myrmex.getHive();
+        MyrmexHive hive = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 300);
+        if (hive == null) {
+            hive = this.myrmex.getHive();
         }
-        if (village == null) {
+        if (hive == null) {
             return false;
         } else {
             BlockPos nextRoom = this.myrmex.getRNG().nextInt(2) == 0 ?
-                    MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(this.myrmex.getRNG(), this.myrmex.getPosition())) :
-                    MyrmexHive.getGroundedPos(this.myrmex.world, village.getNextRoom(this.myrmex.getPosition()));
+                    MyrmexHive.getGroundedPos(this.myrmex.world, hive.getRandomRoom(this.myrmex.getRNG(), this.myrmex.getPosition())) :
+                    MyrmexHive.getGroundedPos(this.myrmex.world, hive.getNextRoom(this.myrmex.getPosition()));
             Path path = this.myrmex.getNavigator().getPathToPos(nextRoom);
             this.myrmex.getNavigator().setPath(path, this.movementSpeed);
             return path != null;
