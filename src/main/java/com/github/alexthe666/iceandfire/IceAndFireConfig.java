@@ -726,6 +726,10 @@ public class IceAndFireConfig {
 		@Config.Name("Dread Queen Max Health")
 		public int dreadQueenMaxHealth = 750;
 
+		@Config.Comment("If true, dread targeting will require checking sight")
+		@Config.Name("Dread Targeting Check Sight")
+		public boolean dreadTargetingCheckSight = true;
+
 		@Config.Comment("Entities in this list will be blacklisted from being targeted by dread mobs")
 		@Config.Name("Dread Targeting Entity Blacklist")
 		public String[] dreadTargetingEntityBlacklist = {""};
