@@ -62,7 +62,7 @@ public class EntityBlackFrostDragon extends EntityIceDragon implements IDreadMob
 		this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
 		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
-		this.targetTasks.addTask(4, new DreadAITargetNonDread(this, EntityLivingBase.class, false, new Predicate<Entity>() {
+		this.targetTasks.addTask(4, new DreadAITargetNonDread(this, EntityLivingBase.class, new Predicate<Entity>() {
 			@Override
 			public boolean apply(@Nullable Entity entity) {
 				return entity instanceof EntityLivingBase && DragonUtils.canHostilesTarget(entity);
