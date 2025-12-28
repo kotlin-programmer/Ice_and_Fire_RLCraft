@@ -108,29 +108,26 @@ public class StructureGenerator implements IWorldGenerator {
 					if (lastMausoleum == null || lastMausoleum.distanceSq(height) >= spawnCheck) {
 						BlockPos surface = world.getHeight(new BlockPos(x, 0, z));
 						surface = degradeSurface(world, surface);
-						new WorldGenMausoleum(EnumFacing.byHorizontalIndex(random.nextInt(3))).generate(world, random, surface);
-						lastMausoleum = surface;
+						if (new WorldGenMausoleum(EnumFacing.byHorizontalIndex(random.nextInt(3))).generate(world, random, surface)) {
+							lastMausoleum = surface;
+						}
 					}
 				}
 			}
 
 			if (IceAndFireConfig.WORLDGEN.generateSirenIslands && random.nextInt(IceAndFireConfig.WORLDGEN.generateSirenChance) == 0 && types.contains(Type.OCEAN) && !isCold && (lastSirenIsland == null || lastSirenIsland.distanceSq(height) >= spawnCheck)) {
-				SIREN_ISLAND.generate(world, random, height);
-				lastSirenIsland = height;
+				if (SIREN_ISLAND.generate(world, random, height)) {
+					lastSirenIsland = height;
+				}
 			}
 
 			if (IceAndFireConfig.WORLDGEN.generateCyclopsCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateCyclopsChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isOpaqueCube() && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
-				CYCLOPS_CAVE.generate(world, random, height);
-				lastCyclopsCave = height;
+				if (CYCLOPS_CAVE.generate(world, random, height)) {
+					lastCyclopsCave = height;
+				}
 			}
 			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) && !isSnowy && !isCold && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
-				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance + 1) == 0 && !world.getBlockState(height).getMaterial().isLiquid()) {
-					EntityCyclops cyclops = new EntityCyclops(world);
-					cyclops.setPosition(x, height.getY() + 1, z);
-					cyclops.setVariant(random.nextInt(3));
-					if (!world.isRemote) {
-						world.spawnEntity(cyclops);
-					}
+				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance) == 0 && !world.getBlockState(height).getMaterial().isLiquid()) {
 					for (int i = 0; i < 3 + random.nextInt(3); i++) {
 						EntitySheep sheep = new EntitySheep(world);
 						sheep.setPosition(x, height.getY() + 1, z);
@@ -139,18 +136,25 @@ public class StructureGenerator implements IWorldGenerator {
 							world.spawnEntity(sheep);
 						}
 					}
-					lastCyclopsCave = height;
+					EntityCyclops cyclops = new EntityCyclops(world);
+					cyclops.setPosition(x, height.getY() + 1, z);
+					cyclops.setVariant(random.nextInt(3));
+					if (!world.isRemote && world.spawnEntity(cyclops)) {
+						lastCyclopsCave = height;
+					}
 				}
 			}
 
 			if (IceAndFireConfig.WORLDGEN.generatePixieVillages && random.nextInt(IceAndFireConfig.WORLDGEN.generatePixieChance) == 0 && types.contains(Type.FOREST) && (types.contains(Type.SPOOKY) || types.contains(Type.MAGICAL)) && (lastPixieVillage == null || lastPixieVillage.distanceSq(height) >= spawnCheck)) {
-				PIXIE_VILLAGE.generate(world, random, height);
-				lastPixieVillage = height;
+				if (PIXIE_VILLAGE.generate(world, random, height)) {
+					lastPixieVillage = height;
+				}
 			}
 
 			if (IceAndFireConfig.WORLDGEN.generateHydraCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateHydrasChance) == 0 && types.contains(Type.SWAMP) && world.getBlockState(height.down()).isOpaqueCube() && (lastHydraCave == null || lastHydraCave.distanceSq(height) >= spawnCheck)) {
-				HYDRA_CAVE.generate(world, random, height);
-				lastHydraCave = height;
+				if (HYDRA_CAVE.generate(world, random, height)) {
+					lastHydraCave = height;
+				}
 			}
 
 			if ((IceAndFireConfig.WORLDGEN.generateDragonRoosts || IceAndFireConfig.WORLDGEN.generateDragonDens) && isDragonGenAllowedInDim(world.provider.getDimension()) && isDragonGenAllowedInBiome(types, biomeName) && (lastDragonRoost == null || lastDragonRoost.distanceSq(height) >= spawnCheck)) {
@@ -246,15 +250,17 @@ public class StructureGenerator implements IWorldGenerator {
 			if (IceAndFireConfig.WORLDGEN.generateMyrmexColonies && isMyrmexGenAllowedInBiome(types, biomeName) && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null && (lastMyrmexHive == null || lastMyrmexHive.distanceSq(height) >= spawnCheck)) {
 				BlockPos lowestHeight = new BlockPos(height.getX(), world.getChunksLowestHorizon(height.getX(), height.getZ()), height.getZ());
 				int down = Math.max(15, lowestHeight.getY() - 20 + random.nextInt(10));
-				if (types.contains(Type.JUNGLE)) JUNGLE_MYRMEX_HIVE.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()));
-				else DESERT_MYRMEX_HIVE.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()));
-				lastMyrmexHive = height;
+				WorldGenMyrmexHive myrmexHive = types.contains(Type.JUNGLE) ? JUNGLE_MYRMEX_HIVE : DESERT_MYRMEX_HIVE;
+				if (myrmexHive.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()))) {
+					lastMyrmexHive = height;
+				}
 			}
 		}
 
 		if (IceAndFireConfig.WORLDGEN.generateSnowVillages && isVillageGenAllowedInDim(world.provider.getDimension()) && isCold && isSnowy && (lastSnowVillage == null || lastSnowVillage.distanceSq(height) >= spawnCheck)) {
-			SNOW_VILLAGE.generate(world, random, height);
-			lastSnowVillage = height;
+			if (SNOW_VILLAGE.generate(world, random, height)) {
+				lastSnowVillage = height;
+			}
 		}
 
 		if (IceAndFireConfig.ENTITY_SPAWNING.spawnHippocampus && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.hippocampusSpawnChance) == 0 && types.contains(Type.OCEAN)) {

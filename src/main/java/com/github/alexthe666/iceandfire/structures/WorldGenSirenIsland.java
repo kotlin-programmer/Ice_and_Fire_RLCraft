@@ -43,7 +43,7 @@ public class WorldGenSirenIsland extends WorldGenerator {
                 }
             }
         }
-        return false;
+        return layer > 1;
     }
 
     private int getRadius(int layer, int up){
