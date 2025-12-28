@@ -44,7 +44,7 @@ public class WorldGenMyrmexHive extends WorldGenerator {
         BlockPos undergroundPos = new BlockPos(position.getX(), position.getY(), position.getZ());
         entrances = 0;
         generateHive(worldIn, rand, undergroundPos);
-        return false;
+        return true;
     }
 
     public void generateForQueen(EntityMyrmexQueen queen, Random rand, BlockPos position) {
