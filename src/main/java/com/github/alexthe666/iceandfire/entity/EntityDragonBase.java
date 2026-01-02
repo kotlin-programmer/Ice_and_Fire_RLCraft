@@ -1001,7 +1001,11 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     stack.shrink(1);
                 }
                 this.setDeathStage(this.getDeathStage() + 1);
-                player.inventory.addItemStackToInventory(new ItemStack(getBlood(), 1));
+
+                ItemStack bloodStack = new ItemStack(getBlood(), 1);
+                if (!player.inventory.addItemStackToInventory(bloodStack)) {
+                    player.dropItem(bloodStack, false);
+                }
                 return true;
             } else if (!world.isRemote && stack.isEmpty() && IceAndFireConfig.DRAGON_SETTINGS.dragonDropSkull) {
                 if (this.getDeathStage() == lastDeathStage - 1) {
