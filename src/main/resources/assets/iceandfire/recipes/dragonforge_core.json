@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "DDD",
+    "DHD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "iceandfire:dread_stone"
+    },
+    "H": {
+      "type": "forge:ore_dict",
+      "ore": "heartDragon"
+    }
+  },
+  "result": {
+    "item": "iceandfire:dragonforge_core",
+    "data": 0
+  }
+}

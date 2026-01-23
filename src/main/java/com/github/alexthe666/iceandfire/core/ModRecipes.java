@@ -127,6 +127,9 @@ public class ModRecipes {
         for (EnumSeaSerpent serpent : EnumSeaSerpent.values()) {
             OreDictionary.registerOre("seaSerpentScales", serpent.scale);
         }
+        OreDictionary.registerOre("heartDragon", IafItemRegistry.fire_dragon_heart);
+        OreDictionary.registerOre("heartDragon", IafItemRegistry.ice_dragon_heart);
+        OreDictionary.registerOre("heartDragon", IafItemRegistry.lightning_dragon_heart);
         OreDictionary.registerOre("listAllEgg", new ItemStack(IafItemRegistry.hippogryph_egg, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("objectEgg", new ItemStack(IafItemRegistry.hippogryph_egg, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("bakingEgg", new ItemStack(IafItemRegistry.hippogryph_egg, 1, OreDictionary.WILDCARD_VALUE));
