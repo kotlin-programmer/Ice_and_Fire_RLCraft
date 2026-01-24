@@ -22,9 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BlockBreakExplosion extends Explosion {
 
@@ -54,13 +52,15 @@ public class BlockBreakExplosion extends Explosion {
     @Override
     public void doExplosionA() {
         BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
+        HashMap<BlockPos, Float> resistanceMap = new HashMap<>();
+        Set<BlockPos> affectedSet = new HashSet<>();
         for (int j = 0; j < 16; ++j) {
             for (int k = 0; k < 16; ++k) {
                 for (int l = 0; l < 16; ++l) {
                     if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
-                        double d0 = j / 15.0F * 2.0F - 1.0F;
-                        double d1 = k / 3.0F * 2.0F - 1.0F;
-                        double d2 = l / 15.0F * 2.0F - 1.0F;
+                        double d0 = (float)j / 15.0F * 2.0F - 1.0F;
+                        double d1 = (float)k / 3.0F * 2.0F - 1.0F;
+                        double d2 = (float)l / 15.0F * 2.0F - 1.0F;
                         double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
                         d0 = d0 / d3;
                         d1 = d1 / d3;
@@ -73,15 +73,31 @@ public class BlockBreakExplosion extends Explosion {
                         for (; f > 0.0F; f -= 0.22500001F) {
                             mutPos = mutPos.setPos(d4, d6, d8);
                             
-                            IBlockState iblockstate = this.worldObj.getBlockState(mutPos);
-                            Block block = iblockstate.getBlock();
-                            if (block != Blocks.AIR) {
-                                float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, mutPos, iblockstate) : block.getExplosionResistance(worldObj, mutPos, null, this);
-                                f -= (f2 + 0.3F) * 0.3F;
+                            BlockPos immutPos = null;
+                            IBlockState iblockstate = null;
+                            Float resistance = resistanceMap.get(mutPos);
+                            if(resistance == null) {
+                                iblockstate = this.worldObj.getBlockState(mutPos);
+                                Block block = iblockstate.getBlock();
+                                if (block != Blocks.AIR) {
+                                    float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, mutPos, iblockstate) : block.getExplosionResistance(worldObj, mutPos, null, this);
+                                    resistance = (f2 + 0.3F) * 0.3F;
+                                }
+                                else resistance = 0.0F;
+                                immutPos = mutPos.toImmutable();
+                                resistanceMap.put(immutPos, resistance);
                             }
+                            f -= resistance;
 
-                            if (f > 0.0F && (this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.worldObj, mutPos, iblockstate, f)) && block.canEntityDestroy(iblockstate, this.worldObj, mutPos, this.exploder)) {
-                                this.affectedBlockPositions.add(mutPos.toImmutable());
+                            if (f <= 0.0F) break;
+                            
+                            if (!affectedSet.contains(mutPos)) {
+                                if (iblockstate == null) iblockstate = this.worldObj.getBlockState(mutPos);
+                                Block block = iblockstate.getBlock();
+                                if ((this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.worldObj, mutPos, iblockstate, f)) && block.canEntityDestroy(iblockstate, this.worldObj, mutPos, this.exploder)) {
+                                    if (immutPos == null) immutPos = mutPos.toImmutable();
+                                    affectedSet.add(immutPos);
+                                }
                             }
 
                             d4 += d0 * 0.30000001192092896D;
@@ -92,6 +108,7 @@ public class BlockBreakExplosion extends Explosion {
                 }
             }
         }
+        this.affectedBlockPositions.addAll(affectedSet);
 
         float f3 = this.explosionSize * 2.0F;
         int k1 = MathHelper.floor(this.explosionX - f3 - 1.0D);
