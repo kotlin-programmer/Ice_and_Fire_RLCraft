@@ -56,23 +56,17 @@ public class DragonUtils {
 
 	public static int getMaximumFlightHeightForPos(World world, BlockPos pos) {
 		int allowableHeightFromGround = IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight - world.getSeaLevel();
-		BlockPos groundPos = world.getHeight(pos);
-		return Math.max(IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight, groundPos.getY() + allowableHeightFromGround);
+		int minimumChunkHeight = getMinimumChunkHeightForPos(world, pos);
+		return Math.max(IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight, minimumChunkHeight + allowableHeightFromGround);
 	}
 
-	public static BlockPos getBlockInViewEscort(EntityDragonBase dragon) {
-		BlockPos escortPos = dragon.getEscortPosition();
-		BlockPos ground = dragon.world.getHeight(escortPos);
-		int distFromGround = escortPos.getY() - ground.getY();
-		for (int i = 0; i < 10; i++) {
-			BlockPos pos = new BlockPos(escortPos.getX() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance / 2,
-					(distFromGround > 16 ? escortPos.getY() : escortPos.getY() + 8 + dragon.getRNG().nextInt(16)),
-					(escortPos.getZ() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance / 2));
-			if (!dragon.isTargetBlocked(new Vec3d(pos)) && dragon.getDistanceSqToCenter(pos) > 6) {
-				return pos;
+	private static int getMinimumChunkHeightForPos(World world, BlockPos pos) {
+		if (pos.getX() >= -30000000 && pos.getZ() >= -30000000 && pos.getX() < 30000000 && pos.getZ() < 30000000) {
+			if (world.isBlockLoaded(pos)) {
+				return world.getChunk(pos).getLowestHeight();
 			}
 		}
-		return null;
+		return world.getSeaLevel();
 	}
 
 	public static BlockPos getBlockInView(EntityDragonBase dragon) {
