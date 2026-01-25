@@ -1024,7 +1024,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 return false;
             }
             if (EntityAmphithere.this.isFlying()) {
-                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.rand);
+                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.rand);
                 EntityAmphithere.this.orbitPos = null;
                 return (!EntityAmphithere.this.getMoveHelper().isUpdating() || EntityAmphithere.this.ticksStill >= 50);
             } else {
@@ -1052,7 +1052,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
 
         public void updateTask() {
             if (!isDirectPathBetweenPoints(EntityAmphithere.this)) {
-                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.rand);
+                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.rand);
             }
             if (world.isAirBlock(target)) {
                 getMoveHelper().setMoveTo((double) target.getX() + 0.5D, (double) target.getY() + 0.5D, (double) target.getZ() + 0.5D, 0.25D);
@@ -1075,7 +1075,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 return false;
             }
             if (EntityAmphithere.this.isFlying()) {
-                EntityAmphithere.this.orbitPos = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.rand);
+                EntityAmphithere.this.orbitPos = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.rand);
                 target = EntityAmphithere.getPositionInOrbit(EntityAmphithere.this, EntityAmphithere.this.orbitPos);
                 return true;
             } else {

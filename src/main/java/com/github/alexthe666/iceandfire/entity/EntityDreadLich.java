@@ -237,8 +237,8 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             this.setAnimation(ANIMATION_SUMMON);
             this.playSound(IafSoundRegistry.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
             EntityLiving minion = getRandomNewMinion();
-            int x = (int) (this.posX) - 5 + rand.nextInt(10);
-            int z = (int) (this.posZ) - 5 + rand.nextInt(10);
+            int x = (int) (this.posX) + rand.nextInt(11) - 5;
+            int z = (int) (this.posZ) + rand.nextInt(11) - 5;
             double y = getHeightFromXZ(x, z);
             minion.setLocationAndAngles(x + 0.5D, y, z + 0.5D, this.rotationYaw, this.rotationPitch);
             minion.setAttackTarget(target);

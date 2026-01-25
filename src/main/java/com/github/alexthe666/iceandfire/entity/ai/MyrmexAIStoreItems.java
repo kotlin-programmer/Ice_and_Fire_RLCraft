@@ -113,7 +113,7 @@ public class MyrmexAIStoreItems extends EntityAIBase {
         if (closeCocoons.isEmpty()) {
             return null;
         }
-        return closeCocoons.get(myrmex.getRNG().nextInt(Math.max(closeCocoons.size() - 1, 1)));
+        return closeCocoons.get(myrmex.getRNG().nextInt(closeCocoons.size()));
     }
 
     public boolean isUseableCocoon(BlockPos blockpos) {

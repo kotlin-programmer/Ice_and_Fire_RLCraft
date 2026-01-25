@@ -668,7 +668,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
 
     public void onWorldSpawn(Random random) {
         this.setVariant(random.nextInt(7));
-        boolean ancient = random.nextInt(15) == 1;
+        boolean ancient = random.nextInt(15) == 0;
         if (ancient) {
             this.setAncient(true);
             this.setSeaSerpentScale(6.0F + random.nextFloat() * 3.0F);
@@ -1046,7 +1046,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
                 return pos.up(3 * (int) Math.ceil(EntitySeaSerpent.this.getSeaSerpentScale()));
             }
             for (int i = 0; i < 5; i++) {
-                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.rand);
+                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.rand);
                 if (EntitySeaSerpent.isWaterBlock(world, pos) && EntitySeaSerpent.this.isDirectPathBetweenPoints(pos) || EntitySeaSerpent.this.swimBehavior == SwimBehavior.JUMP) {
                     return pos;
                 }
@@ -1105,7 +1105,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
 
         protected BlockPos generateTarget() {
             for (int i = 0; i < 5; i++) {
-                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.rand);
+                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.rand);
                 if (EntitySeaSerpent.isWaterBlock(world, pos) && EntitySeaSerpent.this.isDirectPathBetweenPoints(pos)) {
                     return pos;
                 }

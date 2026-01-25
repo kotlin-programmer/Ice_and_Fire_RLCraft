@@ -69,7 +69,7 @@ public class WorldGenAnimalFarm extends WorldGenerator {
 					case 3: animal = new EntityPig(worldIn); break;
 				}
 				if(animal == null) break;
-				animal.setPositionAndRotation(position.getX() + 0.5F + (-3 + rand.nextInt(6)), position.getY() + 1.5F, position.getZ() + 0.5F + (-3 + rand.nextInt(6)), rand.nextFloat() * 360, 0);
+				animal.setPositionAndRotation(position.getX() + 0.5F + (rand.nextInt(7) - 3), position.getY() + 1.5F, position.getZ() + 0.5F + (-3 + rand.nextInt(6)), rand.nextFloat() * 360, 0);
 				worldIn.spawnEntity(animal);
 			}
 		}

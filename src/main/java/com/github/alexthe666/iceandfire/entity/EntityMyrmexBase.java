@@ -111,7 +111,7 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
                 if (this.needsInitilization) {
                     for (MerchantRecipe merchantrecipe : this.buyingList) {
                         if (merchantrecipe.isRecipeDisabled()) {
-                            merchantrecipe.increaseMaxTradeUses(this.rand.nextInt(6) + this.rand.nextInt(6) + 2);
+                            merchantrecipe.increaseMaxTradeUses(this.rand.nextInt(11) + 2);
                         }
                     }
 

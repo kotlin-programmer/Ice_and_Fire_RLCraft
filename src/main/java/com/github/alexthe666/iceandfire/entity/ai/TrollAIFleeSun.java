@@ -63,7 +63,7 @@ public class TrollAIFleeSun extends EntityAIBase {
         BlockPos blockpos = new BlockPos(this.troll.posX, this.troll.getEntityBoundingBox().minY, this.troll.posZ);
 
         for (int i = 0; i < 10; ++i) {
-            BlockPos blockpos1 = blockpos.add(random.nextInt(20) - 10, random.nextInt(6) - 3, random.nextInt(20) - 10);
+            BlockPos blockpos1 = blockpos.add(random.nextInt(21) - 10, random.nextInt(7) - 3, random.nextInt(21) - 10);
 
             if (!this.world.canSeeSky(blockpos1) && this.troll.getBlockPathWeight(blockpos1) < 0.0F) {
                 return new Vec3d((double) blockpos1.getX(), (double) blockpos1.getY(), (double) blockpos1.getZ());

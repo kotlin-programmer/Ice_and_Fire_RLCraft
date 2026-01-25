@@ -38,11 +38,11 @@ public enum EnumHippogryphTypes {
 	}
 
 	public static EnumHippogryphTypes getRandomType() {
-		return getWildTypes()[new Random().nextInt(getWildTypes().length - 1)];
+		return getWildTypes()[new Random().nextInt(getWildTypes().length)];
 	}
 
 	public static EnumHippogryphTypes getBiomeType(Biome biome) {
-		List<EnumHippogryphTypes> types = new ArrayList<EnumHippogryphTypes>();
+		List<EnumHippogryphTypes> types = new ArrayList<>();
 		for (EnumHippogryphTypes type : getWildTypes()) {
 			for(BiomeDictionary.Type biomeTypes : type.spawnBiomes) {
 				if(BiomeDictionary.hasType(biome, biomeTypes)){

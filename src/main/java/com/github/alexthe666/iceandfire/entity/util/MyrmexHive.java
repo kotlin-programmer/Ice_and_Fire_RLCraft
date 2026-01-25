@@ -532,7 +532,7 @@ public class MyrmexHive {
         if(closest != null) {
             if (randomize) {
                 BlockPos pos = closest.getKey().offset(closest.getValue(), random.nextInt(7) + 7).up(4);
-                return pos.add(10 - random.nextInt(20), 0, 10 - random.nextInt(20));
+                return pos.add(random.nextInt(21) - 10, 0, random.nextInt(21) - 10);
             } else {
                 return closest.getKey().offset(closest.getValue(), 3);
             }

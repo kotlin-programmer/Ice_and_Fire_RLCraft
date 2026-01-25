@@ -227,7 +227,7 @@ public class StructureGenerator implements IWorldGenerator {
 			}
 
 			if (IceAndFireConfig.ENTITY_SPAWNING.spawnSeaSerpents && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.seaSerpentSpawnChance) == 0 && types.contains(Type.OCEAN)) {
-				BlockPos pos = new BlockPos(x + random.nextInt(10) - 5, 20 + random.nextInt(40), z + random.nextInt(10) - 5);
+				BlockPos pos = new BlockPos(x + random.nextInt(11) - 5, 20 + random.nextInt(40), z + random.nextInt(11) - 5);
 				if (world.getBlockState(pos).getMaterial() == Material.WATER) {
 					EntitySeaSerpent serpent = new EntitySeaSerpent(world);
 					serpent.onWorldSpawn(random);
@@ -238,7 +238,7 @@ public class StructureGenerator implements IWorldGenerator {
 
 			if (IceAndFireConfig.ENTITY_SPAWNING.spawnStymphalianBirds && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.stymphalianBirdSpawnChance) == 0 && types.contains(Type.SWAMP)) {
 				for (int i = 0; i < 4 + random.nextInt(4); i++) {
-					BlockPos pos = height.add(random.nextInt(10) - 5, 0, random.nextInt(10) - 5);
+					BlockPos pos = height.add(random.nextInt(11) - 5, 0, random.nextInt(11) - 5);
 					if (world.getBlockState(pos.down()).isOpaqueCube()) {
 						EntityStymphalianBird bird = new EntityStymphalianBird(world);
 						bird.setLocationAndAngles(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);
@@ -249,7 +249,7 @@ public class StructureGenerator implements IWorldGenerator {
 
 			if (IceAndFireConfig.WORLDGEN.generateMyrmexColonies && isMyrmexGenAllowedInBiome(types, biomeName) && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null && (lastMyrmexHive == null || lastMyrmexHive.distanceSq(height) >= spawnCheck)) {
 				BlockPos lowestHeight = new BlockPos(height.getX(), world.getChunksLowestHorizon(height.getX(), height.getZ()), height.getZ());
-				int down = Math.max(15, lowestHeight.getY() - 20 + random.nextInt(10));
+				int down = Math.max(15, lowestHeight.getY() + random.nextInt(10) - 20);
 				WorldGenMyrmexHive myrmexHive = types.contains(Type.JUNGLE) ? JUNGLE_MYRMEX_HIVE : DESERT_MYRMEX_HIVE;
 				if (myrmexHive.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()))) {
 					lastMyrmexHive = height;
@@ -265,7 +265,7 @@ public class StructureGenerator implements IWorldGenerator {
 
 		if (IceAndFireConfig.ENTITY_SPAWNING.spawnHippocampus && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.hippocampusSpawnChance) == 0 && types.contains(Type.OCEAN)) {
 			for (int i = 0; i < random.nextInt(5); i++) {
-				BlockPos pos = new BlockPos(x + random.nextInt(10) - 5, 20 + random.nextInt(40), z + random.nextInt(10) - 5);
+				BlockPos pos = new BlockPos(x + random.nextInt(11) - 5, 20 + random.nextInt(40), z + random.nextInt(11) - 5);
 				if (world.getBlockState(pos).getMaterial() == Material.WATER) {
 					EntityHippocampus campus = new EntityHippocampus(world);
 					campus.setVariant(random.nextInt(5));
