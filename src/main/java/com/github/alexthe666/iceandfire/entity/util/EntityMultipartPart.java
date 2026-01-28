@@ -6,11 +6,14 @@ import net.ilexiconn.llibrary.server.entity.multipart.PartEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IEntityMultiPart;
+import net.minecraft.entity.MultiPartEntityPart;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 
-public class EntityMultipartPart extends PartEntity {
+public class EntityMultipartPart extends PartEntity implements IEntityMultiPart {
 
     public EntityMultipartPart(EntityLiving parent, float radius, float angleYaw, float offsetY, float sizeX, float sizeY, float damageMultiplier) {
         super(parent, radius, angleYaw, offsetY, sizeX, sizeY, damageMultiplier);
@@ -55,5 +58,15 @@ public class EntityMultipartPart extends PartEntity {
             return super.isEntityEqual(entityIn);
         }
         return parent.isEntityEqual(entityIn);
+    }
+
+    @Override
+    public World getWorld() {
+        return this.world;
+    }
+
+    @Override
+    public boolean attackEntityFromPart(MultiPartEntityPart part, DamageSource source, float damage) {
+        return attackEntityFrom(source, damage);
     }
 }
