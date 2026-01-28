@@ -597,6 +597,11 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int dragonHungerTickRate = 3000;
 
+		@Config.Comment("How fast Dragons fly")
+		@Config.Name("Dragon Flight Speed Multiplier")
+		@Config.RangeDouble(min = 0.5D, max = 3.0D)
+		public double dragonFlightSpeedMultiplier = 1.0D;
+
 		@Config.Comment("If true, lightning dragon projectile attacks knockback their target")
 		@Config.Name("Lightning Dragon Knockback")
 		public boolean lightningDragonKnockback = true;
@@ -840,6 +845,11 @@ public class IceAndFireConfig {
 		@Config.Name("Amphithere Attack Strength")
 		@Config.RangeDouble(min = 1, max = 10000)
 		public double amphithereAttackStrength = 7D;
+
+		@Config.Comment("How fast Hippogryphs fly")
+		@Config.Name("Hippogryph Flight Speed Multiplier")
+		@Config.RangeDouble(min = 0.5D, max = 3.0D)
+		public double hippogryphFlightSpeedMultiplier = 1.00D;
 
 		@Config.Comment("If true, Sea Serpents can break weak blocks in their way")
 		@Config.Name("Sea Serpent Griefing")

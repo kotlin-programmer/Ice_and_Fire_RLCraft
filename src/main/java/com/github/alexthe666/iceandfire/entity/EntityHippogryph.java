@@ -760,12 +760,16 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 						motionZ *= 1.06;
 					}
 					jumpMovementFactor = 0.05F;
-					this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : 2);
+					this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : (float) getFlySpeed());
 					super.travel(strafe, vertical = 0, forward);
 					return;
 				}
 			}
 		super.travel(strafe, forward, vertical);
+	}
+
+	private double getFlySpeed() {
+		return 2 * IceAndFireConfig.ENTITY_SETTINGS.hippogryphFlightSpeedMultiplier;
 	}
 
 	@Override
@@ -1066,9 +1070,9 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			double targetX = airTarget.getX() + 0.5D - posX;
 			double targetY = Math.min(airTarget.getY(), DragonUtils.getMaximumFlightHeightForPos(world, new BlockPos(this))) + 1D - posY;
 			double targetZ = airTarget.getZ() + 0.5D - posZ;
-			motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 2;
-			motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 2;
-			motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * 2;
+			motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * getFlySpeed();
+			motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * getFlySpeed();
+			motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * getFlySpeed();
 			float angle = (float) (Math.atan2(motionZ, motionX) * 180.0D / Math.PI) - 90.0F;
 			float rotation = MathHelper.wrapDegrees(angle - rotationYaw);
 			moveForward = 0.5F;

@@ -2185,7 +2185,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     private double getFlySpeed() {
-        return (2 + ((double) this.getAgeInDays() / 125) * 2) * (this.isTackling() ? 2 : 1);
+        double baseSpeed = 2 + ((double) this.getAgeInDays() / 125) * 2;
+        double tackleMultiplier = this.isTackling() ? 2 : 1;
+        return baseSpeed * tackleMultiplier * IceAndFireConfig.DRAGON_SETTINGS.dragonFlightSpeedMultiplier;
     }
 
     private boolean isTackling() {
