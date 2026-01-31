@@ -11,6 +11,7 @@ import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockMyrmexResin;
 import com.github.alexthe666.iceandfire.item.block.ItemBlockPodium;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
+import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
 import com.github.alexthe666.iceandfire.world.BiomeGlacier;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -255,7 +256,7 @@ public class CommonProxy {
         for (EnumSkullType skull : EnumSkullType.values()) {
             event.getRegistry().register(skull.skull_item);
         }
-        ModRecipes.preInit();
+        IafRecipeRegistry.preInit();
         IafDragonForgeRecipeRegistry.preInit();
     }
 
@@ -273,7 +274,7 @@ public class CommonProxy {
 
     @SubscribeEvent
     public static void handleOreRegistration(OreDictionary.OreRegisterEvent event) {
-        ModRecipes.handleOreRegistration(event.getName(), event.getOre());
+        IafRecipeRegistry.handleOreRegistration(event.getName(), event.getOre());
     }
 
     public void preRender() {

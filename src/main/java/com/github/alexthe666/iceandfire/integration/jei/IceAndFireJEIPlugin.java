@@ -5,7 +5,7 @@ import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.core.ModRecipes;
+import com.github.alexthe666.iceandfire.recipe.IafRecipeRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import mezz.jei.api.IModPlugin;
@@ -57,7 +57,7 @@ public class IceAndFireJEIPlugin implements IModPlugin {
         for (EnumSkullType skull : EnumSkullType.values()) {
             addDescription(registry, new ItemStack(skull.skull_item));
         }
-        for (ItemStack stack : ModRecipes.BANNER_ITEMS) {
+        for (ItemStack stack : IafRecipeRegistry.BANNER_ITEMS) {
             registry.addIngredientInfo(stack, ItemStack.class, "item.iceandfire.custom_banner.jei_desc");
         }
     }

@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.core;
+package com.github.alexthe666.iceandfire.recipe;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
@@ -10,8 +10,8 @@ import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
+import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
-import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IPosition;
@@ -31,8 +31,12 @@ import net.minecraftforge.oredict.OreDictionary;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModRecipes {
+public class IafRecipeRegistry {
     public static List<ItemStack> BANNER_ITEMS = new ArrayList<>();
+
+    public static List<DragonForgeRecipe> FIRE_FORGE_RECIPES = IafDragonForgeRecipeRegistry.FIRE_FORGE_RECIPES;
+    public static List<DragonForgeRecipe> ICE_FORGE_RECIPES = IafDragonForgeRecipeRegistry.ICE_FORGE_RECIPES;
+    public static List<DragonForgeRecipe> LIGHTNING_FORGE_RECIPES = IafDragonForgeRecipeRegistry.LIGHTNING_FORGE_RECIPES;
 
     public static void preInit() {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(IafItemRegistry.stymphalian_arrow, new BehaviorProjectileDispense() {
@@ -272,5 +276,27 @@ public class ModRecipes {
         } else if ("nuggetBronze".equals(name)) {
             GameRegistry.addSmelting(IafItemRegistry.stymphalian_bird_feather, stack, 1);
         }
+    }
+
+    public static DragonForgeRecipe getFireForgeRecipe(ItemStack stack) {
+        return IafDragonForgeRecipeRegistry.getForgeRecipe(EnumDragonType.FIRE, stack);
+    }
+
+    public static DragonForgeRecipe getIceForgeRecipe(ItemStack stack) {
+        return IafDragonForgeRecipeRegistry.getForgeRecipe(EnumDragonType.ICE, stack);
+    }
+    public static DragonForgeRecipe getLightningForgeRecipe(ItemStack stack) {
+        return IafDragonForgeRecipeRegistry.getForgeRecipe(EnumDragonType.LIGHTNING, stack);
+    }
+
+    public static DragonForgeRecipe getFireForgeRecipeForBlood(ItemStack stack) {
+        return IafDragonForgeRecipeRegistry.getForgeRecipeForBlood(EnumDragonType.FIRE, stack);
+    }
+
+    public static DragonForgeRecipe getIceForgeRecipeForBlood(ItemStack stack) {
+        return IafDragonForgeRecipeRegistry.getForgeRecipeForBlood(EnumDragonType.ICE, stack);
+    }
+    public static DragonForgeRecipe getLightningForgeRecipeForBlood(ItemStack stack) {
+        return IafDragonForgeRecipeRegistry.getForgeRecipeForBlood(EnumDragonType.LIGHTNING, stack);
     }
 }

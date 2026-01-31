@@ -10,6 +10,10 @@ public class DragonForgeRecipe {
     protected ItemStack output;
     boolean persistMetadata;
 
+    public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output) {
+        this(input, blood, output, false);
+    }
+
     public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output, boolean persistMetadata) {
         this.input = input;
         this.blood = blood;
