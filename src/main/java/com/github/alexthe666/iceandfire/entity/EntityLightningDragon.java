@@ -7,6 +7,7 @@ import com.github.alexthe666.iceandfire.entity.explosion.LightningExplosion;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightning;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightningCharge;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -106,26 +107,26 @@ public class EntityLightningDragon extends EntityDragonBase {
 	public Item getVariantScale(int variant) {
 		switch (variant) {
 			default:
-				return IafItemRegistry.dragonscales_electric;
+				return EnumDragonEgg.ELECTRIC.scales;
 			case 1:
-				return IafItemRegistry.dragonscales_amethyst;
+				return EnumDragonEgg.AMETHYST.scales;
 			case 2:
-				return IafItemRegistry.dragonscales_copper;
+				return EnumDragonEgg.COPPER.scales;
 			case 3:
-				return IafItemRegistry.dragonscales_black;
+				return EnumDragonEgg.BLACK.scales;
 		}
 	}
 
 	public Item getVariantEgg(int variant) {
 		switch (variant) {
 			default:
-				return IafItemRegistry.dragonegg_electric;
+				return EnumDragonEgg.ELECTRIC.egg;
 			case 1:
-				return IafItemRegistry.dragonegg_amethyst;
+				return EnumDragonEgg.AMETHYST.egg;
 			case 2:
-				return IafItemRegistry.dragonegg_copper;
+				return EnumDragonEgg.COPPER.egg;
 			case 3:
-				return IafItemRegistry.dragonegg_black;
+				return EnumDragonEgg.BLACK.egg;
 		}
 	}
 

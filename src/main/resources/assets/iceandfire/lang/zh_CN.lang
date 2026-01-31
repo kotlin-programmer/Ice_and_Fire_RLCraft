@@ -83,6 +83,9 @@ tile.iceandfire.charedRubyOre.name=焦红宝石矿石
 tile.iceandfire.crackledAmethystOre.name=霆霹紫水晶矿石
 tile.iceandfire.frozenSapphireOre.name=霜冻蓝宝石矿石
 
+tile.iceandfire.dragonscales_pile.name=龙鳞堆
+tile.iceandfire.sea_serpent_scales_pile.name=海蟒鳞片堆
+
 tile.iceandfire.dread_stone.name=悚石
 tile.iceandfire.dread_stone_bricks.name=悚石砖
 tile.iceandfire.dread_stone_bricks_chiseled.name=錾制悚悚石

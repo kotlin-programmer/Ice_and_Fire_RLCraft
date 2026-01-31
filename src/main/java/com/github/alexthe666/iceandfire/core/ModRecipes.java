@@ -6,6 +6,7 @@ import com.github.alexthe666.iceandfire.entity.projectile.EntityAmphithereArrow;
 import com.github.alexthe666.iceandfire.entity.projectile.*;
 import com.github.alexthe666.iceandfire.enums.EnumBloodedDragonArmor;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
+import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.enums.EnumSkullType;
@@ -124,6 +125,10 @@ public class ModRecipes {
         OreDictionary.registerOre("foodMeat", Items.COOKED_RABBIT);
         OreDictionary.registerOre("boneWithered", IafItemRegistry.witherbone);
         OreDictionary.registerOre("boneDragon", IafItemRegistry.dragonbone);
+        for (EnumDragonEgg egg : EnumDragonEgg.values()) {
+            OreDictionary.registerOre("dragonEgg", egg.egg);
+            OreDictionary.registerOre("dragonScales", egg.scales);
+        }
         for (EnumSeaSerpent serpent : EnumSeaSerpent.values()) {
             OreDictionary.registerOre("seaSerpentScales", serpent.scale);
         }
@@ -228,10 +233,10 @@ public class ModRecipes {
         IafItemRegistry.iceBoneTools.setRepairItem(new ItemStack(IafItemRegistry.dragonbone));
         IafItemRegistry.lightningBoneTools.setRepairItem(new ItemStack(IafItemRegistry.dragonbone));
         for (EnumDragonArmor armor : EnumDragonArmor.values()) {
-            armor.armorMaterial.setRepairItem(new ItemStack(EnumDragonArmor.getScaleItem(armor)));
+            armor.armorMaterial.setRepairItem(new ItemStack(armor.eggType.scales));
         }
         for (EnumBloodedDragonArmor armor : EnumBloodedDragonArmor.values()) {
-            armor.armorMaterial.setRepairItem(new ItemStack(EnumBloodedDragonArmor.getScaleItem(armor)));
+            armor.armorMaterial.setRepairItem(new ItemStack(armor.eggType.scales));
         }
         for (EnumSeaSerpent serpent : EnumSeaSerpent.values()) {
             serpent.armorMaterial.setRepairItem(new ItemStack(serpent.scale));

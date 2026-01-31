@@ -91,6 +91,9 @@ tile.iceandfire.dragon_bone_block.name=Bloc d'os de dragon
 tile.iceandfire.dragon_bone_wall.name=Muret d'os de dragon
 tile.iceandfire.ghost_chest.name=Coffre maudit
 
+tile.iceandfire.dragonscales_pile.name=Pile d'écailles de dragon
+tile.iceandfire.sea_serpent_scales_pile.name=Pile d'écailles de serpent de mer
+
 tile.iceandfire.dread_stone.name=Rocheffroie
 tile.iceandfire.dread_stone_bricks.name=Briqueffroie
 tile.iceandfire.dread_stone_bricks_chiseled.name=Briqueffroie carrelée

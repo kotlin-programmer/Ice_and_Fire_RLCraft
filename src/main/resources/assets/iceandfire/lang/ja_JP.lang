@@ -91,6 +91,9 @@ tile.iceandfire.ancient_dragon_bone_wall.name=古代ドラゴンの骨の壁
 tile.iceandfire.dragon_bone_block.name=ドラゴンの骨ブロック
 tile.iceandfire.dragon_bone_wall.name=ドラゴンの骨の壁
 
+tile.iceandfire.dragonscales_pile.name=堆積したドラゴンの鱗
+tile.iceandfire.sea_serpent_scales_pile.name=堆積したシーサーペントの鱗
+
 tile.iceandfire.dread_stone.name=ドレッドストーン
 tile.iceandfire.dread_stone_bricks.name=ドレッドストーンレンガ
 tile.iceandfire.dread_stone_bricks_chiseled.name=彫刻されたドレッドストーンレンガ
@@ -968,4 +971,4 @@ item.iceandfire.ice_dragon_flesh.addedtooltip.1=食べると「鈍足Ⅲ」に�
 item.iceandfire.blindfold.addedtooltip.1=ゴルゴンに対抗する最強の防御策！
 item.iceandfire.earplugs.addedtooltip.1=人魚から身を守る最強の防御策！
 item.iceandfire.ambrosia.addedtooltip.1=これは神々の食べ物と言われている。
-item.iceandfire.ambrosia.addedtooltip.2=攻撃上昇Ⅲ、幸運Ⅲ、衝撃吸収Ⅲ、跳躍力上昇Ⅲを付与する。
+

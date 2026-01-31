@@ -91,6 +91,9 @@ tile.iceandfire.dragon_bone_block.name=Block of Dragon Bones
 tile.iceandfire.dragon_bone_wall.name=Dragon Bone Wall
 tile.iceandfire.ghost_chest.name=Cursed Chest
 
+tile.iceandfire.dragonscales_pile.name=Pile of Dragon Scales
+tile.iceandfire.sea_serpent_scales_pile.name=Pile of Sea Serpent Scales
+
 tile.iceandfire.dread_stone.name=Dreadstone
 tile.iceandfire.dread_stone_bricks.name=Dreadstone Bricks
 tile.iceandfire.dread_stone_bricks_chiseled.name=Chiseled Dreadstone Bricks

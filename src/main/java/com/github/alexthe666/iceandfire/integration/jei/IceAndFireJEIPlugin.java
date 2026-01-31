@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.integration.jei;
 
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -41,29 +42,18 @@ public class IceAndFireJEIPlugin implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core_lightning), LIGHTNING_DRAGON_FORGE_ID);
         registry.addRecipeCatalyst(new ItemStack(IafBlockRegistry.dragonforge_core), LIGHTNING_DRAGON_FORGE_ID);
 
-
         addDescription(registry, new ItemStack(IafItemRegistry.fire_dragon_blood));
         addDescription(registry, new ItemStack(IafItemRegistry.ice_dragon_blood));
         addDescription(registry, new ItemStack(IafItemRegistry.lightning_dragon_blood));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_red));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_bronze));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_gray));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_green));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_blue));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_white));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_sapphire));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_silver));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_amethyst));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_copper));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_electric));
-        addDescription(registry, new ItemStack(IafItemRegistry.dragonegg_black));
         addDescription(registry, new ItemStack(IafItemRegistry.dragon_skull));
         addDescription(registry, new ItemStack(IafItemRegistry.dragon_skull, 1, 1));
         addDescription(registry, new ItemStack(IafItemRegistry.dragon_skull, 1, 2));
         addDescription(registry, new ItemStack(IafItemRegistry.fire_stew));
         addDescription(registry, new ItemStack(IafItemRegistry.frost_stew));
         addDescription(registry, new ItemStack(IafItemRegistry.lightning_stew));
-
+        for (EnumDragonEgg egg : EnumDragonEgg.values()) {
+            addDescription(registry, new ItemStack(egg.egg));
+        }
         for (EnumSkullType skull : EnumSkullType.values()) {
             addDescription(registry, new ItemStack(skull.skull_item));
         }

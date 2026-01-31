@@ -92,6 +92,9 @@ tile.iceandfire.dragon_bone_block.name=Bloque de huesos de dragon
 tile.iceandfire.dragon_bone_wall.name=Pared de huesos de dragon
 tile.iceandfire.ghost_chest.name=Cofre maldito
 
+tile.iceandfire.dragonscales_pile.name=Pila de escama de dragon
+tile.iceandfire.sea_serpent_scales_pile.name=Pila de escama de Serpiente marina
+
 tile.iceandfire.dread_stone.name=Piedra del horror
 tile.iceandfire.dread_stone_bricks.name=Ladrillos de piedra del horror
 tile.iceandfire.dread_stone_bricks_chiseled.name=Ladrillos de piedra del horror grabados

@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemBloodedArmor;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -78,35 +77,6 @@ public enum EnumBloodedDragonArmor {
 				EnumBloodedDragonArmor.values()[i].leggings.setRegistryName(IceAndFire.MODID, EnumBloodedDragonArmor.values()[i].name() + "_leggings_shocked");
 				EnumBloodedDragonArmor.values()[i].boots.setRegistryName(IceAndFire.MODID, EnumBloodedDragonArmor.values()[i].name() + "_boots_shocked");
 			}
-		}
-	}
-
-	public static Item getScaleItem(EnumBloodedDragonArmor armor) {
-		switch (armor) {
-			case armor_bronze:
-				return IafItemRegistry.dragonscales_bronze;
-			case armor_green:
-				return IafItemRegistry.dragonscales_green;
-			case armor_gray:
-				return IafItemRegistry.dragonscales_gray;
-			case armor_blue:
-				return IafItemRegistry.dragonscales_blue;
-			case armor_white:
-				return IafItemRegistry.dragonscales_white;
-			case armor_sapphire:
-				return IafItemRegistry.dragonscales_sapphire;
-			case armor_silver:
-				return IafItemRegistry.dragonscales_silver;
-			case armor_electric:
-				return IafItemRegistry.dragonscales_electric;
-			case armor_amethyst:
-				return IafItemRegistry.dragonscales_amethyst;
-			case armor_copper:
-				return IafItemRegistry.dragonscales_copper;
-			case armor_black:
-				return IafItemRegistry.dragonscales_black;
-			default:
-				return IafItemRegistry.dragonscales_red;
 		}
 	}
 }

@@ -77,6 +77,12 @@ public class CommonProxy {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+        for (EnumDragonEgg egg : EnumDragonEgg.values()) {
+            event.getRegistry().register(egg.pile);
+        }
+        for (EnumSeaSerpent armor : EnumSeaSerpent.values()) {
+            event.getRegistry().register(armor.pile);
+        }
     }
 
     @SubscribeEvent
@@ -224,8 +230,14 @@ public class CommonProxy {
             event.getRegistry().register(armor.leggings);
             event.getRegistry().register(armor.boots);
         }
+        for (EnumDragonEgg egg : EnumDragonEgg.values()) {
+            event.getRegistry().register(egg.egg);
+            event.getRegistry().register(egg.scales);
+            event.getRegistry().register(egg.pile.getItemBlock());
+        }
         for (EnumSeaSerpent armor : EnumSeaSerpent.values()) {
             event.getRegistry().register(armor.scale);
+            event.getRegistry().register(armor.pile.getItemBlock());
             event.getRegistry().register(armor.helmet);
             event.getRegistry().register(armor.chestplate);
             event.getRegistry().register(armor.leggings);

@@ -3,7 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.explosion.IceExplosion;
-import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonFireCharge;
+import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
@@ -121,26 +121,26 @@ public class EntityIceDragon extends EntityDragonBase {
 	public Item getVariantScale(int variant) {
 		switch (variant) {
 			default:
-				return IafItemRegistry.dragonscales_blue;
+				return EnumDragonEgg.BLUE.scales;
 			case 1:
-				return IafItemRegistry.dragonscales_white;
+				return EnumDragonEgg.WHITE.scales;
 			case 2:
-				return IafItemRegistry.dragonscales_sapphire;
+				return EnumDragonEgg.SAPPHIRE.scales;
 			case 3:
-				return IafItemRegistry.dragonscales_silver;
+				return EnumDragonEgg.SILVER.scales;
 		}
 	}
 
 	public Item getVariantEgg(int variant) {
 		switch (variant) {
 			default:
-				return IafItemRegistry.dragonegg_blue;
+				return EnumDragonEgg.BLUE.egg;
 			case 1:
-				return IafItemRegistry.dragonegg_white;
+				return EnumDragonEgg.WHITE.egg;
 			case 2:
-				return IafItemRegistry.dragonegg_sapphire;
+				return EnumDragonEgg.SAPPHIRE.egg;
 			case 3:
-				return IafItemRegistry.dragonegg_silver;
+				return EnumDragonEgg.SILVER.egg;
 		}
 	}
 

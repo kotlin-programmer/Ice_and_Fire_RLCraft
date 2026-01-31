@@ -103,54 +103,6 @@ public class IafItemRegistry {
 	public static Item frost_stew = new ItemGeneric("frost_stew", "iceandfire.frost_stew");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lightning_stew")
 	public static Item lightning_stew = new ItemGeneric("lightning_stew", "iceandfire.lightning_stew");
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_red")
-	public static Item dragonegg_red = new ItemDragonEgg("dragonegg_red", EnumDragonEgg.RED);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_green")
-	public static Item dragonegg_green = new ItemDragonEgg("dragonegg_green", EnumDragonEgg.GREEN);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_bronze")
-	public static Item dragonegg_bronze = new ItemDragonEgg("dragonegg_bronze", EnumDragonEgg.BRONZE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_gray")
-	public static Item dragonegg_gray = new ItemDragonEgg("dragonegg_gray", EnumDragonEgg.GRAY);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_blue")
-	public static Item dragonegg_blue = new ItemDragonEgg("dragonegg_blue", EnumDragonEgg.BLUE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_white")
-	public static Item dragonegg_white = new ItemDragonEgg("dragonegg_white", EnumDragonEgg.WHITE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_sapphire")
-	public static Item dragonegg_sapphire = new ItemDragonEgg("dragonegg_sapphire", EnumDragonEgg.SAPPHIRE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_silver")
-	public static Item dragonegg_silver = new ItemDragonEgg("dragonegg_silver", EnumDragonEgg.SILVER);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_electric")
-	public static Item dragonegg_electric = new ItemDragonEgg("dragonegg_electric", EnumDragonEgg.ELECTRIC);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_amethyst")
-	public static Item dragonegg_amethyst = new ItemDragonEgg("dragonegg_amethyst", EnumDragonEgg.AMETHYST);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_copper")
-	public static Item dragonegg_copper = new ItemDragonEgg("dragonegg_copper", EnumDragonEgg.COPPER);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonegg_black")
-	public static Item dragonegg_black = new ItemDragonEgg("dragonegg_black", EnumDragonEgg.BLACK);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_red")
-	public static Item dragonscales_red = new ItemDragonScales("dragonscales_red", EnumDragonEgg.RED);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_green")
-	public static Item dragonscales_green = new ItemDragonScales("dragonscales_green", EnumDragonEgg.GREEN);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_bronze")
-	public static Item dragonscales_bronze = new ItemDragonScales("dragonscales_bronze", EnumDragonEgg.BRONZE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_gray")
-	public static Item dragonscales_gray = new ItemDragonScales("dragonscales_gray", EnumDragonEgg.GRAY);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_blue")
-	public static Item dragonscales_blue = new ItemDragonScales("dragonscales_blue", EnumDragonEgg.BLUE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_white")
-	public static Item dragonscales_white = new ItemDragonScales("dragonscales_white", EnumDragonEgg.WHITE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_sapphire")
-	public static Item dragonscales_sapphire = new ItemDragonScales("dragonscales_sapphire", EnumDragonEgg.SAPPHIRE);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_silver")
-	public static Item dragonscales_silver = new ItemDragonScales("dragonscales_silver", EnumDragonEgg.SILVER);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_electric")
-	public static Item dragonscales_electric = new ItemDragonScales("dragonscales_electric", EnumDragonEgg.ELECTRIC);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_amethyst")
-	public static Item dragonscales_amethyst = new ItemDragonScales("dragonscales_amethyst", EnumDragonEgg.AMETHYST);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_copper")
-	public static Item dragonscales_copper = new ItemDragonScales("dragonscales_copper", EnumDragonEgg.COPPER);
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonscales_black")
-	public static Item dragonscales_black = new ItemDragonScales("dragonscales_black", EnumDragonEgg.BLACK);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonbone")
 	public static Item dragonbone = new ItemDragonBone();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":witherbone")
@@ -432,6 +384,7 @@ public class IafItemRegistry {
 	static {
 		EnumDragonArmor.initArmors();
 		EnumBloodedDragonArmor.initArmors();
+		EnumDragonEgg.initEggs();
 		EnumSeaSerpent.initArmors();
 		EnumSkullType.initItems();
 	}

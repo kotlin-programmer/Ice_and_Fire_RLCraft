@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.entity.util;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockDragonBone;
 import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
-import com.github.alexthe666.iceandfire.block.BlockDragonScales;
 import com.github.alexthe666.iceandfire.block.IDragonProof;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.integration.claimit.ClaimItCompatBridge;
@@ -281,9 +280,6 @@ public class DragonUtils {
 	}
 
 	public static boolean isDragonBlock(Block block) {
-		if (block instanceof BlockDragonScales) {
-			return true;
-		}
 		if (block instanceof BlockDragonBone) {
 			return true;
 		}

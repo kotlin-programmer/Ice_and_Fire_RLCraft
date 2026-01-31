@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
+import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.message.MessageDragonSyncFire;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
@@ -27,7 +28,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraftforge.common.MinecraftForge;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -105,26 +105,26 @@ public class EntityFireDragon extends EntityDragonBase {
     public Item getVariantScale(int variant) {
         switch (variant) {
             default:
-                return IafItemRegistry.dragonscales_red;
+                return EnumDragonEgg.RED.scales;
             case 1:
-                return IafItemRegistry.dragonscales_green;
+                return EnumDragonEgg.BLACK.scales;
             case 2:
-                return IafItemRegistry.dragonscales_bronze;
+                return EnumDragonEgg.BRONZE.scales;
             case 3:
-                return IafItemRegistry.dragonscales_gray;
+                return EnumDragonEgg.GRAY.scales;
         }
     }
 
     public Item getVariantEgg(int variant) {
         switch (variant) {
             default:
-                return IafItemRegistry.dragonegg_red;
+                return EnumDragonEgg.RED.egg;
             case 1:
-                return IafItemRegistry.dragonegg_green;
+                return EnumDragonEgg.GREEN.egg;
             case 2:
-                return IafItemRegistry.dragonegg_bronze;
+                return EnumDragonEgg.BRONZE.egg;
             case 3:
-                return IafItemRegistry.dragonegg_gray;
+                return EnumDragonEgg.GRAY.egg;
         }
     }
 

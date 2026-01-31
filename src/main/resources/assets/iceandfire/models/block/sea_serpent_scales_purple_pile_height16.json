@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "iceandfire:blocks/sea_serpent_scales_purple_pile"
+  }
+}

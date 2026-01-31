@@ -4,6 +4,7 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.client.StatCollector;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import com.github.alexthe666.iceandfire.enums.EnumDragonArmor;
@@ -376,7 +377,7 @@ public class GuiBestiary extends GuiScreen {
 				if (bookPages == 0) {
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);
-					drawItemStack(new ItemStack(IafItemRegistry.dragonscales_red), 18, 16, 2.5F);
+					drawItemStack(new ItemStack(EnumDragonEgg.RED.scales), 18, 16, 2.5F);
 					GL11.glPopMatrix();
 					GL11.glPushMatrix();
 					GL11.glScalef(1.5F, 1.5F, 1F);

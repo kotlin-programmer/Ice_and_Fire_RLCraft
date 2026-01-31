@@ -185,6 +185,9 @@ public class ClientProxy extends CommonProxy {
 		for (EnumSeaSerpent armor : EnumSeaSerpent.values()) {
 			renderSeaSerpentArmors(armor);
 		}
+		for (EnumDragonEgg egg : EnumDragonEgg.values()) {
+			renderDragonEggs(egg);
+		}
 		for(EnumTroll.Weapon weapon : EnumTroll.Weapon.values()){
 			ModelLoader.setCustomModelResourceLocation(weapon.item, 0, new ModelResourceLocation("iceandfire:troll_weapon", "inventory"));
 		}
@@ -300,10 +303,18 @@ public class ClientProxy extends CommonProxy {
 	@SideOnly(Side.CLIENT)
 	public static void renderSeaSerpentArmors(EnumSeaSerpent armor) {
 		ModelLoader.setCustomModelResourceLocation(armor.scale, 0, new ModelResourceLocation("iceandfire:sea_serpent_scales_" + armor.resourceName, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(armor.pile.getItemBlock(), 0, new ModelResourceLocation("iceandfire:sea_serpent_scales_" + armor.resourceName + "_pile", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(armor.helmet, 0, new ModelResourceLocation("iceandfire:tide_" + armor.resourceName + "_helmet", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(armor.chestplate, 0, new ModelResourceLocation("iceandfire:tide_" + armor.resourceName + "_chestplate", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(armor.leggings, 0, new ModelResourceLocation("iceandfire:tide_" + armor.resourceName + "_leggings", "inventory"));
 		ModelLoader.setCustomModelResourceLocation(armor.boots, 0, new ModelResourceLocation("iceandfire:tide_" + armor.resourceName + "_boots", "inventory"));
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static void renderDragonEggs(EnumDragonEgg egg) {
+		ModelLoader.setCustomModelResourceLocation(egg.egg, 0, new ModelResourceLocation("iceandfire:dragonegg_" + egg.resourceName, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(egg.scales, 0, new ModelResourceLocation("iceandfire:dragonscales_" + egg.resourceName, "inventory"));
+		ModelLoader.setCustomModelResourceLocation(egg.pile.getItemBlock(), 0, new ModelResourceLocation("iceandfire:dragonscales_" + egg.resourceName + "_pile", "inventory"));
 	}
 
 	@SideOnly(Side.CLIENT)

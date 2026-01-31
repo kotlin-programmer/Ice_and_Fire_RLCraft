@@ -86,7 +86,7 @@ public class BlockCoinPile extends Block {
         Block block = iblockstate.getBlock();
         return block != Blocks.ICE && block != Blocks.PACKED_ICE &&
                 (iblockstate.getBlock().isLeaves(iblockstate, worldIn, pos.down()) ||
-                        (block == this && iblockstate.getValue(LAYERS) >= 7) ||
+                        (getRegistryName().equals(block.getRegistryName()) && iblockstate.getValue(LAYERS) >= 7) ||
                         iblockstate.isOpaqueCube() && iblockstate.getMaterial().blocksMovement());
     }
 

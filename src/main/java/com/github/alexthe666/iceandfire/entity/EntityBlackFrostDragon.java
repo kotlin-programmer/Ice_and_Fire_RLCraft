@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.IDreadMob;
-import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
@@ -11,7 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.*;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -171,13 +170,33 @@ public class EntityBlackFrostDragon extends EntityIceDragon implements IDreadMob
 	}
 
 	@Override
+	protected ItemStack getSkull() {
+		return new ItemStack(Items.AIR);
+	}
+
+	@Override
+	public Item getBlood() {
+		return Items.GLASS_BOTTLE;
+	}
+
+	@Override
+	public Item getHeart() {
+		return Items.AIR;
+	}
+
+	@Override
+	public Item getFlesh() {
+		return Items.AIR;
+	}
+
+	@Override
 	public Item getVariantScale(int variant) {
-		return IafItemRegistry.dragonscales_white;
+		return Items.AIR;
 	}
 
 	@Override
 	public Item getVariantEgg(int variant) {
-		return IafItemRegistry.dragonegg_white;
+		return Items.AIR;
 	}
 
 	public boolean isBreedingItem(@Nullable ItemStack stack) {
