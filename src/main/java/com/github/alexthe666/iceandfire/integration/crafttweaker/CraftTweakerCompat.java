@@ -17,18 +17,48 @@ public class CraftTweakerCompat {
     }
 
     @ZenMethod
+    public static void addFireDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output) {
+        addFireDragonForgeRecipe(input, bloodInput, output, false);
+    }
+
+    @ZenMethod
     public static void addFireDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata) {
-        IafDragonForgeRecipeRegistry.FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata));
+        addFireDragonForgeRecipe(input, bloodInput, output, persistMetadata, false);
+    }
+
+    @ZenMethod
+    public static void addFireDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata, boolean isProjectile) {
+        IafDragonForgeRecipeRegistry.FIRE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata, isProjectile));
+    }
+
+    @ZenMethod
+    public static void addIceDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output) {
+        addIceDragonForgeRecipe(input, bloodInput, output, false);
     }
 
     @ZenMethod
     public static void addIceDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata) {
-        IafDragonForgeRecipeRegistry.ICE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata));
+        addIceDragonForgeRecipe(input, bloodInput, output, persistMetadata, false);
+    }
+
+    @ZenMethod
+    public static void addIceDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata, boolean isProjectile) {
+        IafDragonForgeRecipeRegistry.ICE_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata, isProjectile));
+    }
+
+    @ZenMethod
+    public static void addLightningDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output) {
+        addLightningDragonForgeRecipe(input, bloodInput, output, false);
     }
 
     @ZenMethod
     public static void addLightningDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata) {
-        IafDragonForgeRecipeRegistry.LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata));
+        addLightningDragonForgeRecipe(input, bloodInput, output, persistMetadata, false);
+    }
+
+    @ZenMethod
+    public static void addLightningDragonForgeRecipe(IItemStack input, IItemStack bloodInput, IItemStack output, boolean persistMetadata, boolean isProjectile) {
+        IafDragonForgeRecipeRegistry.LIGHTNING_FORGE_RECIPES.add(new DragonForgeRecipe(CraftTweakerMC.getItemStack(input), CraftTweakerMC.getItemStack(bloodInput), CraftTweakerMC.getItemStack(output), persistMetadata, isProjectile));
     }
 
     @ZenMethod

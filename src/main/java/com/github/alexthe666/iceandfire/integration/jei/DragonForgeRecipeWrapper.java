@@ -22,7 +22,12 @@ public class DragonForgeRecipeWrapper implements IRecipeWrapper {
         stacks.add(recipe.getInput());
         stacks.add(recipe.getBlood());
         ingredients.setInputs(ItemStack.class, stacks);
-        ingredients.setOutput(ItemStack.class, recipe.getOutput());
+
+        ItemStack output = recipe.getOutput();
+        if (recipe.isProjectile()) {
+            output.setCount(recipe.getInput().getCount());
+        }
+        ingredients.setOutput(ItemStack.class, output);
     }
 
     public DragonForgeRecipe getRecipe() {

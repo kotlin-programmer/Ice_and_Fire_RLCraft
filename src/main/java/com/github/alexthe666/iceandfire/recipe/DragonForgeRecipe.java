@@ -8,17 +8,24 @@ public class DragonForgeRecipe {
     protected ItemStack input;
     protected ItemStack blood;
     protected ItemStack output;
-    boolean persistMetadata;
+
+    protected boolean persistMetadata;
+    protected boolean isProjectile;
 
     public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output) {
         this(input, blood, output, false);
     }
 
     public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output, boolean persistMetadata) {
+        this(input, blood, output, persistMetadata, false);
+    }
+
+    public DragonForgeRecipe(ItemStack input, ItemStack blood, ItemStack output, boolean persistMetadata, boolean isProjectile) {
         this.input = input;
         this.blood = blood;
         this.output = output;
         this.persistMetadata = persistMetadata;
+        this.isProjectile = isProjectile;
     }
 
     public ItemStack getInput() {
@@ -33,6 +40,14 @@ public class DragonForgeRecipe {
         return output;
     }
 
+    public boolean shouldPersistMetadata() {
+        return persistMetadata;
+    }
+
+    public boolean isProjectile() {
+        return isProjectile;
+    }
+
     public boolean canSmelt(NonNullList<ItemStack> forge) {
         ItemStack input = forge.get(0);
         ItemStack blood = forge.get(1);
@@ -44,7 +59,7 @@ public class DragonForgeRecipe {
         if (input.isEmpty() || !input.isItemEqualIgnoreDurability(getInput())) {
             return false;
         }
-        if (input.getCount() < getInput().getCount()) {
+        if (!isProjectile() && input.getCount() < getInput().getCount()) {
             return false;
         }
         if (blood.isEmpty() || !blood.isItemEqual(getBlood())) {
@@ -59,8 +74,12 @@ public class DragonForgeRecipe {
         if (!output.isEmpty() && !output.isItemEqual(getOutput())) {
             return false;
         }
-        int calculatedOutputCount = output.getCount() + getOutput().getCount();
-        return calculatedOutputCount <= 64 && calculatedOutputCount <= output.getMaxStackSize();
+        if (output.isEmpty()) {
+            return true;
+        }
+        int quantityAvailable = output.getMaxStackSize() - output.getCount();
+        int quantityCreated = isProjectile() ? Math.min(input.getCount(), getInput().getCount()) : getOutput().getCount();
+        return quantityAvailable - quantityCreated >= 0;
     }
 
     public void smelt(NonNullList<ItemStack> forge) {
@@ -71,19 +90,22 @@ public class DragonForgeRecipe {
     }
 
     public void smelt(NonNullList<ItemStack> forge, ItemStack input, ItemStack blood, ItemStack output) {
+        int quantityCreated = isProjectile() ? Math.min(input.getCount(), getInput().getCount()) : getOutput().getCount();
+        int quantityConsumed = isProjectile() ? quantityCreated : getInput().getCount();
         if (output.isEmpty()) {
             ItemStack stack = getOutput().copy();
-            if (this.persistMetadata) {
+            if (this.shouldPersistMetadata()) {
                 stack.setStackDisplayName(input.getDisplayName());
                 stack.setItemDamage(input.getItemDamage());
                 stack.setRepairCost(input.getRepairCost());
                 stack.setTagCompound(input.getTagCompound());
             }
+            stack.setCount(quantityCreated);
             forge.set(2, stack);
         } else {
-            output.grow(getOutput().getCount());
+            output.grow(quantityCreated);
         }
-        input.shrink(getInput().getCount());
+        input.shrink(quantityConsumed);
         blood.shrink(getBlood().getCount());
     }
 }
