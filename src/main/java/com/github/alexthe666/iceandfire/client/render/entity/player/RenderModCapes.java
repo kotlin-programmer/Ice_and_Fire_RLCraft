@@ -41,7 +41,8 @@ public class RenderModCapes {
 	private static final UUID[] lightningCapes = new UUID[] {
 			User.Cdstk,
 			User.Fonnymunkey,
-			User.ShadicBypass
+			User.ShadicBypass,
+			User.Xvareon
 	};
 
 	private static Field playerInfoField;
@@ -179,6 +180,7 @@ public class RenderModCapes {
 		private static final UUID Rayquazafallout = UUID.fromString("369a3e3f-371c-4ce6-ba44-48c3eb91ce8b");
 		private static final UUID ShadicBypass = UUID.fromString("e1dd391f-0be1-4ade-8aeb-d651bb144958");
 		private static final UUID Shivaxi = UUID.fromString("cdfccefb-1a2e-4fb8-a3b5-041da27fde61");
+		private static final UUID Xvareon = UUID.fromString("41f279ac-ddbd-489f-a189-ef2a52a45d13");
 		private static final UUID Zeklo = UUID.fromString("59efccaf-902d-45da-928a-5a549b9fd5e0");
 		private static final UUID Zyranna = UUID.fromString("5d43896a-06a0-49fb-95c5-38485c63667f");
 	}

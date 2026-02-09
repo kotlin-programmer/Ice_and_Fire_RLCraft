@@ -20,6 +20,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.text.TextFormatting;
@@ -31,15 +32,14 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class ItemTideTrident extends Item {
+public class ItemTideTrident extends ItemSword {
 
     public ItemTideTrident() {
-        super();
+        super(IafItemRegistry.tideTrident);
         this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.tide_trident");
         this.setRegistryName(IceAndFire.MODID, "tide_trident");
         this.maxStackSize = 1;
-        this.setMaxDamage(400);
         this.addPropertyOverride(new ResourceLocation("empty"), (stack, worldIn, entityIn) -> isEmpty(stack) ? 1.0F : 0.0F);
     }
 
@@ -76,9 +76,6 @@ public class ItemTideTrident extends Item {
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
         if (!isOriginal(toRepair) || isEmpty(toRepair)) {
             return false;
-        }
-        if (!repair.isEmpty() && repair.getItem() == IafItemRegistry.sea_serpent_fang) {
-            return true;
         }
         return super.getIsRepairable(toRepair, repair);
     }

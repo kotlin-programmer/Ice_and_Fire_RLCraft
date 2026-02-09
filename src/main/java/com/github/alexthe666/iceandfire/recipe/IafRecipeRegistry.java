@@ -250,6 +250,7 @@ public class IafRecipeRegistry {
         IafItemRegistry.yellow_deathworm.setRepairItem(new ItemStack(IafItemRegistry.deathworm_chitin, 1, 0));
         IafItemRegistry.white_deathworm.setRepairItem(new ItemStack(IafItemRegistry.deathworm_chitin, 1, 1));
         IafItemRegistry.red_deathworm.setRepairItem(new ItemStack(IafItemRegistry.deathworm_chitin, 1, 2));
+        IafItemRegistry.tideTrident.setRepairItem(new ItemStack(IafItemRegistry.sea_serpent_fang));
         IafItemRegistry.trollWeapon.setRepairItem(new ItemStack(Blocks.STONE));
         IafItemRegistry.troll_mountain.setRepairItem(new ItemStack(IafItemRegistry.troll_leather_mountain));
         IafItemRegistry.troll_forest.setRepairItem(new ItemStack(IafItemRegistry.troll_leather_forest));

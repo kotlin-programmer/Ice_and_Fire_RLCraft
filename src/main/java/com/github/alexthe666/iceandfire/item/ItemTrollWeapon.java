@@ -36,10 +36,12 @@ public class ItemTrollWeapon extends ItemSword implements ICustomRendered {
         return multimap;
     }
 
+    @Override
     public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity){
         return player.getCooledAttackStrength(0) < 0.95 || player.swingProgress != 0;
     }
 
+    @Override
     public boolean onEntitySwing(EntityLivingBase entityLiving, ItemStack stack) {
         if(entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityLiving;
@@ -52,6 +54,7 @@ public class ItemTrollWeapon extends ItemSword implements ICustomRendered {
         return false;
     }
 
+    @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if(entityIn instanceof EntityPlayer&& isSelected){
             EntityPlayer player = (EntityPlayer)entityIn;
