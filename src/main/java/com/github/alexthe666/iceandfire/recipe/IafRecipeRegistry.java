@@ -133,6 +133,15 @@ public class IafRecipeRegistry {
             OreDictionary.registerOre("dragonEgg", egg.egg);
             OreDictionary.registerOre("dragonScales", egg.scales);
         }
+        for (EnumDragonEgg dragon : EnumDragonEgg.values()) {
+            if (dragon.dragonType == EnumDragonType.ICE) {
+                OreDictionary.registerOre("iceDragonScaleBlock", dragon.pile);
+            } else if (dragon.dragonType == EnumDragonType.LIGHTNING) {
+                OreDictionary.registerOre("lightningDragonScaleBlock", dragon.pile);
+            } else {
+                OreDictionary.registerOre("fireDragonScaleBlock", dragon.pile);
+            }
+        }
         for (EnumSeaSerpent serpent : EnumSeaSerpent.values()) {
             OreDictionary.registerOre("seaSerpentScales", serpent.scale);
         }
