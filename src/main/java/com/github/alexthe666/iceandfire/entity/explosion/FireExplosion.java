@@ -80,7 +80,7 @@ public class FireExplosion extends Explosion {
 				for (int l = 0; l < 16; ++l) {
 					if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
 						double d0 = (float)j / 15.0F * 2.0F - 1.0F;
-						double d1 = (float)k / 15.0F * 2.0F - 1.0F;
+						double d1 = (float)k / 3.0F * 2.0F - 1.0F;
 						double d2 = (float)l / 15.0F * 2.0F - 1.0F;
 						double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 						d0 = d0 / d3;
