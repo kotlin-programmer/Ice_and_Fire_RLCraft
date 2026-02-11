@@ -23,6 +23,7 @@ import com.github.alexthe666.iceandfire.world.village.MapGenSnowVillage;
 import com.github.alexthe666.iceandfire.world.village.VillageAnimalFarmCreator;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
@@ -51,6 +52,7 @@ import java.util.Random;
 
 @Mod(modid = IceAndFire.MODID, dependencies = "required-after:llibrary@[" + IceAndFire.LLIBRARY_VERSION + ",)", version = IceAndFire.VERSION, name = IceAndFire.NAME)
 public class IceAndFire {
+    EnchantmentHelper
 
     public static final String MODID = "iceandfire";
     public static final String VERSION = "2.2.3";

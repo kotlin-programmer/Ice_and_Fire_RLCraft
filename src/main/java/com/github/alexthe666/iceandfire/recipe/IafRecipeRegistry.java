@@ -148,6 +148,8 @@ public class IafRecipeRegistry {
         OreDictionary.registerOre("heartDragon", IafItemRegistry.fire_dragon_heart);
         OreDictionary.registerOre("heartDragon", IafItemRegistry.ice_dragon_heart);
         OreDictionary.registerOre("heartDragon", IafItemRegistry.lightning_dragon_heart);
+        OreDictionary.registerOre("desertMyrmexEgg", IafItemRegistry.myrmex_desert_egg);
+        OreDictionary.registerOre("jungleMyrmexEgg", IafItemRegistry.myrmex_jungle_egg);
         OreDictionary.registerOre("listAllEgg", new ItemStack(IafItemRegistry.hippogryph_egg, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("objectEgg", new ItemStack(IafItemRegistry.hippogryph_egg, 1, OreDictionary.WILDCARD_VALUE));
         OreDictionary.registerOre("bakingEgg", new ItemStack(IafItemRegistry.hippogryph_egg, 1, OreDictionary.WILDCARD_VALUE));
