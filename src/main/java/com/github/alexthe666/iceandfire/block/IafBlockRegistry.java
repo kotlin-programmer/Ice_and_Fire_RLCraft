@@ -180,10 +180,8 @@ public class IafBlockRegistry {
 	public static Block dread_spawner = new BlockDreadSpawner();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":monster_spawner")
 	public static Block monster_spawner = new BlockMonsterSpawner();
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_bricks")
-	public static Block dragonforge_bricks = new BlockDragonforgeBricks();
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_bricks_cracked")
-	public static Block dragonforge_bricks_cracked = new BlockDragonProofGeneric(Material.ROCK, "dragonforge_bricks_cracked", "iceandfire.dragonforge_bricks_cracked", 40.0F, 500F, SoundType.METAL);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_vent")
+	public static Block dragonforge_vent = new BlockDragonforgeVent();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_input")
 	public static Block dragonforge_input = new BlockDragonforgeInput();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragonforge_core_fire")
@@ -201,7 +199,7 @@ public class IafBlockRegistry {
 		GameRegistry.registerTileEntity(TileEntityMyrmexCocoon.class, new ResourceLocation(IceAndFire.MODID, "myrmexCocoon"));
 		GameRegistry.registerTileEntity(TileEntityDragonforge.class, new ResourceLocation(IceAndFire.MODID, "dragonforge"));
 		GameRegistry.registerTileEntity(TileEntityDragonforgeInput.class, new ResourceLocation(IceAndFire.MODID, "dragonforgeInput"));
-		GameRegistry.registerTileEntity(TileEntityDragonforgeBricks.class, new ResourceLocation(IceAndFire.MODID, "dragonforgeBrick"));
+		GameRegistry.registerTileEntity(TileEntityDragonforgeVent.class, new ResourceLocation(IceAndFire.MODID, "dragonforgeVent"));
 		GameRegistry.registerTileEntity(TileEntityGhostChest.class, new ResourceLocation(IceAndFire.MODID, "ghostChest"));
 	}
 }

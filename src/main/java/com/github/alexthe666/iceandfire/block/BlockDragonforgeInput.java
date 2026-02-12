@@ -9,7 +9,6 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -113,9 +112,6 @@ public class BlockDragonforgeInput extends BlockContainer implements IDragonProo
     }
 
     public static int getMetaFromType(EnumDragonType type) {
-        if (type == null) {
-            return 0;
-        }
-        return 1 + type.ordinal();
+        return BlockDragonforgeVent.getMetaFromType(type);
     }
 }

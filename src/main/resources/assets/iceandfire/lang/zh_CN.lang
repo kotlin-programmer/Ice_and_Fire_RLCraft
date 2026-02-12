@@ -107,9 +107,8 @@ tile.iceandfire.ancient_dragon_bone_wall.name=龙骨墙龙骨墙
 tile.iceandfire.dragon_bone_block.name=龙骨块
 tile.iceandfire.dragon_bone_wall.name=龙骨墙
 
-tile.iceandfire.dragonforge_bricks.name=龙锻炉砖块
-tile.iceandfire.dragonforge_bricks_cracked.name=破裂的龙锻炉砖块
 tile.iceandfire.dragonforge_core.name=龙锻炉核心
+tile.iceandfire.dragonforge_vent.name=龙锻炉通风孔
 tile.iceandfire.dragonforge_input.name=龙锻炉焰孔
 
 item.iceandfire.bestiary.name=龙之寓言

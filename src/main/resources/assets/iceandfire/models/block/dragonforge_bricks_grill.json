@@ -1,8 +1,0 @@
-{
-  "parent": "block/cube_bottom_top",
-  "textures": {
-    "bottom": "iceandfire:blocks/dragonforge_bricks",
-    "top": "iceandfire:blocks/dragonforge_bricks",
-    "side": "iceandfire:blocks/dragonforge_bricks_grill"
-  }
-}

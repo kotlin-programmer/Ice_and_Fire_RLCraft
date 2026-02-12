@@ -291,7 +291,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     protected void updateBurnTarget() {
-        if (burningTarget != null && !this.isSleeping() && !this.isModelDead() && !this.isChild()) {
+        if (burningTarget != null && !this.isSleeping() && !this.isModelDead() && !this.isChild() && this.getAttackTarget() == null) {
             if (world.getTileEntity(burningTarget) instanceof TileEntityDragonforgeInput && this.getDistanceSq(burningTarget) < 300) {
                 this.getLookHelper().setLookPosition(burningTarget.getX() + 0.5D, burningTarget.getY() + 0.5D, burningTarget.getZ() + 0.5D, 180F, 180F);
                 this.breathFireAtPos(burningTarget);
@@ -978,7 +978,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (capability != null && capability.isStoned()) {
             return false;
         }
-        return !this.isSitting() && !this.isSleeping() && !this.isPlayerControlled() && !this.isModelDead() && sleepProgress == 0 && this.getAnimation() != ANIMATION_SHAKEPREY;
+        return !this.isSitting() && !this.isSleeping() && !this.isPlayerControlled() && !this.isModelDead() && sleepProgress == 0 && this.getAnimation() != ANIMATION_SHAKEPREY && this.burningTarget == null;
     }
 
     @Override
@@ -1349,7 +1349,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     this.setFlying(false);
                 }
             }
-            if (this.getRNG().nextInt(500) == 0 && !this.isModelDead() && !this.isSleeping()) {
+            if (this.getRNG().nextInt(500) == 0 && !this.isModelDead() && !this.isSleeping() && this.burningTarget == null) {
                 this.roar();
             }
             if (this.onGround && this.getNavigator().noPath() && this.getAttackTarget() != null && this.getAttackTarget().posY - 3 > this.posY && this.getRNG().nextInt(15) == 0 && this.canMove() && !this.isHovering() && !this.isFlying() && !this.isChild()) {
@@ -1423,7 +1423,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         } else if (!sleeping && sleepProgress > 0.0F) {
             sleepProgress -= 0.5F;
         }
-        boolean fireBreathing = isBreathingFire();
+        boolean fireBreathing = isActuallyBreathingFire();
         prevFireBreathProgress = fireBreathProgress;
         if (fireBreathing && fireBreathProgress < 5.0F) {
             fireBreathProgress += 0.5F;
@@ -1599,21 +1599,23 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                     this.playSound(IafSoundRegistry.FIREDRAGON_BREATH_SHORT, 3, 1);
                 }
             }
-            if (this.isBreathingFire()) {
-                this.fireTicks++;
-                if (this.fireTicks > this.getDragonStage() * 25 || this.fireStopTicks <= 0 && this.isPlayerControlled()) {
-                    this.setBreathingFire(false);
-                    this.attackDecision = this.getRNG().nextBoolean();
-                    this.fireTicks = 0;
-                }
-                if (this.fireStopTicks > 0 && this.isPlayerControlled()) {
-                    this.fireStopTicks--;
-                }
-            }
             if (this.isFlying() && this.getAttackTarget() != null && this.getEntityBoundingBox().expand(3.0F, 3.0F, 3.0F).intersects(this.getAttackTarget().getEntityBoundingBox())) {
                 this.attackEntityAsMob(this.getAttackTarget());
             }
             this.breakBlock();
+        }
+        if (this.isBreathingFire()) {
+            this.fireTicks++;
+            if (this.fireTicks > this.getDragonStage() * 25 || this.fireStopTicks <= 0 && this.isPlayerControlled()) {
+                this.setBreathingFire(false);
+                if (!this.world.isRemote) {
+                    this.attackDecision = this.getRNG().nextBoolean();
+                }
+                this.fireTicks = 0;
+            }
+            if (this.fireStopTicks > 0 && this.isPlayerControlled()) {
+                this.fireStopTicks--;
+            }
         }
     }
 
@@ -1735,7 +1737,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
     }
 
-    private float bob(float speed, float degree, boolean bounce, float f, float f1) {
+    protected float bob(float speed, float degree, boolean bounce, float f, float f1) {
         float bob = (float) (Math.sin(f * speed) * f1 * degree - f1 * degree);
         if (bounce) {
             bob = (float) -Math.abs((Math.sin(f * speed) * f1 * degree));
@@ -2339,14 +2341,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return this.hasFlightClearance() && !this.isSitting() && this.getPassengers().isEmpty() && !this.isChild() && !this.isSleeping() && this.canMove() && this.onGround;
     }
 
-    public BlockPos getEscortPosition() {
-        return this.getOwner() != null ? this.getOwner().getPosition() : this.getPosition();
-    }
-
-    public boolean shouldTPtoOwner() {
-        return this.getOwner() != null && this.getDistance(this.getOwner()) > 10;
-    }
-
     public boolean hasFlightClearance() {
         BlockPos topOfBB = new BlockPos(this.posX, this.getEntityBoundingBox().maxY, this.posZ);
         for (int i = 1; i < 4; i++) {
@@ -2409,6 +2403,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     public abstract SoundEvent getRoarSound();
+
+    public abstract SoundEvent getBreathSound();
+
+    public abstract SoundEvent getShortBreathSound();
 
     public void roar() {
         if (EntityGorgon.isStoneMob(this)) {
@@ -2474,10 +2472,17 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         float flyProg = this.flyProgress * 0.01F;
         float sitProg = this.sitProgress * 0.015F;
         float sleepProg = this.sleepProgress * -0.025F;
+        float speed_walk = 0.2F;
+        float speed_idle = 0.05F;
+        float degree_walk = 0.5F;
+        float degree_idle = 0.5F;
         final float flightXz = Math.max(1.0F + flyProg + hoverProg, 1.1F);
         final float xzMod = getRenderSize() * (0.51F * flightXz - 0.45F * hoverProg);
+        boolean walking = (!this.isFlying() && !this.isHovering()) || (hoverProgress == 0 && flyProgress == 0);
+        float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
+        float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F) : 0;
         final float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180));
-        final float headPosY = (float) (posY + (0.7F + sitProg * 0.82F + (flyProg + hoverProg) * 0.35F + deadProg + sleepProg) * getRenderSize() * 0.3F);
+        final float headPosY = (float) (posY + (0.8F + sitProg * 0.82F + (flyProg + hoverProg) * 0.35F + deadProg + sleepProg) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
         final float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180));
         return new Vec3d(headPosX, headPosY, headPosZ);
     }
@@ -2489,8 +2494,19 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         return true;
     }
 
+    public void playSoundClientSide(SoundEvent soundIn, float volume, float pitch) {
+        if (soundIn == SoundEvents.ENTITY_GENERIC_EAT || soundIn == this.getAmbientSound() || soundIn == this.getHurtSound(null) || soundIn == this.getDeathSound() || soundIn == this.getRoarSound() || soundIn == this.getBreathSound() || soundIn == this.getShortBreathSound()) {
+            if (!this.isSilent()) {
+                Vec3d headPos = getHeadPosition();
+                this.world.playSound(headPos.x, headPos.y, headPos.z, soundIn, this.getSoundCategory(), volume, pitch, true);
+            }
+        } else if (!this.isSilent()) {
+            this.world.playSound(this.posX, this.posY, this.posZ, soundIn, this.getSoundCategory(), volume, pitch, true);
+        }
+    }
+
     public void playSound(SoundEvent soundIn, float volume, float pitch) {
-        if (soundIn == SoundEvents.ENTITY_GENERIC_EAT || soundIn == this.getAmbientSound() || soundIn == this.getHurtSound(null) || soundIn == this.getDeathSound() || soundIn == this.getRoarSound()) {
+        if (soundIn == SoundEvents.ENTITY_GENERIC_EAT || soundIn == this.getAmbientSound() || soundIn == this.getHurtSound(null) || soundIn == this.getDeathSound() || soundIn == this.getRoarSound() || soundIn == this.getBreathSound() || soundIn == this.getShortBreathSound()) {
             if (!this.isSilent()) {
                 Vec3d headPos = getHeadPosition();
                 this.world.playSound(null, headPos.x, headPos.y, headPos.z, soundIn, this.getSoundCategory(), volume, pitch);

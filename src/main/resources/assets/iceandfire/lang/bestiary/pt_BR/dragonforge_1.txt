@@ -1,9 +1,11 @@
 Assim que você tiver um
 núcleo da forja do dragão,
-uma entrada da forja do
-dragão, 8 blocos de osso de
-dragão e 17 tijolos da forja,
-você pode construir a forja.
+3 aberturas de respiradouro
+da forja do dragão, uma
+entrada da forja do dragão,
+8 blocos de osso de dragão e
+14 tijolos de medolita, você
+pode construir a forja.
 
 Para ativar a forja, é
 necessário o sopro do dragão.

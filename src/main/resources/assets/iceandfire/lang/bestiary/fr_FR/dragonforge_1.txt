@@ -1,9 +1,10 @@
 Une fois que vous avez un
-noyau de forge de dragon,
-une entrée de forge, 8 blocs
-d’os de dragon et 17 briques
-de forge de dragon, vous pouvez
-construire la forge elle-même.
+noyau de forge de dragon, 3
+évents de forge de dragon, une
+entrée de forge, 8 blocs d’os
+de dragon et 14 briqueffroie,
+vous pouvez construire la forge
+elle-même.
 
 Pour alimenter la forge,
 le souffle du dragon est requis.

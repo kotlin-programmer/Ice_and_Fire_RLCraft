@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.structures;
 
+import com.github.alexthe666.iceandfire.block.BlockDreadBase;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDreadBeast;
 import com.github.alexthe666.iceandfire.entity.EntityDreadGhoul;
@@ -33,10 +34,11 @@ public class MausoleumProcessor implements ITemplateProcessor {
     @Override
     public Template.BlockInfo processBlock(World worldIn, BlockPos pos, Template.BlockInfo blockInfoIn) {
         if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dread_stone_bricks) {
-            IBlockState state = getRandomCrackedBlock(worldIn.rand);
+            IBlockState state = getRandomCrackedBlock(worldIn.rand).withProperty(
+                    BlockDreadBase.PLAYER_PLACED,
+                    blockInfoIn.blockState.getValue(BlockDreadBase.PLAYER_PLACED)
+            );
             return new Template.BlockInfo(pos, state, null);
-        } else if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dragonforge_bricks && worldIn.rand.nextBoolean()) {
-            return new Template.BlockInfo(pos, IafBlockRegistry.dragonforge_bricks_cracked.getDefaultState(), null);
         } else if (blockInfoIn.blockState.getBlock() instanceof BlockChest) {
             ResourceLocation loot = DREAD_CHEST_LOOT;
             Random rand = new Random(worldIn.getSeed() + pos.toLong());

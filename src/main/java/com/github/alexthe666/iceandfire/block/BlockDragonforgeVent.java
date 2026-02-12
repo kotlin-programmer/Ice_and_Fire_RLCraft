@@ -2,14 +2,13 @@ package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforge;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeBricks;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeVent;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -24,19 +23,19 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockDragonforgeBricks extends BlockContainer implements IDragonProof {
+public class BlockDragonforgeVent extends BlockContainer implements IDragonProof {
 
-    public static final PropertyInteger GRILL = PropertyInteger.create("grill", 0, 4);
+    public static final PropertyInteger GRILL = PropertyInteger.create("grill", 0, 3);
 
-    public BlockDragonforgeBricks() {
+    public BlockDragonforgeVent() {
         super(Material.ROCK);
         this.setLightOpacity(2);
         this.setHardness(40F);
         this.setResistance(500F);
         this.setSoundType(SoundType.METAL);
         this.setCreativeTab(IceAndFire.TAB_BLOCKS);
-        this.setTranslationKey("iceandfire.dragonforge_bricks");
-        this.setRegistryName(IceAndFire.MODID, "dragonforge_bricks");
+        this.setTranslationKey("iceandfire.dragonforge_vent");
+        this.setRegistryName(IceAndFire.MODID, "dragonforge_vent");
         this.setDefaultState(this.blockState.getBaseState().withProperty(GRILL, 0));
     }
 
@@ -111,13 +110,13 @@ public class BlockDragonforgeBricks extends BlockContainer implements IDragonPro
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityDragonforgeBricks();
+        return new TileEntityDragonforgeVent();
     }
 
     public static int getMetaFromType(EnumDragonType type) {
         if (type == null) {
-            return 1;
+            return 0;
         }
-        return 2 + type.ordinal();
+        return 1 + type.ordinal();
     }
 }

@@ -1,8 +1,9 @@
 Once you have acquired a
-dragon forge core, a dragon
-forge input, 8 dragon bone
-blocks, and 17 dragon forge
-bricks, you can construct the
+dragon forge core, 3 dragon
+forge vents, a dragon forge
+input, 8 dragon bone blocks,
+and 14 dreadstone bricks,
+you can construct the
 dragon forge itself.
 
 In order to power the forge,

@@ -1,5 +1,5 @@
 {
-  "parent": "iceandfire:block/dragonforge_bricks_grill",
+  "parent": "iceandfire:block/dragonforge_vent",
   "display": {
     "thirdperson": {
       "rotation": [

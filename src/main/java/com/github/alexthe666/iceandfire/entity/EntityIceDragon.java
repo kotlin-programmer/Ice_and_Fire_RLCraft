@@ -324,9 +324,6 @@ public class EntityIceDragon extends EntityDragonBase {
 		if (this.isBreathingFire()) {
 			if (this.isActuallyBreathingFire()) {
 				rotationYaw = renderYawOffset;
-				if (this.ticksExisted % 5 == 0) {
-					this.playSound(IafSoundRegistry.ICEDRAGON_BREATH, 4, 1);
-				}
 				stimulateFire(burningTarget.getX() + 0.5F, burningTarget.getY() + 0.5F, burningTarget.getZ() + 0.5F, 1);
 			}
 		} else {
@@ -339,6 +336,9 @@ public class EntityIceDragon extends EntityDragonBase {
 		if (syncType == 1 && !world.isRemote) {
 			//sync with client
 			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageDragonSyncFire(this.getEntityId(), burnX, burnY, burnZ, 0));
+		}
+		if (this.world.isRemote && this.ticksExisted % 5 == 0) {
+			this.playSoundClientSide(IafSoundRegistry.ICEDRAGON_BREATH, 4, 1);
 		}
 		this.getNavigator().clearPath();
 		this.burnParticleX = burnX;
@@ -601,6 +601,16 @@ public class EntityIceDragon extends EntityDragonBase {
 	@Override
 	public SoundEvent getRoarSound() {
 		return this.isTeen() ? IafSoundRegistry.ICEDRAGON_TEEN_ROAR : this.isAdult() ? IafSoundRegistry.ICEDRAGON_ADULT_ROAR : IafSoundRegistry.ICEDRAGON_CHILD_ROAR;
+	}
+
+	@Override
+	public SoundEvent getBreathSound() {
+		return IafSoundRegistry.ICEDRAGON_BREATH;
+	}
+
+	@Override
+	public SoundEvent getShortBreathSound() {
+		return IafSoundRegistry.ICEDRAGON_BREATH_SHORT;
 	}
 
 	@Override

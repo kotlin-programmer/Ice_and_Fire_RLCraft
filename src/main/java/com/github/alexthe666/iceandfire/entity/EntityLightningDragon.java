@@ -277,10 +277,17 @@ public class EntityLightningDragon extends EntityDragonBase {
 		float flyProg = this.flyProgress * 0.01F;
 		float sitProg = this.sitProgress * 0.005F;
 		float sleepProg = this.sleepProgress * 0.005F;
+		float speed_walk = 0.2F;
+		float speed_idle = 0.05F;
+		float degree_walk = 0.5F;
+		float degree_idle = 0.5F;
 		float flightXz = 1.0F + flyProg + hoverProg;
 		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.8F - sleepProg * 0.9F) * flightXz * getRenderSize();		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
+		boolean walking = (!this.isFlying() && !this.isHovering()) || (hoverProgress == 0 && flyProgress == 0);
+		float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
+		float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F) : 0;
 		float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.cos(rotationYaw * Math.PI / 180));
-		float headPosY = (float) (posY + (0.7F + sitProg * 5F + (flyProg + hoverProg) * 0.45F + deadProg + sleepProg * 6F) * getRenderSize() * 0.3F);
+		float headPosY = (float) (posY + (0.7F + sitProg * 5F + (flyProg + hoverProg) * 0.45F + deadProg + sleepProg * 6F) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
 		float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.sin(rotationYaw * Math.PI / 180));
 		return new Vec3d(headPosX, headPosY, headPosZ);
 	}
@@ -290,9 +297,6 @@ public class EntityLightningDragon extends EntityDragonBase {
 		if (this.isBreathingFire()) {
 			if (this.isActuallyBreathingFire()) {
 				rotationYaw = renderYawOffset;
-				if (this.ticksExisted % 5 == 0) {
-					this.playSound(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
-				}
 				stimulateFire(burningTarget.getX() + 0.5F, burningTarget.getY() + 0.5F, burningTarget.getZ() + 0.5F, 1);
 			}
 		} else {
@@ -305,6 +309,9 @@ public class EntityLightningDragon extends EntityDragonBase {
 		if (syncType == 1 && !world.isRemote) {
 			//sync with client
 			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageDragonSyncFire(this.getEntityId(), burnX, burnY, burnZ, 0));
+		}
+		if (this.world.isRemote && this.ticksExisted % 5 == 0) {
+			this.playSoundClientSide(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 		}
 		this.getNavigator().clearPath();
 		this.burnParticleX = burnX;
@@ -524,6 +531,16 @@ public class EntityLightningDragon extends EntityDragonBase {
 	@Override
 	public SoundEvent getRoarSound() {
 		return this.isTeen() ? IafSoundRegistry.LIGHTNINGDRAGON_TEEN_ROAR : this.isAdult() ? IafSoundRegistry.LIGHTNINGDRAGON_ADULT_ROAR : IafSoundRegistry.LIGHTNINGDRAGON_CHILD_ROAR;
+	}
+
+	@Override
+	public SoundEvent getBreathSound() {
+		return IafSoundRegistry.LIGHTNINGDRAGON_BREATH;
+	}
+
+	@Override
+	public SoundEvent getShortBreathSound() {
+		return IafSoundRegistry.LIGHTNINGDRAGON_BREATH_SHORT;
 	}
 
 	@Override

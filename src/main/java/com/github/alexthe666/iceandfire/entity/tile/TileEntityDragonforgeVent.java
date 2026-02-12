@@ -6,7 +6,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 
-public class TileEntityDragonforgeBricks extends TileEntity {
+public class TileEntityDragonforgeVent extends TileEntity {
 
     @SuppressWarnings("unchecked")
     @Override

@@ -3,6 +3,6 @@
   "textures": {
     "bottom": "iceandfire:blocks/dread_stone_bricks",
     "top": "iceandfire:blocks/dread_stone_bricks",
-    "side": "iceandfire:blocks/dragonforge_input_ice"
+    "side": "iceandfire:blocks/dragonforge_vent_lightning"
   }
 }

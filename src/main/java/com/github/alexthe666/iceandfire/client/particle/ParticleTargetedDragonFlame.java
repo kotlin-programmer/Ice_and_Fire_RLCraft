@@ -12,18 +12,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
+import scala.collection.parallel.ParSeqLike;
+import thaumcraft.codechicken.lib.vec.Vector3;
 
 import javax.annotation.Nullable;
+import javax.vecmath.Vector3d;
+import javax.vecmath.Vector3f;
 import java.util.List;
 
 public class ParticleTargetedDragonFlame extends ParticleFlame {
     private final float dragonSize;
-    private final double initialX;
-    private final double initialY;
-    private final double initialZ;
-    private final double targetX;
-    private final double targetY;
-    private final double targetZ;
+    private final Vector3d initial;
+    private final Vector3d target;
     private int touchedTime = 0;
     private final float speedBonus;
     @Nullable
@@ -34,18 +34,15 @@ public class ParticleTargetedDragonFlame extends ParticleFlame {
         super(worldIn, xCoordIn, yCoordIn, zCoordIn, 0D, 0D, 0D);
         this.particleMaxAge = 30;
         this.dragon = entityDragonBase;
-        this.initialX = xCoordIn;
-        this.initialY = yCoordIn;
-        this.initialZ = zCoordIn;
-        this.posX = xCoordIn;
-        this.posY = yCoordIn;
-        this.posZ = zCoordIn;
-        this.targetX = dragon.burnParticleX + (double) ((this.rand.nextFloat() - this.rand.nextFloat())) * 3.5F;
-        this.targetY = dragon.burnParticleY + (double) ((this.rand.nextFloat() - this.rand.nextFloat())) * 3.5F;
-        this.targetZ = dragon.burnParticleZ + (double) ((this.rand.nextFloat() - this.rand.nextFloat())) * 3.5F;
+        this.initial = new Vector3d(xCoordIn, yCoordIn, zCoordIn);
+        this.target = new Vector3d(
+                dragon.burnParticleX + (double) ((this.rand.nextFloat() - this.rand.nextFloat())) * 3.5F,
+                dragon.burnParticleY + (double) ((this.rand.nextFloat() - this.rand.nextFloat())) * 3.5F,
+                dragon.burnParticleZ + (double) ((this.rand.nextFloat() - this.rand.nextFloat())) * 3.5F
+        );
         this.speedBonus = rand.nextFloat() * 0.015F;
         this.dragonSize = MathHelper.clamp(entityDragonBase.getRenderSize() * 0.08F, 0.55F, 3F);
-        this.setPosition(this.posX, this.posY, this.posZ);
+        this.setPosition(xCoordIn, yCoordIn, zCoordIn);
     }
 
 
@@ -53,7 +50,7 @@ public class ParticleTargetedDragonFlame extends ParticleFlame {
         if (particleAge > (dragon == null ? 10 : 30)) {
             this.setExpired();
         }
-        particleScale = 5F * dragonSize;
+        particleScale = 2F * dragonSize + 3F * dragonSize * Math.min(this.distance(initial) / this.distance(target), 1.0F);
         float f = (float) this.particleTextureIndexX / 16.0F;
         float f1 = f + 0.0624375F;
         float f2 = (float) this.particleTextureIndexY / 16.0F;
@@ -73,14 +70,14 @@ public class ParticleTargetedDragonFlame extends ParticleFlame {
         int i = this.getBrightnessForRender(partialTicks);
         int j = i >> 16 & 65535;
         int k = i & 65535;
-        Vec3d[] avec3d = new Vec3d[]{new Vec3d((double) (-rotationX * f4 - rotationXY * f4), (double) (-rotationZ * f4), (double) (-rotationYZ * f4 - rotationXZ * f4)), new Vec3d((double) (-rotationX * f4 + rotationXY * f4), (double) (rotationZ * f4), (double) (-rotationYZ * f4 + rotationXZ * f4)), new Vec3d((double) (rotationX * f4 + rotationXY * f4), (double) (rotationZ * f4), (double) (rotationYZ * f4 + rotationXZ * f4)), new Vec3d((double) (rotationX * f4 - rotationXY * f4), (double) (-rotationZ * f4), (double) (rotationYZ * f4 - rotationXZ * f4))};
+        Vec3d[] avec3d = new Vec3d[]{new Vec3d(-rotationX * f4 - rotationXY * f4, -rotationZ * f4, -rotationYZ * f4 - rotationXZ * f4), new Vec3d((double) (-rotationX * f4 + rotationXY * f4), rotationZ * f4, -rotationYZ * f4 + rotationXZ * f4), new Vec3d(rotationX * f4 + rotationXY * f4, rotationZ * f4, rotationYZ * f4 + rotationXZ * f4), new Vec3d((double) (rotationX * f4 - rotationXY * f4), -rotationZ * f4, rotationYZ * f4 - rotationXZ * f4)};
         if (this.particleAngle != 0.0F) {
             float f8 = this.particleAngle + (this.particleAngle - this.prevParticleAngle) * partialTicks;
             float f9 = MathHelper.cos(f8 * 0.5F);
             float f10 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.x;
             float f11 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.y;
             float f12 = MathHelper.sin(f8 * 0.5F) * (float) cameraViewDir.z;
-            Vec3d vec3d = new Vec3d((double) f10, (double) f11, (double) f12);
+            Vec3d vec3d = new Vec3d(f10, f11, f12);
 
             for (int l = 0; l < 4; ++l) {
                 avec3d[l] = vec3d.scale(2.0D * avec3d[l].dotProduct(vec3d)).add(avec3d[l].scale((double) (f9 * f9) - vec3d.dotProduct(vec3d))).add(vec3d.crossProduct(avec3d[l]).scale((double) (2.0F * f9)));
@@ -102,15 +99,15 @@ public class ParticleTargetedDragonFlame extends ParticleFlame {
         super.onUpdate();
 
         if (dragon == null) {
-            float distX = (float) (this.initialX - this.posX);
-            float distZ = (float) (this.initialZ - this.posZ);
+            float distX = (float) (this.initial.x - this.posX);
+            float distZ = (float) (this.initial.z - this.posZ);
             this.motionX += distX * -0.01F * dragonSize * rand.nextFloat();
             this.motionZ += distZ * -0.01F * dragonSize * rand.nextFloat();
             this.motionY += 0.015F * rand.nextFloat();
         } else {
-            double d2 = this.targetX - initialX;
-            double d3 = this.targetY - initialY;
-            double d4 = this.targetZ - initialZ;
+            double d2 = this.target.x - initial.x;
+            double d3 = this.target.y - initial.y;
+            double d4 = this.target.z - initial.z;
             float speed = 0.015F + speedBonus;
             this.motionX += d2 * speed;
             this.motionY += d3 * speed;
@@ -163,5 +160,12 @@ public class ParticleTargetedDragonFlame extends ParticleFlame {
         if (origZ != z) {
             this.motionZ = 0.0D;
         }
+    }
+
+    private float distance(Vector3d vector) {
+        double d0 = this.posX - vector.x;
+        double d1 = this.posY - vector.y;
+        double d2 = this.posZ - vector.z;
+        return (float) Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
     }
 }

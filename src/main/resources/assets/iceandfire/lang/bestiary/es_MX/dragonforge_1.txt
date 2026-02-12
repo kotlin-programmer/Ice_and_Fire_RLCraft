@@ -1,8 +1,9 @@
 Una vez que hayas adquirido un
-núcleo de forja de dragón, una
-entrada de forja de dragón, 8
-bloques de hueso de dragón y 17
-ladrillos de forja de dragón,
+núcleo de forja de dragón, 3
+respiraderos de forja de dragón,
+una entrada de forja de dragón, 8
+bloques de hueso de dragón y 14
+ladrillos de piedra del horror,
 podrás construir la forja de
 dragón como tal.
 

@@ -1163,7 +1163,11 @@ public class GuiBestiary extends GuiScreen {
 		}
 		if (!itemStacks.isEmpty()) {
 			for (String[] itemStack : itemStacks) {
-				drawItemStack(new ItemStack(getItemByRegistryName(itemStack[0]), 1), Integer.parseInt(itemStack[2]), Integer.parseInt(itemStack[3]), Float.parseFloat(itemStack[4]) * 2F);
+				float zLevel = 200.0F;
+				if (itemStack.length >= 6) {
+					zLevel = Float.parseFloat(itemStack[5]);
+				}
+				drawItemStack(new ItemStack(getItemByRegistryName(itemStack[0]), 1), Integer.parseInt(itemStack[2]), Integer.parseInt(itemStack[3]), Float.parseFloat(itemStack[4]) * 2F, zLevel);
 			}
 		}
 	}
@@ -1196,11 +1200,15 @@ public class GuiBestiary extends GuiScreen {
 	}
 
 	private void drawItemStack(ItemStack stack, int x, int y, float scale) {
+		drawItemStack(stack, x, y, scale, 200.0F);
+	}
+
+	private void drawItemStack(ItemStack stack, int x, int y, float scale, float zLevel) {
 		GL11.glPushMatrix();
 		GL11.glScalef(scale, scale, scale);
 		GlStateManager.translate(0, 0, 32.0F);
-		this.zLevel = 200.0F;
-		this.itemRender.zLevel = 200.0F;
+		this.zLevel = zLevel;
+		this.itemRender.zLevel = zLevel;
 		net.minecraft.client.gui.FontRenderer font = null;
 		if (!stack.isEmpty()) font = stack.getItem().getFontRenderer(stack);
 		if (font == null) font = fontRenderer;

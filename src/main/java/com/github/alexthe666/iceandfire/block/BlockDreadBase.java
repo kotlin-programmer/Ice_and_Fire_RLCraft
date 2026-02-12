@@ -30,7 +30,7 @@ public class BlockDreadBase extends BlockGeneric implements IDragonProof, IDread
 
     @Override
     public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
-        return blockState.getValue(PLAYER_PLACED) == Boolean.TRUE ? super.getBlockHardness(blockState, worldIn, pos) : -1;
+        return blockState.getValue(PLAYER_PLACED) ? super.getBlockHardness(blockState, worldIn, pos) : -1;
     }
 
     @Override
