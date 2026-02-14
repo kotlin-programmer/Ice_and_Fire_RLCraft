@@ -281,13 +281,15 @@ public class EntityLightningDragon extends EntityDragonBase {
 		float speed_idle = 0.05F;
 		float degree_walk = 0.5F;
 		float degree_idle = 0.5F;
-		float flightXz = 1.0F + flyProg + hoverProg;
-		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.8F - sleepProg * 0.9F) * flightXz * getRenderSize();		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
+		final float flightXz = Math.max(1.0F + flyProg + hoverProg, 1.06F);
+		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.52F - sleepProg * 0.9F) * flightXz * getRenderSize();
+		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
 		boolean walking = (!this.isFlying() && !this.isHovering()) || (hoverProgress == 0 && flyProgress == 0);
 		float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
 		float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F) : 0;
+		float extraY = Math.max(0.7F - getRenderSize() * 0.02F, 0.6F);
 		float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.cos(rotationYaw * Math.PI / 180));
-		float headPosY = (float) (posY + (0.7F + sitProg * 5F + (flyProg + hoverProg) * 0.45F + deadProg + sleepProg * 6F) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
+		float headPosY = (float) (posY + (extraY + sitProg * 7F + (flyProg + hoverProg) * 0.45F + deadProg + sleepProg * 6F) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
 		float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.sin(rotationYaw * Math.PI / 180));
 		return new Vec3d(headPosX, headPosY, headPosZ);
 	}
@@ -310,7 +312,7 @@ public class EntityLightningDragon extends EntityDragonBase {
 			//sync with client
 			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageDragonSyncFire(this.getEntityId(), burnX, burnY, burnZ, 0));
 		}
-		if (this.world.isRemote && this.ticksExisted % 5 == 0) {
+		if (this.world.isRemote && this.ticksExisted % 5 == 0 && this.isActuallyBreathingFire()) {
 			this.playSoundClientSide(IafSoundRegistry.LIGHTNINGDRAGON_BREATH, 4, 1);
 		}
 		this.getNavigator().clearPath();

@@ -63,7 +63,7 @@ public class TileEntityDragonforgeInput extends TileEntity implements ITickable 
 
     private boolean canSeeInput(EntityDragonBase dragon, Vec3d target) {
         if (target != null) {
-            RayTraceResult rayTrace = world.rayTraceBlocks(new Vec3d(dragon.getPosition().up((int) dragon.height)), target, false);
+            RayTraceResult rayTrace = world.rayTraceBlocks(dragon.getHeadPosition(), target, false);
             if (rayTrace != null && rayTrace.hitVec != null) {
                 BlockPos sidePos = rayTrace.getBlockPos();
                 BlockPos pos = new BlockPos(rayTrace.hitVec);

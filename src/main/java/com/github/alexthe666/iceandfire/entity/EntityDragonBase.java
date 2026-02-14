@@ -2058,7 +2058,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     public void playLivingSound() {
-        if (!this.isSleeping() && !this.isModelDead()) {
+        if (!this.isSleeping() && !this.isModelDead() && this.burningTarget == null) {
             if (this.getAnimation() == this.NO_ANIMATION && !this.world.isRemote) {
                 this.setAnimation(ANIMATION_SPEAK);
             }
@@ -2481,8 +2481,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         boolean walking = (!this.isFlying() && !this.isHovering()) || (hoverProgress == 0 && flyProgress == 0);
         float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
         float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F) : 0;
+        float extraY = Math.min(0.45F + getRenderSize() * 0.035F, 0.8F);
         final float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180));
-        final float headPosY = (float) (posY + (0.8F + sitProg * 0.82F + (flyProg + hoverProg) * 0.35F + deadProg + sleepProg) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
+        final float headPosY = (float) (posY + (extraY + sitProg * 0.82F + (flyProg + hoverProg) * 0.35F + deadProg + sleepProg) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
         final float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180));
         return new Vec3d(headPosX, headPosY, headPosZ);
     }

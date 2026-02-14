@@ -337,7 +337,7 @@ public class EntityIceDragon extends EntityDragonBase {
 			//sync with client
 			IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageDragonSyncFire(this.getEntityId(), burnX, burnY, burnZ, 0));
 		}
-		if (this.world.isRemote && this.ticksExisted % 5 == 0) {
+		if (this.world.isRemote && this.ticksExisted % 5 == 0 && this.isActuallyBreathingFire()) {
 			this.playSoundClientSide(IafSoundRegistry.ICEDRAGON_BREATH, 4, 1);
 		}
 		this.getNavigator().clearPath();
