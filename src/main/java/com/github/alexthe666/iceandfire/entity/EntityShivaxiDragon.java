@@ -174,13 +174,11 @@ public class EntityShivaxiDragon extends EntityLightningDragon {
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setGender(true);
-		int age = this.getRNG().nextInt(80) + 1;
-		this.growDragon(age);
 		this.setVariant(0);
 		this.setSleeping(false);
+		this.growDragon(125);
 		this.updateAttributes();
-		double healthStep = (maximumHealth - minimumHealth) / (125);
-		this.heal((Math.round(minimumHealth + (healthStep * age))));
+		this.heal((float) maximumHealth);
 		this.attackDecision = true;
 		this.setHunger(50);
 		return livingdata;

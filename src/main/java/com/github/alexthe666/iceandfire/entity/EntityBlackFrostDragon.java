@@ -238,12 +238,13 @@ public class EntityBlackFrostDragon extends EntityIceDragon implements IDreadMob
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setGender(false);
-		this.setSleeping(false);
 		this.setVariant(1);
-		this.updateAttributes();
+		this.setSleeping(false);
 		this.growDragon(125);
+		this.updateAttributes();
 		this.setAgingDisabled(true);
 		this.heal((float) maximumHealth);
+		this.attackDecision = true;
 		this.setHunger(50);
 		return livingdata;
 	}
