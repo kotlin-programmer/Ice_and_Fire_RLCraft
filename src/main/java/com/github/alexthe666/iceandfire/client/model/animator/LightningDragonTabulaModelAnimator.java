@@ -123,7 +123,7 @@ public class LightningDragonTabulaModelAnimator extends IceAndFireTabulaModelAni
             }
             if (entity.fireBreathProgress > 0.0F) {
                 if (!isPartEqual(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName)) && !isWing(model, cube) && !cube.boxName.contains("Finger")) {
-                    if (entity.burningTarget == null || !walking || !(isHead(cube) || isNeck(cube))) {
+                    if (!entity.isBurningTarget() || !walking || !(isHead(cube) || isNeck(cube))) {
                         transitionTo(cube, EnumDragonAnimations.STREAM_BREATH.lightningdragon_model.getCube(cube.boxName), entity.fireBreathProgress, 5, false);
                     }
                 }

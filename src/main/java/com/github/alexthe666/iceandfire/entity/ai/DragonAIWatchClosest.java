@@ -36,6 +36,6 @@ public class DragonAIWatchClosest extends EntityAIWatchClosest {
 		}
 		return dragon.canMove()
 				&& dragon.getAnimation() != EntityDragonBase.ANIMATION_SHAKEPREY
-				&& dragon.burningTarget == null;
+				&& !dragon.isBurningTarget();
 	}
 }

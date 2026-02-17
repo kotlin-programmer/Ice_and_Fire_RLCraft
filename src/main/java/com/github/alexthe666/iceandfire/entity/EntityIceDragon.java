@@ -271,7 +271,7 @@ public class EntityIceDragon extends EntityDragonBase {
 					}
 
 				}
-			} else if (burningTarget == null) {
+			} else if (!this.isBurningTarget()) {
 				this.setBreathingFire(false);
 			}
 			if (this.isInsideWaterBlock() && !this.isSwimming() && (!this.isFlying() && !this.isHovering() || this.flyTicks > 100)) {

@@ -350,7 +350,7 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
 
     public boolean assembled() {
         return checkBoneCorners(pos.down()) && checkBrickSlots(pos.down()) &&
-                checkBrickCorners(pos) && checkGrillSlots(pos) &&
+                checkBrickCorners(pos) && checkVents(pos) &&
                 checkBoneCorners(pos.up()) && checkBrickSlots(pos.up());
     }
 
@@ -368,7 +368,7 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
         return false;
     }
 
-    private boolean checkGrillSlots(BlockPos pos) {
+    private boolean checkVents(BlockPos pos) {
         int count = 0;
         for (EnumFacing facing : EnumFacing.HORIZONTALS) {
             Block block = world.getBlockState(pos.offset(facing)).getBlock();

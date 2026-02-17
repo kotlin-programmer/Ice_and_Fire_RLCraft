@@ -239,7 +239,7 @@ public class EntityFireDragon extends EntityDragonBase {
                         attackEntityAsMob(this.getAttackTarget());
                     }
 				}
-            } else if (burningTarget == null) {
+            } else if (!this.isBurningTarget()) {
                 this.setBreathingFire(false);
             }
         }

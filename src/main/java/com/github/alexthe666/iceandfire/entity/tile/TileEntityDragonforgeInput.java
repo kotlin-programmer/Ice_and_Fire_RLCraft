@@ -40,18 +40,20 @@ public class TileEntityDragonforgeInput extends TileEntity implements ITickable 
     protected void lureDragons() {
         boolean dragonSelected = false;
         for (EntityDragonBase dragon : world.getEntitiesWithinAABB(EntityDragonBase.class, new AxisAlignedBB((double) pos.getX() - LURE_DISTANCE, (double) pos.getY() - LURE_DISTANCE, (double) pos.getZ() - LURE_DISTANCE, (double) pos.getX() + LURE_DISTANCE, (double) pos.getY() + LURE_DISTANCE, (double) pos.getZ() + LURE_DISTANCE))) {
+            Vec3d headPos = dragon.getHeadPosition();
             if (!dragonSelected
                     && dragon.isTamed()
                     && !(dragon instanceof EntityShivaxiDragon)
                     && core != null
                     && core.assembled()
                     && core.canSmelt(dragon.dragonType)
-                    && canSeeInput(dragon, new Vec3d(this.getPos().getX() + 0.5F, this.getPos().getY() + 0.5F, this.getPos().getZ() + 0.5F))
+                    && canSeeInput(headPos, new Vec3d(this.getPos().getX() + 0.5F, this.getPos().getY() + 0.5F, this.getPos().getZ() + 0.5F))
+                    && isCloseEnoughToLure(headPos)
             ) {
-                dragon.burningTarget = this.pos;
+                dragon.setBurningTarget(this.pos);
                 dragonSelected = true;
-            } else if (dragon.burningTarget == this.pos) {
-                dragon.burningTarget = null;
+            } else if (dragon.getBurningTarget().equals(this.pos)) {
+                dragon.setBurningTarget(BlockPos.ORIGIN);
                 dragon.setBreathingFire(false);
             }
         }
@@ -61,9 +63,9 @@ public class TileEntityDragonforgeInput extends TileEntity implements ITickable 
         core = null;
     }
 
-    private boolean canSeeInput(EntityDragonBase dragon, Vec3d target) {
+    private boolean canSeeInput(Vec3d headPos, Vec3d target) {
         if (target != null) {
-            RayTraceResult rayTrace = world.rayTraceBlocks(dragon.getHeadPosition(), target, false);
+            RayTraceResult rayTrace = world.rayTraceBlocks(headPos, target, false, true, false);
             if (rayTrace != null && rayTrace.hitVec != null) {
                 BlockPos sidePos = rayTrace.getBlockPos();
                 BlockPos pos = new BlockPos(rayTrace.hitVec);
@@ -71,6 +73,10 @@ public class TileEntityDragonforgeInput extends TileEntity implements ITickable 
             }
         }
         return false;
+    }
+
+    private boolean isCloseEnoughToLure(Vec3d headPos) {
+        return headPos.squareDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 300;
     }
 
     private TileEntityDragonforge getConnectedTileEntity() {
