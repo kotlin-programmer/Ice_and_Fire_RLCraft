@@ -107,7 +107,7 @@ public class EntityFireDragon extends EntityDragonBase {
             default:
                 return EnumDragonEgg.RED.scales;
             case 1:
-                return EnumDragonEgg.BLACK.scales;
+                return EnumDragonEgg.GREEN.scales;
             case 2:
                 return EnumDragonEgg.BRONZE.scales;
             case 3:
