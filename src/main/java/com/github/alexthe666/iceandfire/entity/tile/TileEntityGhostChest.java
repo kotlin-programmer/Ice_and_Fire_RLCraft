@@ -34,21 +34,19 @@ public class TileEntityGhostChest extends TileEntityChest {
 
     @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player) {
-        if (this.world.getDifficulty() != EnumDifficulty.PEACEFUL && !this.spawnChecked) {
-            if (this.world.rand.nextInt(100) < spawnChance) {
-                EntityGhost ghost = new EntityGhost(world);
+        if (!this.world.isRemote && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && !this.spawnChecked) {
+            if (this.world.rand.nextInt(100) < this.spawnChance) {
+                EntityGhost ghost = new EntityGhost(this.world);
                 ghost.moveToBlockPosAndAngles(this.pos.add(0.5, 0.5, 0.5),
                         ThreadLocalRandom.current().nextFloat() * 360F, 0);
-                if (!this.world.isRemote) {
-                    ghost.onInitialSpawn(world.getDifficultyForLocation(this.pos), null);
-                    if (!player.isCreative()) {
-                        ghost.setAttackTarget(player);
-                    }
-                    world.spawnEntity(ghost);
+                ghost.onInitialSpawn(this.world.getDifficultyForLocation(this.pos), null);
+                if (!player.isCreative()) {
+                    ghost.setAttackTarget(player);
                 }
                 ghost.setAnimation(EntityGhost.ANIMATION_SCARE);
                 ghost.setHomePosAndDistance(this.pos, 4);
                 ghost.setFromChest(true);
+                this.world.spawnEntity(ghost);
             }
             this.spawnChecked = true;
         }
