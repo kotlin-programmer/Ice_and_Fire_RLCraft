@@ -31,6 +31,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -168,9 +169,9 @@ public class EventLiving {
 				amphithere.setPositionAndRotation(player.posX, player.posY, player.posZ, player.rotationYaw, player.rotationPitch);
 			}
 		}
-		if (event.isMounting()) {
-			AxisAlignedBB bb = event.getEntityBeingMounted().getEntityBoundingBox();
-			if (IDreadBlock.containsIndestructibleBlock(event.getWorldObj(), bb)) {
+		AxisAlignedBB bb = event.getEntityBeingMounted().getEntityBoundingBox();
+		if (IDreadBlock.containsIndestructibleBlock(event.getWorldObj(), bb)) {
+			if (event.isMounting() || event.getEntityBeingMounted() instanceof EntityLivingBase) {
 				event.setCanceled(true);
 			}
 		}
