@@ -11,10 +11,14 @@ import net.minecraft.world.EnumDifficulty;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class TileEntityGhostChest extends TileEntityChest {
+    public boolean spawnChecked = false;
     public int spawnChance = 100;
 
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
+        if (compound.hasKey("SpawnChecked", 99)) {
+            this.spawnChecked = compound.getBoolean("SpawnChecked");
+        }
         if (compound.hasKey("SpawnChance", 99)) {
             this.spawnChance = compound.getInteger("SpawnChance");
         }
@@ -23,13 +27,14 @@ public class TileEntityGhostChest extends TileEntityChest {
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         super.writeToNBT(compound);
+        compound.setBoolean("SpawnChecked", this.spawnChecked);
         compound.setInteger("SpawnChance", this.spawnChance);
         return compound;
     }
 
     @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player) {
-        if (this.world.getDifficulty() != EnumDifficulty.PEACEFUL && this.lootTable != null) {
+        if (this.world.getDifficulty() != EnumDifficulty.PEACEFUL && !this.spawnChecked) {
             if (this.world.rand.nextInt(100) < spawnChance) {
                 EntityGhost ghost = new EntityGhost(world);
                 ghost.moveToBlockPosAndAngles(this.pos.add(0.5, 0.5, 0.5),
@@ -45,6 +50,7 @@ public class TileEntityGhostChest extends TileEntityChest {
                 ghost.setHomePosAndDistance(this.pos, 4);
                 ghost.setFromChest(true);
             }
+            this.spawnChecked = true;
         }
         return super.createContainer(playerInventory, player);
     }
