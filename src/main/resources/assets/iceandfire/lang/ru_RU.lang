@@ -85,8 +85,6 @@ tile.iceandfire.charedRubyOre.name=Обугленный Рубин руда
 tile.iceandfire.crackledAmethystOre.name=Треснувший Аметистовая руда
 tile.iceandfire.frozenSapphireOre.name=Замёрзший Сапфировая руда
 
-tile.iceandfire.ancient_dragon_bone_block.name=древний Блок драконьих костей
-tile.iceandfire.ancient_dragon_bone_wall.name=древний Ограда из драконьих костей
 tile.iceandfire.dragon_bone_block.name=Блок драконьих костей
 tile.iceandfire.dragon_bone_wall.name=Ограда из драконьих костей
 tile.iceandfire.ghost_chest.name=Проклятый сундук

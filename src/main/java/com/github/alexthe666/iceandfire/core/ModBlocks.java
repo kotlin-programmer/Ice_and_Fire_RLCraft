@@ -54,8 +54,6 @@ public class ModBlocks {
 	public static Block lightning_stone = IafBlockRegistry.lightning_stone;
 	public static Block dragon_ice_spikes = IafBlockRegistry.dragon_ice_spikes;
 	public static Block nest = IafBlockRegistry.nest;
-	public static Block ancient_dragon_bone_block = IafBlockRegistry.ancient_dragon_bone_block;
-	public static Block ancient_dragon_bone_block_wall = IafBlockRegistry.ancient_dragon_bone_block_wall;
 	public static Block dragon_bone_block = IafBlockRegistry.dragon_bone_block;
 	public static Block dragon_bone_block_wall = IafBlockRegistry.dragon_bone_block_wall;
 	public static Block eggInIce = IafBlockRegistry.eggInIce;
