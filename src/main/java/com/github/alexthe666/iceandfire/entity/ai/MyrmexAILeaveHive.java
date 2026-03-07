@@ -24,15 +24,15 @@ public class MyrmexAILeaveHive extends EntityAIBase {
         if(delay > 0 || !this.myrmex.canMove() || !this.myrmex.shouldLeaveHive() || !this.myrmex.isOnResin() || !this.myrmex.getNavigator().noPath() || this.myrmex.isEnteringHive) {
             return false;
         }
-        MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 1000);
-        if (village == null) {
+        MyrmexHive hive = this.myrmex.getHive();
+        if (hive == null) {
             return false;
         } else {
-            BlockPos nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, village.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), true));
+            BlockPos nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, hive.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), true));
             Path path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
             if(path == null || distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {
                 //fallback 1: path to bottom of entrance
-                nextEntrance = village.getClosestEntranceBottomToEntity(this.myrmex, this.myrmex.getRNG());
+                nextEntrance = hive.getClosestEntranceBottomToEntity(this.myrmex, this.myrmex.getRNG());
                 path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
             }
             if(path != null && !distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {

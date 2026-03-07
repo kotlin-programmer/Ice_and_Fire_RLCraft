@@ -25,15 +25,12 @@ public class MyrmexAIReEnterHive extends EntityAIBase {
         if(!this.myrmex.canMove() || this.myrmex.isInHive() || !traversingToTopPart || !this.myrmex.shouldEnterHive()){
             return false;
         }
-        MyrmexHive village = this.myrmex.getHive();
-        if (village == null) {
-            village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 500);
-        }
-        if (village == null) {
+        MyrmexHive hive = this.myrmex.getHive();
+        if (hive == null) {
             return false;
         } else {
-            this.hive = village;
-            nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, hive.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), false));
+            this.hive = hive;
+            nextEntrance = MyrmexHive.getGroundedPos(this.myrmex.world, this.hive.getClosestEntranceToEntity(this.myrmex, this.myrmex.getRNG(), false));
             this.myrmex.getNavigator().clearPath();
             this.path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
             traversingToTopPart = true;

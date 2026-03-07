@@ -23,10 +23,7 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
         if(!this.myrmex.canMove() || !this.myrmex.shouldEnterHive() && !this.myrmex.getNavigator().noPath() || !this.myrmex.isInHive()){
             return false;
         }
-        MyrmexHive village = MyrmexWorldData.get(this.myrmex.world).getNearestHive(new BlockPos(this.myrmex), 300);
-        if (village == null) {
-            village = this.myrmex.getHive();
-        }
+        MyrmexHive village = this.myrmex.getHive();
         if (village == null) {
             return false;
         } else {
