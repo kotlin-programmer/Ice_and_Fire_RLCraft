@@ -3,7 +3,6 @@ package com.github.alexthe666.iceandfire.entity.ai;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexRoom;
-import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathPoint;
@@ -54,6 +53,7 @@ public class MyrmexAILeaveHive extends EntityAIBase {
     }
 
     private static boolean distanceToTargetTooBig(PathPoint endPoint, BlockPos targetPos){
+        if(endPoint == null) return true;
         double distXZ = Math.sqrt(new BlockPos(endPoint.x, targetPos.getY(), endPoint.z).distanceSq(targetPos));
         double distY = Math.abs(targetPos.getY() - endPoint.y);
         return distXZ > 45 || distY > 15;

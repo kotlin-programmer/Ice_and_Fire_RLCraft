@@ -4,9 +4,11 @@ import com.github.alexthe666.iceandfire.block.BlockMyrmexCocoon;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
+import com.github.alexthe666.iceandfire.entity.util.MyrmexRoom;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
@@ -35,8 +37,13 @@ public class MyrmexAIStoreItems extends EntityAIBase {
         if (village == null) {
             return false;
         } else {
-            BlockPos nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(WorldGenMyrmexHive.RoomType.FOOD, this.myrmex.getRNG(), this.myrmex.getPosition()));
-            nextCocoon = getNearbyCocoon(nextRoom);
+            if(village.getCenter().distanceSq(this.myrmex.getPosition()) > 40000) return false;
+
+            MyrmexRoom thisRoom = village.getNearestRoom(this.myrmex.getPos());
+            MyrmexRoom nextRoom = thisRoom.getConnectedRoomOfType(WorldGenMyrmexHive.RoomType.FOOD);
+            if(nextRoom == null || nextRoom.getPos().distanceSq(this.myrmex.getPos()) > 1600) return false; // try again later
+
+            nextCocoon = getNearbyCocoon(nextRoom.getPos());
             if (nextCocoon != null) {
                 this.path = this.myrmex.getNavigator().getPathToPos(nextCocoon);
                 return this.path != null;

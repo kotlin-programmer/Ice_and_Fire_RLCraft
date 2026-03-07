@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
+import com.github.alexthe666.iceandfire.entity.util.MyrmexRoom;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.Path;
@@ -11,7 +12,6 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
     private final EntityMyrmexBase myrmex;
     private final double movementSpeed;
     private Path path;
-    private BlockPos target = BlockPos.ORIGIN;
 
     public MyrmexAIWanderHiveCenter(EntityMyrmexBase entityIn, double movementSpeedIn) {
         this.myrmex = entityIn;
@@ -27,7 +27,12 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
         if (village == null) {
             return false;
         } else {
-            target = MyrmexHive.getGroundedPos(this.myrmex.world, getNearPos(village.getCenter()));
+            if(village.getCenter().distanceSq(this.myrmex.getPosition()) > 40000) return false;
+
+            MyrmexRoom thisRoom = village.getNearestRoom(this.myrmex.getPos());
+            MyrmexRoom nextRoom = thisRoom.getNearestRoomTowardsCenter();
+
+            BlockPos target = MyrmexHive.getGroundedPos(this.myrmex.world, nextRoom.getPos());
 
             this.path = this.myrmex.getNavigator().getPathToPos(target);
             return this.path != null;
@@ -40,9 +45,5 @@ public class MyrmexAIWanderHiveCenter extends EntityAIBase {
 
     public void startExecuting() {
         this.myrmex.getNavigator().setPath(this.path, this.movementSpeed);
-    }
-
-    public BlockPos getNearPos(BlockPos pos){
-        return pos.add(this.myrmex.getRNG().nextInt(11) - 5, 0, this.myrmex.getRNG().nextInt(11) - 5);
     }
 }

@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class MyrmexRoom {
     @Nullable private final MyrmexRoom parent;
-    public final BlockPos center;
+    private final BlockPos center;
     private MyrmexHive hive;
     private final List<MyrmexRoom> connectedRooms = new ArrayList<>();
     private final WorldGenMyrmexHive.RoomType type;
@@ -75,9 +75,8 @@ public class MyrmexRoom {
         return getNearestRoomTowardsCenter().center;
     }
 
-    @Nullable //null if there's only a hive center, no subrooms
     public MyrmexRoom getRandomConnectedRoom(Random rand){
-        return connectedRooms.isEmpty() ? this.parent : connectedRooms.get(rand.nextInt(connectedRooms.size()));
+        return connectedRooms.isEmpty() ? this : connectedRooms.get(rand.nextInt(connectedRooms.size()));
     }
 
     public BlockPos getRandomConnectedRoomPos(Random rand){
