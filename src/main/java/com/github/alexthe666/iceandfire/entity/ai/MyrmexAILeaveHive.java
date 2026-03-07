@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
+import com.github.alexthe666.iceandfire.entity.util.MyrmexRoom;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.pathfinding.Path;
@@ -34,6 +35,12 @@ public class MyrmexAILeaveHive extends EntityAIBase {
                 //fallback 1: path to bottom of entrance
                 nextEntrance = hive.getClosestEntranceBottomToEntity(this.myrmex, this.myrmex.getRNG());
                 path = this.myrmex.getNavigator().getPathToPos(nextEntrance);
+            }
+            if(path == null || distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)){
+                //fallback 2: path to center
+                MyrmexRoom currRoom = hive.getNearestRoom(this.myrmex.getPos());
+                MyrmexRoom targetRoom = currRoom.getNearestRoomTowardsCenter();
+                path = this.myrmex.getNavigator().getPathToPos(targetRoom.getPos());
             }
             if(path != null && !distanceToTargetTooBig(path.getFinalPathPoint(), nextEntrance)) {
                 this.myrmex.getNavigator().setPath(path, this.movementSpeed);
