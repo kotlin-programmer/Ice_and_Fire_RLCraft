@@ -1,10 +1,12 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
+import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.BlockPos;
 
 public class MyrmexAIStoreBabies extends EntityAIBase {
@@ -27,7 +29,12 @@ public class MyrmexAIStoreBabies extends EntityAIBase {
             return false;
         } else {
             nextRoom = MyrmexHive.getGroundedPos(this.myrmex.world, village.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.myrmex.getRNG(), this.myrmex.getPosition()).add(this.myrmex.getRNG().nextInt(11)-5, 1, this.myrmex.getRNG().nextInt(11)-5));
-            this.myrmex.getNavigator().tryMoveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
+            Path path = this.myrmex.getNavigator().getPathToPos(this.nextRoom);
+            if(this.myrmex.getHeldEntity() instanceof EntityMyrmexBase)
+                ((EntityMyrmexBase) this.myrmex.getHeldEntity()).getNavigator().setPath(path, this.movementSpeed); //living passengers steer the living vehicle with fixed speed of 1.5 (EntityLiving::updateEntityActionState, why...)
+            else
+                this.myrmex.getNavigator().setPath(path, this.movementSpeed);
+//            this.myrmex.getNavigator().tryMoveToXYZ(this.nextRoom.getX(), this.nextRoom.getY(), this.nextRoom.getZ(), this.movementSpeed);
             return true;
         }
     }
