@@ -67,10 +67,10 @@ public class WorldGenMyrmexHive extends WorldGenerator {
         generateSphere(world, rand, position, 14, 7, resin, sticky_resin);
         generateSphere(world, rand, position, 12, 5, Blocks.AIR.getDefaultState());
         decorateSphere(world, rand, hive, position, 12, 5, RoomType.QUEEN);
-        generatePath(world, rand, hive, position.offset(EnumFacing.NORTH, 8).down(), 16 + rand.nextInt(10), EnumFacing.NORTH, 100, hive.roomTree);
-        generatePath(world, rand, hive, position.offset(EnumFacing.SOUTH, 8).down(), 16 + rand.nextInt(10), EnumFacing.SOUTH, 100, hive.roomTree);
-        generatePath(world, rand, hive, position.offset(EnumFacing.WEST, 8).down(), 16 + rand.nextInt(10), EnumFacing.WEST, 100, hive.roomTree);
-        generatePath(world, rand, hive, position.offset(EnumFacing.EAST, 8).down(), 16 + rand.nextInt(10), EnumFacing.EAST, 100, hive.roomTree);
+        generatePath(world, rand, hive, position.offset(EnumFacing.NORTH, 8).down(2), 16 + rand.nextInt(10), EnumFacing.NORTH, 100, hive.roomTree);
+        generatePath(world, rand, hive, position.offset(EnumFacing.SOUTH, 8).down(2), 16 + rand.nextInt(10), EnumFacing.SOUTH, 100, hive.roomTree);
+        generatePath(world, rand, hive, position.offset(EnumFacing.WEST, 8).down(2), 16 + rand.nextInt(10), EnumFacing.WEST, 100, hive.roomTree);
+        generatePath(world, rand, hive, position.offset(EnumFacing.EAST, 8).down(2), 16 + rand.nextInt(10), EnumFacing.EAST, 100, hive.roomTree);
         if(!small){
             EntityMyrmexQueen queen = new EntityMyrmexQueen(world);
             BlockPos ground = MyrmexHive.getGroundedPos(world, position);
