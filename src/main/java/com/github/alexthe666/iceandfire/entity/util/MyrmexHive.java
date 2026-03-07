@@ -324,6 +324,8 @@ public class MyrmexHive {
         if(compound.hasKey("ConnectedRooms")) {
             NBTTagCompound rooms = compound.getCompoundTag("ConnectedRooms");
             this.roomTree = new MyrmexRoom(null, rooms, this);
+        } else {
+            this.roomTree = new MyrmexRoom(null, WorldGenMyrmexHive.RoomType.QUEEN, getCenterGround(), this);
         }
     }
 

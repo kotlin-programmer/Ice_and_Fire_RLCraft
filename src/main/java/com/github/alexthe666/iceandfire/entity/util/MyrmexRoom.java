@@ -81,7 +81,8 @@ public class MyrmexRoom {
     }
 
     public BlockPos getRandomConnectedRoomPos(Random rand){
-        return getRandomConnectedRoom(rand).center;
+        MyrmexRoom randomRoom = getRandomConnectedRoom(rand);
+        return randomRoom == null ? hive.getCenterGround() : randomRoom.center;
     }
 
     @Nullable
