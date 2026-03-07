@@ -84,11 +84,11 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
     public void onLivingUpdate() {
         super.onLivingUpdate();
         if(this.world.isRemote) return;
-        StringBuilder name = new StringBuilder(this.getEntityId() + " ");
-        this.tasks.taskEntries.stream().filter(entry -> entry.using).forEach(entry -> name.append(entry.action.getClass().getSimpleName()).append(" "));
-        this.targetTasks.taskEntries.stream().filter(entry -> entry.using).forEach(entry -> name.append(entry.action.getClass().getSimpleName()).append(" "));
-        this.setCustomNameTag(name.toString());
-        this.setAlwaysRenderNameTag(true);
+//        StringBuilder name = new StringBuilder(this.getEntityId() + " ");
+//        this.tasks.taskEntries.stream().filter(entry -> entry.using).forEach(entry -> name.append(entry.action.getClass().getSimpleName()).append(" "));
+//        this.targetTasks.taskEntries.stream().filter(entry -> entry.using).forEach(entry -> name.append(entry.action.getClass().getSimpleName()).append(" "));
+//        this.setCustomNameTag(name.toString());
+//        this.setAlwaysRenderNameTag(true);
     }
 
     public EntityMyrmexBase(World worldIn) {
