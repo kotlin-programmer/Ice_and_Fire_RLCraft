@@ -18,7 +18,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.village.VillageDoorInfo;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -26,12 +25,13 @@ import java.util.*;
 
 public class MyrmexHive {
     private World world;
-    private final List<BlockPos> foodRooms = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> babyRooms = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> miscRooms = Lists.<BlockPos>newArrayList();
-    private final List<BlockPos> allRooms = Lists.<BlockPos>newArrayList();
+    private final List<BlockPos> foodRooms = Lists.newArrayList();
+    private final List<BlockPos> babyRooms = Lists.newArrayList();
+    private final List<BlockPos> miscRooms = Lists.newArrayList();
+    private final List<BlockPos> allRooms = Lists.newArrayList();
     private final Map<BlockPos, EnumFacing> entrances = Maps.<BlockPos, EnumFacing>newHashMap();
     private final Map<BlockPos, EnumFacing> entranceBottoms = Maps.<BlockPos, EnumFacing>newHashMap();
+    public MyrmexRoom roomTree;
     private BlockPos center = BlockPos.ORIGIN;
     private int villageRadius;
     private int tickCounter;
@@ -60,6 +60,7 @@ public class MyrmexHive {
         this.center = center;
         this.villageRadius = radius;
         this.hiveUUID = UUID.randomUUID();
+        this.roomTree = new MyrmexRoom(null, WorldGenMyrmexHive.RoomType.QUEEN, getGroundedPos(this.world, this.center), this);
     }
 
     public void setWorld(World worldIn) {
@@ -106,6 +107,10 @@ public class MyrmexHive {
             current.move(EnumFacing.DOWN, 1);
         }
         return current.toImmutable();
+    }
+
+    public MyrmexRoom getNearestRoom(BlockPos pos) {
+        return roomTree.getNearestRoomToBlockPos(pos, Double.MAX_VALUE);
     }
 
     public int getVillageRadius() {
@@ -187,7 +192,7 @@ public class MyrmexHive {
 
     public int getPlayerReputation(UUID playerName) {
         Integer integer = this.playerReputation.get(playerName);
-        return integer == null ? 0 : integer.intValue();
+        return integer == null ? 0 : integer;
     }
 
     private UUID findUUID(String name) {
@@ -233,7 +238,7 @@ public class MyrmexHive {
             }
         }
 
-        this.playerReputation.put(playerName, Integer.valueOf(j));
+        this.playerReputation.put(playerName, j);
         return j;
     }
 
@@ -309,11 +314,16 @@ public class MyrmexHive {
             NBTTagCompound nbttagcompound1 = nbttaglist1.getCompoundTagAt(j);
 
             if (nbttagcompound1.hasKey("UUID")) {
-                this.playerReputation.put(UUID.fromString(nbttagcompound1.getString("UUID")), Integer.valueOf(nbttagcompound1.getInteger("S")));
+                this.playerReputation.put(UUID.fromString(nbttagcompound1.getString("UUID")), nbttagcompound1.getInteger("S"));
             } else {
                 //World is never set here, so this will always be offline UUIDs, sadly there is no way to convert this.
-                this.playerReputation.put(findUUID(nbttagcompound1.getString("Name")), Integer.valueOf(nbttagcompound1.getInteger("S")));
+                this.playerReputation.put(findUUID(nbttagcompound1.getString("Name")), nbttagcompound1.getInteger("S"));
             }
+        }
+
+        if(compound.hasKey("ConnectedRooms")) {
+            NBTTagCompound rooms = compound.getCompoundTag("ConnectedRooms");
+            this.roomTree = new MyrmexRoom(null, rooms, this);
         }
     }
 
@@ -397,17 +407,19 @@ public class MyrmexHive {
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 
             try {
-                {
-                    nbttagcompound1.setString("UUID", s.toString());
-                    nbttagcompound1.setInteger("S", ((Integer) this.playerReputation.get(s)).intValue());
-                    nbttaglist1.appendTag(nbttagcompound1);
-                }
-            } catch (RuntimeException var9) {
-                ;
+                nbttagcompound1.setString("UUID", s.toString());
+                nbttagcompound1.setInteger("S", this.playerReputation.get(s));
+                nbttaglist1.appendTag(nbttagcompound1);
+            } catch (RuntimeException e) {
+                IceAndFire.logger.warn("Unable to write Myrmex Reputation for player with uuid {}. Reason: ", s, e);
             }
         }
 
         compound.setTag("Players", nbttaglist1);
+
+        NBTTagCompound rooms = new NBTTagCompound();
+        roomTree.writeToNBT(rooms);
+        compound.setTag("ConnectedRooms", rooms);
     }
 
     public void addRoom(BlockPos center, WorldGenMyrmexHive.RoomType roomType){
@@ -595,7 +607,7 @@ public class MyrmexHive {
         this.getEntranceBottoms().remove(pos);
     }
 
-    class HiveAggressor {
+    static class HiveAggressor {
         public EntityLivingBase agressor;
         public int agressionTime;
         public int agressionLevel;
