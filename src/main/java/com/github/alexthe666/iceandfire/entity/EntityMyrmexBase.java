@@ -1,9 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.block.BlockMyrmexBiolight;
-import com.github.alexthe666.iceandfire.block.BlockMyrmexConnectedResin;
-import com.github.alexthe666.iceandfire.block.BlockMyrmexResin;
+import com.github.alexthe666.iceandfire.block.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
@@ -13,10 +11,7 @@ import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.ilexiconn.llibrary.server.animation.Animation;
 import net.ilexiconn.llibrary.server.animation.AnimationHandler;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockCactus;
-import net.minecraft.block.BlockLeaves;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.*;
@@ -178,7 +173,18 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
 
     public float getBlockPathWeight(BlockPos pos) {
         Block block = this.world.getBlockState(pos.down()).getBlock();
-        return block instanceof BlockMyrmexResin || block instanceof BlockMyrmexConnectedResin ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
+        return isHiveBlock(block) ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
+    }
+
+    public static boolean isHiveBlock(Block block) {
+        if(block instanceof BlockMyrmexResin) return true;
+        if(block instanceof BlockMyrmexConnectedResin) return true;
+        if(block instanceof BlockMyrmexCocoon) return true;
+        if(block instanceof BlockPumpkin) return true;
+        if(block instanceof BlockLeaves) return true;
+        if(block instanceof BlockMelon) return true;
+        if(block instanceof BlockCoinPile) return true;
+        return false;
     }
 
     protected void entityInit() {
