@@ -19,7 +19,7 @@ public class MyrmexAIPickupBabies extends EntityAITarget {
     public MyrmexAIPickupBabies(EntityMyrmexWorker myrmex) {
         super(myrmex, false, false);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(myrmex);
-        this.targetEntitySelector = other -> other != null && (other instanceof EntityMyrmexBase && ((EntityMyrmexBase) other).getGrowthStage() < 2 && !((EntityMyrmexBase) other).isInNursery() || other instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) other).isInNursery());
+        this.targetEntitySelector = other -> other != null && !other.isRiding() && (other instanceof EntityMyrmexBase && ((EntityMyrmexBase) other).getGrowthStage() < 2 && !((EntityMyrmexBase) other).isInNursery() || other instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) other).isInNursery());
         this.myrmex = myrmex;
         this.setMutexBits(1);
     }
