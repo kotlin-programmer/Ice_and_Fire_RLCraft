@@ -22,6 +22,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -231,7 +232,9 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     public void onPickupItem(EntityItem itemEntity){
         Item item = itemEntity.getItem().getItem();
-        if (item == IafItemRegistry.myrmex_jungle_resin && this.isJungle() || item == IafItemRegistry.myrmex_desert_resin && !this.isJungle()){
+        if (isCorrectResin(item)){
+            NBTTagCompound nbt = itemEntity.getItem().getTagCompound();
+            if(nbt != null && nbt.hasKey("isAllSlimy")) return;
 
             EntityPlayer owner = null;
             try{
@@ -247,5 +250,9 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 }
             }
         }
+    }
+
+    public boolean isCorrectResin(Item item){
+        return item == IafItemRegistry.myrmex_jungle_resin && this.isJungle() || item == IafItemRegistry.myrmex_desert_resin && !this.isJungle();
     }
 }

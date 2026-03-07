@@ -60,6 +60,13 @@ public class MyrmexAIStoreItems extends EntityAIBase {
             TileEntityMyrmexCocoon cocoon = (TileEntityMyrmexCocoon) this.myrmex.world.getTileEntity(nextCocoon);
             ItemStack itemstack = this.myrmex.getHeldItem(EnumHand.MAIN_HAND);
             if(!itemstack.isEmpty()) {
+                if(this.myrmex.isCorrectResin(itemstack.getItem())){
+                    NBTTagCompound nbt = itemstack.getTagCompound();
+                    if(nbt == null) nbt = new NBTTagCompound();
+                    nbt.setBoolean("isAllSlimy", true);
+                    itemstack.setTagCompound(nbt);
+                }
+
                 for (int i = 0; i < cocoon.getSizeInventory(); ++i) {
                     if(!itemstack.isEmpty()) {
                         ItemStack itemstack1 = cocoon.getStackInSlot(i);
