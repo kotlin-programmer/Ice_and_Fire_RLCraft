@@ -173,13 +173,14 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
 
     public float getBlockPathWeight(BlockPos pos) {
         Block block = this.world.getBlockState(pos.down()).getBlock();
-        return isHiveBlock(block) ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
+        return block instanceof BlockMyrmexResin || block instanceof BlockMyrmexConnectedResin ? 10.0F : this.world.getLightBrightness(pos) - 0.5F;
     }
 
     public static boolean isHiveBlock(Block block) {
         if(block instanceof BlockMyrmexResin) return true;
         if(block instanceof BlockMyrmexConnectedResin) return true;
         if(block instanceof BlockMyrmexCocoon) return true;
+        if(block instanceof BlockMyrmexBiolight) return true;
         if(block instanceof BlockPumpkin) return true;
         if(block instanceof BlockLeaves) return true;
         if(block instanceof BlockMelon) return true;
@@ -696,7 +697,7 @@ public abstract class EntityMyrmexBase extends EntityAnimal implements IAnimated
             blockpos = blockpos.move(EnumFacing.DOWN, 1);
         }
         Block block = this.world.getBlockState(blockpos).getBlock();
-        return block instanceof BlockMyrmexResin || block instanceof BlockMyrmexConnectedResin || block instanceof BlockMyrmexBiolight;
+        return isHiveBlock(block);
     }
 
 
