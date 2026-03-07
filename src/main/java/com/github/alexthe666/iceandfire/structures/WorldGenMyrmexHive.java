@@ -199,9 +199,10 @@ public class WorldGenMyrmexHive extends WorldGenerator {
         }
         IBlockState resin = jungle ? JUNGLE_RESIN : DESERT_RESIN;
         IBlockState sticky_resin = jungle ? STICKY_JUNGLE_RESIN : STICKY_DESERT_RESIN;
-        generateSphereRespectAir(world, rand, up, size + 2, height + 2, resin, sticky_resin);
-        generateSphere(world, rand, up.up(), size, height - 1, Blocks.AIR.getDefaultState());
-        decorateSphere(world, rand, hive, up.up(), size, height - 1, RoomType.ENTERANCE);
+        generateSphereRespectAir(world, rand, up.down(), size + 2, height + 2, resin, sticky_resin);
+        generateSphere(world, rand, up, size + 1, height - 1, Blocks.AIR.getDefaultState());
+        generateSphere(world, rand, up.up(), size + 4, height - 2, Blocks.AIR.getDefaultState());
+        decorateSphere(world, rand, hive, up.up(), size + 4, height - 1, RoomType.ENTERANCE);
         hive.getEntrances().put(up, direction);
         entrances++;
     }
@@ -303,11 +304,10 @@ public class WorldGenMyrmexHive extends WorldGenerator {
     }
 
     public void generateSphere(World world, Random rand, BlockPos position, int size, int height, IBlockState fill) {
-        int i2 = size;
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
+        int j = size + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (float) (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
             if (blockpos.distanceSq(position) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F)) && !world.isAirBlock(blockpos)) {
@@ -346,11 +346,10 @@ public class WorldGenMyrmexHive extends WorldGenerator {
     }
 
     public void generateSphereRespectAir(World world, Random rand, BlockPos position, int size, int height, IBlockState fill, IBlockState fill2) {
-        int i2 = size;
+        int j = size + rand.nextInt(2);
         int ySize = rand.nextInt(2);
-        int j = i2 + rand.nextInt(2);
         int k = height + ySize;
-        int l = i2 + rand.nextInt(2);
+        int l = size + rand.nextInt(2);
         float f = (float) (j + k + l) * 0.333F;
         for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
             if (blockpos.distanceSq(position) <= (double) (f * f * MathHelper.clamp(rand.nextFloat(), 0.75F, 1.0F))
