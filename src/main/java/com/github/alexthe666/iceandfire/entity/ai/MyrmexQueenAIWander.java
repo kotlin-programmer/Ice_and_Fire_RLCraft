@@ -1,8 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
-import com.github.alexthe666.iceandfire.entity.EntityMyrmexQueen;
-import net.minecraft.entity.ai.EntityAIBase;
 
 public class MyrmexQueenAIWander extends MyrmexAIWander {
 

@@ -18,7 +18,7 @@ public class MyrmexRoom {
     private final WorldGenMyrmexHive.RoomType type;
     private boolean hasEntrance = false;
 
-    public MyrmexRoom(MyrmexRoom parent, WorldGenMyrmexHive.RoomType type, BlockPos center, MyrmexHive hive) {
+    public MyrmexRoom(@Nullable MyrmexRoom parent, WorldGenMyrmexHive.RoomType type, BlockPos center, MyrmexHive hive) {
         this.parent = parent;
         this.type = type;
         this.center = center;
@@ -71,17 +71,8 @@ public class MyrmexRoom {
         return parent == null ? this : parent;
     }
 
-    public BlockPos getNearestRoomPosTowardsCenter(){
-        return getNearestRoomTowardsCenter().center;
-    }
-
     public MyrmexRoom getRandomConnectedRoom(Random rand){
         return connectedRooms.isEmpty() ? this : connectedRooms.get(rand.nextInt(connectedRooms.size()));
-    }
-
-    public BlockPos getRandomConnectedRoomPos(Random rand){
-        MyrmexRoom randomRoom = getRandomConnectedRoom(rand);
-        return randomRoom == null ? hive.getCenterGround() : randomRoom.center;
     }
 
     @Nullable

@@ -2,8 +2,8 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.block.BlockMyrmexCocoon;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
-import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.tile.TileEntityMyrmexCocoon;
+import com.github.alexthe666.iceandfire.entity.util.MyrmexHive;
 import com.github.alexthe666.iceandfire.entity.util.MyrmexRoom;
 import com.github.alexthe666.iceandfire.structures.WorldGenMyrmexHive;
 import net.minecraft.entity.ai.EntityAIBase;
