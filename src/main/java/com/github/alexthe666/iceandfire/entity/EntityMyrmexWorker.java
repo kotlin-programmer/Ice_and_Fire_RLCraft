@@ -114,8 +114,8 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(10, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIForageForItems<>(this));
-        this.targetTasks.addTask(3, new MyrmexAIPickupBabies<>(this));
+        this.targetTasks.addTask(2, new MyrmexAIForageForItems(this));
+        this.targetTasks.addTask(3, new MyrmexAIPickupBabies(this));
         this.targetTasks.addTask(4, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
         this.targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
