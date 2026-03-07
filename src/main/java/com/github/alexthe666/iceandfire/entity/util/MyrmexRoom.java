@@ -42,7 +42,7 @@ public class MyrmexRoom {
 
     public MyrmexRoom addConnectedRoom(MyrmexRoom room) {
         this.connectedRooms.add(room);
-        return this;
+        return room;
     }
 
     public void setHasEntrance(){
