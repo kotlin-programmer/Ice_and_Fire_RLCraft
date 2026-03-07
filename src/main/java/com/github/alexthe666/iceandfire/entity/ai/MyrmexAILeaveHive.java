@@ -49,7 +49,7 @@ public class MyrmexAILeaveHive extends EntityAIBase {
     private static boolean distanceToTargetTooBig(PathPoint endPoint, BlockPos targetPos){
         double distXZ = Math.sqrt(new BlockPos(endPoint.x, targetPos.getY(), endPoint.z).distanceSq(targetPos));
         double distY = Math.abs(targetPos.getY() - endPoint.y);
-        return distXZ > 3 || distY > 15;
+        return distXZ > 45 || distY > 15;
     }
 
     public boolean shouldContinueExecuting() {
