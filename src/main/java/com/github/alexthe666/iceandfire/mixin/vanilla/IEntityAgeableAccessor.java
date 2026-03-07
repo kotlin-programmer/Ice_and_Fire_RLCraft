@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IEntityAgeableAccessor {
 	
 	@Accessor(value = "BABY")
-	static DataParameter<Boolean> getBabyParameter() {
+	static DataParameter<Boolean> iceAndFire$getBabyParameter() {
 		throw new UnsupportedOperationException("Baby Accessor Failed to Apply");
 	}
 }

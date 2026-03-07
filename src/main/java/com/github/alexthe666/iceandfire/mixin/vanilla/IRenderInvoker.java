@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface IRenderInvoker {
 	
 	@Invoker("getEntityTexture")
-	ResourceLocation invokeGetEntityTexture(Entity entity);
+	ResourceLocation iceAndFire$getEntityTexture(Entity entity);
 }

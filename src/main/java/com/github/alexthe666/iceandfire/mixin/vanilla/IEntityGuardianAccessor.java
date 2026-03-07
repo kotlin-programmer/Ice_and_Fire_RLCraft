@@ -8,14 +8,14 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IEntityGuardianAccessor {
 	
 	@Accessor("clientSideSpikesAnimation")
-	void setClientSideSpikesAnimation(float val);
+	void iceAndFire$setClientSideSpikesAnimation(float val);
 	
 	@Accessor("clientSideSpikesAnimationO")
-	void setClientSideSpikesAnimation0(float val);
+	void iceAndFire$setClientSideSpikesAnimation0(float val);
 	
 	@Accessor("clientSideTailAnimation")
-	void setClientSideTailAnimation(float val);
+	void iceAndFire$setClientSideTailAnimation(float val);
 	
 	@Accessor("clientSideTailAnimationO")
-	void setClientSideTailAnimation0(float val);
+	void iceAndFire$setClientSideTailAnimation0(float val);
 }

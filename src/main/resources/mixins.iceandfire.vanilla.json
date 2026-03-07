@@ -9,15 +9,16 @@
     "vanilla.BlockPistonBaseMixin",
     "vanilla.BlockStateContainerStateImplementationMixin",
     "vanilla.IEntityAgeableAccessor",
-    "vanilla.IEntityVillagerAccessor"
+    "vanilla.IEntityVillagerAccessor",
+    "vanilla.IItemStackAccessor"
   ],
   "injectors": {
     "maxShiftBy": 10
   },
   "client": [
     "vanilla.EntityLivingBaseMixin",
+    "vanilla.IEntityGuardianAccessor",
     "vanilla.IRenderInvoker",
-    "vanilla.LayerArmorBaseMixin",
-    "vanilla.IEntityGuardianAccessor"
+    "vanilla.LayerArmorBaseMixin"
   ]
 }

@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 public interface IEntityVillagerAccessor {
 	
 	@Accessor(value = "careerId")
-	void setCareerId(int val);
+	void iceAndFire$setCareerId(int val);
 	
 	@Accessor(value = "PROFESSION")
-	static DataParameter<Integer> getProfessionParameter() {
+	static DataParameter<Integer> iceAndFire$getProfessionParameter() {
 		throw new UnsupportedOperationException("Profession Accessor Failed to Apply");
 	}
 }

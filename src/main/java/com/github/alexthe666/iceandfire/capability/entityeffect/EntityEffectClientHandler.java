@@ -5,7 +5,6 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.client.model.util.IEntityLivingBaseRenderContext;
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
-import com.github.alexthe666.iceandfire.entity.EntityShivaxiDragon;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.mixin.vanilla.IEntityGuardianAccessor;
@@ -16,7 +15,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -139,10 +137,10 @@ public class EntityEffectClientHandler {
             }
             if(entity instanceof EntityGuardian) {
                 EntityGuardian guardian = (EntityGuardian)entity;
-                ((IEntityGuardianAccessor)guardian).setClientSideTailAnimation(0);
-                ((IEntityGuardianAccessor)guardian).setClientSideTailAnimation0(0);
-                ((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation(1);
-                ((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation0(1);
+                ((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideTailAnimation(0);
+                ((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideTailAnimation0(0);
+                ((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideSpikesAnimation(1);
+                ((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideSpikesAnimation0(1);
             }
         }
     }

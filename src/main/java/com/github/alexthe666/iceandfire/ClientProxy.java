@@ -659,10 +659,10 @@ public class ClientProxy extends CommonProxy {
 			}
 			if(entity instanceof EntityGuardian) {
 				EntityGuardian guardian = (EntityGuardian)entity;
-				((IEntityGuardianAccessor)guardian).setClientSideTailAnimation(0);
-				((IEntityGuardianAccessor)guardian).setClientSideTailAnimation0(0);
-				((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation(1);
-				((IEntityGuardianAccessor)guardian).setClientSideSpikesAnimation0(1);
+				((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideTailAnimation(0);
+				((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideTailAnimation0(0);
+				((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideSpikesAnimation(1);
+				((IEntityGuardianAccessor)guardian).iceAndFire$setClientSideSpikesAnimation0(1);
 			}
 		}
 	}

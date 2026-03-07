@@ -54,7 +54,7 @@ public class EntitySnowVillager extends EntityVillager {
 			if (!this.world.isRemote) {
 				this.prof = IafVillagerRegistry.INSTANCE.getProfessionById(professionId);
 			}
-			this.dataManager.set(IEntityVillagerAccessor.getProfessionParameter(), professionId);
+			this.dataManager.set(IEntityVillagerAccessor.iceAndFire$getProfessionParameter(), professionId);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class EntitySnowVillager extends EntityVillager {
 				this.activeItemStackUseCount = 0;
 			}
 		}
-		if (IEntityAgeableAccessor.getBabyParameter().equals(key)) {
+		if (IEntityAgeableAccessor.iceAndFire$getBabyParameter().equals(key)) {
 			this.setScaleForAge(this.isChild());
 		}
 	}
@@ -137,7 +137,7 @@ public class EntitySnowVillager extends EntityVillager {
 				}
 				IafVillagerRegistry.INSTANCE.setRandomProfession(this, this.world.rand);
 			}
-			((IEntityVillagerAccessor)this).setCareerId(0);
+			((IEntityVillagerAccessor)this).iceAndFire$setCareerId(0);
 		}
 		return this.prof;
 	}

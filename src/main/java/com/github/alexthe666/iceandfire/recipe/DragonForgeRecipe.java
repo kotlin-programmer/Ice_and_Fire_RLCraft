@@ -1,7 +1,9 @@
 package com.github.alexthe666.iceandfire.recipe;
 
+import com.github.alexthe666.iceandfire.mixin.vanilla.IItemStackAccessor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.common.capabilities.CapabilityDispatcher;
 
 public class DragonForgeRecipe {
 
@@ -90,17 +92,27 @@ public class DragonForgeRecipe {
     }
 
     public void smelt(NonNullList<ItemStack> forge, ItemStack input, ItemStack blood, ItemStack output) {
-        int quantityCreated = isProjectile() ? Math.min(input.getCount(), getInput().getCount()) : getOutput().getCount();
-        int quantityConsumed = isProjectile() ? quantityCreated : getInput().getCount();
+        int quantityCreated = isProjectile() ? Math.min(input.getCount(), getInput().getCount())
+                : getOutput().getCount();
+        int quantityConsumed = isProjectile() ? quantityCreated
+                : getInput().getCount();
         if (output.isEmpty()) {
-            ItemStack stack = getOutput().copy();
+            ItemStack stack;
             if (this.shouldPersistMetadata()) {
+                CapabilityDispatcher capabilities = ((IItemStackAccessor) (Object) input).iceAndFire$getCapabilities();
+                stack = new ItemStack(
+                        getOutput().getItem(),
+                        quantityCreated,
+                        input.getItemDamage(),
+                        capabilities != null ? capabilities.serializeNBT() : null
+                );
                 stack.setStackDisplayName(input.getDisplayName());
-                stack.setItemDamage(input.getItemDamage());
                 stack.setRepairCost(input.getRepairCost());
                 stack.setTagCompound(input.getTagCompound());
+            } else {
+                stack = getOutput().copy();
+                stack.setCount(quantityCreated);
             }
-            stack.setCount(quantityCreated);
             forge.set(2, stack);
         } else {
             output.grow(quantityCreated);

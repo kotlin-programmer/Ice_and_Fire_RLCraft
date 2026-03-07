@@ -55,7 +55,7 @@ public class LayerStoneEntity implements LayerRenderer<EntityLivingBase> {
 					ResourceLocation desaturatedTexture = null;
 					if(IceAndFireConfig.CLIENT_SETTINGS.advancedStonedEntityRender) {
 						//If not already cached, get texture at this moment
-						ResourceLocation entityTexture = ((IRenderInvoker)this.renderer).invokeGetEntityTexture(entity);
+						ResourceLocation entityTexture = ((IRenderInvoker)this.renderer).iceAndFire$getEntityTexture(entity);
 						if(entityTexture != null) {
 							//Check if texture has already been desaturated (Likely for non-animated entity textures)
 							desaturatedTexture = DESATURATED_TEXTURE_CACHE.get(entityTexture);
