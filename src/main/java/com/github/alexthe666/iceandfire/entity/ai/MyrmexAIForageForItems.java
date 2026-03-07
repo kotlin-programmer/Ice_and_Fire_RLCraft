@@ -28,7 +28,7 @@ public class MyrmexAIForageForItems extends EntityAITarget {
         if (!this.myrmex.canMove() || this.myrmex.holdingSomething() || !this.myrmex.getNavigator().noPath() || !this.myrmex.keepSearching) {
             return false;
         }
-        List<EntityItem> list = this.taskOwner.world.getEntitiesWithinAABB(EntityItem.class, this.getTargetableArea(this.getTargetDistance()), this.targetEntitySelector);
+        List<EntityItem> list = this.taskOwner.world.getEntitiesWithinAABB(EntityItem.class, this.getTargetableArea(25), this.targetEntitySelector);
         if (list.isEmpty()) {
             return false;
         } else {
