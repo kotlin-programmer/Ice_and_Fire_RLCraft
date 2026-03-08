@@ -35,7 +35,10 @@ public class MyrmexAIStoreBabies extends EntityAIBase {
             MyrmexRoom nextRoom = thisRoom.getConnectedRoomOfType(WorldGenMyrmexHive.RoomType.NURSERY);
             if(nextRoom == null || nextRoom.getPos().distanceSq(this.myrmex.getPos()) > 1600) return false; // try again later
 
-            this.nextRoom = nextRoom.getPos();
+            //random position in nursery
+            this.nextRoom = nextRoom.getPos().add(3 - this.myrmex.getRNG().nextInt(7), 4, 3 - this.myrmex.getRNG().nextInt(7));
+            this.nextRoom = MyrmexHive.getGroundedPos(this.myrmex.getWorld(), this.nextRoom);
+
             Path path = this.myrmex.getNavigator().getPathToPos(this.nextRoom);
             ((EntityLiving) this.myrmex.getHeldEntity()).getNavigator().setPath(path, this.movementSpeed); //living passengers steer the living vehicle with fixed speed of 1.5 (EntityLiving::updateEntityActionState, why...)
             return true;
