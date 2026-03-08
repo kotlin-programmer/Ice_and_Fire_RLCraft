@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
@@ -40,9 +39,9 @@ public class RenderAmphithere extends RenderLiving<EntityAmphithere> {
 			GlStateManager.translate(0, -entitylivingbaseIn.height, 0);
 			GlStateManager.rotate(180.0F, 0.0F, 0.0F, 1.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
-			GL11.glScalef(1.1F, 1.1F, 1.1F);
+			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 		} else {
-			GL11.glScalef(2.0F, 2.0F, 2.0F);
+			GlStateManager.scale(2.0F, 2.0F, 2.0F);
 		}
 	}
 

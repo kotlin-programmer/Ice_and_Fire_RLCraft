@@ -13,7 +13,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderDragonFireCharge extends Render<Entity> {
@@ -37,14 +36,14 @@ public class RenderDragonFireCharge extends Render<Entity> {
 	@Override
 	public void doRender(Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
 		BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-		GL11.glPushMatrix();
-		GL11.glTranslated(x, y, z);
+		GlStateManager.pushMatrix();
+		GlStateManager.translate(x, y, z);
 		this.bindEntityTexture(entity);
 		GlStateManager.rotate(entity.ticksExisted * 7, 1.0F, 1.0F, 1.0F);
 		GlStateManager.translate(-0.5F, 0F, 0.5F);
 		blockrendererdispatcher.renderBlockBrightness(getBlock().getDefaultState(), entity.getBrightness());
 		GlStateManager.translate(-1.0F, 0.0F, 1.0F);
-		GL11.glPopMatrix();
+		GlStateManager.popMatrix();
 	}
 
 	private Block getBlock() {

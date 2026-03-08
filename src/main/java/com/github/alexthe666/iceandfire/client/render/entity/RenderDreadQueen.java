@@ -3,12 +3,12 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 import com.github.alexthe666.iceandfire.client.model.ModelDreadQueen;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerGenericGlowing;
 import com.github.alexthe666.iceandfire.entity.EntityDreadQueen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
@@ -23,9 +23,9 @@ public class RenderDreadQueen extends RenderLiving<EntityDreadQueen> {
             protected void translateToHand(EnumHandSide p_191361_1_) {
                 ((ModelDreadQueen) this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
                 if (p_191361_1_ == EnumHandSide.LEFT) {
-                    GL11.glTranslatef(-0.05F, 0, 0);
+                    GlStateManager.translate(-0.05F, 0, 0);
                 } else {
-                    GL11.glTranslatef(0.05F, 0, 0);
+                    GlStateManager.translate(0.05F, 0, 0);
                 }
             }
         });
@@ -33,7 +33,7 @@ public class RenderDreadQueen extends RenderLiving<EntityDreadQueen> {
 
     @Override
     protected void preRenderCallback(EntityDreadQueen entity, float f) {
-        GL11.glScalef(0.95F, 0.95F, 0.95F);
+        GlStateManager.scale(0.95F, 0.95F, 0.95F);
     }
 
     @Nullable

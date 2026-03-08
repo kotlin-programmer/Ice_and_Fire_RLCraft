@@ -3,6 +3,7 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 import com.github.alexthe666.iceandfire.client.model.ModelDreadThrall;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerGenericGlowing;
 import com.github.alexthe666.iceandfire.entity.EntityDreadThrall;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerArmorBase;
@@ -11,7 +12,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHandSide;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
@@ -35,9 +35,9 @@ public class RenderDreadThrall extends RenderLiving<EntityDreadThrall> {
             protected void translateToHand(EnumHandSide p_191361_1_) {
                 ((ModelDreadThrall) this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, p_191361_1_);
                 if (p_191361_1_ == EnumHandSide.LEFT) {
-                    GL11.glTranslatef(-0.05F, 0, 0);
+                    GlStateManager.translate(-0.05F, 0, 0);
                 } else {
-                    GL11.glTranslatef(0.05F, 0, 0);
+                    GlStateManager.translate(0.05F, 0, 0);
                 }
             }
         });
@@ -116,7 +116,7 @@ public class RenderDreadThrall extends RenderLiving<EntityDreadThrall> {
 
     @Override
     protected void preRenderCallback(EntityDreadThrall entity, float f) {
-        GL11.glScalef(0.95F, 0.95F, 0.95F);
+        GlStateManager.scale(0.95F, 0.95F, 0.95F);
     }
 
     @Nullable

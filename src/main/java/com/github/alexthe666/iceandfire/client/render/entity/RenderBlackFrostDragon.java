@@ -3,13 +3,13 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerGenericGlowing;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderBlackFrostDragon extends RenderLiving<EntityDragonBase> {
@@ -30,7 +30,7 @@ public class RenderBlackFrostDragon extends RenderLiving<EntityDragonBase> {
     @Override
     protected void preRenderCallback(EntityDragonBase entity, float f) {
         this.shadowSize = entity.getRenderSize() / 3;
-        GL11.glScalef(shadowSize, shadowSize, shadowSize);
+        GlStateManager.scale(shadowSize, shadowSize, shadowSize);
     }
 
 

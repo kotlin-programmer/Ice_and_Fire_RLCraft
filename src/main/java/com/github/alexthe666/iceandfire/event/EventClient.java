@@ -29,7 +29,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -116,20 +115,20 @@ public class EventClient {
 				float scale = ((EntityDragonBase) player.getRidingEntity()).getRenderSize() / 3;
 				if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
 					if (currentView == 1) {
-						GL11.glTranslatef(scale * 0.5F, 0F, -scale * 3F);
+						GlStateManager.translate(scale * 0.5F, 0F, -scale * 3F);
 					} else if (currentView == 2) {
-						GL11.glTranslatef(0, 0F, -scale * 3F);
+						GlStateManager.translate(0, 0F, -scale * 3F);
 					} else if (currentView == 3) {
-						GL11.glTranslatef(scale * 0.5F, 0F, -scale * 0.5F);
+						GlStateManager.translate(scale * 0.5F, 0F, -scale * 0.5F);
 					}
 				}
 				if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
 					if (currentView == 1) {
-						GL11.glTranslatef(-scale  * 1.2F, 0F, 5);
+						GlStateManager.translate(-scale  * 1.2F, 0F, 5);
 					} else if(currentView == 2) {
-						GL11.glTranslatef(scale  * 1.2F, 0F, 5);
+						GlStateManager.translate(scale  * 1.2F, 0F, 5);
 					} else if(currentView == 3) {
-						GL11.glTranslatef(0, 0F, scale * 3F);
+						GlStateManager.translate(0, 0F, scale * 3F);
 					}
 				}
 			}

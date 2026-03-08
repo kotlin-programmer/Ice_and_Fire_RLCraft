@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderHydraArrow extends Render<EntityHydraArrow> {
@@ -51,14 +50,14 @@ public class RenderHydraArrow extends Render<EntityHydraArrow> {
         GlStateManager.rotate(45.0F, 1.0F, 0.0F, 0.0F);
         GlStateManager.scale(f8, f8, f8);
         GlStateManager.translate(-4.0F, 0.0F, 0.0F);
-        GL11.glNormal3f(f8, 0.0F, 0.0F);
+        GlStateManager.glNormal3f(f8, 0.0F, 0.0F);
         BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
         BufferBuilder.pos(-7.0D, -2.0D, -2.0D).tex(f4, f6).endVertex();
         BufferBuilder.pos(-7.0D, -2.0D, 2.0D).tex(f5, f6).endVertex();
         BufferBuilder.pos(-7.0D, 2.0D, 2.0D).tex(f5, f7).endVertex();
         BufferBuilder.pos(-7.0D, 2.0D, -2.0D).tex(f4, f7).endVertex();
         tessellator.draw();
-        GL11.glNormal3f(-f8, 0.0F, 0.0F);
+        GlStateManager.glNormal3f(-f8, 0.0F, 0.0F);
         BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
         BufferBuilder.pos(-7.0D, 2.0D, -2.0D).tex(f4, f6).endVertex();
         BufferBuilder.pos(-7.0D, 2.0D, 2.0D).tex(f5, f6).endVertex();
@@ -68,7 +67,7 @@ public class RenderHydraArrow extends Render<EntityHydraArrow> {
 
         for (int j = 0; j < 4; ++j) {
             GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-            GL11.glNormal3f(0.0F, 0.0F, f8);
+            GlStateManager.glNormal3f(0.0F, 0.0F, f8);
             BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
             BufferBuilder.pos(-8.0D, -2.0D, 0.0D).tex(f, f2).endVertex();
             BufferBuilder.pos(8.0D, -2.0D, 0.0D).tex(f1, f2).endVertex();

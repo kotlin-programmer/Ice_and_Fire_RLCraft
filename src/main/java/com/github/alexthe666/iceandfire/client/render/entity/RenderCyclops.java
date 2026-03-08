@@ -2,12 +2,12 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelCyclops;
 import com.github.alexthe666.iceandfire.entity.EntityCyclops;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderCyclops extends RenderLiving<EntityCyclops> {
@@ -31,7 +31,7 @@ public class RenderCyclops extends RenderLiving<EntityCyclops> {
 
 	@Override
 	public void preRenderCallback(EntityCyclops entitylivingbaseIn, float partialTickTime) {
-		GL11.glScalef(2.25F, 2.25F, 2.25F);
+		GlStateManager.scale(2.25F, 2.25F, 2.25F);
 	}
 
 	@Override

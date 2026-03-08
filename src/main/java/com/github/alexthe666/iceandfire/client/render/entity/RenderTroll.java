@@ -14,7 +14,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -136,10 +135,10 @@ public class RenderTroll extends RenderLiving<EntityTroll> implements ICustomSto
 						//Render stone texture
 						GlStateManager.pushMatrix();
 						GlStateManager.depthMask(true);
-						GL11.glEnable(GL11.GL_CULL_FACE);
+						GlStateManager.enableCull();
 						this.renderer.bindTexture(cache.texture);
 						this.renderer.getMainModel().render(troll, cache.limbSwing, cache.limbSwingAmount, cache.ageInTicks, cache.netHeadYaw, cache.headPitch, cache.scale);
-						GL11.glDisable(GL11.GL_CULL_FACE);
+						GlStateManager.disableCull();
 						GlStateManager.popMatrix();
 						
 						//Render breaking texture

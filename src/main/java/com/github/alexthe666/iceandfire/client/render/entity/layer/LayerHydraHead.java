@@ -8,11 +8,9 @@ import com.github.alexthe666.iceandfire.entity.EntityHydra;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class LayerHydraHead implements LayerRenderer<EntityHydra> {
@@ -61,8 +59,8 @@ public class LayerHydraHead implements LayerRenderer<EntityHydra> {
         for (int head = 1; head <= heads; head++) {
             GlStateManager.pushMatrix();
             float bodyWidth = 0.5F;
-            GL11.glTranslatef(TRANSLATE[heads - 1][head - 1] * bodyWidth, 0, 0);
-            GL11.glRotatef(ROTATE[heads - 1][head - 1], 0, 1, 0);
+            GlStateManager.translate(TRANSLATE[heads - 1][head - 1] * bodyWidth, 0, 0);
+            GlStateManager.rotate(ROTATE[heads - 1][head - 1], 0, 1, 0);
             if(stone){
                 renderer.bindTexture(TEXTURE_STONE);
                 f2 = 0;

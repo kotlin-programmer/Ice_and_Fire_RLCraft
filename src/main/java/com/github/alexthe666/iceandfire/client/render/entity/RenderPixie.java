@@ -16,7 +16,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderPixie extends RenderLiving<EntityPixie> {
@@ -36,9 +35,9 @@ public class RenderPixie extends RenderLiving<EntityPixie> {
 
 	@Override
 	public void preRenderCallback(EntityPixie entitylivingbaseIn, float partialTickTime) {
-		GL11.glScalef(0.55F, 0.55F, 0.55F);
+		GlStateManager.scale(0.55F, 0.55F, 0.55F);
 		if (entitylivingbaseIn.isSitting()) {
-			GL11.glTranslatef(0F, 0.5F, 0F);
+			GlStateManager.translate(0F, 0.5F, 0F);
 		}
 	}
 

@@ -2,10 +2,10 @@ package com.github.alexthe666.iceandfire.client.gui.bestiary;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class ChangePageButton extends GuiButton {
@@ -23,7 +23,7 @@ public class ChangePageButton extends GuiButton {
 	public void drawButton(Minecraft mc, int mouseX, int mouseY, float partial) {
 		if (this.enabled) {
 			boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			mc.renderEngine.bindTexture(TEXTURE);
 			int i = 0;
 			int j = 64;

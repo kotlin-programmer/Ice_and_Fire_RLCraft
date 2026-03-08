@@ -2,12 +2,12 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelDeathWorm;
 import com.github.alexthe666.iceandfire.entity.EntityDeathWorm;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
@@ -25,7 +25,7 @@ public class RenderDeathWorm extends RenderLiving<EntityDeathWorm> {
     @Override
     protected void preRenderCallback(EntityDeathWorm entity, float f) {
         this.shadowSize = entity.getScaleForAge() / 3;
-        GL11.glScalef(entity.getScaleForAge(), entity.getScaleForAge(), entity.getScaleForAge());
+        GlStateManager.scale(entity.getScaleForAge(), entity.getScaleForAge(), entity.getScaleForAge());
     }
 
     @Nullable

@@ -11,7 +11,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
@@ -98,7 +97,7 @@ public class RenderHippocampus extends RenderLiving<EntityHippocampus> {
 		@Override
 		public void doRenderLayer(EntityHippocampus entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale){
 			if (entitylivingbaseIn.hasCustomName() && entitylivingbaseIn.getCustomNameTag().toLowerCase().contains("rainbow")) {
-				GL11.glPushMatrix();
+				GlStateManager.pushMatrix();
 				this.renderer.bindTexture(entitylivingbaseIn.isBlinking() ? TEXTURE_BLINK : TEXTURE);
 				int i = entitylivingbaseIn.ticksExisted / 25 + entitylivingbaseIn.getEntityId();
 				int j = EnumDyeColor.values().length;
@@ -109,7 +108,7 @@ public class RenderHippocampus extends RenderLiving<EntityHippocampus> {
 				float[] afloat2 = EntitySheep.getDyeRgb(EnumDyeColor.byMetadata(l));
 				GlStateManager.color(afloat1[0] * (1.0F - f) + afloat2[0] * f, afloat1[1] * (1.0F - f) + afloat2[1] * f, afloat1[2] * (1.0F - f) + afloat2[2] * f);
 				this.renderer.getMainModel().render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-				GL11.glPopMatrix();
+				GlStateManager.popMatrix();
 			}
 		}
 
@@ -182,7 +181,7 @@ public class RenderHippocampus extends RenderLiving<EntityHippocampus> {
 		@Override
 		public void doRenderLayer(EntityHippocampus entity, float f, float f1, float i, float f2, float f3, float f4, float f5) {
 			if (entity.getArmor() != 0) {
-				GL11.glPushMatrix();
+				GlStateManager.pushMatrix();
 				switch(entity.getArmor()) {
 					case 1:
 						this.renderer.bindTexture(TEXTURE_IRON);
@@ -196,7 +195,7 @@ public class RenderHippocampus extends RenderLiving<EntityHippocampus> {
 				}
 				GlStateManager.color(1F, 1F, 1F);
 				this.renderer.getMainModel().render(entity, f, f1, f2, f3, f4, f5);
-				GL11.glPopMatrix();
+				GlStateManager.popMatrix();
 			}
 		}
 

@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.entity.EntityAmphithere;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 public class ModelAmphithere extends ModelDragonBase {
     public AdvancedModelRenderer BodyUpper;
@@ -307,7 +307,7 @@ public class ModelAmphithere extends ModelDragonBase {
             this.HeadFront.setScale(1, 1, 1);
             this.HeadFront.rotationPointZ = -2F;
             this.Jaw.rotationPointZ = -4.5F;
-            GL11.glTranslatef(0, 0.2F, 0);
+            GlStateManager.translate(0, 0.2F, 0);
         } else {
             this.BodyUpper.setScale(1F, 1F, 1F);
             this.Head.setScale(1F, 1F, 1F);

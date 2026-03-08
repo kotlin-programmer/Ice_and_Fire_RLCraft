@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelHippogryph;
 import com.github.alexthe666.iceandfire.entity.EntityHippogryph;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -9,7 +10,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 
@@ -26,7 +26,7 @@ public class RenderHippogryph extends RenderLiving<EntityHippogryph> {
 	}
 
 	protected void preRenderCallback(EntityHippogryph entity, float partialTickTime) {
-		GL11.glScalef(1.2F, 1.2F, 1.2F);
+		GlStateManager.scale(1.2F, 1.2F, 1.2F);
 	}
 
 	@Nullable

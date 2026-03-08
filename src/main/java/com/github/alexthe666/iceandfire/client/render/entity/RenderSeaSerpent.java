@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderSeaSerpent extends RenderLiving<EntitySeaSerpent> {
@@ -38,7 +37,7 @@ public class RenderSeaSerpent extends RenderLiving<EntitySeaSerpent> {
 	@Override
 	protected void preRenderCallback(EntitySeaSerpent entity, float f) {
 		this.shadowSize = entity.getSeaSerpentScale();
-		GL11.glScalef(shadowSize, shadowSize, shadowSize);
+		GlStateManager.scale(shadowSize, shadowSize, shadowSize);
 	}
 
 	@Override

@@ -2,13 +2,13 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelSiren;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderSiren extends RenderLiving<EntitySiren> {
@@ -29,7 +29,7 @@ public class RenderSiren extends RenderLiving<EntitySiren> {
 
 	@Override
 	public void preRenderCallback(EntitySiren entitylivingbaseIn, float partialTickTime) {
-		GL11.glTranslatef(0, 0, -0.5F);
+		GlStateManager.translate(0, 0, -0.5F);
 	}
 
 	@Override

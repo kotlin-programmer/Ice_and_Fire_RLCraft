@@ -3,21 +3,17 @@ package com.github.alexthe666.iceandfire.client.particle;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import net.minecraft.client.particle.ParticleFlame;
 import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
-import scala.collection.parallel.ParSeqLike;
-import thaumcraft.codechicken.lib.vec.Vector3;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
 import java.util.List;
 
 public class ParticleTargetedDragonFlame extends ParticleFlame {
@@ -83,12 +79,12 @@ public class ParticleTargetedDragonFlame extends ParticleFlame {
                 avec3d[l] = vec3d.scale(2.0D * avec3d[l].dotProduct(vec3d)).add(avec3d[l].scale((double) (f9 * f9) - vec3d.dotProduct(vec3d))).add(vec3d.crossProduct(avec3d[l]).scale((double) (2.0F * f9)));
             }
         }
-        GL11.glPushMatrix();
+        GlStateManager.pushMatrix();
         buffer.pos((double) f5 + avec3d[0].x, (double) f6 + avec3d[0].y, (double) f7 + avec3d[0].z).tex((double) f1, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
         buffer.pos((double) f5 + avec3d[1].x, (double) f6 + avec3d[1].y, (double) f7 + avec3d[1].z).tex((double) f1, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
         buffer.pos((double) f5 + avec3d[2].x, (double) f6 + avec3d[2].y, (double) f7 + avec3d[2].z).tex((double) f, (double) f2).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
         buffer.pos((double) f5 + avec3d[3].x, (double) f6 + avec3d[3].y, (double) f7 + avec3d[3].z).tex((double) f, (double) f3).color(this.particleRed, this.particleGreen, this.particleBlue, this.particleAlpha).lightmap(j, k).endVertex();
-        GL11.glPopMatrix();
+        GlStateManager.popMatrix();
     }
 
     public int getBrightnessForRender(float partialTick) {
