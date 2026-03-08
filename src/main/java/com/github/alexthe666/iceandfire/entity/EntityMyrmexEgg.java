@@ -196,12 +196,14 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
     }
 
     public void onPlayerPlace(EntityPlayer player) {
-        //Set belonging to nearest hive if that hive is owned by the placing player
-        MyrmexHive hive = MyrmexWorldData.get(player.world).getNearestHive(player.getPosition(), 100);
-        if(hive == null) return;
-        if(!hive.hasOwner) return;
-        if(hive.ownerUUID != player.getUniqueID()) return;
-        this.hiveUUID = hive.hiveUUID;
+        if(IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.playerEggsBelongToHive) {
+            //Set belonging to nearest hive if that hive is owned by the placing player
+            MyrmexHive hive = MyrmexWorldData.get(player.world).getNearestHive(player.getPosition(), 100);
+            if (hive == null) return;
+            if (!hive.hasOwner) return;
+            if (hive.ownerUUID != player.getUniqueID()) return;
+            this.hiveUUID = hive.hiveUUID;
+        }
     }
 
     @Override

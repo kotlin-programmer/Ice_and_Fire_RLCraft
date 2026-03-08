@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexBase;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexEgg;
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexWorker;
@@ -19,7 +20,7 @@ public class MyrmexAIPickupBabies extends EntityAITarget {
     public MyrmexAIPickupBabies(EntityMyrmexWorker myrmex) {
         super(myrmex, false, false);
         this.theNearestAttackableTargetSorter = new DragonAITargetItems.Sorter(myrmex);
-        this.targetEntitySelector = other -> other != null && !other.isRiding() && (other instanceof EntityMyrmexBase && ((EntityMyrmexBase) other).getGrowthStage() < 2 && !((EntityMyrmexBase) other).isInNursery() || other instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) other).isInNursery());
+        this.targetEntitySelector = other -> other != null && (IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.workersPickupRidingBabies || !other.isRiding()) && (other instanceof EntityMyrmexBase && ((EntityMyrmexBase) other).getGrowthStage() < 2 && !((EntityMyrmexBase) other).isInNursery() || other instanceof EntityMyrmexEgg && !((EntityMyrmexEgg) other).isInNursery());
         this.myrmex = myrmex;
         this.setMutexBits(1);
     }
@@ -51,7 +52,7 @@ public class MyrmexAIPickupBabies extends EntityAITarget {
 
     @Override
     public void updateTask() {
-        if (this.targetEntity == null || this.targetEntity.isDead || (this.targetEntity.isRiding() && this.targetEntity.getRidingEntity() instanceof EntityMyrmexWorker) ) {
+        if (this.targetEntity == null || this.targetEntity.isDead || (!IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.workersPickupRidingBabies && this.targetEntity.isRiding() && this.targetEntity.getRidingEntity() instanceof EntityMyrmexWorker) ) {
             this.myrmex.getNavigator().clearPath();
             this.resetTask();
         }

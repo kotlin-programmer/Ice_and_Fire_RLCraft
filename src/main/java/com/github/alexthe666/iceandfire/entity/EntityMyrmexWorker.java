@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -83,7 +84,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 egg.copyLocationAndAnglesFrom(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
-                if(getHive() != null) egg.hiveUUID = this.getHive().hiveUUID;
+                if(IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.queenEggsBelongToHive && getHive() != null) egg.hiveUUID = this.getHive().hiveUUID;
                 if (!world.isRemote){
                     world.spawnEntity(egg);
                 }
@@ -234,7 +235,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
         Item item = itemEntity.getItem().getItem();
         if (isCorrectResin(item)){
             NBTTagCompound nbt = itemEntity.getItem().getTagCompound();
-            if(nbt != null && nbt.hasKey("isAllSlimy")) return;
+            if(IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.fixXPDupe && nbt != null && nbt.hasKey("isAllSlimy")) return;
 
             EntityPlayer owner = null;
             try{

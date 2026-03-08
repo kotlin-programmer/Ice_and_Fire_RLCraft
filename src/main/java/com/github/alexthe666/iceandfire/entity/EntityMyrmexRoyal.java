@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -265,7 +266,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
 
     @Override
     public boolean needsGaurding() {
-        return !this.isFlying;
+        return IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.soldiersFollowSwarmingRoyals || !this.isFlying;
     }
 
     public boolean shouldLeaveHive() {

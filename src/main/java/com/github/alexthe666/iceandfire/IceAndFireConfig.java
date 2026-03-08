@@ -816,6 +816,32 @@ public class IceAndFireConfig {
 		@Config.RangeDouble(min = 1, max = 10000)
 		public double myrmexSwarmerMaxHealth = 5D;
 
+		@Config.Comment("Options for Myrmex Ai")
+		@Config.Name("Myrmex Ai")
+		public MyrmexAiConfig myrmexAi = new MyrmexAiConfig();
+
+		public static class MyrmexAiConfig {
+			@Config.Comment("Disable to stop Myrmex Workers from stealing each others held eggs/babies")
+			@Config.Name("Myrmex Workers Steal Eggs")
+			public boolean workersPickupRidingBabies = true;
+
+			@Config.Comment("Disable to stop Myrmex Soldiers from escorting Myrmex Royals that are already swarming")
+			@Config.Name("Myrmex Soldiers Escort Swarming Royals")
+			public boolean soldiersFollowSwarmingRoyals = true;
+
+			@Config.Comment("Enable to make myrmex hatching from eggs that a queen layed belong to the queens hive")
+			@Config.Name("Queen Eggs Belong To Hive")
+			public boolean queenEggsBelongToHive = false;
+
+			@Config.Comment("Enable to make myrmex hatching from eggs that a player purchased or stole from a queen belong to the queens hive if the player owns that hive")
+			@Config.Name("Player Eggs Belong To Owned Hive")
+			public boolean playerEggsBelongToHive = false;
+
+			@Config.Comment("Enable to fix XP dupe related to Myrmex")
+			@Config.Name("Fix XP Dupe")
+			public boolean fixXPDupe = false;
+		}
+
 		@Config.Comment("Range that Amphitheres can detect villagers being hurt")
 		@Config.Name("Amphithere Villager Hurt Range")
 		@Config.RangeDouble(min = 1, max = 10000)
