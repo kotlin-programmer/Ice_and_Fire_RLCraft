@@ -2,8 +2,6 @@ package com.github.alexthe666.iceandfire.entity.tile;
 
 import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.world.EnumDifficulty;
@@ -32,8 +30,7 @@ public class TileEntityGhostChest extends TileEntityChest {
         return compound;
     }
 
-    @Override
-    public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player) {
+    public void checkSpawn(EntityPlayer player) {
         if (!this.world.isRemote && this.world.getDifficulty() != EnumDifficulty.PEACEFUL && !this.spawnChecked) {
             if (this.world.rand.nextInt(100) < this.spawnChance) {
                 EntityGhost ghost = new EntityGhost(this.world);
@@ -50,6 +47,5 @@ public class TileEntityGhostChest extends TileEntityChest {
             }
             this.spawnChecked = true;
         }
-        return super.createContainer(playerInventory, player);
     }
 }

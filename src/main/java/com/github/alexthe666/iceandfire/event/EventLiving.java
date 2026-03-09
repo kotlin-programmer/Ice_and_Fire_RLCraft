@@ -5,9 +5,11 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
+import com.github.alexthe666.iceandfire.block.BlockGhostChest;
 import com.github.alexthe666.iceandfire.block.BlockMonsterSpawner;
 import com.github.alexthe666.iceandfire.block.IDreadBlock;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
+import com.github.alexthe666.iceandfire.entity.tile.TileEntityGhostChest;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.entity.*;
@@ -50,6 +52,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
@@ -492,31 +495,39 @@ public class EventLiving {
 	public void onPlayerRightClick(PlayerInteractEvent.RightClickBlock event) {
 		IBlockState state = event.getWorld().getBlockState(event.getPos());
 		Block block = state.getBlock();
+		BlockPos pos = event.getPos();
+		World world = event.getWorld();
+		EntityPlayer player = event.getEntityPlayer();
 		if (event.getEntityPlayer() != null && block instanceof BlockChest) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
-			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(event.getEntityPlayer(), event.getEntityPlayer().getEntityBoundingBox().expand(dist, dist, dist));
-			list.sort(new EntityAINearestAttackableTarget.Sorter(event.getEntityPlayer()));
+			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(dist, dist, dist));
+			list.sort(new EntityAINearestAttackableTarget.Sorter(player));
 			if (!list.isEmpty()) {
 				for (Entity entity : list) {
 					if (entity instanceof EntityDragonBase) {
 						EntityDragonBase dragon = (EntityDragonBase) entity;
-						if (!dragon.isTamed() && !dragon.isModelDead() && !dragon.isOwner(event.getEntityPlayer()) && !event.getEntityPlayer().capabilities.isCreativeMode) {
+						if (!dragon.isTamed() && !dragon.isModelDead() && !dragon.isOwner(player) && !player.capabilities.isCreativeMode) {
 							dragon.setSleeping(false);
 							dragon.setSitting(false);
-							dragon.setAttackTarget(event.getEntityPlayer());
+							dragon.setAttackTarget(player);
 						}
 					}
 				}
 			}
 		}
+		TileEntity tileEntity = event.getWorld().getTileEntity(pos);
+		if (tileEntity instanceof TileEntityGhostChest && block instanceof BlockGhostChest && !player.isSpectator()) {
+			if (!world.getBlockState(pos.up()).doesSideBlockChestOpening(world, pos.up(), EnumFacing.DOWN)) {
+				((TileEntityGhostChest) tileEntity).checkSpawn(player);
+			}
+		}
 		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemMonsterPlacer && event.getEntityPlayer().isCreative() && (block instanceof BlockDreadSpawner || block instanceof BlockMonsterSpawner)) {
-			TileEntity tileEntity = event.getWorld().getTileEntity(event.getPos());
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemMonsterPlacer && player.isCreative() && (block instanceof BlockDreadSpawner || block instanceof BlockMonsterSpawner)) {
 			if (tileEntity instanceof TileEntitySpawnerBase) {
 				MobSpawnerBaseLogic mobSpawnerBaseLogic = ((TileEntitySpawnerBase) tileEntity).getSpawnerBaseLogic();
 				mobSpawnerBaseLogic.setEntityId(getNamedIdFrom(stack));
 				tileEntity.markDirty();
-				event.getWorld().notifyBlockUpdate(event.getPos(), state, state, 3);
+				event.getWorld().notifyBlockUpdate(pos, state, state, 3);
 				event.setCanceled(true);
 			}
 		}
@@ -555,6 +566,9 @@ public class EventLiving {
 		IBlockState state = event.getState();
 		Block block = state.getBlock();
 		EntityPlayer player = event.getPlayer();
+		World world = event.getWorld();
+		BlockPos pos = event.getPos();
+		TileEntity tileEntity = world.getTileEntity(pos);
 		if (block == IafBlockRegistry.goldPile || block == IafBlockRegistry.silverPile || block == IafBlockRegistry.diamondPile) {
 			float dist = IceAndFireConfig.DRAGON_SETTINGS.dragonGoldSearchLength;
 			List<Entity> list = event.getWorld().getEntitiesWithinAABBExcludingEntity(player, player.getEntityBoundingBox().expand(dist, dist, dist));
@@ -572,15 +586,15 @@ public class EventLiving {
 				}
 			}
 		} else if (block == IafBlockRegistry.monster_spawner || block == IafBlockRegistry.dread_spawner) {
-			World world = event.getWorld();
-			BlockPos pos = event.getPos();
-			TileEntity tileEntity = world.getTileEntity(pos);
 			if (tileEntity instanceof TileEntitySpawnerBase) {
 				int requiredSpawnCount = ((TileEntitySpawnerBase) tileEntity).getRequiredSpawnCount();
 				if (requiredSpawnCount > 0) {
 					event.setCanceled(true);
 				}
 			}
+		}
+		if (tileEntity instanceof TileEntityGhostChest && block instanceof BlockGhostChest) {
+			((TileEntityGhostChest) tileEntity).checkSpawn(player);
 		}
 		if (player == null || !player.capabilities.isCreativeMode) {
 			if (IDreadBlock.isIndestructible(state)) {
