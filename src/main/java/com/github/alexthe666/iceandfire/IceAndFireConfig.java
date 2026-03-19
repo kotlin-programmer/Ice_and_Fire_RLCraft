@@ -634,6 +634,10 @@ public class IceAndFireConfig {
 		@Config.Comment("If true, dragons will be spooky skeletons for spooky season (Halloween)")
 		@Config.Name("Spooky Season Dragons")
 		public boolean spookySeason = true;
+
+		@Config.Comment("How many ticks to prevent sleep from caffeine")
+		@Config.Name("Dragon Coffee Sleep Prevention Ticks")
+		public int dragonCoffeeTicks = 6000;
 	}
 
 	public static class EntityConfig {

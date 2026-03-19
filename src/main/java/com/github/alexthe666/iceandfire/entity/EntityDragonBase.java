@@ -48,6 +48,7 @@ import net.minecraft.inventory.ContainerHorseChest;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMonsterPlacer;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -56,6 +57,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionType;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -78,27 +81,29 @@ import java.util.Random;
 
 public abstract class EntityDragonBase extends EntityTameable implements IMultipartEntity, IAnimatedEntity, IDragonFlute, IDeadMob, IVillagerFear, IAnimalFear, IDropArmor {
 
+    private static final ResourceLocation COFFEE = new ResourceLocation("charm:coffee");
     public static EntityEquipmentSlot[] ARMOR_SLOTS = { EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET };
     private static final int FLIGHT_CHANCE_PER_TICK = 1500;
-    private static final DataParameter<Integer> HUNGER = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> AGE_TICKS = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> GENDER = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> VARIANT = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> SLEEPING = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FIREBREATHING = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> HOVERING = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FLYING = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> HEAD_ARMOR = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> NECK_ARMOR = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> BODY_ARMOR = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Integer> TAIL_ARMOR = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> MODEL_DEAD = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> DEATH_STAGE = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> HUNGER = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> AGE_TICKS = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> GENDER = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> SLEEPING = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> FIREBREATHING = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> HOVERING = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> FLYING = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> HEAD_ARMOR = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> NECK_ARMOR = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> BODY_ARMOR = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> TAIL_ARMOR = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> MODEL_DEAD = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> DEATH_STAGE = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
     private static final DataParameter<Byte> CONTROL_STATE = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BYTE);
-    private static final DataParameter<Boolean> TACKLE = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> AGINGDISABLED = EntityDataManager.<Boolean>createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Integer> COMMAND = EntityDataManager.<Integer>createKey(EntityDragonBase.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> TACKLE = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> AGINGDISABLED = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> COMMAND = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
     private static final DataParameter<Boolean> CRYSTAL_BOUND = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> CAFFEINE_TICKS = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.VARINT);
     private static final DataParameter<BlockPos> BURNING_TARGET = EntityDataManager.createKey(EntityDragonBase.class, DataSerializers.BLOCK_POS);
     public static Animation ANIMATION_EAT;
     public static Animation ANIMATION_SPEAK;
@@ -138,7 +143,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public int flightCycle;
     public BlockPos airTarget;
     public BlockPos homePos;
-    public boolean hasHomePosition = false;
+    public boolean hasHomePosition;
     @SideOnly(Side.CLIENT)
     public IFChainBuffer roll_buffer;
     @SideOnly(Side.CLIENT)
@@ -483,6 +488,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.dataManager.register(AGINGDISABLED, Boolean.FALSE);
         this.dataManager.register(COMMAND, 0);
         this.dataManager.register(CRYSTAL_BOUND, Boolean.FALSE);
+        this.dataManager.register(CAFFEINE_TICKS, 0);
         this.dataManager.register(BURNING_TARGET, BlockPos.ORIGIN);
     }
 
@@ -604,6 +610,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         compound.setBoolean("AgingDisabled", this.isAgingDisabled());
         compound.setInteger("Command", this.getCommand());
         compound.setBoolean("CrystalBound", this.isBoundToCrystal());
+        compound.setInteger("CaffeineTicks", this.getCaffeineTicks());
         compound.setInteger("BurningTargetX", burningTarget.getX());
         compound.setInteger("BurningTargetY", burningTarget.getY());
         compound.setInteger("BurningTargetZ", burningTarget.getZ());
@@ -672,6 +679,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.setAgingDisabled(compound.getBoolean("AgingDisabled"));
         this.setCommand(compound.getInteger("Command"));
         this.setCrystalBound(compound.getBoolean("CrystalBound"));
+        this.setCaffeineTicks(compound.getInteger("CaffeineTicks"));
         this.setBurningTarget(new BlockPos(
                 compound.getInteger("BurningTargetX"),
                 compound.getInteger("BurningTargetY"),
@@ -878,6 +886,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.dataManager.set(CRYSTAL_BOUND, crystalBound);
     }
 
+    public void setCaffeineTicks(int caffeineTicks) {
+        this.dataManager.set(CAFFEINE_TICKS, caffeineTicks);
+    }
+
     public void setBurningTarget(BlockPos burningTarget) {
         this.dataManager.set(BURNING_TARGET, burningTarget);
         if (!world.isRemote) {
@@ -1020,7 +1032,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 }
                 this.setDeathStage(this.getDeathStage() + 1);
 
-                ItemStack bloodStack = new ItemStack(getBlood(), 1);
+                ItemStack bloodStack = new ItemStack(getBlood());
                 if (!player.inventory.addItemStackToInventory(bloodStack)) {
                     player.dropItem(bloodStack, false);
                 }
@@ -1103,6 +1115,22 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                         }
                         return true;
                     }
+                    if (stack.getItem() instanceof ItemPotion && !this.isCaffeinated()) {
+                        PotionType potionType = PotionUtils.getPotionFromItem(stack);
+                        if (COFFEE.equals(potionType.getRegistryName())) {
+                            if (!player.capabilities.isCreativeMode) {
+                                stack.shrink(1);
+
+                                ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
+                                if (!player.inventory.addItemStackToInventory(bottle)) {
+                                    player.dropItem(bottle, false);
+                                }
+                            }
+                            this.setCaffeineTicks(IceAndFireConfig.DRAGON_SETTINGS.dragonCoffeeTicks);
+                            this.setSleeping(false);
+                            return true;
+                        }
+                    }
                     if (stack.getItem() == IafItemRegistry.sickly_dragon_meal && !this.isAgingDisabled()) {
                         this.setHunger(this.getHunger() + 20);
                         this.heal(this.getMaxHealth());
@@ -1133,7 +1161,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                             player.sendStatusMessage(new TextComponentTranslation("dragon.command." + (this.getCommand() == 1 ? "sit" : "stand")), true);
                         }
                         return true;
-
                     }
                     IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(this);
                     if (stack.getItem() == IafItemRegistry.dragon_horn && !world.isRemote && hand == EnumHand.MAIN_HAND && (capability == null || !capability.isStoned())) {
@@ -1589,6 +1616,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 this.setHunger(this.getHunger() - 1);
             }
         }
+        if (this.isCaffeinated()) {
+            this.setCaffeineTicks(this.getCaffeineTicks() - 1);
+        }
         if (!this.world.isRemote) {
             if (this.attackDecision && this.getAttackTarget() != null && this.getDistance(this.getAttackTarget()) > Math.min(this.getEntityBoundingBox().getAverageEdgeLength() * 5, 25) && !this.isChild()) {
                 this.attackDecision = false;
@@ -1960,7 +1990,7 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         if (!this.world.isRemote) {
             IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(this);
             if (capability != null && !capability.isStoned()) {
-                if (!this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying() && !this.isHovering() && this.getAttackTarget() == null && !this.isTimeToWake() && this.getRNG().nextInt(250) == 0 && this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
+                if (!this.isInWater() && !this.isSleeping() && this.onGround && !this.isFlying() && !this.isHovering() && this.getAttackTarget() == null && !this.isTimeToWake() && !this.isCaffeinated() && this.getRNG().nextInt(250) == 0 && this.getAttackTarget() == null && this.getPassengers().isEmpty()) {
                     this.setSleeping(true);
                 }
                 if (this.isSleeping() && (this.isFlying() || this.isHovering() || this.isInWater() || (this.world.canBlockSeeSky(new BlockPos(this)) && this.isTimeToWake() && !this.isTamed() || this.isTimeToWake() && this.isTamed()) || this.getAttackTarget() != null || !this.getPassengers().isEmpty())) {
@@ -2224,7 +2254,15 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     }
 
     public boolean isBoundToCrystal() {
-        return this.dataManager.get(CRYSTAL_BOUND).booleanValue();
+        return this.dataManager.get(CRYSTAL_BOUND);
+    }
+
+    public Integer getCaffeineTicks() {
+        return this.dataManager.get(CAFFEINE_TICKS);
+    }
+
+    public boolean isCaffeinated() {
+        return this.getCaffeineTicks() > 0;
     }
 
     public BlockPos getBurningTarget() {

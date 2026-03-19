@@ -15,11 +15,13 @@ public abstract class CompatLoadUtil {
     private static final String THAUMCRAFT_MODID = "thaumcraft";
     private static Boolean thaumcraftLoaded;
     private static final String RLCOMBAT_MODID = "bettercombatmod";
+    private static Boolean rlcombatLoaded;
     private static final String THE_ONE_PROBE_MODID = "theoneprobe";
     private static Boolean theOneProbeLoaded;
     private static final String FIRST_AID_MODID = "firstaid";
     private static Boolean firstAidLoaded;
-    private static Boolean rlcombatLoaded;
+    private static final String CHARM_MODID = "charm";
+    private static Boolean charmLoaded;
 
     public static boolean isBaublesLoaded(){
         if(baublesLoaded == null) baublesLoaded = Loader.isModLoaded(BAUBLES_MODID);
@@ -46,6 +48,11 @@ public abstract class CompatLoadUtil {
         return thaumcraftLoaded;
     }
 
+    public static boolean isRLCombatLoaded() {
+        if(rlcombatLoaded == null) rlcombatLoaded = Loader.isModLoaded(RLCOMBAT_MODID) && isRLCombatCorrectVersion();
+        return rlcombatLoaded;
+    }
+
     public static boolean isTheOneProbeLoaded() {
         if(theOneProbeLoaded == null) theOneProbeLoaded = Loader.isModLoaded(THE_ONE_PROBE_MODID);
         return theOneProbeLoaded;
@@ -54,11 +61,6 @@ public abstract class CompatLoadUtil {
     public static boolean isFirstAidLoaded() {
         if(firstAidLoaded == null) firstAidLoaded = Loader.isModLoaded(FIRST_AID_MODID);
         return firstAidLoaded;
-    }
-
-    public static boolean isRLCombatLoaded() {
-        if(rlcombatLoaded == null) rlcombatLoaded = Loader.isModLoaded(RLCOMBAT_MODID) && isRLCombatCorrectVersion();
-        return rlcombatLoaded;
     }
 
     //RLCombat is 2.x.x, BetterCombat is 1.x.x
