@@ -75,7 +75,10 @@ public class BlockDragonforgeInput extends BlockContainer implements IDragonProo
     private TileEntityDragonforge getConnectedTileEntity(World worldIn, BlockPos pos) {
         for (EnumFacing facing : EnumFacing.HORIZONTALS) {
             if (worldIn.getTileEntity(pos.offset(facing)) != null && worldIn.getTileEntity(pos.offset(facing)) instanceof TileEntityDragonforge) {
-                return (TileEntityDragonforge) worldIn.getTileEntity(pos.offset(facing));
+                TileEntityDragonforge forge = (TileEntityDragonforge) worldIn.getTileEntity(pos.offset(facing));
+                if (forge != null && forge.assembled()) {
+                    return forge;
+                }
             }
         }
         return null;
