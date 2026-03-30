@@ -2,12 +2,10 @@ package com.github.alexthe666.iceandfire.entity.ai;
 
 import com.github.alexthe666.iceandfire.entity.EntityMyrmexSoldier;
 import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.pathfinding.Path;
 
 public class MyrmexAIEscortEntity extends EntityAIBase {
     private final EntityMyrmexSoldier myrmex;
     private final double movementSpeed;
-    private Path path;
 
     public MyrmexAIEscortEntity(EntityMyrmexSoldier entityIn, double movementSpeedIn) {
         this.myrmex = entityIn;
@@ -16,10 +14,7 @@ public class MyrmexAIEscortEntity extends EntityAIBase {
     }
 
     public boolean shouldExecute() {
-        if (!this.myrmex.canMove() || this.myrmex.getAttackTarget() != null || this.myrmex.guardingEntity == null || !this.myrmex.guardingEntity.canSeeSky() && this.myrmex.canSeeSky() || this.myrmex.isEnteringHive) {
-            return false;
-        }
-        return true;
+        return this.myrmex.canMove() && this.myrmex.getAttackTarget() == null && this.myrmex.guardingEntity != null && !this.myrmex.isEnteringHive;
     }
 
     public void updateTask() {
@@ -29,7 +24,7 @@ public class MyrmexAIEscortEntity extends EntityAIBase {
     }
 
     public boolean shouldContinueExecuting() {
-        return this.myrmex.canMove() && this.myrmex.getAttackTarget() == null && this.myrmex.guardingEntity != null && this.myrmex.guardingEntity.isEntityAlive() && (this.myrmex.getDistance(this.myrmex.guardingEntity) < 15 || !this.myrmex.getNavigator().noPath()) && (this.myrmex.canSeeSky() == this.myrmex.guardingEntity.canSeeSky() && !this.myrmex.guardingEntity.canSeeSky());
+        return this.myrmex.canMove() && this.myrmex.getAttackTarget() == null && this.myrmex.guardingEntity != null && this.myrmex.guardingEntity.needsGaurding() && this.myrmex.guardingEntity.isEntityAlive() && (this.myrmex.getDistance(this.myrmex.guardingEntity) < 15 || !this.myrmex.getNavigator().noPath());
     }
 
 }

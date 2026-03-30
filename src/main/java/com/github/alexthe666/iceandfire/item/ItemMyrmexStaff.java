@@ -55,7 +55,7 @@ public class ItemMyrmexStaff extends Item {
         UUID id = itemStackIn.getTagCompound().getUniqueId("HiveUUID");
         if (!worldIn.isRemote) {
             MyrmexHive hive = MyrmexWorldData.get(worldIn).getHiveFromUUID(id);
-            MyrmexWorldData.get(worldIn).addHive(worldIn, new MyrmexHive());
+            MyrmexWorldData.get(worldIn).addHive(worldIn, new MyrmexHive(worldIn));
             if(hive != null){
                 IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageGetMyrmexHive(hive));
             }else{

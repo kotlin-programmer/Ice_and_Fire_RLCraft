@@ -87,13 +87,12 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
         this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(2, new MyrmexAIEscortEntity(this, 1.0D));
         this.tasks.addTask(2, new MyrmexAIReEnterHive(this, 1.0D));
-        this.tasks.addTask(4, new MyrmexAILeaveHive(this, 1.0D));
         this.tasks.addTask(5, new MyrmexAIMoveThroughHive(this, 1.0D));
         this.tasks.addTask(6, new MyrmexAIWander(this, 1D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIFindGaurdingEntity<>(this));
+        this.targetTasks.addTask(2, new MyrmexAIFindGaurdingEntity(this));
         this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
         this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {

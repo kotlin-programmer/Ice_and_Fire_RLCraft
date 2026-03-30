@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
@@ -22,6 +23,7 @@ import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
@@ -82,6 +84,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 egg.copyLocationAndAnglesFrom(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
+                if(IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.queenEggsBelongToHive && getHive() != null) egg.hiveUUID = this.getHive().hiveUUID;
                 if (!world.isRemote){
                     world.spawnEntity(egg);
                 }
@@ -113,8 +116,8 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(10, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIForageForItems<>(this));
-        this.targetTasks.addTask(3, new MyrmexAIPickupBabies<>(this));
+        this.targetTasks.addTask(2, new MyrmexAIForageForItems(this));
+        this.targetTasks.addTask(3, new MyrmexAIPickupBabies(this));
         this.targetTasks.addTask(4, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
         this.targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
@@ -173,7 +176,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
     }
 
 
-    private boolean holdingSomething(){
+    public boolean holdingSomething(){
         return this.getHeldEntity() != null || !this.getHeldItem(EnumHand.MAIN_HAND).isEmpty() || this.getAttackTarget() != null;
     }
 
@@ -230,7 +233,9 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     public void onPickupItem(EntityItem itemEntity){
         Item item = itemEntity.getItem().getItem();
-        if (item == IafItemRegistry.myrmex_jungle_resin && this.isJungle() || item == IafItemRegistry.myrmex_desert_resin && !this.isJungle()){
+        if (isCorrectResin(item)){
+            NBTTagCompound nbt = itemEntity.getItem().getTagCompound();
+            if(IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.fixXPDupe && nbt != null && nbt.hasKey("isAllSlimy")) return;
 
             EntityPlayer owner = null;
             try{
@@ -246,5 +251,9 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 }
             }
         }
+    }
+
+    public boolean isCorrectResin(Item item){
+        return item == IafItemRegistry.myrmex_jungle_resin && this.isJungle() || item == IafItemRegistry.myrmex_desert_resin && !this.isJungle();
     }
 }

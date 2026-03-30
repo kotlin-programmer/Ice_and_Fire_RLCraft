@@ -32,5 +32,8 @@ public class ItemGeneric extends Item {
 				tooltip.add(TextFormatting.GRAY + I18n.format(this.getTranslationKey() + ".desc_" + i));
 			}
 		}
+		if(stack.hasTagCompound() && stack.getTagCompound().hasKey("isAllSlimy")) {
+			tooltip.add(I18n.format("iceandfire.tooltip.myrmexslime"));
+		}
 	}
 }

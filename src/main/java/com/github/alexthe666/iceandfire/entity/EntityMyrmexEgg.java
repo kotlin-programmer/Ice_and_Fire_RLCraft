@@ -28,7 +28,7 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
     private static final DataParameter<Boolean> MYRMEX_TYPE = EntityDataManager.<Boolean>createKey(EntityMyrmexEgg.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> MYRMEX_AGE = EntityDataManager.<Integer>createKey(EntityMyrmexEgg.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> MYRMEX_CASTE = EntityDataManager.<Integer>createKey(EntityMyrmexEgg.class, DataSerializers.VARINT);
-    public UUID hiveUUID;
+    public UUID hiveUUID = null;
     public EntityMyrmexEgg(World worldIn) {
         super(worldIn);
         this.isImmuneToFire = true;
@@ -48,7 +48,7 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
         tag.setBoolean("Jungle", this.isJungle());
         tag.setInteger("MyrmexAge", this.getMyrmexAge());
         tag.setInteger("MyrmexCaste", this.getMyrmexCaste());
-        tag.setUniqueId("HiveUUID", hiveUUID == null ? hiveUUID = UUID.randomUUID() : hiveUUID);
+        if(hiveUUID != null) tag.setUniqueId("HiveUUID", hiveUUID);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
         this.setJungle(tag.getBoolean("Jungle"));
         this.setMyrmexAge(tag.getInteger("MyrmexAge"));
         this.setMyrmexCaste(tag.getInteger("MyrmexCaste"));
-        hiveUUID = tag.getUniqueId("hiveUUID");
+        if(tag.hasUniqueId("HiveUUID")) hiveUUID = tag.getUniqueId("HiveUUID");
     }
 
     @Override
@@ -196,6 +196,14 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
     }
 
     public void onPlayerPlace(EntityPlayer player) {
+        if(IceAndFireConfig.ENTITY_SETTINGS.myrmexAi.playerEggsBelongToHive) {
+            //Set belonging to nearest hive if that hive is owned by the placing player
+            MyrmexHive hive = MyrmexWorldData.get(player.world).getNearestHive(player.getPosition(), 100);
+            if (hive == null) return;
+            if (!hive.hasOwner) return;
+            if (hive.ownerUUID != player.getUniqueID()) return;
+            this.hiveUUID = hive.hiveUUID;
+        }
     }
 
     @Override
@@ -205,14 +213,11 @@ public class EntityMyrmexEgg extends EntityLiving implements IBlacklistedFromSta
 
     public boolean isInNursery() {
         MyrmexHive hive = MyrmexWorldData.get(this.world).getNearestHive(new BlockPos(this), 100);
-        if (hive != null && hive.getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty() && hive.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRNG(), this.getPosition()) != null) {
+        if (hive == null || hive.getRooms(WorldGenMyrmexHive.RoomType.NURSERY).isEmpty()) {
             return false;
         }
-        if(hive != null) {
-            BlockPos nursery = hive.getRandomRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getRNG(), this.getPosition());
-            return this.getDistanceSqToCenter(nursery) < 45;
-        }
-        return false;
+        BlockPos nursery = hive.getNearestRoom(WorldGenMyrmexHive.RoomType.NURSERY, this.getPosition());
+        return this.getDistanceSqToCenter(nursery) < 64;
     }
 
     @Override
