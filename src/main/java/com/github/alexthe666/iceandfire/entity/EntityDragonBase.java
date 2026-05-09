@@ -1772,9 +1772,9 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 float angle = (0.01745329251F * this.renderYawOffset);
                 double extraX = radius * MathHelper.sin((float) (Math.PI + angle));
                 double extraZ = radius * MathHelper.cos(angle);
-                float bob0 = this.isFlying() || this.isHovering() ? (hoverProgress > 0 || flyProgress > 0 ? this.bob(-speed_fly, degree_fly * 5, false, this.ticksExisted, -0.0625F) : 0) : 0;
-                float bob1 = this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F);
-                float bob2 = this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F);
+                float bob0 = this.isFlying() || this.isHovering() ? (hoverProgress > 0 || flyProgress > 0 ? this.bob(-speed_fly, degree_fly * 5, this.ticksExisted, -0.0625F) : 0) : 0;
+                float bob1 = this.bob(speed_walk * 2, degree_walk * 1.7F, this.limbSwing, this.limbSwingAmount * -0.0625F);
+                float bob2 = this.bob(speed_idle, degree_idle * 1.3F, this.ticksExisted, -0.0625F);
                 float extraAgeScale = (Math.max(0, this.getAgeInDays() - 75) / 75F) * 1.65F;
 
                 double extraY_pre = 0.8F;
@@ -1785,12 +1785,14 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         }
     }
 
-    protected float bob(float speed, float degree, boolean bounce, float f, float f1) {
+    protected float bob(float speed, float degree, float f, float f1) {
         float bob = (float) (Math.sin(f * speed) * f1 * degree - f1 * degree);
-        if (bounce) {
-            bob = (float) -Math.abs((Math.sin(f * speed) * f1 * degree));
-        }
         return bob * this.getRenderSize() / 3;
+    }
+
+    protected float chainWave(float speed, float degree, float f, float f1) {
+        float chainWave = (float) (Math.cos(f * speed) * f1 * degree - f1 * degree);
+        return chainWave * this.getRenderSize() / 3;
     }
 
     protected void updatePreyInMouth(Entity prey) {
@@ -2551,8 +2553,8 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         final float flightXz = Math.max(1.0F + flyProg + hoverProg, 1.1F);
         final float xzMod = getRenderSize() * (0.51F * flightXz - 0.45F * hoverProg);
         boolean walking = (!this.isFlying() && !this.isHovering()) || (hoverProgress == 0 && flyProgress == 0);
-        float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
-        float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F) : 0;
+        float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
+        float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, this.ticksExisted, -0.0625F) : 0;
         final float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180));
         final float headPosY = (float) (posY + (0.8F + sitProg * 0.82F + (flyProg + hoverProg) * 0.35F + deadProg + sleepProg) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
         final float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180));

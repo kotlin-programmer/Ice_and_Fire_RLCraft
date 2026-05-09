@@ -282,12 +282,12 @@ public class EntityLightningDragon extends EntityDragonBase {
 		float degree_walk = 0.5F;
 		float degree_idle = 0.5F;
 		final float flightXz = Math.max(1.0F + flyProg + hoverProg, 1.06F);
-		float xzMod = (0.58F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.52F - sleepProg * 0.9F) * flightXz * getRenderSize();
+		float xzMod = (0.575F - hoverProg * 0.45F + flyProg * 0.2F - sitProg * 0.52F - sleepProg * 0.9F) * flightXz * getRenderSize();
 		float xzSleepMod = -1.25F * sleepProg * getRenderSize();
 		boolean walking = (!this.isFlying() && !this.isHovering()) || (hoverProgress == 0 && flyProgress == 0);
-		float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, false, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
-		float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, false, this.ticksExisted, -0.0625F) : 0;
-		float extraY = Math.max(0.75F - getRenderSize() * 0.03F, 0.6F);
+		float bobWalk = walking ? this.bob(speed_walk * 2, degree_walk * 1.7F, this.limbSwing, this.limbSwingAmount * -0.0625F) : 0;
+		float bobIdle = walking ? this.bob(speed_idle, degree_idle * 1.3F, this.ticksExisted, -0.0625F) : 0;
+		float extraY = Math.max(0.75F - getRenderSize() * 0.03F, 0.625F);
 		float headPosX = (float) (posX + xzMod * Math.cos((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.cos(rotationYaw * Math.PI / 180));
 		float headPosY = (float) (posY + (extraY + sitProg * 7F + (flyProg + hoverProg) * 0.45F + deadProg + sleepProg * 6F) * getRenderSize() * 0.3F) - bobWalk - bobIdle;
 		float headPosZ = (float) (posZ + xzMod * Math.sin((rotationYaw + 90) * Math.PI / 180) + xzSleepMod * Math.sin(rotationYaw * Math.PI / 180));
