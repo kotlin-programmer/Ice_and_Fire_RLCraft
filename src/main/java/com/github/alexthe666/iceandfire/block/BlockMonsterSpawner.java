@@ -8,8 +8,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import java.util.Random;
-
 public class BlockMonsterSpawner extends BlockMobSpawner implements IDragonProof {
 
     public BlockMonsterSpawner() {
