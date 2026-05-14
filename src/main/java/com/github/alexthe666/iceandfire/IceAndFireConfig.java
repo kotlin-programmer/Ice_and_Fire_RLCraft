@@ -638,6 +638,10 @@ public class IceAndFireConfig {
 		@Config.Comment("How many ticks to prevent sleep from caffeine")
 		@Config.Name("Dragon Coffee Sleep Prevention Ticks")
 		public int dragonCoffeeTicks = 6000;
+
+        @Config.Comment("If true, dragon breaths can damage immune targets (like targets that have fire resistance)")
+        @Config.Name("Dragon Breath Can Damage Immune Targets")
+        public boolean breathDamageBypassImmunities = false;
 	}
 
 	public static class EntityConfig {
