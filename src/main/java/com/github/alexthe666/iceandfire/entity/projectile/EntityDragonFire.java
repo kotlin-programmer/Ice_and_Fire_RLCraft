@@ -134,11 +134,7 @@ public class EntityDragonFire extends EntityDragonProjectile {
 					}
 				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
-                DamageSource sourceToUse = IceAndFire.dragonFire;
-                if (IceAndFireConfig.DRAGON_SETTINGS.breathDamageBypassImmunities) {
-                    sourceToUse = IceAndFire.dragonFirePlus;
-                }
-                movingObject.entityHit.attackEntityFrom(sourceToUse, IceAndFireConfig.DRAGON_SETTINGS.dragonFireDamage);
+                movingObject.entityHit.attackEntityFrom(IceAndFire.dragonFire, IceAndFireConfig.DRAGON_SETTINGS.dragonFireDamage);
                 movingObject.entityHit.setFire(5);
             }
 		}

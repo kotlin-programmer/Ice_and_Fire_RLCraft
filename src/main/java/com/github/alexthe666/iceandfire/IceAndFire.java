@@ -78,7 +78,6 @@ public class IceAndFire {
     public static DamageSource dragonFire;
     public static DamageSource dragonIce;
     public static DamageSource dragonLightning;
-    public static DamageSource dragonFirePlus;
     public static DamageSource gorgon;
     public static Biome GLACIER;
 
@@ -128,16 +127,11 @@ public class IceAndFire {
                 String s1 = s + ".player_" + new Random().nextInt(2);
                 return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ").appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
             }
-        }.setFireDamage();
-        // dragon fire but bypasses fire immune entities
-        dragonFirePlus = new DamageSource("dragon_fire_plus") {
-            @Override
-            public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
-                String s = "death.attack.dragon_fire";
-                String s1 = s + ".player_" + new Random().nextInt(2);
-                return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ").appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
-            }
         };
+        // Only flag it as fire damage if the config says so, if it's NOT flagged, it bypasses Fire Resistance.
+        if (!IceAndFireConfig.DRAGON_SETTINGS.breathDamageBypassImmunities) {
+            dragonFire.setFireDamage();
+        }
         dragonIce = new DamageSource("dragon_ice") {
             @Override
             public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
