@@ -127,7 +127,11 @@ public class IceAndFire {
                 String s1 = s + ".player_" + new Random().nextInt(2);
                 return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ").appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
             }
-        }.setFireDamage();
+        };
+        // Only flag it as fire damage if the config says so, if it's NOT flagged, it bypasses Fire Resistance.
+        if (!IceAndFireConfig.DRAGON_SETTINGS.breathDamageBypassImmunities) {
+            dragonFire.setFireDamage();
+        }
         dragonIce = new DamageSource("dragon_ice") {
             @Override
             public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {
