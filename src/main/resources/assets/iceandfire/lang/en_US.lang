@@ -329,6 +329,10 @@ item.iceandfire.summoning_crystal.desc_0=Right click on a dragon to bind it
 item.iceandfire.summoning_crystal.desc_1=Use when bound to teleport dragon
 item.iceandfire.summoning_crystal.bound=Bound to %s
 
+item.iceandfire.fire_dragon_breath.name=Fire Dragon's Breath
+item.iceandfire.ice_dragon_breath.name=Ice Dragon's Breath
+item.iceandfire.lightning_dragon_breath.name=Lightning Dragon's Breath
+
 item.iceandfire.chain_link.name=Iron Chain Link
 item.iceandfire.chain.name=Iron Chain
 

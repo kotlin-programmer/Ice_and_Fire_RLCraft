@@ -313,6 +313,10 @@ item.iceandfire.summoning_crystal.desc_0=Clique com o botão direito para vincul
 item.iceandfire.summoning_crystal.desc_1=Use quando precisar teletransportar o dragão
 item.iceandfire.summoning_crystal.bound=Teleportado para %s
 
+item.iceandfire.fire_dragon_breath.name=Sopro do Dragão de Fogo
+item.iceandfire.ice_dragon_breath.name=Sopro do Dragão de Gelo
+item.iceandfire.lightning_dragon_breath.name=Sopro do Dragão Elétrico
+
 item.iceandfire.chain_link.name=Elo de Corrente de Ferro
 item.iceandfire.chain.name=Corrente de Ferro
 

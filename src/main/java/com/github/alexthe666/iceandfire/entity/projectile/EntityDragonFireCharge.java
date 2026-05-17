@@ -7,8 +7,10 @@ import com.github.alexthe666.iceandfire.entity.explosion.FireChargeExplosion;
 import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -128,6 +130,10 @@ public class EntityDragonFireCharge extends EntityDragonProjectile {
 					}
 				}
 				movingObject.entityHit.setFire(5);
+				if (movingObject.entityHit instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+					DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.FIRE);
+				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
 				FireExplosion explosion = new FireExplosion(world, null, this.posX, this.posY, this.posZ, 2, flag);
 				if (shootingEntity != null) {

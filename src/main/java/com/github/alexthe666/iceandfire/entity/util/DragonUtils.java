@@ -5,7 +5,9 @@ import com.github.alexthe666.iceandfire.block.BlockDragonBone;
 import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
 import com.github.alexthe666.iceandfire.block.IDragonProof;
 import com.github.alexthe666.iceandfire.entity.*;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.integration.claimit.ClaimItCompatBridge;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
@@ -17,16 +19,22 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGlassBottle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static sun.audio.AudioPlayer.player;
 
 public class DragonUtils {
 
@@ -446,5 +454,33 @@ public class DragonUtils {
 			return ground;
 		}
 		return ghost.getPosition();
+	}
+
+	public static void fillBottleWithDragonBreath(EntityPlayer player, EnumDragonType type) {
+		ItemStack bottle = player.getHeldItemMainhand();;
+		EnumHand hand = EnumHand.MAIN_HAND;
+		if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() == Items.GLASS_BOTTLE) {
+			bottle = player.getHeldItemOffhand();
+			hand = EnumHand.OFF_HAND;
+		}
+		if (bottle.isEmpty() || bottle.getItem() != Items.GLASS_BOTTLE) {
+			return;
+		}
+		if (player.getCooldownTracker().hasCooldown(Items.GLASS_BOTTLE)) {
+			return;
+		}
+		if (!player.capabilities.isCreativeMode) {
+			bottle.shrink(1);
+		}
+		Item dragonBreath = type == EnumDragonType.FIRE ? IafItemRegistry.fire_dragon_breath :
+				type == EnumDragonType.ICE ? IafItemRegistry.ice_dragon_breath
+						: IafItemRegistry.lightning_dragon_breath;
+		ItemStack stack = new ItemStack(dragonBreath);
+		if (bottle.isEmpty()) {
+			player.setHeldItem(hand, stack);
+		} else if (!player.inventory.addItemStackToInventory(stack)) {
+			player.dropItem(stack, false);
+		}
+		player.getCooldownTracker().setCooldown(Items.GLASS_BOTTLE, 20);
 	}
 }

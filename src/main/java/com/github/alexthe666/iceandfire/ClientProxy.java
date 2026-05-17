@@ -424,6 +424,7 @@ public class ClientProxy extends CommonProxy {
 		RenderingRegistry.registerEntityRenderingHandler(EntityMobSkull.class, new RenderMobSkull(Minecraft.getMinecraft().getRenderManager(), seaserpent_model));
 		RenderingRegistry.registerEntityRenderingHandler(EntityShivaxiDragon.class, new RenderDragonBase(Minecraft.getMinecraft().getRenderManager(), lightningdragon_model));
 		RenderingRegistry.registerEntityRenderingHandler(EntityShivaxiDragonLightning.class, new RenderNothing(Minecraft.getMinecraft().getRenderManager()));
+		RenderingRegistry.registerEntityRenderingHandler(EntityDragonBreath.class, new RenderDragonBreath<>(Minecraft.getMinecraft().getRenderManager(), Minecraft.getMinecraft().getRenderItem()));
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityPodium.class, new RenderPodium());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityLectern.class, new RenderLectern());

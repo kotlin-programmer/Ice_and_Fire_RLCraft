@@ -318,6 +318,10 @@ item.iceandfire.summoning_crystal.desc_0=Da clic derecho a un dragon para vincul
 item.iceandfire.summoning_crystal.desc_1=Cuando este vinculado, usalo para teletransportar al dragon a tu posicion
 item.iceandfire.summoning_crystal.bound=Vinculado a %s
 
+item.iceandfire.fire_dragon_breath.name=Aliento del Dragon de fuego
+item.iceandfire.ice_dragon_breath.name=Aliento del Dragon de hielo
+item.iceandfire.lightning_dragon_breath.name=Aliento del Dragon de rayo
+
 item.iceandfire.chain_link.name=Eslabon de Cadena de Hierro
 item.iceandfire.chain.name=Cadena de Hierro
 

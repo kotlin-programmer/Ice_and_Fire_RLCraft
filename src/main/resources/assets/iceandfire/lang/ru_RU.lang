@@ -317,6 +317,10 @@ item.iceandfire.summoning_crystal.desc_0=ПКМ по дракону для пр�
 item.iceandfire.summoning_crystal.desc_1=Используется для телепортации дракона
 item.iceandfire.summoning_crystal.bound=Привязка к %s
 
+item.iceandfire.fire_dragon_breath.name=Дыхание Огненного дракона
+item.iceandfire.ice_dragon_breath.name=Дыхание Ледяного дракона
+item.iceandfire.lightning_dragon_breath.name=Дыхание Грозового дракона
+
 item.iceandfire.chain_link.name=Железное звено цепи
 item.iceandfire.chain.name=Железная цепь
 

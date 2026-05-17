@@ -9,9 +9,11 @@ import com.github.alexthe666.iceandfire.entity.explosion.FireChargeExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.explosion.IceExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -127,6 +129,10 @@ public class EntityDragonIceCharge extends EntityDragonProjectile {
 						IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)movingObject.entityHit);
 						if (capability != null) {
 							capability.setFrozen(200);
+						}
+						if (movingObject.entityHit instanceof EntityPlayer) {
+							EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+							DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.ICE);
 						}
 					}
 					if (movingObject.entityHit instanceof EntityLivingBase && ((EntityLivingBase) movingObject.entityHit).getHealth() == 0) {

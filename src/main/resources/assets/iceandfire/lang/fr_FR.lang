@@ -313,6 +313,10 @@ item.iceandfire.summoning_crystal.desc_0=Clic droit pour lier un dragon
 item.iceandfire.summoning_crystal.desc_1=Utile pour téléporter un dragon
 item.iceandfire.summoning_crystal.bound=Lié à %s
 
+item.iceandfire.fire_dragon_breath.name=Souffle du Dragon de Feu
+item.iceandfire.ice_dragon_breath.name=Souffle du Dragon de Glace
+item.iceandfire.lightning_dragon_breath.name=Souffle du Dragon Électrique
+
 item.iceandfire.chain_link.name=Maillon de chaîne en fer
 item.iceandfire.chain.name=Chaîne de fer
 

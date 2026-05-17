@@ -97,6 +97,24 @@ public class IafRecipeRegistry {
                 return new EntityDeathWormEgg(worldIn, position.getX(), position.getY(), position.getZ(), stackIn.getMetadata() == 1);
             }
         });
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(IafItemRegistry.fire_dragon_breath, new BehaviorProjectileDispense() {
+            @Override
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+                return new EntityDragonBreath(worldIn, position.getX(), position.getY(), position.getZ(), stackIn);
+            }
+        });
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(IafItemRegistry.ice_dragon_breath, new BehaviorProjectileDispense() {
+            @Override
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+                return new EntityDragonBreath(worldIn, position.getX(), position.getY(), position.getZ(), stackIn);
+            }
+        });
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(IafItemRegistry.lightning_dragon_breath, new BehaviorProjectileDispense() {
+            @Override
+            protected IProjectile getProjectileEntity(World worldIn, IPosition position, ItemStack stackIn) {
+                return new EntityDragonBreath(worldIn, position.getX(), position.getY(), position.getZ(), stackIn);
+            }
+        });
 
         OreDictionary.registerOre("ingotCopper", IafItemRegistry.copperIngot);
         OreDictionary.registerOre("nuggetCopper", IafItemRegistry.copperNugget);

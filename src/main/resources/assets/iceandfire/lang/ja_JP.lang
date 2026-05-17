@@ -317,6 +317,10 @@ item.iceandfire.summoning_crystal.desc_0=ドラゴンに右クリックで関連
 item.iceandfire.summoning_crystal.desc_1=使うとドラゴンをワープさせる
 item.iceandfire.summoning_crystal.bound=ドラゴン: %s
 
+item.iceandfire.fire_dragon_breath.name=炎のドラゴンブレス
+item.iceandfire.ice_dragon_breath.name=氷のドラゴンブレス
+item.iceandfire.lightning_dragon_breath.name=雷のドラゴンブレス
+
 item.iceandfire.chain_link.name=鉄のチェーンリンク
 item.iceandfire.chain.name=鉄の鎖
 
