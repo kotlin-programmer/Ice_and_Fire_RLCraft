@@ -81,7 +81,7 @@ public class ParticleDreadTorch extends ParticleFlame {
     @Override
     public int getBrightnessForRender(float partialTick) {
         Minecraft mc = Minecraft.getMinecraft();
-        if (mc.world != null) {
+        if (mc != null && mc.world != null) {
             BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
             return mc.world.isBlockLoaded(blockpos) ? mc.world.getCombinedLight(blockpos, 0) : 0;
         }
