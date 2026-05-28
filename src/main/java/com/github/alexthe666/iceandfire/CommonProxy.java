@@ -148,6 +148,7 @@ public class CommonProxy {
         registerSpawnable(EntityEntryBuilder.create(), event, EntityShivaxiDragon.class, "shivaxi_dragon", 58, 0x1591EA, 0X0E65A3, 128);
         registerUnspawnable(EntityEntryBuilder.<EntityShivaxiDragonLightning>create(), event, EntityShivaxiDragonLightning.class, "shivaxi_dragon_lightning", 59, 80);
         registerUnspawnable(EntityEntryBuilder.<EntityMyrmexSwarmer>create(), event, EntityMyrmexSwarmer.class, "myrmex_swarmer", 60, 80);
+        registerUnspawnable(EntityEntryBuilder.<EntityDragonBreath>create(), event, EntityDragonBreath.class, "dragon_breath", 61, 64);
     }
 
     public static void registerSpawnable(EntityEntryBuilder builder, RegistryEvent.Register<EntityEntry> event, Class<? extends Entity> entityClass, String name, int id, int mainColor, int subColor, int range) {

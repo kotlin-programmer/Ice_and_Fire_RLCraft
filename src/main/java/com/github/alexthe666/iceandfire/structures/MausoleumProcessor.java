@@ -34,10 +34,20 @@ public class MausoleumProcessor implements ITemplateProcessor {
     @Override
     public Template.BlockInfo processBlock(World worldIn, BlockPos pos, Template.BlockInfo blockInfoIn) {
         if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dread_stone_bricks) {
-            IBlockState state = getRandomCrackedBlock(worldIn.rand).withProperty(
-                    BlockDreadBase.PLAYER_PLACED,
-                    blockInfoIn.blockState.getValue(BlockDreadBase.PLAYER_PLACED)
-            );
+            Random rand = new Random(worldIn.getSeed() + pos.toLong());
+            IBlockState state = blockInfoIn.blockState;
+            if (!blockInfoIn.blockState.getValue(BlockDreadBase.PLAYER_PLACED)) {
+                state = getRandomCrackedBlock(rand);
+            } else if (rand.nextInt() % 5 == 0) {
+                state = Blocks.AIR.getDefaultState();
+            }
+            return new Template.BlockInfo(pos, state, null);
+        } else if (blockInfoIn.blockState.getBlock() == IafBlockRegistry.dragon_bone_block) {
+            Random rand = new Random(worldIn.getSeed() + pos.toLong());
+            IBlockState state = blockInfoIn.blockState;
+            if (rand.nextInt() % 5 == 0) {
+                state = Blocks.AIR.getDefaultState();
+            }
             return new Template.BlockInfo(pos, state, null);
         } else if (blockInfoIn.blockState.getBlock() instanceof BlockChest) {
             ResourceLocation loot = DREAD_CHEST_LOOT;
@@ -51,7 +61,7 @@ public class MausoleumProcessor implements ITemplateProcessor {
             NBTTagCompound spawnData = new NBTTagCompound();
             Random rand = new Random(worldIn.getSeed() + pos.toLong());
             ResourceLocation spawnerMobId = EntityList.getKey(getRandomMobForMobSpawner(rand));
-            if(spawnerMobId != null){
+            if (spawnerMobId != null) {
                 spawnData.setString("id", spawnerMobId.toString());
                 tag.removeTag("SpawnPotentials");
                 tag.setTag("SpawnData", spawnData.copy());
@@ -60,18 +70,17 @@ public class MausoleumProcessor implements ITemplateProcessor {
 
         }
         return blockInfoIn;
-
     }
 
     private Class<? extends Entity> getRandomMobForMobSpawner(Random random) {
         float rand = random.nextFloat();
-        if(rand < 0.3D){
+        if (rand < 0.3D) {
             return EntityDreadThrall.class;
-        }else if(rand < 0.5D){
+        } else if (rand < 0.5D) {
             return EntityDreadGhoul.class;
-        }else if(rand < 0.7D){
+        } else if (rand < 0.7D) {
             return EntityDreadBeast.class;
-        }else if(rand < 0.85D){
+        } else if (rand < 0.85D) {
             return EntityDreadScuttler.class;
         }
         return EntityDreadKnight.class;

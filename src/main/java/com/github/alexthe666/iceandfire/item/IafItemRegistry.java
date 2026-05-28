@@ -176,8 +176,14 @@ public class IafItemRegistry {
 	public static Item fire_dragon_blood = new ItemGeneric("fire_dragon_blood", "iceandfire.fire_dragon_blood");
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ice_dragon_blood")
 	public static Item ice_dragon_blood = new ItemGeneric("ice_dragon_blood", "iceandfire.ice_dragon_blood");
-	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lightning_dragon_blood")
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lightning_ragon_blood")
 	public static Item lightning_dragon_blood = new ItemGeneric("lightning_dragon_blood", "iceandfire.lightning_dragon_blood");
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":fire_dragon_breath")
+	public static Item fire_dragon_breath = new ItemDragonBreath(EnumDragonType.FIRE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":ice_dragon_breath")
+	public static Item ice_dragon_breath = new ItemDragonBreath(EnumDragonType.ICE);
+	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":lightning_dragon_breath")
+	public static Item lightning_dragon_breath = new ItemDragonBreath(EnumDragonType.LIGHTNING);
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_stick")
 	public static Item dragon_stick = new ItemDragonStaff();
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":dragon_horn")

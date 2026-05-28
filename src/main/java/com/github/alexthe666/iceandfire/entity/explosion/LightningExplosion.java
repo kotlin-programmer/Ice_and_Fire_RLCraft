@@ -25,6 +25,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -70,6 +71,7 @@ public class LightningExplosion extends Explosion {
 	@Override
 	public void doExplosionA() {
 		boolean canGrief = DragonUtils.canGrief(false);
+		boolean shouldAffectEntities = true;
 		BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
 		Set<BlockPos> checkedTiles = new HashSet<>();
 		HashMap<BlockPos, Float> resistanceMap = new HashMap<>();
@@ -94,12 +96,12 @@ public class LightningExplosion extends Explosion {
 							mutPos = mutPos.setPos(d4, d6, d8);
 
 							BlockPos immutPos = null;
-							if(!checkedTiles.contains(mutPos)) {
+							if (!checkedTiles.contains(mutPos)) {
 								TileEntity tileEntity = worldObj.getTileEntity(mutPos);
 								if(tileEntity instanceof TileEntityDragonforgeInput) {
-									((TileEntityDragonforgeInput)tileEntity).onHitWithFlame(EnumDragonType.LIGHTNING);
-									if(exploder == null || exploder instanceof EntityDragonBase && ((EntityDragonBase)exploder).isTamed()) {
-										return;
+									((TileEntityDragonforgeInput)tileEntity).onHitWithFlame(EnumDragonType.LIGHTNING, this.exploder);
+									if (exploder == null || exploder instanceof EntityPlayer || exploder instanceof EntityDragonBase && ((EntityDragonBase)exploder).isTamed()) {
+										shouldAffectEntities = false;
 									}
 								}
 								immutPos = mutPos.toImmutable();
@@ -108,7 +110,7 @@ public class LightningExplosion extends Explosion {
 
 							IBlockState iblockstate = null;
 							Float resistance = resistanceMap.get(mutPos);
-							if(resistance == null) {
+							if (resistance == null) {
 								iblockstate = this.worldObj.getBlockState(mutPos);
 								Block block = iblockstate.getBlock();
 								if (block != Blocks.AIR) {
@@ -123,7 +125,7 @@ public class LightningExplosion extends Explosion {
 							
 							if (f <= 0.0F) break;
 							
-							if(canGrief) {
+							if (canGrief) {
 								if (!affectedSet.contains(mutPos)) {
 									if (iblockstate == null) iblockstate = this.worldObj.getBlockState(mutPos);
 									Block block = iblockstate.getBlock();
@@ -155,6 +157,10 @@ public class LightningExplosion extends Explosion {
 		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.worldObj, this, list, f3);
 		Vec3d Vec3d = new Vec3d(this.explosionX, this.explosionY, this.explosionZ);
 
+		if (!shouldAffectEntities) {
+			return;
+		}
+
 		for (Entity entity : list) {
 			if (!(entity instanceof EntityDragonLightning) && !(entity instanceof EntityDragonLightningCharge)) {
 				if (!entity.isImmuneToExplosions() && !entity.isEntityEqual(exploder)) {
@@ -171,7 +177,7 @@ public class LightningExplosion extends Explosion {
 							d5 = d5 / d13;
 							d7 = d7 / d13;
 							d9 = d9 / d13;
-							if (exploder instanceof EntityDragonBase) {
+							if (exploder instanceof EntityLivingBase) {
 								if (!DragonUtils.isControllingPassenger(exploder, entity)) {
 									if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
 										entity.attackEntityFrom(IceAndFire.dragonLightning, ((float) ((int) ((d10 * d10 + d10) / 2.0D * IceAndFireConfig.DRAGON_SETTINGS.dragonLightningExplosionDamage * (double) f3 + 1.0D))) / 6);
@@ -188,7 +194,7 @@ public class LightningExplosion extends Explosion {
 											}
 										}
 									}
-									if (entity.isDead) {
+									if (this.exploder instanceof EntityDragonBase && entity.isDead) {
 										((EntityDragonBase) this.exploder).attackDecision = true;
 									}
 								}
@@ -217,7 +223,7 @@ public class LightningExplosion extends Explosion {
 	 */
 	@Override
 	public void doExplosionB(boolean spawnParticles) {
-		if(this.affectedBlockPositions.isEmpty()) return;
+		if (this.affectedBlockPositions.isEmpty()) return;
 		if (this.isSmoking) {
 			List<MessageParticleFX.Particle> particles = new ArrayList<>();
 			for (BlockPos blockpos : this.affectedBlockPositions) {
@@ -241,7 +247,7 @@ public class LightningExplosion extends Explosion {
 					particles.add(MessageParticleFX.createParticle(d0, d1, d2, d3, d4, d5));
 				}
 				
-				if(this.dragonGriefing) {
+				if (this.dragonGriefing) {
 					IBlockState state = this.worldObj.getBlockState(blockpos);
 					Block block = state.getBlock();
 					if (block != Blocks.AIR && DragonUtils.canDragonBreak(worldObj, state.getBlock(), blockpos) && !DragonUtils.isDragonBlock(state.getBlock())) {
@@ -272,7 +278,12 @@ public class LightningExplosion extends Explosion {
 				List<EnumParticle> types = new ArrayList<>();
 				types.add(EnumParticle.SPARK);
 				types.add(EnumParticle.SMOKE_NORMAL);
-				IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(types, particles), this.exploder);
+
+				MessageParticleFX message = new MessageParticleFX(types, particles);
+				if (exploder instanceof EntityPlayerMP) {
+					IceAndFire.NETWORK_WRAPPER.sendTo(message, (EntityPlayerMP) this.exploder);
+				}
+				IceAndFire.NETWORK_WRAPPER.sendToAllTracking(message, this.exploder);
 			}
 		}
 	}

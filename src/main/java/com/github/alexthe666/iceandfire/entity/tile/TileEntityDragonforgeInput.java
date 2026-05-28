@@ -4,6 +4,9 @@ import com.github.alexthe666.iceandfire.block.BlockDragonforgeInput;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityShivaxiDragon;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -19,11 +22,13 @@ public class TileEntityDragonforgeInput extends TileEntity implements ITickable 
     private int ticksSinceDragonFire;
     private TileEntityDragonforge core = null;
 
-    public void onHitWithFlame(EnumDragonType type) {
+    public void onHitWithFlame(EnumDragonType type, Entity entity) {
         TileEntityDragonforge forge = getConnectedTileEntity();
         if (forge != null) {
+            forge.setCookUntilCompletion(entity == null || entity instanceof EntityPlayer);
             forge.transferPower(type);
         }
+
     }
 
     @Override

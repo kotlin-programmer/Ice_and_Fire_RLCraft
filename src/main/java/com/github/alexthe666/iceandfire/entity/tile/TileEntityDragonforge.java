@@ -9,6 +9,7 @@ import com.github.alexthe666.iceandfire.item.IafDragonForgeRecipeRegistry;
 import com.github.alexthe666.iceandfire.recipe.DragonForgeRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ISidedInventory;
@@ -34,6 +35,7 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
     private NonNullList<ItemStack> forgeItemStacks = NonNullList.withSize(3, ItemStack.EMPTY);
     public int cookTime = 0;
     public int lastFlameTimer = 0;
+    public boolean cookUntilCompletion = false;
 
     public TileEntityDragonforge() {
     }
@@ -102,6 +104,7 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
         ItemStackHelper.loadAllItems(compound, this.forgeItemStacks);
         this.cookTime = compound.getShort("CookTime");
         this.lastFlameTimer = compound.getShort("LastFlameTimer");
+        this.cookUntilCompletion = compound.getBoolean("CookUntilCompletion");
     }
 
     @Override
@@ -109,6 +112,7 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
         super.writeToNBT(compound);
         compound.setShort("CookTime", (short) this.cookTime);
         compound.setShort("LastFlameTimer", (short) this.lastFlameTimer);
+        compound.setBoolean("CookUntilCompletion", this.cookUntilCompletion);
         ItemStackHelper.saveAllItems(compound, this.forgeItemStacks);
         return compound;
     }
@@ -135,12 +139,16 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
             }
 
             if (this.isBurning()) {
+                if (this.cookUntilCompletion && this.canSmelt()) {
+                    this.cookTime = Math.min(this.cookTime + 1, getMaxCookTime());
+                    this.lastFlameTimer = 40;
+                }
                 if (!this.canSmelt() || this.lastFlameTimer == 0) {
                     this.cookTime = Math.max(this.cookTime - 1, 0);
                 }
-
                 if (this.canSmelt()) {
                     if (this.cookTime >= getMaxCookTime()) {
+                        this.cookUntilCompletion = false;
                         this.smeltItem();
                         this.cookTime = 0;
                         flag1 = true;
@@ -325,6 +333,10 @@ public class TileEntityDragonforge extends TileEntity implements ITickable, ISid
 
             this.lastFlameTimer = 40;
         }
+    }
+
+    public void setCookUntilCompletion(boolean cookUntilCompletion) {
+        this.cookUntilCompletion = cookUntilCompletion;
     }
 
     private boolean checkBoneCorners(BlockPos pos) {

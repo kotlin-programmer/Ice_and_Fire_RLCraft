@@ -7,9 +7,11 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.explosion.LightningExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -135,6 +137,10 @@ public class EntityDragonLightning extends EntityDragonProjectile {
 					}
 					if (IceAndFireConfig.DRAGON_SETTINGS.lightningDragonParalysis) {
 						LycanitesCompat.applyParalysis(movingObject.entityHit, IceAndFireConfig.DRAGON_SETTINGS.lightningDragonParalysisTicks);
+					}
+					if (movingObject.entityHit instanceof EntityPlayer) {
+						EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+						DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.LIGHTNING);
 					}
 				}
 			}

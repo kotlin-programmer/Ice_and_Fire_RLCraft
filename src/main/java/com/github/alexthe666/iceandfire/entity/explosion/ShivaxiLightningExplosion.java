@@ -11,11 +11,8 @@ import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightning;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonLightningCharge;
-import com.github.alexthe666.iceandfire.entity.tile.TileEntityDragonforgeInput;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
-import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -32,7 +29,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -101,13 +97,6 @@ public class ShivaxiLightningExplosion extends Explosion {
 
 							BlockPos immutPos = null;
 							if(!checkedTiles.contains(mutPos)) {
-								TileEntity tileEntity = worldObj.getTileEntity(mutPos);
-								if(tileEntity instanceof TileEntityDragonforgeInput) {
-									((TileEntityDragonforgeInput)tileEntity).onHitWithFlame(EnumDragonType.LIGHTNING);
-									if(exploder == null || exploder instanceof EntityDragonBase && ((EntityDragonBase)exploder).isTamed()) {
-										return;
-									}
-								}
 								immutPos = mutPos.toImmutable();
 								checkedTiles.add(immutPos);
 							}
