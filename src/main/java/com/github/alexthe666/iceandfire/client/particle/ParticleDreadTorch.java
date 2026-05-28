@@ -78,9 +78,14 @@ public class ParticleDreadTorch extends ParticleFlame {
         GlStateManager.disableBlend();
     }
 
+    @Override
     public int getBrightnessForRender(float partialTick) {
-        BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
-        return this.world.isBlockLoaded(blockpos) ? this.world.getCombinedLight(blockpos, 0) : 0;
+        Minecraft mc = Minecraft.getMinecraft();
+        if (mc.world != null) {
+            BlockPos blockpos = new BlockPos(this.posX, this.posY, this.posZ);
+            return mc.world.isBlockLoaded(blockpos) ? mc.world.getCombinedLight(blockpos, 0) : 0;
+        }
+        return 0;
     }
 
     public int getFXLayer() {
