@@ -34,8 +34,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static sun.audio.AudioPlayer.player;
-
 public class DragonUtils {
 
 	public static void destroyBlock(World world, BlockPos pos, IBlockState state) {
