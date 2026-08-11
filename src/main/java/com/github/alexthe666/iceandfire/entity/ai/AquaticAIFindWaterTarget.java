@@ -55,7 +55,7 @@ public class AquaticAIFindWaterTarget extends EntityAIBase {
         BlockPos blockpos = new BlockPos(this.mob.posX, this.mob.getEntityBoundingBox().minY, mob.posZ);
         if (this.mob.getAttackTarget() == null || this.mob.getAttackTarget().isDead) {
             for (int i = 0; i < 10; ++i) {
-                BlockPos blockpos1 = blockpos.add(mob.getRNG().nextInt(20) - 10, mob.getRNG().nextInt(6) - 3, mob.getRNG().nextInt(20) - 10);
+                BlockPos blockpos1 = blockpos.add(mob.getRNG().nextInt(21) - 10, mob.getRNG().nextInt(7) - 3, mob.getRNG().nextInt(21) - 10);
                 if (mob.world.getBlockState(blockpos1).getMaterial() == Material.WATER) {
                     return blockpos1;
                 }

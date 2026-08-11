@@ -29,7 +29,7 @@ public class BlockFallingReturningState extends BlockFalling {
 		this.setResistance(resistance);
 		this.setHarvestLevel(toolUsed, toolStrength);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		setRegistryName(IceAndFire.MODID, gameName);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(REVERTS, Boolean.FALSE));
 		this.setTickRandomly(true);
@@ -43,6 +43,8 @@ public class BlockFallingReturningState extends BlockFalling {
 	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
 		if (!worldIn.isRemote && state.getValue(REVERTS) && rand.nextInt(3) == 0 && worldIn.isAreaLoaded(pos, 3)) {
 			worldIn.setBlockState(pos, this.revertState);
+		} else {
+			super.updateTick(worldIn, pos, state, rand);
 		}
 	}
 

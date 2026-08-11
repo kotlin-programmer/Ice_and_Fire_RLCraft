@@ -14,7 +14,7 @@ public class ItemSilverArmor extends ItemArmor implements ICustomRendered {
 
     public ItemSilverArmor(ArmorMaterial material, int renderIndex, EntityEquipmentSlot slot) {
         super(material, renderIndex, slot);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.silver_" + getArmorPart(slot));
         this.setRegistryName(IceAndFire.MODID, "armor_silver_metal_" + getArmorPart(slot));
     }

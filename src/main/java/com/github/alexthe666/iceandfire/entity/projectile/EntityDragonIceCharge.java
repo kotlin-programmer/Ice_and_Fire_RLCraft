@@ -9,19 +9,19 @@ import com.github.alexthe666.iceandfire.entity.explosion.FireChargeExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.explosion.IceExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonIceCharge extends EntityFireball implements IDragonProjectile {
+public class EntityDragonIceCharge extends EntityDragonProjectile {
 
 	public int ticksInAir;
 
@@ -46,19 +46,6 @@ public class EntityDragonIceCharge extends EntityFireball implements IDragonProj
 		this.accelerationZ = accelZ / d0 * 0.07D;
 	}
 
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	protected boolean isFireballFiery() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
-
 	public void onUpdate() {
 		if(this.world.isRemote) {
 			for (int i = 0; i < 10; ++i) {
@@ -73,7 +60,7 @@ public class EntityDragonIceCharge extends EntityFireball implements IDragonProj
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -120,7 +107,7 @@ public class EntityDragonIceCharge extends EntityFireball implements IDragonProj
 				return;
 			}
 			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2) {
+				if (this.shootingEntity != null) {
 					int explodeSize = 2;
 					if(this.shootingEntity instanceof EntityDragonBase){
 						explodeSize = 2 + ((EntityDragonBase) this.shootingEntity).getDragonStage();
@@ -137,11 +124,15 @@ public class EntityDragonIceCharge extends EntityFireball implements IDragonProj
 			}
 			if (!(movingObject.entityHit instanceof IDragonProjectile) && !movingObject.entityHit.isEntityEqual(shootingEntity)) {
 				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && !movingObject.entityHit.isEntityEqual(shootingEntity)) {
-					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, 10.0F);
+					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, IceAndFireConfig.DRAGON_SETTINGS.dragonIceChargeDamage);
 					if (movingObject.entityHit instanceof EntityLivingBase) {
 						IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)movingObject.entityHit);
 						if (capability != null) {
 							capability.setFrozen(200);
+						}
+						if (movingObject.entityHit instanceof EntityPlayer) {
+							EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+							DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.ICE);
 						}
 					}
 					if (movingObject.entityHit instanceof EntityLivingBase && ((EntityLivingBase) movingObject.entityHit).getHealth() == 0) {
@@ -159,11 +150,6 @@ public class EntityDragonIceCharge extends EntityFireball implements IDragonProj
 			}
 		}
 		this.setDead();
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
 	}
 
 	@Override

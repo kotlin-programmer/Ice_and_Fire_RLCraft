@@ -1,0 +1,17 @@
+Une fois qu'un lectern a été placé,
+il est possible d'interagir avec lui en
+cliquant droit avec la souris. 
+L'intérieur comportera trois 
+emplacements, l'emplacement le plus à 
+gauche pour un bestiaire d'entrée, 
+celui du bas pour les manuscrits, et 
+le plus à droite pour le bestiaire de 
+sortie. Pour chaque manuscrit, une 
+nouvelle apparaîtra dans le 
+bestiaire. 
+Ces nouvelles pages peuvent être
+des informations sur les créatures
+mythiques, les différents types
+de peuples, des guides de 
+fabrication, et même de
+ l'alchimie de base.

@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.google.common.base.Predicate;
@@ -56,8 +56,8 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {IDreadMob.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, false, new Predicate<Entity>() {
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
                 return entity instanceof EntityLivingBase && DragonUtils.canHostilesTarget(entity);
@@ -67,9 +67,9 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(65.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(9.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10.0D);
     }
@@ -77,16 +77,16 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(CLIMBING, Byte.valueOf((byte) 0));
-        this.dataManager.register(SCALE, Float.valueOf(1F));
+        this.dataManager.register(CLIMBING, (byte) 0);
+        this.dataManager.register(SCALE, 1F);
     }
 
     public float getScale() {
-        return Float.valueOf(this.dataManager.get(SCALE).floatValue());
+        return this.dataManager.get(SCALE);
     }
 
     public void setScale(float scale) {
-        this.dataManager.set(SCALE, Float.valueOf(scale));
+        this.dataManager.set(SCALE, Math.min(Math.max(scale, 0.5F), 1.65F));
     }
 
     @Override
@@ -158,11 +158,11 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     public boolean isBesideClimbableBlock() {
-        return (this.dataManager.get(CLIMBING).byteValue() & 1) != 0;
+        return (this.dataManager.get(CLIMBING) & 1) != 0;
     }
 
     public void setBesideClimbableBlock(boolean climbing) {
-        byte b0 = this.dataManager.get(CLIMBING).byteValue();
+        byte b0 = this.dataManager.get(CLIMBING);
 
         if (climbing) {
             b0 = (byte) (b0 | 1);
@@ -170,7 +170,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
             b0 = (byte) (b0 & -2);
         }
 
-        this.dataManager.set(CLIMBING, Byte.valueOf(b0));
+        this.dataManager.set(CLIMBING, b0);
     }
 
     @Nullable
@@ -212,18 +212,13 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     @Override
-    public boolean shouldFear() {
-        return true;
-    }
-
-    @Override
     public Entity getCommander() {
         return null;
     }
 
     @Override
     public boolean isOnSameTeam(Entity entityIn){
-        return entityIn instanceof IDreadMob || super.isOnSameTeam(entityIn);
+        return IDreadMob.isOnSameTeam(entityIn) || super.isOnSameTeam(entityIn);
     }
 
     @Nullable
@@ -246,7 +241,7 @@ public class EntityDreadScuttler extends EntityDreadMob implements IAnimatedEnti
     }
 
     protected void playStepSound(BlockPos pos, Block blockIn) {
-        this.playSound(ModSounds.MYRMEX_WALK, 0.25F, 1.0F);
+        this.playSound(IafSoundRegistry.MYRMEX_WALK, 0.25F, 1.0F);
     }
 
     @Nullable

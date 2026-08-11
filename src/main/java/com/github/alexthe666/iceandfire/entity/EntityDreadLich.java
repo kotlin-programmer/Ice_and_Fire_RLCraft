@@ -1,8 +1,8 @@
 package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.github.alexthe666.iceandfire.entity.ai.DreadLichAIStrife;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDreadLichSkull;
@@ -36,9 +36,11 @@ import net.minecraft.world.storage.loot.LootTableList;
 import javax.annotation.Nullable;
 
 public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, IVillagerFear, IAnimalFear, IRangedAttackMob {
+    public static final ResourceLocation LOOT_GUARANTEE_KEY = LootTableList.register(new ResourceLocation("iceandfire", "dread_lich_guarantee_key"));
     public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation("iceandfire", "dread_lich"));
     private static final DataParameter<Integer> VARIANT = EntityDataManager.createKey(EntityDreadLich.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> MINION_COUNT = EntityDataManager.createKey(EntityDreadLich.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> GUARANTEE_KEY = EntityDataManager.createKey(EntityDreadLich.class, DataSerializers.BOOLEAN);
     public static Animation ANIMATION_SPAWN = Animation.create(40);
     public static Animation ANIMATION_SUMMON = Animation.create(15);
     private final DreadLichAIStrife aiArrowAttack = new DreadLichAIStrife(this, 1.0D, 20, 15.0F);
@@ -59,8 +61,8 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {IDreadMob.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, false, new Predicate<Entity>() {
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
                 return entity instanceof EntityLivingBase && DragonUtils.canHostilesTarget(entity);
@@ -70,18 +72,19 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(125.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(5.0D);
     }
 
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(VARIANT, Integer.valueOf(0));
-        this.dataManager.register(MINION_COUNT, Integer.valueOf(0));
+        this.dataManager.register(VARIANT, 0);
+        this.dataManager.register(MINION_COUNT, 0);
+        this.dataManager.register(GUARANTEE_KEY, true);
     }
 
     public void onLivingUpdate() {
@@ -115,7 +118,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.lich_staff));
+        this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.lich_staff));
     }
 
     @Nullable
@@ -143,6 +146,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         super.writeEntityToNBT(compound);
         compound.setInteger("Variant", this.getVariant());
         compound.setInteger("MinionCount", this.getMinionCount());
+        compound.setBoolean("GuaranteeKey", this.shouldGuaranteeKey());
     }
 
     @Override
@@ -150,19 +154,28 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         super.readEntityFromNBT(compound);
         this.setVariant(compound.getInteger("Variant"));
         this.setMinionCount(compound.getInteger("MinionCount"));
+        this.setGuaranteeKey(compound.getBoolean("GuaranteeKey"));
         this.setCombatTask();
     }
 
     public int getVariant() {
-        return this.dataManager.get(VARIANT).intValue();
+        return this.dataManager.get(VARIANT);
     }
 
     public void setVariant(int variant) {
         this.dataManager.set(VARIANT, variant);
     }
 
+    public boolean shouldGuaranteeKey() {
+        return this.dataManager.get(GUARANTEE_KEY);
+    }
+
+    public void setGuaranteeKey(boolean guaranteeKey) {
+        this.dataManager.set(GUARANTEE_KEY, guaranteeKey);
+    }
+
     public int getMinionCount() {
-        return this.dataManager.get(MINION_COUNT).intValue();
+        return this.dataManager.get(MINION_COUNT);
     }
 
     public void setMinionCount(int minions) {
@@ -190,11 +203,6 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
     }
 
     @Override
-    public boolean shouldFear() {
-        return true;
-    }
-
-    @Override
     public Entity getCommander() {
         return null;
     }
@@ -212,7 +220,7 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
             this.tasks.removeTask(this.aiAttackOnCollide);
             this.tasks.removeTask(this.aiArrowAttack);
             ItemStack itemstack = this.getHeldItemMainhand();
-            if (itemstack.getItem() == ModItems.lich_staff) {
+            if (itemstack.getItem() == IafItemRegistry.lich_staff) {
                 int i = 100;
                 this.aiArrowAttack.setAttackCooldown(i);
                 this.tasks.addTask(4, this.aiArrowAttack);
@@ -227,10 +235,10 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
         boolean flag = false;
         if (this.getMinionCount() < 5 && minionCooldown == 0) {
             this.setAnimation(ANIMATION_SUMMON);
-            this.playSound(ModSounds.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
+            this.playSound(IafSoundRegistry.DREAD_LICH_SUMMON, this.getSoundVolume(), this.getSoundPitch());
             EntityLiving minion = getRandomNewMinion();
-            int x = (int) (this.posX) - 5 + rand.nextInt(10);
-            int z = (int) (this.posZ) - 5 + rand.nextInt(10);
+            int x = (int) (this.posX) + rand.nextInt(11) - 5;
+            int z = (int) (this.posZ) + rand.nextInt(11) - 5;
             double y = getHeightFromXZ(x, z);
             minion.setLocationAndAngles(x + 0.5D, y, z + 0.5D, this.rotationYaw, this.rotationPitch);
             minion.setAttackTarget(target);
@@ -292,11 +300,14 @@ public class EntityDreadLich extends EntityDreadMob implements IAnimatedEntity, 
 
     @Override
     public boolean isOnSameTeam(Entity entityIn) {
-        return entityIn instanceof IDreadMob || super.isOnSameTeam(entityIn);
+        return IDreadMob.isOnSameTeam(entityIn) || super.isOnSameTeam(entityIn);
     }
 
     @Nullable
     protected ResourceLocation getLootTable() {
+        if (this.shouldGuaranteeKey()) {
+            return LOOT_GUARANTEE_KEY;
+        }
         return LOOT;
     }
 

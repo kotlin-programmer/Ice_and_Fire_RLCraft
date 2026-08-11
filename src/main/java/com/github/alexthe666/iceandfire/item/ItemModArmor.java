@@ -2,7 +2,6 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.client.StatCollector;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -21,13 +20,13 @@ public class ItemModArmor extends ItemArmor {
 
 	public ItemModArmor(ArmorMaterial material, int renderIndex, EntityEquipmentSlot slot, String gameName, String name) {
 		super(material, renderIndex, slot);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_ITEMS);
 		this.setTranslationKey(name);
 		this.setRegistryName(IceAndFire.MODID, gameName);
 	}
 
 	public String getTranslationKey(ItemStack stack){
-		if(this == ModItems.earplugs) {
+		if(this == IafItemRegistry.earplugs) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			if (calendar.get(2) + 1 == 4 && calendar.get(5) == 1) {
@@ -39,7 +38,7 @@ public class ItemModArmor extends ItemArmor {
 
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		if (this == ModItems.earplugs) {
+		if (this == IafItemRegistry.earplugs) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			if (calendar.get(2) + 1 == 4 && calendar.get(5) == 1) {
@@ -52,7 +51,7 @@ public class ItemModArmor extends ItemArmor {
 
 	public boolean getIsRepairable(ItemStack toRepair, ItemStack repair){
 		ItemStack mat = this.getArmorMaterial().getRepairItemStack();
-		if(this.getArmorMaterial() == ModItems.silverMetal){
+		if(this.getArmorMaterial() == IafItemRegistry.silverMetal){
 			NonNullList<ItemStack> silverItems = OreDictionary.getOres("ingotSilver");
 			for(ItemStack ingot : silverItems){
 				if(OreDictionary.itemMatches(repair, ingot, false)){

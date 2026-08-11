@@ -1,7 +1,5 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.entity.util.IBlacklistedFromStatues;
 import com.github.alexthe666.iceandfire.entity.util.IDeadMob;
 import com.github.alexthe666.iceandfire.enums.EnumDragonEgg;
 import com.google.common.base.Optional;
@@ -143,33 +141,7 @@ public class EntityDragonEgg extends EntityLiving implements IBlacklistedFromSta
     }
 
     private ItemStack getItem() {
-        switch (getType().ordinal()) {
-            default:
-                return new ItemStack(ModItems.dragonegg_red);
-            case 1:
-                return new ItemStack(ModItems.dragonegg_green);
-            case 2:
-                return new ItemStack(ModItems.dragonegg_bronze);
-            case 3:
-                return new ItemStack(ModItems.dragonegg_gray);
-            case 4:
-                return new ItemStack(ModItems.dragonegg_blue);
-            case 5:
-                return new ItemStack(ModItems.dragonegg_white);
-            case 6:
-                return new ItemStack(ModItems.dragonegg_sapphire);
-            case 7:
-                return new ItemStack(ModItems.dragonegg_silver);
-            case 8:
-                return new ItemStack(ModItems.dragonegg_electric);
-            case 9:
-                return new ItemStack(ModItems.dragonegg_amethyst);
-            case 10:
-                return new ItemStack(ModItems.dragonegg_copper);
-            case 11:
-                return new ItemStack(ModItems.dragonegg_black);
-
-        }
+        return new ItemStack(getType().egg);
     }
 
     @Override

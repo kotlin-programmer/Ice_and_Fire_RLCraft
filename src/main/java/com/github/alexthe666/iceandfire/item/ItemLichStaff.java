@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.item;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDreadLichSkull;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -18,7 +17,7 @@ public class ItemLichStaff extends ItemGeneric {
     }
 
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return repair.getItem() == ModItems.dread_shard || super.getIsRepairable(toRepair, repair);
+        return repair.getItem() == IafItemRegistry.dread_shard || super.getIsRepairable(toRepair, repair);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class ItemLichStaff extends ItemGeneric {
         charge.shoot(d2, d3, d4, 1, 1);
         playerIn.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1F, 0.75F + 0.5F * playerIn.getRNG().nextFloat());
         itemStackIn.damageItem(1, playerIn);
-        playerIn.getCooldownTracker().setCooldown(this, 4);
-        return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
+        playerIn.getCooldownTracker().setCooldown(this, 8);
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
     }
 }

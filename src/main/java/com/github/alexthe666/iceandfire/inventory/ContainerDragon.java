@@ -9,7 +9,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class ContainerDragon extends Container {
-	private EntityDragonBase dragon;
+	private final EntityDragonBase dragon;
 
 	public ContainerDragon(final EntityDragonBase dragon, EntityPlayer player) {
 

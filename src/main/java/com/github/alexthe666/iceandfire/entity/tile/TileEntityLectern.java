@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity.tile;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumBestiaryPages;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
@@ -36,7 +36,7 @@ public class TileEntityLectern extends TileEntity implements ITickable, ISidedIn
 	private int totalCookTime;
 
 	public static int getItemBurnTime(ItemStack i) {
-		return i.getItem() == ModItems.manuscript ? 300 : 0;
+		return i.getItem() == IafItemRegistry.manuscript ? 300 : 0;
 	}
 
 	public static boolean isItemFuel(ItemStack i) {
@@ -109,7 +109,7 @@ public class TileEntityLectern extends TileEntity implements ITickable, ISidedIn
 		if(this.stacks.get(0).isEmpty()) return false;
 		else {
 			ItemStack itemstack = this.stacks.get(0).copy();
-			if(itemstack.getItem() != ModItems.bestiary) return false;
+			if(itemstack.getItem() != IafItemRegistry.bestiary) return false;
 			List<EnumBestiaryPages> list = EnumBestiaryPages.possiblePages(itemstack);
 			if(list == null || list.isEmpty()) return false;
 			if(this.stacks.get(2).isEmpty()) return true;
@@ -224,7 +224,7 @@ public class TileEntityLectern extends TileEntity implements ITickable, ISidedIn
 	public void smeltItem() {
 		if (this.canSmelt()) {
 			ItemStack itemstack = this.stacks.get(0).copy();
-			if (this.stacks.get(0).getItem() == ModItems.bestiary) {
+			if (this.stacks.get(0).getItem() == IafItemRegistry.bestiary) {
 				EnumBestiaryPages.addRandomPage(itemstack);
 			}
 			this.stacks.get(0).shrink(1);

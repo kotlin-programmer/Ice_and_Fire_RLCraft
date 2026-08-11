@@ -1,82 +1,59 @@
 package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.entity.projectile.EntityDragonArrow;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderDragonArrow extends Render<EntityDragonArrow> {
 
-	private static final ResourceLocation arrowTextures = new ResourceLocation("iceandfire:textures/models/misc/dragonbone_arrow.png");
+	private final RenderItem itemRenderer;
 
-	public RenderDragonArrow(RenderManager render) {
+	public RenderDragonArrow(RenderManager render, RenderItem itemRenderer) {
 		super(render);
+		this.itemRenderer = itemRenderer;
 	}
 
 	@Override
 	public void doRender(EntityDragonArrow entity, double x, double y, double z, float yaw, float partialTicks) {
-		this.bindEntityTexture(entity);
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		GlStateManager.pushMatrix();
-		GlStateManager.translate((float) x, (float) y, (float) z);
-		GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
-		GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks, 0.0F, 0.0F, 1.0F);
-		Tessellator tessellator = Tessellator.getInstance();
-		BufferBuilder BufferBuilder = tessellator.getBuffer();
-		int i = 0;
-		float f = 0.0F;
-		float f1 = 0.5F;
-		float f2 = (0 + i * 10) / 32.0F;
-		float f3 = (5 + i * 10) / 32.0F;
-		float f4 = 0.0F;
-		float f5 = 0.15625F;
-		float f6 = (5 + i * 10) / 32.0F;
-		float f7 = (10 + i * 10) / 32.0F;
-		float f8 = 0.05625F;
-		GlStateManager.enableRescaleNormal();
-		float f9 = entity.arrowShake - partialTicks;
-
-		if (f9 > 0.0F) {
-			float f10 = -MathHelper.sin(f9 * 3.0F) * f9;
-			GlStateManager.rotate(f10, 0.0F, 0.0F, 1.0F);
+		double posX = x, posY = y, posZ = z;
+		if (entity.isAirBorne) {
+			posX += (entity.motionX * partialTicks);
+			posY += (entity.motionY * partialTicks);
+			posZ += (entity.motionZ * partialTicks);
 		}
 
-		GlStateManager.rotate(45.0F, 1.0F, 0.0F, 0.0F);
-		GlStateManager.scale(f8, f8, f8);
-		GlStateManager.translate(-4.0F, 0.0F, 0.0F);
-		GL11.glNormal3f(f8, 0.0F, 0.0F);
-		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		BufferBuilder.pos(-7.0D, -2.0D, -2.0D).tex(f4, f6).endVertex();
-		BufferBuilder.pos(-7.0D, -2.0D, 2.0D).tex(f5, f6).endVertex();
-		BufferBuilder.pos(-7.0D, 2.0D, 2.0D).tex(f5, f7).endVertex();
-		BufferBuilder.pos(-7.0D, 2.0D, -2.0D).tex(f4, f7).endVertex();
-		tessellator.draw();
-		GL11.glNormal3f(-f8, 0.0F, 0.0F);
-		BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-		BufferBuilder.pos(-7.0D, 2.0D, -2.0D).tex(f4, f6).endVertex();
-		BufferBuilder.pos(-7.0D, 2.0D, 2.0D).tex(f5, f6).endVertex();
-		BufferBuilder.pos(-7.0D, -2.0D, 2.0D).tex(f5, f7).endVertex();
-		BufferBuilder.pos(-7.0D, -2.0D, -2.0D).tex(f4, f7).endVertex();
-		tessellator.draw();
+		GlStateManager.translate((float) posX, (float) posY, (float) posZ);
+		GlStateManager.scale(1.5d, 1.5d, 1.5d);
+		GlStateManager.enableRescaleNormal();
 
-		for (int j = 0; j < 4; ++j) {
-			GlStateManager.rotate(90.0F, 1.0F, 0.0F, 0.0F);
-			GL11.glNormal3f(0.0F, 0.0F, f8);
-			BufferBuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-			BufferBuilder.pos(-8.0D, -2.0D, 0.0D).tex(f, f2).endVertex();
-			BufferBuilder.pos(8.0D, -2.0D, 0.0D).tex(f1, f2).endVertex();
-			BufferBuilder.pos(8.0D, 2.0D, 0.0D).tex(f1, f3).endVertex();
-			BufferBuilder.pos(-8.0D, 2.0D, 0.0D).tex(f, f3).endVertex();
-			tessellator.draw();
+		this.doRenderTransformations(entity, partialTicks);
+
+		this.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+
+		if (this.renderOutlines) {
+			GlStateManager.enableColorMaterial();
+			GlStateManager.enableOutlineMode(this.getTeamColor(entity));
+		}
+
+		ItemStack arrow = new ItemStack(entity.getType().getArrow());
+		this.itemRenderer.renderItem(arrow, ItemCameraTransforms.TransformType.GROUND);
+		GlStateManager.translate(0.10, 0.20, 0.0);
+		GlStateManager.rotate(90, 1.0f, 1.0f, 0.0f);
+		GlStateManager.translate(-0.10, -0.20, 0.0);
+		this.itemRenderer.renderItem(arrow, ItemCameraTransforms.TransformType.GROUND);
+
+		if (this.renderOutlines) {
+			GlStateManager.disableOutlineMode();
+			GlStateManager.disableColorMaterial();
 		}
 
 		GlStateManager.disableRescaleNormal();
@@ -84,8 +61,20 @@ public class RenderDragonArrow extends Render<EntityDragonArrow> {
 		super.doRender(entity, x, y, z, yaw, partialTicks);
 	}
 
+	/**
+	 * Performs the rendering transformations before the entity is rendered
+	 * @param entity
+	 * @param partialTicks
+	 */
+	protected void doRenderTransformations(EntityDragonArrow entity, float partialTicks)
+	{
+		GlStateManager.rotate(entity.prevRotationYaw + (entity.rotationYaw - entity.prevRotationYaw) * partialTicks - 90.0F, 0.0F, 1.0F, 0.0F);
+		GlStateManager.rotate(entity.prevRotationPitch + (entity.rotationPitch - entity.prevRotationPitch) * partialTicks - 45.0F, 0.0F, 0.0F, 1.0F);
+		GlStateManager.translate(-0.10, -0.20, 0.0);
+	}
+
 	@Override
 	protected ResourceLocation getEntityTexture(EntityDragonArrow arrow) {
-		return arrowTextures;
+		return TextureMap.LOCATION_BLOCKS_TEXTURE;
 	}
 }

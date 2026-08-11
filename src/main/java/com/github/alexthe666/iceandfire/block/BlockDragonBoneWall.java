@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockWall;
 import net.minecraft.block.SoundType;
@@ -9,14 +8,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
-public class BlockDragonBoneWall extends BlockWall {
+public class BlockDragonBoneWall extends BlockWall implements IDragonProof {
 
     public BlockDragonBoneWall(String gameName, String name, Block baseBlock) {
         super(baseBlock);
         this.setHardness(20F);
         this.setResistance(500F);
         this.setSoundType(SoundType.WOOD);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey(name);
         this.setRegistryName(IceAndFire.MODID, gameName);
     }

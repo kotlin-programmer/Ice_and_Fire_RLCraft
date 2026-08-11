@@ -18,7 +18,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderCockatrice extends RenderLiving<EntityCockatrice> {
@@ -142,7 +141,7 @@ public class RenderCockatrice extends RenderLiving<EntityCockatrice> {
     @Override
     public void preRenderCallback(EntityCockatrice cockatrice, float partialTickTime) {
         if(cockatrice.isChild()) {
-            GL11.glScalef(0.5F, 0.5F, 0.5F);
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
         }
     }
 

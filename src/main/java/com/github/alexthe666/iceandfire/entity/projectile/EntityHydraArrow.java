@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,6 +79,6 @@ public class EntityHydraArrow extends EntityArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ModItems.hydra_arrow);
+        return new ItemStack(IafItemRegistry.hydra_arrow);
     }
 }

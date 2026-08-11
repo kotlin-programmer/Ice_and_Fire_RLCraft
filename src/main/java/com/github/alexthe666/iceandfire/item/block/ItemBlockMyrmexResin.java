@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.item.block;
 
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,7 @@ public class ItemBlockMyrmexResin extends ItemBlock {
     private boolean sticky;
     public ItemBlockMyrmexResin(Block block) {
         super(block);
-        sticky = block == ModBlocks.myrmex_resin_sticky;
+        sticky = block == IafBlockRegistry.myrmex_resin_sticky;
         this.setHasSubtypes(true);
     }
 

@@ -21,7 +21,7 @@ public class ItemHydraHeart extends Item {
 
     public ItemHydraHeart() {
         super();
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.hydra_heart");
         this.setRegistryName(IceAndFire.MODID, "hydra_heart");
         if (IceAndFireConfig.MISC_SETTINGS.hydraHeartPassiveHealing) {

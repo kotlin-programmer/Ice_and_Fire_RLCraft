@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public class BlockMonsterSpawner extends BlockMobSpawner {
+public class BlockMonsterSpawner extends BlockMobSpawner implements IDragonProof {
 
     public BlockMonsterSpawner() {
         super();
@@ -20,8 +20,7 @@ public class BlockMonsterSpawner extends BlockMobSpawner {
         GameRegistry.registerTileEntity(TileEntityMonsterSpawner.class, "monster_spawner");
     }
 
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityMonsterSpawner();
     }
 }

@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.google.common.base.Predicate;
@@ -94,10 +93,10 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIFindGaurdingEntity(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(2, new MyrmexAIFindGaurdingEntity<>(this));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
             public boolean apply(@Nullable EntityLiving entity) {
                 return entity != null && !IMob.VISIBLE_MOB_SELECTOR.apply(entity) && !EntityMyrmexBase.haveSameHive(EntityMyrmexSoldier.this, entity) && DragonUtils.isAlive((EntityLivingBase)entity);
             }
@@ -107,7 +106,7 @@ public class EntityMyrmexSoldier extends EntityMyrmexBase {
 
     @Override
     public VillagerRegistry.VillagerProfession getProfessionForge() {
-        return this.isJungle() ? ModVillagers.INSTANCE.jungleMyrmexSoldier : ModVillagers.INSTANCE.desertMyrmexSoldier;
+        return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexSoldier : IafVillagerRegistry.INSTANCE.desertMyrmexSoldier;
     }
 
     @Override

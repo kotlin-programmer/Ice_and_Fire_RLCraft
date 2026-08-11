@@ -1,4 +1,5 @@
-﻿itemGroup.iceandfire=Ice And Fire
+﻿itemGroup.iceandfire_items=Ice And Fire: Предметы
+itemGroup.iceandfire_blocks=Ice And Fire: Блоки
 iceandfire.empty =Пусто
 
 tile.iceandfire.lectern.name=Кафедра
@@ -75,12 +76,41 @@ tile.iceandfire.crackledCobblestone.name=Треснувший булыжник
 tile.iceandfire.crackledGravel.name=Треснувший гравий
 tile.iceandfire.crackledGrassPath.name=Треснувшая тропа
 tile.iceandfire.lightning_stone.name=Камень молнии
+tile.iceandfire.fulgurite.name=Фульгурит
 
-tile.iceandfire.ancient_dragon_bone_block.name=древний Блок драконьих костей
-tile.iceandfire.ancient_dragon_bone_wall.name=древний Ограда из драконьих костей
+tile.iceandfire.rubyOre.name=Рубин руда
+tile.iceandfire.rubyBlock.name=Рубин блок
+
+tile.iceandfire.charedRubyOre.name=Обугленный Рубин руда
+tile.iceandfire.crackledAmethystOre.name=Треснувший Аметистовая руда
+tile.iceandfire.frozenSapphireOre.name=Замёрзший Сапфировая руда
+
 tile.iceandfire.dragon_bone_block.name=Блок драконьих костей
 tile.iceandfire.dragon_bone_wall.name=Ограда из драконьих костей
 tile.iceandfire.ghost_chest.name=Проклятый сундук
+
+tile.iceandfire.dragonscales_pile.name=Груда Чешуя дракона
+tile.iceandfire.sea_serpent_scales_pile.name=Груда Чешуя левиафана
+
+tile.iceandfire.dread_stone.name=Камень ужаса
+tile.iceandfire.dread_stone_bricks.name=Кирпичи ужаса
+tile.iceandfire.dread_stone_bricks_chiseled.name=Резные кирпичи ужаса
+tile.iceandfire.dread_stone_bricks_cracked.name=Потрескавшиеся кирпичи ужаса
+tile.iceandfire.dread_stone_bricks_mossy.name=Замшелые кирпичи ужаса
+tile.iceandfire.dread_stone_face.name=Камень ужаса с черепом
+tile.iceandfire.dread_stone_tile.name=Полированный камень ужаса
+tile.iceandfire.dread_torch.name=Dreadstone Torch
+tile.iceandfire.burnt_torch.name=Факел ужаса
+tile.iceandfire.dread_stone_slab.name=Плита из кирпичей ужаса
+tile.iceandfire.dread_stone_stairs.name=Ступеньки из кирпичей ужаса
+tile.iceandfire.dreadwood_planks.name=Доски из древа ужаса
+tile.iceandfire.dreadwood_planks_lock.name=Замочная скважина ужаса
+tile.iceandfire.dread_spawner.name=Спаунер мобов ужаса
+tile.iceandfire.monster_spawner.name=Спаунер мобов
+
+tile.iceandfire.dragonforge_core.name=Сердце драконьей кузни
+tile.iceandfire.dragonforge_vent.name=Вентиляционное отверстие драконьей кузни
+tile.iceandfire.dragonforge_input.name=Слив драконьей кузни
 
 item.iceandfire.bestiary.name=Бестиарий
 item.iceandfire.manuscript.name=Манускрипт
@@ -271,6 +301,8 @@ item.iceandfire.lightning_dragon_heart.name=Сердце Грозового др
 item.iceandfire.lightning_dragon_blood.name=Кровь Грозового дракона
 item.iceandfire.dragon_horn_lightning.name=Рог дракона
 
+item.iceandfire.rubyGem.name=Рубин
+
 item.iceandfire.hydra_fang.name=Клык гидры
 item.iceandfire.hydra_heart.name=Сердце гидры
 item.iceandfire.hydra_heart.desc_0=Когда на панели быстрого доступа, увеличивает регенерацию
@@ -278,55 +310,113 @@ item.iceandfire.hydra_heart.desc_1=в зависимости от того ка�
 item.iceandfire.hydra_arrow.name=Стрела гидры
 item.iceandfire.hydra_arrow.desc=Отправляет и крадет здоровье у цели
 
+item.iceandfire.summoning_crystal_ice.name=Кристалл призыва Ледяного дракона
+item.iceandfire.summoning_crystal_fire.name=Кристалл призыва Огненного дракона
+item.iceandfire.summoning_crystal_lightning.name=Кристалл призыва Грозового дракона
+item.iceandfire.summoning_crystal.desc_0=ПКМ по дракону для привязки
+item.iceandfire.summoning_crystal.desc_1=Используется для телепортации дракона
+item.iceandfire.summoning_crystal.bound=Привязка к %s
+
+item.iceandfire.fire_dragon_breath.name=Дыхание Огненного дракона
+item.iceandfire.ice_dragon_breath.name=Дыхание Ледяного дракона
+item.iceandfire.lightning_dragon_breath.name=Дыхание Грозового дракона
+
+item.iceandfire.chain_link.name=Железное звено цепи
+item.iceandfire.chain.name=Железная цепь
+
+item.iceandfire.hippocampus_fin.name=Плавник гиппокампа
+item.iceandfire.hippocampus_fin.desc_0=§6Редкий дроп§r
+
+item.iceandfire.hippocampus_slapper.name=Шлёп-шлёп гиппокампа
+item.iceandfire.hippocampus_slapper.desc_0=§dКомическое оружие§r
+item.iceandfire.hippocampus_slapper.desc_1=Удивляет и замедляет цель. Удар рыбьим хвостом точно сбивает с толку.
+
+item.iceandfire.cyclops_eye.name=Глаз циклопа
+item.iceandfire.cyclops_eye.desc_0=Оружие с радиусом эффекта
+item.iceandfire.cyclops_eye.desc_1=Ослабляет ближайших противников, когда в руке
+
 item.iceandfire.tide_trident.name=Трезубец Волны
 item.iceandfire.tide_trident.desc_0=Наносит больше урона при броске под воду
 item.iceandfire.tide_trident.desc_1=Пробивает нескольких врагов
 item.iceandfire.tide_trident.not_original=Не подлежит ремонту или зачарованию
 
+item.iceandfire.hippogryph_skull.name=Череп гиппогрифа
+item.iceandfire.cyclops_skull.name=Череп циклопа
+item.iceandfire.cockatrice_skull.name=Череп василиска
+item.iceandfire.stymphalian_skull.name=Череп Стимфалийской птицы
+item.iceandfire.troll_skull.name=Череп тролля
+item.iceandfire.amphithere_skull.name=Череп амфитеры
+item.iceandfire.seaserpent_skull.name=Череп Левиафана
+item.iceandfire.hydra_skull.name=Череп гидры
+
 item.iceandfire.lich_staff.name=Посох лича ужаса
+item.iceandfire.dread_key.name=§bКлюч Могильщика§r
 item.iceandfire.dread_shard.name=Осколок ужаса
 item.iceandfire.dread_sword.name=Меч раба ужаса
 item.iceandfire.dread_knight_sword.name=Меч рыцаря ужаса
+
+item.iceandfire.dread_queen_sword.name=Клинок Королевы ужаса
+item.iceandfire.dread_queen_staff.name=Посох Королевы ужаса
+
 item.iceandfire.custom_banner.jei_desc=Унакальный паттерн баннера!
+
 item.iceandfire.ghost_sword.name=Призрачный клинок
 item.iceandfire.ghost_sword.desc_0=Выпускает крутящийся меч проходящий сквозь блоки
 item.iceandfire.ectoplasm.name=Эктоплазма
 item.iceandfire.ghost_ingot.name=Призрачный слиток
 item.iceandfire.ghost_ingot.desc_0=§6Редкий дроп§r
 
-item.banner.firedragon.white=Белый флаг огненного дракона
-item.banner.firedragon.orange=Оранжевый флаг огненного дракона
-item.banner.firedragon.magenta=Пурпурный флаг огненного дракона
-item.banner.firedragon.lightBlue=Голубой огненный драко
-item.banner.firedragon.yellow=Желтый флаг огненного дракона
-item.banner.firedragon.lime=Лаймовый флаг огненного дракона
-item.banner.firedragon.pink=Розовый флаг огненного дракона
-item.banner.firedragon.gray=Серый флаг огненного дракона
-item.banner.firedragon.silver=Серебрянный флаг огненного дракона
-item.banner.firedragon.cyan=Морской флаг огненного дракона
-item.banner.firedragon.purple=Фиолетовый флаг огненного дракона
-item.banner.firedragon.blue=Синий флаг огненного дракона
-item.banner.firedragon.brown=Коричневый флаг огненного дракона
-item.banner.firedragon.green=Зелёный флаг огненного дракона
-item.banner.firedragon.red=Красный флаг огненного дракона
-item.banner.firedragon.black=Черный флаг огненного дракона
+item.iceandfire.myrmex_desert_swarm.name=Рой мирмексов
+item.iceandfire.myrmex_jungle_swarm.name=Рой мирмексов
+item.iceandfire.myrmex_swarm.desc_0=Призывает 5 мирмексов-трутней, которые будут защищать вас 30 секунд
+item.iceandfire.myrmex_swarm.desc_1=Одноразовый
+item.iceandfire.hippogryph_talon.name=Коготь гиппогрифа
+item.iceandfire.hippogryph_talon.desc_0=§6Редкий дроп§r
+item.iceandfire.hippogryph_sword.name=Меч из когтей гиппогрифа
+item.iceandfire.hippogryph_sword.desc_0=Всегда наносит порезы цели, что даёт доп. урон
 
-item.banner.icedragon.white=Белый флаг ледяного дракона
-item.banner.icedragon.orange=Оранжевый флаг ледяного дракона
-item.banner.icedragon.magenta=Пурпурный флаг ледяного дракона
-item.banner.icedragon.light_blue=Светло синий флаг ледяного дракона
-item.banner.icedragon.yellow=Желтый флаг ледяного дракона
-item.banner.icedragon.lime=Лаймовый флаг ледяного дракона
-item.banner.icedragon.pink=Розовый флаг ледяного дракона
-item.banner.icedragon.gray=Серый флаг ледяного дракона
-item.banner.icedragon.silver=Серебрянный флаг ледяного дракона
-item.banner.icedragon.cyan=Морской  флаг ледяного дракона
-item.banner.icedragon.purple=Фиолетовый флаг ледяного дракона
-item.banner.icedragon.blue=Синий флаг ледяного дракона
-item.banner.icedragon.brown=Коричневый флаг ледяного дракона
-item.banner.icedragon.green=Зелёный флаг ледяного дракона
-item.banner.icedragon.red=Красный флаг ледяного дракона
-item.banner.icedragon.black=Черный флаг ледяного дракона
+item.iceandfire.dragonbone_arrow_fire.name=Разожженный Стрела из драконьей кости
+item.iceandfire.dragonbone_arrow_ice.name=Оледяневший Стрела из драконьей кости
+item.iceandfire.dragonbone_arrow_lightning.name=Грозовой Стрела из драконьей кости
+
+item.iceandfire.dragonbone_bow_fire.name=Разожженный Лук из драконьей кости
+item.iceandfire.dragonbone_bow_ice.name=Оледяневший Лук из драконьей кости
+item.iceandfire.dragonbone_bow_lightning.name=Грозовой SЛук из драконьей кости
+
+#BANNERS
+item.banner.firedragon.white=Белый огненный дракон
+item.banner.firedragon.orange=Оранжевый огненный дракон
+item.banner.firedragon.magenta=Пурпурный огненный дракон
+item.banner.firedragon.light_blue=Голубой огненный дракон
+item.banner.firedragon.yellow=Желтый огненный дракон
+item.banner.firedragon.lime=Лаймовый огненный дракон
+item.banner.firedragon.pink=Розовый огненный дракон
+item.banner.firedragon.gray=Серый огненный дракон
+item.banner.firedragon.silver=Серебряный огненный дракон
+item.banner.firedragon.cyan=Бирюзовый огненный дракон
+item.banner.firedragon.purple=Фиолетовый огненный дракон
+item.banner.firedragon.blue=Синий огненный дракон
+item.banner.firedragon.brown=Коричневый огненный дракон
+item.banner.firedragon.green=Зелёный огненный дракон
+item.banner.firedragon.red=Красный огненный дракон
+item.banner.firedragon.black=Черный огненный дракон
+
+item.banner.icedragon.white=Белый ледяной дракон
+item.banner.icedragon.orange=Оранжевый ледяной дракон
+item.banner.icedragon.magenta=Пурпурный ледяной дракон
+item.banner.icedragon.light_blue=Голубой ледяной дракон
+item.banner.icedragon.yellow=Желтый ледяной дракон
+item.banner.icedragon.lime=Лаймовый ледяной дракон
+item.banner.icedragon.pink=Розовый ледяной дракон
+item.banner.icedragon.gray=Серый ледяной дракон
+item.banner.icedragon.silver=Серебряный ледяной дракон
+item.banner.icedragon.cyan=Бирюзовый ледяной дракон
+item.banner.icedragon.purple=Фиолетовый ледяной дракон
+item.banner.icedragon.blue=Синий ледяной дракон
+item.banner.icedragon.brown=Коричневый ледяной дракон
+item.banner.icedragon.green=Зелёный ледяной дракон
+item.banner.icedragon.red=Красный ледяной дракон
+item.banner.icedragon.black=Черный ледяной дракон
 
 item.banner.lightningdragon.white=Белый грозовой дракон
 item.banner.lightningdragon.orange=Оранжевый грозовой дракон
@@ -345,10 +435,214 @@ item.banner.lightningdragon.green=Зелёный флаг грозовой др�
 item.banner.lightningdragon.red=Красный флаг грозовой дракон
 item.banner.lightningdragon.black=Черный флаг грозовой дракон
 
+item.banner.firedragon_head.white=Белая голова огненного дракона
+item.banner.firedragon_head.orange=Оранжевая голова огненного дракона
+item.banner.firedragon_head.magenta=Пурпурная голова огненного дракона
+item.banner.firedragon_head.light_blue=Голубая голова огненного дракона
+item.banner.firedragon_head.yellow=Жёлтая голова огненного дракона
+item.banner.firedragon_head.lime=Лаймовая голова огненного дракона
+item.banner.firedragon_head.pink=Розовая голова огненного дракона
+item.banner.firedragon_head.gray=Серая голова огненного дракона
+item.banner.firedragon_head.silver=Серебряная голова огненного дракона
+item.banner.firedragon_head.cyan=Бирюзовая голова огненного дракона
+item.banner.firedragon_head.purple=Фиолетовая голова огненного дракона
+item.banner.firedragon_head.blue=Синяя голова огненного дракона
+item.banner.firedragon_head.brown=Коричневая голова огненного дракона
+item.banner.firedragon_head.green=Зелёная голова огненного дракона
+item.banner.firedragon_head.red=Красная голова огненного дракона
+item.banner.firedragon_head.black=Чёрная голова огненного дракона
+
+item.banner.icedragon_head.white=Белая голова ледяного дракона
+item.banner.icedragon_head.orange=Оранжевая голова ледяного дракона
+item.banner.icedragon_head.magenta=Пурпурная голова ледяного дракона
+item.banner.icedragon_head.light_blue=Голубая голова ледяного дракона
+item.banner.icedragon_head.yellow=Жёлтая голова ледяного дракона
+item.banner.icedragon_head.lime=Лаймовая голова ледяного дракона
+item.banner.icedragon_head.pink=Розовая голова ледяного дракона
+item.banner.icedragon_head.gray=Серая голова ледяного дракона
+item.banner.icedragon_head.silver=Серебряная голова ледяного дракона
+item.banner.icedragon_head.cyan=Бирюзовая голова ледяного дракона
+item.banner.icedragon_head.purple=Фиолетовая голова ледяного дракона
+item.banner.icedragon_head.blue=Синяя голова ледяного дракона
+item.banner.icedragon_head.brown=Коричневая голова ледяного дракона
+item.banner.icedragon_head.green=Зелёная голова ледяного дракона
+item.banner.icedragon_head.red=Красная голова ледяного дракона
+item.banner.icedragon_head.black=Чёрная голова ледяного дракона
+
+item.banner.lightningdragon_head.white=Белая голова грозовой дракона
+item.banner.lightningdragon_head.orange=Оранжевая голова грозовой дракона
+item.banner.lightningdragon_head.magenta=Пурпурная голова грозовой дракона
+item.banner.lightningdragon_head.light_blue=Голубая голова грозовой дракона
+item.banner.lightningdragon_head.yellow=Жёлтая голова грозовой дракона
+item.banner.lightningdragon_head.lime=Лаймовая голова грозовой дракона
+item.banner.lightningdragon_head.pink=Розовая голова грозовой дракона
+item.banner.lightningdragon_head.gray=Серая голова грозовой дракона
+item.banner.lightningdragon_head.silver=Серебряная голова грозовой дракона
+item.banner.lightningdragon_head.cyan=Бирюзовая голова грозовой дракона
+item.banner.lightningdragon_head.purple=Фиолетовая голова грозовой дракона
+item.banner.lightningdragon_head.blue=Синяя голова грозовой дракона
+item.banner.lightningdragon_head.brown=Коричневая голова грозовой дракона
+item.banner.lightningdragon_head.green=Зелёная голова грозовой дракона
+item.banner.lightningdragon_head.red=Красная голова грозовой дракона
+item.banner.lightningdragon_head.black=Чёрная голова грозовой дракона
+
+item.banner.gorgon.white=Белая горгона
+item.banner.gorgon.orange=Оранжевая горгона
+item.banner.gorgon.magenta=Пурпурная горгона
+item.banner.gorgon.light_blue=Голубая горгона
+item.banner.gorgon.yellow=Жёлтая горгона
+item.banner.gorgon.lime=Лаймовая горгона
+item.banner.gorgon.pink=Розовая горгона
+item.banner.gorgon.gray=Серая горгона
+item.banner.gorgon.silver=Серебряная горгона
+item.banner.gorgon.cyan=Бирюзовая горгона
+item.banner.gorgon.purple=Фиолетовая горгона
+item.banner.gorgon.blue=Синяя горгона
+item.banner.gorgon.brown=Коричневая горгона
+item.banner.gorgon.green=Зелёная горгона
+item.banner.gorgon.red=Красная горгона
+item.banner.gorgon.black=Чёрная горгона
+
+item.banner.hippogryph.white=Белая голова гиппогрифа
+item.banner.hippogryph.orange=Оранжевая голова гиппогрифа
+item.banner.hippogryph.magenta=Пурпурная голова гиппогрифа
+item.banner.hippogryph.light_blue=Голубая голова гиппогрифа
+item.banner.hippogryph.yellow=Жёлтая голова гиппогрифа
+item.banner.hippogryph.lime=Лаймовая голова гиппогрифа
+item.banner.hippogryph.pink=Розовая голова гиппогрифа
+item.banner.hippogryph.gray=Серая голова гиппогрифа
+item.banner.hippogryph.silver=Серебряная голова гиппогрифа
+item.banner.hippogryph.cyan=Бирюзовая голова гиппогрифа
+item.banner.hippogryph.purple=Фиолетовая голова гиппогрифа
+item.banner.hippogryph.blue=Синяя голова гиппогрифа
+item.banner.hippogryph.brown=Коричневая голова гиппогрифа
+item.banner.hippogryph.green=Зелёная голова гиппогрифа
+item.banner.hippogryph.red=Красная голова гиппогрифа
+item.banner.hippogryph.black=Чёрная голова гиппогрифа
+
+item.banner.hippocampus.white=Белый гиппокамп
+item.banner.hippocampus.orange=Оранжевый гиппокамп
+item.banner.hippocampus.magenta=Пурпурный гиппокамп
+item.banner.hippocampus.light_blue=Голубый гиппокамп
+item.banner.hippocampus.yellow=Жёлтый гиппокамп
+item.banner.hippocampus.lime=Лаймовый гиппокамп
+item.banner.hippocampus.pink=Розовый гиппокамп
+item.banner.hippocampus.gray=Серый гиппокамп
+item.banner.hippocampus.silver=Серебряный гиппокамп
+item.banner.hippocampus.cyan=Бирюзовый гиппокамп
+item.banner.hippocampus.purple=Фиолетовый гиппокамп
+item.banner.hippocampus.blue=Синий гиппокамп
+item.banner.hippocampus.brown=Коричневый гиппокамп
+item.banner.hippocampus.green=Зелёный гиппокамп
+item.banner.hippocampus.red=Красный гиппокамп
+item.banner.hippocampus.black=Чёрный гиппокамп
+
+item.banner.troll.white=Белый тролль
+item.banner.troll.orange=Оранжевый тролль
+item.banner.troll.magenta=Пурпурный тролль
+item.banner.troll.light_blue=Голубый тролль
+item.banner.troll.yellow=Жёлтый тролль
+item.banner.troll.lime=Лаймовый тролль
+item.banner.troll.pink=Розовый тролль
+item.banner.troll.gray=Серый тролль
+item.banner.troll.silver=Серебряный тролль
+item.banner.troll.cyan=Бирюзовый тролль
+item.banner.troll.purple=Фиолетовый тролль
+item.banner.troll.blue=Синий тролль
+item.banner.troll.brown=Коричневый тролль
+item.banner.troll.green=Зелёный тролль
+item.banner.troll.red=Красный тролль
+item.banner.troll.black=Чёрный тролль
+
+item.banner.feather.white=Белое перо
+item.banner.feather.orange=Оранжевое перо
+item.banner.feather.magenta=Пурпурное перо
+item.banner.feather.light_blue=Голубое перо
+item.banner.feather.yellow=Жёлтое перо
+item.banner.feather.lime=Лаймовое перо
+item.banner.feather.pink=Розовое перо
+item.banner.feather.gray=Серое перо
+item.banner.feather.silver=Серебряное перо
+item.banner.feather.cyan=Бирюзовое перо
+item.banner.feather.purple=Фиолетовое перо
+item.banner.feather.blue=Синее перо
+item.banner.feather.brown=Коричневое перо
+item.banner.feather.green=Зелёное перо
+item.banner.feather.red=Красное перо
+item.banner.feather.black=Чёрное перо
+
+item.banner.stymphalian_bird.white=Белая птица
+item.banner.stymphalian_bird.orange=Оранжевая птица
+item.banner.stymphalian_bird.magenta=Пурпурная птица
+item.banner.stymphalian_bird.light_blue=Голубая птица
+item.banner.stymphalian_bird.yellow=Жёлтая птица
+item.banner.stymphalian_bird.lime=Лаймовая птица
+item.banner.stymphalian_bird.pink=Розовая птица
+item.banner.stymphalian_bird.gray=Серая птица
+item.banner.stymphalian_bird.silver=Серебряная птица
+item.banner.stymphalian_bird.cyan=Бирюзовая птица
+item.banner.stymphalian_bird.purple=Фиолетовая птица
+item.banner.stymphalian_bird.blue=Синяя птица
+item.banner.stymphalian_bird.brown=Коричневая птица
+item.banner.stymphalian_bird.green=Зелёная птица
+item.banner.stymphalian_bird.red=Красная птица
+item.banner.stymphalian_bird.black=Чёрная птица
+
+item.banner.eye.white=Белый глаз
+item.banner.eye.orange=Оранжевый глаз
+item.banner.eye.magenta=Пурпурный глаз
+item.banner.eye.light_blue=Голубый глаз
+item.banner.eye.yellow=Жёлтый глаз
+item.banner.eye.lime=Лаймовый глаз
+item.banner.eye.pink=Розовый глаз
+item.banner.eye.gray=Серый глаз
+item.banner.eye.silver=Серебряный глаз
+item.banner.eye.cyan=Бирюзовый глаз
+item.banner.eye.purple=Фиолетовый глаз
+item.banner.eye.blue=Синий глаз
+item.banner.eye.brown=Коричневый глаз
+item.banner.eye.green=Зелёный глаз
+item.banner.eye.red=Красный глаз
+item.banner.eye.black=Чёрный глаз
+
+item.banner.amphithere.white=Белая амфитера
+item.banner.amphithere.orange=Оранжевая амфитера
+item.banner.amphithere.magenta=Пурпурная амфитера
+item.banner.amphithere.light_blue=Голубая амфитера
+item.banner.amphithere.yellow=Жёлтая амфитера
+item.banner.amphithere.lime=Лаймовая амфитера
+item.banner.amphithere.pink=Розовая амфитера
+item.banner.amphithere.gray=Серая амфитера
+item.banner.amphithere.silver=Серебряная амфитера
+item.banner.amphithere.cyan=Бирюзовая амфитера
+item.banner.amphithere.purple=Фиолетовая амфитера
+item.banner.amphithere.blue=Синяя амфитера
+item.banner.amphithere.brown=Коричневая амфитера
+item.banner.amphithere.green=Зелёная амфитера
+item.banner.amphithere.red=Красная амфитера
+item.banner.amphithere.black=Чёрная амфитера
+
+item.banner.sea_serpent.white=Белый Левиафан
+item.banner.sea_serpent.orange=Оранжевый Левиафан
+item.banner.sea_serpent.magenta=Пурпурный Левиафан
+item.banner.sea_serpent.light_blue=Голубый Левиафан
+item.banner.sea_serpent.yellow=Жёлтый Левиафан
+item.banner.sea_serpent.lime=Лаймовый Левиафан
+item.banner.sea_serpent.pink=Розовый Левиафан
+item.banner.sea_serpent.gray=Серый Левиафан
+item.banner.sea_serpent.silver=Серебряный Левиафан
+item.banner.sea_serpent.cyan=Бирюзовый Левиафан
+item.banner.sea_serpent.purple=Фиолетовый Левиафан
+item.banner.sea_serpent.blue=Синий Левиафан
+item.banner.sea_serpent.brown=Коричневый Левиафан
+item.banner.sea_serpent.green=Зелёный Левиафан
+item.banner.sea_serpent.red=Красный Левиафан
+item.banner.sea_serpent.black=Чёрный Левиафан
+
 item.banner.dread.white=Белый череп ужаса
 item.banner.dread.orange=Оранжевый череп ужаса
 item.banner.dread.magenta=Пурпурный череп ужаса
-item.banner.dread.lightBlue=Голубой череп ужаса
+item.banner.dread.light_blue=Голубой череп ужаса
 item.banner.dread.yellow=Желтый череп ужаса
 item.banner.dread.lime=Лаймовый череп ужаса
 item.banner.dread.pink=Розовый череп ужаса
@@ -362,11 +656,23 @@ item.banner.dread.green=Зелёный череп ужаса
 item.banner.dread.red=Красный череп ужаса
 item.banner.dread.black=Черный череп ужаса
 
+iceandfire.fire_dragon_forge=Огненная драконья кузня
+iceandfire.ice_dragon_forge=Ледяная драконья кузня
+iceandfire.lightning_dragon_forge=Грозовая драконья кузня
+
 item.iceandfire.fire_dragon_blood.jei_desc=Получается использованием пузырька на трупе дракона.
 item.iceandfire.ice_dragon_blood.jei_desc=Получается использованием пузырька на трупе дракона.
 item.iceandfire.lightning_dragon_blood.jei_desc=Получается использованием пузырька на трупе дракона.
 item.iceandfire.dragonegg.jei_desc=Положите в огонь, если яйцо огненное, в воду, если ледяное, или под дождь, если Грозовое. Ждите долгое время. Дракон привяжется к ближайшему игроку.
 item.iceandfire.dragon_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.hippogryph_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.cyclops_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.cockatrice_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.stymphalian_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.troll_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.amphithere_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.seaserpent_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
+item.iceandfire.hydra_skull.jei_desc=Может быть размещён на стене или на полу в качестве трофея.
 item.iceandfire.fire_stew.jei_desc=Для размножения двух драконов разного пола. После спаривания самка построит гнездо с яйцом.
 item.iceandfire.frost_stew.jei_desc=Для размножения двух драконов разного пола. После спаривания самка построит гнездо с яйцом.
 item.iceandfire.lightning_stew.jei_desc=Для размножения двух драконов разного пола. После спаривания самка построит гнездо с яйцом.
@@ -385,13 +691,13 @@ entity.Villager.craftsman=Ремесленник
 entity.Villager.fisherman=Рыбак
 entity.Villager.shaman=Шаман
 entity.hippogryph.name=Гиппогриф
-entity.hippogryph.black=Черный гиппогриф
-entity.hippogryph.brown=Коричневый гиппогриф
-entity.hippogryph.chestnut=Каштановый гиппогриф
-entity.hippogryph.creamy=Кремовый гиппогриф
-entity.hippogryph.dark_brown=Тёмно-коричневый гиппогриф
-entity.hippogryph.gray=Серый гиппогриф
-entity.hippogryph.white=Белый гиппогриф
+entity.hippogryph.black=Черный гиппогрифф
+entity.hippogryph.brown=Коричневый гиппогрифф
+entity.hippogryph.chestnut=Каштановый гиппогрифф
+entity.hippogryph.creamy=Кремовый гиппогрифф
+entity.hippogryph.dark_brown=Тёмно-коричневый гиппогрифф
+entity.hippogryph.gray=Серый гиппогрифф
+entity.hippogryph.white=Белый гиппогрифф
 entity.hippogryph.raptor=Гиппогриф хищник
 entity.hippogryph.alex=Гиппогриф Алекса
 entity.hippogryph.dodo=Гиппогриф додо
@@ -429,6 +735,8 @@ entity.ghost_sword.name=Призрачный клинок
 entity.lightningdragon.name=Грозовой дракон
 entity.dragonlightningcharge.name=Снаряд драконьей молнии
 
+entity.shivaxi_dragon.name=Шивакси Дракон
+
 entity.dread_thrall.name=Раб ужаса
 entity.dread_ghoul.name=Призрак ужаса
 entity.dread_beast.name=Зверь ужаса
@@ -438,11 +746,17 @@ entity.dread_lich_skull.name=Череп лича ужаса
 entity.dread_knight.name=Рыцарь ужаса
 entity.dread_horse.name=Лошадь рыцаря ужаса
 
+entity.black_frost.name=Ледяная Тьма
+entity.dread_queen.name=Королева ужаса
+
 entity.if_hydra.name=Гидра
 entity.hydra_breath.name=Дыхание гидры
 entity.hydra_arrow.name=Стрела гидры
 
 entity.tide_trident.name=Трезубец Прилива
+entity.myrmex_swarmer.name=Роевой мирмекс
+
+entity.if_mob_skull.name=Череп
 
 iceandfire.effect.acid=Кислота
 
@@ -573,6 +887,7 @@ bestiary.amphithere=Амфиптерий
 bestiary.seaserpent=Левиафан
 bestiary.hydra=Гидра
 bestiary.dread_mobs=Нежить
+bestiary.dragonforge=Драконья ковка
 
 lectern.nopages=Нет новой информации для внесения.
 silvertools.hurt=+2 урон против нежити
@@ -586,6 +901,10 @@ dragon_sword_ice.hurt2=Замедляет и отбрасывает цель
 dragon_sword_lightning.hurt1=+4 урон против огненных и ледяных драконов
 dragon_sword_lightning.hurt2=Поражает цели молнией
 
+message.iceandfire.tryAgain=Пожалуйста, попробуйте еще раз.
+
+message.iceandfire.dragonTeleport=Этот дракон был телепортирован.
+message.iceandfire.noDragonTeleport=§cНе удается найти дракона, привязанного к этому кристаллу.
 message.iceandfire.dragonWander=Этот дракон теперь свободно перемещается.
 message.iceandfire.dragonFollow=Этот дракон теперь следует.
 message.iceandfire.dragonSit=Этот дракон теперь стоит.

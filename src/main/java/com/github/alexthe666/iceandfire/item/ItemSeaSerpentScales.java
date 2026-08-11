@@ -13,8 +13,8 @@ import java.util.List;
 
 public class ItemSeaSerpentScales extends ItemGeneric {
 
-    private TextFormatting color;
-    private String colorName;
+    private final TextFormatting color;
+    private final String colorName;
 
     public ItemSeaSerpentScales(String colorName, TextFormatting color) {
         super("sea_serpent_scales_" + colorName, "iceandfire.sea_serpent_scales_" + colorName);

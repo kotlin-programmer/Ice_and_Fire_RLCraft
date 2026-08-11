@@ -32,7 +32,7 @@ public class WorldUtils {
 		for (float i = 0; i < radius; i += 0.5) {
 			for (float j = 0; j < 2 * Math.PI * i; j += 0.5)
 				for (float k = 0; k < 2 * Math.PI * i; k += 0.5)
-					WorldUtils.setBlock(world, (int) Math.floor(blockpos.getX() + Math.sin(j) * i), (int) Math.floor(blockpos.getY() + Math.sin(k) * i), (int) Math.floor(blockpos.getZ() + Math.cos(j) * i), block, meta, 3);
+					WorldUtils.setBlock(world, (int) Math.floor(blockpos.getX() + Math.sin(j) * i), (int) Math.floor(blockpos.getY() + Math.sin(k) * i), (int) Math.floor(blockpos.getZ() + Math.cos(j) * i), block, meta, 2);
 		}
 	}
 }

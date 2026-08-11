@@ -1,8 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -11,12 +10,9 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntitySeaSerpentArrow extends EntityArrow {
 
@@ -26,8 +22,7 @@ public class EntitySeaSerpentArrow extends EntityArrow {
     }
 
     public EntitySeaSerpentArrow(World worldIn, double x, double y, double z) {
-        this(worldIn);
-        this.setPosition(x, y, z);
+        super(worldIn, x, y, z);
         this.setDamage(3F);
     }
 
@@ -39,7 +34,7 @@ public class EntitySeaSerpentArrow extends EntityArrow {
     @Override
     public void onUpdate() {
         super.onUpdate();
-        if(world.isRemote && !this.inGround){
+        if (world.isRemote && !this.inGround) {
             double d0 = this.rand.nextGaussian() * 0.02D;
             double d1 = this.rand.nextGaussian() * 0.02D;
             double d2 = this.rand.nextGaussian() * 0.02D;
@@ -55,7 +50,7 @@ public class EntitySeaSerpentArrow extends EntityArrow {
 
     @Override
     protected void onHit(RayTraceResult raytraceResultIn) {
-        if (raytraceResultIn.entityHit != null && raytraceResultIn.entityHit instanceof EntityPlayer) {
+        if (raytraceResultIn.entityHit instanceof EntityPlayer) {
             this.damageShield((EntityPlayer)raytraceResultIn.entityHit, (float)this.getDamage());
         }
         super.onHit(raytraceResultIn);
@@ -84,6 +79,6 @@ public class EntitySeaSerpentArrow extends EntityArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ModItems.sea_serpent_arrow);
+        return new ItemStack(IafItemRegistry.sea_serpent_arrow);
     }
 }

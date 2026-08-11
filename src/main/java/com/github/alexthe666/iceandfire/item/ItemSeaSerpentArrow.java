@@ -18,7 +18,7 @@ import java.util.List;
 public class ItemSeaSerpentArrow extends ItemArrow {
 
     public ItemSeaSerpentArrow() {
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.sea_serpent_arrow");
         this.setRegistryName(IceAndFire.MODID, "sea_serpent_arrow");
     }

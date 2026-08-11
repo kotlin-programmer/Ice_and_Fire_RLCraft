@@ -4,21 +4,21 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockDreadStoneFace extends BlockHorizontal {
-    public static final PropertyBool PLAYER_PLACED = PropertyBool.create("player_placed");
+public class BlockDreadStoneFace extends BlockHorizontal implements IDragonProof, IDreadBlock {
 
     public BlockDreadStoneFace() {
         super(Material.ROCK);
@@ -28,8 +28,8 @@ public class BlockDreadStoneFace extends BlockHorizontal {
         this.setHardness(20F);
         this.setResistance(10000F);
         this.setSoundType(SoundType.STONE);
-        this.setCreativeTab(IceAndFire.TAB);
-        setRegistryName(IceAndFire.MODID, "dread_stone_face");
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
+        this.setRegistryName(IceAndFire.MODID, "dread_stone_face");
     }
 
     @Override
@@ -54,7 +54,7 @@ public class BlockDreadStoneFace extends BlockHorizontal {
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(FACING).getHorizontalIndex() * (state.getValue(PLAYER_PLACED) ? 1 : 2);
+        return (state.getValue(PLAYER_PLACED) ? 0 : 4) + state.getValue(FACING).getHorizontalIndex();
     }
 
     protected BlockStateContainer createBlockState() {
@@ -67,4 +67,12 @@ public class BlockDreadStoneFace extends BlockHorizontal {
         return BlockRenderLayer.CUTOUT;
     }
 
+    @Override
+    public boolean canHarvestBlock(IBlockAccess world, BlockPos pos, EntityPlayer player) {
+        IBlockState state = world.getBlockState(pos);
+        if (IDreadBlock.isIndestructible(state)) {
+            return player.capabilities.isCreativeMode;
+        }
+        return super.canHarvestBlock(world, pos, player);
+    }
 }

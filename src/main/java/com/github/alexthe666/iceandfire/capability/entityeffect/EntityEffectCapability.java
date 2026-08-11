@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.capability.entityeffect;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.entity.util.IHearsSiren;
 import net.minecraft.entity.Entity;
@@ -18,37 +19,46 @@ public class EntityEffectCapability implements IEntityEffectCapability {
         CHARMED(0, true, false) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) && (EntitySiren.isDrawnToSong(entity)) && !EntitySiren.isWearingEarplugs(entity);
+                return super.canBeApplied(entity) && (EntitySiren.isDrawnToSong(entity)) && !SensesUtils.isDeaf(entity);
             }
         },
         FROZEN(1, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        !(entity instanceof EntityIceDragon);
+                return super.canBeApplied(entity) && !(entity instanceof EntityIceDragon);
             }
         },
         BLAZED(1, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        !(entity instanceof EntityFireDragon);
+                return super.canBeApplied(entity) && !(entity instanceof EntityFireDragon);
             }
         },
         SHOCKED(2, true, true) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
-                return super.canBeApplied(entity) &&
-                        !(entity instanceof EntityLightningDragon);
+                return super.canBeApplied(entity) && !(entity instanceof EntityLightningDragon);
             }
         },
-        NONE(3, false, false) {
+        SHIVAXI_BLAZED(3, true, true) {
+            @Override
+            public boolean canBeApplied(EntityLivingBase entity) {
+                return super.canBeApplied(entity) && !(entity instanceof EntityShivaxiDragon);
+            }
+        },
+        SPOOKED(4, true, true) {
+            @Override
+            public boolean canBeApplied(EntityLivingBase entity) {
+                return entity instanceof EntityPlayer;
+            }
+        },
+        NONE(5, false, false) {
             @Override
             public boolean canBeApplied(EntityLivingBase entity) {
                 return true;
             }
         },
-        STONED(4, false, true);
+        STONED(6, false, true);
 
         private final int priority;
         private final boolean syncToClient;
@@ -189,6 +199,31 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     }
 
     @Override
+    public void setShivaxiBlazed() {
+        this.setShivaxiBlazed(100);
+    }
+
+    @Override
+    public void setShivaxiBlazed(int time) {
+        this.setShivaxiBlazed(time, 0);
+    }
+
+    @Override
+    public void setShivaxiBlazed(int time, int severity) {
+        this.setEffect(EntityEffectEnum.SHIVAXI_BLAZED, time, severity);
+    }
+
+    @Override
+    public void setSpooked(int entityID) {
+        this.setSpooked(20, entityID);
+    }
+
+    @Override
+    public void setSpooked(int time, int entityID) {
+        this.setEffect(EntityEffectEnum.SPOOKED, time, entityID);
+    }
+
+    @Override
     public void setStoned() {
         this.setEffect(EntityEffectEnum.STONED, 0, 0);
     }
@@ -212,6 +247,16 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     @Override
     public boolean isShocked() {
         return this.activeEffect == EntityEffectEnum.SHOCKED;
+    }
+
+    @Override
+    public boolean isShivaxiBlazed() {
+        return this.activeEffect == EntityEffectEnum.SHIVAXI_BLAZED;
+    }
+
+    @Override
+    public boolean isSpooked() {
+        return this.activeEffect == EntityEffectEnum.SPOOKED;
     }
 
     @Override
@@ -249,7 +294,14 @@ public class EntityEffectCapability implements IEntityEffectCapability {
     @Override
     public EntitySiren getSiren(World world) {
         Entity temp = world.getEntityByID(this.getAdditionalData());
-        if(temp instanceof EntitySiren) return (EntitySiren)temp;
+        if (temp instanceof EntitySiren) return (EntitySiren) temp;
+        return null;
+    }
+
+    @Override
+    public EntityGhost getGhost(World world) {
+        Entity temp = world.getEntityByID(this.getAdditionalData());
+        if (temp instanceof EntityGhost) return (EntityGhost) temp;
         return null;
     }
 }

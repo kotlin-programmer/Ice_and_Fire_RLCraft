@@ -22,7 +22,7 @@ public class BlockDreadTorch extends BlockTorch {
         this.setResistance(10000F);
         this.setLightLevel(0.35F);
         this.setSoundType(SoundType.STONE);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         setRegistryName(IceAndFire.MODID, "dread_torch");
     }
 

@@ -2,11 +2,9 @@ package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.entity.EntitySeaSerpent;
-import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
@@ -16,7 +14,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntitySeaSerpentBubbles extends EntityFireball implements IDragonProjectile {
+public class EntitySeaSerpentBubbles extends EntityDragonProjectile {
 
 
     public EntitySeaSerpentBubbles(World worldIn) {
@@ -37,16 +35,6 @@ public class EntitySeaSerpentBubbles extends EntityFireball implements IDragonPr
     }
 
     @Override
-    protected boolean isFireballFiery() {
-        return false;
-    }
-
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
-    @Override
     public void onUpdate() {
         if (this.ticksExisted > 60) {
             this.setDead();
@@ -54,7 +42,7 @@ public class EntitySeaSerpentBubbles extends EntityFireball implements IDragonPr
         if (this.world.isRemote || (this.shootingEntity == null || !this.shootingEntity.isDead) && this.world.isBlockLoaded(new BlockPos(this))) {
             autoTarget();
             this.onEntityUpdate();
-            RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, false, this.shootingEntity);
+            RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, false, this.getShootingEntity());
             if (raytraceresult != null && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }
@@ -79,9 +67,9 @@ public class EntitySeaSerpentBubbles extends EntityFireball implements IDragonPr
             this.motionX += this.accelerationX;
             this.motionY += this.accelerationY;
             this.motionZ += this.accelerationZ;
-            this.motionX *= (double) f;
-            this.motionY *= (double) f;
-            this.motionZ *= (double) f;
+            this.motionX *= f;
+            this.motionY *= f;
+            this.motionZ *= f;
             this.setPosition(this.posX, this.posY, this.posZ);
         } else {
             this.playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1F, this.rand.nextFloat());
@@ -125,9 +113,4 @@ public class EntitySeaSerpentBubbles extends EntityFireball implements IDragonPr
             this.setDead();
         }
     }
-
-    public void setSizes(float width, float height) {
-        this.setSize(width, height);
-    }
-
 }

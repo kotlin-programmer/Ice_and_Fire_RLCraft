@@ -12,7 +12,6 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderGorgon extends RenderLiving<EntityGorgon> {
@@ -28,7 +27,7 @@ public class RenderGorgon extends RenderLiving<EntityGorgon> {
 
 	@Override
 	public void preRenderCallback(EntityGorgon entitylivingbaseIn, float partialTickTime) {
-		GL11.glScalef(0.85F, 0.85F, 0.85F);
+		GlStateManager.scale(0.85F, 0.85F, 0.85F);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ public enum EnumParticle {
     DRAGON_FIRE,
     DRAGON_ICE,
     FLAME,
+    LAVA,
     SNOWFLAKE,
     SPARK,
     HYDRA_BREATH,
@@ -17,5 +18,6 @@ public enum EnumParticle {
     SMOKE_NORMAL,
     SMOKE_LARGE,
     DREAD_TORCH,
-    GHOST_APPEARANCE
+    GHOST_APPEARANCE,
+    REDSTONE
 }

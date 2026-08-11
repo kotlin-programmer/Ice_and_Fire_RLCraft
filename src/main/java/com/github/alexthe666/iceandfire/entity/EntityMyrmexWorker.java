@@ -3,8 +3,7 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModVillagers;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.item.ItemMyrmexEgg;
@@ -75,24 +74,24 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
                 this.getAttackTarget().addPotionEffect(new PotionEffect(MobEffects.POISON, 60, 1));
             }
         }
-        if(!this.getHeldItem(EnumHand.MAIN_HAND).isEmpty()){
-            if(this.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemMyrmexEgg){
-                boolean isJungle = this.getHeldItem(EnumHand.MAIN_HAND).getItem() == ModItems.myrmex_jungle_egg;
+        if (!this.getHeldItem(EnumHand.MAIN_HAND).isEmpty()){
+            if (this.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemMyrmexEgg){
+                boolean isJungle = this.getHeldItem(EnumHand.MAIN_HAND).getItem() == IafItemRegistry.myrmex_jungle_egg;
                 int metadata = this.getHeldItem(EnumHand.MAIN_HAND).getMetadata();
                 EntityMyrmexEgg egg = new EntityMyrmexEgg(world);
                 egg.copyLocationAndAnglesFrom(this);
                 egg.setJungle(isJungle);
                 egg.setMyrmexCaste(metadata);
-                if(!world.isRemote){
+                if (!world.isRemote){
                     world.spawnEntity(egg);
                 }
                 egg.startRiding(this);
                 this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
             }
         }
-        if(!this.getPassengers().isEmpty()){
-            for(Entity entity : this.getPassengers()){
-                if(entity instanceof EntityMyrmexBase && ((EntityMyrmexBase) entity).getGrowthStage() >= 2){
+        if (!this.getPassengers().isEmpty()){
+            for (Entity entity : this.getPassengers()){
+                if (entity instanceof EntityMyrmexBase && ((EntityMyrmexBase) entity).getGrowthStage() >= 2){
                     entity.dismountRidingEntity();
                 }
             }
@@ -114,11 +113,11 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(10, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIForageForItems(this));
-        this.targetTasks.addTask(3, new MyrmexAIPickupBabies(this));
-        this.targetTasks.addTask(4, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(2, new MyrmexAIForageForItems<>(this));
+        this.targetTasks.addTask(3, new MyrmexAIPickupBabies<>(this));
+        this.targetTasks.addTask(4, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
-        this.targetTasks.addTask(5, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
+        this.targetTasks.addTask(5, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
             public boolean apply(@Nullable EntityLiving entity) {
                 return entity != null && !IMob.VISIBLE_MOB_SELECTOR.apply(entity) && !EntityMyrmexBase.haveSameHive(EntityMyrmexWorker.this, entity) && DragonUtils.isAlive((EntityLivingBase)entity);
             }
@@ -154,17 +153,17 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
-        if(this.getGrowthStage() < 2){
+        if (this.getGrowthStage() < 2){
             return false;
         }
         if (this.getAnimation() != ANIMATION_STING && this.getAnimation() != ANIMATION_BITE) {
             this.setAnimation(this.getRNG().nextBoolean() ? ANIMATION_STING : ANIMATION_BITE);
-            if(!this.world.isRemote && this.getRNG().nextInt(3) == 0 && this.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY){
+            if (!this.world.isRemote && this.getRNG().nextInt(3) == 0 && this.getHeldItem(EnumHand.MAIN_HAND) != ItemStack.EMPTY){
                 this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0);
                 this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
             }
-            if(!this.getPassengers().isEmpty()){
-                for(Entity entity : this.getPassengers()){
+            if (!this.getPassengers().isEmpty()){
+                for (Entity entity : this.getPassengers()){
                     entity.dismountRidingEntity();
                 }
             }
@@ -213,7 +212,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
             this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
         }
         if (amount >= 1.0D && !this.getPassengers().isEmpty()) {
-            for(Entity entity : this.getPassengers()){
+            for (Entity entity : this.getPassengers()) {
                 entity.dismountRidingEntity();
             }
         }
@@ -222,7 +221,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     @Override
     public VillagerRegistry.VillagerProfession getProfessionForge() {
-        return this.isJungle() ? ModVillagers.INSTANCE.jungleMyrmexWorker : ModVillagers.INSTANCE.desertMyrmexWorker;
+        return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexWorker : IafVillagerRegistry.INSTANCE.desertMyrmexWorker;
     }
 
     public Entity getHeldEntity() {
@@ -231,7 +230,7 @@ public class EntityMyrmexWorker extends EntityMyrmexBase {
 
     public void onPickupItem(EntityItem itemEntity){
         Item item = itemEntity.getItem().getItem();
-        if(item == ModItems.myrmex_jungle_resin && this.isJungle() || item == ModItems.myrmex_desert_resin && !this.isJungle()){
+        if (item == IafItemRegistry.myrmex_jungle_resin && this.isJungle() || item == IafItemRegistry.myrmex_desert_resin && !this.isJungle()){
 
             EntityPlayer owner = null;
             try{

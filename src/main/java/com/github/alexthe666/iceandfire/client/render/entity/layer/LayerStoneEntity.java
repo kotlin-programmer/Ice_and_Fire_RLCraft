@@ -1,128 +1,173 @@
 package com.github.alexthe666.iceandfire.client.render.entity.layer;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
-import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.model.ICustomStatueModel;
-import com.github.alexthe666.iceandfire.client.model.ModelGuardianStatue;
-import com.github.alexthe666.iceandfire.client.model.ModelHorseStatue;
-import com.github.alexthe666.iceandfire.client.texture.DesaturatedStonedTexture;
+import com.github.alexthe666.iceandfire.client.model.util.IEntityLivingBaseRenderContext;
+import com.github.alexthe666.iceandfire.client.texture.StonedTexture;
+import com.github.alexthe666.iceandfire.mixin.vanilla.IRenderInvoker;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityGuardian;
-import net.minecraft.entity.passive.AbstractHorse;
-import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @SideOnly(Side.CLIENT)
 public class LayerStoneEntity implements LayerRenderer<EntityLivingBase> {
 
-	private static final ModelHorseStatue HORSE_MODEL = new ModelHorseStatue();
-	private static final ModelGuardianStatue GUARDIAN_MODEL = new ModelGuardianStatue();
 	private final RenderLivingBase<? extends EntityLivingBase> renderer;
 
 	public LayerStoneEntity(RenderLivingBase<? extends EntityLivingBase> renderer) {
 		this.renderer = renderer;
 	}
-
-	private static Method getEntityTexture;
-	private static boolean reflected;
-
-	private final Map<String, ResourceLocation> STONED_TEXTURE_CACHE = new HashMap<>();
-
-	private ResourceLocation stoneTexture;
-
+	
+	//TODO unload textures and clear cache over time?
+	private static final Map<ResourceLocation, ResourceLocation> DESATURATED_TEXTURE_CACHE = new HashMap<>();
+	private static final Map<UUID, StonedEntityCache> STONED_ENTITY_CACHE = new HashMap<>();
+	private static final ResourceLocation[] DESTROY_STAGES = new ResourceLocation[]{
+			new ResourceLocation("textures/blocks/destroy_stage_0.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_1.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_2.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_3.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_4.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_5.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_6.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_7.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_8.png"),
+			new ResourceLocation("textures/blocks/destroy_stage_9.png")};
+	private static final ResourceLocation VANILLA_STONE = new ResourceLocation("textures/blocks/stone.png");
+	
 	@Override
-	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float f, float f1, float i, float f2, float f3, float f4, float f5) {
-		if(entitylivingbaseIn instanceof EntityLiving) {
-			IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entitylivingbaseIn);
-			if(capability != null && capability.isStoned()) {
-				ResourceLocation entityTexture = null;
-				if(this.stoneTexture == null) this.stoneTexture = new ResourceLocation(getStoneType(renderer.getMainModel()));
-				if(IceAndFireConfig.CLIENT_SETTINGS.customStoneTexture) {
-					try {
-						if(getEntityTexture == null && !reflected) {
-							reflected = true;
-							try {
-								getEntityTexture = ObfuscationReflectionHelper.findMethod(Render.class, "func_110775_a", ResourceLocation.class, Entity.class);
-								getEntityTexture.setAccessible(true);
-							}
-							catch(Exception ex) {
-								ex.printStackTrace();
+	public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if(entity instanceof EntityLiving) {
+			if(((IEntityLivingBaseRenderContext)entity).iceAndFire$getStoned()) {
+				//Get entity instance specific rendering from cache
+				UUID uuid = entity.getUniqueID();
+				StonedEntityCache cache = STONED_ENTITY_CACHE.get(uuid);
+				if(cache == null) {
+					ResourceLocation desaturatedTexture = null;
+					if(IceAndFireConfig.CLIENT_SETTINGS.advancedStonedEntityRender) {
+						//If not already cached, get texture at this moment
+						ResourceLocation entityTexture = ((IRenderInvoker)this.renderer).iceAndFire$getEntityTexture(entity);
+						if(entityTexture != null) {
+							//Check if texture has already been desaturated (Likely for non-animated entity textures)
+							desaturatedTexture = DESATURATED_TEXTURE_CACHE.get(entityTexture);
+							if(desaturatedTexture == null) {
+								//Create and load desaturated texture
+								desaturatedTexture = new ResourceLocation("iceandfire:stonecache/" + entityTexture.getNamespace() + "/" + entityTexture.getPath());
+								Minecraft.getMinecraft().getTextureManager().loadTexture(desaturatedTexture, new StonedTexture(entityTexture));
+								DESATURATED_TEXTURE_CACHE.put(entityTexture, desaturatedTexture);
 							}
 						}
-						if(getEntityTexture != null) {
-							entityTexture = (ResourceLocation)getEntityTexture.invoke(renderer, entitylivingbaseIn);
-						}
 					}
-					catch(Exception ex) {
-						ex.printStackTrace();
+					//If custom render is disabled, just provide a null texture
+					cache = new StonedEntityCache(desaturatedTexture, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+					//Also put null cache into map to avoid reprocessing failed textures
+					STONED_ENTITY_CACHE.put(uuid, cache);
+				}
+				
+				if(cache.desaturatedTexture == null) {
+					GlStateManager.pushMatrix();
+					this.renderer.bindTexture(VANILLA_STONE);
+					GlStateManager.matrixMode(5890);
+					GlStateManager.loadIdentity();
+					GlStateManager.scale((float)this.renderer.getMainModel().textureHeight / 16.0F, (float)this.renderer.getMainModel().textureWidth / 16.0F, 1.0F);
+					GlStateManager.matrixMode(5888);
+					if(this.renderer.getMainModel() instanceof ICustomStatueModel) {
+						((ICustomStatueModel)this.renderer.getMainModel()).renderStatue();
 					}
-				}
-				GlStateManager.depthMask(true);
-				GL11.glEnable(GL11.GL_CULL_FACE);
-
-				if(entityTexture != null) {
-					ResourceLocation cacheName = new ResourceLocation("iceandfire:stonecache/" + entityTexture.getNamespace() + "/" + entityTexture.getPath());
-					ResourceLocation resolvedTexture = STONED_TEXTURE_CACHE.get(cacheName.toString());
-					if(resolvedTexture == null) {
-						DesaturatedStonedTexture desat = new DesaturatedStonedTexture(entityTexture, stoneTexture);
-						Minecraft.getMinecraft().getTextureManager().loadTexture(cacheName, desat);
-						STONED_TEXTURE_CACHE.put(cacheName.toString(), cacheName);
-						resolvedTexture = cacheName;
+					else {
+						this.renderer.getMainModel().render(entity, cache.limbSwing, cache.limbSwingAmount, cache.ageInTicks, cache.netHeadYaw, cache.headPitch, cache.scale);
 					}
-					entityTexture = resolvedTexture;
+					GlStateManager.matrixMode(5890);
+					GlStateManager.loadIdentity();
+					GlStateManager.matrixMode(5888);
+					GlStateManager.popMatrix();
 				}
-
-				this.renderer.bindTexture(entityTexture == null ? this.stoneTexture : entityTexture);
-
-				if (this.renderer.getMainModel() instanceof ICustomStatueModel) {
-					((ICustomStatueModel) this.renderer.getMainModel()).renderStatue();
-				} else if (entitylivingbaseIn instanceof AbstractHorse && !(entitylivingbaseIn instanceof EntityLlama)) {
-					HORSE_MODEL.render(entitylivingbaseIn, f, 0, 0, f3, f4, f5);
-				} else if (entitylivingbaseIn instanceof EntityGuardian) {
-					GUARDIAN_MODEL.render(entitylivingbaseIn, f, 0, 0, f3, f4, f5);
-				} else {
-					this.renderer.getMainModel().render(entitylivingbaseIn, f, 0, 0, f3, f4, f5);
+				else {
+					//Render stone texture
+					GlStateManager.pushMatrix();
+					this.renderer.bindTexture(cache.desaturatedTexture);
+					GlStateManager.depthMask(true);
+					if(this.renderer.getMainModel() instanceof ICustomStatueModel) {
+						((ICustomStatueModel)this.renderer.getMainModel()).renderStatue();
+					}
+					else {
+						this.renderer.getMainModel().render(entity, cache.limbSwing, cache.limbSwingAmount, cache.ageInTicks, cache.netHeadYaw, cache.headPitch, cache.scale);
+					}
+					GlStateManager.popMatrix();
 				}
-
-				GL11.glDisable(GL11.GL_CULL_FACE);
+				
+				//Render breaking texture
+				int breakData = ((IEntityLivingBaseRenderContext)entity).iceAndFire$getStonedData();
+				if(breakData > 0) {
+					GlStateManager.pushMatrix();
+					GlStateManager.enableBlend();
+					GlStateManager.enableAlpha();
+					GlStateManager.depthFunc(514);
+					GlStateManager.depthMask(false);
+					GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.DST_COLOR, GlStateManager.DestFactor.SRC_COLOR, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+					GlStateManager.matrixMode(5890);
+					GlStateManager.loadIdentity();
+					GlStateManager.scale((float)this.renderer.getMainModel().textureHeight / 16.0F, (float)this.renderer.getMainModel().textureWidth / 16.0F, 1.0F);
+					GlStateManager.matrixMode(5888);
+					this.renderer.bindTexture(DESTROY_STAGES[breakData - 1]);
+					if(this.renderer.getMainModel() instanceof ICustomStatueModel) {
+						((ICustomStatueModel)this.renderer.getMainModel()).renderStatue();
+					}
+					else {
+						this.renderer.getMainModel().render(entity, cache.limbSwing, cache.limbSwingAmount, cache.ageInTicks, cache.netHeadYaw, cache.headPitch, cache.scale);
+					}
+					GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+					GlStateManager.matrixMode(5890);
+					GlStateManager.loadIdentity();
+					GlStateManager.matrixMode(5888);
+					GlStateManager.depthMask(true);
+					GlStateManager.depthFunc(515);
+					GlStateManager.disableBlend();
+					GlStateManager.popMatrix();
+				}
 			}
 		}
 	}
-
-	private String getStoneType(ModelBase model) {
-		int sizeX = clampTexture(model.textureWidth);
-		int sizeY = clampTexture(model.textureHeight);
-		if(sizeX > sizeY && sizeX/2 != sizeY) sizeY = sizeX/2;
-		if(sizeY > sizeX && sizeY/2 != sizeX) sizeX = sizeY/2;
-		return sizeX <= 16 && sizeY <= 16 ? "textures/blocks/stone.png" : "iceandfire:textures/models/gorgon/stone" + sizeX + "x" + sizeY + ".png";
-	}
-
-	private int clampTexture(int i) {
-		if(i >= 128) return 128;
-		if(i >= 64) return 64;
-		if(i >= 32) return 32;
-		return 16;
-	}
-
+	
 	@Override
 	public boolean shouldCombineTextures() {
-		return true;
+		return false;
+	}
+	
+	private static class StonedEntityCache {
+		
+		public final ResourceLocation desaturatedTexture;
+		public final float limbSwing;
+		public final float limbSwingAmount;
+		public final float ageInTicks;
+		public final float netHeadYaw;
+		public final float headPitch;
+		public final float scale;
+		
+		public StonedEntityCache(
+				ResourceLocation desaturatedTexture,
+				float limbSwing,
+				float limbSwingAmount,
+				float ageInTicks,
+				float netHeadYaw,
+				float headPitch,
+				float scale) {
+			this.desaturatedTexture = desaturatedTexture;
+			this.limbSwing = limbSwing;
+			this.limbSwingAmount = limbSwingAmount;
+			this.ageInTicks = ageInTicks;
+			this.netHeadYaw = netHeadYaw;
+			this.headPitch = headPitch;
+			this.scale = scale;
+		}
 	}
 }

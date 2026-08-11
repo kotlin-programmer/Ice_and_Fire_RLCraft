@@ -2,12 +2,12 @@ package com.github.alexthe666.iceandfire.client.render.entity;
 
 import com.github.alexthe666.iceandfire.client.model.ModelStymphalianBird;
 import com.github.alexthe666.iceandfire.entity.EntityStymphalianBird;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class RenderStymphalianBird extends RenderLiving<EntityStymphalianBird> {
@@ -20,7 +20,7 @@ public class RenderStymphalianBird extends RenderLiving<EntityStymphalianBird> {
 
     @Override
     public void preRenderCallback(EntityStymphalianBird entitylivingbaseIn, float partialTickTime) {
-        GL11.glScalef(0.75F, 0.75F, 0.75F);
+        GlStateManager.scale(0.75F, 0.75F, 0.75F);
     }
 
     @Override

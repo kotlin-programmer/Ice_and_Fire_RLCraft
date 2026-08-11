@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.projectile;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityStymphalianBird;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -83,6 +83,6 @@ public class EntityStymphalianFeather extends EntityArrow {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ModItems.stymphalian_bird_feather);
+        return new ItemStack(IafItemRegistry.stymphalian_bird_feather);
     }
 }

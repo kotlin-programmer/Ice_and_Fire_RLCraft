@@ -1,0 +1,43 @@
+La capacité la plus frappante du
+dragon électrique est celle
+de cracher des éclairs crépitants
+de sa gueule. Cependant, les dragons
+possèdent également un éventail
+ d'attaques différentes.
+
+
+<image><drawings_lightningdragon_attacks.png 20 130 0 101 270 77 0.65>
+
+
+
+
+L'attaque foudroyante du dragon
+projette un éclair directement de 
+la gueule de la bête.
+Cette attaque n'enflamme pas et ne 
+gèle pas la victime, mais elle 
+inflige beaucoup plus de dégâts 
+directs qu'un souffle de feu ou 
+de glace.
+
+
+<image><drawings_lightningdragon_attacks.png 280 10 0 0 220 90 0.75>
+
+
+
+L'attaque éclair n'est pas la 
+seule attaque attaque élémentaire 
+du dragon. Les dragons électriques 
+les plus anciens peuvent également 
+envoyer une charge foudroyante en 
+boule sur leur cible, détruisant 
+le terrain et infligeant des dégâts 
+dévastateurs.
+
+<image><drawings_lightningdragon_attacks.png 360 220 262 212 230 78 0.6>
+
+
+
+L'une des attaques les plus 
+courantes du dragon électrique 
+est la morsure.

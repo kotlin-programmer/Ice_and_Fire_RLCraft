@@ -4,10 +4,10 @@ import com.github.alexthe666.iceandfire.client.model.ModelHydraBody;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerGenericGlowing;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerHydraHead;
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class RenderHydra extends RenderLiving<EntityHydra> {
 
@@ -24,7 +24,7 @@ public class RenderHydra extends RenderLiving<EntityHydra> {
 
     @Override
     public void preRenderCallback(EntityHydra entitylivingbaseIn, float partialTickTime) {
-        GL11.glScalef(1.75F, 1.75F, 1.75F);
+        GlStateManager.scale(1.75F, 1.75F, 1.75F);
     }
 
     @Override

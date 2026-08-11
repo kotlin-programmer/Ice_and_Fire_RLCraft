@@ -1,0 +1,45 @@
+Depuis très longtemps, nous entendons
+des histoires de reptiles géants, 
+tous deux incarnations d'un élément 
+primitif : le feu et la glace. Mais 
+une rumeur s'est répandue d'une 
+créature similaire qui se trouverais 
+dans des biomes les plus exotiques : 
+le dragon électrique.
+
+
+<image><drawings_lightningdragon.png 0 80 0 0 194 93 1>
+
+
+
+
+
+Hantant le ciel noir des jungles, le 
+dragon électrique est nocturne, 
+contrairement à ses cousins de feu 
+et de glace. Le dragon électrique 
+habite des perchoirs et des grottes 
+souterraines remplies de blocs 
+craquelés qui ont été frappés par la 
+foudre. Comme les dragons de glace 
+et de feu ils ont des affinités pour 
+<item><iceandfire:amethyst_gem 100 170 31 1>
+<item><iceandfire:amethyst_ore 100 150 31 1>
+certaines pierres 
+précieuses, le 
+dragon électrique 
+aime les améthystes 
+et les diamants.
+L'améthyste est présente dans les 
+profondeurs du sol dans les 
+jungles.
+En plus d'être présents dans les 
+jungles, on rapporte que des 
+dragons électriques se trouvent 
+en dehors des jungles : au 
+sommet d'hautes montagnes, dans 
+des canyons profonds,dans les 
+badlands arides, et même 
+pendant les orages. Cependant, 
+ces rapports n'ont pas encore 
+été confirmées.

@@ -3,11 +3,11 @@ package com.github.alexthe666.iceandfire.entity.util;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.block.BlockDragonBone;
 import com.github.alexthe666.iceandfire.block.BlockDragonBoneWall;
-import com.github.alexthe666.iceandfire.block.BlockDragonScales;
-import com.github.alexthe666.iceandfire.block.BlockDreadBase;
-import com.github.alexthe666.iceandfire.block.BlockDreadSpawner;
+import com.github.alexthe666.iceandfire.block.IDragonProof;
 import com.github.alexthe666.iceandfire.entity.*;
-import com.github.alexthe666.iceandfire.integration.ClaimItCompatBridge;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
+import com.github.alexthe666.iceandfire.integration.claimit.ClaimItCompatBridge;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
@@ -19,10 +19,14 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGlassBottle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntitySelectors;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.*;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -57,8 +61,17 @@ public class DragonUtils {
 
 	public static int getMaximumFlightHeightForPos(World world, BlockPos pos) {
 		int allowableHeightFromGround = IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight - world.getSeaLevel();
-		BlockPos groundPos = world.getHeight(pos);
-		return Math.max(IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight, groundPos.getY() + allowableHeightFromGround);
+		int minimumChunkHeight = getMinimumChunkHeightForPos(world, pos);
+		return Math.max(IceAndFireConfig.DRAGON_SETTINGS.maxDragonFlight, minimumChunkHeight + allowableHeightFromGround);
+	}
+
+	private static int getMinimumChunkHeightForPos(World world, BlockPos pos) {
+		if (pos.getX() >= -30000000 && pos.getZ() >= -30000000 && pos.getX() < 30000000 && pos.getZ() < 30000000) {
+			if (world.isBlockLoaded(pos)) {
+				return world.getChunk(pos).getLowestHeight();
+			}
+		}
+		return world.getSeaLevel();
 	}
 
 	public static BlockPos getBlockInView(EntityDragonBase dragon) {
@@ -71,7 +84,7 @@ public class DragonUtils {
 			BlockPos ground = dragon.world.getHeight(dragonPos);
 			int distFromGround = (int) dragon.posY - ground.getY();
 			for(int i = 0; i < 10; i++){
-				BlockPos pos = new BlockPos(dragon.homePos.getX() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(maximumFlightHeight, dragon.posY + dragon.getRNG().nextInt(16) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1), (dragon.homePos.getZ() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance * 2) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance));
+				BlockPos pos = new BlockPos(dragon.homePos.getX() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(maximumFlightHeight, dragon.posY + dragon.getRNG().nextInt(17) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1), (dragon.homePos.getZ() + dragon.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance * 2) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance));
 				if (!dragon.isTargetBlocked(new Vec3d(pos)) && dragon.getDistanceSqToCenter(pos) > 6) {
 					return pos;
 				}
@@ -84,7 +97,7 @@ public class DragonUtils {
 		BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
 		BlockPos ground = dragon.world.getHeight(radialPos);
 		int distFromGround = (int) dragon.posY - ground.getY();
-		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(maximumFlightHeight, dragon.posY + dragon.getRNG().nextInt(16) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1);
+		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(maximumFlightHeight, dragon.posY + dragon.getRNG().nextInt(17) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1);
 		if (!dragon.isTargetBlocked(new Vec3d(newPos)) && dragon.getDistanceSqToCenter(newPos) > 6) {
 			return newPos;
 		}
@@ -100,7 +113,7 @@ public class DragonUtils {
 		BlockPos radialPos = new BlockPos(dragon.posX + extraX, 0, dragon.posZ + extraZ);
 		BlockPos ground = dragon.world.getHeight(radialPos);
 		int distFromGround = (int) dragon.posY - ground.getY();
-		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(getMaximumFlightHeightForPos(dragon.world, new BlockPos(dragon)), dragon.posY + dragon.getRNG().nextInt(16) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1);
+		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(getMaximumFlightHeightForPos(dragon.world, new BlockPos(dragon)), dragon.posY + dragon.getRNG().nextInt(17) - 8) : (int) dragon.posY + dragon.getRNG().nextInt(16) + 1);
 		BlockPos surface = dragon.world.getBlockState(newPos.down(2)).getMaterial() != Material.WATER ? newPos.down(dragon.getRNG().nextInt(10) + 1) : newPos;
 		if ( dragon.getDistanceSqToCenter(surface) > 6 && dragon.world.getBlockState(surface).getMaterial() == Material.WATER) {
 			return surface;
@@ -159,7 +172,7 @@ public class DragonUtils {
 			BlockPos ground = hippo.world.getHeight(dragonPos);
 			int distFromGround = (int) hippo.posY - ground.getY();
 			for (int i = 0; i < 10; i++) {
-				BlockPos pos = new BlockPos(hippo.homePos.getX() + hippo.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(maximumFlightHeight, hippo.posY + hippo.getRNG().nextInt(16) - 8) : (int) hippo.posY + hippo.getRNG().nextInt(16) + 1), (hippo.homePos.getZ() + hippo.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance * 2) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance));
+				BlockPos pos = new BlockPos(hippo.homePos.getX() + hippo.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance, (distFromGround > 16 ? (int) Math.min(maximumFlightHeight, hippo.posY + hippo.getRNG().nextInt(17) - 8) : (int) hippo.posY + hippo.getRNG().nextInt(16) + 1), (hippo.homePos.getZ() + hippo.getRNG().nextInt(IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance * 2) - IceAndFireConfig.DRAGON_SETTINGS.dragonWanderFromHomeDistance));
 				if (!hippo.isTargetBlocked(new Vec3d(pos)) && hippo.getDistanceSqToCenter(pos) > 6) {
 					return pos;
 				}
@@ -168,7 +181,7 @@ public class DragonUtils {
 		BlockPos radialPos = new BlockPos(hippo.posX + extraX, 0, hippo.posZ + extraZ);
 		BlockPos ground = hippo.world.getHeight(radialPos);
 		int distFromGround = (int) hippo.posY - ground.getY();
-		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(maximumFlightHeight, hippo.posY + hippo.getRNG().nextInt(16) - 8) : (int) hippo.posY + hippo.getRNG().nextInt(16) + 1);
+		BlockPos newPos = radialPos.up(distFromGround > 16 ? (int) Math.min(maximumFlightHeight, hippo.posY + hippo.getRNG().nextInt(17) - 8) : (int) hippo.posY + hippo.getRNG().nextInt(16) + 1);
 		if (!hippo.isTargetBlocked(new Vec3d(newPos)) && hippo.getDistanceSqToCenter(newPos) > 6) {
 			return newPos;
 		}
@@ -185,7 +198,7 @@ public class DragonUtils {
 		BlockPos radialPos = getStymphalianFearPos(bird, new BlockPos(bird.posX + extraX, 0, bird.posZ + extraZ));
 		BlockPos ground = bird.world.getHeight(radialPos);
 		int distFromGround = (int) bird.posY - ground.getY();
-		int flightHeight = Math.min(IceAndFireConfig.ENTITY_SETTINGS.stymphalianBirdFlightHeight, bird.flock != null && !bird.flock.isLeader(bird) ? ground.getY() + bird.getRNG().nextInt(16): ground.getY() + bird.getRNG().nextInt(16));
+		int flightHeight = Math.min(IceAndFireConfig.ENTITY_SETTINGS.stymphalianBirdFlightHeight, ground.getY() + bird.getRNG().nextInt(16));
 		BlockPos newPos = radialPos.up(distFromGround > 16 ? flightHeight : (int) bird.posY + bird.getRNG().nextInt(16) + 1);
 		if (!bird.isTargetBlocked(new Vec3d(newPos)) && bird.getDistanceSqToCenter(newPos) > 6) {
 			return newPos;
@@ -273,9 +286,6 @@ public class DragonUtils {
 	}
 
 	public static boolean isDragonBlock(Block block) {
-		if (block instanceof BlockDragonScales) {
-			return true;
-		}
 		if (block instanceof BlockDragonBone) {
 			return true;
 		}
@@ -286,7 +296,7 @@ public class DragonUtils {
 		if (block.getTranslationKey().contains("grave")) {
 			return false;
 		}
-		if (isDreadBlock(block)) {
+		if (block instanceof IDragonProof) {
 			return false;
 		}
 		return block != net.minecraft.init.Blocks.BARRIER
@@ -302,10 +312,6 @@ public class DragonUtils {
 				&& block != net.minecraft.init.Blocks.IRON_BARS;
 	}
 
-	public static boolean isDreadBlock(Block block) {
-		return block instanceof BlockDreadBase || block instanceof BlockDreadSpawner;
-	}
-
 	public static boolean hasSameOwner(Entity entity1, Entity entity2) {
 		if (!(entity1 instanceof IEntityOwnable && entity2 instanceof IEntityOwnable)) {
 			return false;
@@ -318,11 +324,10 @@ public class DragonUtils {
 		return owner.equals(owner2);
 	}
 
-	public static boolean isDragonRider(Entity entity) {
+	public static boolean isDragonRider(EntityDragonBase dragon, Entity entity) {
 		if (entity instanceof EntityPlayer) {
 			return false;
-		}
-		if (entity instanceof EntityLiving) {
+		} else if (entity instanceof EntityLiving) {
 			EntityLiving living = (EntityLiving) entity;
 			if (!living.hasCustomName()) {
 				return false;
@@ -447,5 +452,33 @@ public class DragonUtils {
 			return ground;
 		}
 		return ghost.getPosition();
+	}
+
+	public static void fillBottleWithDragonBreath(EntityPlayer player, EnumDragonType type) {
+		ItemStack bottle = player.getHeldItemMainhand();;
+		EnumHand hand = EnumHand.MAIN_HAND;
+		if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() == Items.GLASS_BOTTLE) {
+			bottle = player.getHeldItemOffhand();
+			hand = EnumHand.OFF_HAND;
+		}
+		if (bottle.isEmpty() || bottle.getItem() != Items.GLASS_BOTTLE) {
+			return;
+		}
+		if (player.getCooldownTracker().hasCooldown(Items.GLASS_BOTTLE)) {
+			return;
+		}
+		if (!player.capabilities.isCreativeMode) {
+			bottle.shrink(1);
+		}
+		Item dragonBreath = type == EnumDragonType.FIRE ? IafItemRegistry.fire_dragon_breath :
+				type == EnumDragonType.ICE ? IafItemRegistry.ice_dragon_breath
+						: IafItemRegistry.lightning_dragon_breath;
+		ItemStack stack = new ItemStack(dragonBreath);
+		if (bottle.isEmpty()) {
+			player.setHeldItem(hand, stack);
+		} else if (!player.inventory.addItemStackToInventory(stack)) {
+			player.dropItem(stack, false);
+		}
+		player.getCooldownTracker().setCooldown(Items.GLASS_BOTTLE, 20);
 	}
 }

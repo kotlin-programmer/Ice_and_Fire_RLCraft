@@ -2,13 +2,11 @@ package com.github.alexthe666.iceandfire.entity;
 
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.projectile.EntitySeaSerpentBubbles;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.entity.util.EntityMultipartPart;
-import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumSeaSerpent;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.base.Predicate;
@@ -124,7 +122,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
         this.tasks.addTask(1, new SeaSerpentAIAttackMelee(this, 1.0D, true));
         this.tasks.addTask(2, new SeaSerpentAIGetInWater(this, 1.0D));
         this.tasks.addTask(3, new EntityAIWatchClosestIgnoreRider(this, EntityLivingBase.class, 6.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(2, new FlyingAITarget(this, EntityLivingBase.class, 0, true, false, NOT_SEA_SERPENT));
     }
 
@@ -376,10 +374,10 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
             this.ticksSinceRoar = 0;
         }
         if (this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 1) {
-            this.playSound(ModSounds.SEA_SERPENT_ROAR, this.getSoundVolume() + 1, 1);
+            this.playSound(IafSoundRegistry.SEA_SERPENT_ROAR, this.getSoundVolume() + 1, 1);
         }
         if (this.getAnimation() == ANIMATION_BITE && this.getAnimationTick() == 5) {
-            this.playSound(ModSounds.SEA_SERPENT_BITE, this.getSoundVolume(), 1);
+            this.playSound(IafSoundRegistry.SEA_SERPENT_BITE, this.getSoundVolume(), 1);
         }
         if (isJumpingOutOfWater()) {
             ticksJumping++;
@@ -419,7 +417,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
             jumpRot -= 0.1F;
         }
         if (prevJumping != this.isJumpingOutOfWater() && !this.isJumpingOutOfWater()) {
-            this.playSound(ModSounds.SEA_SERPENT_SPLASH, 5F, 0.75F);
+            this.playSound(IafSoundRegistry.SEA_SERPENT_SPLASH, 5F, 0.75F);
             spawnSlamParticles(EnumParticleTypes.FIREWORKS_SPARK);
             spawnSlamParticles(EnumParticleTypes.WATER_BUBBLE);
             spawnSlamParticles(EnumParticleTypes.WATER_BUBBLE);
@@ -516,7 +514,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
             this.hurtMob(this.getAttackTarget());
         }
         breakBlock();
-        if(!world.isRemote && this.isRiding() && this.getLowestRidingEntity() instanceof EntityBoat){
+        if(!world.isRemote && this.isRiding() && this.getLowestRidingEntity() instanceof EntityBoat) {
             EntityBoat boat = (EntityBoat) this.getLowestRidingEntity();
             this.dismountRidingEntity();
             boat.setDead();
@@ -670,7 +668,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
 
     public void onWorldSpawn(Random random) {
         this.setVariant(random.nextInt(7));
-        boolean ancient = random.nextInt(15) == 1;
+        boolean ancient = random.nextInt(15) == 0;
         if (ancient) {
             this.setAncient(true);
             this.setSeaSerpentScale(6.0F + random.nextFloat() * 3.0F);
@@ -713,17 +711,17 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.SEA_SERPENT_IDLE;
+        return IafSoundRegistry.SEA_SERPENT_IDLE;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.SEA_SERPENT_HURT;
+        return IafSoundRegistry.SEA_SERPENT_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.SEA_SERPENT_DIE;
+        return IafSoundRegistry.SEA_SERPENT_DIE;
     }
 
     public void playLivingSound() {
@@ -839,7 +837,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
             }
             if (this.isBreathing()) {
                 if (this.ticksExisted % 40 == 0) {
-                    this.playSound(ModSounds.SEA_SERPENT_BREATH, 4, 1);
+                    this.playSound(IafSoundRegistry.SEA_SERPENT_BREATH, 4, 1);
                 }
                 if (this.ticksExisted % 5 == 0) {
                     rotationYaw = renderYawOffset;
@@ -852,13 +850,14 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
                     double d2 = entity.posX - headPosX;
                     double d3 = entity.posY - headPosY;
                     double d4 = entity.posZ - headPosZ;
-                    EntitySeaSerpentBubbles entitylargefireball = new EntitySeaSerpentBubbles(world, this, d2, d3, d4);
+                    EntitySeaSerpentBubbles bubblesProjectile = new EntitySeaSerpentBubbles(world, this, d2, d3, d4);
                     float size = 0.8F;
-                    entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
+                    bubblesProjectile.setPosition(headPosX, headPosY, headPosZ);
+                    bubblesProjectile.setShootingEntity(this.getEntityId());
                     if (!world.isRemote && !entity.isDead) {
-                        world.spawnEntity(entitylargefireball);
+                        world.spawnEntity(bubblesProjectile);
                     }
-                    entitylargefireball.setSizes(size, size);
+                    bubblesProjectile.setSizes(size, size);
                     if (entity.isDead || entity == null) {
                         this.setBreathing(false);
                         this.attackDecision = this.getRNG().nextBoolean();
@@ -1047,7 +1046,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
                 return pos.up(3 * (int) Math.ceil(EntitySeaSerpent.this.getSeaSerpentScale()));
             }
             for (int i = 0; i < 5; i++) {
-                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.rand);
+                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.rand);
                 if (EntitySeaSerpent.isWaterBlock(world, pos) && EntitySeaSerpent.this.isDirectPathBetweenPoints(pos) || EntitySeaSerpent.this.swimBehavior == SwimBehavior.JUMP) {
                     return pos;
                 }
@@ -1106,7 +1105,7 @@ public class EntitySeaSerpent extends EntityAnimal implements IAnimatedEntity, I
 
         protected BlockPos generateTarget() {
             for (int i = 0; i < 5; i++) {
-                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(30) - 15, EntitySeaSerpent.this.rand);
+                BlockPos pos = EntitySeaSerpent.getPositionRelativeToSeafloor(EntitySeaSerpent.this, EntitySeaSerpent.this.world, EntitySeaSerpent.this.posX + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.posZ + EntitySeaSerpent.this.rand.nextInt(31) - 15, EntitySeaSerpent.this.rand);
                 if (EntitySeaSerpent.isWaterBlock(world, pos) && EntitySeaSerpent.this.isDirectPathBetweenPoints(pos)) {
                     return pos;
                 }

@@ -45,12 +45,12 @@ public class MapGenSnowVillage extends WorldGenerator {
 	@Override
 	public boolean generate(World world, Random rand, BlockPos position) {
 		this.distance = 9;
-		boolean canSpawn = canSpawnStructureAtCoords(world, position.getX() >> 4, position.getZ() >> 4);
-		if (new Random().nextInt(IceAndFireConfig.WORLDGEN.generateSnowVillageChance + 1) == 0) {
+		if (new Random().nextInt(IceAndFireConfig.WORLDGEN.generateSnowVillageChance) == 0) {
 			int new_size = 32;
 			getStructureStart(world, position.getX() >> 4, position.getZ() >> 4, rand).generateStructure(world, rand, new StructureBoundingBox(position.getX() - new_size, position.getZ() - new_size, position.getX() + new_size, position.getZ() + new_size));
+			return true;
 		}
-		return canSpawn;
+		return false;
 	}
 
 	public String getStructureName() {

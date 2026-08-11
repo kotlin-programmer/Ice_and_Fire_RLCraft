@@ -2,9 +2,8 @@ package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.item.ItemTrollArmor;
-import com.github.alexthe666.iceandfire.item.ItemTrollLeather;
 import com.github.alexthe666.iceandfire.item.ItemTrollWeapon;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -20,9 +19,9 @@ import java.util.Random;
 
 
 public enum EnumTroll {
-    FOREST(BiomeDictionary.Type.FOREST, ModItems.troll_forest, ModItems.troll_leather_forest, Weapon.TRUNK, Weapon.COLUMN_FOREST, Weapon.AXE, Weapon.HAMMER),
-    FROST(BiomeDictionary.Type.SNOWY, ModItems.troll_frost, ModItems.troll_leather_frost, Weapon.COLUMN_FROST, Weapon.TRUNK_FROST, Weapon.AXE, Weapon.HAMMER),
-    MOUNTAIN(BiomeDictionary.Type.MOUNTAIN, ModItems.troll_mountain, ModItems.troll_leather_mountain, Weapon.COLUMN, Weapon.AXE, Weapon.HAMMER);
+    FOREST(BiomeDictionary.Type.FOREST, IafItemRegistry.troll_forest, IafItemRegistry.troll_leather_forest, Weapon.TRUNK, Weapon.COLUMN_FOREST, Weapon.AXE, Weapon.HAMMER),
+    FROST(BiomeDictionary.Type.SNOWY, IafItemRegistry.troll_frost, IafItemRegistry.troll_leather_frost, Weapon.COLUMN_FROST, Weapon.TRUNK_FROST, Weapon.AXE, Weapon.HAMMER),
+    MOUNTAIN(BiomeDictionary.Type.MOUNTAIN, IafItemRegistry.troll_mountain, IafItemRegistry.troll_leather_mountain, Weapon.COLUMN, Weapon.AXE, Weapon.HAMMER);
 
     public final ResourceLocation TEXTURE;
     public final ResourceLocation TEXTURE_STONE;

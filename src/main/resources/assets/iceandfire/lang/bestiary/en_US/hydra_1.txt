@@ -35,7 +35,7 @@ creature will continue to survive.
 
 When slain, one can then freely
 access the spoils of less fortunate
-travellers in the lair of the Hydra.
+travelers in the lair of the Hydra.
 The dead hydra also has two unique
 drops: its fangs and rarely, its
 heart.

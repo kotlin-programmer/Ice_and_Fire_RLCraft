@@ -1,0 +1,17 @@
+Une fois que vous avez un
+noyau de forge de dragon, 3
+évents de forge de dragon, une
+entrée de forge, 8 blocs d’os
+de dragon et 14 briqueffroie,
+vous pouvez construire la forge
+elle-même.
+
+Pour alimenter la forge,
+le souffle du dragon est requis.
+
+Cela peut être fait en plaçant
+un dragon apprivoisé juste
+devant l’entrée. Le dragon va
+commencer à souffler dedans
+tant qu’il y a des objets valides
+dans la forge.

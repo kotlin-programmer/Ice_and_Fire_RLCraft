@@ -1,8 +1,7 @@
 package com.github.alexthe666.iceandfire.entity.ai;
 
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
+import com.github.alexthe666.iceandfire.entity.IVillagerFear;
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -10,7 +9,6 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;

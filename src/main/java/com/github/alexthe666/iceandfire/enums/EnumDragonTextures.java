@@ -1,9 +1,11 @@
 package com.github.alexthe666.iceandfire.enums;
 
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityDragonSkull;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
 import com.github.alexthe666.iceandfire.entity.EntityLightningDragon;
+import com.github.alexthe666.iceandfire.entity.EntityShivaxiDragon;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ResourceLocation;
 
@@ -77,6 +79,22 @@ public enum EnumDragonTextures {
     public final ResourceLocation LIGHTNINGSTAGE4SKELETONTEXTURE;
     public final ResourceLocation LIGHTNINGSTAGE5SKELETONTEXTURE;
 
+    public final ResourceLocation SHIVAXISTAGE1TEXTURE;
+    public final ResourceLocation SHIVAXISTAGE2TEXTURE;
+    public final ResourceLocation SHIVAXISTAGE3TEXTURE;
+    public final ResourceLocation SHIVAXISTAGE4TEXTURE;
+    public final ResourceLocation SHIVAXISTAGE5TEXTURE;
+    public final ResourceLocation SHIVAXISTAGE1SLEEPINGTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE2SLEEPINGTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE3SLEEPINGTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE4SLEEPINGTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE5SLEEPINGTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE1EYESTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE2EYESTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE3EYESTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE4EYESTEXTURE;
+    public final ResourceLocation SHIVAXISTAGE5EYESTEXTURE;
+
     EnumDragonTextures(String fireVariant, String iceVariant, String lightningVariant) {
         FIRESTAGE1TEXTURE = new ResourceLocation("iceandfire:textures/models/firedragon/" + fireVariant + "1.png");
         FIRESTAGE2TEXTURE = new ResourceLocation("iceandfire:textures/models/firedragon/" + fireVariant + "2.png");
@@ -139,11 +157,29 @@ public enum EnumDragonTextures {
         LIGHTNINGSTAGE3SKELETONTEXTURE = new ResourceLocation("iceandfire:textures/models/lightningdragon/lightning_skeleton_3.png");
         LIGHTNINGSTAGE4SKELETONTEXTURE = new ResourceLocation("iceandfire:textures/models/lightningdragon/lightning_skeleton_4.png");
         LIGHTNINGSTAGE5SKELETONTEXTURE = new ResourceLocation("iceandfire:textures/models/lightningdragon/lightning_skeleton_5.png");
+
+        SHIVAXISTAGE1TEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_1.png");
+        SHIVAXISTAGE2TEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_2.png");
+        SHIVAXISTAGE3TEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_3.png");
+        SHIVAXISTAGE4TEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_4.png");
+        SHIVAXISTAGE5TEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_5.png");
+        SHIVAXISTAGE1SLEEPINGTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_sleeping_1.png");
+        SHIVAXISTAGE2SLEEPINGTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_sleeping_2.png");
+        SHIVAXISTAGE3SLEEPINGTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_sleeping_3.png");
+        SHIVAXISTAGE4SLEEPINGTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_sleeping_4.png");
+        SHIVAXISTAGE5SLEEPINGTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_sleeping_5.png");
+        SHIVAXISTAGE1EYESTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_eyes_1.png");
+        SHIVAXISTAGE2EYESTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_eyes_2.png");
+        SHIVAXISTAGE3EYESTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_eyes_3.png");
+        SHIVAXISTAGE4EYESTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_eyes_4.png");
+        SHIVAXISTAGE5EYESTEXTURE = new ResourceLocation("iceandfire:textures/models/shivaxi/shivaxi_eyes_5.png");
     }
 
 
     public static ResourceLocation getTextureFromDragon(EntityDragonBase dragon) {
-        if (dragon instanceof EntityIceDragon) {
+        if (dragon instanceof EntityShivaxiDragon) {
+            return getShivaxiDragonTextures(dragon);
+        } else if (dragon instanceof EntityIceDragon) {
             return getIceDragonTextures(dragon);
         } else if (dragon instanceof EntityLightningDragon) {
             return getLightningDragonTextures(dragon);
@@ -155,7 +191,20 @@ public enum EnumDragonTextures {
 
     public static ResourceLocation getEyeTextureFromDragon(EntityDragonBase dragon) {
         EnumDragonTextures textures = getDragonEnum(dragon);
-        if (dragon instanceof EntityIceDragon) {
+        if (dragon instanceof EntityShivaxiDragon) {
+            switch (dragon.getDragonStage()) {
+                case 1:
+                    return textures.SHIVAXISTAGE1EYESTEXTURE;
+                case 2:
+                    return textures.SHIVAXISTAGE2EYESTEXTURE;
+                case 3:
+                    return textures.SHIVAXISTAGE3EYESTEXTURE;
+                case 5:
+                    return textures.SHIVAXISTAGE5EYESTEXTURE;
+                default:
+                    return textures.SHIVAXISTAGE4EYESTEXTURE;
+            }
+        } else if (dragon instanceof EntityIceDragon) {
             switch (dragon.getDragonStage()) {
                 case 1:
                     return textures.ICESTAGE1EYESTEXTURE;
@@ -345,6 +394,66 @@ public enum EnumDragonTextures {
         }
     }
 
+    private static ResourceLocation getShivaxiDragonTextures(EntityDragonBase dragon) {
+        EnumDragonTextures textures = getDragonEnum(dragon);
+        if (dragon.isModelDead()) {
+            if (dragon.getDeathStage() >= (dragon.getAgeInDays() / 5) / 2) {
+                switch (dragon.getDragonStage()) {
+                    case 1:
+                        return textures.LIGHTNINGSTAGE1SKELETONTEXTURE;
+                    case 2:
+                        return textures.LIGHTNINGSTAGE2SKELETONTEXTURE;
+                    case 3:
+                        return textures.LIGHTNINGSTAGE3SKELETONTEXTURE;
+                    case 5:
+                        return textures.LIGHTNINGSTAGE5SKELETONTEXTURE;
+                    default:
+                        return textures.LIGHTNINGSTAGE4SKELETONTEXTURE;
+                }
+            } else {
+                switch (dragon.getDragonStage()) {
+                    case 1:
+                        return textures.SHIVAXISTAGE1SLEEPINGTEXTURE;
+                    case 2:
+                        return textures.SHIVAXISTAGE2SLEEPINGTEXTURE;
+                    case 3:
+                        return textures.SHIVAXISTAGE3SLEEPINGTEXTURE;
+                    case 5:
+                        return textures.SHIVAXISTAGE5SLEEPINGTEXTURE;
+                    default:
+                        return textures.SHIVAXISTAGE4SLEEPINGTEXTURE;
+                }
+            }
+        }
+        if (dragon.isSleeping() || dragon.isBlinking()) {
+            switch (dragon.getDragonStage()) {
+                case 1:
+                    return textures.SHIVAXISTAGE1SLEEPINGTEXTURE;
+                case 2:
+                    return textures.SHIVAXISTAGE2SLEEPINGTEXTURE;
+                case 3:
+                    return textures.SHIVAXISTAGE3SLEEPINGTEXTURE;
+                case 5:
+                    return textures.SHIVAXISTAGE5SLEEPINGTEXTURE;
+                default:
+                    return textures.SHIVAXISTAGE4SLEEPINGTEXTURE;
+            }
+        } else {
+            switch (dragon.getDragonStage()) {
+                case 1:
+                    return textures.SHIVAXISTAGE1TEXTURE;
+                case 2:
+                    return textures.SHIVAXISTAGE2TEXTURE;
+                case 3:
+                    return textures.SHIVAXISTAGE3TEXTURE;
+                case 5:
+                    return textures.SHIVAXISTAGE5TEXTURE;
+                default:
+                    return textures.SHIVAXISTAGE4TEXTURE;
+            }
+        }
+    }
+
     private static ResourceLocation getLightningDragonTextures(EntityDragonBase dragon) {
         EnumDragonTextures textures = getDragonEnum(dragon);
         if (isSpookySeason()) {
@@ -483,11 +592,14 @@ public enum EnumDragonTextures {
     private static Boolean cacheSpooky = null;
 
     private static boolean isSpookySeason() {
-        if(cacheSpooky == null) {
-            int curTime = (LocalDate.now().getMonthValue()*100) + LocalDate.now().getDayOfMonth();
-            cacheSpooky = 1028 <= curTime && curTime <= 1102;
+        if (IceAndFireConfig.DRAGON_SETTINGS.spookySeason) {
+            if (cacheSpooky == null) {
+                int curTime = (LocalDate.now().getMonthValue()*100) + LocalDate.now().getDayOfMonth();
+                cacheSpooky = 1028 <= curTime && curTime <= 1102;
+            }
+            return cacheSpooky;
         }
-        return cacheSpooky;
+        return false;
     }
 
     public enum Armor {
@@ -497,21 +609,33 @@ public enum EnumDragonTextures {
         ARMORBODY3("armor_body_3"),
         ARMORBODY4("armor_body_4"),
         ARMORBODY5("armor_body_5"),
+        ARMORBODY6("armor_body_6"),
+        ARMORBODY7("armor_body_7"),
+        ARMORBODY8("armor_body_8"),
         ARMORHEAD1("armor_head_1"),
         ARMORHEAD2("armor_head_2"),
         ARMORHEAD3("armor_head_3"),
         ARMORHEAD4("armor_head_4"),
         ARMORHEAD5("armor_head_5"),
+        ARMORHEAD6("armor_head_6"),
+        ARMORHEAD7("armor_head_7"),
+        ARMORHEAD8("armor_head_8"),
         ARMORNECK1("armor_neck_1"),
         ARMORNECK2("armor_neck_2"),
         ARMORNECK3("armor_neck_3"),
         ARMORNECK4("armor_neck_4"),
         ARMORNECK5("armor_neck_5"),
+        ARMORNECK6("armor_neck_6"),
+        ARMORNECK7("armor_neck_7"),
+        ARMORNECK8("armor_neck_8"),
         ARMORTAIL1("armor_tail_1"),
         ARMORTAIL2("armor_tail_2"),
         ARMORTAIL3("armor_tail_3"),
         ARMORTAIL4("armor_tail_4"),
-        ARMORTAIL5("armor_tail_5");
+        ARMORTAIL5("armor_tail_5"),
+        ARMORTAIL6("armor_tail_6"),
+        ARMORTAIL7("armor_tail_7"),
+        ARMORTAIL8("armor_tail_8");
 
         public final ResourceLocation FIRETEXTURE;
         public final ResourceLocation ICETEXTURE;
@@ -547,6 +671,12 @@ public enum EnumDragonTextures {
                             return ARMORNECK4;
                         case 5:
                             return ARMORNECK5;
+                        case 6:
+                            return ARMORNECK6;
+                        case 7:
+                            return ARMORNECK7;
+                        case 8:
+                            return ARMORNECK8;
                     }
                 case LEGS:
                     //body
@@ -563,6 +693,12 @@ public enum EnumDragonTextures {
                             return ARMORBODY4;
                         case 5:
                             return ARMORBODY5;
+                        case 6:
+                            return ARMORBODY6;
+                        case 7:
+                            return ARMORBODY7;
+                        case 8:
+                            return ARMORBODY8;
                     }
                 case FEET:
                     //tail
@@ -579,6 +715,12 @@ public enum EnumDragonTextures {
                             return ARMORTAIL4;
                         case 5:
                             return ARMORTAIL5;
+                        case 6:
+                            return ARMORTAIL6;
+                        case 7:
+                            return ARMORTAIL7;
+                        case 8:
+                            return ARMORTAIL8;
                     }
                 default:
                     //head
@@ -595,6 +737,12 @@ public enum EnumDragonTextures {
                             return ARMORHEAD4;
                         case 5:
                             return ARMORHEAD5;
+                        case 6:
+                            return ARMORHEAD6;
+                        case 7:
+                            return ARMORHEAD7;
+                        case 8:
+                            return ARMORHEAD8;
                     }
             }
         }

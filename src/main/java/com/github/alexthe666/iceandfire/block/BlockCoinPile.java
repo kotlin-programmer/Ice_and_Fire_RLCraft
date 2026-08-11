@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -43,10 +42,10 @@ public class BlockCoinPile extends Block {
         super(Material.GROUND);
         this.setDefaultState(this.blockState.getBaseState().withProperty(LAYERS, 1));
         this.setTickRandomly(true);
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire." + name + "pile");
         this.setHardness(0.3F);
-        this.setSoundType(ModBlocks.SOUND_TYPE_GOLD);
+        this.setSoundType(IafBlockRegistry.SOUND_TYPE_GOLD);
         setRegistryName(IceAndFire.MODID, name + "pile");
         this.dropItem = dropItem;
     }
@@ -87,7 +86,7 @@ public class BlockCoinPile extends Block {
         Block block = iblockstate.getBlock();
         return block != Blocks.ICE && block != Blocks.PACKED_ICE &&
                 (iblockstate.getBlock().isLeaves(iblockstate, worldIn, pos.down()) ||
-                        (block == this && iblockstate.getValue(LAYERS) >= 7) ||
+                        (getRegistryName().equals(block.getRegistryName()) && iblockstate.getValue(LAYERS) >= 7) ||
                         iblockstate.isOpaqueCube() && iblockstate.getMaterial().blocksMovement());
     }
 

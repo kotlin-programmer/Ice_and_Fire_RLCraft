@@ -1,6 +1,5 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModVillagers;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -211,10 +210,10 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new MyrmexAIDefendHive(this));
-        this.targetTasks.addTask(2, new MyrmexAIFindMate(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(2, new MyrmexAIFindMate<>(this));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
         this.targetTasks.addTask(4, new MyrmexAIAttackPlayers(this));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 10, true, true, new Predicate<EntityLiving>() {
             public boolean apply(@Nullable EntityLiving entity) {
                 if (entity instanceof EntityMyrmexBase && EntityMyrmexRoyal.this.isBreedingSeason() || entity instanceof EntityMyrmexRoyal) {
                     return false;
@@ -240,7 +239,7 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
     }
 
     public VillagerRegistry.VillagerProfession getProfessionForge() {
-        return this.isJungle() ? ModVillagers.INSTANCE.jungleMyrmexRoyal : ModVillagers.INSTANCE.desertMyrmexRoyal;
+        return this.isJungle() ? IafVillagerRegistry.INSTANCE.jungleMyrmexRoyal : IafVillagerRegistry.INSTANCE.desertMyrmexRoyal;
     }
 
     public boolean shouldMoveThroughHive() {
@@ -403,7 +402,12 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         @Override
         public boolean shouldExecute() {
             if (EntityMyrmexRoyal.this.isFlying()) {
-                target = EntityMyrmexRoyal.getPositionRelativetoGround(EntityMyrmexRoyal.this, EntityMyrmexRoyal.this.world, EntityMyrmexRoyal.this.posX + EntityMyrmexRoyal.this.rand.nextInt(30) - 15, EntityMyrmexRoyal.this.posZ + EntityMyrmexRoyal.this.rand.nextInt(30) - 15, EntityMyrmexRoyal.this.rand);
+                if (EntityMyrmexRoyal.this instanceof EntityMyrmexSwarmer && ((EntityMyrmexSwarmer) EntityMyrmexRoyal.this).getSummoner() != null) {
+                    Entity summon = ((EntityMyrmexSwarmer) EntityMyrmexRoyal.this).getSummoner();
+                    target = EntityMyrmexRoyal.getPositionRelativetoGround(EntityMyrmexRoyal.this, EntityMyrmexRoyal.this.world, summon.posX + EntityMyrmexRoyal.this.rand.nextInt(11) - 5, summon.posZ + EntityMyrmexRoyal.this.rand.nextInt(11) - 5, EntityMyrmexRoyal.this.rand);
+                } else {
+                    target = EntityMyrmexRoyal.getPositionRelativetoGround(EntityMyrmexRoyal.this, EntityMyrmexRoyal.this.world, EntityMyrmexRoyal.this.posX + EntityMyrmexRoyal.this.rand.nextInt(31) - 15, EntityMyrmexRoyal.this.posZ + EntityMyrmexRoyal.this.rand.nextInt(31) - 15, EntityMyrmexRoyal.this.rand);
+                }
                 return isDirectPathBetweenPoints(EntityMyrmexRoyal.this.getPosition(), target) && !EntityMyrmexRoyal.this.getMoveHelper().isUpdating() && EntityMyrmexRoyal.this.rand.nextInt(2) == 0;
             } else {
                 return false;
@@ -423,7 +427,12 @@ public class EntityMyrmexRoyal extends EntityMyrmexBase {
         @Override
         public void updateTask() {
             if (!isDirectPathBetweenPoints(EntityMyrmexRoyal.this.getPosition(), target)) {
-                target = EntityMyrmexRoyal.getPositionRelativetoGround(EntityMyrmexRoyal.this, EntityMyrmexRoyal.this.world, EntityMyrmexRoyal.this.posX + EntityMyrmexRoyal.this.rand.nextInt(15) - 7, EntityMyrmexRoyal.this.posZ + EntityMyrmexRoyal.this.rand.nextInt(15) - 7, EntityMyrmexRoyal.this.rand);
+                if (EntityMyrmexRoyal.this instanceof EntityMyrmexSwarmer && ((EntityMyrmexSwarmer) EntityMyrmexRoyal.this).getSummoner() != null) {
+                    Entity summon = ((EntityMyrmexSwarmer) EntityMyrmexRoyal.this).getSummoner();
+                    target = EntityMyrmexRoyal.getPositionRelativetoGround(EntityMyrmexRoyal.this, EntityMyrmexRoyal.this.world, summon.posX + EntityMyrmexRoyal.this.rand.nextInt(11) - 5, summon.posZ + EntityMyrmexRoyal.this.rand.nextInt(10) - 5, EntityMyrmexRoyal.this.rand);
+                } else {
+                    target = EntityMyrmexRoyal.getPositionRelativetoGround(EntityMyrmexRoyal.this, EntityMyrmexRoyal.this.world, EntityMyrmexRoyal.this.posX + EntityMyrmexRoyal.this.rand.nextInt(15) - 7, EntityMyrmexRoyal.this.posZ + EntityMyrmexRoyal.this.rand.nextInt(15) - 7, EntityMyrmexRoyal.this.rand);
+                }
             }
             if (EntityMyrmexRoyal.this.world.isAirBlock(target)) {
                 EntityMyrmexRoyal.this.moveHelper.setMoveTo((double) target.getX() + 0.5D, (double) target.getY() + 0.5D, (double) target.getZ() + 0.5D, 0.25D);

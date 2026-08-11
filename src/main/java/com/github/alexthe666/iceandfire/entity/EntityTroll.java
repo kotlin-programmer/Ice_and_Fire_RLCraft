@@ -3,11 +3,9 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.TrollAIFleeSun;
 import com.github.alexthe666.iceandfire.entity.explosion.BlockBreakExplosion;
-import com.github.alexthe666.iceandfire.entity.util.IHumanoid;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumTroll;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -78,8 +76,13 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
 
     @Override
     public boolean getCanSpawnHere() {
+        if (IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance > 0) {
+            if (this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance) != 0) {
+                return false;
+            }
+        }
         BlockPos pos = new BlockPos(this);
-        return this.getRNG().nextInt(IceAndFireConfig.ENTITY_SPAWNING.trollSpawnCheckChance) == 0 && !this.world.canSeeSky(pos) && super.getCanSpawnHere();
+        return !this.world.canSeeSky(pos) && super.getCanSpawnHere();
     }
 
     @Override
@@ -90,9 +93,9 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
         this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F));
         this.tasks.addTask(5, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityVillager.class, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false));
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, false));
         ((PathNavigateGround) this.getNavigator()).setAvoidSun(true);
     }
 
@@ -284,7 +287,7 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
             this.setAnimation(ANIMATION_ROAR);
         }
         if(this.getAnimation() == ANIMATION_ROAR && this.getAnimationTick() == 5){
-            this.playSound(ModSounds.TROLL_ROAR, 1, 1);
+            this.playSound(IafSoundRegistry.TROLL_ROAR, 1, 1);
         }
         if (!stone && this.getHealth() < this.getMaxHealth() && this.ticksExisted % 30 == 0) {
             this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 30, 1, false, false));
@@ -300,7 +303,7 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
                     this.motionY = 0;
                     this.motionZ = 0;
                     this.setAnimation(NO_ANIMATION);
-                    this.playSound(ModSounds.GORGON_TURN_STONE, 1, 1);
+                    this.playSound(IafSoundRegistry.GORGON_TURN_STONE, 1, 1);
                 }
             }
         }
@@ -413,17 +416,17 @@ public class EntityTroll extends EntityMob implements IAnimatedEntity, IVillager
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.TROLL_IDLE;
+        return IafSoundRegistry.TROLL_IDLE;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.TROLL_HURT;
+        return IafSoundRegistry.TROLL_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.TROLL_DIE;
+        return IafSoundRegistry.TROLL_DIE;
     }
 
 

@@ -2,7 +2,7 @@ package com.github.alexthe666.iceandfire.item;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.IDragonFlute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +23,7 @@ public class ItemDragonFlute extends Item {
 		this.maxStackSize = 1;
 		this.setTranslationKey("iceandfire.dragon_flute");
 		this.setRegistryName(IceAndFire.MODID, "dragon_flute");
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_ITEMS);
 	}
 
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer player, EnumHand hand) {
@@ -54,7 +54,7 @@ public class ItemDragonFlute extends Item {
                 }
             }*/
 		}
-		worldIn.playSound(player, player.getPosition(), ModSounds.DRAGONFLUTE, SoundCategory.NEUTRAL, 1, 1.75F);
+		worldIn.playSound(player, player.getPosition(), IafSoundRegistry.DRAGONFLUTE, SoundCategory.NEUTRAL, 1, 1.75F);
 
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStackIn);
 	}

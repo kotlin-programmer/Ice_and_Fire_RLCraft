@@ -7,18 +7,18 @@ import com.github.alexthe666.iceandfire.entity.explosion.FireChargeExplosion;
 import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonFireCharge extends EntityFireball implements IDragonProjectile {
+public class EntityDragonFireCharge extends EntityDragonProjectile {
 
 	public int ticksInAir;
 
@@ -43,15 +43,6 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 		this.accelerationZ = accelZ / d0 * 0.07D;
 	}
 
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
-
 	public void onUpdate() {
 		if(this.world.isRemote) {
 			for (int i = 0; i < 4; ++i) {
@@ -70,7 +61,7 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -117,7 +108,7 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 				return;
 			}
 			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2) {
+				if (this.shootingEntity != null) {
 					int explodeSize = 2;
 					if(this.shootingEntity instanceof EntityDragonBase){
 						explodeSize = 2 + ((EntityDragonBase) this.shootingEntity).getDragonStage();
@@ -133,12 +124,16 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 			}
 			if (movingObject.entityHit != null && !(movingObject.entityHit instanceof IDragonProjectile) && !movingObject.entityHit.isEntityEqual(shootingEntity)) {
 				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
-					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonFire, 10.0F);
+					movingObject.entityHit.attackEntityFrom(IceAndFire.dragonFire, IceAndFireConfig.DRAGON_SETTINGS.dragonFireChargeDamage);
 					if (movingObject.entityHit instanceof EntityLivingBase && ((EntityLivingBase) movingObject.entityHit).getHealth() == 0) {
 						((EntityDragonBase) this.shootingEntity).attackDecision = true;
 					}
 				}
 				movingObject.entityHit.setFire(5);
+				if (movingObject.entityHit instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+					DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.FIRE);
+				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
 				FireExplosion explosion = new FireExplosion(world, null, this.posX, this.posY, this.posZ, 2, flag);
 				if (shootingEntity != null) {
@@ -151,11 +146,6 @@ public class EntityDragonFireCharge extends EntityFireball implements IDragonPro
 			}
 		}
 		this.setDead();
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
 	}
 
 	@Override

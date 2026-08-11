@@ -1,0 +1,18 @@
+Una vez que hayas adquirido un
+núcleo de forja de dragón, 3
+respiraderos de forja de dragón,
+una entrada de forja de dragón, 8
+bloques de hueso de dragón y 14
+ladrillos de piedra del horror,
+podrás construir la forja de
+dragón como tal.
+
+Para alimentar la forja,
+se requiere aliento de dragón.
+
+Esto se puede lograr colocando
+un dragón domesticado justo
+frente a la entrada. El dragón
+comenzará a soplar su aliento
+en la entrada siempre que haya
+objetos válidos en la forja.

@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.GorgonAIStareAttack;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
@@ -20,7 +20,6 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -57,12 +56,18 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		double d0 = vec3d1.length();
 		vec3d1 = vec3d1.normalize();
 		double d1 = vec3d.dotProduct(vec3d1);
-		return d1 > 1.0D - degree / d0 ? looker.canEntityBeSeen(seen) && !isStoneMob(seen) : false;
+		return d1 > 1.0D - degree / d0 && looker.canEntityBeSeen(seen) && !isStoneMob(seen);
 	}
 
 	public static boolean isBlindfolded(EntityLivingBase attackTarget) {
-		return attackTarget != null && attackTarget.getItemStackFromSlot(EntityEquipmentSlot.HEAD).getItem() == ModItems.blindfold;
+		// See: https://github.com/kotlin-programmer/Ice_and_Fire_RLCraft/issues/35
+		return false;
 	}
+
+	public static boolean isBlind(EntityLivingBase attackTarget) {
+		return SensesUtils.isBlind(attackTarget) || isBlindfolded(attackTarget);
+	}
+
 
 	@Nullable
 	protected ResourceLocation getLootTable() {
@@ -99,19 +104,18 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 			}
 		});
 		this.tasks.addTask(6, new EntityAILookIdle(this));
-		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
 			@Override
 			public boolean apply(@Nullable EntityPlayer entity) {
 				return entity != null && !entity.isCreative() && !entity.isSpectator();
 			}
 		}));
-		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, true, false, new Predicate<EntityLiving>() {
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0, true, false, new Predicate<EntityLiving>() {
 			@Override
 			public boolean apply(@Nullable EntityLiving entity) {
 				if(entity != null && !entity.isDead && DragonUtils.isAlive(entity) && entity.canBeCollidedWith() && !(entity instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)entity).canBeTurnedToStone())) {
-					ResourceLocation id = EntityList.getKey(entity);
-					if(id != null && !IceAndFireConfig.getStoneEntityBlacklist().contains(id)) {
+					if(!IceAndFireConfig.isEntityBlacklistedFromBeingStoned(entity)) {
 						IEntityEffectCapability cap = InFCapabilities.getEntityEffectCapability(entity);
 						return cap != null && !cap.isStoned();
 					}
@@ -123,16 +127,14 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 	}
 
 	public void attackEntityWithRangedAttack(EntityLivingBase entity) {
-		if (!(entity instanceof EntityPlayer) && entity instanceof EntityLiving) {
+		if (entity instanceof EntityLiving) {
 			forcePreyToLook((EntityLiving) entity);
 		}
 	}
 
 	public boolean attackEntityAsMob(Entity entityIn) {
-		boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) ||
-				this.getAttackTarget() != null && this.getAttackTarget().isPotionActive(MobEffects.BLINDNESS) ||
-				this.getAttackTarget() != null && this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) this.getAttackTarget()).canBeTurnedToStone() ||
-				this.getAttackTarget() != null && isBlindfolded(this.getAttackTarget());
+		boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(this.getAttackTarget()) ||
+				this.getAttackTarget() != null && this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) this.getAttackTarget()).canBeTurnedToStone();
 		if (blindness && this.deathTime == 0) {
 			if (this.getAnimation() != ANIMATION_HIT) {
 				this.setAnimation(ANIMATION_HIT);
@@ -152,10 +154,8 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
 		super.setAttackTarget(entitylivingbaseIn);
 		if (entitylivingbaseIn != null && !world.isRemote) {
-			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) ||
-					entitylivingbaseIn.isPotionActive(MobEffects.BLINDNESS) ||
-					entitylivingbaseIn instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entitylivingbaseIn).canBeTurnedToStone() ||
-					isBlindfolded(entitylivingbaseIn);
+			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(entitylivingbaseIn) ||
+					entitylivingbaseIn instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues) entitylivingbaseIn).canBeTurnedToStone();
 			if (blindness && this.deathTime == 0) {
 				this.tasks.removeTask(aiStare);
 				this.tasks.addTask(3, aiMelee);
@@ -208,10 +208,8 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		super.onLivingUpdate();
 		if(statueCooldown > 0) statueCooldown--;
 		if (this.getAttackTarget() != null) {
-			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) ||
-					this.getAttackTarget().isPotionActive(MobEffects.BLINDNESS) ||
-					this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)this.getAttackTarget()).canBeTurnedToStone() ||
-					isBlindfolded(this.getAttackTarget());
+			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(this.getAttackTarget()) ||
+					this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)this.getAttackTarget()).canBeTurnedToStone();
 			this.getLookHelper().setLookPosition(this.getAttackTarget().posX, this.getAttackTarget().posY + (double) this.getAttackTarget().getEyeHeight(), this.getAttackTarget().posZ, (float) this.getHorizontalFaceSpeed(), (float) this.getVerticalFaceSpeed());
 			if (!blindness && this.deathTime == 0 && this.getAttackTarget() instanceof EntityLiving && !(this.getAttackTarget() instanceof EntityPlayer)) {
 				forcePreyToLook((EntityLiving) this.getAttackTarget());
@@ -219,13 +217,11 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 		}
 
 		if (this.getAttackTarget() != null && isEntityLookingAt(this, this.getAttackTarget(), 0.4) && isEntityLookingAt(this.getAttackTarget(), this, 0.4)) {
-			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) ||
-					this.getAttackTarget().isPotionActive(MobEffects.BLINDNESS) ||
-					this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)this.getAttackTarget()).canBeTurnedToStone() ||
-					isBlindfolded(this.getAttackTarget());
+			boolean blindness = this.isPotionActive(MobEffects.BLINDNESS) || isBlind(this.getAttackTarget()) ||
+					this.getAttackTarget() instanceof IBlacklistedFromStatues && !((IBlacklistedFromStatues)this.getAttackTarget()).canBeTurnedToStone();
 			if (!blindness && this.deathTime == 0) {
 				if (this.getAnimation() != ANIMATION_SCARE) {
-					this.playSound(ModSounds.GORGON_ATTACK, 1, 1);
+					this.playSound(IafSoundRegistry.GORGON_ATTACK, 1, 1);
 					this.setAnimation(ANIMATION_SCARE);
 				}
 				if (this.getAnimation() == ANIMATION_SCARE) {
@@ -253,7 +249,7 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 								EntityLiving attackTarget = (EntityLiving) this.getAttackTarget();
 								if (capability != null && !capability.isStoned()) {
 									capability.setStoned();
-									this.playSound(ModSounds.GORGON_TURN_STONE, 1, 1);
+									this.playSound(IafSoundRegistry.GORGON_TURN_STONE, 1, 1);
 									this.setAttackTarget(null);
 								}
 
@@ -333,17 +329,17 @@ public class EntityGorgon extends EntityMob implements IAnimatedEntity, IVillage
 
 	@Nullable
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.GORGON_IDLE;
+		return IafSoundRegistry.GORGON_IDLE;
 	}
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-		return ModSounds.GORGON_HURT;
+		return IafSoundRegistry.GORGON_HURT;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return ModSounds.GORGON_DIE;
+		return IafSoundRegistry.GORGON_DIE;
 	}
 
 	@Override

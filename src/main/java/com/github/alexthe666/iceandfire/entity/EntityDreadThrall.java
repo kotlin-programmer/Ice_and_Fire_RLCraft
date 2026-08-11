@@ -1,6 +1,6 @@
 package com.github.alexthe666.iceandfire.entity;
 
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.google.common.base.Predicate;
@@ -56,7 +56,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {IDreadMob.class}));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, false, new Predicate<Entity>() {
+        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
                 return entity instanceof EntityLivingBase && DragonUtils.canHostilesTarget(entity);
@@ -66,21 +66,22 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(2.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR_TOUGHNESS).setBaseValue(6.0D);
     }
 
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(CUSTOM_ARMOR_INDEX, Integer.valueOf(0));
-        this.dataManager.register(CUSTOM_ARMOR_HEAD, Boolean.valueOf(false));
-        this.dataManager.register(CUSTOM_ARMOR_CHEST, Boolean.valueOf(false));
-        this.dataManager.register(CUSTOM_ARMOR_LEGS, Boolean.valueOf(false));
-        this.dataManager.register(CUSTOM_ARMOR_FEET, Boolean.valueOf(false));
+        this.dataManager.register(CUSTOM_ARMOR_INDEX, 0);
+        this.dataManager.register(CUSTOM_ARMOR_HEAD, Boolean.FALSE);
+        this.dataManager.register(CUSTOM_ARMOR_CHEST, Boolean.FALSE);
+        this.dataManager.register(CUSTOM_ARMOR_LEGS, Boolean.FALSE);
+        this.dataManager.register(CUSTOM_ARMOR_FEET, Boolean.FALSE);
     }
 
     public void onLivingUpdate() {
@@ -104,7 +105,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
         if (rand.nextFloat() < 0.75F) {
             double chance = rand.nextFloat();
             if (chance < 0.0025F) {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.dread_sword /* TODO ask about DragonSteel ModItems.dragonsteel_ice_sword*/ ));
+                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.dread_knight_sword));
             }
             if (chance < 0.01F) {
                 this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.DIAMOND_SWORD));
@@ -113,7 +114,7 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
                 this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
             }
             if (chance < 0.75F) {
-                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ModItems.dread_sword ));
+                this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(IafItemRegistry.dread_sword ));
             }
         }
         if (rand.nextFloat() < 0.75F) {
@@ -229,11 +230,6 @@ public class EntityDreadThrall extends EntityDreadMob implements IAnimatedEntity
 
     @Override
     public boolean shouldAnimalsFear(Entity entity) {
-        return true;
-    }
-
-    @Override
-    public boolean shouldFear() {
         return true;
     }
 

@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.block;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,7 +14,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockGeneric extends Block {
-	public Item itemBlock;
 
 	public BlockGeneric(Material materialIn, String gameName, String name, String toolUsed, int toolStrength, float hardness, float resistance, SoundType sound) {
 		super(materialIn);
@@ -24,7 +22,7 @@ public class BlockGeneric extends Block {
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		setRegistryName(IceAndFire.MODID, gameName);
 	}
 
@@ -36,7 +34,7 @@ public class BlockGeneric extends Block {
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		if (slippery) {
 			this.slipperiness = 0.98F;
 		}
@@ -49,23 +47,23 @@ public class BlockGeneric extends Block {
 		this.setHardness(hardness);
 		this.setResistance(resistance);
 		this.setSoundType(sound);
-		this.setCreativeTab(IceAndFire.TAB);
+		this.setCreativeTab(IceAndFire.TAB_BLOCKS);
 		setRegistryName(IceAndFire.MODID, gameName);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getRenderLayer() {
-		return this == ModBlocks.dragon_ice ? BlockRenderLayer.TRANSLUCENT : super.getRenderLayer();
+		return this == IafBlockRegistry.dragon_ice ? BlockRenderLayer.TRANSLUCENT : super.getRenderLayer();
 	}
 
 	@SuppressWarnings("deprecation")
 	public boolean isOpaqueCube(IBlockState state) {
-		return this != ModBlocks.dragon_ice;
+		return this != IafBlockRegistry.dragon_ice;
 	}
 
 	@SuppressWarnings("deprecation")
 	public boolean isFullCube(IBlockState state) {
-		return this != ModBlocks.dragon_ice;
+		return this != IafBlockRegistry.dragon_ice;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -73,7 +71,7 @@ public class BlockGeneric extends Block {
 	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
 		IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
 		Block block = iblockstate.getBlock();
-		if (this == ModBlocks.dragon_ice) {
+		if (this == IafBlockRegistry.dragon_ice) {
 			if (blockState != iblockstate) {
 				return true;
 			} else if (block == this) {
@@ -85,9 +83,10 @@ public class BlockGeneric extends Block {
 
 	@Override
 	public boolean isBeaconBase(IBlockAccess worldObj, BlockPos pos, BlockPos beacon) {
-		return this == ModBlocks.amethystBlock
-				|| this == ModBlocks.copperBlock
-				|| this == ModBlocks.sapphireBlock
-				|| this == ModBlocks.silverBlock;
+		return this == IafBlockRegistry.amethystBlock
+				|| this == IafBlockRegistry.copperBlock
+				|| this == IafBlockRegistry.rubyBlock
+				|| this == IafBlockRegistry.sapphireBlock
+				|| this == IafBlockRegistry.silverBlock;
 	}
 }

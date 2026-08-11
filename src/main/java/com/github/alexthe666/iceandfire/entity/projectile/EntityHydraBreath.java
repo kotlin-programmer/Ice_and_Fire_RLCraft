@@ -5,11 +5,9 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModPotions;
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
 import com.github.alexthe666.iceandfire.entity.EntityHydraHead;
-import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.potion.PotionEffect;
@@ -20,7 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityHydraBreath extends EntityFireball implements IDragonProjectile {
+public class EntityHydraBreath extends EntityDragonProjectile {
 
     public EntityHydraBreath(World worldIn) {
         super(worldIn);
@@ -39,15 +37,6 @@ public class EntityHydraBreath extends EntityFireball implements IDragonProjecti
         this.accelerationZ = accelZ / d0 * 0.1D;
     }
 
-    protected boolean isFireballFiery() {
-        return false;
-    }
-
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
-    }
-
     @Override
     public void onUpdate() {
         if (this.ticksExisted > 20) {
@@ -58,7 +47,7 @@ public class EntityHydraBreath extends EntityFireball implements IDragonProjecti
                 this.setFlag(6, this.isGlowing());
             }
             this.onEntityUpdate();
-            RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, false, this.shootingEntity);
+            RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, false, this.getShootingEntity());
             if (raytraceresult != null && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
                 this.onImpact(raytraceresult);
             }
@@ -114,16 +103,6 @@ public class EntityHydraBreath extends EntityFireball implements IDragonProjecti
             }
             this.setDead();
         }
-    }
-
-    @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-        return false;
-    }
-
-    @Override
-    public float getCollisionBorderSize() {
-        return 1F;
     }
 }
 

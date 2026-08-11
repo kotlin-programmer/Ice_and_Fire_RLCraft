@@ -34,7 +34,7 @@
 хозяин.
 
 <item><iceandfire:dread_shard 0 95 43 1.25>
-<item><iceandfire:dread_stone_bricks 0 125 43 1.25>
+<item><iceandfire:dread_key 0 125 43 1.25>
 
 
 

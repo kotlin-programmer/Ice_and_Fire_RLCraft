@@ -1,0 +1,17 @@
+Once you have acquired a
+dragon forge core, 3 dragon
+forge vents, a dragon forge
+input, 8 dragon bone blocks,
+and 14 dreadstone bricks,
+you can construct the
+dragon forge itself.
+
+In order to power the forge,
+dragon's breath is required.
+
+This can be achieved by placing
+a tame dragon directly in front
+of the input. The dragon will
+begin to breathe into the input
+as long as there are valid items
+in the forge.

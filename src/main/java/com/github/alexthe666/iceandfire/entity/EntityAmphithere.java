@@ -3,13 +3,12 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
-import com.github.alexthe666.iceandfire.message.MessageUpdateRidingState;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.ilexiconn.llibrary.server.animation.Animation;
 import net.ilexiconn.llibrary.server.animation.AnimationHandler;
@@ -44,7 +43,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class EntityAmphithere extends EntityTameable implements IAnimatedEntity, IPhasesThroughBlock, IFlapable, IDragonFlute, ISyncMount {
+public class EntityAmphithere extends EntityTameable implements IAnimatedEntity, IPhasesThroughBlock, IFlapable, IDragonFlute {
 
     private int animationTick;
     private Animation currentAnimation;
@@ -147,7 +146,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             return true;
         }
         if (!super.processInteract(player, hand)) {
-            if (itemstack.getItem() == ModItems.dragon_stick && this.isOwner(player)) {
+            if (itemstack.getItem() == IafItemRegistry.dragon_stick && this.isOwner(player)) {
                 if (player.isSneaking()) {
                     this.homePos = new BlockPos(this);
                     this.hasHomePosition = true;
@@ -169,11 +168,8 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                     return true;
                 }
                 return true;
-            } else if ((!this.isTamed() || this.isOwner(player)) && !this.isChild()) {
+            } else if (!this.world.isRemote && (!this.isTamed() || this.isOwner(player)) && !this.isChild()) {
                 player.startRiding(this, true);
-                if (world.isRemote) {
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), true));
-                }
                 return true;
             }
 
@@ -200,7 +196,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         this.tasks.addTask(4, new EntityAIMate(this, 1.0D));
         this.targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         this.targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        this.targetTasks.addTask(3, new AmphithereAIHurtByTarget(this, false, new Class[0]));
+        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false));
     }
 
     public boolean isStill() {
@@ -286,7 +282,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         if (this.isChild() && this.getAttackTarget() != null) {
             this.setAttackTarget(null);
         }
-        if (this.isInLove()) {
+        if (this.isInLove() && !this.isBeingRidden()) {
             this.setFlying(false);
         }
         if (this.isSitting() && this.getAttackTarget() != null) {
@@ -596,10 +592,10 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
             }
         }
         if (this.getAnimation() == ANIMATION_WING_BLAST && this.getAnimationTick() == 5) {
-            this.playSound(ModSounds.AMPHITHERE_GUST, 1, 1);
+            this.playSound(IafSoundRegistry.AMPHITHERE_GUST, 1, 1);
         }
         if ((this.getAnimation() == ANIMATION_BITE || this.getAnimation() == ANIMATION_BITE_RIDER) && this.getAnimationTick() == 1) {
-            this.playSound(ModSounds.AMPHITHERE_BITE, 1, 1);
+            this.playSound(IafSoundRegistry.AMPHITHERE_BITE, 1, 1);
         }
         if (this.getAnimation() == ANIMATION_WING_BLAST && this.getAttackTarget() != null && this.getAnimationTick() > 5 && this.getAnimationTick() < 22) {
             double dist = this.getDistanceSq(this.getAttackTarget());
@@ -661,13 +657,6 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 }
             }
         }
-        if (this.getRider() != null && this.getRider().isSneaking()) {
-            this.getRider().setSneaking(false);
-            this.getRider().dismountRidingEntity();
-            if (world.isRemote) {
-                IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), false));
-            }
-        }
         if (this.attack() && this.getControllingPassenger() instanceof EntityPlayer) {
             EntityLivingBase target = DragonUtils.riderLookingAtEntity(this, (EntityPlayer) this.getControllingPassenger(), 2.5D);
             if (this.getAnimation() != ANIMATION_BITE) {
@@ -679,6 +668,9 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
         }
         if (this.getAttackTarget() != null) {
             if (this.isOwner(this.getAttackTarget()) || DragonUtils.isControllingPassenger(this, this.getAttackTarget())) {
+                this.setAttackTarget(null);
+            }
+            if (this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
                 this.setAttackTarget(null);
             }
         }
@@ -802,18 +794,18 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.AMPHITHERE_IDLE;
+        return IafSoundRegistry.AMPHITHERE_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.AMPHITHERE_HURT;
+        return IafSoundRegistry.AMPHITHERE_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return ModSounds.AMPHITHERE_DIE;
+        return IafSoundRegistry.AMPHITHERE_DIE;
     }
 
     @Override
@@ -865,7 +857,11 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
     @Override
     public EntityAgeable createChild(EntityAgeable ageable) {
         EntityAmphithere amphithere = new EntityAmphithere(world);
-        amphithere.setVariant(this.getRNG().nextInt(5));
+        if (this.getRNG().nextInt(100) == 0) {
+            amphithere.setVariant(5);
+        } else {
+            amphithere.setVariant(this.getRNG().nextInt(5));
+        }
         return amphithere;
     }
 
@@ -1028,7 +1024,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 return false;
             }
             if (EntityAmphithere.this.isFlying()) {
-                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.rand);
+                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.rand);
                 EntityAmphithere.this.orbitPos = null;
                 return (!EntityAmphithere.this.getMoveHelper().isUpdating() || EntityAmphithere.this.ticksStill >= 50);
             } else {
@@ -1056,7 +1052,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
 
         public void updateTask() {
             if (!isDirectPathBetweenPoints(EntityAmphithere.this)) {
-                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.rand);
+                target = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.rand);
             }
             if (world.isAirBlock(target)) {
                 getMoveHelper().setMoveTo((double) target.getX() + 0.5D, (double) target.getY() + 0.5D, (double) target.getZ() + 0.5D, 0.25D);
@@ -1079,7 +1075,7 @@ public class EntityAmphithere extends EntityTameable implements IAnimatedEntity,
                 return false;
             }
             if (EntityAmphithere.this.isFlying()) {
-                EntityAmphithere.this.orbitPos = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(30) - 15, EntityAmphithere.this.rand);
+                EntityAmphithere.this.orbitPos = EntityAmphithere.getPositionRelativeToGround(EntityAmphithere.this, EntityAmphithere.this.world, EntityAmphithere.this.posX + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.posZ + EntityAmphithere.this.rand.nextInt(31) - 15, EntityAmphithere.this.rand);
                 target = EntityAmphithere.getPositionInOrbit(EntityAmphithere.this, EntityAmphithere.this.orbitPos);
                 return true;
             } else {

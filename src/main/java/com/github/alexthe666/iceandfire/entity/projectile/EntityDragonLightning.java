@@ -7,12 +7,12 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.explosion.LightningExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-public class EntityDragonLightning extends EntityFireball implements IDragonProjectile {
+public class EntityDragonLightning extends EntityDragonProjectile {
 
 	private int ticksInAir;
 	private Vec3d lastPos;
@@ -42,22 +42,8 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 		this.accelerationZ = accelZ / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 	}
 
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	protected boolean isFireballFiery() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
-	}
-
 	@Override
 	public void onUpdate() {
-		super.onUpdate();
 		if (ticksInAir > 160) {
 			setDead();
 		}
@@ -76,7 +62,7 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -125,7 +111,7 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 				return;
 			}
 			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2) {
+				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
 					LightningExplosion explosion = new LightningExplosion(world, shootingEntity, this.posX, this.posY, this.posZ, ((EntityDragonBase) this.shootingEntity).getDragonStage() * 2.5F, flag);
 					explosion.doExplosionA();
 					explosion.doExplosionB(true);
@@ -142,8 +128,8 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 					}
 					this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
 				}
-				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonLightning, 3);
-				if(movingObject.entityHit instanceof EntityLivingBase){
+				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonLightning, IceAndFireConfig.DRAGON_SETTINGS.dragonLightningDamage);
+				if (movingObject.entityHit instanceof EntityLivingBase) {
 					if (IceAndFireConfig.DRAGON_SETTINGS.lightningDragonKnockback && this.shootingEntity != null) {
 						double xRatio = this.shootingEntity.posX - movingObject.entityHit.posX;
 						double zRatio = this.shootingEntity.posZ - movingObject.entityHit.posZ;
@@ -152,30 +138,24 @@ public class EntityDragonLightning extends EntityFireball implements IDragonProj
 					if (IceAndFireConfig.DRAGON_SETTINGS.lightningDragonParalysis) {
 						LycanitesCompat.applyParalysis(movingObject.entityHit, IceAndFireConfig.DRAGON_SETTINGS.lightningDragonParalysisTicks);
 					}
+					if (movingObject.entityHit instanceof EntityPlayer) {
+						EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+						DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.LIGHTNING);
+					}
 				}
 			}
 		}
 		this.setDead();
 	}
 
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
-	}
-
-	@Override
-	public float getCollisionBorderSize() {
-		return 1F;
-	}
-
-	private void emitLightningFx(Vec3d pos) {
+    private void emitLightningFx(Vec3d pos) {
 		if (!world.isRemote) {
 			return;
 		}
 		if (lastPos != null && !pos.equals(lastPos)) {
-			ParticleLightningVector source = new ParticleLightningVector(lastPos.x, lastPos.y, lastPos.z);
-			ParticleLightningVector target = new ParticleLightningVector(pos.x, pos.y, pos.z);
-			IceAndFire.PROXY.spawnLightningEffect(world, source, target, true);
+			ParticleLightningVector source = new ParticleLightningVector(lastPos);
+			ParticleLightningVector target = new ParticleLightningVector(pos);
+			IceAndFire.PROXY.spawnLightningEffect(world, source, target, false);
 		}
 		lastPos = pos;
 	}

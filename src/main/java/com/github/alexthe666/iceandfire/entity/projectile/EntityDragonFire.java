@@ -6,13 +6,13 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.explosion.FireExplosion;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
-import net.minecraft.client.particle.ParticleSmokeLarge;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonFire extends EntityFireball implements IDragonProjectile {
+public class EntityDragonFire extends EntityDragonProjectile {
 
 	private int ticksInAir;
 
@@ -35,7 +35,7 @@ public class EntityDragonFire extends EntityFireball implements IDragonProjectil
 	public EntityDragonFire(World worldIn, EntityDragonBase shooter, double accelX, double accelY, double accelZ) {
 		super(worldIn, shooter, accelX, accelY, accelZ);
 		this.setSize(0.5F, 0.5F);
-		double d0 = (double) MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
 		this.accelerationX = accelX / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationY = accelY / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationZ = accelZ / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
@@ -71,7 +71,7 @@ public class EntityDragonFire extends EntityFireball implements IDragonProjectil
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -122,13 +122,11 @@ public class EntityDragonFire extends EntityFireball implements IDragonProjectil
 				this.setDead();
 				return;
 			}
-			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2) {
+            if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
+                if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
 					FireExplosion explosion = new FireExplosion(world, shootingEntity, this.posX, this.posY, this.posZ, ((EntityDragonBase) this.shootingEntity).getDragonStage() * 2.5F, flag);
 					explosion.doExplosionA();
 					explosion.doExplosionB(true);
-				} else if (movingObject.entityHit != null) {
-					movingObject.entityHit.setFire(5);
 				}
 				this.setDead();
 			}
@@ -139,7 +137,13 @@ public class EntityDragonFire extends EntityFireball implements IDragonProjectil
 					}
 				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
-			}
+                movingObject.entityHit.attackEntityFrom(IceAndFire.dragonFire, IceAndFireConfig.DRAGON_SETTINGS.dragonFireDamage);
+                movingObject.entityHit.setFire(5);
+				if (movingObject.entityHit instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+					DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.FIRE);
+				}
+            }
 		}
 		this.setDead();
 	}
@@ -147,10 +151,5 @@ public class EntityDragonFire extends EntityFireball implements IDragonProjectil
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		return false;
-	}
-
-	@Override
-	public float getCollisionBorderSize() {
-		return 1F;
 	}
 }

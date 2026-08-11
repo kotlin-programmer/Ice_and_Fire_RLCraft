@@ -1,10 +1,9 @@
 package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.item.ItemScaleArmor;
+import com.github.alexthe666.iceandfire.block.BlockSeaSerpentScalesPile;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentArmor;
 import com.github.alexthe666.iceandfire.item.ItemSeaSerpentScales;
-import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -22,12 +21,14 @@ public enum EnumSeaSerpent {
     RED(TextFormatting.DARK_RED),
     TEAL(TextFormatting.AQUA);
 
-    public String resourceName;
-    public TextFormatting color;
+    public final String resourceName;
+    public final TextFormatting color;
     public ItemArmor.ArmorMaterial armorMaterial;
     @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_scale")
     public Item scale;
-    @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_scale_block")
+    @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_scale_pile")
+    public BlockSeaSerpentScalesPile pile;
+    @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_helmet")
     public Item helmet;
     @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_chestplate")
     public Item chestplate;
@@ -35,16 +36,17 @@ public enum EnumSeaSerpent {
     public Item leggings;
     @GameRegistry.ObjectHolder(IceAndFire.MODID + ":sea_serpent_boots")
     public Item boots;
+
     EnumSeaSerpent(TextFormatting color){
         this.resourceName = this.name().toLowerCase();
         this.color = color;
     }
 
-
     public static void initArmors() {
-        for(EnumSeaSerpent color :EnumSeaSerpent.values()){
+        for (EnumSeaSerpent color : EnumSeaSerpent.values()) {
             color.armorMaterial  = EnumHelper.addArmorMaterial("SeaSerpentScales" + color.resourceName, "iceandfire:sea_serpent_scales_" + color.resourceName, 30, new int[]{4, 8, 7, 4}, 25, SoundEvents.ITEM_ARMOR_EQUIP_GOLD, 2.5F);
             color.scale = new ItemSeaSerpentScales(color.resourceName, color.color);
+            color.pile = new BlockSeaSerpentScalesPile(color.resourceName, color.color, color.scale);
             color.helmet = new ItemSeaSerpentArmor(color, color.armorMaterial, 0, EntityEquipmentSlot.HEAD).setTranslationKey("iceandfire.sea_serpent_helmet");
             color.chestplate = new ItemSeaSerpentArmor(color, color.armorMaterial, 1, EntityEquipmentSlot.CHEST).setTranslationKey("iceandfire.sea_serpent_chestplate");
             color.leggings = new ItemSeaSerpentArmor(color, color.armorMaterial, 2, EntityEquipmentSlot.LEGS).setTranslationKey("iceandfire.sea_serpent_leggings");

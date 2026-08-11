@@ -2,6 +2,8 @@ package com.github.alexthe666.iceandfire;
 
 import com.github.alexthe666.iceandfire.util.IafMathHelper;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
@@ -51,6 +53,11 @@ public class IceAndFireConfig {
 		@Config.Name("InF Chunk Gen Dimension Use Whitelist")
 		public boolean chunkGenWhitelist = true;
 
+		@Config.Comment("How far apart structures (Dragons, Cyclops, etc) should spawn apart from each other")
+		@Config.Name("World Gen Minimum Distance")
+		@Config.RangeInt(min = 0, max = 10000)
+		public int worldGenDistance = 300;
+
 		@Config.Comment("Minimum distance from spawn for dangerous world gen to begin generating (Dragons, Cyclops, etc)")
 		@Config.Name("Dangerous World Gen Minimum Spawn Distance")
 		@Config.RangeInt(min = 0, max = 10000)
@@ -76,6 +83,10 @@ public class IceAndFireConfig {
 		@Config.Comment("Should InF generate amethyst ore")
 		@Config.Name("Generate Amethyst Ore")
 		public boolean generateAmethystOre = true;
+
+		@Config.Comment("Should InF generate ruby ore")
+		@Config.Name("Generate Ruby Ore")
+		public boolean generateRubyOre = true;
 
 		@Config.Comment("Should InF generate sapphire ore")
 		@Config.Name("Generate Sapphire Ore")
@@ -208,6 +219,15 @@ public class IceAndFireConfig {
 		@Config.Name("Generate Gorgon Temple Chance")
 		@Config.RangeInt(min = 1, max = 10000)
 		public int generateGorgonChance = 75;
+
+		@Config.Comment("Should InF generate Dread Mausoleums")
+		@Config.Name("Generate Mausoleums")
+		public boolean generateMausoleums = true;
+
+		@Config.Comment("Chance per chunk for Dread Mausoleums to generate, 1 in N chance")
+		@Config.Name("Generate Mausoleum Chance")
+		@Config.RangeInt(min = 1, max = 10000)
+		public int generateMausoleumChance = 1000;
 
 		@Config.Comment("Should InF generate Pixie Villages and pixies")
 		@Config.Name("Generate Pixie Villages")
@@ -384,15 +404,6 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int amphithereSpawnRate = 10;
 
-		@Config.Comment("True if allow spawn ghost when player death")
-		@Config.Name("Player Death Spawns Ghost")
-		public boolean ghostSpawnFromPlayerDeaths = false;
-
-		@Config.Comment("Chance graveyard soil spawn a ghost, Higher number = more rare")
-		@Config.Name("Ghost Spawn Rate At Graveyard Soid")
-		@Config.RangeInt(min = 1, max = 100)
-		public int ghostSpawnChanceFromGraveyardSoil = 9;
-
 		@Config.Comment("Should InF spawn Dread Liches")
 		@Config.Name("Spawn Dread Liches")
 		public boolean spawnLiches = true;
@@ -490,6 +501,56 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int dragonAttackDamage = 17;
 
+        @Config.Comment("Projectile attack damage for Fire Dragons")
+        @Config.Name("Fire Dragon Projectile Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonFireDamage = 3;
+
+        @Config.Comment("Charged projectile attack damage for Fire Dragons")
+        @Config.Name("Fire Dragon Charge Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonFireChargeDamage = 10;
+
+        @Config.Comment("Explosion attack damage for Fire Dragon")
+        @Config.Name("Fire Dragon Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonFireExplosionDamage = 7;
+
+        @Config.Comment("Projectile attack damage for Ice Dragons")
+        @Config.Name("Ice Dragon Projectile Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonIceDamage = 3;
+
+        @Config.Comment("Charged projectile attack damage for Ice Dragons")
+        @Config.Name("Ice Dragon Charge Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonIceChargeDamage = 10;
+
+        @Config.Comment("Explosion attack damage for Ice Dragons")
+        @Config.Name("Ice Dragon Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonIceExplosionDamage =7;
+
+        @Config.Comment("Projectile attack damage for Lightning Dragons")
+        @Config.Name("Lightning Dragon Projectile Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonLightningDamage = 3;
+
+        @Config.Comment("Charged projectile attack damage for Lightning Dragons")
+        @Config.Name("Lightning Dragon Charge Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonLightningChargeDamage = 10;
+
+        @Config.Comment("Explosion attack damage for Lightning Dragon")
+        @Config.Name("Lightning Dragon Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonLightningExplosionDamage = 7;
+
+        @Config.Comment("Explosion attack damage for dragon charged projectiles")
+        @Config.Name("Dragon Charge Explosion Damage")
+        @Config.RangeInt(min = 1, max = 10000)
+        public int dragonChargeExplosionDamage = 7;
+
 		@Config.Comment("Percentage of damage done when a dragon bites a target that the dragon will heal for")
 		@Config.Name("Dragon Bite Healing Percentage")
 		@Config.RangeDouble(min = 0D, max = 1D)
@@ -536,6 +597,11 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int dragonHungerTickRate = 3000;
 
+		@Config.Comment("How fast Dragons fly")
+		@Config.Name("Dragon Flight Speed Multiplier")
+		@Config.RangeDouble(min = 0.5D, max = 3.0D)
+		public double dragonFlightSpeedMultiplier = 1.0D;
+
 		@Config.Comment("If true, lightning dragon projectile attacks knockback their target")
 		@Config.Name("Lightning Dragon Knockback")
 		public boolean lightningDragonKnockback = true;
@@ -564,6 +630,18 @@ public class IceAndFireConfig {
 		@Config.Comment("If true, dragon affected blocks will revert to their natural state after a period of time")
 		@Config.Name("Dragon Affected Blocks Revert")
 		public boolean dragonAffectedBlocksRevert = false;
+
+		@Config.Comment("If true, dragons will be spooky skeletons for spooky season (Halloween)")
+		@Config.Name("Spooky Season Dragons")
+		public boolean spookySeason = true;
+
+		@Config.Comment("How many ticks to prevent sleep from caffeine")
+		@Config.Name("Dragon Coffee Sleep Prevention Ticks")
+		public int dragonCoffeeTicks = 6000;
+
+        @Config.Comment("If true, dragon breaths can damage immune targets (like targets that have fire resistance)")
+        @Config.Name("Dragon Breath Can Damage Immune Targets")
+        public boolean breathDamageBypassImmunities = false;
 	}
 
 	public static class EntityConfig {
@@ -657,6 +735,19 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 10000)
 		public int chickenEggChance = 30;
 
+		@Config.Comment("Maximum health of the Dread Queen")
+		@Config.Name("Dread Queen Max Health")
+		public int dreadQueenMaxHealth = 750;
+
+		@Config.Comment("If true, dread targeting will require checking sight")
+		@Config.Name("Dread Targeting Check Sight")
+		public boolean dreadTargetingCheckSight = true;
+
+		@Config.Comment("Entities in this list will be blacklisted from being targeted by dread mobs")
+		@Config.Name("Dread Targeting Entity Blacklist")
+		public String[] dreadTargetingEntityBlacklist = {""};
+
+
 		@Config.Comment("How many blocks away can Stymphalian Birds spot potential prey")
 		@Config.Name("Stymphalian Bird Target Search Range")
 		@Config.RangeInt(min = 1, max = 10000)
@@ -723,6 +814,16 @@ public class IceAndFireConfig {
 		@Config.RangeInt(min = 1, max = 100000)
 		public int myrmexLarvaTicks = 35000;
 
+		@Config.Comment("Maximum Myrmex Swarmer Attack strength")
+		@Config.Name("Myrmex Swarmer Attack Strength")
+		@Config.RangeDouble(min = 1, max = 10000)
+		public double myrmexSwarmerAttackStrength = 2D;
+
+		@Config.Comment("Maximum Myrmex Swarmer Health")
+		@Config.Name("Myrmex Swarmer Max Health")
+		@Config.RangeDouble(min = 1, max = 10000)
+		public double myrmexSwarmerMaxHealth = 5D;
+
 		@Config.Comment("Range that Amphitheres can detect villagers being hurt")
 		@Config.Name("Amphithere Villager Hurt Range")
 		@Config.RangeDouble(min = 1, max = 10000)
@@ -752,6 +853,11 @@ public class IceAndFireConfig {
 		@Config.Name("Amphithere Attack Strength")
 		@Config.RangeDouble(min = 1, max = 10000)
 		public double amphithereAttackStrength = 7D;
+
+		@Config.Comment("How fast Hippogryphs fly")
+		@Config.Name("Hippogryph Flight Speed Multiplier")
+		@Config.RangeDouble(min = 0.5D, max = 3.0D)
+		public double hippogryphFlightSpeedMultiplier = 1.00D;
 
 		@Config.Comment("If true, Sea Serpents can break weak blocks in their way")
 		@Config.Name("Sea Serpent Griefing")
@@ -823,6 +929,14 @@ public class IceAndFireConfig {
 		@Config.Name("Chain Lightning Paralysis Ticks")
 		public int[] chainLightningParalysisTicksPerHop = new int[] {10, 8, 6, 4, 2};
 
+		@Config.Comment("Entities in this list will be blacklisted from being hit by chain lightning")
+		@Config.Name("Chain Lightning Entity Blacklist")
+		public String[] chainLightningEntityBlacklist = {""};
+
+		@Config.Comment("Length in ticks of cooldown required between the activation of chain lightning")
+		@Config.Name("Chain Lightning Cooldown")
+		public int chainLightningCooldown = 10;
+
 		@Config.Comment("Should a trade be added to Craftsman snow villagers to trade snow for sapphires?")
 		@Config.Name("Snow Villager Allow Craftsman Snow Trade")
 		public boolean allowSnowForSapphireTrade = true;
@@ -830,6 +944,10 @@ public class IceAndFireConfig {
 		@Config.Comment("If true, hydra hearts provide healing while in the player's hotkey bar")
 		@Config.Name("Hydra Heart Passive Healing")
 		public boolean hydraHeartPassiveHealing = false;
+
+		@Config.Comment("If true, cyclops eyes will provide a weakness aura")
+		@Config.Name("Cyclops Eye Weakness Aura")
+		public boolean cyclopsEyeWeaknessAura = false;
 
 		@Config.Comment("Base damage for the Tide Trident")
 		@Config.Name("Tide Trident Base Damage")
@@ -840,6 +958,11 @@ public class IceAndFireConfig {
 		@Config.Name("Tide Trident Underwater Damage Multiplier")
 		@Config.RangeDouble(min = 1, max = 1000)
 		public float tideTridentUnderwaterDamageMultiplier = 2.0f;
+
+		@Config.Comment("Length in required between the activation of the Blooded Dragon Armor Set Effects")
+		@Config.Name("Blooded Dragon Armor Set Effect Cooldown")
+		@Config.RangeInt(min = 10, max = 1000)
+		public int bloodedDragonArmorSetEffectCooldown = 300;
 	}
 
 	public static class ClientConfig {
@@ -856,9 +979,9 @@ public class IceAndFireConfig {
 		@Config.Name("Use Siren Shader")
 		public boolean sirenShader = true;
 
-		@Config.Comment("Render stoned entities using layered rendering")
-		@Config.Name("Layered Stoned Entity Texture")
-		public boolean customStoneTexture = false;
+		@Config.Comment("Render stoned entities using more advanced layered rendering, disable if you are using a very high resolution texture pack and lag too much")
+		@Config.Name("Advanced Stoned Entity Render")
+		public boolean advancedStonedEntityRender = true;
 
 		@Config.Comment("Enables armor rendering fixes - to resolve overlapping armor model issues")
 		@Config.Name("Enable Armor Rendering Fixes")
@@ -888,6 +1011,8 @@ public class IceAndFireConfig {
 	//Caching garbage
 
 	private static HashSet<ResourceLocation> stoneBlacklist = null;
+	private static HashSet<ResourceLocation> chainLightningBlacklist = null;
+	private static HashSet<ResourceLocation> dreadTargetingBlacklist = null;
 	private static HashSet<String> myrmexDisabledNames = null;
 	private static HashMap<String, Integer> trollSpawnCheckHeight = null;
 	private static HashMap<String, String> trollSpawnCheckType = null;
@@ -908,12 +1033,41 @@ public class IceAndFireConfig {
 	private static HashMap<Block, Integer> dragonGriefingBlockChance = null;
 	private static HashMap<Block, Integer> dragonGriefingEffectChance = null;
 
-	public static HashSet<ResourceLocation> getStoneEntityBlacklist() {
+	private static HashSet<ResourceLocation> getStoneEntityBlacklist() {
 		if(stoneBlacklist != null) return stoneBlacklist;
 		HashSet<ResourceLocation> set = new HashSet<>();
 		for(String string : ENTITY_SETTINGS.stoneEntityBlacklist) set.add(new ResourceLocation(string));
 		stoneBlacklist = set;
 		return stoneBlacklist;
+	}
+
+	public static boolean isEntityBlacklistedFromBeingStoned(Entity entity) {
+		ResourceLocation id = EntityList.getKey(entity);
+		if (id == null) {
+			return false;
+		}
+		HashSet<ResourceLocation> blacklist = getStoneEntityBlacklist();
+		if (blacklist.contains(id)) {
+			return true;
+		}
+		ResourceLocation wildcard = new ResourceLocation(id.getNamespace(), "*");
+		return blacklist.contains(wildcard);
+	}
+
+	public static HashSet<ResourceLocation> getChainLightningEntityBlacklist() {
+		if(chainLightningBlacklist != null) return chainLightningBlacklist;
+		HashSet<ResourceLocation> set = new HashSet<>();
+		for(String string : MISC_SETTINGS.chainLightningEntityBlacklist) set.add(new ResourceLocation(string));
+		chainLightningBlacklist = set;
+		return chainLightningBlacklist;
+	}
+
+	public static HashSet<ResourceLocation> getDreadTargetingEntityBlacklist() {
+		if(dreadTargetingBlacklist != null) return dreadTargetingBlacklist;
+		HashSet<ResourceLocation> set = new HashSet<>();
+		for(String string : ENTITY_SETTINGS.dreadTargetingEntityBlacklist) set.add(new ResourceLocation(string));
+		dreadTargetingBlacklist = set;
+		return dreadTargetingBlacklist;
 	}
 
 	public static HashSet<String> getMyrmexDisabledNames() {

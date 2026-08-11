@@ -1,7 +1,7 @@
 package com.github.alexthe666.iceandfire.entity;
 
 
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.entity.ai.DreadAITargetNonDread;
 import com.google.common.base.Predicate;
@@ -60,8 +60,8 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[] {IDreadMob.class}));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, false, new Predicate<Entity>() {
+        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(3, new DreadAITargetNonDread(this, EntityLivingBase.class, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
                 return entity instanceof EntityLivingBase && DragonUtils.canHostilesTarget(entity);
@@ -71,27 +71,27 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
 
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(128.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(5.0D);
     }
 
     @Override
     protected void entityInit() {
         super.entityInit();
-        this.dataManager.register(VARIANT, Integer.valueOf(0));
-        this.dataManager.register(SCREAMS, Integer.valueOf(0));
-        this.dataManager.register(SCALE, Float.valueOf(1F));
+        this.dataManager.register(VARIANT, 0);
+        this.dataManager.register(SCREAMS, 0);
+        this.dataManager.register(SCALE, 1F);
     }
 
     public float getScale() {
-        return Float.valueOf(this.dataManager.get(SCALE).floatValue());
+        return this.dataManager.get(SCALE);
     }
 
     public void setScale(float scale) {
-        this.dataManager.set(SCALE, Float.valueOf(scale));
+        this.dataManager.set(SCALE, Math.min(Math.max(scale, 0.75F), 2F));
     }
 
     public boolean attackEntityAsMob(Entity entityIn) {
@@ -173,7 +173,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     }
 
     public int getVariant() {
-        return this.dataManager.get(VARIANT).intValue();
+        return this.dataManager.get(VARIANT);
     }
 
     public void setVariant(int variant) {
@@ -181,7 +181,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
     }
 
     public int getScreamStage() {
-        return this.dataManager.get(SCREAMS).intValue();
+        return this.dataManager.get(SCREAMS);
     }
 
     public void setScreamStage(int screamStage) {
@@ -227,11 +227,6 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
         return true;
     }
 
-    @Override
-    public boolean shouldFear() {
-        return true;
-    }
-
     @Nullable
     protected ResourceLocation getLootTable() {
         return LOOT;
@@ -239,7 +234,7 @@ public class EntityDreadGhoul extends EntityDreadMob implements IAnimatedEntity,
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return ModSounds.DREAD_GHOUL_IDLE;
+        return IafSoundRegistry.DREAD_GHOUL_IDLE;
     }
 
     @Nullable

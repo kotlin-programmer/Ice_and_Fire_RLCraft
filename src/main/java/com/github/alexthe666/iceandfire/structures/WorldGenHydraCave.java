@@ -60,12 +60,12 @@ public class WorldGenHydraCave extends WorldGenerator {
             boolean isNotInDoorway = !doorwayX && !doorwayZ && blockpos.getY() > position.getY() || blockpos.getY() > position.getY() + k - (1 + rand.nextInt(2));
             if (blockpos.distanceSq(position) <= (double) (f * f)) {
                 if (!(worldIn.getBlockState(position).getBlock() instanceof BlockChest) && worldIn.getBlockState(position).getBlock().getBlockHardness(worldIn.getBlockState(position), worldIn, position) >= 0 && isNotInDoorway) {
-                    worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState(), 3);
+                    worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState(), 2);
                     if (worldIn.getBlockState(position.down()).getBlock() == Blocks.GRASS) {
-                        worldIn.setBlockState(blockpos.down(), Blocks.DIRT.getDefaultState(), 3);
+                        worldIn.setBlockState(blockpos.down(), Blocks.DIRT.getDefaultState(), 2);
                     }
                     if (rand.nextInt(4) == 0) {
-                        worldIn.setBlockState(blockpos.up(), Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS));
+                        worldIn.setBlockState(blockpos.up(), Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS), 2);
                     }
                     if (rand.nextInt(9) == 0) {
                         SWAMP_FEATURE.generate(worldIn, rand, blockpos.up());
@@ -73,10 +73,10 @@ public class WorldGenHydraCave extends WorldGenerator {
 
                 }
                 if (blockpos.getY() == position.getY()) {
-                    worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState(), 3);
+                    worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState(), 2);
                 }
                 if (blockpos.getY() <= position.getY() - 1 && !worldIn.isBlockFullCube(blockpos)) {
-                    worldIn.setBlockState(blockpos, Blocks.STONE.getDefaultState(), 3);
+                    worldIn.setBlockState(blockpos, Blocks.STONE.getDefaultState(), 2);
 
                 }
             }
@@ -92,7 +92,7 @@ public class WorldGenHydraCave extends WorldGenerator {
         for (BlockPos blockpos : BlockPos.getAllInBox(position.add(-j, -k, -l), position.add(j, k, l))) {
             if (blockpos.distanceSq(position) <= (double) (f * f) && blockpos.getY() > position.getY()) {
                 if (!(worldIn.getBlockState(position).getBlock() instanceof BlockChest)) {
-                    worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 3);
+                    worldIn.setBlockState(blockpos, Blocks.AIR.getDefaultState(), 2);
 
                 }
             }
@@ -110,7 +110,7 @@ public class WorldGenHydraCave extends WorldGenerator {
                     continue;
                 }
                 if (rand.nextInt(45) == 0 && isTouchingAir(worldIn, blockpos.up())) {
-                    worldIn.setBlockState(blockpos.up(), Blocks.SKULL.getDefaultState().withProperty(BlockSkull.FACING, EnumFacing.UP));
+                    worldIn.setBlockState(blockpos.up(), Blocks.SKULL.getDefaultState().withProperty(BlockSkull.FACING, EnumFacing.UP), 2);
                     TileEntity tileentity1 = worldIn.getTileEntity(blockpos.up(1));
                     if (tileentity1 instanceof TileEntitySkull && !tileentity1.isInvalid()) {
                         int rot = MathHelper.floor((double)(rand.nextFloat() * 360.0F) + 0.5D) & 15;
@@ -119,20 +119,20 @@ public class WorldGenHydraCave extends WorldGenerator {
                     continue;
                 }
                 if (rand.nextInt(35) == 0 && isTouchingAir(worldIn, blockpos.up())) {
-                    worldIn.setBlockState(blockpos.up(), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, false));
+                    worldIn.setBlockState(blockpos.up(), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, false), 2);
                     for(EnumFacing facing : EnumFacing.values()){
                         if(rand.nextFloat() < 0.3F && facing != EnumFacing.DOWN){
-                            worldIn.setBlockState(blockpos.up().offset(facing), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, false));
+                            worldIn.setBlockState(blockpos.up().offset(facing), Blocks.LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, false), 2);
                         }
                     }
                     continue;
                 }
                 if (rand.nextInt(15) == 0 && isTouchingAir(worldIn, blockpos.up())) {
-                    worldIn.setBlockState(blockpos.up(), Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS));
+                    worldIn.setBlockState(blockpos.up(), Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS), 2);
                     continue;
                 }
                 if (rand.nextInt(15) == 0 && isTouchingAir(worldIn, blockpos.up())) {
-                    worldIn.setBlockState(blockpos.up(), rand.nextBoolean() ? Blocks.BROWN_MUSHROOM.getDefaultState() : Blocks.RED_MUSHROOM.getDefaultState());
+                    worldIn.setBlockState(blockpos.up(), rand.nextBoolean() ? Blocks.BROWN_MUSHROOM.getDefaultState() : Blocks.RED_MUSHROOM.getDefaultState(), 2);
                 }
             }
         }

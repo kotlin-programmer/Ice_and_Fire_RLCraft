@@ -5,8 +5,8 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.render.entity.ICustomStoneLayer;
+import com.github.alexthe666.iceandfire.client.render.entity.effect.RenderShivaxiFire;
 import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerStoneEntity;
-import com.github.alexthe666.iceandfire.client.render.entity.layer.LayerStoneEntityCrack;
 import com.github.alexthe666.iceandfire.core.ModKeys;
 import com.github.alexthe666.iceandfire.entity.*;
 import net.minecraft.client.Minecraft;
@@ -29,7 +29,6 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import org.lwjgl.opengl.GL11;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -37,11 +36,10 @@ import java.util.Map;
 public class EventClient {
 
 	public static void initializeStoneLayer() {
-		for (Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
+		for(Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : Minecraft.getMinecraft().getRenderManager().entityRenderMap.entrySet()) {
 			Render<? extends Entity> render = entry.getValue();
-			if (render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
-				((RenderLivingBase) render).addLayer(new LayerStoneEntity((RenderLivingBase) render));
-				((RenderLivingBase) render).addLayer(new LayerStoneEntityCrack((RenderLivingBase) render));
+			if(render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
+				((RenderLivingBase)render).addLayer(new LayerStoneEntity((RenderLivingBase)render));
 			}
 		}
 
@@ -50,10 +48,11 @@ public class EventClient {
 			Field renderingRegInstanceField = RenderingRegistry.class.getDeclaredField("INSTANCE");
 			renderingRegInstanceField.setAccessible(true);
 			registry = (RenderingRegistry)renderingRegInstanceField.get(null);
-		} catch (Exception e) {
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 		}
-		if (registry != null) {
+		if(registry != null) {
 			Map<Class<? extends Entity>, IRenderFactory<? extends Entity>> entityRenders = null;
 			Map<Class<? extends Entity>, Render<? extends Entity>> entityRendersOld = null;
 			try {
@@ -63,35 +62,44 @@ public class EventClient {
 				renderingRegOldRendersField.setAccessible(true);
 				entityRenders = (Map<Class<? extends Entity>, IRenderFactory<? extends Entity>>)renderingRegRendersField.get(registry);
 				entityRendersOld = (Map<Class<? extends Entity>, Render<? extends Entity>>)renderingRegOldRendersField.get(registry);
-			} catch (Exception e) {
+			}
+			catch(Exception e) {
 				e.printStackTrace();
 			}
-			if (entityRenders != null) {
-				for (Map.Entry<Class<? extends Entity>, IRenderFactory<? extends Entity>> entry : entityRenders.entrySet()) {
-					if (entry.getValue() != null) {
+			if(entityRenders != null) {
+				for(Map.Entry<Class<? extends Entity>, IRenderFactory<? extends Entity>> entry : entityRenders.entrySet()) {
+					if(entry.getValue() != null) {
 						try{
 							Render<? extends Entity> render = entry.getValue().createRenderFor(Minecraft.getMinecraft().getRenderManager());
-							if (render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
-								LayerRenderer stoneLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase) render) : new LayerStoneEntity((RenderLivingBase) render);
-								LayerRenderer crackLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getCrackLayer((RenderLivingBase) render) : new LayerStoneEntityCrack((RenderLivingBase) render);
-								((RenderLivingBase) render).addLayer(stoneLayer);
-								((RenderLivingBase) render).addLayer(crackLayer);
+							if(render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
+								if(render instanceof ICustomStoneLayer) {
+									LayerRenderer stoneLayerCustom = ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase)render);
+									((RenderLivingBase)render).addLayer(stoneLayerCustom);
+								}
+								else {
+									LayerRenderer stoneLayer = new LayerStoneEntity((RenderLivingBase)render);
+									((RenderLivingBase)render).addLayer(stoneLayer);
+								}
 							}
 						}
-						catch(NullPointerException exp){
+						catch(NullPointerException exp) {
 							IceAndFire.logger.error("Ice and Fire: Could not apply stone render layer to " + entry.getKey().getSimpleName() + ", someone isn't registering their renderer properly... <.<");
 						}
 					}
 				}
 			}
-			if (entityRendersOld != null) {
-				for (Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : entityRendersOld.entrySet()) {
+			if(entityRendersOld != null) {
+				for(Map.Entry<Class<? extends Entity>, Render<? extends Entity>> entry : entityRendersOld.entrySet()) {
 					Render<? extends Entity> render = entry.getValue();
-					if (render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
-						LayerRenderer stoneLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase) render) : new LayerStoneEntity((RenderLivingBase) render);
-						LayerRenderer crackLayer = render instanceof ICustomStoneLayer ? ((ICustomStoneLayer)render).getCrackLayer((RenderLivingBase) render) : new LayerStoneEntityCrack((RenderLivingBase) render);
-						((RenderLivingBase) render).addLayer(stoneLayer);
-						((RenderLivingBase) render).addLayer(crackLayer);
+					if(render instanceof RenderLivingBase && EntityLiving.class.isAssignableFrom(entry.getKey())) {
+						if(render instanceof ICustomStoneLayer) {
+							LayerRenderer stoneLayerCustom = ((ICustomStoneLayer)render).getStoneLayer((RenderLivingBase)render);
+							((RenderLivingBase)render).addLayer(stoneLayerCustom);
+						}
+						else {
+							LayerRenderer stoneLayer = new LayerStoneEntity((RenderLivingBase)render);
+							((RenderLivingBase)render).addLayer(stoneLayer);
+						}
 					}
 				}
 			}
@@ -107,20 +115,20 @@ public class EventClient {
 				float scale = ((EntityDragonBase) player.getRidingEntity()).getRenderSize() / 3;
 				if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1) {
 					if (currentView == 1) {
-						GL11.glTranslatef(scale * 0.5F, 0F, -scale * 3F);
+						GlStateManager.translate(scale * 0.5F, 0F, -scale * 3F);
 					} else if (currentView == 2) {
-						GL11.glTranslatef(0, 0F, -scale * 3F);
+						GlStateManager.translate(0, 0F, -scale * 3F);
 					} else if (currentView == 3) {
-						GL11.glTranslatef(scale * 0.5F, 0F, -scale * 0.5F);
+						GlStateManager.translate(scale * 0.5F, 0F, -scale * 0.5F);
 					}
 				}
 				if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 2) {
 					if (currentView == 1) {
-						GL11.glTranslatef(-scale  * 1.2F, 0F, 5);
+						GlStateManager.translate(-scale  * 1.2F, 0F, 5);
 					} else if(currentView == 2) {
-						GL11.glTranslatef(scale  * 1.2F, 0F, 5);
+						GlStateManager.translate(scale  * 1.2F, 0F, 5);
 					} else if(currentView == 3) {
-						GL11.glTranslatef(0, 0F, scale * 3F);
+						GlStateManager.translate(0, 0F, scale * 3F);
 					}
 				}
 			}
@@ -158,29 +166,34 @@ public class EventClient {
 	}
 
 	@SubscribeEvent
-	public void onPreRenderLiving(RenderLivingEvent.Pre event){
+	public void onPreRenderLiving(RenderLivingEvent.Pre<EntityLivingBase> event){
 		if (shouldCancelRender(event.getEntity())) {
 			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
-	public void onPostRenderLiving(RenderLivingEvent.Post event) {
-		if (shouldCancelRender(event.getEntity())) {
+	public void onPostRenderLiving(RenderLivingEvent.Post<EntityLivingBase> event) {
+		EntityLivingBase entity = event.getEntity();
+		if (shouldCancelRender(entity)) {
 			event.setCanceled(true);
 		}
-		IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(event.getEntity());
-		if(capability != null && capability.isFrozen()) {
-			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-			GlStateManager.enableNormalize();
-			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-			float sideExpand = 0.25F;
-			AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(event.getEntity().getRenderBoundingBox().minX - event.getEntity().posX + event.getX() - sideExpand, event.getEntity().getRenderBoundingBox().minY - event.getEntity().posY + event.getY(), event.getEntity().getRenderBoundingBox().minZ - event.getEntity().posZ + event.getZ() - sideExpand, event.getEntity().getRenderBoundingBox().maxX - event.getEntity().posX + event.getX() + sideExpand, event.getEntity().getRenderBoundingBox().maxY - event.getEntity().posY + event.getY() + sideExpand, event.getEntity().getRenderBoundingBox().maxZ - event.getEntity().posZ + event.getZ() + sideExpand);
-			event.getRenderer().bindTexture(getIceTexture(capability.getTime()));
-			renderAABB(axisalignedbb1, 0, 0, 0);
-			GlStateManager.disableBlend();
-			GlStateManager.disableNormalize();
+		IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entity);
+		if (capability != null) {
+			if(capability.isFrozen()) {
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.enableNormalize();
+				GlStateManager.enableBlend();
+				GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+				float sideExpand = 0.25F;
+				AxisAlignedBB axisalignedbb1 = new AxisAlignedBB(event.getEntity().getRenderBoundingBox().minX - event.getEntity().posX + event.getX() - sideExpand, event.getEntity().getRenderBoundingBox().minY - event.getEntity().posY + event.getY(), event.getEntity().getRenderBoundingBox().minZ - event.getEntity().posZ + event.getZ() - sideExpand, event.getEntity().getRenderBoundingBox().maxX - event.getEntity().posX + event.getX() + sideExpand, event.getEntity().getRenderBoundingBox().maxY - event.getEntity().posY + event.getY() + sideExpand, event.getEntity().getRenderBoundingBox().maxZ - event.getEntity().posZ + event.getZ() + sideExpand);
+				event.getRenderer().bindTexture(getIceTexture(capability.getTime()));
+				renderAABB(axisalignedbb1, 0, 0, 0);
+				GlStateManager.disableBlend();
+				GlStateManager.disableNormalize();
+			} else if(capability.isShivaxiBlazed()) {
+				RenderShivaxiFire.render(event);
+			}
 		}
 	}
 

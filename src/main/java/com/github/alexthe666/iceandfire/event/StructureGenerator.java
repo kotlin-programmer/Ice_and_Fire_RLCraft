@@ -2,19 +2,22 @@ package com.github.alexthe666.iceandfire.event;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.*;
 import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.structures.*;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import com.github.alexthe666.iceandfire.world.village.MapGenPixieVillage;
 import com.github.alexthe666.iceandfire.world.village.MapGenSnowVillage;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -52,14 +55,23 @@ public class StructureGenerator implements IWorldGenerator {
 	private static final WorldGenHydraCave HYDRA_CAVE = new WorldGenHydraCave();
 	private static final ResourceLocation GORGON_TEMPLE = new ResourceLocation(IceAndFire.MODID, "gorgon_temple");
 
+	private BlockPos lastMausoleum = null;
+	private BlockPos lastDragonRoost = null;
+	private BlockPos lastDragonCave = null;
 	private BlockPos lastCyclopsCave = null;
+	private BlockPos lastMyrmexHive = null;
+	private BlockPos lastSnowVillage = null;
+	private BlockPos lastPixieVillage = null;
+	private BlockPos lastHydraCave = null;
+	private BlockPos lastSirenIsland = null;
+	private BlockPos lastGorgonTemple = null;
 
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (!genAllowedInDim(world.provider.getDimension())) {
 			return;
 		}
-		double spawnCheck = IceAndFireConfig.WORLDGEN.dangerousWorldGenDistanceLimit * IceAndFireConfig.WORLDGEN.dangerousWorldGenDistanceLimit;
+		double spawnCheck = IceAndFireConfig.WORLDGEN.worldGenDistance * IceAndFireConfig.WORLDGEN.worldGenDistance;
 		int x = (chunkX * 16) + 8;
 		int z = (chunkZ * 16) + 8;
 		BlockPos height = world.getHeight(new BlockPos(x, 0, z));
@@ -73,7 +85,7 @@ public class StructureGenerator implements IWorldGenerator {
 		boolean isSnowy = types.contains(Type.SNOWY);
 
 		if (isFarEnoughFromSpawn(world, height)) {
-			if (IceAndFireConfig.WORLDGEN.generateGorgonTemple && random.nextInt(IceAndFireConfig.WORLDGEN.generateGorgonChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isFullBlock() && world.isAirBlock(height.up())) {
+			if (IceAndFireConfig.WORLDGEN.generateGorgonTemple && random.nextInt(IceAndFireConfig.WORLDGEN.generateGorgonChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isFullBlock() && world.isAirBlock(height.up()) && (lastGorgonTemple == null || lastGorgonTemple.distanceSq(height) >= spawnCheck)) {
 				Rotation rotation = Rotation.values()[random.nextInt(Rotation.values().length)];
 				Mirror mirror = Mirror.values()[random.nextInt(Mirror.values().length)];
 				MinecraftServer server = world.getMinecraftServer();
@@ -88,24 +100,34 @@ public class StructureGenerator implements IWorldGenerator {
 				if (world.getBlockState(center).isOpaqueCube() && world.getBlockState(corner1).isOpaqueCube() && world.getBlockState(corner2).isOpaqueCube() && world.getBlockState(corner3).isOpaqueCube() && world.getBlockState(corner4).isOpaqueCube()) {
 					template.addBlocksToWorldChunk(world, center, settings);
 				}
+				lastGorgonTemple = height;
 			}
 
-			if (IceAndFireConfig.WORLDGEN.generateSirenIslands && random.nextInt(IceAndFireConfig.WORLDGEN.generateSirenChance) == 0 && types.contains(Type.OCEAN) && !isCold) {
-				SIREN_ISLAND.generate(world, random, height);
+			if (IceAndFireConfig.WORLDGEN.generateMausoleums && isCold && isSnowy) {
+				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateMausoleumChance) == 0) {
+					if (lastMausoleum == null || lastMausoleum.distanceSq(height) >= spawnCheck) {
+						BlockPos surface = world.getHeight(new BlockPos(x, 0, z));
+						surface = degradeSurface(world, surface);
+						if (new WorldGenMausoleum(EnumFacing.byHorizontalIndex(random.nextInt(3))).generate(world, random, surface)) {
+							lastMausoleum = surface;
+						}
+					}
+				}
+			}
+
+			if (IceAndFireConfig.WORLDGEN.generateSirenIslands && random.nextInt(IceAndFireConfig.WORLDGEN.generateSirenChance) == 0 && types.contains(Type.OCEAN) && !isCold && (lastSirenIsland == null || lastSirenIsland.distanceSq(height) >= spawnCheck)) {
+				if (SIREN_ISLAND.generate(world, random, height)) {
+					lastSirenIsland = height;
+				}
 			}
 
 			if (IceAndFireConfig.WORLDGEN.generateCyclopsCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateCyclopsChance) == 0 && types.contains(Type.BEACH) && world.getBlockState(height.down()).isOpaqueCube() && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
-				CYCLOPS_CAVE.generate(world, random, height);
-				lastCyclopsCave = height;
+				if (CYCLOPS_CAVE.generate(world, random, height)) {
+					lastCyclopsCave = height;
+				}
 			}
-			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && isFarEnoughFromSpawn(world, height) && BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) && !isSnowy && !isCold && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
-				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance + 1) == 0 && !world.getBlockState(height).getMaterial().isLiquid()) {
-					EntityCyclops cyclops = new EntityCyclops(world);
-					cyclops.setPosition(x, height.getY() + 1, z);
-					cyclops.setVariant(random.nextInt(3));
-					if (!world.isRemote) {
-						world.spawnEntity(cyclops);
-					}
+			if (IceAndFireConfig.WORLDGEN.generateWanderingCyclops && BiomeDictionary.hasType(world.getBiome(height), Type.PLAINS) && !isSnowy && !isCold && (lastCyclopsCave == null || lastCyclopsCave.distanceSq(height) >= spawnCheck)) {
+				if (random.nextInt(IceAndFireConfig.WORLDGEN.generateWanderingCyclopsChance) == 0 && !world.getBlockState(height).getMaterial().isLiquid()) {
 					for (int i = 0; i < 3 + random.nextInt(3); i++) {
 						EntitySheep sheep = new EntitySheep(world);
 						sheep.setPosition(x, height.getY() + 1, z);
@@ -114,19 +136,28 @@ public class StructureGenerator implements IWorldGenerator {
 							world.spawnEntity(sheep);
 						}
 					}
-					lastCyclopsCave = height;
+					EntityCyclops cyclops = new EntityCyclops(world);
+					cyclops.setPosition(x, height.getY() + 1, z);
+					cyclops.setVariant(random.nextInt(3));
+					if (!world.isRemote && world.spawnEntity(cyclops)) {
+						lastCyclopsCave = height;
+					}
 				}
 			}
 
-			if (IceAndFireConfig.WORLDGEN.generatePixieVillages && random.nextInt(IceAndFireConfig.WORLDGEN.generatePixieChance) == 0 && types.contains(Type.FOREST) && (types.contains(Type.SPOOKY) || types.contains(Type.MAGICAL))) {
-				PIXIE_VILLAGE.generate(world, random, height);
+			if (IceAndFireConfig.WORLDGEN.generatePixieVillages && random.nextInt(IceAndFireConfig.WORLDGEN.generatePixieChance) == 0 && types.contains(Type.FOREST) && (types.contains(Type.SPOOKY) || types.contains(Type.MAGICAL)) && (lastPixieVillage == null || lastPixieVillage.distanceSq(height) >= spawnCheck)) {
+				if (PIXIE_VILLAGE.generate(world, random, height)) {
+					lastPixieVillage = height;
+				}
 			}
 
-			if (IceAndFireConfig.WORLDGEN.generateHydraCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateHydrasChance) == 0 && types.contains(Type.SWAMP) && world.getBlockState(height.down()).isOpaqueCube()) {
-				HYDRA_CAVE.generate(world, random, height);
+			if (IceAndFireConfig.WORLDGEN.generateHydraCaves && random.nextInt(IceAndFireConfig.WORLDGEN.generateHydrasChance) == 0 && types.contains(Type.SWAMP) && world.getBlockState(height.down()).isOpaqueCube() && (lastHydraCave == null || lastHydraCave.distanceSq(height) >= spawnCheck)) {
+				if (HYDRA_CAVE.generate(world, random, height)) {
+					lastHydraCave = height;
+				}
 			}
 
-			if ((IceAndFireConfig.WORLDGEN.generateDragonRoosts || IceAndFireConfig.WORLDGEN.generateDragonDens) && isDragonGenAllowedInDim(world.provider.getDimension()) && isDragonGenAllowedInBiome(types, biomeName)) {
+			if ((IceAndFireConfig.WORLDGEN.generateDragonRoosts || IceAndFireConfig.WORLDGEN.generateDragonDens) && isDragonGenAllowedInDim(world.provider.getDimension()) && isDragonGenAllowedInBiome(types, biomeName) && (lastDragonRoost == null || lastDragonRoost.distanceSq(height) >= spawnCheck)) {
 				EnumDragonType dragonType = getDragonGenType(types, biome, biomeName, isCold, isSnowy);
 				if (dragonType != null) {
 					if (IceAndFireConfig.WORLDGEN.generateDragonRoosts) {
@@ -143,9 +174,10 @@ public class StructureGenerator implements IWorldGenerator {
 							} else if (dragonType == EnumDragonType.LIGHTNING) {
 								LIGHTNING_DRAGON_ROOST.generate(world, random, height);
 							}
+							lastDragonRoost = height;
 						}
 					}
-					if (IceAndFireConfig.WORLDGEN.generateDragonDens && !types.contains(Type.BEACH) && !types.contains(Type.OCEAN)) {
+					if (IceAndFireConfig.WORLDGEN.generateDragonDens && !types.contains(Type.BEACH) && !types.contains(Type.OCEAN) && (lastDragonCave == null || lastDragonCave.distanceSq(height) >= spawnCheck)) {
 						int newY = 20 + random.nextInt(20);
 						BlockPos pos = new BlockPos(x, newY, z);
 						if (!world.canBlockSeeSky(pos)) {
@@ -162,6 +194,7 @@ public class StructureGenerator implements IWorldGenerator {
 								} else if (dragonType == EnumDragonType.LIGHTNING) {
 									LIGHTNING_DRAGON_CAVE.generate(world, random, pos);
 								}
+								lastDragonCave = height;
 							}
 						}
 					}
@@ -194,7 +227,7 @@ public class StructureGenerator implements IWorldGenerator {
 			}
 
 			if (IceAndFireConfig.ENTITY_SPAWNING.spawnSeaSerpents && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.seaSerpentSpawnChance) == 0 && types.contains(Type.OCEAN)) {
-				BlockPos pos = new BlockPos(x + random.nextInt(10) - 5, 20 + random.nextInt(40), z + random.nextInt(10) - 5);
+				BlockPos pos = new BlockPos(x + random.nextInt(11) - 5, 20 + random.nextInt(40), z + random.nextInt(11) - 5);
 				if (world.getBlockState(pos).getMaterial() == Material.WATER) {
 					EntitySeaSerpent serpent = new EntitySeaSerpent(world);
 					serpent.onWorldSpawn(random);
@@ -205,7 +238,7 @@ public class StructureGenerator implements IWorldGenerator {
 
 			if (IceAndFireConfig.ENTITY_SPAWNING.spawnStymphalianBirds && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.stymphalianBirdSpawnChance) == 0 && types.contains(Type.SWAMP)) {
 				for (int i = 0; i < 4 + random.nextInt(4); i++) {
-					BlockPos pos = height.add(random.nextInt(10) - 5, 0, random.nextInt(10) - 5);
+					BlockPos pos = height.add(random.nextInt(11) - 5, 0, random.nextInt(11) - 5);
 					if (world.getBlockState(pos.down()).isOpaqueCube()) {
 						EntityStymphalianBird bird = new EntityStymphalianBird(world);
 						bird.setLocationAndAngles(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 0, 0);
@@ -214,21 +247,25 @@ public class StructureGenerator implements IWorldGenerator {
 				}
 			}
 
-			if (IceAndFireConfig.WORLDGEN.generateMyrmexColonies && isMyrmexGenAllowedInBiome(types, biomeName) && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null) {
+			if (IceAndFireConfig.WORLDGEN.generateMyrmexColonies && isMyrmexGenAllowedInBiome(types, biomeName) && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null && (lastMyrmexHive == null || lastMyrmexHive.distanceSq(height) >= spawnCheck)) {
 				BlockPos lowestHeight = new BlockPos(height.getX(), world.getChunksLowestHorizon(height.getX(), height.getZ()), height.getZ());
-				int down = Math.max(15, lowestHeight.getY() - 20 + random.nextInt(10));
-				if (types.contains(Type.JUNGLE)) JUNGLE_MYRMEX_HIVE.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()));
-				else DESERT_MYRMEX_HIVE.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()));
+				int down = Math.max(15, lowestHeight.getY() + random.nextInt(10) - 20);
+				WorldGenMyrmexHive myrmexHive = types.contains(Type.JUNGLE) ? JUNGLE_MYRMEX_HIVE : DESERT_MYRMEX_HIVE;
+				if (myrmexHive.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()))) {
+					lastMyrmexHive = height;
+				}
 			}
 		}
 
-		if (IceAndFireConfig.WORLDGEN.generateSnowVillages && isVillageGenAllowedInDim(world.provider.getDimension()) && isCold && isSnowy) {
-			SNOW_VILLAGE.generate(world, random, height);
+		if (IceAndFireConfig.WORLDGEN.generateSnowVillages && isVillageGenAllowedInDim(world.provider.getDimension()) && isCold && isSnowy && (lastSnowVillage == null || lastSnowVillage.distanceSq(height) >= spawnCheck)) {
+			if (SNOW_VILLAGE.generate(world, random, height)) {
+				lastSnowVillage = height;
+			}
 		}
 
 		if (IceAndFireConfig.ENTITY_SPAWNING.spawnHippocampus && random.nextInt(IceAndFireConfig.ENTITY_SPAWNING.hippocampusSpawnChance) == 0 && types.contains(Type.OCEAN)) {
 			for (int i = 0; i < random.nextInt(5); i++) {
-				BlockPos pos = new BlockPos(x + random.nextInt(10) - 5, 20 + random.nextInt(40), z + random.nextInt(10) - 5);
+				BlockPos pos = new BlockPos(x + random.nextInt(11) - 5, 20 + random.nextInt(40), z + random.nextInt(11) - 5);
 				if (world.getBlockState(pos).getMaterial() == Material.WATER) {
 					EntityHippocampus campus = new EntityHippocampus(world);
 					campus.setVariant(random.nextInt(5));
@@ -243,7 +280,7 @@ public class StructureGenerator implements IWorldGenerator {
 				int oreHeight = random.nextInt(128);
 				int xOre = (chunkX * 16) + random.nextInt(16);
 				int zOre = (chunkZ * 16) + random.nextInt(16);
-				new WorldGenMinable(ModBlocks.copperOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
+				new WorldGenMinable(IafBlockRegistry.copperOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
 			}
 		}
 
@@ -252,7 +289,7 @@ public class StructureGenerator implements IWorldGenerator {
 				int oreHeight = random.nextInt(32);
 				int xOre = (chunkX * 16) + random.nextInt(16);
 				int zOre = (chunkZ * 16) + random.nextInt(16);
-				new WorldGenMinable(ModBlocks.silverOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
+				new WorldGenMinable(IafBlockRegistry.silverOre.getDefaultState(), 4 + random.nextInt(4)).generate(world, random, new BlockPos(xOre, oreHeight, zOre));
 			}
 		}
 
@@ -266,7 +303,23 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, ModBlocks.amethystOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.amethystOre.getDefaultState(), 2);
+					}
+				}
+			}
+		}
+
+		if (IceAndFireConfig.WORLDGEN.generateRubyOre) {
+			if (types.contains(Type.HOT) && types.contains(Type.SANDY)) {
+				int count = 3 + random.nextInt(6);
+				for (int rubyAmount = 0; rubyAmount < count; rubyAmount++) {
+					int oreHeight = random.nextInt(28) + 4;
+					int xOre = (chunkX * 16) + random.nextInt(16);
+					int zOre = (chunkZ * 16) + random.nextInt(16);
+					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
+					IBlockState state = world.getBlockState(pos);
+					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
+						world.setBlockState(pos, IafBlockRegistry.rubyOre.getDefaultState(), 2);
 					}
 				}
 			}
@@ -282,7 +335,7 @@ public class StructureGenerator implements IWorldGenerator {
 					BlockPos pos = new BlockPos(xOre, oreHeight, zOre);
 					IBlockState state = world.getBlockState(pos);
 					if (state.getBlock().isReplaceableOreGen(state, world, pos, BlockMatcher.forBlock(Blocks.STONE))) {
-						world.setBlockState(pos, ModBlocks.sapphireOre.getDefaultState());
+						world.setBlockState(pos, IafBlockRegistry.sapphireOre.getDefaultState(), 2);
 					}
 				}
 			}
@@ -290,16 +343,16 @@ public class StructureGenerator implements IWorldGenerator {
 
 		if (random.nextInt(5) == 0) {
 			if (types.contains(Type.JUNGLE)) {
-				if (ModBlocks.lightning_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, ModBlocks.lightning_lily.getDefaultState());
+				if (IafBlockRegistry.lightning_lily.canPlaceBlockAt(world, height)) {
+					world.setBlockState(height, IafBlockRegistry.lightning_lily.getDefaultState(), 2);
 				}
 			} else if (isCold && isSnowy) {
-				if (ModBlocks.frost_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, ModBlocks.frost_lily.getDefaultState());
+				if (IafBlockRegistry.frost_lily.canPlaceBlockAt(world, height)) {
+					world.setBlockState(height, IafBlockRegistry.frost_lily.getDefaultState(), 2);
 				}
-			} else if (types.contains(Type.HOT) && (types.contains(Type.SANDY))) {
-				if (ModBlocks.fire_lily.canPlaceBlockAt(world, height)) {
-					world.setBlockState(height, ModBlocks.fire_lily.getDefaultState());
+			} else if (types.contains(Type.HOT) && types.contains(Type.SANDY)) {
+				if (IafBlockRegistry.fire_lily.canPlaceBlockAt(world, height)) {
+					world.setBlockState(height, IafBlockRegistry.fire_lily.getDefaultState(), 2);
 				}
 			}
 		}
@@ -308,7 +361,7 @@ public class StructureGenerator implements IWorldGenerator {
 			if (types.contains(Type.NETHER)) {
 				BlockPos surface = getNetherHeight(world, new BlockPos(x, 0, z));
 				if (surface != null) {
-					world.setBlockState(surface.up(), ModBlocks.fire_lily.getDefaultState());
+					world.setBlockState(surface.up(), IafBlockRegistry.fire_lily.getDefaultState(), 2);
 				}
 			}
 		}
@@ -368,6 +421,18 @@ public class StructureGenerator implements IWorldGenerator {
 			}
 		}
 		return false;
+	}
+
+	private static boolean canHeightSkipBlock(BlockPos pos, World world) {
+		IBlockState state = world.getBlockState(pos);
+		return state.getBlock() instanceof BlockLog || state.getBlock() instanceof BlockLiquid;
+	}
+
+	public static BlockPos degradeSurface(World world, BlockPos surface) {
+		while ((!world.getBlockState(surface).isOpaqueCube() || canHeightSkipBlock(surface, world)) && surface.getY() > 1) {
+			surface = surface.down();
+		}
+		return surface;
 	}
 
 	@Nullable

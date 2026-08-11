@@ -8,19 +8,19 @@ import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.util.IDragonProjectile;
 import com.github.alexthe666.iceandfire.entity.explosion.IceExplosion;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
+import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class EntityDragonIce extends EntityFireball implements IDragonProjectile {
+public class EntityDragonIce extends EntityDragonProjectile {
 
 	private int ticksInAir;
 
@@ -35,23 +35,10 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 	public EntityDragonIce(World worldIn, EntityDragonBase shooter, double accelX, double accelY, double accelZ) {
 		super(worldIn, shooter, accelX, accelY, accelZ);
 		this.setSize(0.5F, 0.5F);
-		double d0 = (double) MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+		double d0 = MathHelper.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
 		this.accelerationX = accelX / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationY = accelY / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
 		this.accelerationZ = accelZ / d0 * (0.1D * (shooter.isFlying() ? 4 * shooter.getDragonStage() : 1));
-	}
-
-	public void setSizes(float width, float height) {
-		this.setSize(width, height);
-	}
-
-	protected boolean isFireballFiery() {
-		return false;
-	}
-
-	@Override
-	public boolean canBeCollidedWith() {
-		return false;
 	}
 
 	@Override
@@ -68,7 +55,7 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 			}
 
 			++this.ticksInAir;
-			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, false, this.ticksInAir >= 25, this.shootingEntity);
+			RayTraceResult raytraceresult = ProjectileHelper.forwardsRaycast(this, true, this.ticksInAir >= 25, this.getShootingEntity());
 
 			if (raytraceresult != null) {
 				this.onImpact(raytraceresult);
@@ -120,7 +107,7 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 				return;
 			}
 			if (movingObject.entityHit == null || !(movingObject.entityHit instanceof IDragonProjectile) && this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && movingObject.entityHit != shootingEntity) {
-				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2) {
+				if (this.shootingEntity != null && this.shootingEntity instanceof EntityDragonBase) {
 					IceExplosion explosion = new IceExplosion(world, shootingEntity, this.posX, this.posY, this.posZ, ((EntityDragonBase) this.shootingEntity).getDragonStage() * 2.5F, flag);
 					explosion.doExplosionA();
 					explosion.doExplosionB(true);
@@ -134,26 +121,19 @@ public class EntityDragonIce extends EntityFireball implements IDragonProjectile
 					}
 				}
 				this.applyEnchantments(this.shootingEntity, movingObject.entityHit);
-				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, 3);
+				movingObject.entityHit.attackEntityFrom(IceAndFire.dragonIce, IceAndFireConfig.DRAGON_SETTINGS.dragonIceDamage);
 				if (movingObject.entityHit instanceof EntityLivingBase) {
 					IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability((EntityLivingBase)movingObject.entityHit);
 					if (capability != null) {
 						capability.setFrozen(200);
+					}
+					if (movingObject.entityHit instanceof EntityPlayer) {
+						EntityPlayer player = (EntityPlayer) movingObject.entityHit;
+						DragonUtils.fillBottleWithDragonBreath(player, EnumDragonType.ICE);
 					}
 				}
 			}
 		}
 		this.setDead();
 	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		return false;
-	}
-
-	@Override
-	public float getCollisionBorderSize() {
-		return 1F;
-	}
-
 }

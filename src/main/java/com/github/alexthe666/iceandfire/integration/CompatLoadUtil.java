@@ -4,16 +4,29 @@ import net.minecraftforge.fml.common.Loader;
 
 public abstract class CompatLoadUtil {
 
+    private static final String BAUBLES_MODID = "baubles";
+    private static Boolean baublesLoaded;
     private static final String CLAIMIT_MODID = "claimit";
     private static Boolean claimitLoaded;
     private static final String VARIED_COMMODITIES_MODID = "variedcommodities";
     private static Boolean variedCommoditiesLoaded;
-    private static final String LYCANITE_MODID = "lycanitesmobs";
-    private static Boolean lycaniteLoaded;
+    private static final String LYCANITES_MOBS_MODID = "lycanitesmobs";
+    private static Boolean lycanitesMobsLoaded;
     private static final String THAUMCRAFT_MODID = "thaumcraft";
     private static Boolean thaumcraftLoaded;
     private static final String RLCOMBAT_MODID = "bettercombatmod";
     private static Boolean rlcombatLoaded;
+    private static final String THE_ONE_PROBE_MODID = "theoneprobe";
+    private static Boolean theOneProbeLoaded;
+    private static final String FIRST_AID_MODID = "firstaid";
+    private static Boolean firstAidLoaded;
+    private static final String CHARM_MODID = "charm";
+    private static Boolean charmLoaded;
+
+    public static boolean isBaublesLoaded(){
+        if(baublesLoaded == null) baublesLoaded = Loader.isModLoaded(BAUBLES_MODID);
+        return baublesLoaded;
+    }
 
     public static boolean isClaimItLoaded() {
         if(claimitLoaded == null) claimitLoaded = Loader.isModLoaded(CLAIMIT_MODID);
@@ -25,9 +38,9 @@ public abstract class CompatLoadUtil {
         return variedCommoditiesLoaded;
     }
 
-    public static boolean isLycanitesLoaded() {
-        if(lycaniteLoaded == null) lycaniteLoaded = Loader.isModLoaded(LYCANITE_MODID);
-        return lycaniteLoaded;
+    public static boolean isLycanitesMobsLoaded() {
+        if(lycanitesMobsLoaded == null) lycanitesMobsLoaded = Loader.isModLoaded(LYCANITES_MOBS_MODID);
+        return lycanitesMobsLoaded;
     }
 
     public static boolean isThaumcraftLoaded() {
@@ -38,6 +51,16 @@ public abstract class CompatLoadUtil {
     public static boolean isRLCombatLoaded() {
         if(rlcombatLoaded == null) rlcombatLoaded = Loader.isModLoaded(RLCOMBAT_MODID) && isRLCombatCorrectVersion();
         return rlcombatLoaded;
+    }
+
+    public static boolean isTheOneProbeLoaded() {
+        if(theOneProbeLoaded == null) theOneProbeLoaded = Loader.isModLoaded(THE_ONE_PROBE_MODID);
+        return theOneProbeLoaded;
+    }
+
+    public static boolean isFirstAidLoaded() {
+        if(firstAidLoaded == null) firstAidLoaded = Loader.isModLoaded(FIRST_AID_MODID);
+        return firstAidLoaded;
     }
 
     //RLCombat is 2.x.x, BetterCombat is 1.x.x

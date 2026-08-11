@@ -1,0 +1,46 @@
+{
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    },
+    {
+      "type": "forge:ore_dict",
+      "ore": "gemRuby"
+    }
+  ],
+  "result": {
+    "item": "iceandfire:ruby_block",
+    "data": 0,
+    "count": 1
+  }
+}

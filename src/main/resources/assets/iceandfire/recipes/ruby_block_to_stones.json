@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "iceandfire:ruby_block",
+      "data": 0
+    }
+  ],
+  "result": {
+    "item": "iceandfire:ruby_gem",
+    "data": 0,
+    "count": 9
+  }
+}

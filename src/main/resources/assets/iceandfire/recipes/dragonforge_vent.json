@@ -1,0 +1,21 @@
+{
+  "type": "forge:ore_shaped",
+  "pattern": [
+    "DDD",
+    "III",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "iceandfire:dread_stone"
+    },
+    "I": {
+      "type": "forge:ore_dict",
+      "ore": "ingotIron"
+    }
+  },
+  "result": {
+    "item": "iceandfire:dragonforge_vent",
+    "data": 0
+  }
+}

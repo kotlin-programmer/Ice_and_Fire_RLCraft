@@ -1,4 +1,5 @@
-itemGroup.iceandfire=Ice And Fire
+itemGroup.iceandfire_items=Ice And Fire: Unid
+itemGroup.iceandfire_blocks=Ice And Fire: Blocos
 iceandfire.empty=Vazio
 
 tile.iceandfire.lectern.name=Leitoril
@@ -61,8 +62,6 @@ tile.iceandfire.myrmex_jungle_resin_block.name=Resina Endurecida de Myrmex da Se
 tile.iceandfire.myrmex_desert_resin_glass.name=Vidro de Resina de Myrmex do Deserto
 tile.iceandfire.myrmex_jungle_resin_glass.name=Vidro de Resina de Myrmex da Selva
 
-tile.iceandfire.ancient_dragon_bone_block.name=Antigo Bloco de Ossos de Dragão
-tile.iceandfire.ancient_dragon_bone_wall.name=Antigo Parede de Osso de Dragão
 tile.iceandfire.dragon_bone_block.name=Bloco de Ossos de Dragão
 tile.iceandfire.dragon_bone_wall.name=Parede de Osso de Dragão
 
@@ -79,6 +78,36 @@ tile.iceandfire.crackledCobblestone.name=Pedregulho Rachad
 tile.iceandfire.crackledGravel.name=Cascalho Rachado
 tile.iceandfire.crackledGrassPath.name=Caminho de Grama Rachada
 tile.iceandfire.lightning_stone.name=Pedra Relâmpago
+tile.iceandfire.fulgurite.name=Fulgurite
+
+tile.iceandfire.rubyOre.name=Minério de Rubi
+tile.iceandfire.rubyBlock.name=Bloco de Rubi
+
+tile.iceandfire.charedRubyOre.name=Minério de Rubi Carbonizada
+tile.iceandfire.crackledAmethystOre.name=Minério de Ametista Rachada
+tile.iceandfire.frozenSapphireOre.name=Minério de Safira Congelada
+
+tile.iceandfire.dragonscales_pile.name=Pilha de Escamas de Dragão
+tile.iceandfire.sea_serpent_scales_pile.name=Pilha de Escamas de Serpente Marinha
+
+tile.iceandfire.dread_stone.name=Medolita
+tile.iceandfire.dread_stone_bricks.name=Tijolos de Medolita
+tile.iceandfire.dread_stone_bricks_chiseled.name=Tijolos de Medolita Talhados
+tile.iceandfire.dread_stone_bricks_cracked.name=Tijolos de Medolita Rachados
+tile.iceandfire.dread_stone_bricks_mossy.name=Tijolos de Medolita com Musgo
+tile.iceandfire.dread_stone_face.name=Medolita Talhada com Caveira
+tile.iceandfire.dread_stone_tile.name=Piso de Medolita
+tile.iceandfire.dread_torch.name=Tocha de Medolita
+tile.iceandfire.dread_stone_slab.name=Laje de Tijolos de Medolita
+tile.iceandfire.dread_stone_stairs.name=Escada de Tijolos de Medolita
+tile.iceandfire.dreadwood_planks.name=Tábuas de Madeira Medonha
+tile.iceandfire.dreadwood_planks_lock.name=Fechadura de Madeira Medonha
+tile.iceandfire.dread_spawner.name=Gerador de Monstros Medonhos
+tile.iceandfire.monster_spawner.name=Gerador de Monstros
+
+tile.iceandfire.dragonforge_core.name=Núcleo da Forja Dracônica
+tile.iceandfire.dragonforge_vent.name=Respiradouro da Forja Dracônica
+tile.iceandfire.dragonforge_input.name=Abertura da Forja Dracônica
 
 item.iceandfire.bestiary.name=Bestiário
 item.iceandfire.manuscript.name=Manuscrito
@@ -268,15 +297,94 @@ item.iceandfire.lightning_dragon_heart.name=Coração de Dragão Elétrico
 item.iceandfire.lightning_dragon_blood.name=Sangue de Dragão Elétrico
 item.iceandfire.dragon_horn_lightning.name=Chifre de Dragão
 
+item.iceandfire.rubyGem.name=Rubi
+
+item.iceandfire.hydra_fang.name=Presa da Hidra
+item.iceandfire.hydra_heart.name=Coração da Hidra
+item.iceandfire.hydra_heart.desc_0=Na barra de itens, fornece regeneração crescente
+item.iceandfire.hydra_heart.desc_1=baseada no quão ferido o usuário está
+item.iceandfire.hydra_arrow.name=Flecha da Hidra
+item.iceandfire.hydra_arrow.desc=Envenena e drena à vida do alvo
+
+item.iceandfire.summoning_crystal_ice.name=Cristal para Invocar Dragão de Gelo
+item.iceandfire.summoning_crystal_fire.name=Cristal para Invocar Dragão de Fogo
+item.iceandfire.summoning_crystal_lightning.name=Cristal para Invocar Dragão Elétrico
+item.iceandfire.summoning_crystal.desc_0=Clique com o botão direito para vincular o dragão
+item.iceandfire.summoning_crystal.desc_1=Use quando precisar teletransportar o dragão
+item.iceandfire.summoning_crystal.bound=Teleportado para %s
+
+item.iceandfire.fire_dragon_breath.name=Sopro do Dragão de Fogo
+item.iceandfire.ice_dragon_breath.name=Sopro do Dragão de Gelo
+item.iceandfire.lightning_dragon_breath.name=Sopro do Dragão Elétrico
+
+item.iceandfire.chain_link.name=Elo de Corrente de Ferro
+item.iceandfire.chain.name=Corrente de Ferro
+
+item.iceandfire.hippocampus_fin.name=Nadadeira de Hipocampo
+item.iceandfire.hippocampus_fin.desc_0=§6Item Raro§r
+
+item.iceandfire.hippocampus_slapper.name=Bofetador de Hipocampo
+item.iceandfire.hippocampus_slapper.desc_0=§dArma Cômica§r
+item.iceandfire.hippocampus_slapper.desc_1=Atordoa e Retarda os alvos; é bastante estranho ser atingido por um rabo de peixe
+
+item.iceandfire.cyclops_eye.name=Olho de Ciclope
+item.iceandfire.cyclops_eye.desc_0=Arma de Efeito em Área
+item.iceandfire.cyclops_eye.desc_1=Enfraquece todas criaturas hostis próximas, quando segurado
+
 item.iceandfire.tide_trident.name=Tridente do Guardião da Maré
 item.iceandfire.tide_trident.desc_0=Causa mais dano quando jogado debaixo d’água
 item.iceandfire.tide_trident.desc_1=Atravessa vários inimigos
 item.iceandfire.tide_trident.not_original=Não pode ser reparado ou encantado
 
+item.iceandfire.hippogryph_skull.name=Crânio de Hipogrifo
+item.iceandfire.cyclops_skull.name=Crânio de Ciclope
+item.iceandfire.cockatrice_skull.name=Crânio de Cocatriz
+item.iceandfire.stymphalian_skull.name=Crânio de Pássaro Stymphaliano
+item.iceandfire.troll_skull.name=Crânio de Trol
+item.iceandfire.amphithere_skull.name=Crânio de Amphithere
+item.iceandfire.seaserpent_skull.name=Crânio de Serpente Marinha
+item.iceandfire.hydra_skull.name=Crânio de Hidra
+
+item.iceandfire.lich_staff.name=Cajado do Lich Medonho
+item.iceandfire.dread_key.name=§bChave do Mestre da Sepultura§r
+item.iceandfire.dread_shard.name=Fragmento Medonho
+item.iceandfire.dread_sword.name=Espada do Servo Pavoroso
+item.iceandfire.dread_knight_sword.name=Espada do Cavaleiro Medonho
+
+item.iceandfire.dread_queen_sword.name=Espada da Rainha Medonha
+item.iceandfire.dread_queen_staff.name=Cajado da Rainha Medonha
+
+item.iceandfire.custom_banner.jei_desc=Tem um desenho de estandarte único!
+
+item.iceandfire.dragonbone_arrow_fire.name=Flecha de Osso de Dragão Flamejante
+item.iceandfire.dragonbone_arrow_ice.name=Flecha de Osso de Dragão Congelante
+item.iceandfire.dragonbone_arrow_lightning.name=Flecha de Osso de Dragão Eletrizante
+
+item.iceandfire.dragonbone_bow_fire.name=Arco de Osso de Dragão Flamejante
+item.iceandfire.dragonbone_bow_ice.name=Arco de Osso de Dragão Congelante
+item.iceandfire.dragonbone_bow_lightning.name=Arco de Osso de Dragão Eletrizante
+
+item.iceandfire.ghost_sword.name=Espada Fantasma
+item.iceandfire.ghost_sword.desc_0=Lança uma espada fantasma que atravessa blocos
+item.iceandfire.ectoplasm.name=Ectoplasma
+item.iceandfire.ghost_ingot.name=Barra Fantasmagórica
+item.iceandfire.ghost_ingot.desc_0=§6Item Raro§r
+
+item.iceandfire.myrmex_desert_swarm.name=Enxame de Myrmex
+item.iceandfire.myrmex_jungle_swarm.name=Enxame de Myrmex
+item.iceandfire.myrmex_swarm.desc_0=Invoca 5 Myrmex defensores que irão protegê-lo por 30 segundos
+item.iceandfire.myrmex_swarm.desc_1=Apenas para uso único
+item.iceandfire.hippogryph_talon.name=Garra de Hipogrifo
+item.iceandfire.hippogryph_talon.desc_0=§6Gota rara§r
+item.iceandfire.hippogryph_sword.name=Espada de Garra de Hipogrifo
+item.iceandfire.hippogryph_sword.desc_0=Sempre golpeia o alvo, causando dano extra
+
+item.iceandfire.dragon_collar.name=Coleira de Dragão
+
 item.banner.firedragon.white=Figura de Dragão de Fogo Branco
 item.banner.firedragon.orange=Figura de Dragão de Fogo Laranja
 item.banner.firedragon.magenta=Figura de Dragão de Fogo Magenta
-item.banner.firedragon.lightBlue=Dragão de Fogo Azul-Claro
+item.banner.firedragon.light_blue=Dragão de Fogo Azul-Claro
 item.banner.firedragon.yellow=Figura de Dragão de Fogo Amarelo
 item.banner.firedragon.lime=Figura de Dragão de Fogo Verde Limão
 item.banner.firedragon.pink=Figura de Dragão de Fogo Rosa
@@ -323,6 +431,10 @@ item.banner.lightningdragon.brown=Figura de Dragão de Elétrico Marrom
 item.banner.lightningdragon.green=Figura de Dragão de Elétrico Verde
 item.banner.lightningdragon.red=Figura de Dragão de Elétrico Vermelho
 item.banner.lightningdragon.black=Figura de Dragão de Elétrico Preto
+
+iceandfire.fire_dragon_forge=Forja Dracônica de Fogo
+iceandfire.ice_dragon_forge=Forja Dracônica de Gelo
+iceandfire.lightning_dragon_forge=Forja Dracônica Eletrizante
 
 item.iceandfire.dragonegg.jei_desc=Coloque nas chamas se for um dragão de fogo, debaixo d'água se for um dragão de gelo e na chuva se for de um dragão elétrico.
 
@@ -379,7 +491,34 @@ entity.myrmex_egg.name=Ovo de Myrmex
 entity.amphithere.name=Amphithere
 entity.seaserpent.name=Serpente Marinha
 
+entity.ghost.name=Fantasma
+entity.ghost_sword.name=Espada Fantasma
+
+entity.lightningdragon.name=Dragão Elétrico
+entity.dragonlightningcharge.name=Projétil de Dragão de Elétrico
+
+entity.shivaxi_dragon.name=Dragão Shivaxi
+
+entity.dread_thrall.name=Servo Pavoroso
+entity.dread_ghoul.name=Canibal Atroz
+entity.dread_beast.name=Besta Horrífera
+entity.dread_scuttler.name=Aracnídeo Terrível
+entity.dread_lich.name=Lich Medonho
+entity.dread_lich_skull.name=Crânio do Lich Medonho
+entity.dread_knight.name=Cavaleiro Medonho
+entity.dread_horse.name=Cavalo Medonho
+
+entity.black_frost.name=Frio Sombrio
+entity.dread_queen.name=Rainha Medonha
+
+entity.if_hydra.name=Hidra
+entity.hydra_breath.name=Bafo da Hidra
+entity.hydra_arrow.name=Flecha da Hidra
+
 entity.tide_trident.name=Tridente do Protetor da Maré
+entity.myrmex_swarmer.name=Myrmex Defensor
+
+entity.if_mob_skull.name=Crânio de Dragão
 
 iceandfire.effect.acid=Ácido
 
@@ -507,6 +646,7 @@ bestiary.troll=Tróis
 bestiary.myrmex=Myrmex
 bestiary.amphithere=Amphitheres
 bestiary.seaserpent=Serpentes Marinhas
+bestiary.dragonforge=Forja Dracônica
 
 lectern.nopages=Não é possível adicionar novas informações.
 silvertools.hurt=+2 de dano contra o Morto-Vivo
@@ -520,6 +660,10 @@ dragon_sword_ice.hurt2=Atrasa e empurra os alvos para trás
 dragon_sword_lightning.hurt1=+4 de dano contra Dragões de Fogo e de Gelo
 dragon_sword_lightning.hurt2=Dispara raios nos inimigos
 
+message.iceandfire.tryAgain=Por favor, tente novamente.
+
+message.iceandfire.dragonTeleport=Esse dragão foi teletransportado.
+message.iceandfire.noDragonTeleport=§cNão foi possível encontrar o dragão ligado a esse cristal.
 message.iceandfire.dragonWander=O dragão vai ficar perambulando agora.
 message.iceandfire.dragonFollow=O dragão irá te seguir agora.
 message.iceandfire.dragonSit=O dragão está sentado.

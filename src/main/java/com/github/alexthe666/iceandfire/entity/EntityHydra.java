@@ -3,11 +3,9 @@ package com.github.alexthe666.iceandfire.entity;
 import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.core.ModPotions;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.projectile.EntityHydraBreath;
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.entity.util.IAnimalFear;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.integration.LycanitesCompat;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -82,6 +80,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         this.setSize(2.8F, 1.39F);
         resetParts();
         headDamageThreshold = Math.max(5, (float) IceAndFireConfig.ENTITY_SETTINGS.hydraMaxHealth * 0.08F);
+        this.stepHeight = 2;
     }
 
     protected void initEntityAI() {
@@ -91,13 +90,13 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true, false, new Predicate<Entity>() {
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, 0, true, false, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
                 return entity.isEntityAlive();
             }
         }));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget(this, EntityLiving.class, 0, true, false, new Predicate<Entity>() {
+        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityLiving.class, 0, true, false, new Predicate<Entity>() {
             @Override
             public boolean apply(@Nullable Entity entity) {
                 if (entity instanceof EntityLiving) {
@@ -153,7 +152,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
                 if (ticksExisted % 7 == 0 && entity != null && i < this.getHeadCount()) {
                     Vec3d vec3d = this.getLook(1.0F);
                     if(rand.nextFloat() < 0.2F){
-                        this.playSound(ModSounds.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
+                        this.playSound(IafSoundRegistry.HYDRA_SPIT, this.getSoundVolume(), this.getSoundPitch());
                     }
                     double headPosX = this.headBoxes[i].posX + vec3d.x;
                     double headPosY = this.headBoxes[i].posY + 1.3F;
@@ -161,12 +160,13 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
                     double d2 = entity.posX - headPosX + this.rand.nextGaussian() * 0.4D;
                     double d3 = entity.posY + entity.getEyeHeight() - headPosY + this.rand.nextGaussian() * 0.4D;
                     double d4 = entity.posZ - headPosZ + this.rand.nextGaussian() * 0.4D;
-                    EntityHydraBreath entitylargefireball = new EntityHydraBreath(world, this, d2, d3, d4);
-                    entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
+                    EntityHydraBreath hydraBreathProjectile = new EntityHydraBreath(world, this, d2, d3, d4);
+                    hydraBreathProjectile.setPosition(headPosX, headPosY, headPosZ);
+                    hydraBreathProjectile.setShootingEntity(this.getEntityId());
                     if (!world.isRemote && !entity.isDead) {
-                        world.spawnEntity(entitylargefireball);
+                        world.spawnEntity(hydraBreathProjectile);
                     }
-                    entitylargefireball.setPosition(headPosX, headPosY, headPosZ);
+                    hydraBreathProjectile.setPosition(headPosX, headPosY, headPosZ);
                 }
                 if (isBreathing[i] && (entity == null || entity.isDead || breathTicks[i] > 60) && !world.isRemote) {
                     isBreathing[i] = false;
@@ -219,7 +219,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
                 if (this.isBurning()) {
                     this.setHeadCount(this.getHeadCount() - 1);
                 } else {
-                    this.playSound(ModSounds.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
+                    this.playSound(IafSoundRegistry.HYDRA_REGEN_HEAD, this.getSoundVolume(), this.getSoundPitch());
                     if (!onlyRegrowOneHeadNotTwo) {
                         this.setHeadCount(this.getHeadCount() + 1);
                     }
@@ -353,7 +353,7 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.hydraBiteAttackStrength);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(IceAndFireConfig.ENTITY_SETTINGS.hydraBaseHealth);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0D);
-        this.getEntityAttribute(EntityLivingBase.SWIM_SPEED).setBaseValue(2.0D);
+        this.getEntityAttribute(SWIM_SPEED).setBaseValue(2.0D);
     }
 
     @Override
@@ -477,19 +477,28 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.HYDRA_IDLE;
+        return IafSoundRegistry.HYDRA_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return ModSounds.HYDRA_HURT;
+        return IafSoundRegistry.HYDRA_HURT;
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.HYDRA_DIE;
+        return IafSoundRegistry.HYDRA_DIE;
     }
 
+    @Override
+    public boolean isPushedByWater() {
+        return false;
+    }
+
+    @Override
+    protected float getWaterSlowDown() {
+        return 1F;
+    }
 }

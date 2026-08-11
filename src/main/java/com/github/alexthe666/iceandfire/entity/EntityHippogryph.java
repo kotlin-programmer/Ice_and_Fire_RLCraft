@@ -5,15 +5,14 @@ import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
 import com.github.alexthe666.iceandfire.client.model.IFChainBuffer;
-import com.github.alexthe666.iceandfire.core.ModItems;
+import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.github.alexthe666.iceandfire.core.ModKeys;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
 import com.github.alexthe666.iceandfire.message.MessageHippogryphArmor;
-import com.github.alexthe666.iceandfire.message.MessageUpdateRidingState;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -55,7 +54,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
-public class EntityHippogryph extends EntityTameable implements IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor, ISyncMount {
+public class EntityHippogryph extends EntityTameable implements IAnimatedEntity, IDragonFlute, IVillagerFear, IAnimalFear, IDropArmor {
 
 	public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation("iceandfire", "hippogryph"));
 	private static final int FLIGHT_CHANCE_PER_TICK = 1200;
@@ -213,13 +212,13 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 	}
 
 	public int getIntFromArmor(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getItem() == ModItems.iron_hippogryph_armor) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.iron_hippogryph_armor) {
 			return 1;
 		}
-		if (!stack.isEmpty() && stack.getItem() == ModItems.gold_hippogryph_armor) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.gold_hippogryph_armor) {
 			return 2;
 		}
-		if (!stack.isEmpty() && stack.getItem() == ModItems.diamond_hippogryph_armor) {
+		if (!stack.isEmpty() && stack.getItem() == IafItemRegistry.diamond_hippogryph_armor) {
 			return 3;
 		}
 		return 0;
@@ -290,6 +289,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 						this.setCommand(0);
 					}
 					player.sendStatusMessage(new TextComponentTranslation("hippogryph.command." + (this.getCommand() == 1 ? "sit" : "stand")), true);
+					this.playSound(SoundEvents.ENTITY_ZOMBIE_INFECT, 1, 1);
 
 				}
 				return true;
@@ -320,17 +320,12 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				}
 				return true;
 			}
-			if(stack.isEmpty()) {
-				if (player.isSneaking()) {
-					this.openGUI(player);
-					return true;
-				} else if (this.isSaddled() && !this.isChild() && !player.isRiding()) {
-					player.startRiding(this, true);
-					if (world.isRemote) {
-						IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), true));
-					}
-					return true;
-				}
+			if (player.isSneaking()) {
+				this.openGUI(player);
+				return true;
+			} else if (!this.world.isRemote && this.isSaddled() && !this.isChild() && !player.isRiding()) {
+				player.startRiding(this, true);
+				return true;
 			}
 		}
 		//Don't call EntityAnimal::processInteract() due to custom breeding handling
@@ -688,17 +683,17 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 
 	@Nullable
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.HIPPOGRYPH_IDLE;
+		return IafSoundRegistry.HIPPOGRYPH_IDLE;
 	}
 
 	@Nullable
 	protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-		return ModSounds.HIPPOGRYPH_HURT;
+		return IafSoundRegistry.HIPPOGRYPH_HURT;
 	}
 
 	@Nullable
 	protected SoundEvent getDeathSound() {
-		return ModSounds.HIPPOGRYPH_DIE;
+		return IafSoundRegistry.HIPPOGRYPH_DIE;
 	}
 
 	@Override
@@ -765,12 +760,16 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 						motionZ *= 1.06;
 					}
 					jumpMovementFactor = 0.05F;
-					this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : 2);
+					this.setAIMoveSpeed(onGround ? (float) this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() : (float) getFlySpeed());
 					super.travel(strafe, vertical = 0, forward);
 					return;
 				}
 			}
 		super.travel(strafe, forward, vertical);
+	}
+
+	private double getFlySpeed() {
+		return 2 * IceAndFireConfig.ENTITY_SETTINGS.hippogryphFlightSpeedMultiplier;
 	}
 
 	@Override
@@ -1024,13 +1023,6 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				target.attackEntityFrom(DamageSource.causeMobDamage(this), ((int) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
 			}
 		}
-		if (this.getControllingPassenger() != null && this.getControllingPassenger().isSneaking()) {
-			this.getControllingPassenger().setSneaking(false);
-			this.getControllingPassenger().dismountRidingEntity();
-			if (world.isRemote) {
-				IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageUpdateRidingState(this.getEntityId(), false));
-			}
-		}
 		if (this.isFlying() && !this.isHovering() && this.isPlayerControlled() && !this.onGround && Math.max(Math.abs(motionZ), Math.abs(motionX)) < 0.1F) {
 			this.setHovering(true);
 			this.setFlying(false);
@@ -1048,7 +1040,7 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		if (world.isRemote) {
 			roll_buffer.calculateChainFlapBuffer(35, 8, 6, this);
 		}
-		if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() != null && this.getAttackTarget() instanceof EntityDragonBase && ((EntityDragonBase) this.getAttackTarget()).isDead) {
+		if (this.getAttackTarget() != null && this.getRidingEntity() == null && this.getAttackTarget().isDead || this.getAttackTarget() instanceof EntityDragonBase && this.getAttackTarget().isDead) {
 			this.setAttackTarget(null);
 		}
 	}
@@ -1078,9 +1070,9 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 			double targetX = airTarget.getX() + 0.5D - posX;
 			double targetY = Math.min(airTarget.getY(), DragonUtils.getMaximumFlightHeightForPos(world, new BlockPos(this))) + 1D - posY;
 			double targetZ = airTarget.getZ() + 0.5D - posZ;
-			motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * 2;
-			motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * 2;
-			motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * 2;
+			motionX += (Math.signum(targetX) * 0.5D - motionX) * 0.100000000372529 * getFlySpeed();
+			motionY += (Math.signum(targetY) * 0.5D - motionY) * 0.100000000372529 * getFlySpeed();
+			motionZ += (Math.signum(targetZ) * 0.5D - motionZ) * 0.100000000372529 * getFlySpeed();
 			float angle = (float) (Math.atan2(motionZ, motionX) * 180.0D / Math.PI) - 90.0F;
 			float rotation = MathHelper.wrapDegrees(angle - rotationYaw);
 			moveForward = 0.5F;

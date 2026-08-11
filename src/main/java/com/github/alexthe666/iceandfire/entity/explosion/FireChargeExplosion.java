@@ -1,7 +1,8 @@
 package com.github.alexthe666.iceandfire.entity.explosion;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModBlocks;
+import com.github.alexthe666.iceandfire.IceAndFireConfig;
+import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
 import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import com.github.alexthe666.iceandfire.entity.EntityFireDragon;
 import com.github.alexthe666.iceandfire.entity.EntityIceDragon;
@@ -12,9 +13,7 @@ import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
@@ -47,6 +46,7 @@ public class FireChargeExplosion extends Explosion {
 	private final List<BlockPos> affectedBlockPositions;
 	private final Map<EntityPlayer, Vec3d> playerKnockbackMap;
 	private final Vec3d position;
+	private final boolean dragonGriefing;
 
 	public FireChargeExplosion(World worldIn, Entity entityIn, double x, double y, double z, float size, boolean smoking) {
 		super(worldIn, entityIn, x, y, z, size, true, smoking);
@@ -61,22 +61,25 @@ public class FireChargeExplosion extends Explosion {
 		this.explosionZ = z;
 		this.isSmoking = smoking;
 		this.position = new Vec3d(explosionX, explosionY, explosionZ);
+		this.dragonGriefing = worldObj.getGameRules().getBoolean("mobGriefing") && IceAndFireConfig.DRAGON_SETTINGS.dragonGriefing != 2;
 	}
 
 	/**
 	 * Does the first part of the explosion (destroy blocks)
 	 */
+	@Override
 	public void doExplosionA() {
-		Set<BlockPos> set = Sets.<BlockPos>newHashSet();
-		int i = 16;
-
+		boolean canGrief = DragonUtils.canGrief(false);
+		BlockPos.MutableBlockPos mutPos = new BlockPos.MutableBlockPos();
+		HashMap<BlockPos, Float> resistanceMap = new HashMap<>();
+		Set<BlockPos> affectedSet = new HashSet<>();
 		for (int j = 0; j < 16; ++j) {
 			for (int k = 0; k < 16; ++k) {
 				for (int l = 0; l < 16; ++l) {
 					if (j == 0 || j == 15 || k == 0 || k == 15 || l == 0 || l == 15) {
-						double d0 = (double) ((float) j / 15.0F * 2.0F - 1.0F);
-						double d1 = (double) ((float) k / 15.0F * 2.0F - 1.0F);
-						double d2 = (double) ((float) l / 15.0F * 2.0F - 1.0F);
+						double d0 = (float)j / 15.0F * 2.0F - 1.0F;
+						double d1 = (float)k / 15.0F * 2.0F - 1.0F;
+						double d2 = (float)l / 15.0F * 2.0F - 1.0F;
 						double d3 = Math.sqrt(d0 * d0 + d1 * d1 + d2 * d2);
 						d0 = d0 / d3;
 						d1 = d1 / d3;
@@ -86,17 +89,36 @@ public class FireChargeExplosion extends Explosion {
 						double d6 = this.explosionY;
 						double d8 = this.explosionZ;
 
-						for (float f1 = 0.3F; f > 0.0F; f -= 0.22500001F) {
-							BlockPos blockpos = new BlockPos(d4, d6, d8);
-							IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
-
-							if (iblockstate.getMaterial() != Material.AIR) {
-								float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, blockpos, iblockstate) : iblockstate.getBlock().getExplosionResistance(worldObj, blockpos, (Entity) null, this);
-								f -= (f2 + 0.3F) * 0.3F;
+						for (; f > 0.0F; f -= 0.22500001F) {
+							mutPos = mutPos.setPos(d4, d6, d8);
+							
+							BlockPos immutPos = null;
+							IBlockState iblockstate = null;
+							Float resistance = resistanceMap.get(mutPos);
+							if(resistance == null) {
+								iblockstate = this.worldObj.getBlockState(mutPos);
+								Block block = iblockstate.getBlock();
+								if (block != Blocks.AIR) {
+									float f2 = this.exploder != null ? this.exploder.getExplosionResistance(this, this.worldObj, mutPos, iblockstate) : block.getExplosionResistance(worldObj, mutPos, null, this);
+									resistance = (f2 + 0.3F) * 0.3F;
+								}
+								else resistance = 0.0F;
+								immutPos = mutPos.toImmutable();
+								resistanceMap.put(immutPos, resistance);
 							}
-
-							if (f > 0.0F && (this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.worldObj, blockpos, iblockstate, f)) && iblockstate.getBlock().canEntityDestroy(iblockstate, this.worldObj, blockpos, this.exploder)) {
-								set.add(blockpos);
+							f -= resistance;
+							
+							if (f <= 0.0F) break;
+							
+							if(canGrief) {
+								if (!affectedSet.contains(mutPos)) {
+									if (iblockstate == null) iblockstate = this.worldObj.getBlockState(mutPos);
+									Block block = iblockstate.getBlock();
+									if ((this.exploder == null || this.exploder.canExplosionDestroyBlock(this, this.worldObj, mutPos, iblockstate, f)) && block.canEntityDestroy(iblockstate, this.worldObj, mutPos, this.exploder)) {
+										if (immutPos == null) immutPos = mutPos.toImmutable();
+										affectedSet.add(immutPos);
+									}
+								}
 							}
 
 							d4 += d0 * 0.30000001192092896D;
@@ -107,9 +129,8 @@ public class FireChargeExplosion extends Explosion {
 				}
 			}
 		}
-		if(DragonUtils.canGrief(false)){
-			this.affectedBlockPositions.addAll(set);
-		}
+		this.affectedBlockPositions.addAll(affectedSet);
+		
 		float f3 = this.explosionSize * 2.0F;
 		int k1 = MathHelper.floor(this.explosionX - (double) f3 - 1.0D);
 		int l1 = MathHelper.floor(this.explosionX + (double) f3 + 1.0D);
@@ -117,7 +138,7 @@ public class FireChargeExplosion extends Explosion {
 		int i1 = MathHelper.floor(this.explosionY + (double) f3 + 1.0D);
 		int j2 = MathHelper.floor(this.explosionZ - (double) f3 - 1.0D);
 		int j1 = MathHelper.floor(this.explosionZ + (double) f3 + 1.0D);
-		List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB((double) k1, (double) i2, (double) j2, (double) l1, (double) i1, (double) j1));
+		List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
 		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.worldObj, this, list, f3);
 		Vec3d vec3d = new Vec3d(this.explosionX, this.explosionY, this.explosionZ);
 
@@ -141,9 +162,9 @@ public class FireChargeExplosion extends Explosion {
 						if (exploder instanceof EntityDragonBase) {
 							if (!DragonUtils.isControllingPassenger(exploder, entity)) {
 								if (DragonUtils.isOwner(entity, exploder) || DragonUtils.hasSameOwner(entity, exploder)) {
-									entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), ((float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D))) / 3);
+									entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), ((float) ((int) ((d10 * d10 + d10) / 2.0D * IceAndFireConfig.DRAGON_SETTINGS.dragonChargeExplosionDamage * (double) f3 + 1.0D))) / 3);
 								} else {
-									entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f3 + 1.0D)));
+									entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), (float) ((int) ((d10 * d10 + d10) / 2.0D * IceAndFireConfig.DRAGON_SETTINGS.dragonChargeExplosionDamage * (double) f3 + 1.0D)));
 								}
 								if (entity.isDead) {
 									((EntityDragonBase) this.exploder).attackDecision = true;
@@ -173,6 +194,7 @@ public class FireChargeExplosion extends Explosion {
 		}
 	}
 
+	@Override
 	public void doExplosionB(boolean spawnParticles) {
 		this.worldObj.playSound(null, this.explosionX, this.explosionY, this.explosionZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand.nextFloat()) * 0.2F) * 0.7F);
 
@@ -181,13 +203,11 @@ public class FireChargeExplosion extends Explosion {
 		} else {
 			ParticleHelper.spawnParticle(this.worldObj, EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D);
 		}
-
+		
+		if(this.affectedBlockPositions.isEmpty()) return;
 		if (this.isSmoking) {
-			List<MessageParticleFX.Particle> particles = new ArrayList<>(this.affectedBlockPositions.size());
+			List<MessageParticleFX.Particle> particles = new ArrayList<>();
 			for (BlockPos blockpos : this.affectedBlockPositions) {
-				IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
-				Block block = iblockstate.getBlock();
-
 				if (spawnParticles && this.worldObj.rand.nextFloat() > 0.9F) {
 					double d0 = (float) blockpos.getX() + this.worldObj.rand.nextFloat();
 					double d1 = (float) blockpos.getY() + this.worldObj.rand.nextFloat();
@@ -207,15 +227,19 @@ public class FireChargeExplosion extends Explosion {
 
 					particles.add(MessageParticleFX.createParticle((d0 + this.explosionX) / 2.0D, (d1 + this.explosionY) / 2.0D, (d2 + this.explosionZ) / 2.0D, d3, d4, d5));
 				}
-
-				if (iblockstate.getMaterial() != Material.AIR) {
-					if (block.canDropFromExplosion(this)) {
-						block.dropBlockAsItemWithChance(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 1.0F / this.explosionSize, 0);
+				
+				if(dragonGriefing) {
+					IBlockState iblockstate = this.worldObj.getBlockState(blockpos);
+					Block block = iblockstate.getBlock();
+					if (block != Blocks.AIR) {
+						if (block.canDropFromExplosion(this)) {
+							block.dropBlockAsItemWithChance(this.worldObj, blockpos, this.worldObj.getBlockState(blockpos), 1.0F / this.explosionSize, 0);
+						}
+						block.onBlockExploded(this.worldObj, blockpos, this);
 					}
-					block.onBlockExploded(this.worldObj, blockpos, this);
 				}
 			}
-			if (!particles.isEmpty()) {
+			if (!particles.isEmpty() && this.exploder != null) {
 				List<EnumParticle> types = new ArrayList<>();
 				if (exploder instanceof EntityFireDragon) {
 					types.add(EnumParticle.DRAGON_FIRE);
@@ -230,22 +254,25 @@ public class FireChargeExplosion extends Explosion {
 				IceAndFire.NETWORK_WRAPPER.sendToAllTracking(new MessageParticleFX(types, particles), this.exploder);
 			}
 		}
-
-		if (this.exploder instanceof EntityFireDragon) {
-			for (BlockPos blockpos1 : this.affectedBlockPositions) {
-				if (this.worldObj.getBlockState(blockpos1).getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock() && this.explosionRNG.nextInt(3) == 0) {
-					this.worldObj.setBlockState(blockpos1, Blocks.FIRE.getDefaultState());
+		
+		if(this.dragonGriefing) {
+			if (this.exploder instanceof EntityFireDragon) {
+				for (BlockPos blockpos1 : this.affectedBlockPositions) {
+					if (this.explosionRNG.nextInt(3) == 0 && this.worldObj.getBlockState(blockpos1).getBlock() == Blocks.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock()) {
+						this.worldObj.setBlockState(blockpos1, Blocks.FIRE.getDefaultState());
+					}
 				}
-			}
-		} else if (this.exploder instanceof EntityIceDragon) {
-			for (BlockPos blockpos1 : this.affectedBlockPositions) {
-				if (this.worldObj.getBlockState(blockpos1).getMaterial() == Material.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock() && this.explosionRNG.nextInt(3) == 0) {
-					this.worldObj.setBlockState(blockpos1, new Random().nextBoolean() ? Blocks.SNOW_LAYER.getDefaultState() : ModBlocks.dragon_ice_spikes.getDefaultState());
+			} else if (this.exploder instanceof EntityIceDragon) {
+				for (BlockPos blockpos1 : this.affectedBlockPositions) {
+					if (this.explosionRNG.nextInt(3) == 0 && this.worldObj.getBlockState(blockpos1).getBlock() == Blocks.AIR && this.worldObj.getBlockState(blockpos1.down()).isFullBlock()) {
+						this.worldObj.setBlockState(blockpos1, this.explosionRNG.nextBoolean() ? Blocks.SNOW_LAYER.getDefaultState() : IafBlockRegistry.dragon_ice_spikes.getDefaultState());
+					}
 				}
 			}
 		}
 	}
 
+	@Override
 	public Map<EntityPlayer, Vec3d> getPlayerKnockbackMap() {
 		return this.playerKnockbackMap;
 	}
@@ -253,18 +280,22 @@ public class FireChargeExplosion extends Explosion {
 	/**
 	 * Returns either the entity that placed the explosive block, the entity that caused the explosion or null.
 	 */
+	@Override
 	public EntityLivingBase getExplosivePlacedBy() {
 		return this.exploder == null ? null : (this.exploder instanceof EntityTNTPrimed ? ((EntityTNTPrimed) this.exploder).getTntPlacedBy() : (this.exploder instanceof EntityLivingBase ? (EntityLivingBase) this.exploder : null));
 	}
 
+	@Override
 	public void clearAffectedBlockPositions() {
 		this.affectedBlockPositions.clear();
 	}
 
+	@Override
 	public List<BlockPos> getAffectedBlockPositions() {
 		return this.affectedBlockPositions;
 	}
 
+	@Override
 	public Vec3d getPosition() {
 		return this.position;
 	}

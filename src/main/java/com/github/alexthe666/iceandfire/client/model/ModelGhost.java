@@ -4,9 +4,7 @@ import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 public class ModelGhost extends ModelDragonBase {
 
@@ -103,13 +101,11 @@ public class ModelGhost extends ModelDragonBase {
     @Override
     public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         animate((IAnimatedEntity) entity, f, f1, f2, f3, f4, 1);
-        GlStateManager.pushMatrix();
         this.body.render(f5);
-        GlStateManager.popMatrix();
     }
 
-    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, EntityGhost entity) {
-        this.resetToDefaultPose();
+    @Override
+    public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
         this.faceTarget(f3, f4, 1, this.head);
         float speed_walk = 0.6F;
         float speed_idle = 0.05F;
@@ -135,7 +131,7 @@ public class ModelGhost extends ModelDragonBase {
         this.flap(armRight, speed_idle * 1.5F, degree_idle * 0.2F, true, 2, 0.2F, f2, 1);
         this.walk(legLeft, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, f2, 1);
         this.walk(legRight, speed_idle * 1.5F, degree_idle * 0.4F, false, 2, 0.2F, f2, 1);
-        this.flap(body, speed_idle * 1F, degree_idle * 0.1F, true, 3, 0, f2, 1);
+        this.flap(body, speed_idle, degree_idle * 0.1F, true, 3, 0, f2, 1);
         this.bob(body, speed_idle * 0.5F, degree_idle * 4.1F, false, f2, 1);
         this.bob(body, speed_walk * 0.75F, degree_walk * 2.1F, false, f, f1);
 
@@ -143,6 +139,7 @@ public class ModelGhost extends ModelDragonBase {
 
     public void animate(IAnimatedEntity entity, float f, float f1, float f2, float f3, float f4, float f5) {
         this.resetToDefaultPose();
+        setRotationAngles(f, f1, f2, f3, f4, f5, (EntityGhost) entity);
         animator.update(entity);
         if (animator.setAnimation(EntityGhost.ANIMATION_SCARE)) {
             animator.startKeyframe(5);

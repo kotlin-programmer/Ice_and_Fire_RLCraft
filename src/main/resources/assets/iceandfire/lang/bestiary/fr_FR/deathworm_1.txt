@@ -1,0 +1,40 @@
+Les vers des sables ont deux
+attaques. La première
+la plus courante est la
+la saisie de la langue. Le ver
+tirera vers l'avant sa
+langue rétractable pour saisir
+et blesser sa proie.
+
+
+
+
+
+
+
+La seconde attaque, plus rare
+consiste pour le ver à faire jaillir
+des blocs proches dans l'air. 
+Ceux-ci pousseront
+ceux qui se tiennent dessus
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+et les blocs qui tombent peuvent
+blesser la proie du ver.
+Cette attaque est proportionnelle 
+à la taille du ver.

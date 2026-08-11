@@ -23,13 +23,11 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +53,7 @@ public class RenderDragonBase extends RenderLiving<EntityDragonBase> {
 	@Override
 	protected void preRenderCallback(EntityDragonBase entity, float f) {
 		this.shadowSize = entity.getRenderSize() / 3;
-		GL11.glScalef(shadowSize, shadowSize, shadowSize);
+		GlStateManager.scale(shadowSize, shadowSize, shadowSize);
 	}
 
 	@Override

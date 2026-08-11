@@ -18,7 +18,7 @@ import java.util.List;
 public class ItemHydraArrow extends ItemArrow {
 
     public ItemHydraArrow() {
-        this.setCreativeTab(IceAndFire.TAB);
+        this.setCreativeTab(IceAndFire.TAB_ITEMS);
         this.setTranslationKey("iceandfire.hydra_arrow");
         this.setRegistryName(IceAndFire.MODID, "hydra_arrow");
     }

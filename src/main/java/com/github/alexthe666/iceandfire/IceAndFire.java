@@ -4,14 +4,16 @@ import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.capability.CapabilityHandler;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectStorage;
-import com.github.alexthe666.iceandfire.core.ModEntities;
-import com.github.alexthe666.iceandfire.core.ModRecipes;
-import com.github.alexthe666.iceandfire.core.ModVillagers;
+import com.github.alexthe666.iceandfire.entity.IafEntityRegistry;
+import com.github.alexthe666.iceandfire.entity.IafVillagerRegistry;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.event.StructureGenerator;
 import com.github.alexthe666.iceandfire.integration.CompatLoadUtil;
 import com.github.alexthe666.iceandfire.integration.RLCombatCompat;
-import com.github.alexthe666.iceandfire.integration.ThaumcraftCompatBridge;
+import com.github.alexthe666.iceandfire.integration.crafttweaker.CraftTweakerCompatBridge;
+import com.github.alexthe666.iceandfire.integration.firstaid.FirstAidCompat;
+import com.github.alexthe666.iceandfire.integration.thaumcraft.ThaumcraftCompatBridge;
+import com.github.alexthe666.iceandfire.integration.theoneprobe.TheOneProbeCompatBridge;
 import com.github.alexthe666.iceandfire.loot.CustomizeToDragon;
 import com.github.alexthe666.iceandfire.loot.CustomizeToSeaSerpent;
 import com.github.alexthe666.iceandfire.message.*;
@@ -22,7 +24,6 @@ import com.github.alexthe666.iceandfire.world.village.VillageAnimalFarmCreator;
 import net.ilexiconn.llibrary.server.network.NetworkWrapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
@@ -52,7 +53,7 @@ import java.util.Random;
 public class IceAndFire {
 
     public static final String MODID = "iceandfire";
-    public static final String VERSION = "2.0.0";
+    public static final String VERSION = "2.2.9";
     public static final String LLIBRARY_VERSION = "1.7.9";
     public static final String NAME = "Ice And Fire";
     public static final Logger logger = LogManager.getLogger(NAME);
@@ -65,12 +66,13 @@ public class IceAndFire {
             MessageMultipartInteract.class, MessageGetMyrmexHive.class, MessageSetMyrmexHiveNull.class,
             MessagePlayerHitMultipart.class, MessageChainLightningFX.class, MessageEntityEffect.class,
             MessageResetEntityEffect.class, MessageParticleFX.class, MessageParticleVanillaFX.class,
-            MessageUpdateRidingState.class, MessageSwingArm.class
+            MessageSwingGhostSword.class, MessageUpdateSpawner.class, MessageDragonSyncFire.class
     })
     public static SimpleNetworkWrapper NETWORK_WRAPPER;
     @SidedProxy(clientSide = "com.github.alexthe666.iceandfire.ClientProxy", serverSide = "com.github.alexthe666.iceandfire.CommonProxy")
     public static CommonProxy PROXY;
-    public static CreativeTabs TAB;
+    public static CreativeTabs TAB_ITEMS;
+    public static CreativeTabs TAB_BLOCKS;
     public static DamageSource acid;
     public static DamageSource dragon;
     public static DamageSource dragonFire;
@@ -78,7 +80,6 @@ public class IceAndFire {
     public static DamageSource dragonLightning;
     public static DamageSource gorgon;
     public static Biome GLACIER;
-    public static Potion FROZEN_POTION;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -86,19 +87,23 @@ public class IceAndFire {
         MinecraftForge.EVENT_BUS.register(new EventLiving());
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
         if(CompatLoadUtil.isRLCombatLoaded()) MinecraftForge.EVENT_BUS.register(RLCombatCompat.class);
-        TAB = new CreativeTab(MODID);
-        ModEntities.init();
+        if(CompatLoadUtil.isFirstAidLoaded()) MinecraftForge.EVENT_BUS.register(FirstAidCompat.class);
+        TAB_ITEMS = new CreativeTab(MODID + "_items");
+        TAB_BLOCKS = new CreativeTab(MODID + "_blocks");
         MinecraftForge.EVENT_BUS.register(PROXY);
         logger.info("A raven flies from the north to the sea");
         logger.info("A dragon whispers her name in the east");
         ThaumcraftCompatBridge.loadThaumcraftCompat();
+        TheOneProbeCompatBridge.loadTheOneProbeCompat();
+        CraftTweakerCompatBridge.loadCraftTweakerCompat();
         LootFunctionManager.registerFunction(new CustomizeToDragon.Serializer());
         LootFunctionManager.registerFunction(new CustomizeToSeaSerpent.Serializer());
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        ModVillagers.INSTANCE.init();
+        IafEntityRegistry.init();
+        IafVillagerRegistry.INSTANCE.init();
         logger.info("The watcher waits on the northern wall");
         logger.info("A daughter picks up a warrior's sword");
         MapGenStructureIO.registerStructure(MapGenSnowVillage.Start.class, "SnowVillageStart");
@@ -122,7 +127,11 @@ public class IceAndFire {
                 String s1 = s + ".player_" + new Random().nextInt(2);
                 return new TextComponentString(entityLivingBaseIn.getDisplayName().getFormattedText() + " ").appendSibling(new TextComponentTranslation(s1, new Object[]{entityLivingBaseIn.getDisplayName()}));
             }
-        }.setFireDamage();
+        };
+        // Only flag it as fire damage if the config says so, if it's NOT flagged, it bypasses Fire Resistance.
+        if (!IceAndFireConfig.DRAGON_SETTINGS.breathDamageBypassImmunities) {
+            dragonFire.setFireDamage();
+        }
         dragonIce = new DamageSource("dragon_ice") {
             @Override
             public ITextComponent getDeathMessage(EntityLivingBase entityLivingBaseIn) {

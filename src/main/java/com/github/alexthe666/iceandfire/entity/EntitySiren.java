@@ -4,11 +4,10 @@ import com.github.alexthe666.iceandfire.IceAndFire;
 import com.github.alexthe666.iceandfire.IceAndFireConfig;
 import com.github.alexthe666.iceandfire.api.IEntityEffectCapability;
 import com.github.alexthe666.iceandfire.api.InFCapabilities;
-import com.github.alexthe666.iceandfire.core.ModItems;
-import com.github.alexthe666.iceandfire.core.ModSounds;
+import com.github.alexthe666.iceandfire.api.SensesUtils;
+import com.github.alexthe666.iceandfire.misc.IafSoundRegistry;
 import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.IHearsSiren;
-import com.github.alexthe666.iceandfire.entity.util.IVillagerFear;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.event.EventLiving;
 import com.github.alexthe666.iceandfire.message.MessageSirenSong;
@@ -24,8 +23,6 @@ import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -91,14 +88,14 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
         this.tasks.addTask(3, new EntityAILookIdle(this));
         this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F, 1.0F));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, 0, true, false, new Predicate<EntityPlayer>() {
             @Override
             public boolean apply(@Nullable EntityPlayer entity) {
                 return EntitySiren.this.isAgressive() && !(entity.isCreative() || entity.isSpectator());
             }
         }));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget(this, EntityVillager.class, 0, true, false, new Predicate<EntityVillager>() {
+        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<>(this, EntityVillager.class, 0, true, false, new Predicate<EntityVillager>() {
             @Override
             public boolean apply(@Nullable EntityVillager entity) {
                 return EntitySiren.this.isAgressive();
@@ -133,12 +130,12 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
         if (this.getRNG().nextInt(2) == 0) {
             if (this.getAnimation() != ANIMATION_PULL) {
                 this.setAnimation(ANIMATION_PULL);
-                this.playSound(ModSounds.NAGA_ATTACK, 1, 1);
+                this.playSound(IafSoundRegistry.NAGA_ATTACK, 1, 1);
             }
         } else {
             if (this.getAnimation() != ANIMATION_BITE) {
                 this.setAnimation(ANIMATION_BITE);
-                this.playSound(ModSounds.NAGA_ATTACK, 1, 1);
+                this.playSound(IafSoundRegistry.NAGA_ATTACK, 1, 1);
             }
         }
         return true;
@@ -285,18 +282,13 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
 
         }
         if (this.isActuallySinging() && !this.isInWater() && this.ticksExisted % 200 == 0) {
-            this.playSound(ModSounds.SIREN_SONG, 2, 1);
+            this.playSound(IafSoundRegistry.SIREN_SONG, 2, 1);
         }
         AnimationHandler.INSTANCE.updateAnimations(this);
     }
 
     private void checkForPrey() {
         this.setSinging(true);
-    }
-
-    public static boolean isWearingEarplugs(EntityLivingBase entity) {
-        ItemStack helmet = entity.getItemStackFromSlot(EntityEquipmentSlot.HEAD);
-        return helmet.getItem() == ModItems.earplugs || helmet != ItemStack.EMPTY && helmet.getItem().getTranslationKey().contains("earmuff");
     }
 
     @Override
@@ -324,7 +316,7 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
             List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, this.getEntityBoundingBox().grow(50, 12, 50), SIREN_PREY);
             for (EntityLivingBase entity : entities) {
                 IEntityEffectCapability capability = InFCapabilities.getEntityEffectCapability(entity);
-                if(!isWearingEarplugs(entity) && capability != null && (!capability.isCharmed() || capability.getSiren(world) == null)) {
+                if(!SensesUtils.isDeaf(entity) && capability != null && (!capability.isCharmed() || capability.getSiren(world) == null)) {
                     capability.setCharmed(this.getEntityId());
                 }
             }
@@ -439,7 +431,11 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
     @Nullable
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-        this.setHairColor(this.getRNG().nextInt(3));
+        if (this.getRNG().nextInt(100) == 0) {
+            this.setHairColor(3);
+        } else {
+            this.setHairColor(this.getRNG().nextInt(3));
+        }
         this.setSingingPose(this.getRNG().nextInt(3));
         return livingdata;
     }
@@ -472,18 +468,18 @@ public class EntitySiren extends EntityMob implements IAnimatedEntity, IVillager
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.isAgressive() ? ModSounds.NAGA_IDLE : ModSounds.MERMAID_IDLE;
+        return this.isAgressive() ? IafSoundRegistry.NAGA_IDLE : IafSoundRegistry.MERMAID_IDLE;
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource p_184601_1_) {
-        return this.isAgressive() ? ModSounds.NAGA_HURT : ModSounds.MERMAID_HURT;
+        return this.isAgressive() ? IafSoundRegistry.NAGA_HURT : IafSoundRegistry.MERMAID_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return this.isAgressive() ? ModSounds.NAGA_DIE : ModSounds.MERMAID_DIE;
+        return this.isAgressive() ? IafSoundRegistry.NAGA_DIE : IafSoundRegistry.MERMAID_DIE;
     }
 
     public static boolean isDrawnToSong(Entity entity) {

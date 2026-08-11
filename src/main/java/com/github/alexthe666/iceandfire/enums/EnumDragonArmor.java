@@ -1,7 +1,6 @@
 package com.github.alexthe666.iceandfire.enums;
 
 import com.github.alexthe666.iceandfire.IceAndFire;
-import com.github.alexthe666.iceandfire.core.ModItems;
 import com.github.alexthe666.iceandfire.item.ItemScaleArmor;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -26,8 +25,8 @@ public enum EnumDragonArmor {
 	armor_black(19, EnumDragonEgg.BLACK);
 
 	public ArmorMaterial material;
-	public int armorId;
-	public EnumDragonEgg eggType;
+	public final int armorId;
+	public final EnumDragonEgg eggType;
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":armor_dragon_helmet")
 	public Item helmet;
 	@GameRegistry.ObjectHolder(IceAndFire.MODID + ":armor_dragon_chestplate")
@@ -54,35 +53,6 @@ public enum EnumDragonArmor {
 			EnumDragonArmor.values()[i].chestplate.setRegistryName(IceAndFire.MODID, EnumDragonArmor.values()[i].name() + "_chestplate");
 			EnumDragonArmor.values()[i].leggings.setRegistryName(IceAndFire.MODID, EnumDragonArmor.values()[i].name() + "_leggings");
 			EnumDragonArmor.values()[i].boots.setRegistryName(IceAndFire.MODID, EnumDragonArmor.values()[i].name() + "_boots");
-		}
-	}
-
-	public static Item getScaleItem(EnumDragonArmor armor) {
-		switch (armor) {
-			case armor_bronze:
-				return ModItems.dragonscales_bronze;
-			case armor_green:
-				return ModItems.dragonscales_green;
-			case armor_gray:
-				return ModItems.dragonscales_gray;
-			case armor_blue:
-				return ModItems.dragonscales_blue;
-			case armor_white:
-				return ModItems.dragonscales_white;
-			case armor_sapphire:
-				return ModItems.dragonscales_sapphire;
-			case armor_silver:
-				return ModItems.dragonscales_silver;
-			case armor_electric:
-				return ModItems.dragonscales_electric;
-			case armor_amethyst:
-				return ModItems.dragonscales_amethyst;
-			case armor_copper:
-				return ModItems.dragonscales_copper;
-			case armor_black:
-				return ModItems.dragonscales_black;
-			default:
-				return ModItems.dragonscales_red;
 		}
 	}
 }

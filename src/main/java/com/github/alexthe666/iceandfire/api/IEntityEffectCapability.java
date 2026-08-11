@@ -1,6 +1,7 @@
 package com.github.alexthe666.iceandfire.api;
 
 import com.github.alexthe666.iceandfire.capability.entityeffect.EntityEffectCapability;
+import com.github.alexthe666.iceandfire.entity.EntityGhost;
 import com.github.alexthe666.iceandfire.entity.EntitySiren;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.world.World;
@@ -25,12 +26,19 @@ public interface IEntityEffectCapability {
     void setShocked();
     void setShocked(int time);
     void setShocked(int time, int severity);
+    void setShivaxiBlazed();
+    void setShivaxiBlazed(int time);
+    void setShivaxiBlazed(int time, int severity);
+    void setSpooked(int entityID);
+    void setSpooked(int time, int entityID);
     void setStoned();
 
     boolean isCharmed();
+    boolean isShivaxiBlazed();
     boolean isFrozen();
     boolean isBlazed();
     boolean isShocked();
+    boolean isSpooked();
     boolean isStoned();
 
     void tickUpdate(EntityLivingBase entity, World world);
@@ -40,4 +48,6 @@ public interface IEntityEffectCapability {
     void markClean();
 
     EntitySiren getSiren(World world);
+
+    EntityGhost getGhost(World world);
 }

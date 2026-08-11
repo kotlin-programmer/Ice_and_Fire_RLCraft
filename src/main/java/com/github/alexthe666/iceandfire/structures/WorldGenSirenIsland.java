@@ -23,7 +23,7 @@ public class WorldGenSirenIsland extends WorldGenerator {
             for(float i = 0; i < getRadius(layer, up); i += 0.5) {
                 for (float j = 0; j < 2 * Math.PI * i + rand.nextInt(2); j += 0.5) {
                     BlockPos stonePos = new BlockPos(Math.floor(center.getX() + Math.sin(j) * i + rand.nextInt(2)), center.getY(), Math.floor(center.getZ() + Math.cos(j) * i + rand.nextInt(2)));
-                    worldIn.setBlockState(stonePos, getStone(rand), 3);
+                    worldIn.setBlockState(stonePos, getStone(rand), 2);
                     BlockPos upPos = stonePos.up();
                     if(worldIn.isAirBlock(upPos) && worldIn.isAirBlock(upPos.east()) && worldIn.isAirBlock(upPos.north()) && worldIn.isAirBlock(upPos.north().east()) && rand.nextInt(3) == 0 && sirens < sirensMax){
                         sirens++;
@@ -38,12 +38,12 @@ public class WorldGenSirenIsland extends WorldGenerator {
             for (float j = 0; j < 2 * Math.PI * i + rand.nextInt(2); j += 0.5) {
                 BlockPos stonePos = new BlockPos(Math.floor(center.getX() + Math.sin(j) * i + rand.nextInt(2)), center.getY(), Math.floor(center.getZ() + Math.cos(j) * i + rand.nextInt(2)));
                 while(!worldIn.getBlockState(stonePos).isOpaqueCube() && stonePos.getY() >= 0){
-                    worldIn.setBlockState(stonePos, getStone(rand), 3);
+                    worldIn.setBlockState(stonePos, getStone(rand), 2);
                     stonePos = stonePos.down();
                 }
             }
         }
-        return false;
+        return layer > 1;
     }
 
     private int getRadius(int layer, int up){

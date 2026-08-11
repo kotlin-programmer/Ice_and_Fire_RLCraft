@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -41,7 +42,11 @@ public class MessageResetEntityEffect extends AbstractMessage<MessageResetEntity
     @Override
     @SideOnly(Side.CLIENT)
     public void onClientReceived(Minecraft client, MessageResetEntityEffect message, EntityPlayer player, MessageContext messageContext) {
-        Entity entity = Minecraft.getMinecraft().world.getEntityByID(message.getEntityId());
+        World world = Minecraft.getMinecraft().world;
+        if (world == null) {
+            return;
+        }
+        Entity entity = world.getEntityByID(message.getEntityId());
         if (entity != null) {
             Minecraft.getMinecraft().addScheduledTask(() -> {
                 IEntityEffectCapability capability = entity.getCapability(EntityEffectProvider.ENTITY_EFFECT, null);

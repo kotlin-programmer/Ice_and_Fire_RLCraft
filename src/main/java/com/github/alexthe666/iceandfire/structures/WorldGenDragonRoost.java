@@ -81,7 +81,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         int height = 1 + rand.nextInt(7);
         int chance = rand.nextInt(100);
         if (chance < 20) {
-            world.setBlockState(position, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 3);
+            world.setBlockState(position, Blocks.CHEST.getDefaultState().withProperty(BlockChest.FACING, EnumFacing.HORIZONTALS[rand.nextInt(3)]), 2);
             if (world.getBlockState(position).getBlock() instanceof BlockChest) {
                 TileEntity chest = world.getTileEntity(position);
                 if (chest instanceof TileEntityChest && !(chest).isInvalid()) {
@@ -89,7 +89,7 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
                 }
             }
         } else {
-            world.setBlockState(position, getPileBlock().withProperty(BlockCoinPile.LAYERS, height), 3);
+            world.setBlockState(position, getPileBlock().withProperty(BlockCoinPile.LAYERS, height), 2);
         }
     }
 
@@ -97,11 +97,11 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         int height = 3 + rand.nextInt(1);
         int width = 1 + rand.nextInt(2);
         for (int sides = 0; sides < height; sides++) {
-            world.setBlockState(position.up(sides).east(width / 2), getBuildingBlock(), 3);
-            world.setBlockState(position.up(sides).west(width / 2), getBuildingBlock(), 3);
+            world.setBlockState(position.up(sides).east(width / 2), getBuildingBlock(), 2);
+            world.setBlockState(position.up(sides).west(width / 2), getBuildingBlock(), 2);
         }
         for (int way = -1; way < width; way++) {
-            world.setBlockState(position.up(height).east(way), getBuildingBlock(), 3);
+            world.setBlockState(position.up(height).east(way), getBuildingBlock(), 2);
         }
     }
 
@@ -109,11 +109,11 @@ public abstract class WorldGenDragonRoost extends WorldGenerator {
         int height = 3 + rand.nextInt(1);
         int width = 1 + rand.nextInt(2);
         for (int sides = 0; sides < height; sides++) {
-            world.setBlockState(position.up(sides).north(width / 2), getBuildingBlock(), 3);
-            world.setBlockState(position.up(sides).south(width / 2), getBuildingBlock(), 3);
+            world.setBlockState(position.up(sides).north(width / 2), getBuildingBlock(), 2);
+            world.setBlockState(position.up(sides).south(width / 2), getBuildingBlock(), 2);
         }
         for (int way = 0; way < width; way++) {
-            world.setBlockState(position.up(height).south(way), getBuildingBlock(), 3);
+            world.setBlockState(position.up(height).south(way), getBuildingBlock(), 2);
         }
     }
 

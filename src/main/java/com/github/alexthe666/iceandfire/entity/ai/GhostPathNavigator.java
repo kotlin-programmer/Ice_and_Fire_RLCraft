@@ -16,7 +16,6 @@ public class GhostPathNavigator extends PathNavigateFlying {
     public GhostPathNavigator(EntityGhost entityIn, World worldIn) {
         super(entityIn, worldIn);
         ghost = entityIn;
-
     }
 
     public void setAvoidSun(boolean avoidSun) {

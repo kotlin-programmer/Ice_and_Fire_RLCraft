@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "grill=0": {
+      "model": "iceandfire:dragonforge_vent"
+    },
+    "grill=1": {
+      "model": "iceandfire:dragonforge_vent_fire"
+    },
+    "grill=2": {
+      "model": "iceandfire:dragonforge_vent_ice"
+    },
+    "grill=3": {
+      "model": "iceandfire:dragonforge_vent_lightning"
+    }
+  }
+}

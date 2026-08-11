@@ -4,8 +4,8 @@ import com.github.alexthe666.iceandfire.entity.EntityAmphithere;
 import net.ilexiconn.llibrary.client.model.ModelAnimator;
 import net.ilexiconn.llibrary.client.model.tools.AdvancedModelRenderer;
 import net.ilexiconn.llibrary.server.animation.IAnimatedEntity;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
-import org.lwjgl.opengl.GL11;
 
 public class ModelAmphithere extends ModelDragonBase {
     public AdvancedModelRenderer BodyUpper;
@@ -227,7 +227,7 @@ public class ModelAmphithere extends ModelDragonBase {
         this.Neck3.setRotationPoint(0.0F, 0.0F, -5.1F);
         this.Neck3.addBox(-1.5F, -1.1F, -7.0F, 3, 4, 8, 0.0F);
         this.setRotateAngle(Neck3, -0.18203784098300857F, -0.0F, 0.0F);
-        this.Tail4 = new AdvancedModelRenderer(this, 70, 22);
+        this.Tail4 = new AdvancedModelRenderer(this, 70, 21);
         this.Tail4.setRotationPoint(0.0F, 0.3F, 9.0F);
         this.Tail4.addBox(-1.02F, -1.3F, -0.6F, 2, 2, 9, 0.0F);
         this.setRotateAngle(Tail4, -0.045553093477052F, 0.0F, 0.0F);
@@ -290,6 +290,9 @@ public class ModelAmphithere extends ModelDragonBase {
         this.Neck3.setScale(0.99F, 0.99F, 0.99F);
         animator = ModelAnimator.create();
         this.updateDefaultPose();
+        this.TailL2.setRotationPoint(-2.0F, 0.7F, 1.7F);
+        this.TailL2.defaultOffsetZ = 0.03735f;
+        this.TailL2.defaultOffsetX = 0.01075f;
     }
 
     @Override
@@ -304,7 +307,7 @@ public class ModelAmphithere extends ModelDragonBase {
             this.HeadFront.setScale(1, 1, 1);
             this.HeadFront.rotationPointZ = -2F;
             this.Jaw.rotationPointZ = -4.5F;
-            GL11.glTranslatef(0, 0.2F, 0);
+            GlStateManager.translate(0, 0.2F, 0);
         } else {
             this.BodyUpper.setScale(1F, 1F, 1F);
             this.Head.setScale(1F, 1F, 1F);

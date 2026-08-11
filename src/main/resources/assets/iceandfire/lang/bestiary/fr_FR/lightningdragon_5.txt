@@ -1,0 +1,50 @@
+Dans les jungles, le lis électrisé
+pousse rarement de la terre.
+Cette fleur peut être utilisée pour 
+créer un mélange de reproductions 
+de dragons de la même manière que 
+les dragons de glace et de feu.
+<item><iceandfire:lightning_lily 100 20 40 1>
+<item><iceandfire:lightning_stew 100 60 40 1>
+
+
+
+
+Les butins de dragons électriques 
+comprennent leurs écailles, leurs 
+os, leurs crânes, leur sang et plus 
+encore, tout comme leurs cousins de 
+feu et de glace. Ces objets peuvent 
+être utilisés de la même manière.
+D'une manière générale, toute 
+utilisation ou objet dérivé des 
+butins de dragon de glace ou de 
+feu peut également être fabriqué à 
+partir de butin de dragon 
+électrique.
+Par exemple : armure d'écailles de 
+dragon électrique, bouteilles de 
+sang, et plus encore.
+
+
+<item><iceandfire:dragonscales_amethyst 100 120 40 1>
+<item><iceandfire:armor_amethyst_helmet 100 140 30 1>
+<item><iceandfire:armor_amethyst_chestplate 100 160 40 1>
+
+<item><iceandfire:lightning_dragon_heart 100 140 50 1>
+
+<item><iceandfire:lightning_dragon_flesh 100 120 60 1>
+<item><iceandfire:lightning_dragon_blood 100 140 70 1>
+<item><iceandfire:dragonbone_sword_lightning 100 160 60 1>
+
+
+
+
+
+
+
+
+Les armes de dragon électrique 
+infliges des dégâts supplémentaires 
+aux dragons de feu et de glace, et 
+frappe les ennemis avec des éclairs.
