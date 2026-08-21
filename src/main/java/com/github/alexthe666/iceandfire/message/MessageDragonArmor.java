@@ -45,9 +45,7 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onClientReceived(Minecraft client, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {}
 
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {

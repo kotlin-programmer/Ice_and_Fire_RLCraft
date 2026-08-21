@@ -16,9 +16,7 @@ public class MessageSwingGhostSword extends AbstractMessage<MessageSwingGhostSwo
     }
 
     @Override
-    public void onClientReceived(Minecraft minecraft, MessageSwingGhostSword messageSwingGhostSword, EntityPlayer entityPlayer, MessageContext messageContext) {
-
-    }
+    public void onClientReceived(Minecraft minecraft, MessageSwingGhostSword messageSwingGhostSword, EntityPlayer entityPlayer, MessageContext messageContext) {}
 
     @Override
     public void onServerReceived(MinecraftServer minecraftServer, MessageSwingGhostSword messageSwingGhostSword, EntityPlayer entityPlayer, MessageContext messageContext) {

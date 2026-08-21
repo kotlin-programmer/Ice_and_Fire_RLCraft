@@ -52,7 +52,5 @@ public class MessageUpdatePodium extends AbstractMessage<MessageUpdatePodium> {
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageUpdatePodium message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onServerReceived(MinecraftServer server, MessageUpdatePodium message, EntityPlayer player, MessageContext messageContext) {}
 }

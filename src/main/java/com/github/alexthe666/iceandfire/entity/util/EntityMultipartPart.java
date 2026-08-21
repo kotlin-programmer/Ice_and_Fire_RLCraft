@@ -21,15 +21,29 @@ public class EntityMultipartPart extends PartEntity implements IEntityMultiPart 
 
     @Override
     public boolean processInitialInteract(EntityPlayer player, EnumHand hand) {
-        if(world.isRemote) IceAndFire.NETWORK_WRAPPER.sendToServer(
-                new MessageMultipartInteract(this.parent.getEntityId(), 0, false));
+        if (world.isRemote) {
+            IceAndFire.NETWORK_WRAPPER.sendToServer(
+                    new MessageMultipartInteract(
+                            this.parent.getEntityId(),
+                            0,
+                            false
+                    )
+            );
+        }
         return this.parent.processInitialInteract(player, hand);
     }
 
     @Override
     public boolean attackEntityFrom(DamageSource source, float damage) {
-        if(world.isRemote && source.getTrueSource() instanceof EntityPlayer) IceAndFire.NETWORK_WRAPPER.sendToServer(
-                new MessageMultipartInteract(this.parent.getEntityId(), damage * damageMultiplier, true));
+        if (world.isRemote && source.getTrueSource() instanceof EntityPlayer) {
+            IceAndFire.NETWORK_WRAPPER.sendToServer(
+                    new MessageMultipartInteract(
+                            this.parent.getEntityId(),
+                            damage * damageMultiplier,
+                            true
+                    )
+            );
+        }
         return this.parent.attackEntityFrom(source, damage * this.damageMultiplier);
     }
 

@@ -329,7 +329,7 @@ public class EntityDeathWorm extends EntityTameable implements IBlacklistedFromS
     }
 
     public void setDeathWormScale(float scale) {
-        this.dataManager.set(SCALE, Float.valueOf(scale));
+        this.dataManager.set(SCALE, scale);
         this.updateAttributes();
         clearSegments();
         if (!this.world.isRemote) {

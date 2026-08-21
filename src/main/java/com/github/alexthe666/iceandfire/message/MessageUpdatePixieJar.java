@@ -49,7 +49,5 @@ public class MessageUpdatePixieJar extends AbstractMessage<MessageUpdatePixieJar
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageUpdatePixieJar message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onServerReceived(MinecraftServer server, MessageUpdatePixieJar message, EntityPlayer player, MessageContext messageContext) {}
 }

@@ -51,7 +51,5 @@ public class MessageUpdateSpawner extends AbstractMessage<MessageUpdateSpawner> 
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageUpdateSpawner message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onServerReceived(MinecraftServer server, MessageUpdateSpawner message, EntityPlayer player, MessageContext messageContext) {}
 }

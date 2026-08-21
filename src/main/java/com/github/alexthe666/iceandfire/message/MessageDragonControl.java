@@ -50,8 +50,7 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageDragonControl message, EntityPlayer player, MessageContext messageContext) {
-	}
+	public void onClientReceived(Minecraft client, MessageDragonControl message, EntityPlayer player, MessageContext messageContext) {}
 
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonControl message, EntityPlayer player, MessageContext messageContext) {

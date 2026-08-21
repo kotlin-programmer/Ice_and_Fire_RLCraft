@@ -44,21 +44,7 @@ public class MessagePlayerHitMultipart extends AbstractMessage<MessagePlayerHitM
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void onClientReceived(Minecraft client, MessagePlayerHitMultipart message, EntityPlayer player, MessageContext messageContext) {
-        if (player.world != null) {
-            Entity entity = player.world.getEntityByID(message.creatureID);
-            if (entity instanceof EntityLivingBase) {
-                double dist = player.getDistance(entity);
-                EntityLivingBase mob = (EntityLivingBase) entity;
-                if (dist < 100) {
-                    player.attackTargetEntityWithCurrentItem(mob);
-                    if (mob instanceof EntityHydra) {
-                        ((EntityHydra) mob).triggerHeadFlags(message.extraData);
-                    }
-                }
-            }
-        }
-    }
+    public void onClientReceived(Minecraft client, MessagePlayerHitMultipart message, EntityPlayer player, MessageContext messageContext) {}
 
     @Override
     public void onServerReceived(MinecraftServer server, MessagePlayerHitMultipart message, EntityPlayer player, MessageContext messageContext) {
@@ -67,7 +53,7 @@ public class MessagePlayerHitMultipart extends AbstractMessage<MessagePlayerHitM
             if (entity instanceof EntityLivingBase) {
                 double dist = player.getDistance(entity);
                 EntityLivingBase mob = (EntityLivingBase) entity;
-                if(dist < 100) {
+                if (dist < 100) {
                     player.attackTargetEntityWithCurrentItem(mob);
                     if (mob instanceof EntityHydra) {
                         ((EntityHydra) mob).triggerHeadFlags(message.extraData);

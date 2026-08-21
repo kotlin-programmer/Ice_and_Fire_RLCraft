@@ -47,11 +47,5 @@ public class MessageDeathWormHitbox extends AbstractMessage<MessageDeathWormHitb
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageDeathWormHitbox message, EntityPlayer player, MessageContext messageContext) {
-		Entity entity = player.world.getEntityByID(message.deathWormId);
-		if (entity instanceof EntityDeathWorm) {
-			EntityDeathWorm worm = (EntityDeathWorm)entity;
-			worm.initSegments(message.scale);
-		}
-	}
+	public void onServerReceived(MinecraftServer server, MessageDeathWormHitbox message, EntityPlayer player, MessageContext messageContext) {}
 }

@@ -44,9 +44,7 @@ public class MessageHippogryphArmor extends AbstractMessage<MessageHippogryphArm
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void onClientReceived(Minecraft client, MessageHippogryphArmor message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onClientReceived(Minecraft client, MessageHippogryphArmor message, EntityPlayer player, MessageContext messageContext) {}
 
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageHippogryphArmor message, EntityPlayer player, MessageContext messageContext) {
@@ -63,7 +61,7 @@ public class MessageHippogryphArmor extends AbstractMessage<MessageHippogryphArm
 				hippo.setArmor(message.armor_type);
 			}
 		}
-		if (entity != null && entity instanceof EntityHippocampus) {
+		if (entity instanceof EntityHippocampus) {
 			EntityHippocampus hippo = (EntityHippocampus) entity;
 			if (message.slot_index == 0) {
 				hippo.setSaddled(message.armor_type == 1);

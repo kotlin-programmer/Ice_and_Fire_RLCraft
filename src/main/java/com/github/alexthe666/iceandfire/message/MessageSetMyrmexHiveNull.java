@@ -31,7 +31,5 @@ public class MessageSetMyrmexHiveNull extends AbstractMessage<MessageSetMyrmexHi
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageSetMyrmexHiveNull message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onServerReceived(MinecraftServer server, MessageSetMyrmexHiveNull message, EntityPlayer player, MessageContext messageContext) {}
 }

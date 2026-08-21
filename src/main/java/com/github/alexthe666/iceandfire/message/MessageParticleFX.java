@@ -92,8 +92,7 @@ public class MessageParticleFX extends AbstractMessage<MessageParticleFX> {
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageParticleFX message, EntityPlayer player, MessageContext messageContext) {
-	}
+	public void onServerReceived(MinecraftServer server, MessageParticleFX message, EntityPlayer player, MessageContext messageContext) {}
 
 	public static class Particle {
 		public final double x;

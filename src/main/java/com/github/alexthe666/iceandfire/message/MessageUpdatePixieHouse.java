@@ -62,7 +62,5 @@ public class MessageUpdatePixieHouse extends AbstractMessage<MessageUpdatePixieH
 	}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageUpdatePixieHouse message, EntityPlayer player, MessageContext messageContext) {
-
-	}
+	public void onServerReceived(MinecraftServer server, MessageUpdatePixieHouse message, EntityPlayer player, MessageContext messageContext) {}
 }
