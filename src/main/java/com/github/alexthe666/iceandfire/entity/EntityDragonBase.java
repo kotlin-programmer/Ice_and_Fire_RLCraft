@@ -1845,7 +1845,10 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
         this.setGender(this.getRNG().nextBoolean());
-        int age = this.getRNG().nextInt(80) + 1;
+        int age = getAgeInTicks();
+        if (age <= 0) {
+            age = this.getRNG().nextInt(80) + 1;
+        }
         this.growDragon(age);
         this.setVariant(new Random().nextInt(4));
         this.setSleeping(false);
