@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.structures;
+package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
 import net.minecraft.block.BlockChest;
@@ -70,7 +70,6 @@ public class WorldGenHydraCave extends WorldGenerator {
                     if (rand.nextInt(9) == 0) {
                         SWAMP_FEATURE.generate(worldIn, rand, blockpos.up());
                     }
-
                 }
                 if (blockpos.getY() == position.getY()) {
                     worldIn.setBlockState(blockpos, Blocks.GRASS.getDefaultState(), 2);

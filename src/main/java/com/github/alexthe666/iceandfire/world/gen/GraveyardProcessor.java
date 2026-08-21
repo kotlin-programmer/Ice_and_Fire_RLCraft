@@ -1,4 +1,4 @@
-package com.github.alexthe666.iceandfire.structures;
+package com.github.alexthe666.iceandfire.world.gen;
 
 import com.github.alexthe666.iceandfire.block.BlockGhostChest;
 import com.github.alexthe666.iceandfire.block.IafBlockRegistry;
@@ -15,7 +15,6 @@ import java.util.Random;
 
 public class GraveyardProcessor implements ITemplateProcessor {
 
-    private float integrity = 1.0F;
     public static final ResourceLocation DREAD_CHEST_LOOT = LootTableList.register(new ResourceLocation("iceandfire", "graveyard_chest"));
 
     public GraveyardProcessor() {
@@ -24,17 +23,13 @@ public class GraveyardProcessor implements ITemplateProcessor {
     @Nullable
     @Override
     public Template.BlockInfo processBlock(World worldIn, BlockPos pos, Template.BlockInfo blockInfoIn) {
-        if (worldIn.rand.nextFloat() <= integrity) {
-            if (blockInfoIn.blockState.getBlock() instanceof BlockGhostChest) {
-                ResourceLocation loot = DREAD_CHEST_LOOT;
-                Random rand = new Random(worldIn.getSeed() + pos.toLong());
-                NBTTagCompound tag = blockInfoIn.tileentityData == null ? new NBTTagCompound() : blockInfoIn.tileentityData;
-                tag.setString("LootTable", loot.toString());
-                tag.setLong("LootTableSeed", rand.nextLong());
-                Template.BlockInfo newInfo = new Template.BlockInfo(pos, IafBlockRegistry.ghost_chest.getDefaultState(), tag);
-                return newInfo;
-            }
-            return blockInfoIn;
+        if (blockInfoIn.blockState.getBlock() instanceof BlockGhostChest) {
+            ResourceLocation loot = DREAD_CHEST_LOOT;
+            Random rand = new Random(worldIn.getSeed() + pos.toLong());
+            NBTTagCompound tag = blockInfoIn.tileentityData == null ? new NBTTagCompound() : blockInfoIn.tileentityData;
+            tag.setString("LootTable", loot.toString());
+            tag.setLong("LootTableSeed", rand.nextLong());
+            return new Template.BlockInfo(pos, IafBlockRegistry.ghost_chest.getDefaultState(), tag);
         }
         return blockInfoIn;
 
