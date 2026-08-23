@@ -1,4 +1,4 @@
-La forja de dragón esta
+La forja de dragon esta
 compuesta por tres capas,
 cada una con nueve bloques.
 
@@ -11,7 +11,7 @@ cada una con nueve bloques.
 <item><iceandfire:dragon_bone_block 0 24 38 1 260>
 <item><iceandfire:dread_stone_bricks 0 32 42 1 270>
 <item><iceandfire:dragon_bone_block 0 40 46 1 280>
-Nivel 1
+Capa 1
 
 
 
@@ -28,7 +28,7 @@ Nivel 1
 <item><iceandfire:dread_stone_bricks 0 24 78 1 260>
 <item><iceandfire:dragonforge_input 0 32 82 1 270>
 <item><iceandfire:dread_stone_bricks 0 40 86 1 280>
-Nivel 2
+Capa 2
 
 
 
@@ -46,15 +46,16 @@ Nivel 2
 <item><iceandfire:dragon_bone_block 0 124 18 1 260>
 <item><iceandfire:dread_stone_bricks 0 132 22 1 270>
 <item><iceandfire:dragon_bone_block 0 140 26 1 280>
-Nivel 3
+Capa 3
 
 
 
 
 
 
-La forja se construye colocando
-el nivel 1, luego el nivel 2 encima
-del 1 y al final el nivel 3 encima
-del 2. Cuando esté finalizada,
-necesitará algún tipo de poder.
+Se construye colocando la capa 1,
+luego la capa 2 encima de la 1
+y al final la capa 3 encima de la 2.
+
+Cuando este finalizada,
+necesitara algun tipo de poder.
