@@ -58,6 +58,8 @@ public class MessageMultipartInteract extends AbstractMessage<MessageMultipartIn
         Entity entity = player.world.getEntityByID(message.creatureID);
         if (entity instanceof EntityLivingBase) {
             EntityLivingBase mob = (EntityLivingBase)entity;
+
+            if (player.getDistanceSq(entity) > 32 * 32) return;
             if(message.attack) mob.attackEntityFrom(DamageSource.causeMobDamage(player), dmg);
             else mob.processInitialInteract(player, EnumHand.MAIN_HAND);
         }

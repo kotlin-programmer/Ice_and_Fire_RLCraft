@@ -20,7 +20,6 @@ import com.github.alexthe666.iceandfire.enums.EnumDragonType;
 import com.github.alexthe666.iceandfire.enums.EnumParticle;
 import com.github.alexthe666.iceandfire.item.ItemDragonArmor;
 import com.github.alexthe666.iceandfire.item.ItemSummoningCrystal;
-import com.github.alexthe666.iceandfire.message.MessageDragonArmor;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
 import com.github.alexthe666.iceandfire.message.MessageParticleFX;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
@@ -349,12 +348,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 }
             }
         }
-        if (world.isRemote) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.HEAD, this.getArmorOrdinal(this.dragonInv.getStackInSlot(0))));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.CHEST, this.getArmorOrdinal(this.dragonInv.getStackInSlot(1))));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.LEGS, this.getArmorOrdinal(this.dragonInv.getStackInSlot(2))));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.FEET, this.getArmorOrdinal(this.dragonInv.getStackInSlot(3))));
-        }
     }
 
     public void updateDragonSlots() {
@@ -368,10 +361,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
         this.setArmorInSlot(EntityEquipmentSlot.FEET, armorTail);
         if (world.isRemote) {
             EntityDragonBase.this.playSound(SoundEvents.ENTITY_HORSE_ARMOR, 0.5F, 1.0F);
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.HEAD, armorHead));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.CHEST, armorNeck));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.LEGS, armorBody));
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.FEET, armorTail));
         }
         double armorStep = (maximumArmor - minimumArmor) / (125);
         double baseArmor = minimumArmor + (armorStep * Math.min(this.getAgeInDays(), 125));
@@ -655,13 +644,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
                 this.initDragonInv();
                 this.dragonInv.setInventorySlotContents(dragonInvSlot, new ItemStack(nbttagcompound));
                 this.setArmorInSlot(DragonUtils.getEquipmentSlotFromDragonInvSlot(dragonInvSlot), this.getArmorOrdinal(new ItemStack(nbttagcompound)));
-
-                if (world.isRemote) {
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.HEAD, this.getArmorOrdinal(new ItemStack(nbttagcompound))));
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.CHEST, this.getArmorOrdinal(new ItemStack(nbttagcompound))));
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.LEGS, this.getArmorOrdinal(new ItemStack(nbttagcompound))));
-                    IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), EntityEquipmentSlot.FEET, this.getArmorOrdinal(new ItemStack(nbttagcompound))));
-                }
             }
         }
 
@@ -961,9 +943,6 @@ public abstract class EntityDragonBase extends EntityTameable implements IMultip
             case FEET:
                 this.dataManager.set(TAIL_ARMOR, armorType);
                 break;
-        }
-        if (world.isRemote) {
-            IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageDragonArmor(this.getEntityId(), slot, armorType));
         }
         double armorStep = (maximumArmor - minimumArmor) / (125);
         double baseArmor = minimumArmor + (armorStep * Math.min(this.getAgeInDays(), 125));

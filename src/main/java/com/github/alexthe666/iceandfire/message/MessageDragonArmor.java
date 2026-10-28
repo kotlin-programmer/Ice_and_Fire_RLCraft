@@ -1,11 +1,9 @@
 package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.entity.util.DragonUtils;
-import com.github.alexthe666.iceandfire.entity.EntityDragonBase;
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.server.MinecraftServer;
@@ -48,11 +46,5 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 	public void onClientReceived(Minecraft client, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {}
 
 	@Override
-	public void onServerReceived(MinecraftServer server, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {
-		Entity entity = player.world.getEntityByID(message.dragonId);
-		if (entity instanceof EntityDragonBase) {
-			EntityDragonBase dragon = (EntityDragonBase) entity;
-			dragon.setArmorInSlot(DragonUtils.getEquipmentSlotFromDragonInvSlot(message.slot), message.armor_type);
-		}
-	}
+	public void onServerReceived(MinecraftServer server, MessageDragonArmor message, EntityPlayer player, MessageContext messageContext) {}
 }
