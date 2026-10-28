@@ -259,6 +259,7 @@ public class StructureGenerator implements IWorldGenerator {
 
 			if (IceAndFireConfig.WORLDGEN.generateMyrmexColonies && isMyrmexGenAllowedInBiome(types, biomeName) && random.nextInt(IceAndFireConfig.WORLDGEN.myrmexColonyGenChance) == 0 && (types.contains(Type.JUNGLE) || types.contains(Type.HOT) && types.contains(Type.DRY) && types.contains(Type.SANDY)) && MyrmexWorldData.get(world).getNearestHive(height, 500) == null && (lastMyrmexHive == null || lastMyrmexHive.distanceSq(height) >= spawnCheck)) {
 				BlockPos lowestHeight = new BlockPos(height.getX(), world.getChunksLowestHorizon(height.getX(), height.getZ()), height.getZ());
+				if(lowestHeight.getY() >= 256) lowestHeight = new BlockPos(lowestHeight.getX(), 32, lowestHeight.getZ());
 				int down = Math.max(15, lowestHeight.getY() + random.nextInt(10) - 20);
 				WorldGenMyrmexHive myrmexHive = types.contains(Type.JUNGLE) ? JUNGLE_MYRMEX_HIVE : DESERT_MYRMEX_HIVE;
 				if (myrmexHive.generate(world, random, new BlockPos(lowestHeight.getX(), down, lowestHeight.getZ()))) {
