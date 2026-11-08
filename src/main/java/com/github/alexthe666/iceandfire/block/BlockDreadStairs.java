@@ -14,6 +14,6 @@ public class BlockDreadStairs extends BlockStairs implements IDragonProof {
         this.setLightOpacity(0);
         this.setCreativeTab(IceAndFire.TAB_BLOCKS);
         this.setTranslationKey("iceandfire." + name);
-        this.setRegistryName(name);
+        this.setRegistryName(IceAndFire.MODID, name);
     }
 }

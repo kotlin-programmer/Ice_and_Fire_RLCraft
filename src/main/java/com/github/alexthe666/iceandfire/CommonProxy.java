@@ -28,13 +28,18 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
@@ -271,6 +276,43 @@ public class CommonProxy {
             BiomeManager.addBiome(BiomeManager.BiomeType.COOL, new BiomeManager.BiomeEntry(IceAndFire.GLACIER, IceAndFireConfig.WORLDGEN.glacierSpawnChance));
 
         }
+    }
+
+    /**
+     * The dread stone stairs and slabs used to call setRegistryName(name) without a namespace, which takes
+     * whichever mod is active when IafBlockRegistry is first loaded. In some packs that was another mod (e.g.
+     * nuclearcraft:dread_stone_stairs in RLCraft Dregora). They now always register under iceandfire; remap
+     * the old IDs so blocks and items saved in existing worlds aren't lost.
+     */
+    private static final Set<String> DREAD_STONE_PATHS = new HashSet<>(Arrays.asList(
+            "dread_stone_stairs", "dread_stone_slab", "dread_stone_slab_double"));
+
+    @SubscribeEvent
+    public static void remapMisnamedDreadBlocks(RegistryEvent.MissingMappings<Block> event) {
+        for (RegistryEvent.MissingMappings.Mapping<Block> mapping : event.getAllMappings()) {
+            ResourceLocation target = getDreadStoneRemapTarget(mapping.key);
+            Block block = target == null ? null : ForgeRegistries.BLOCKS.getValue(target);
+            if (block != null && target.equals(block.getRegistryName())) mapping.remap(block);
+        }
+    }
+
+    @SubscribeEvent
+    public static void remapMisnamedDreadItems(RegistryEvent.MissingMappings<Item> event) {
+        for (RegistryEvent.MissingMappings.Mapping<Item> mapping : event.getAllMappings()) {
+            ResourceLocation target = getDreadStoneRemapTarget(mapping.key);
+            Item item = target == null ? null : ForgeRegistries.ITEMS.getValue(target);
+            if (item != null && target.equals(item.getRegistryName())) mapping.remap(item);
+        }
+    }
+
+    /**
+     * Only remaps IDs whose namespace is a mod that is loaded right now but doesn't have the entry, which is
+     * exactly what a misnamed Ice and Fire block looks like. A mod that was removed from the pack is left alone.
+     */
+    private static ResourceLocation getDreadStoneRemapTarget(ResourceLocation key) {
+        if (IceAndFire.MODID.equals(key.getNamespace()) || !DREAD_STONE_PATHS.contains(key.getPath())) return null;
+        if (!Loader.isModLoaded(key.getNamespace())) return null;
+        return new ResourceLocation(IceAndFire.MODID, key.getPath());
     }
 
     @SubscribeEvent
