@@ -36,10 +36,10 @@ public abstract class BlockDreadSlab extends BlockSlab implements IDreadBlock, I
 		this.setSoundType(soundType);
 		if (this.isDouble()) {
 			setTranslationKey("iceandfire." + name + "_double");
-			this.setRegistryName(name + "_double");
+			this.setRegistryName(IceAndFire.MODID, name + "_double");
 		} else {
 			setTranslationKey("iceandfire." + name);
-			this.setRegistryName(name);
+			this.setRegistryName(IceAndFire.MODID, name);
 			setCreativeTab(IceAndFire.TAB_BLOCKS);
 		}
 	}
