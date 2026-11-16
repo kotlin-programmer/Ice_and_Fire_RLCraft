@@ -53,7 +53,7 @@ public class MessagePlayerHitMultipart extends AbstractMessage<MessagePlayerHitM
             if (entity instanceof EntityLivingBase) {
                 double dist = player.getDistance(entity);
                 EntityLivingBase mob = (EntityLivingBase) entity;
-                if (dist < 100) {
+                if (dist < 32) {
                     player.attackTargetEntityWithCurrentItem(mob);
                     if (mob instanceof EntityHydra) {
                         ((EntityHydra) mob).triggerHeadFlags(message.extraData);

@@ -12,7 +12,6 @@ import com.github.alexthe666.iceandfire.entity.ai.*;
 import com.github.alexthe666.iceandfire.entity.util.*;
 import com.github.alexthe666.iceandfire.enums.EnumHippogryphTypes;
 import com.github.alexthe666.iceandfire.message.MessageDragonControl;
-import com.github.alexthe666.iceandfire.message.MessageHippogryphArmor;
 import com.github.alexthe666.iceandfire.util.ParticleHelper;
 import com.google.common.base.Predicate;
 import net.ilexiconn.llibrary.server.animation.Animation;
@@ -178,14 +177,6 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				if (!itemstack.isEmpty()) {
 					this.hippogryphInventory.setInventorySlotContents(j, itemstack.copy());
 				}
-			}
-
-			if (world.isRemote) {
-				ItemStack saddle = animalchest.getStackInSlot(0);
-				ItemStack chest = animalchest.getStackInSlot(1);
-				IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 0, saddle != null && saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-				IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 1, chest != null && chest.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !chest.isEmpty() ? 1 : 0));
-				IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 2, this.getIntFromArmor(animalchest.getStackInSlot(2))));
 			}
 		}
 	}
@@ -480,13 +471,6 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 				this.initHippogryphInv();
 				this.hippogryphInventory.setInventorySlotContents(j, new ItemStack(nbttagcompound));
 				//this.setArmorInSlot(j, this.getIntFromArmor(ItemStack.loadItemStackFromNBT(nbttagcompound)));
-				ItemStack saddle = hippogryphInventory.getStackInSlot(0);
-				ItemStack chest = hippogryphInventory.getStackInSlot(1);
-				if (world.isRemote) {
-					IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 0, saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-					IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 1, chest.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !chest.isEmpty() ? 1 : 0));
-					IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 2, this.getIntFromArmor(hippogryphInventory.getStackInSlot(2))));
-				}
 			}
 		}
 		this.hasHomePosition = compound.getBoolean("HasHomePosition");
@@ -1131,11 +1115,6 @@ public class EntityHippogryph extends EntityTameable implements IAnimatedEntity,
 		this.setSaddled(saddle.getItem() == Items.SADDLE && !saddle.isEmpty());
 		this.setChested(chest.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !chest.isEmpty());
 		this.setArmor(getIntFromArmor(this.hippogryphInventory.getStackInSlot(2)));
-		if (this.world.isRemote) {
-			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 0, saddle.getItem() == Items.SADDLE && !saddle.isEmpty() ? 1 : 0));
-			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 1, chest.getItem() == Item.getItemFromBlock(Blocks.CHEST) && !chest.isEmpty() ? 1 : 0));
-			IceAndFire.NETWORK_WRAPPER.sendToServer(new MessageHippogryphArmor(this.getEntityId(), 2, this.getIntFromArmor(this.hippogryphInventory.getStackInSlot(2))));
-		}
 	}
 
 	@Override

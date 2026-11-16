@@ -55,6 +55,12 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonControl message, EntityPlayer player, MessageContext messageContext) {
 		Entity entity = player.world.getEntityByID(message.dragonId);
+		if (entity == null || (!entity.isPassenger(player) && !player.isPassenger(entity))) return;
+		if (entity.getDistanceSq(message.posX, message.posY, message.posZ) > 32 * 32) {
+			message.posX = entity.posX;
+			message.posY = entity.posY;
+			message.posZ = entity.posZ;
+		}
 		if (entity instanceof EntityDragonBase) {
 			EntityDragonBase dragon = (EntityDragonBase) entity;
 			if (dragon.isOwner(player)) {
