@@ -102,9 +102,6 @@ public class RenderModCapes {
 		}
 	}
 
-	// Puts the cape and elytra into the vanilla texture map, and also into OptiFine's own cape slot when OptiFine is loaded.
-	// OptiFine's getLocationCape() returns its own downloaded cape before it looks at the vanilla map,
-	// so without this an OptiFine cape would cover the mod cape.
 	private void setCape(AbstractClientPlayer player, Map<MinecraftProfileTexture.Type, ResourceLocation> textureMap, ResourceLocation capeTex, ResourceLocation elytraTex) {
 		textureMap.put(MinecraftProfileTexture.Type.CAPE, capeTex);
 		textureMap.put(MinecraftProfileTexture.Type.ELYTRA, elytraTex);
@@ -114,14 +111,12 @@ public class RenderModCapes {
 				setter.invoke(player, capeTex);
 			}
 			catch (IllegalAccessException | InvocationTargetException error) {
-				// Stop trying after a failure instead of spamming the log every frame
 				optifineCapeSetter = null;
 				error.printStackTrace();
 			}
 		}
 	}
 
-	// Looks up OptiFine's AbstractClientPlayer.setLocationOfCape(ResourceLocation) once; stays null without OptiFine
 	private Method getOptifineCapeSetter() {
 		if (!optifineCapeSetterChecked) {
 			optifineCapeSetterChecked = true;
@@ -129,7 +124,6 @@ public class RenderModCapes {
 				optifineCapeSetter = AbstractClientPlayer.class.getMethod("setLocationOfCape", ResourceLocation.class);
 			}
 			catch (NoSuchMethodException ignored) {
-				// OptiFine isn't installed
 			}
 		}
 		return optifineCapeSetter;
