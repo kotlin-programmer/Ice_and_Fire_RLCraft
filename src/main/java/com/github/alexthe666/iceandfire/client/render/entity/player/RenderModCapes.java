@@ -12,6 +12,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.UUID;
 
@@ -47,6 +49,8 @@ public class RenderModCapes {
 
 	private static Field playerInfoField;
 	private static Field playerTexturesField;
+	private static Method optifineCapeSetter;
+	private static boolean optifineCapeSetterChecked;
 
 	@SubscribeEvent
 	public void playerRender(RenderPlayerEvent.Pre event) {
@@ -55,58 +59,74 @@ public class RenderModCapes {
 			if (info != null) {
 				Map<MinecraftProfileTexture.Type, ResourceLocation> textureMap = getPlayerTexturesMap(info);
 				if (textureMap != null) {
-					UUID uniqueID = event.getEntityPlayer().getUniqueID();
+					AbstractClientPlayer player = (AbstractClientPlayer) event.getEntityPlayer();
+					UUID uniqueID = player.getUniqueID();
 					if (User.Shivaxi.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, shivaxiTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, shivaxiTex);
+						this.setCape(player, textureMap, shivaxiTex, shivaxiTex);
 					}
 					if (User.ArtsyDy.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, artsyTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, artsyTex);
+						this.setCape(player, textureMap, artsyTex, artsyTex);
 					}
 					if (User.Eclipse.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eclipseElytraTex);
+						this.setCape(player, textureMap, lightningTex, eclipseElytraTex);
 					}
 					if (User.KameiB.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, kameibTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, kameibTex);
+						this.setCape(player, textureMap, kameibTex, kameibTex);
 					}
 					if (User.Kotlin_Dev.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, kotlinTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, kotlinTex);
+						this.setCape(player, textureMap, kotlinTex, kotlinTex);
 					}
 					if (User.Meldexun.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, meldexunTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, meldexunTex);
+						this.setCape(player, textureMap, meldexunTex, meldexunTex);
 					}
 					if (User.NLBlackEagle.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, eagleTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleTex);
+						this.setCape(player, textureMap, eagleTex, eagleTex);
 					}
 					if (User.NLBlackHeavenNL.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, heavenTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, eagleTex);
+						this.setCape(player, textureMap, heavenTex, eagleTex);
 					}
 					if (User.Rayquazafallout.equals(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, rayquazaTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, rayquazaTex);
+						this.setCape(player, textureMap, rayquazaTex, rayquazaTex);
 					}
 					if (this.hasFireCape(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, fireTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, fireTex);
+						this.setCape(player, textureMap, fireTex, fireTex);
 					}
 					if (this.hasIceCape(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, iceTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, iceTex);
+						this.setCape(player, textureMap, iceTex, iceTex);
 					}
 					if (this.hasLightningCape(uniqueID)) {
-						textureMap.put(MinecraftProfileTexture.Type.CAPE, lightningTex);
-						textureMap.put(MinecraftProfileTexture.Type.ELYTRA, lightningTex);
+						this.setCape(player, textureMap, lightningTex, lightningTex);
 					}
 				}
 			}
 		}
+	}
+
+	private void setCape(AbstractClientPlayer player, Map<MinecraftProfileTexture.Type, ResourceLocation> textureMap, ResourceLocation capeTex, ResourceLocation elytraTex) {
+		textureMap.put(MinecraftProfileTexture.Type.CAPE, capeTex);
+		textureMap.put(MinecraftProfileTexture.Type.ELYTRA, elytraTex);
+		Method setter = getOptifineCapeSetter();
+		if (setter != null) {
+			try {
+				setter.invoke(player, capeTex);
+			}
+			catch (IllegalAccessException | InvocationTargetException error) {
+				optifineCapeSetter = null;
+				error.printStackTrace();
+			}
+		}
+	}
+
+	private Method getOptifineCapeSetter() {
+		if (!optifineCapeSetterChecked) {
+			optifineCapeSetterChecked = true;
+			try {
+				optifineCapeSetter = AbstractClientPlayer.class.getMethod("setLocationOfCape", ResourceLocation.class);
+			}
+			catch (NoSuchMethodException ignored) {
+			}
+		}
+		return optifineCapeSetter;
 	}
 
 	private NetworkPlayerInfo getNetworkPlayerInfo(EntityPlayer player) {
