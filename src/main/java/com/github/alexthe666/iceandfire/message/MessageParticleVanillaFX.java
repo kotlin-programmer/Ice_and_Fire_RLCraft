@@ -37,12 +37,14 @@ public class MessageParticleVanillaFX extends AbstractMessage<MessageParticleVan
 		int numTypes = buf.readInt();
 		int numParticles = buf.readInt();
 
-		types = new ArrayList<>(numTypes);
+		types = new ArrayList<>();
 		for (int i = 0; i < numTypes; i++) {
 			int ordinal = buf.readInt();
-			types.add(EnumParticleTypes.values()[ordinal]);
+			if (ordinal >= 0 && ordinal < EnumParticleTypes.values().length) {
+				types.add(EnumParticleTypes.values()[ordinal]);
+			}
 		}
-		particles = new ArrayList<>(numParticles);
+		particles = new ArrayList<>();
 		for (int i = 0; i < numParticles; i++) {
 			double x = buf.readDouble();
 			double y = buf.readDouble();
@@ -50,7 +52,7 @@ public class MessageParticleVanillaFX extends AbstractMessage<MessageParticleVan
 			double motX = buf.readDouble();
 			double motY = buf.readDouble();
 			double motZ = buf.readDouble();
-			int[] parameters = new int[buf.readInt()];
+			int[] parameters = new int[Math.max(0, Math.min(buf.readInt(), buf.readableBytes() / 4))];
 			for (int j = 0; j < parameters.length; j++) {
 				parameters[j] = buf.readInt();
 			}

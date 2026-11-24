@@ -41,6 +41,7 @@ public class MessageChainLightningFX extends AbstractMessage<MessageChainLightni
 	public void toBytes(ByteBuf buf) {
 		if (entityIds == null) {
 			buf.writeInt(0);
+			return;
 		}
 		buf.writeInt(entityIds.size());
 		for (int entityId : entityIds) {

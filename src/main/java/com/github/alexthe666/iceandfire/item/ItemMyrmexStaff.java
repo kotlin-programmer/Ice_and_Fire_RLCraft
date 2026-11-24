@@ -7,6 +7,7 @@ import com.github.alexthe666.iceandfire.message.MessageSetMyrmexHiveNull;
 import com.github.alexthe666.iceandfire.world.MyrmexWorldData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -52,14 +53,18 @@ public class ItemMyrmexStaff extends Item {
         if (playerIn.isSneaking()){
             return super.onItemRightClick(worldIn, playerIn, hand);
         }
+        if (!itemStackIn.hasTagCompound()) {
+            return new ActionResult<>(EnumActionResult.PASS, itemStackIn);
+        }
         UUID id = itemStackIn.getTagCompound().getUniqueId("HiveUUID");
         if (!worldIn.isRemote) {
             MyrmexHive hive = MyrmexWorldData.get(worldIn).getHiveFromUUID(id);
-            MyrmexWorldData.get(worldIn).addHive(worldIn, new MyrmexHive());
-            if (hive != null){
-                IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageGetMyrmexHive(hive));
-            } else{
-                IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageSetMyrmexHiveNull());
+            if (playerIn instanceof EntityPlayerMP) {
+                if (hive != null){
+                    IceAndFire.NETWORK_WRAPPER.sendTo(new MessageGetMyrmexHive(hive), (EntityPlayerMP) playerIn);
+                } else{
+                    IceAndFire.NETWORK_WRAPPER.sendTo(new MessageSetMyrmexHiveNull(), (EntityPlayerMP) playerIn);
+                }
             }
         }else if(id != null && !id.equals(new UUID(0, 0))){
             IceAndFire.PROXY.openMyrmexStaffGui(itemStackIn);
@@ -73,13 +78,18 @@ public class ItemMyrmexStaff extends Item {
        if (!player.isSneaking()) {
            return super.onItemUse(player, worldIn, pos, hand, side, hitX, hitY, hitZ);
        }else{
+           if (!player.getHeldItem(hand).hasTagCompound()) {
+               return EnumActionResult.PASS;
+           }
            UUID id = player.getHeldItem(hand).getTagCompound().getUniqueId("HiveUUID");
            if (!worldIn.isRemote) {
                MyrmexHive hive = MyrmexWorldData.get(worldIn).getHiveFromUUID(id);
-               if (hive != null) {
-                   IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageGetMyrmexHive(hive));
-               } else {
-                   IceAndFire.NETWORK_WRAPPER.sendToAll(new MessageSetMyrmexHiveNull());
+               if (player instanceof EntityPlayerMP) {
+                   if (hive != null) {
+                       IceAndFire.NETWORK_WRAPPER.sendTo(new MessageGetMyrmexHive(hive), (EntityPlayerMP) player);
+                   } else {
+                       IceAndFire.NETWORK_WRAPPER.sendTo(new MessageSetMyrmexHiveNull(), (EntityPlayerMP) player);
+                   }
                }
            } else if (id != null && !id.equals(new UUID(0, 0))) {
                IceAndFire.PROXY.openMyrmexAddRoomGui(player.getHeldItem(hand), pos, player.getHorizontalFacing());

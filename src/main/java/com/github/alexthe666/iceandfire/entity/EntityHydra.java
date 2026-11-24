@@ -361,8 +361,8 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
         if (IceAndFire.acid.damageType.contentEquals(source.damageType)) {
             return false;
         }
-        if (lastHitHead > this.getHeadCount()) {
-            lastHitHead = this.getHeadCount() - 1;
+        if (lastHitHead >= this.getHeadCount() || lastHitHead < 0) {
+            lastHitHead = Math.max(0, this.getHeadCount() - 1);
         }
         int headIndex = lastHitHead;
         headDamageTracker[headIndex] += amount;
@@ -471,7 +471,9 @@ public class EntityHydra extends EntityMob implements IAnimatedEntity, IMultipar
     }
 
     public void triggerHeadFlags(int index) {
-        lastHitHead = index;
+        if (index >= 0 && index < this.getHeadCount()) {
+            lastHitHead = index;
+        }
     }
 
     @Nullable

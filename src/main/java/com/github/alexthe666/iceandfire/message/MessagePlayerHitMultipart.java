@@ -2,6 +2,7 @@ package com.github.alexthe666.iceandfire.message;
 
 import com.github.alexthe666.iceandfire.entity.EntityHydra;
 import com.github.alexthe666.iceandfire.entity.EntityHydraHead;
+import com.github.alexthe666.iceandfire.entity.util.EntityMultipartPart;
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -51,9 +52,8 @@ public class MessagePlayerHitMultipart extends AbstractMessage<MessagePlayerHitM
         if (player.world != null) {
             Entity entity = player.world.getEntityByID(message.creatureID);
             if (entity instanceof EntityLivingBase) {
-                double dist = player.getDistance(entity);
                 EntityLivingBase mob = (EntityLivingBase) entity;
-                if (dist < 100) {
+                if (EntityMultipartPart.isInReach(player, mob)) {
                     player.attackTargetEntityWithCurrentItem(mob);
                     if (mob instanceof EntityHydra) {
                         ((EntityHydra) mob).triggerHeadFlags(message.extraData);

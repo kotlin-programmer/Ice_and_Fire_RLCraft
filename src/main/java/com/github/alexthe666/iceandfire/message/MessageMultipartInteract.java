@@ -1,5 +1,6 @@
 package com.github.alexthe666.iceandfire.message;
 
+import com.github.alexthe666.iceandfire.entity.util.EntityMultipartPart;
 import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
@@ -56,9 +57,13 @@ public class MessageMultipartInteract extends AbstractMessage<MessageMultipartIn
     @Override
     public void onServerReceived(MinecraftServer server, MessageMultipartInteract message, EntityPlayer player, MessageContext messageContext) {
         Entity entity = player.world.getEntityByID(message.creatureID);
-        if (entity instanceof EntityLivingBase) {
+        if (entity instanceof EntityLivingBase && EntityMultipartPart.isInReach(player, (EntityLivingBase) entity)) {
             EntityLivingBase mob = (EntityLivingBase)entity;
-            if(message.attack) mob.attackEntityFrom(DamageSource.causeMobDamage(player), dmg);
+            if (message.attack) {
+                if (message.dmg > 0 && !Float.isInfinite(message.dmg)) {
+                    mob.attackEntityFrom(DamageSource.causeMobDamage(player), Math.min(message.dmg, EntityMultipartPart.maxClientDamage(player, mob)));
+                }
+            }
             else mob.processInitialInteract(player, EnumHand.MAIN_HAND);
         }
     }

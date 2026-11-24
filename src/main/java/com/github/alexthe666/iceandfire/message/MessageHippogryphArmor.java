@@ -50,28 +50,9 @@ public class MessageHippogryphArmor extends AbstractMessage<MessageHippogryphArm
 	public void onServerReceived(MinecraftServer server, MessageHippogryphArmor message, EntityPlayer player, MessageContext messageContext) {
 		Entity entity = player.world.getEntityByID(message.dragonId);
 		if (entity instanceof EntityHippogryph) {
-			EntityHippogryph hippo = (EntityHippogryph) entity;
-			if (message.slot_index == 0) {
-				hippo.setSaddled(message.armor_type == 1);
-			}
-			if (message.slot_index == 1) {
-				hippo.setChested(message.armor_type == 1);
-			}
-			if (message.slot_index == 2) {
-				hippo.setArmor(message.armor_type);
-			}
-		}
-		if (entity instanceof EntityHippocampus) {
-			EntityHippocampus hippo = (EntityHippocampus) entity;
-			if (message.slot_index == 0) {
-				hippo.setSaddled(message.armor_type == 1);
-			}
-			if (message.slot_index == 1) {
-				hippo.setChested(message.armor_type == 1);
-			}
-			if (message.slot_index == 2) {
-				hippo.setArmor(message.armor_type);
-			}
+			((EntityHippogryph) entity).refreshInventory();
+		} else if (entity instanceof EntityHippocampus) {
+			((EntityHippocampus) entity).refreshInventory();
 		}
 	}
 }
