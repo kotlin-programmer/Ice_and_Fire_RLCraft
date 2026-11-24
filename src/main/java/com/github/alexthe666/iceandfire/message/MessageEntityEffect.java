@@ -51,6 +51,9 @@ public class MessageEntityEffect extends AbstractMessage<MessageEntityEffect> {
     @Override
     @SideOnly(Side.CLIENT)
     public void onClientReceived(Minecraft client, MessageEntityEffect message, EntityPlayer player, MessageContext messageContext) {
+        if (Minecraft.getMinecraft().world == null) {
+            return;
+        }
         Entity entity = Minecraft.getMinecraft().world.getEntityByID(message.getEntityId());
         if (entity != null) {
             Minecraft.getMinecraft().addScheduledTask(() -> {

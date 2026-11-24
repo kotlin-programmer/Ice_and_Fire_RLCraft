@@ -40,12 +40,14 @@ public class MessageParticleFX extends AbstractMessage<MessageParticleFX> {
 		int numTypes = buf.readInt();
 		int numParticles = buf.readInt();
 
-		types = new ArrayList<>(numTypes);
+		types = new ArrayList<>();
 		for (int i = 0; i < numTypes; i++) {
 			int ordinal = buf.readInt();
-			types.add(EnumParticle.values()[ordinal]);
+			if (ordinal >= 0 && ordinal < EnumParticle.values().length) {
+				types.add(EnumParticle.values()[ordinal]);
+			}
 		}
-		particles = new ArrayList<>(numParticles);
+		particles = new ArrayList<>();
 		for (int i = 0; i < numParticles; i++) {
 			particles.add(
 					createParticle(

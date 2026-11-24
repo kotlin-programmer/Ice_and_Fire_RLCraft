@@ -993,45 +993,57 @@ public class IceAndFireConfig {
 		@SubscribeEvent
 		public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
 			if(event.getModID().equals(IceAndFire.MODID)) {
+				ConfigManager.sync(IceAndFire.MODID, Config.Type.INSTANCE);
 				stoneBlacklist = null;
+				chainLightningBlacklist = null;
+				dreadTargetingBlacklist = null;
+				myrmexDisabledNames = null;
+				trollSpawnCheckHeight = null;
+				trollSpawnCheckType = null;
+				myrmexDisabledTypes = null;
 				dragonDisabledNames = null;
 				dragonDisabledTypes = null;
 				fireDragonEnabledNames = null;
 				iceDragonEnabledNames = null;
 				lightningDragonEnabledNames = null;
+				fireDragonEnabledTypes = null;
+				iceDragonEnabledTypes = null;
+				lightningDragonEnabledTypes = null;
+				fireDragonDisabledTypes = null;
+				iceDragonDisabledTypes = null;
+				lightningDragonDisabledTypes = null;
 				dragonRoostChance = null;
 				dragonDenChance = null;
 				dragonGriefingBlockChance = null;
 				dragonGriefingEffectChance = null;
-				ConfigManager.sync(IceAndFire.MODID, Config.Type.INSTANCE);
 			}
 		}
 	}
 
 	//Caching garbage
 
-	private static HashSet<ResourceLocation> stoneBlacklist = null;
-	private static HashSet<ResourceLocation> chainLightningBlacklist = null;
-	private static HashSet<ResourceLocation> dreadTargetingBlacklist = null;
-	private static HashSet<String> myrmexDisabledNames = null;
-	private static HashMap<String, Integer> trollSpawnCheckHeight = null;
-	private static HashMap<String, String> trollSpawnCheckType = null;
-	private static HashSet<BiomeDictionary.Type> myrmexDisabledTypes = null;
-	private static HashSet<String> dragonDisabledNames = null;
-	private static HashSet<BiomeDictionary.Type> dragonDisabledTypes = null;
-	private static HashSet<String> fireDragonEnabledNames = null;
-	private static HashSet<String> iceDragonEnabledNames = null;
-	private static HashSet<String> lightningDragonEnabledNames = null;
-	private static HashSet<BiomeDictionary.Type> fireDragonEnabledTypes = null;
-	private static HashSet<BiomeDictionary.Type> iceDragonEnabledTypes = null;
-	private static HashSet<BiomeDictionary.Type> lightningDragonEnabledTypes = null;
-	private static HashSet<BiomeDictionary.Type> fireDragonDisabledTypes = null;
-	private static HashSet<BiomeDictionary.Type> iceDragonDisabledTypes = null;
-	private static HashSet<BiomeDictionary.Type> lightningDragonDisabledTypes = null;
-	private static HashMap<String, Integer> dragonRoostChance = null;
-	private static HashMap<String, Integer> dragonDenChance = null;
-	private static HashMap<Block, Integer> dragonGriefingBlockChance = null;
-	private static HashMap<Block, Integer> dragonGriefingEffectChance = null;
+	private static volatile HashSet<ResourceLocation> stoneBlacklist = null;
+	private static volatile HashSet<ResourceLocation> chainLightningBlacklist = null;
+	private static volatile HashSet<ResourceLocation> dreadTargetingBlacklist = null;
+	private static volatile HashSet<String> myrmexDisabledNames = null;
+	private static volatile HashMap<String, Integer> trollSpawnCheckHeight = null;
+	private static volatile HashMap<String, String> trollSpawnCheckType = null;
+	private static volatile HashSet<BiomeDictionary.Type> myrmexDisabledTypes = null;
+	private static volatile HashSet<String> dragonDisabledNames = null;
+	private static volatile HashSet<BiomeDictionary.Type> dragonDisabledTypes = null;
+	private static volatile HashSet<String> fireDragonEnabledNames = null;
+	private static volatile HashSet<String> iceDragonEnabledNames = null;
+	private static volatile HashSet<String> lightningDragonEnabledNames = null;
+	private static volatile HashSet<BiomeDictionary.Type> fireDragonEnabledTypes = null;
+	private static volatile HashSet<BiomeDictionary.Type> iceDragonEnabledTypes = null;
+	private static volatile HashSet<BiomeDictionary.Type> lightningDragonEnabledTypes = null;
+	private static volatile HashSet<BiomeDictionary.Type> fireDragonDisabledTypes = null;
+	private static volatile HashSet<BiomeDictionary.Type> iceDragonDisabledTypes = null;
+	private static volatile HashSet<BiomeDictionary.Type> lightningDragonDisabledTypes = null;
+	private static volatile HashMap<String, Integer> dragonRoostChance = null;
+	private static volatile HashMap<String, Integer> dragonDenChance = null;
+	private static volatile HashMap<Block, Integer> dragonGriefingBlockChance = null;
+	private static volatile HashMap<Block, Integer> dragonGriefingEffectChance = null;
 
 	private static HashSet<ResourceLocation> getStoneEntityBlacklist() {
 		if(stoneBlacklist != null) return stoneBlacklist;

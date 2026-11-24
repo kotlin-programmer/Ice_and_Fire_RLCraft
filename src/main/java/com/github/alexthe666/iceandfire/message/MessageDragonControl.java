@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import net.ilexiconn.llibrary.server.network.AbstractMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -28,6 +29,15 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 	}
 
 	public MessageDragonControl() {
+	}
+
+	private static final double MAX_STEP_SQ = 10 * 10;
+
+	private static void setRiddenPosition(Entity mount, MessageDragonControl message) {
+		if (Double.isFinite(message.posX) && Double.isFinite(message.posY) && Double.isFinite(message.posZ)
+				&& mount.getDistanceSq(message.posX, message.posY, message.posZ) <= MAX_STEP_SQ) {
+			mount.setPosition(message.posX, message.posY, message.posZ);
+		}
 	}
 
 	@Override
@@ -55,34 +65,22 @@ public class MessageDragonControl extends AbstractMessage<MessageDragonControl> 
 	@Override
 	public void onServerReceived(MinecraftServer server, MessageDragonControl message, EntityPlayer player, MessageContext messageContext) {
 		Entity entity = player.world.getEntityByID(message.dragonId);
-		if (entity instanceof EntityDragonBase) {
-			EntityDragonBase dragon = (EntityDragonBase) entity;
-			if (dragon.isOwner(player)) {
-				dragon.setControlState(message.controlState);
-			}
-			dragon.setPosition(message.posX, message.posY, message.posZ);
-		} else if (entity instanceof EntityHippogryph) {
-			EntityHippogryph hippo = (EntityHippogryph) entity;
-			if (hippo.isOwner(player)) {
-				hippo.setControlState(message.controlState);
-			}
-			hippo.setPosition(message.posX, message.posY, message.posZ);
-		} else if (entity instanceof EntityHippocampus) {
-			EntityHippocampus hippo = (EntityHippocampus) entity;
-			if (hippo.isOwner(player)) {
-				hippo.setControlState(message.controlState);
-			}
-			hippo.setPosition(message.posX, message.posY, message.posZ);
-		} else if (entity instanceof EntityDeathWorm) {
-			EntityDeathWorm deathworm = (EntityDeathWorm) entity;
-			deathworm.setControlState(message.controlState);
-			deathworm.setPosition(message.posX, message.posY, message.posZ);
-		} else if (entity instanceof EntityAmphithere) {
-			EntityAmphithere amphi = (EntityAmphithere) entity;
-			if (amphi.isOwner(player)) {
-				amphi.setControlState(message.controlState);
-			}
-			amphi.setPosition(message.posX, message.posY, message.posZ);
+		if (!(entity instanceof EntityTameable) || !((EntityTameable) entity).isOwner(player)) {
+			return;
 		}
+		if (entity instanceof EntityDragonBase) {
+			((EntityDragonBase) entity).setControlState(message.controlState);
+		} else if (entity instanceof EntityHippogryph) {
+			((EntityHippogryph) entity).setControlState(message.controlState);
+		} else if (entity instanceof EntityHippocampus) {
+			((EntityHippocampus) entity).setControlState(message.controlState);
+		} else if (entity instanceof EntityDeathWorm) {
+			((EntityDeathWorm) entity).setControlState(message.controlState);
+		} else if (entity instanceof EntityAmphithere) {
+			((EntityAmphithere) entity).setControlState(message.controlState);
+		} else {
+			return;
+		}
+		setRiddenPosition(entity, message);
 	}
 }

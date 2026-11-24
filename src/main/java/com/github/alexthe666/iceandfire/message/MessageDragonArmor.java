@@ -52,7 +52,7 @@ public class MessageDragonArmor extends AbstractMessage<MessageDragonArmor> {
 		Entity entity = player.world.getEntityByID(message.dragonId);
 		if (entity instanceof EntityDragonBase) {
 			EntityDragonBase dragon = (EntityDragonBase) entity;
-			dragon.setArmorInSlot(DragonUtils.getEquipmentSlotFromDragonInvSlot(message.slot), message.armor_type);
+			dragon.updateDragonSlots();
 		}
 	}
 }
